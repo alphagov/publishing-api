@@ -1,0 +1,17 @@
+{
+  "content_id": "8b19c222-54e3-4e27-b0d7-67f8e2a677c9",
+  "base_path": "/government/topical-events/ebola-virus-government-response",
+  "title": "Ebola virus: UK government response",
+  "description": "",
+  "locale": "en",
+  "public_updated_at": "2015-09-14T17:15:48.000+01:00",
+  "details": {
+    "start_date": "2015-03-11T00:00:00.000+00:00",
+    "end_date": "2016-03-11T00:00:00.000+00:00"
+  },
+  "schema_name": "topical_event",
+  "document_type": "topical_event",
+  "links": {
+  },
+  "updated_at": "2017-06-30T15:44:11.073Z"
+}

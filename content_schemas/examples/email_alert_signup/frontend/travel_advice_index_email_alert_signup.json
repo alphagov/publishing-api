@@ -1,0 +1,28 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/foreign-travel-advice/email-signup",
+  "content_id": "1aebfc97-7723-4cb6-82f4-434639efc185",
+  "description": "Foreign travel advice email alert signup",
+  "details": {
+    "breadcrumbs": [
+      {
+        "link": "/foreign-travel-advice",
+        "title": "Foreign travel advice"
+      }
+    ],
+    "govdelivery_title": "Foreign travel advice",
+    "subscriber_list": {
+      "document_type": "travel_advice"
+    },
+    "summary": "You'll get an email each time a country is updated."
+  },
+  "links": {
+  },
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-03-09T10:13:07.000+00:00",
+  "title": "Foreign travel advice",
+  "updated_at": "2016-03-09T10:13:07.444Z",
+  "schema_name": "email_alert_signup",
+  "document_type": "email_alert_signup"
+}

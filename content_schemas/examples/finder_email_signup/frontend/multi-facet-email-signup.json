@@ -1,0 +1,94 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/multi-facet/email-signup",
+  "content_id": "44ff9151-6010-47fb-8557-506010038256",
+  "document_type": "finder_email_signup",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-06-13T14:30:40.000+00:00",
+  "publishing_app": "specialist-publisher",
+  "rendering_app": "finder-frontend",
+  "schema_name": "finder_email_signup",
+  "title": "Multi facet cases",
+  "updated_at": "2016-06-13T14:31:32.260Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "related": [
+      {
+        "content_id": "7d159099-b5f4-4a50-b96e-7c4d14ca11f1",
+        "title": "Multi facet cases",
+        "api_path": "/api/content/multi-facet",
+        "base_path": "/multi-facet",
+        "description": "Find reports and updates on multiple facets",
+        "api_url": "https://www.gov.uk/api/content/multi-facet",
+        "web_url": "https://www.gov.uk/multi-facet",
+        "locale": "en",
+        "public_updated_at": "2016-06-13T14:30:40.000+00:00",
+        "schema_name": "finder",
+        "document_type": "finder",
+        "analytics_identifier": null
+      }
+    ],
+    "available_translations": [
+      {
+        "content_id": "44ff9151-6010-47fb-8557-506010038256",
+        "title": "Mutlti facet cases",
+        "api_path": "/api/content/multi-facet/email-signup",
+        "base_path": "/multi-facet/email-signup",
+        "description": "You'll get an email each time a facet is updated or a new facet is published.",
+        "api_url": "https://www.gov.uk/api/content/multi-facet/email-signup",
+        "web_url": "https://www.gov.uk/multi-facet/email-signup",
+        "locale": "en",
+        "public_updated_at": "2016-06-13T14:30:40.000+00:00",
+        "schema_name": "finder_email_signup",
+        "document_type": "finder_email_signup",
+        "analytics_identifier": null
+      }
+    ]
+  },
+  "description": "You'll get an email each time a facet is updated or a new facet is published.",
+  "details": {
+    "beta": false,
+    "email_filter_facets": [
+      {
+        "facet_id": "facet_one",
+        "facet_name": "Facet one",
+        "facet_choices": [
+          {
+            "key": "facet-one-filter-one",
+            "radio_button_name": "Filter one",
+            "topic_name": "filter one",
+            "prechecked": false
+          },
+          {
+            "key": "facet-one-filter-two",
+            "radio_button_name": "Filter two",
+            "topic_name": "filter two",
+            "prechecked": false
+          }
+        ]
+      },
+      {
+        "facet_id": "facet_two",
+        "facet_name": "Facet two",
+        "facet_choices": [
+          {
+            "key": "facet-two-filter-one",
+            "radio_button_name": "Filter one",
+            "topic_name": "filter one",
+            "prechecked": false
+          },
+          {
+            "key": "facet-two-filter-two",
+            "radio_button_name": "Filter two",
+            "topic_name": "filter two",
+            "prechecked": false
+          }
+        ]
+      }
+    ],
+    "subscription_list_title_prefix": "Multi facet: "
+  }
+}

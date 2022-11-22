@@ -1,0 +1,19 @@
+{
+  "base_path": "/",
+  "document_type": "homepage",
+  "schema_name": "homepage",
+  "title": "GOV.UK homepage",
+  "description": "",
+  "locale": "en",
+  "details": {
+  },
+  "routes": [
+    {
+      "path": "/",
+      "type": "exact"
+    }
+  ],
+  "publishing_app": "frontend",
+  "rendering_app": "frontend",
+  "public_updated_at": "2015-07-30T13:58:11+00:00"
+}

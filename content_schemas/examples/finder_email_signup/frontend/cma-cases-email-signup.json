@@ -1,0 +1,141 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/cma-cases/email-signup",
+  "content_id": "43dd2b13-93ec-4ca6-a7a4-e2eb5f5d485a",
+  "document_type": "finder_email_signup",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-06-13T14:30:40.000+00:00",
+  "publishing_app": "specialist-publisher",
+  "rendering_app": "finder-frontend",
+  "schema_name": "finder_email_signup",
+  "title": "Competition and Markets Authority cases",
+  "updated_at": "2016-06-13T14:31:32.260Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "related": [
+      {
+        "content_id": "fef4ac7c-024a-4943-9f19-e85a8369a1f3",
+        "title": "Competition and Markets Authority cases",
+        "api_path": "/api/content/cma-cases",
+        "base_path": "/cma-cases",
+        "description": "Find reports and updates on current and historical CMA investigations",
+        "api_url": "https://www.gov.uk/api/content/cma-cases",
+        "web_url": "https://www.gov.uk/cma-cases",
+        "locale": "en",
+        "public_updated_at": "2016-06-13T14:30:40.000+00:00",
+        "schema_name": "finder",
+        "document_type": "finder",
+        "analytics_identifier": null
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "957eb4ec-089b-4f71-ba2a-dc69ac8919ea",
+        "title": "Competition and Markets Authority",
+        "api_path": "/api/content/government/organisations/competition-and-markets-authority",
+        "base_path": "/government/organisations/competition-and-markets-authority",
+        "description": null,
+        "api_url": "https://www.gov.uk/api/content/government/organisations/competition-and-markets-authority",
+        "web_url": "https://www.gov.uk/government/organisations/competition-and-markets-authority",
+        "locale": "en",
+        "public_updated_at": "2015-03-10T16:23:14.000+00:00",
+        "schema_name": "placeholder_organisation",
+        "document_type": "placeholder_organisation",
+        "analytics_identifier": "D550",
+        "links": {
+        },
+        "details": {
+          "brand": "department-for-business-innovation-skills",
+          "logo": {
+            "formatted_title": "Competition and <br/>Markets Authority",
+            "crest": null
+          }
+        }
+      }
+    ],
+    "available_translations": [
+      {
+        "content_id": "43dd2b13-93ec-4ca6-a7a4-e2eb5f5d485a",
+        "title": "Competition and Markets Authority cases",
+        "api_path": "/api/content/cma-cases/email-signup",
+        "base_path": "/cma-cases/email-signup",
+        "description": "You'll get an email each time a case is updated or a new case is published.",
+        "api_url": "https://www.gov.uk/api/content/cma-cases/email-signup",
+        "web_url": "https://www.gov.uk/cma-cases/email-signup",
+        "locale": "en",
+        "public_updated_at": "2016-06-13T14:30:40.000+00:00",
+        "schema_name": "finder_email_signup",
+        "document_type": "finder_email_signup",
+        "analytics_identifier": null
+      }
+    ]
+  },
+  "description": "You'll get an email each time a case is updated or a new case is published.",
+  "details": {
+    "beta": false,
+    "filter": {
+      "format": "cma_case"
+    },
+    "email_filter_facets": [
+      {
+        "facet_id": "case_type",
+        "facet_name": "Case type",
+        "required": true,
+        "facet_connector": "filtered by",
+        "facet_choices": [
+          {
+            "key": "ca98-and-civil-cartels",
+            "radio_button_name": "CA98 and civil cartels",
+            "topic_name": "CA98 and civil cartels",
+            "prechecked": false
+          },
+          {
+            "key": "criminal-cartels",
+            "radio_button_name": "Criminal cartels",
+            "topic_name": "criminal cartels",
+            "prechecked": false
+          },
+          {
+            "key": "markets",
+            "radio_button_name": "Markets",
+            "topic_name": "markets",
+            "prechecked": false
+          },
+          {
+            "key": "mergers",
+            "radio_button_name": "Mergers",
+            "topic_name": "mergers",
+            "prechecked": false
+          },
+          {
+            "key": "consumer-enforcement",
+            "radio_button_name": "Consumer enforcement",
+            "topic_name": "consumer enforcement",
+            "prechecked": false
+          },
+          {
+            "key": "regulatory-references-and-appeals",
+            "radio_button_name": "Regulatory references and appeals",
+            "topic_name": "regulatory references and appeals",
+            "prechecked": false
+          },
+          {
+            "key": "review-of-orders-and-undertakings",
+            "radio_button_name": "Reviews of orders and undertakings",
+            "topic_name": "reviews of orders and undertakings",
+            "prechecked": false
+          }
+        ]
+      }
+    ],
+    "email_filter_by": "case_type",
+    "subscription_list_title_prefix": {
+      "singular": "Competition and Markets Authority (CMA) cases with the following case type: ",
+      "plural": "Competition and Markets Authority (CMA) cases with the following case types: ",
+      "many": "Competition and Markets Authority (CMA) cases: "
+    }
+  }
+}

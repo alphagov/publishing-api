@@ -1,0 +1,274 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/news/cde-innovation-network-event-9-july-2015-london",
+  "content_id": "49b4337d-b3b7-4e85-b292-642c0c2a9af5",
+  "document_type": "news_story",
+  "first_published_at": "2015-03-25T13:23:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-07-13T09:40:13.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "news_article",
+  "title": "CDE Innovation Network event: 9 July 2015, London",
+  "updated_at": "2018-01-03T07:51:18.291Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "document_collections": [
+      {
+        "api_path": "/api/content/government/collections/centre-for-defence-enterprise-innovation-network-events",
+        "base_path": "/government/collections/centre-for-defence-enterprise-innovation-network-events",
+        "content_id": "5f4d009f-7631-11e4-a3cb-005056011aef",
+        "description": "Find out about CDE's upcoming Innovation Network events and webinars, and access presentations and other information from past events.",
+        "document_type": "document_collection",
+        "locale": "en",
+        "public_updated_at": "2016-06-23T14:51:55Z",
+        "schema_name": "document_collection",
+        "title": "Centre for Defence Enterprise events",
+        "withdrawn": false,
+        "links": {
+          "documents": [
+            {
+              "api_path": "/api/content/government/news/cde-innovation-network-event-9-july-2015-london",
+              "base_path": "/government/news/cde-innovation-network-event-9-july-2015-london",
+              "content_id": "49b4337d-b3b7-4e85-b292-642c0c2a9af5",
+              "description": "The Centre for Defence Enterprise (CDE) held a networking event for science and technology providers in London on 9 July 2015. ",
+              "document_type": "news_story",
+              "locale": "en",
+              "public_updated_at": "2015-07-13T09:40:13Z",
+              "schema_name": "news_article",
+              "title": "CDE Innovation Network event: 9 July 2015, London",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/government/news/cde-innovation-network-event-9-july-2015-london",
+              "web_url": "https://www.gov.uk/government/news/cde-innovation-network-event-9-july-2015-london"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/collections/centre-for-defence-enterprise-innovation-network-events",
+        "web_url": "https://www.gov.uk/government/collections/centre-for-defence-enterprise-innovation-network-events"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "EA42",
+        "api_path": "/api/content/government/organisations/defence-science-and-technology-laboratory",
+        "base_path": "/government/organisations/defence-science-and-technology-laboratory",
+        "content_id": "43b6c342-c6b7-4ef1-93d2-98f0a9130ccc",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-05-26T10:35:43Z",
+        "schema_name": "placeholder",
+        "title": "Defence Science and Technology Laboratory",
+        "withdrawn": false,
+        "details": {
+          "brand": "ministry-of-defence",
+          "logo": {
+            "formatted_title": "Defence Science and Technology Laboratory",
+            "image": {
+              "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/42/DSTL.png",
+              "alt_text": "Defence Science and Technology Laboratory"
+            }
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/defence-science-and-technology-laboratory",
+        "web_url": "https://www.gov.uk/government/organisations/defence-science-and-technology-laboratory"
+      },
+      {
+        "analytics_identifier": "OT1064",
+        "api_path": "/api/content/government/organisations/centre-for-defence-enterprise",
+        "base_path": "/government/organisations/centre-for-defence-enterprise",
+        "content_id": "1ec706bb-34b5-4abd-99c2-f111aa1b46e5",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-12-08T06:57:48Z",
+        "schema_name": "placeholder",
+        "title": "Centre for Defence Enterprise",
+        "withdrawn": false,
+        "details": {
+          "brand": "ministry-of-defence",
+          "logo": {
+            "formatted_title": "Centre for Defence Enterprise",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/centre-for-defence-enterprise",
+        "web_url": "https://www.gov.uk/government/organisations/centre-for-defence-enterprise"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/business-and-enterprise",
+        "base_path": "/government/topics/business-and-enterprise",
+        "content_id": "eaffa04f-549d-4ece-90dd-c23a44703a53",
+        "document_type": "policy_area",
+        "locale": "en",
+        "public_updated_at": "2013-07-22T16:15:27Z",
+        "schema_name": "placeholder",
+        "title": "Business and enterprise",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/business-and-enterprise",
+        "web_url": "https://www.gov.uk/government/topics/business-and-enterprise"
+      },
+      {
+        "api_path": "/api/content/government/topics/defence-and-armed-forces",
+        "base_path": "/government/topics/defence-and-armed-forces",
+        "content_id": "b360d7b0-664d-4030-93f9-ee8bff36ab53",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:07Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Defence and armed forces",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/defence-and-armed-forces",
+        "web_url": "https://www.gov.uk/government/topics/defence-and-armed-forces"
+      },
+      {
+        "api_path": "/api/content/government/topics/science-and-innovation",
+        "base_path": "/government/topics/science-and-innovation",
+        "content_id": "296af982-4a36-4f6f-801d-b550fed1bd38",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:06Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Science and innovation",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/science-and-innovation",
+        "web_url": "https://www.gov.uk/government/topics/science-and-innovation"
+      },
+      {
+        "api_path": "/api/content/government/topics/national-security",
+        "base_path": "/government/topics/national-security",
+        "content_id": "78d0cadd-ce01-4c74-8f7d-2a0fb9364c7c",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:08Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "National security",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/national-security",
+        "web_url": "https://www.gov.uk/government/topics/national-security"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "OT1064",
+        "api_path": "/api/content/government/organisations/centre-for-defence-enterprise",
+        "base_path": "/government/organisations/centre-for-defence-enterprise",
+        "content_id": "1ec706bb-34b5-4abd-99c2-f111aa1b46e5",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-12-08T06:57:48Z",
+        "schema_name": "placeholder",
+        "title": "Centre for Defence Enterprise",
+        "withdrawn": false,
+        "details": {
+          "brand": "ministry-of-defence",
+          "logo": {
+            "formatted_title": "Centre for Defence Enterprise",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/centre-for-defence-enterprise",
+        "web_url": "https://www.gov.uk/government/organisations/centre-for-defence-enterprise"
+      }
+    ],
+    "related_policies": [
+      {
+        "api_path": "/api/content/government/policies/armed-forces-and-ministry-of-defence-reform",
+        "base_path": "/government/policies/armed-forces-and-ministry-of-defence-reform",
+        "content_id": "5c80e4ce-7631-11e4-a3cb-005056011aef",
+        "description": "What the government’s doing about armed forces and Ministry of Defence reform.",
+        "document_type": "policy",
+        "locale": "en",
+        "public_updated_at": "2015-05-14T18:07:48Z",
+        "schema_name": "policy",
+        "title": "Armed forces and Ministry of Defence reform",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/policies/armed-forces-and-ministry-of-defence-reform",
+        "web_url": "https://www.gov.uk/government/policies/armed-forces-and-ministry-of-defence-reform"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "CDE Innovation Network event: 9 July 2015, London",
+        "public_updated_at": "2015-07-13T09:40:13Z",
+        "document_type": "news_story",
+        "schema_name": "news_article",
+        "base_path": "/government/news/cde-innovation-network-event-9-july-2015-london",
+        "description": "The Centre for Defence Enterprise (CDE) held a networking event for science and technology providers in London on 9 July 2015. ",
+        "api_path": "/api/content/government/news/cde-innovation-network-event-9-july-2015-london",
+        "withdrawn": false,
+        "content_id": "49b4337d-b3b7-4e85-b292-642c0c2a9af5",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/news/cde-innovation-network-event-9-july-2015-london",
+        "web_url": "https://www.gov.uk/government/news/cde-innovation-network-event-9-july-2015-london",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "The Centre for Defence Enterprise (CDE) held a networking event for science and technology providers in London on 9 July 2015. ",
+  "details": {
+    "body": "<div class=\"govspeak\">\n<div class=\"call-to-action\">\n<p>Presentation slides are now available to view below.</p>\n</div>\n\n<p>It took place in London at <a rel=\"external\" href=\"http://www.grandconnaughtrooms.com/\">The Grand Connaught Rooms</a>, 9:30am to 4pm.</p>\n\n<p>Head of Operations, <a href=\"https://www.gov.uk/government/people/jim-pennycook\">Jim Pennycook</a>, introduced <abbr title=\"Centre for Defence Enterprise\">CDE</abbr> and gave an overview of proof-of-concept research funding opportunities for innovative science and technology providers. <a rel=\"external\" href=\"http://www.slideshare.net/MOD_CDE/9-july-2015-introduction-to-the-centre-for-defence-enterprise\">View the presentation slides</a>.</p>\n\n<p><abbr title=\"Centre for Defence Enterprise\">CDE</abbr> launched themed competitions for fully funded contracts on:</p>\n\n<ul>\n  <li>\n<a href=\"https://www.gov.uk/government/publications/cde-themed-competiton-whats-inside-that-building\">what’s inside that building?</a> (up to £650,000 available). <a rel=\"external\" href=\"http://www.slideshare.net/MOD_CDE/20150710-whats-inside-that-building-web\">View the presentation slides</a>\n</li>\n</ul>\n\n<figure class=\"image embedded\">\n  <div class=\"img\"><img alt=\"Presenter for 'what's inside that building?' CDE competition.\" src=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/41451/PTN-D1322-123_960x640.jpg\"></div>\n</figure>\n\n<ul>\n  <li>\n<a href=\"https://www.gov.uk/government/publications/cde-themed-competition-understand-and-interact-with-cyberspace\">understand and interact with cyberspace</a> (up to £500,000 available). <a rel=\"external\" href=\"http://www.slideshare.net/MOD_CDE/20150710-cyberspace-web\">View the presentation slides</a>\n</li>\n</ul>\n\n<figure class=\"image embedded\">\n  <div class=\"img\"><img alt=\"Presenter talking about cyber CDE competition.\" src=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/41450/PTN-D1322-094_960x640.jpg\"></div>\n</figure>\n\n<p>In addition, technical experts from <abbr title=\"Defence Science and Technology Laboratory\">Dstl</abbr> (the Defence Science and Technology Laboratory) gave an overview of some areas where innovative research ideas are sought for <abbr title=\"Centre for Defence Enterprise\">CDE</abbr>’s ongoing <a href=\"https://www.gov.uk/government/publications/cde-enduring-challenge-competition\">enduring challenge competition</a>. <a rel=\"external\" href=\"http://www.slideshare.net/MOD_CDE/20150710-enduring-challenge-session-web\">View the presentation slides</a>.</p>\n\n<p>Bruce Hardie, <abbr title=\"Centre for Defence Enterprise\">CDE</abbr>’s Technology Manager, talked about how to create an effective proposal for <abbr title=\"Centre for Defence Enterprise\">CDE</abbr> funding. <a rel=\"external\" href=\"http://www.slideshare.net/MOD_CDE/creating-effective-cde-proposals\">View the presentation slides</a>.</p>\n\n<p>Attendees were also able to pre-book a face-to-face meeting with <abbr title=\"Centre for Defence Enterprise\">CDE</abbr>, <abbr title=\"Defence Science and Technology Laboratory\">Dstl</abbr> and military experts to discuss potential proposal to either the enduring challenge competition or one of the themed competitions.</p>\n\n<p>There were opportunities to meet other potential bidders, current <abbr title=\"Defence Science and Technology Laboratory\">Dstl</abbr> suppliers, <abbr title=\"Centre for Defence Enterprise\">CDE</abbr>, <abbr title=\"Defence Science and Technology Laboratory\">Dstl</abbr> and military experts.</p>\n\n<figure class=\"image embedded\">\n  <div class=\"img\"><img alt=\"Military Advisor viewing social media screen.\" src=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/41448/PTN-D1322-082_960x640.jpg\"></div>\n</figure>\n\n<figure class=\"image embedded\">\n  <div class=\"img\"><img alt=\"View of Meet Me Board.\" src=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/41449/PTN-D1322-081_960x640.jpg\"></div>\n</figure>\n\n<h2 id=\"about-cde\">About <abbr title=\"Centre for Defence Enterprise\">CDE</abbr>\n</h2>\n\n<p><abbr title=\"Centre for Defence Enterprise\">CDE</abbr> funds novel, high-risk, high-potential-benefit research. We work with the broadest possible range of science and technology providers, including academia and small companies, to develop cost-effective capabilities for UK armed forces and national security.</p>\n\n<p><abbr title=\"Centre for Defence Enterprise\">CDE</abbr> is part of <a href=\"https://www.gov.uk/government/organisations/defence-science-and-technology-laboratory\"><abbr title=\"Defence Science and Technology Laboratory\">Dstl</abbr></a>.</p>\n\n<div class=\"contact postal-address\" id=\"contact_1917\">\n  <div class=\"content\">\n   <div class=\"vcard contact-inner\">\n <p>Centre for Defence Enterprise</p>\n\n        <p class=\"adr\">\n<span class=\"street-address\">Building R103\n<br>\nFermi Avenue\n<br>\n</span><br>\n<span class=\"locality\">Harwell Oxford</span><br>\n<span class=\"region\">Oxfordshire</span><br>\n<span class=\"postal-code\">OX11 0QX</span>\n</p>\n\n\n        <div class=\"email-url-number\">\n            <p class=\"email\">\n              <span class=\"type\">Email</span>\n              <a class=\"email\" href=\"mailto:cde@dstl.gov.uk\">cde@dstl.gov.uk</a>\n            </p>\n            <p class=\"tel\">\n              <span class=\"type\">Telephone </span>\n              +44 (0)30 67704236\n            </p>\n            <p class=\"tel\">\n              <span class=\"type\">Alternative number</span>\n              +44 (0)30 67704237\n            </p>\n        </div>\n\n        <p class=\"comments\">Please email for the quickest response.</p>\n\n    </div>\n  </div>\n</div>\n\n</div>",
+    "emphasised_organisations": [
+      "1ec706bb-34b5-4abd-99c2-f111aa1b46e5"
+    ],
+    "change_history": [
+      {
+        "public_timestamp": "2015-07-13T10:40:13.000+01:00",
+        "note": "Presentation slides are now available to view online."
+      },
+      {
+        "public_timestamp": "2015-04-30T11:36:33.000+01:00",
+        "note": "Change of venue"
+      },
+      {
+        "public_timestamp": "2015-03-25T13:23:00.000+00:00",
+        "note": "First published."
+      }
+    ],
+    "image": {
+      "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/41447/s300_PTN-D1322-115_960x640.jpg",
+      "caption": null,
+      "alt_text": "Networking hub at CDE event."
+    },
+    "first_public_at": "2015-03-25T13:23:00.000+00:00",
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+        "armed-forces-and-ministry-of-defence-reform"
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

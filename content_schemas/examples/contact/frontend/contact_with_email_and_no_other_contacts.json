@@ -1,0 +1,133 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/hm-revenue-customs/contact/creative-industry-tax-reliefs",
+  "content_id": "3758ff2b-6e61-4ffa-b94c-eee21bb598a6",
+  "document_type": "contact",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-12-03T15:13:21.000+00:00",
+  "publishing_app": "contacts",
+  "rendering_app": "government-frontend",
+  "schema_name": "contact",
+  "title": "Creative Industry Tax Reliefs",
+  "updated_at": "2016-11-08T15:12:08.274Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D25",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs",
+        "base_path": "/government/organisations/hm-revenue-customs",
+        "content_id": "6667cce2-e809-4e21-ae09-cb0bdc1ddda3",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-05-13T10:09:06Z",
+        "schema_name": "placeholder",
+        "title": "HM Revenue & Customs",
+        "details": {
+          "brand": "hm-revenue-customs",
+          "logo": {
+            "formatted_title": "HM Revenue<br/>&amp; Customs",
+            "crest": "hmrc"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "content_id": "3758ff2b-6e61-4ffa-b94c-eee21bb598a6",
+        "description": "Contact HMRC for help with Film Tax Relief, Animation Tax Relief, High-end Television Tax Relief and Video Games Development Relief",
+        "document_type": "contact",
+        "public_updated_at": "2015-12-03T15:13:21Z",
+        "schema_name": "contact",
+        "title": "Creative Industry Tax Reliefs",
+        "base_path": "/government/organisations/hm-revenue-customs/contact/creative-industry-tax-reliefs",
+        "locale": "en",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs/contact/creative-industry-tax-reliefs",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs/contact/creative-industry-tax-reliefs",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/creative-industry-tax-reliefs",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Contact HMRC for help with Film Tax Relief, Animation Tax Relief, High-end Television Tax Relief and Video Games Development Relief",
+  "details": {
+    "slug": "creative-industry-tax-reliefs",
+    "quick_links": [
+      {
+        "title": "Creative Industry Tax Reliefs",
+        "url": "https://www.gov.uk/corporation-tax-creative-industry-tax-reliefs"
+      }
+    ],
+    "query_response_time": false,
+    "contact_form_links": [
+
+    ],
+    "more_info_contact_form": null,
+    "email_addresses": [
+      {
+        "title": "Manchester Incentives and Reliefs Team",
+        "email": "creative.industries@hmrc.gsi.gov.uk",
+        "description": "<p>Contact the Creative Industry Unit with your questions about claiming the reliefs.</p>\n"
+      },
+      {
+        "title": "Contact Kerry Pope if you have any general or policy queries about the current rules or earlier reliefs for film production.",
+        "email": "kerry.pope@hmrc.gsi.gov.uk",
+        "description": "\n"
+      },
+      {
+        "title": "Or alternatively contact Des Ryan.",
+        "email": "Des.ryan@hmrc.gsi.gov.uk",
+        "description": "\n"
+      }
+    ],
+    "more_info_email_address": "\n",
+    "phone_numbers": [
+      {
+        "title": "Creative Industry Tax Reliefs",
+        "number": "03000 510 191",
+        "textphone": "",
+        "international_phone": "",
+        "fax": "",
+        "description": "<p>If your case is dealt with by the Large Business Service contact your HMRC Customer Relationship Manager.</p>\n",
+        "open_hours": "<p>8am to 4pm, Monday to Friday</p>\n\n<p>Closed weekends</p>\n",
+        "best_time_to_call": "\n"
+      }
+    ],
+    "more_info_phone_number": null,
+    "post_addresses": [
+      {
+        "title": "HM Revenue and Customs - Local Compliance",
+        "street_address": "Manchester Incentives and Reliefs Team  S0717",
+        "postal_code": "NE98 1ZZ",
+        "world_location": "United Kingdom",
+        "locality": "",
+        "region": "Newcastle upon Tyne",
+        "description": "<p>Contact the Creative Industry Unit with your questions about claiming the reliefs.</p>\n"
+      },
+      {
+        "title": "HM Revenue and Customs - Corporation Tax, International and Stamps",
+        "street_address": "Room 3-63",
+        "postal_code": "SW1A 2BQ",
+        "world_location": "United Kingdom",
+        "locality": "100 Parliament Street ",
+        "region": "London",
+        "description": "<p>Contact us if you have any general or policy queries about the current rules or earlier reliefs for film production.</p>\n"
+      }
+    ],
+    "more_info_post_address": "\n",
+    "language": "en",
+    "contact_groups": [
+
+    ]
+  }
+}

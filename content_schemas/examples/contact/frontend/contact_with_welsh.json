@@ -1,0 +1,158 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/hm-revenue-customs/contact/welsh-language-helplines",
+  "content_id": "81af275a-f85f-4b1d-8cb2-640c0a043cc5",
+  "document_type": "contact",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-09-29T10:38:30.000+00:00",
+  "publishing_app": "contacts",
+  "rendering_app": "government-frontend",
+  "schema_name": "contact",
+  "title": "Treth Incwm, Hunanasesiad a mwy",
+  "updated_at": "2017-02-10T09:51:28.022Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D25",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs",
+        "base_path": "/government/organisations/hm-revenue-customs",
+        "content_id": "6667cce2-e809-4e21-ae09-cb0bdc1ddda3",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-05-13T10:09:06Z",
+        "schema_name": "placeholder",
+        "title": "HM Revenue & Customs",
+        "withdrawn": false,
+        "details": {
+          "brand": "hm-revenue-customs",
+          "logo": {
+            "formatted_title": "HM Revenue<br/>&amp; Customs",
+            "crest": "hmrc"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs"
+      }
+    ],
+    "related": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/government/organisations/hm-revenue-customs/contact/welsh-language-helpline-for-debt-management",
+        "base_path": "/government/organisations/hm-revenue-customs/contact/welsh-language-helpline-for-debt-management",
+        "content_id": "16fac069-26d7-4a1f-82a9-684510ce365f",
+        "description": "Cysylltwch â CThEM am help gyda thaliadau treth",
+        "document_type": "contact",
+        "locale": "en",
+        "public_updated_at": "2015-09-29T10:45:00Z",
+        "schema_name": "contact",
+        "title": "Taliadau",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs/contact/welsh-language-helpline-for-debt-management",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/welsh-language-helpline-for-debt-management"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/government/organisations/hm-revenue-customs/contact/vat-customs-and-excise-and-duties-enquiries-for-welsh-speaking-customers",
+        "base_path": "/government/organisations/hm-revenue-customs/contact/vat-customs-and-excise-and-duties-enquiries-for-welsh-speaking-customers",
+        "content_id": "99eb8aad-0c80-4c37-93cb-c462d78b4faa",
+        "description": "Cysylltwch â CThEM am help gyda thollau, ecseis a TAW",
+        "document_type": "contact",
+        "locale": "en",
+        "public_updated_at": "2015-09-29T10:31:49Z",
+        "schema_name": "contact",
+        "title": "Ymholiadau TAW, Tollau ac Ecséis",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs/contact/vat-customs-and-excise-and-duties-enquiries-for-welsh-speaking-customers",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/vat-customs-and-excise-and-duties-enquiries-for-welsh-speaking-customers"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "base_path": "/government/organisations/hm-revenue-customs/contact/welsh-language-helplines",
+        "content_id": "81af275a-f85f-4b1d-8cb2-640c0a043cc5",
+        "description": "Cysylltwch â CThEM am help gyda Threth Incwm, Hunanasesiad, credydau treth, Yswiriant Gwladol, Budd-dal Plant, TWE a mwy",
+        "document_type": "contact",
+        "locale": "en",
+        "public_updated_at": "2015-09-29T10:38:30Z",
+        "schema_name": "contact",
+        "title": "Treth Incwm, Hunanasesiad a mwy",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs/contact/welsh-language-helplines",
+        "withdrawn": false,
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs/contact/welsh-language-helplines",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/welsh-language-helplines",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Cysylltwch â CThEM am help gyda Threth Incwm, Hunanasesiad, credydau treth, Yswiriant Gwladol, Budd-dal Plant, TWE a mwy",
+  "details": {
+    "slug": "welsh-language-helplines",
+    "quick_links": [
+      {
+        "title": "Defnyddio gwasanaethau’r llywodraeth yn Gymraeg",
+        "url": "https://www.gov.uk/cymraeg"
+      }
+    ],
+    "query_response_time": false,
+    "contact_form_links": [
+      {
+        "title": "Ffurflen Ymholiadau Cyffredinol",
+        "link": "https://online.hmrc.gov.uk/shortforms/form/EHL_SP_Welsh",
+        "description": "\n"
+      },
+      {
+        "title": "Cais i ddefnyddio Dull Amgen o Ddatrys Anghydfod (ADR) er mwyn datrys anghydfod treth",
+        "link": "https://online.hmrc.gov.uk/shortforms/form/ADRWel",
+        "description": "\n"
+      },
+      {
+        "title": "Ffurflen Drosglwyddo ar gyfer Angen Cefnogaeth Ychwanegol (ACY) ",
+        "link": "https://online.hmrc.gov.uk/shortforms/form/NESWelshHandoverTS",
+        "description": "\n"
+      }
+    ],
+    "more_info_contact_form": "\n",
+    "email_addresses": [
+      {
+        "title": "E-bostiwch eich ymholiadau ynghylch treth at CThEM",
+        "email": "gwasanaeth.cymraeg@hmrc.gsi.gov.uk",
+        "description": "<p>Nodwch eich enw a’ch rhif ffôn</p>\n"
+      }
+    ],
+    "more_info_email_address": "<p>Os yw CThEM yn ateb eich ymholiad drwy e-bost, nid yw’r wybodaeth yn ddiogel. Os oes angen iddynt gysylltu â chi ynglŷn ag unrhyw beth cyfrinachol, byddant yn gwneud hynny drwy lythyr neu dros y ffôn.</p>\n",
+    "phone_numbers": [
+      {
+        "title": "Helpline for tax and tax credits",
+        "number": "0300 200 1900",
+        "textphone": "",
+        "international_phone": "",
+        "fax": "",
+        "description": "<p>Ffoniwch CThEM am help gyda threth</p>\n\n<p>Mae gan ymholiadau tollau, ecseis a TAW <a href=\"https://www.gov.uk/government/organisations/hm-revenue-customs/contact/vat-customs-and-excise-and-duties-enquiries-for-welsh-speaking-customers\">rif gwahanol i’w llinell gymorth</a>.</p>\n",
+        "open_hours": "<p>08.30 i 17.00, Dydd Llun i Dydd Gwener</p>\n\n<p>Ar gau ar benwythnosau a gwyliau’r banc</p>\n",
+        "best_time_to_call": "\n"
+      }
+    ],
+    "more_info_phone_number": "\n",
+    "post_addresses": [
+
+    ],
+    "more_info_post_address": "\n",
+    "language": "en",
+    "contact_groups": [
+
+    ]
+  }
+}

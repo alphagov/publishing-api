@@ -1,0 +1,154 @@
+{
+  "content_id": "5dab29e8-5fa2-4cb5-90d6-3fea57cc4e2e",
+  "base_path": "/protected-food-drink-names/example-title",
+  "title": "Example Title",
+  "description": "Example Summary",
+  "document_type": "protected_food_drink_name",
+  "schema_name": "specialist_document",
+  "publishing_app": "specialist-publisher",
+  "rendering_app": "government-frontend",
+  "locale": "en",
+  "phase": "live",
+  "first_published_at": "2020-10-15T11:38:36.000+00:00",
+  "public_updated_at": "2020-10-15T11:38:36.000+00:00",
+  "updated_at": "2020-10-15T11:38:36.151Z",
+  "details": {
+    "body": "<h2 id=\"example-body\">Example Body</h2>\n\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec facilisis malesuada felis, vel mollis erat auctor quis. Mauris dui mauris, imperdiet in tellus et, interdum viverra erat. Maecenas ut sem sed nulla molestie sodales a porttitor ante. In facilisis eros non eros imperdiet, vitae posuere dolor gravida. Pellentesque vel pellentesque erat, consectetur viverra massa. Integer elit felis, condimentum porta leo sed, rhoncus accumsan tortor. Nulla purus elit, consequat ultricies ipsum vitae, sodales gravida ante. Curabitur ut ultrices massa. In ac mattis odio. Pellentesque nulla urna, consectetur quis cursus et, cursus nec ipsum.</p>\n\n<p>Nam nec vestibulum nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Morbi massa lacus, commodo in sollicitudin ac, consectetur sit amet orci. Suspendisse potenti. Vivamus luctus nisi eget finibus lacinia. Cras feugiat vehicula libero, vel dictum nisi egestas et. Aenean aliquam imperdiet iaculis. Donec ipsum felis, lobortis non volutpat nec, feugiat ut massa. Proin sagittis urna tristique felis aliquam ultrices. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla scelerisque arcu ut interdum pretium.</p>\n\n<p>Nam elit leo, imperdiet eu enim non, tristique malesuada metus. Morbi finibus dui dui, a fermentum odio interdum in. Integer iaculis, libero sit amet finibus semper, sapien nisl tincidunt quam, non luctus diam quam sed sem. Mauris sodales, mi sed vehicula mollis, eros lacus facilisis lorem, malesuada pretium diam quam in nisi. Sed viverra volutpat lorem ac cursus. Quisque malesuada enim nec mattis iaculis. Cras varius ipsum et mi malesuada eleifend. Aliquam velit velit, tristique et imperdiet vehicula, posuere vitae nibh. Suspendisse potenti. Phasellus ullamcorper hendrerit felis interdum sodales. Donec odio arcu, tempus non lacus vitae, gravida pretium elit. Nullam eleifend, metus quis convallis sagittis, enim tortor bibendum velit, in pulvinar arcu purus quis tellus.</p>\n",
+    "headers": [
+      {
+        "id": "example-body",
+        "text": "Example Body",
+        "level": 2
+      }
+    ],
+    "metadata": {
+      "status": "registered",
+      "country_of_origin": [
+        "italy"
+      ],
+      "register": "foods-designated-origin-and-geographical-indication",
+      "class_category": [
+        "traditional-term"
+      ],
+      "internal_notes": "Example Internal notes",
+      "protection_type": "protected-designation-of-origin-pdo",
+      "reason_for_protection": "uk-gi-before-2021",
+      "date_registration": "1984-01-16",
+      "traditional_term_type": "description-of-product-characteristic",
+      "traditional_term_language": "italian",
+      "traditional_term_grapevine_product_category": [
+        "liqueur-wine"
+      ]
+    },
+    "max_cache_time": 10,
+    "temporary_update_type": false,
+    "change_history": [
+      {
+        "note": "First published.",
+        "public_timestamp": "2020-10-15T11:38:35.895Z"
+      }
+    ]
+  },
+  "links": {
+    "organisations": [
+      {
+        "content_id": "de4e9dc6-cca4-43af-a594-682023b84d6c",
+        "title": "Department for Environment, Food & Rural Affairs",
+        "locale": "en",
+        "analytics_identifier": "D7",
+        "api_path": "/api/content/government/organisations/department-for-environment-food-rural-affairs",
+        "base_path": "/government/organisations/department-for-environment-food-rural-affairs",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Department<br/>for Environment<br/>Food &amp; Rural Affairs"
+          },
+          "brand": "department-for-environment-food-rural-affairs",
+          "default_news_image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/205/s300_defra-sign-grey.jpg",
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/205/s960_defra-sign-grey.jpg"
+          },
+          "organisation_govuk_status": {
+            "url": null,
+            "status": "live",
+            "updated_at": null
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/department-for-environment-food-rural-affairs",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/department-for-environment-food-rural-affairs"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "content_id": "de4e9dc6-cca4-43af-a594-682023b84d6c",
+        "title": "Department for Environment, Food & Rural Affairs",
+        "locale": "en",
+        "analytics_identifier": "D7",
+        "api_path": "/api/content/government/organisations/department-for-environment-food-rural-affairs",
+        "base_path": "/government/organisations/department-for-environment-food-rural-affairs",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Department<br/>for Environment<br/>Food &amp; Rural Affairs"
+          },
+          "brand": "department-for-environment-food-rural-affairs",
+          "default_news_image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/205/s300_defra-sign-grey.jpg",
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/205/s960_defra-sign-grey.jpg"
+          },
+          "organisation_govuk_status": {
+            "url": null,
+            "status": "live",
+            "updated_at": null
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/department-for-environment-food-rural-affairs",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/department-for-environment-food-rural-affairs"
+      }
+    ],
+    "finder": [
+      {
+        "content_id": "9018138a-0ca5-4a35-8b7c-3a7f39dc56f8",
+        "title": "Protected Geographical Food and Drink Names",
+        "locale": "en",
+        "api_path": "/api/content/protected-food-drink-names",
+        "base_path": "/protected-food-drink-names",
+        "document_type": "finder",
+        "public_updated_at": "2020-10-15T08:08:56Z",
+        "schema_name": "finder",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/protected-food-drink-names",
+        "web_url": "https://www.integration.publishing.service.gov.uk/protected-food-drink-names"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Example Title",
+        "public_updated_at": "2020-10-15T11:38:36Z",
+        "document_type": "protected_food_drink_name",
+        "schema_name": "specialist_document",
+        "base_path": "/protected-food-drink-names/example-title",
+        "api_path": "/api/content/protected-food-drink-names/example-title",
+        "withdrawn": false,
+        "content_id": "5dab29e8-5fa2-4cb5-90d6-3fea57cc4e2e",
+        "locale": "en",
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/protected-food-drink-names/example-title",
+        "web_url": "https://www.integration.publishing.service.gov.uk/protected-food-drink-names/example-title",
+        "links": {
+        }
+      }
+    ]
+  }
+}

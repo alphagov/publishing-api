@@ -1,0 +1,220 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/guidance/apply-for-a-tier-4-sponsor-licence",
+  "content_id": "5ee636c4-7631-11e4-a3cb-005056011aef",
+  "document_type": "detailed_guide",
+  "first_published_at": "2014-01-22T15:48:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-04-05T23:00:12.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "detailed_guide",
+  "title": "Apply for a Tier 4 sponsor licence",
+  "updated_at": "2017-11-28T17:55:58.816Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "OT554",
+        "api_path": "/api/content/government/organisations/uk-visas-and-immigration",
+        "base_path": "/government/organisations/uk-visas-and-immigration",
+        "content_id": "04148522-b0c1-4137-b687-5f3c3bdd561a",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2014-10-15T14:36:48Z",
+        "schema_name": "placeholder",
+        "title": "UK Visas and Immigration",
+        "withdrawn": false,
+        "details": {
+          "brand": "home-office",
+          "logo": {
+            "formatted_title": "UK Visas and Immigration",
+            "crest": "ho"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/uk-visas-and-immigration",
+        "web_url": "https://www.gov.uk/government/organisations/uk-visas-and-immigration"
+      }
+    ],
+    "parent": [
+      {
+        "api_path": "/api/content/topic/immigration-operational-guidance/sponsorship",
+        "base_path": "/topic/immigration-operational-guidance/sponsorship",
+        "content_id": "72f7b519-bd58-422a-8eee-b3f0c63aaeeb",
+        "description": "List of information about Sponsorship.",
+        "document_type": "topic",
+        "locale": "en",
+        "public_updated_at": "2015-08-11T14:45:09Z",
+        "schema_name": "topic",
+        "title": "Sponsorship",
+        "withdrawn": false,
+        "links": {
+          "parent": [
+            {
+              "api_path": "/api/content/topic/immigration-operational-guidance",
+              "base_path": "/topic/immigration-operational-guidance",
+              "content_id": "9b61c3c8-0cda-48e1-aa31-c770f841335f",
+              "description": "List of information about Visas and immigration operational guidance.",
+              "document_type": "topic",
+              "locale": "en",
+              "public_updated_at": "2015-08-11T14:45:04Z",
+              "schema_name": "topic",
+              "title": "Visas and immigration operational guidance",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/topic/immigration-operational-guidance",
+              "web_url": "https://www.gov.uk/topic/immigration-operational-guidance"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/topic/immigration-operational-guidance/sponsorship",
+        "web_url": "https://www.gov.uk/topic/immigration-operational-guidance/sponsorship"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/borders-and-immigration",
+        "base_path": "/government/topics/borders-and-immigration",
+        "content_id": "40c81f52-e1e0-474f-8df6-cd4de9218bac",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:07Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Borders and immigration",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/borders-and-immigration",
+        "web_url": "https://www.gov.uk/government/topics/borders-and-immigration"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "OT554",
+        "api_path": "/api/content/government/organisations/uk-visas-and-immigration",
+        "base_path": "/government/organisations/uk-visas-and-immigration",
+        "content_id": "04148522-b0c1-4137-b687-5f3c3bdd561a",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2014-10-15T14:36:48Z",
+        "schema_name": "placeholder",
+        "title": "UK Visas and Immigration",
+        "withdrawn": false,
+        "details": {
+          "brand": "home-office",
+          "logo": {
+            "formatted_title": "UK Visas and Immigration",
+            "crest": "ho"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/uk-visas-and-immigration",
+        "web_url": "https://www.gov.uk/government/organisations/uk-visas-and-immigration"
+      }
+    ],
+    "topics": [
+      {
+        "api_path": "/api/content/topic/immigration-operational-guidance/sponsorship",
+        "base_path": "/topic/immigration-operational-guidance/sponsorship",
+        "content_id": "72f7b519-bd58-422a-8eee-b3f0c63aaeeb",
+        "description": "List of information about Sponsorship.",
+        "document_type": "topic",
+        "locale": "en",
+        "public_updated_at": "2015-08-11T14:45:09Z",
+        "schema_name": "topic",
+        "title": "Sponsorship",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/topic/immigration-operational-guidance/sponsorship",
+        "web_url": "https://www.gov.uk/topic/immigration-operational-guidance/sponsorship"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Apply for a Tier 4 sponsor licence",
+        "public_updated_at": "2015-04-05T23:00:12Z",
+        "document_type": "detailed_guide",
+        "schema_name": "detailed_guide",
+        "base_path": "/guidance/apply-for-a-tier-4-sponsor-licence",
+        "description": "How to apply for a student sponsor licence.",
+        "api_path": "/api/content/guidance/apply-for-a-tier-4-sponsor-licence",
+        "withdrawn": false,
+        "content_id": "5ee636c4-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/guidance/apply-for-a-tier-4-sponsor-licence",
+        "web_url": "https://www.gov.uk/guidance/apply-for-a-tier-4-sponsor-licence",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "How to apply for a student sponsor licence.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>Apply for a Tier 4 sponsor licence if you want to enrol students from outside the European Economic Area (EEA).</p>\n\n<p>A Tier 4 sponsor is an education provider that offers courses of study to full-time students in the UK. There are some exceptions, read the <a href=\"https://www.gov.uk/government/publications/sponsor-a-tier-4-student-guidance-for-educators\">sponsor guidance</a> to find out if your institution is eligible.</p>\n\n<h2 id=\"how-to-apply-for-a-tier-4-licence\">How to apply for a Tier 4 licence</h2>\n\n<p>Check the education provider or institution meets the sponsor requirements in the <a href=\"https://www.gov.uk/government/publications/sponsor-a-tier-4-student-guidance-for-educators\">sponsor guidance</a> and is ready to comply with them.</p>\n\n<ol>\n  <li>Decide who will do the sponsor management roles within your institution.</li>\n  <li>Estimate the number of confirmations of acceptance for studies (<abbr title=\"Confirmation for acceptance for studies\">CAS</abbr>) you would like to apply for in the first year of your licence.</li>\n  <li>\n<a rel=\"external\" href=\"https://www.points.homeoffice.gov.uk/gui-sponsor-jsf/SponsorHome.faces\">Apply online</a> and pay the fee.</li>\n  <li>Send UK Visas and Immigration (<abbr title=\"UK Visas and Immigration\">UKVI</abbr>) the documents listed in <a href=\"https://www.gov.uk/government/publications/supporting-documents-for-sponsor-applications-appendix-a\">sponsor guidance appendix A</a>.</li>\n  <li>If your application is approved, you’ll be given probationary sponsor status and emailed a login for the <a rel=\"external\" href=\"https://www.points.homeoffice.gov.uk/gui-sms-jsf/home/SMS-003-Home.faces\">sponsorship management system</a>.</li>\n</ol>\n\n<p>When you successfully apply for a Tier 4 licence, <abbr title=\"UK Visas and Immigration\">UKVI</abbr> will give you a probationary sponsor licence. This is a transitional period lasting 12 months whilst you demonstrate you can fulfil all of your duties as a Tier 4 sponsor. You must apply for a basic compliance assessment after 12 months.</p>\n\n<h2 id=\"apply-for-your-licence\">Apply for your licence</h2>\n\n<p>You <a rel=\"external\" href=\"https://www.points.homeoffice.gov.uk/gui-sponsor-jsf/SponsorHome.faces\">apply for your licence online</a>. It should take about 20 minutes.</p>\n\n<p>You’ll need to pay a fee when you apply online. The licence application fee is £536.</p>\n\n<p>Print off the submission sheet and send it with your supporting documents to <abbr title=\"UK Visas and Immigration\">UKVI</abbr>.</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\nSponsor casework operations \n<br>Sponsor applications team \n<br>UK Visas and Immigration \n<br>PO Box 3468 \n<br>Sheffield \n<br>S3 8WA\n<br>\n</p></div></div>\n\n<p><abbr title=\"UK Visas and Immigration\">UKVI</abbr> will review your application. They may want to visit your institution.</p>\n\n<p>Most applications are dealt with in 4 weeks.</p>\n\n<p>When <abbr title=\"UK Visas and Immigration\">UKVI</abbr> have made a decision, they will write to tell you if you’ve been successful.</p>\n\n<h2 id=\"contact\">Contact</h2>\n<p>If you have a question about your application, contact:</p>\n\n<p>Education providers’ helpline: <a href=\"mailto:Educatorshelpdesk@homeoffice.gsi.gov.uk\">Educatorshelpdesk@homeoffice.gsi.gov.uk</a></p>\n\n<p>Telephone: 0300 123 4699</p>\n\n<h2 id=\"sponsorship-management-roles\">Sponsorship management roles</h2>\n\n<p>When you apply for your licence you’ll need to allocate these 4 roles to members of your staff:</p>\n\n<ul>\n  <li>authorising officer – a senior and competent person who is responsible for the actions of staff and representatives who use the sponsor management system (<abbr title=\"sponsor management system\">SMS</abbr>)</li>\n  <li>key contact – your main point of contact with <abbr title=\"UK Visas and Immigration\">UKVI</abbr> about your institution’s application</li>\n  <li>level 1 user – responsible for all day-to-day management of your licence using the <abbr title=\"sponsor management system\">SMS</abbr>\n</li>\n  <li>level 2 user – an <abbr title=\"sponsor management system\">SMS</abbr> user with more restricted permissions than a level 1 user</li>\n</ul>\n\n<p>These roles can all be filled by the same person or by a combination of different people.</p>\n\n<h3 id=\"check-staff-are-suitable\">Check staff are suitable</h3>\n\n<p>You and your staff must pass <abbr title=\"UK Visas and Immigration\">UKVI</abbr> checks to fill these positions. You may not get your licence or you may lose it if any of these people have:</p>\n\n<ul>\n  <li>an unspent criminal conviction</li>\n  <li>a fine issued by <abbr title=\"UK Visas and Immigration\">UKVI</abbr> in the past 12 months</li>\n  <li>been reported to <abbr title=\"UK Visas and Immigration\">UKVI</abbr> or broken the law</li>\n</ul>\n\n<p>They must also:</p>\n\n<ul>\n  <li>be based permanently in the UK</li>\n  <li>not be a contractor or consultant contracted for a specific project</li>\n  <li>not be subject to a bankruptcy restriction order or undertaking, or a debt relief restriction order or undertaking</li>\n</ul>\n\n<p>In most cases they must also be a paid member of your staff or someone who has an unpaid but official role, eg a statutory appointment, an appointment by internal constitution or trust deed.</p>\n\n<p>You can read the full guidance on appointing ‘Allocate key personnel’ section in the <a href=\"https://www.gov.uk/government/publications/sponsor-a-tier-4-student-guidance-for-educators\">sponsor guidance</a>.</p>\n\n<h2 id=\"estimate-how-many-confirmation-of-acceptance-for-studies-you-need\">Estimate how many Confirmation of Acceptance for Studies you need</h2>\n\n<p>A <abbr title=\"Confirmation for acceptance for studies\">CAS</abbr> is a virtual document, similar to a database record. You complete a process that produces a unique <abbr title=\"Confirmation for acceptance for studies\">CAS</abbr> reference number, which you give to the student.  A <abbr title=\"Confirmation for acceptance for studies\">CAS</abbr> is your way of confirming, as a licensed sponsor, that:</p>\n\n<ul>\n  <li>you want to sponsor an overseas student to study in the UK</li>\n  <li>to the best of your knowledge, that student meets the requirements of the rules for a valid <abbr title=\"Confirmation for acceptance for studies\">CAS</abbr> and will be able to make a successful application for leave to come to or stay in the UK</li>\n</ul>\n\n<p>When you apply for a sponsor licence, you must apply for the number of confirmations of acceptance for studies (<abbr title=\"Confirmation for acceptance for studies\">CAS</abbr>) you would like to assign in your first year.</p>\n\n<p>The number must include:</p>\n\n<ul>\n  <li>existing students who you expect to apply for an extension</li>\n  <li>new students you want to sponsor</li>\n</ul>\n\n<p>You may request a <abbr title=\"Confirmation for acceptance for studies\">CAS</abbr> allocation of up to 50 per cent of your current student body.  Your student body must comprise UK, EU or Swiss nationals.</p>\n\n<p>You must provide evidence to support your request, as well as your educational oversight report. As set out in our sponsor guidance, <abbr title=\"UK Visas and Immigration\">UKVI</abbr> will consider a range of factors in order to reach a decision on your <abbr title=\"Confirmation for acceptance for studies\">CAS</abbr> allocation.</p>\n\n<h2 id=\"be-prepared-to-meet-your-sponsorship-duties\">Be prepared to meet your sponsorship duties</h2>\n\n<p>Before you apply you must have certain things in place.</p>\n\n<p>When you apply for a sponsor licence, you must show that you meet the eligibility and suitability requirements as an education provider.</p>\n\n<p>You must show that all of your sites meet acceptable education standards.  You must either:</p>\n\n<ul>\n  <li>have had a Tier 4  educational oversight inspection or a statutory education inspection, and you must have achieved the required rating</li>\n  <li>be recognised as an overseas HEI offering short-term ‘study abroad’ programmes in your own premises in the UK</li>\n</ul>\n\n<p>You can find out more information in the ‘Educational Oversight requirement’ section in document 1 of the Tier 4  <a href=\"https://www.gov.uk/government/publications/sponsor-a-tier-4-student-guidance-for-educators\">sponsor guidance</a>.</p>\n\n<p>As a Tier 4 sponsor, you must comply with the guidance for sponsors and fulfil certain duties. For example, you must contact <abbr title=\"UK Visas and Immigration\">UKVI</abbr> if a student:</p>\n\n<ul>\n  <li>does not arrive for their course</li>\n  <li>is absent without permission for a significant period</li>\n  <li>leaves their course earlier than expected</li>\n  <li>is asked to leave the course</li>\n</ul>\n\n<p>You must keep proper records of the students you sponsor, including contact details and a copy of their passport and Biometric Residence Permit (BRP) and give them to <abbr title=\"UK Visas and Immigration\">UKVI</abbr> when it asks for them. For more information see sponsor guidance <a rel=\"external\" href=\"http://www.ukba.homeoffice.gov.uk/sitecontent/documents/employersandsponsors/pbsguidance/guidancefrom31mar09/appendix-d1.pdf?view=Binary\">Appendix D</a>.</p>\n\n<p><abbr title=\"UK Visas and Immigration\">UKVI</abbr> will monitor your compliance with your duties. It will:</p>\n\n<ul>\n  <li>give you a suitable allocation of <abbr title=\"Confirmation for acceptance for studies\">CAS</abbr>, dependent on the size of your current student body</li>\n  <li>make visits, pre-arranged or not, to check compliance</li>\n  <li>issue civil penalties if it finds evidence that you have breached the <a rel=\"external\" href=\"http://www.ukba.homeoffice.gov.uk/sitecontent/documents/employersandsponsors/preventingillegalworking/currentguidanceandcodes/full-guide?view=Binary\">illegal working regulations</a>\n</li>\n</ul>\n\n<p>Where there has been a breach of sponsor duties, <abbr title=\"UK Visas and Immigration\">UKVI</abbr> will consider the nature of the breach and may take compliance action against you.</p>\n\n<h2 id=\"tier-4-sponsor-status\">Tier 4 sponsor status</h2>\n\n<p>When you have had a probationary sponsor licence for 12 months, you must apply for a basic compliance assessment in order to gain Tier 4 Sponsor status. <abbr title=\"UK Visas and Immigration\">UKVI</abbr> will revoke your licence if you do not meet the requirements.</p>\n\n<p>The <a href=\"https://www.gov.uk/government/publications/sponsor-a-tier-4-student-guidance-for-educators\">sponsor guidance</a>  explains how to apply for a basic compliance assessment.</p>\n\n<h2 id=\"tier-4-premium-customer-service\">Tier 4 premium customer service</h2>\n\n<p>The Tier 4 premium customer service is designed to:</p>\n\n<ul>\n  <li>offer your organisation support in sponsoring all overseas students</li>\n  <li>develop a relationship with you and a long-term understanding of your requirements</li>\n</ul>\n\n<p>The <a href=\"https://www.gov.uk/government/publications/tier-4-premium-customer-service-for-sponsors\">Tier 4 premium customer service for sponsors</a> contains more information on this service.</p>\n\n</div>",
+    "change_history": [
+      {
+        "public_timestamp": "2015-04-06T00:00:12.000+01:00",
+        "note": "Updated sponsor licence information"
+      },
+      {
+        "public_timestamp": "2014-04-08T11:01:46.000+01:00",
+        "note": "Fee change introduced."
+      },
+      {
+        "public_timestamp": "2014-01-22T15:48:00.000+00:00",
+        "note": "First published."
+      }
+    ],
+    "emphasised_organisations": [
+      "04148522-b0c1-4137-b687-5f3c3bdd561a"
+    ],
+    "first_public_at": "2014-01-22T15:48:00.000+00:00",
+    "related_mainstream_content": [
+
+    ],
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+        "immigration-operational-guidance/sponsorship"
+      ]
+    }
+  }
+}

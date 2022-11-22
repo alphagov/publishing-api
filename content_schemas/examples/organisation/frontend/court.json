@@ -1,0 +1,306 @@
+{
+  "analytics_identifier": "CO1188",
+  "base_path": "/courts-tribunals/administrative-court",
+  "content_id": "b0bdfcf3-2763-4002-961e-a0b2d7825038",
+  "document_type": "organisation",
+  "first_published_at": "2016-03-29T13:21:12.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2020-05-01T07:58:07.000+00:00",
+  "publishing_app": "whitehall",
+  "publishing_scheduled_at": null,
+  "rendering_app": "collections",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "organisation",
+  "title": "Administrative Court",
+  "updated_at": "2020-05-04T08:08:54.327Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "30071-1588319887.703-10.13.4.55-540",
+  "links": {
+    "ordered_contacts": [
+      {
+        "content_id": "6db858d2-760b-499b-b5fa-e40e6e4d7f5c",
+        "title": "General enquiries (Royal Courts of Justice)",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2016-03-29T16:42:16Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "Opening hours and facilities:\r\nhttps://courttribunalfinder.service.gov.uk/courts/administrative-court",
+          "title": "General enquiries (Royal Courts of Justice)",
+          "contact_form_links": null,
+          "post_addresses": [
+            {
+              "title": "Administrative Court Office",
+              "street_address": "Royal Courts of Justice\r\nStrand",
+              "locality": "London",
+              "postal_code": "WC2A 2LL",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": null,
+          "phone_numbers": [
+            {
+              "title": "Telephone",
+              "number": "020 7947 6655 "
+            }
+          ]
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "08aaee8b-101a-43d0-9b11-bb75898363be",
+        "title": "General enquiries (Birmingham)",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2016-03-29T16:46:00Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "Opening hours and facilities:\r\nhttps://courttribunalfinder.service.gov.uk/courts/birmingham-civil-and-family-justice-centre",
+          "title": "General enquiries (Birmingham)",
+          "contact_form_links": null,
+          "post_addresses": [
+            {
+              "title": "Birmingham Civil and Family Justice Hearing Centre",
+              "street_address": "Priory Courts \r\n33 Bull Street",
+              "locality": "Birmingham",
+              "region": "West Midlands",
+              "postal_code": "B4 6DS",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": null,
+          "phone_numbers": [
+            {
+              "title": "Telephone",
+              "number": "0121 250 6319 "
+            }
+          ]
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "5d763701-c6ee-44b3-a74e-09d91866e244",
+        "title": "General enquiries (Leeds)",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2016-03-29T16:49:20Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "Opening hours and facilities:\r\nhttps://courttribunalfinder.service.gov.uk/courts/leeds-combined-court-centre",
+          "title": "General enquiries (Leeds)",
+          "contact_form_links": null,
+          "post_addresses": [
+            {
+              "title": "Leeds Combined Court Centre",
+              "street_address": "The Courthouse\r\n1 Oxford Row\r\n",
+              "locality": "Leeds",
+              "region": "West Yorkshire",
+              "postal_code": "LS1 3BG ",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": null,
+          "phone_numbers": [
+            {
+              "title": "Telephone",
+              "number": "0113 306 2578 "
+            }
+          ]
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "f4b72bad-cd13-44e0-9693-4820ca3400c5",
+        "title": "General enquiries (Manchester)",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2016-03-30T06:56:41Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "Opening hours and facilities:\r\nhttps://courttribunalfinder.service.gov.uk/courts/manchester-county-court-and-family-court",
+          "title": "General enquiries (Manchester)",
+          "contact_form_links": null,
+          "post_addresses": [
+            {
+              "title": "Manchester County Court and Family Court",
+              "street_address": "Manchester Civil and Family Justice Centre\r\n1 Bridge Street West\r\n",
+              "locality": "Manchester",
+              "region": "Greater Manchester",
+              "postal_code": "M60 9DJ",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": null,
+          "phone_numbers": [
+            {
+              "title": "Telephone",
+              "number": "0161 240 5313 "
+            }
+          ]
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "9af29fe3-5014-4f78-89fa-9ac4d457e4a3",
+        "title": "General enquiries (Wales)",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2016-03-29T17:12:12Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "Opening hours and facilities:\r\nhttps://courttribunalfinder.service.gov.uk/courts/cardiff-civil-and-family-justice-centre",
+          "title": "General enquiries (Wales)",
+          "contact_form_links": null,
+          "post_addresses": [
+            {
+              "title": "Cardiff Civil and Family Justice Centre",
+              "street_address": "2 Park Street",
+              "locality": "Cardiff",
+              "region": "South Wales",
+              "postal_code": "CF10 1ET",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": null,
+          "phone_numbers": [
+            {
+              "title": "Telephone",
+              "number": "02920 376460 "
+            }
+          ]
+        },
+        "links": {
+        }
+      }
+    ],
+    "ordered_parent_organisations": [
+      {
+        "content_id": "6f757605-ab8f-4b62-84e4-99f79cf085c2",
+        "title": "HM Courts & Tribunals Service",
+        "locale": "en",
+        "analytics_identifier": "EA73",
+        "api_path": "/api/content/government/organisations/hm-courts-and-tribunals-service",
+        "base_path": "/government/organisations/hm-courts-and-tribunals-service",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "HM Courts &amp; <br/>Tribunals Service",
+            "crest": "single-identity"
+          },
+          "brand": "ministry-of-justice",
+          "default_news_image": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-courts-and-tribunals-service",
+        "web_url": "https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "content_id": "b0bdfcf3-2763-4002-961e-a0b2d7825038",
+        "title": "Administrative Court",
+        "locale": "en",
+        "analytics_identifier": "CO1188",
+        "api_path": "/api/content/courts-tribunals/administrative-court",
+        "base_path": "/courts-tribunals/administrative-court",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "Administrative Court"
+          },
+          "brand": null,
+          "default_news_image": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/courts-tribunals/administrative-court",
+        "web_url": "https://www.gov.uk/courts-tribunals/administrative-court"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Administrative Court",
+        "public_updated_at": "2020-05-01T07:58:07Z",
+        "analytics_identifier": "CO1188",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "base_path": "/courts-tribunals/administrative-court",
+        "api_path": "/api/content/courts-tribunals/administrative-court",
+        "withdrawn": false,
+        "content_id": "b0bdfcf3-2763-4002-961e-a0b2d7825038",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/courts-tribunals/administrative-court",
+        "web_url": "https://www.gov.uk/courts-tribunals/administrative-court",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Administrative Court guidance during coronavirus outbreak We review decisions made by people or bodies with a public law function, eg local authorities and regulatory bodies. We can: carry out a judicial review of decisions made by other courts, tribunals and public bodies hear challenges to decisions made by certain people or bodies (eg ministers or local government) where legislation has given the right to challenge We also hear: applications for ‘habeas corpus’, (a legal procedure where the court decides to rule on whether the detention of an individual is legal applications to prevent someone who continues to initiate groundless legal proceedings (a ‘vexatious litigant’) from continuing to do so without first obtaining permission from a court all applications under the Coroners Act 1988 (which deals with the appointment and conduct of coroners) appeals ‘by way of case stated’ from the Crown Court or magistrates’ courts (where our opinion is sought on a particular point of law where a mistake may have been made) applications for an order to imprison a person for contempt of court appeals under the Extradition Act 2003 (which deals with extradition requests to and from the United Kingdom and bail) appeals against decisions made by some professional bodies, eg the Nursing and Midwifery Council applications for ‘restraint orders’ or ‘certificates of inadequacy’ where assets have been frozen or confiscated We also contain a specialist Planning Court which handles judicial reviews of decisions about planning permission and other challenges to planning decisions. Who we are We are a specialist court within the Queen’s Bench Division of the High Court of Justice. We are based at the Royal Courts of Justice, London and also at centres in Birmingham, Cardiff, Leeds and Manchester. Cases may be heard by one High Court judge or by a ‘Divisional Court’ which consists of 2 or more judges, normally a High Court Judge and a Lord Justice of Appeal. Court information Forms and guidance Administrative Court Listings Upcoming hearings - Birmingham , Leeds , Manchester , Royal Courts of Justice , Wales Case references used by the Royal Courts of Justice and Rolls Building User group meeting minutes Previous decisions Civil Procedure Rules Fees Practice directions Extradition",
+  "details": {
+    "acronym": "",
+    "alternative_format_contact_email": "",
+    "body": "<div class=\"govspeak\">\n<div class=\"call-to-action\">\n<p><strong><a rel=\"external\" href=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/878790/Ops_update_-_Admin_Court_Office_Guide.pdf\" class=\"govuk-link\">Administrative Court guidance during coronavirus outbreak</a></strong></p>\n</div>\n\n<p>We review decisions made by people or bodies with a public law function, eg local authorities and regulatory bodies. We can:</p>\n\n<ul>\n  <li>carry out a <a rel=\"external\" href=\"https://www.judiciary.gov.uk/you-and-the-judiciary/judicial-review/\" class=\"govuk-link\">judicial review</a> of decisions made by other courts, tribunals and public bodies</li>\n  <li>hear challenges to decisions made by certain people or bodies (eg ministers or local government) where legislation has given the right to challenge</li>\n</ul>\n\n<p>We also hear:</p>\n\n<ul>\n  <li>applications for ‘habeas corpus’, (a legal procedure where the court decides to rule on whether the detention of an individual is legal</li>\n  <li>applications to prevent someone who continues to initiate groundless legal proceedings (a ‘vexatious litigant’) from continuing to do so without first obtaining permission from a court</li>\n  <li>all applications under the Coroners Act 1988 (which deals with the appointment and conduct of coroners)</li>\n  <li>appeals ‘by way of case stated’ from the Crown Court or magistrates’ courts (where our opinion is sought on a particular point of law where a mistake may have been made)</li>\n  <li>applications for an order to imprison a person for contempt of court</li>\n  <li>appeals under the Extradition Act 2003 (which deals with extradition requests to and from the United Kingdom and bail)</li>\n  <li>appeals against decisions made by some professional bodies, eg the Nursing and Midwifery Council</li>\n  <li>applications for ‘restraint orders’ or ‘certificates of inadequacy’ where assets have been frozen or confiscated</li>\n</ul>\n\n<p>We also contain a specialist <a href=\"https://www.gov.uk/courts-tribunals/planning-court\" class=\"govuk-link\">Planning Court</a> which handles judicial reviews of decisions about planning permission and other challenges to planning decisions.</p>\n\n<h2 id=\"who-we-are\">Who we are</h2>\n\n<p>We are a specialist court within the Queen’s Bench Division of the High Court of Justice.</p>\n\n<p>We are based at the Royal Courts of Justice, London and also at centres in Birmingham, Cardiff, Leeds and Manchester.</p>\n\n<p>Cases may be heard by one High Court judge or by a ‘Divisional Court’ which consists of 2 or more judges, normally a High Court Judge and a Lord Justice of Appeal.</p>\n\n<h2 id=\"court-information\">Court information</h2>\n\n<ul>\n  <li><a href=\"https://www.gov.uk/government/collections/administrative-court-forms\" class=\"govuk-link\">Forms and guidance</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/administrative-court-listings\" class=\"govuk-link\">Administrative Court Listings</a></li>\n  <li>Upcoming hearings - <a rel=\"external\" href=\"http://www.justice.gov.uk/courts/court-lists/list-birmingham\" class=\"govuk-link\">Birmingham</a>, <a rel=\"external\" href=\"http://www.justice.gov.uk/courts/court-lists/list-leeds\" class=\"govuk-link\">Leeds</a>, <a rel=\"external\" href=\"http://www.justice.gov.uk/courts/court-lists/list-manchester\" class=\"govuk-link\">Manchester</a>, <a rel=\"external\" href=\"http://www.justice.gov.uk/courts/court-lists/list-rcj\" class=\"govuk-link\">Royal Courts of Justice</a>, <a rel=\"external\" href=\"http://www.justice.gov.uk/courts/court-lists/list-cardiff\" class=\"govuk-link\">Wales</a>\n</li>\n  <li><a href=\"https://www.gov.uk/guidance/case-references-used-by-the-royal-courts-of-justice-and-rolls-building\" class=\"govuk-link\">Case references used by the Royal Courts of Justice and Rolls Building</a></li>\n  <li><a href=\"https://www.gov.uk/government/collections/administrative-court-office-user-group-meeting-minutes\" class=\"govuk-link\">User group meeting minutes</a></li>\n  <li><a rel=\"external\" href=\"http://www.bailii.org/ew/cases/EWHC/Admin/\" class=\"govuk-link\">Previous decisions</a></li>\n  <li><a rel=\"external\" href=\"http://www.justice.gov.uk/courts/procedure-rules/civil\" class=\"govuk-link\">Civil Procedure Rules</a></li>\n  <li><a rel=\"external\" href=\"http://hmctsformfinder.justice.gov.uk/HMCTS/GetLeaflet.do?court_leaflets_id=2823\" class=\"govuk-link\">Fees</a></li>\n  <li><a rel=\"external\" href=\"https://www.judiciary.gov.uk/publications/practice-direction-54d-administrative-court-venue/\" class=\"govuk-link\">Practice directions</a></li>\n  <li><a rel=\"external\" href=\"http://www.justice.gov.uk/courts/procedure-rules/criminal/docs/2015/crim-proc-rules-2015-part-50.pdf\" class=\"govuk-link\">Extradition</a></li>\n</ul>\n</div>",
+    "brand": null,
+    "logo": {
+      "formatted_title": "Administrative Court"
+    },
+    "foi_exempt": false,
+    "ordered_corporate_information_pages": [
+      {
+        "title": "Jobs",
+        "href": "https://www.civilservicejobs.service.gov.uk/csr"
+      }
+    ],
+    "secondary_corporate_information_pages": "",
+    "ordered_featured_links": [
+      {
+        "title": "Bring a case to the court",
+        "href": "http://www.gov.uk/guidance/administrative-court-bring-a-case-to-the-court"
+      },
+      {
+        "title": "Judicial review guide",
+        "href": "http://www.gov.uk/government/publications/administrative-court-judicial-review-guide"
+      }
+    ],
+    "ordered_featured_documents": [
+
+    ],
+    "ordered_promotional_features": [
+
+    ],
+    "important_board_members": 1,
+    "organisation_featuring_priority": "service",
+    "organisation_govuk_status": {
+      "status": "live",
+      "url": null,
+      "updated_at": null
+    },
+    "organisation_type": "court",
+    "organisation_political": false,
+    "social_media_links": [
+
+    ]
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "content_id": "9b2e22e1-a222-4cda-9799-de7ce56088b0",
+  "base_path": "/guidance/content-design",
+  "title": "Content design: planning, writing and managing content",
+  "description": "Planning and managing digital content to meet the needs the public has of government.",
+  "locale": "en",
+  "updated_at": "2015-04-27T12:54:38.685Z",
+  "public_updated_at": "2015-04-27T12:54:27.000+00:00",
+  "first_published_at": "2015-04-27T12:54:27.000+00:00",
+  "details": {
+    "body": "<p>Vis nostro intellegebat at. Impedit pericula duo ne, pri nonumes ullamcorper in. Oratio invidunt et his, ele, at principes similique nam. No eam eleifend euripidis intellegat, sensibus theophrastus consectetuer.\nSumo solum quaestio has cu. Eu oblique euismod deleniti eum, congue necessitatibus ne sit.\nNo eum mutat soleat definiebas, ut argumentum efficiantur delicatissimi ius. At feugait adversarium vel. At cum mutat numquam graecis. Sit appareat adolescens constituto eu, te eleifend postulant theophrastus eam\nIf you would like to receive email updates for daily ice cream flavours, send us a hand written note.\nVel ut iudico dolore. Vix ne diam iuvaret referrentur, eam nisl accusamus temporibus ne.If you like yoga <a href=\"/lloydsfactsheet\">click here</a>.</p>\n",
+    "child_section_groups": [
+      {
+        "title": "Contents",
+        "child_sections": [
+          {
+            "title": "What is content design?",
+            "description": "Introduction to content design.",
+            "base_path": "/guidance/content-design/what-is-content-design"
+          },
+          {
+            "title": "User needs",
+            "description": "How to write and record a user need for GOV.UK.",
+            "base_path": "/guidance/content-design/user-needs"
+          },
+          {
+            "title": "Planning content",
+            "description": "Find out how to decide if something is suitable for GOV.UK, what the content lifecycle is and why accessibility must be planned for.",
+            "base_path": "/guidance/content-design/planning-content"
+          }
+        ]
+      }
+    ],
+    "change_notes": [
+      {
+        "base_path": "/guidance/content-design/what-is-content-design",
+        "title": "What is content design?",
+        "change_note": "New section added.",
+        "published_at": "2014-10-06T19:49:25Z"
+      },
+      {
+        "base_path": "/guidance/content-design/user-needs",
+        "title": "User needs",
+        "change_note": "New section added.",
+        "published_at": "2014-10-06T19:49:25Z"
+      },
+      {
+        "base_path": "/guidance/content-design/planning-content",
+        "title": "Planning content",
+        "change_note": "New section added.",
+        "published_at": "2014-10-06T19:49:25Z"
+      },
+      {
+        "base_path": "/guidance/content-design/content-types",
+        "title": "Content types",
+        "change_note": "New section added.",
+        "published_at": "2013-10-06T19:49:25Z"
+      }
+    ],
+    "organisations": [
+      {
+        "title": "Government Digital Service",
+        "abbreviation": "GDS",
+        "web_url": "https://www.gov.uk/government/organisations/government-digital-service"
+      }
+    ]
+  },
+  "links": {
+    "available_translations": [
+      {
+        "content_id": "9b2e22e1-a222-4cda-9799-de7ce56088b0",
+        "title": "Content design: planning, writing and managing content",
+        "api_path": "/api/content/guidance/content-design",
+        "base_path": "/guidance/content-design",
+        "api_url": "https://www.gov.uk/api/content/guidance/content-design",
+        "web_url": "https://www.gov.uk/guidance/content-design",
+        "locale": "en"
+      }
+    ],
+    "topics": [
+      {
+        "content_id": "4dfaf37e-33ea-4f56-9d06-24cebd0f6995",
+        "title": "Content and publishing",
+        "locale": "en",
+        "api_path": "/api/content/topic/government-digital-guidance/content-publishing",
+        "base_path": "/topic/government-digital-guidance/content-publishing",
+        "document_type": "topic",
+        "public_updated_at": "2017-05-19T13:59:21Z",
+        "schema_name": "topic",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/topic/government-digital-guidance/content-publishing",
+        "web_url": "https://www.gov.uk/topic/government-digital-guidance/content-publishing"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "title": "Government Digital Service",
+        "locale": "en",
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Government Digital Service"
+          },
+          "brand": "cabinet-office",
+          "default_news_image": null,
+          "organisation_govuk_status": {
+            "url": null,
+            "status": "live",
+            "updated_at": null
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/government-digital-service",
+        "web_url": "https://www.gov.uk/government/organisations/government-digital-service"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "title": "Government Digital Service",
+        "locale": "en",
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Government Digital Service"
+          },
+          "brand": "cabinet-office",
+          "default_news_image": null,
+          "organisation_govuk_status": {
+            "url": null,
+            "status": "live",
+            "updated_at": null
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/government-digital-service",
+        "web_url": "https://www.gov.uk/government/organisations/government-digital-service"
+      }
+    ]
+  },
+  "schema_name": "manual",
+  "document_type": "manual"
+}

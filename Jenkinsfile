@@ -19,6 +19,9 @@ node {
     },
     afterTest: {
       lock("publishing-api-$NODE_NAME-test") {
+        govuk.setEnvar("GIT_COMMIT_HASH", govuk.getFullCommitHash())
+        checkGeneratedSchemasAreUpToDate(govuk);
+        checkSchemaDependentProjects();
         govuk.setEnvar("PACT_CONSUMER_VERSION", "branch-${env.BRANCH_NAME}");
         publishPublishingApiPactTests();
         runContentStorePactTests(govuk);
@@ -69,3 +72,86 @@ def runContentStorePactTests(govuk) {
     }
   }
 }
+
+def checkGeneratedSchemasAreUpToDate(govuk) {
+    stage("Check generated schemas are up-to-date") {
+      govuk.runRakeTask("build_schemas")
+      schemasAreUpToDate = sh(script: "git diff --exit-code", returnStatus: true) == 0
+
+      if (!schemasAreUpToDate) {
+        error("Changes to checked-in files detected after running 'rake build_schemas'. "
+          + "If these are generated files, you might need to run 'rake build_schemas' "
+          + "to ensure they are regenerated and push the changes.")
+      }
+    }
+}
+
+def checkSchemaDependentProjects() {
+// Run schema tests outside of 'node' definition, so that they do not block the
+// original executor while the downstream tests are being run
+    stage("Check dependent projects against updated schema") {
+      def dependentBuilds = [:]
+
+      def schemasDependentApplications = [
+        'collections-publisher',
+        'collections',
+        'contacts',
+        'content-data-api',
+        'content-publisher',
+        'content-store',
+        'content-tagger',
+        'email-alert-frontend',
+        'email-alert-service',
+        'feedback',
+        'finder-frontend',
+        'frontend',
+        'government-frontend',
+        'hmrc-manuals-api',
+        'info-frontend',
+        'licencefinder',
+        'manuals-publisher',
+        'publisher',
+        'search-api',
+        'search-admin',
+        'service-manual-frontend',
+        'service-manual-publisher',
+        'short-url-manager',
+        'smartanswers',
+        'specialist-publisher',
+        'static',
+        'travel-advice-publisher',
+        'whitehall',
+      ]
+
+      for (dependentApp in schemasDependentApplications) {
+        // Dummy parameter to prevent mutation of the parameter used
+        // inside the closure below. If this is not defined, all of the
+        // builds will be for the last application in the array.
+        def app = dependentApp
+
+        dependentBuilds[app] = {
+          start = System.currentTimeMillis()
+
+          build job: "/${app}/deployed-to-production",
+            parameters: [
+              [$class: 'BooleanParameterValue',
+                name: 'IS_SCHEMA_TEST',
+                value: true],
+              [$class: 'BooleanParameterValue',
+                name: 'USE_PUBLISHING_API_FOR_SCHEMAS',
+                value: true],
+              [$class: 'StringParameterValue',
+                name: 'SCHEMA_BRANCH',
+                value: env.BRANCH_NAME],
+              [$class: 'StringParameterValue',
+                name: 'SCHEMA_COMMIT',
+                value: env.GIT_COMMIT_HASH]
+            ], wait: false
+        }
+      }
+
+      parallel dependentBuilds
+
+    }
+}
+

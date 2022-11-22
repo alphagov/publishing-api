@@ -1,0 +1,1663 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/employer-preventing-discrimination",
+  "content_id": "a5669f74-406d-46bf-9e0f-13aad618862e",
+  "document_type": "guide",
+  "first_published_at": "2012-07-03T14:52:53.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-08-21T17:14:06.000+00:00",
+  "publishing_app": "publisher",
+  "publishing_scheduled_at": null,
+  "rendering_app": "government-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "guide",
+  "title": "Employers: preventing discrimination",
+  "updated_at": "2018-08-09T15:18:10.655Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "3594-1504180425.243-10.3.3.1-410",
+  "links": {
+    "mainstream_browse_pages": [
+      {
+        "api_path": "/api/content/browse/employing-people/recruiting-hiring",
+        "base_path": "/browse/employing-people/recruiting-hiring",
+        "content_id": "18316184-f6ff-4581-a487-83935a490074",
+        "description": "Advertise a job, Disclosure and Barring (DBS) checks, discrimination law and apprenticeships",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:45Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Recruiting and hiring",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/browse/employing-people/recruiting-hiring",
+        "web_url": "https://www.gov.uk/browse/employing-people/recruiting-hiring"
+      },
+      {
+        "api_path": "/api/content/browse/employing-people/contracts",
+        "base_path": "/browse/employing-people/contracts",
+        "content_id": "dbad809a-29b0-4be7-b3d9-9b0b302c4f44",
+        "description": "Includes types of worker, employee rights, overtime and changes to contracts",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:38Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Contracts of employment and working hours",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/browse/employing-people/contracts",
+        "web_url": "https://www.gov.uk/browse/employing-people/contracts"
+      },
+      {
+        "api_path": "/api/content/browse/employing-people/trade-unions",
+        "base_path": "/browse/employing-people/trade-unions",
+        "content_id": "25ac566b-121e-4e1c-9c73-030e6554cb85",
+        "description": "Includes industrial action and recognising trade unions",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:46Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Trade unions and workers rights",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/browse/employing-people/trade-unions",
+        "web_url": "https://www.gov.uk/browse/employing-people/trade-unions"
+      }
+    ],
+    "meets_user_needs": [
+      {
+        "api_path": "/api/content/needs/employ-someone-fairly-and-legally",
+        "base_path": "/needs/employ-someone-fairly-and-legally",
+        "content_id": "ebf28357-9669-41a9-9bfb-dd8dc3e7044e",
+        "document_type": "need",
+        "locale": "en",
+        "schema_name": "need",
+        "title": "As a employer, I need to employ someone fairly and legally, so that I can hire the best employee and run a fair and legal recruitment exercise (102257)",
+        "withdrawn": false,
+        "details": {
+          "applies_to_all_organisations": false,
+          "benefit": "I can hire the best employee and run a fair and legal recruitment exercise",
+          "goal": "employ someone fairly and legally",
+          "role": "employer",
+          "need_id": "102257"
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/needs/employ-someone-fairly-and-legally",
+        "web_url": "https://www.gov.uk/needs/employ-someone-fairly-and-legally"
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "api_path": "/api/content/definition-of-disability-under-equality-act-2010",
+        "base_path": "/definition-of-disability-under-equality-act-2010",
+        "content_id": "a9969b73-6217-42a2-b40f-f532d668388d",
+        "description": "You’re disabled under the Equality Act 2010 if you have a physical or mental impairment that has a 'substantial' and 'long-term' negative effect on your ability to do daily activities",
+        "document_type": "answer",
+        "locale": "en",
+        "public_updated_at": "2015-09-23T14:18:36Z",
+        "schema_name": "answer",
+        "title": "Definition of disability under the Equality Act 2010",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "api_path": "/api/content/browse/justice/rights",
+              "base_path": "/browse/justice/rights",
+              "content_id": "a05dec95-fadc-44d3-9e29-b5498e7015d2",
+              "description": "Includes being arrested, cautions, discrimination and consumer rights",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:46Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Your rights and the law",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/justice",
+                    "base_path": "/browse/justice",
+                    "content_id": "66e4e3cc-3c35-4272-bacf-afdea2bc4da1",
+                    "description": "Legal processes, courts and the police",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Crime, justice and the law",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/justice",
+                    "web_url": "https://www.gov.uk/browse/justice"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/justice/rights",
+              "web_url": "https://www.gov.uk/browse/justice/rights"
+            },
+            {
+              "api_path": "/api/content/browse/disabilities/rights",
+              "base_path": "/browse/disabilities/rights",
+              "content_id": "1dfb607a-8dba-43e0-92e7-6f85848d06be",
+              "description": "Disability rights under the Equality Act 2010",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:50Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Disability rights",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/disabilities",
+                    "base_path": "/browse/disabilities",
+                    "content_id": "77d72043-cbf7-42bf-8b61-e970d854acc4",
+                    "description": "Includes your rights, benefits, carers and the Equality Act",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Disabled people",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/disabilities",
+                    "web_url": "https://www.gov.uk/browse/disabilities"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/disabilities/rights",
+              "web_url": "https://www.gov.uk/browse/disabilities/rights"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/definition-of-disability-under-equality-act-2010",
+        "web_url": "https://www.gov.uk/definition-of-disability-under-equality-act-2010"
+      },
+      {
+        "api_path": "/api/content/discrimination-your-rights",
+        "base_path": "/discrimination-your-rights",
+        "content_id": "f27d102f-dc6c-4044-a403-98b0fd7bc290",
+        "description": "It is against the law to discriminate against anyone because of their sex, religion, disability or certain other personal characteristics ('protected characteristics') ",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2015-03-04T11:17:05Z",
+        "schema_name": "guide",
+        "title": "Discrimination: your rights",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "api_path": "/api/content/browse/justice/rights",
+              "base_path": "/browse/justice/rights",
+              "content_id": "a05dec95-fadc-44d3-9e29-b5498e7015d2",
+              "description": "Includes being arrested, cautions, discrimination and consumer rights",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:46Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Your rights and the law",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/justice",
+                    "base_path": "/browse/justice",
+                    "content_id": "66e4e3cc-3c35-4272-bacf-afdea2bc4da1",
+                    "description": "Legal processes, courts and the police",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Crime, justice and the law",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/justice",
+                    "web_url": "https://www.gov.uk/browse/justice"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/justice/rights",
+              "web_url": "https://www.gov.uk/browse/justice/rights"
+            },
+            {
+              "api_path": "/api/content/browse/disabilities/rights",
+              "base_path": "/browse/disabilities/rights",
+              "content_id": "1dfb607a-8dba-43e0-92e7-6f85848d06be",
+              "description": "Disability rights under the Equality Act 2010",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:50Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Disability rights",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/disabilities",
+                    "base_path": "/browse/disabilities",
+                    "content_id": "77d72043-cbf7-42bf-8b61-e970d854acc4",
+                    "description": "Includes your rights, benefits, carers and the Equality Act",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Disabled people",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/disabilities",
+                    "web_url": "https://www.gov.uk/browse/disabilities"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/disabilities/rights",
+              "web_url": "https://www.gov.uk/browse/disabilities/rights"
+            },
+            {
+              "api_path": "/api/content/browse/disabilities/work",
+              "base_path": "/browse/disabilities/work",
+              "content_id": "557c1d93-ed80-487a-8940-92c5122bdf13",
+              "description": "Includes recruitment and disabled people, reasonable adjustments at work and Access to Work",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:41Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Work and disabled people",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/disabilities",
+                    "base_path": "/browse/disabilities",
+                    "content_id": "77d72043-cbf7-42bf-8b61-e970d854acc4",
+                    "description": "Includes your rights, benefits, carers and the Equality Act",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Disabled people",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/disabilities",
+                    "web_url": "https://www.gov.uk/browse/disabilities"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/disabilities/work",
+              "web_url": "https://www.gov.uk/browse/disabilities/work"
+            },
+            {
+              "api_path": "/api/content/browse/working/rights-trade-unions",
+              "base_path": "/browse/working/rights-trade-unions",
+              "content_id": "3a3f833e-45a1-4bbe-9ccb-25affe4f9dab",
+              "description": "Includes health and safety, accidents at work and joining a trade union",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:40Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Your rights at work and trade unions",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/working",
+                    "base_path": "/browse/working",
+                    "content_id": "a24f0662-bbfe-4b77-9ec0-e73240e88b9a",
+                    "description": "Includes holidays and finding a job",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Working, jobs and pensions",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/working",
+                    "web_url": "https://www.gov.uk/browse/working"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/working/rights-trade-unions",
+              "web_url": "https://www.gov.uk/browse/working/rights-trade-unions"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/discrimination-your-rights",
+        "web_url": "https://www.gov.uk/discrimination-your-rights"
+      },
+      {
+        "api_path": "/api/content/recruitment-disabled-people",
+        "base_path": "/recruitment-disabled-people",
+        "content_id": "e2e7bbe3-1f32-400d-8745-ae0c9a2f1b76",
+        "description": "Avoiding discrimination against disabled people in recruitment – advertising the job, encouraging applications, reasonable adjustments",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2015-07-15T15:48:41Z",
+        "schema_name": "guide",
+        "title": "Recruitment and disabled people",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "api_path": "/api/content/browse/disabilities/work",
+              "base_path": "/browse/disabilities/work",
+              "content_id": "557c1d93-ed80-487a-8940-92c5122bdf13",
+              "description": "Includes recruitment and disabled people, reasonable adjustments at work and Access to Work",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:41Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Work and disabled people",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/disabilities",
+                    "base_path": "/browse/disabilities",
+                    "content_id": "77d72043-cbf7-42bf-8b61-e970d854acc4",
+                    "description": "Includes your rights, benefits, carers and the Equality Act",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Disabled people",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/disabilities",
+                    "web_url": "https://www.gov.uk/browse/disabilities"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/disabilities/work",
+              "web_url": "https://www.gov.uk/browse/disabilities/work"
+            },
+            {
+              "api_path": "/api/content/browse/employing-people/trade-unions",
+              "base_path": "/browse/employing-people/trade-unions",
+              "content_id": "25ac566b-121e-4e1c-9c73-030e6554cb85",
+              "description": "Includes industrial action and recognising trade unions",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:46Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Trade unions and workers rights",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/employing-people",
+                    "base_path": "/browse/employing-people",
+                    "content_id": "a0a4c44e-5e8a-44f6-9e64-32ab2c9ba065",
+                    "description": "Includes pay, contracts and hiring",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Employing people",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/employing-people",
+                    "web_url": "https://www.gov.uk/browse/employing-people"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/employing-people/trade-unions",
+              "web_url": "https://www.gov.uk/browse/employing-people/trade-unions"
+            },
+            {
+              "api_path": "/api/content/browse/employing-people/recruiting-hiring",
+              "base_path": "/browse/employing-people/recruiting-hiring",
+              "content_id": "18316184-f6ff-4581-a487-83935a490074",
+              "description": "Advertise a job, Disclosure and Barring (DBS) checks, discrimination law and apprenticeships",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:45Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Recruiting and hiring",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/employing-people",
+                    "base_path": "/browse/employing-people",
+                    "content_id": "a0a4c44e-5e8a-44f6-9e64-32ab2c9ba065",
+                    "description": "Includes pay, contracts and hiring",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Employing people",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/employing-people",
+                    "web_url": "https://www.gov.uk/browse/employing-people"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/employing-people/recruiting-hiring",
+              "web_url": "https://www.gov.uk/browse/employing-people/recruiting-hiring"
+            },
+            {
+              "api_path": "/api/content/browse/employing-people/health-safety",
+              "base_path": "/browse/employing-people/health-safety",
+              "content_id": "1a1c2c64-0c37-4ff8-b48c-98c4e236e059",
+              "description": "Accidents, health and safety law and workplace conditions",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:41Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Health and safety at work",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/employing-people",
+                    "base_path": "/browse/employing-people",
+                    "content_id": "a0a4c44e-5e8a-44f6-9e64-32ab2c9ba065",
+                    "description": "Includes pay, contracts and hiring",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Employing people",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/employing-people",
+                    "web_url": "https://www.gov.uk/browse/employing-people"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/employing-people/health-safety",
+              "web_url": "https://www.gov.uk/browse/employing-people/health-safety"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/recruitment-disabled-people",
+        "web_url": "https://www.gov.uk/recruitment-disabled-people"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D3",
+        "api_path": "/api/content/government/organisations/department-for-business-innovation-skills",
+        "base_path": "/government/organisations/department-for-business-innovation-skills",
+        "content_id": "569a9ee5-c195-4b7f-b9dc-edc17a09113f",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-08-01T15:38:37Z",
+        "schema_name": "organisation",
+        "title": "Department for Business, Innovation & Skills",
+        "withdrawn": false,
+        "details": {
+          "acronym": "BIS",
+          "body": "<div class=\"govspeak\"><p>The Department for Business, Innovation and Skills (BIS) and the Department of Energy and Climate Change (DECC) have merged to form the Department for Business, Energy and Industrial Strategy (BEIS).</p>\n\n<p>For information on education and skills, see the <a href=\"/government/organisations/department-for-education\">Department for Education (DfE)</a>.</p>\n\n<p>For information on trade, see the <a href=\"/government/organisations/department-for-international-trade\">Department for International Trade (DIT)</a>.</p>\n</div>",
+          "brand": "department-for-business-innovation-skills",
+          "logo": {
+            "formatted_title": "Department <br/>for Business<br/>Innovation &amp; Skills",
+            "crest": "bis"
+          },
+          "foi_exempt": false,
+          "ordered_corporate_information_pages": [
+            {
+              "title": "Research at BIS",
+              "href": "/government/organisations/department-for-business-innovation-skills/about/research"
+            },
+            {
+              "title": "Our energy use",
+              "href": "/government/organisations/department-for-business-innovation-skills/about/our-energy-use"
+            },
+            {
+              "title": "Complaints procedure",
+              "href": "/government/organisations/department-for-business-innovation-skills/about/complaints-procedure"
+            },
+            {
+              "title": "Statistics at BIS",
+              "href": "/government/organisations/department-for-business-innovation-skills/about/statistics"
+            },
+            {
+              "title": "Media enquiries",
+              "href": "/government/organisations/department-for-business-innovation-skills/about/media-enquiries"
+            },
+            {
+              "title": "Corporate reports",
+              "href": "/government/publications?departments%5B%5D=department-for-business-innovation-skills&publication_type=corporate-reports"
+            },
+            {
+              "title": "Transparency data",
+              "href": "/government/publications?departments%5B%5D=department-for-business-innovation-skills&publication_type=transparency-data"
+            },
+            {
+              "title": "Procurement at BIS",
+              "href": "/government/organisations/department-for-business-innovation-skills/about/procurement"
+            },
+            {
+              "title": "Working for BIS",
+              "href": "/government/organisations/department-for-business-innovation-skills/about/recruitment"
+            },
+            {
+              "title": "Jobs",
+              "href": "https://www.civilservicejobs.service.gov.uk/csr"
+            }
+          ],
+          "secondary_corporate_information_pages": "Read about the types of information we routinely publish in our <a class=\"brand__color\" href=\"/government/organisations/department-for-business-innovation-skills/about/publication-scheme\">Publication scheme</a>. Find out about our commitment to <a class=\"brand__color\" href=\"/government/organisations/department-for-business-innovation-skills/about/welsh-language-scheme\">publishing in Welsh</a>. Our <a class=\"brand__color\" href=\"/government/organisations/department-for-business-innovation-skills/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
+          "ordered_featured_links": [
+            {
+              "title": "Find tools and guidance for business",
+              "href": "https://www.gov.uk/browse/business"
+            },
+            {
+              "title": "Find guidance on jobs and pensions ",
+              "href": "https://www.gov.uk/browse/working"
+            },
+            {
+              "title": "Learn about export control",
+              "href": "https://www.gov.uk/government/organisations/export-control-organisation"
+            },
+            {
+              "title": "Find business finance and grants",
+              "href": "https://www.gov.uk/business-finance-support-finder"
+            },
+            {
+              "title": "Get export support",
+              "href": "https://www.gov.uk/ukti"
+            }
+          ],
+          "ordered_featured_documents": [
+            {
+              "title": "Pubs Code comes into force",
+              "href": "/government/news/pubs-code-comes-into-force",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/46381/beer-terrace-summer-CC0.jpg",
+                "alt_text": "Beer in a pub"
+              },
+              "summary": "<div class=\"govspeak\"><p>The Pubs Code has come into force, giving tenants more rights and greater protection when dealing with large pub companies that own tied pubs.</p>\n</div>",
+              "public_updated_at": "2016-07-21T10:25:00.000+01:00",
+              "document_type": "Press release"
+            },
+            {
+              "title": "Statement on the proposed takeover of ARM Holdings",
+              "href": "/government/news/statement-on-the-proposed-takeover-of-arm-holdings",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/46197/ARM-HP-PRINTER.JPG",
+                "alt_text": "ARM chip"
+              },
+              "summary": "<div class=\"govspeak\"><p>Statement from Business Secretary Greg Clark on the proposed takeover of ARM Holdings by SoftBank.</p>\n</div>",
+              "public_updated_at": "2016-07-18T13:07:45.000+01:00",
+              "document_type": "Government response"
+            },
+            {
+              "title": "Statement from Greg Clark, Secretary of State for Business, Energy and Industrial Strategy",
+              "href": "/government/news/statement-from-greg-clark-secretary-of-state-for-business-energy-and-industrial-strategy",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/46046/Greg_Clark_2__2_.JPG",
+                "alt_text": "Greg Clark MP"
+              },
+              "summary": "<div class=\"govspeak\"><p>Statement from Greg Clark following his appointment as the Secretary of State for Business, Energy and Industrial Strategy.</p>\n</div>",
+              "public_updated_at": "2016-07-14T17:11:00.000+01:00",
+              "document_type": "Press release"
+            },
+            {
+              "title": "Government gives UK businesses £57m boost to bring ideas to market",
+              "href": "/government/news/government-gives-uk-businesses-57m-boost-to-bring-ideas-to-market",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/45601/lab-385348_960_720.jpg",
+                "alt_text": "Lab"
+              },
+              "summary": "<div class=\"govspeak\"><p>A new funding boost of £57.5 million has been announced for the UK’s energy and infrastructure, biomedical and quantum technology sectors.</p>\n</div>",
+              "public_updated_at": "2016-07-07T15:36:57.000+01:00",
+              "document_type": "Press release"
+            },
+            {
+              "title": "Leading the world in the new age of global science",
+              "href": "/government/speeches/leading-the-world-in-the-new-age-of-global-science",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/45410/jo-johnson.jpg",
+                "alt_text": "Jo Johnson"
+              },
+              "summary": "<div class=\"govspeak\"><p>Speech by Jo Johnson MP, Minister for Universities and Science, at the Wellcome Trust.</p>\n</div>",
+              "public_updated_at": "2016-06-30T13:17:56.000+01:00",
+              "document_type": "Speech"
+            }
+          ],
+          "ordered_promotional_features": [
+
+          ],
+          "ordered_ministers": [
+
+          ],
+          "ordered_board_members": [
+
+          ],
+          "ordered_military_personnel": [
+
+          ],
+          "ordered_traffic_commissioners": [
+
+          ],
+          "ordered_chief_professional_officers": [
+
+          ],
+          "ordered_special_representatives": [
+
+          ],
+          "important_board_members": 1,
+          "organisation_featuring_priority": "news",
+          "organisation_govuk_status": {
+            "status": "replaced",
+            "url": "http://www.bis.gov.uk/",
+            "updated_at": "2016-07-15T00:00:00.000+01:00"
+          },
+          "organisation_type": "ministerial_department",
+          "social_media_links": [
+            {
+              "service_type": "twitter",
+              "title": "Twitter",
+              "href": "http://www.twitter.com/bisgovuk"
+            },
+            {
+              "service_type": "youtube",
+              "title": "YouTube",
+              "href": "http://www.youtube.com/bisgovuk"
+            },
+            {
+              "service_type": "flickr",
+              "title": "Flickr",
+              "href": "http://www.flickr.com/photos/bisgovuk"
+            }
+          ]
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-business-innovation-skills",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-business-innovation-skills"
+      }
+    ],
+    "parent": [
+      {
+        "api_path": "/api/content/browse/employing-people/contracts",
+        "base_path": "/browse/employing-people/contracts",
+        "content_id": "dbad809a-29b0-4be7-b3d9-9b0b302c4f44",
+        "description": "Includes types of worker, employee rights, overtime and changes to contracts",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:38Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Contracts of employment and working hours",
+        "withdrawn": false,
+        "links": {
+          "parent": [
+            {
+              "api_path": "/api/content/browse/employing-people",
+              "base_path": "/browse/employing-people",
+              "content_id": "a0a4c44e-5e8a-44f6-9e64-32ab2c9ba065",
+              "description": "Includes pay, contracts and hiring",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-04-08T10:48:44Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Employing people",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/employing-people",
+              "web_url": "https://www.gov.uk/browse/employing-people"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/browse/employing-people/contracts",
+        "web_url": "https://www.gov.uk/browse/employing-people/contracts"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-12-21T09:51:19Z",
+        "schema_name": "organisation",
+        "title": "Government Digital Service",
+        "withdrawn": false,
+        "details": {
+          "brand": "cabinet-office",
+          "logo": {
+            "formatted_title": "Government Digital Service",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/government-digital-service",
+        "web_url": "https://www.gov.uk/government/organisations/government-digital-service"
+      }
+    ],
+    "taxons": [
+      {
+        "api_path": "/api/content/business/contracts",
+        "base_path": "/business/contracts",
+        "content_id": "1a1c3605-b40f-4814-8ab0-fdb2f9b95e0e",
+        "description": "Includes types of worker, employee rights, overtime and changes to contracts",
+        "document_type": "taxon",
+        "locale": "en",
+        "public_updated_at": "2018-07-16T12:32:09Z",
+        "schema_name": "taxon",
+        "title": "Contracts of employment and working hours",
+        "withdrawn": false,
+        "details": {
+          "internal_name": "Contracts of employment and working hours [M]",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": false
+        },
+        "phase": "beta",
+        "links": {
+          "parent_taxons": [
+            {
+              "api_path": "/api/content/business/employing-people",
+              "base_path": "/business/employing-people",
+              "content_id": "35f5b496-add7-4263-8084-8510461881fe",
+              "description": "Includes pay, contracts and hiring",
+              "document_type": "taxon",
+              "locale": "en",
+              "public_updated_at": "2018-07-16T12:53:51Z",
+              "schema_name": "taxon",
+              "title": "Employing people",
+              "withdrawn": false,
+              "details": {
+                "internal_name": "Employing people [M] (merged level 2)",
+                "notes_for_editors": "",
+                "visible_to_departmental_editors": false
+              },
+              "phase": "beta",
+              "links": {
+                "parent_taxons": [
+                  {
+                    "api_path": "/api/content/business-and-industry/running-a-business",
+                    "base_path": "/business-and-industry/running-a-business",
+                    "content_id": "8aa41155-58ff-4d7d-a11a-7e3ef42863dd",
+                    "description": "",
+                    "document_type": "taxon",
+                    "locale": "en",
+                    "public_updated_at": "2018-07-16T16:02:37Z",
+                    "schema_name": "taxon",
+                    "title": "Running a business",
+                    "withdrawn": false,
+                    "details": {
+                      "internal_name": "Running a business",
+                      "notes_for_editors": "",
+                      "visible_to_departmental_editors": false
+                    },
+                    "phase": "beta",
+                    "links": {
+                      "parent_taxons": [
+                        {
+                          "api_path": "/api/content/business-and-industry/all",
+                          "base_path": "/business-and-industry/all",
+                          "content_id": "495afdb6-47be-4df1-8b38-91c8adb1eefc",
+                          "description": "",
+                          "document_type": "taxon",
+                          "locale": "en",
+                          "public_updated_at": "2018-07-16T18:11:11Z",
+                          "schema_name": "taxon",
+                          "title": "Business and industry",
+                          "withdrawn": false,
+                          "details": {
+                            "internal_name": "Business and industry (level 1) (merged with Business and Enterprise [PA])",
+                            "notes_for_editors": "",
+                            "visible_to_departmental_editors": true
+                          },
+                          "phase": "beta",
+                          "links": {
+                            "root_taxon": [
+                              {
+                                "api_path": "/api/content/",
+                                "base_path": "/",
+                                "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+                                "description": "",
+                                "document_type": "homepage",
+                                "locale": "en",
+                                "public_updated_at": "2018-06-12T15:28:48Z",
+                                "schema_name": "homepage",
+                                "title": "GOV.UK homepage",
+                                "withdrawn": false,
+                                "links": {
+                                },
+                                "api_url": "https://www.gov.uk/api/content/",
+                                "web_url": "https://www.gov.uk/"
+                              }
+                            ]
+                          },
+                          "api_url": "https://www.gov.uk/api/content/business-and-industry/all",
+                          "web_url": "https://www.gov.uk/business-and-industry/all"
+                        }
+                      ]
+                    },
+                    "api_url": "https://www.gov.uk/api/content/business-and-industry/running-a-business",
+                    "web_url": "https://www.gov.uk/business-and-industry/running-a-business"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/business/employing-people",
+              "web_url": "https://www.gov.uk/business/employing-people"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/business/contracts",
+        "web_url": "https://www.gov.uk/business/contracts"
+      },
+      {
+        "api_path": "/api/content/business/trade-unions",
+        "base_path": "/business/trade-unions",
+        "content_id": "0dd70f8a-3092-42e6-ae9b-60347534e1e4",
+        "description": "Includes industrial action and recognising trade unions",
+        "document_type": "taxon",
+        "locale": "en",
+        "public_updated_at": "2018-07-16T12:32:09Z",
+        "schema_name": "taxon",
+        "title": "Trade unions and workers rights",
+        "withdrawn": false,
+        "details": {
+          "internal_name": "Trade unions and workers rights [M]",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": false
+        },
+        "phase": "beta",
+        "links": {
+          "parent_taxons": [
+            {
+              "api_path": "/api/content/business/employing-people",
+              "base_path": "/business/employing-people",
+              "content_id": "35f5b496-add7-4263-8084-8510461881fe",
+              "description": "Includes pay, contracts and hiring",
+              "document_type": "taxon",
+              "locale": "en",
+              "public_updated_at": "2018-07-16T12:53:51Z",
+              "schema_name": "taxon",
+              "title": "Employing people",
+              "withdrawn": false,
+              "details": {
+                "internal_name": "Employing people [M] (merged level 2)",
+                "notes_for_editors": "",
+                "visible_to_departmental_editors": false
+              },
+              "phase": "beta",
+              "links": {
+                "parent_taxons": [
+                  {
+                    "api_path": "/api/content/business-and-industry/running-a-business",
+                    "base_path": "/business-and-industry/running-a-business",
+                    "content_id": "8aa41155-58ff-4d7d-a11a-7e3ef42863dd",
+                    "description": "",
+                    "document_type": "taxon",
+                    "locale": "en",
+                    "public_updated_at": "2018-07-16T16:02:37Z",
+                    "schema_name": "taxon",
+                    "title": "Running a business",
+                    "withdrawn": false,
+                    "details": {
+                      "internal_name": "Running a business",
+                      "notes_for_editors": "",
+                      "visible_to_departmental_editors": false
+                    },
+                    "phase": "beta",
+                    "links": {
+                      "parent_taxons": [
+                        {
+                          "api_path": "/api/content/business-and-industry/all",
+                          "base_path": "/business-and-industry/all",
+                          "content_id": "495afdb6-47be-4df1-8b38-91c8adb1eefc",
+                          "description": "",
+                          "document_type": "taxon",
+                          "locale": "en",
+                          "public_updated_at": "2018-07-16T18:11:11Z",
+                          "schema_name": "taxon",
+                          "title": "Business and industry",
+                          "withdrawn": false,
+                          "details": {
+                            "internal_name": "Business and industry (level 1) (merged with Business and Enterprise [PA])",
+                            "notes_for_editors": "",
+                            "visible_to_departmental_editors": true
+                          },
+                          "phase": "beta",
+                          "links": {
+                            "root_taxon": [
+                              {
+                                "api_path": "/api/content/",
+                                "base_path": "/",
+                                "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+                                "description": "",
+                                "document_type": "homepage",
+                                "locale": "en",
+                                "public_updated_at": "2018-06-12T15:28:48Z",
+                                "schema_name": "homepage",
+                                "title": "GOV.UK homepage",
+                                "withdrawn": false,
+                                "links": {
+                                },
+                                "api_url": "https://www.gov.uk/api/content/",
+                                "web_url": "https://www.gov.uk/"
+                              }
+                            ]
+                          },
+                          "api_url": "https://www.gov.uk/api/content/business-and-industry/all",
+                          "web_url": "https://www.gov.uk/business-and-industry/all"
+                        }
+                      ]
+                    },
+                    "api_url": "https://www.gov.uk/api/content/business-and-industry/running-a-business",
+                    "web_url": "https://www.gov.uk/business-and-industry/running-a-business"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/business/employing-people",
+              "web_url": "https://www.gov.uk/business/employing-people"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/business/trade-unions",
+        "web_url": "https://www.gov.uk/business/trade-unions"
+      },
+      {
+        "api_path": "/api/content/business/recruiting-hiring",
+        "base_path": "/business/recruiting-hiring",
+        "content_id": "c195d3e6-5924-4def-b1c2-24a685a0b210",
+        "description": "Advertise a job, Disclosure and Barring (DBS) checks, discrimination law and apprenticeships",
+        "document_type": "taxon",
+        "locale": "en",
+        "public_updated_at": "2018-07-16T12:32:09Z",
+        "schema_name": "taxon",
+        "title": "Recruiting and hiring",
+        "withdrawn": false,
+        "details": {
+          "internal_name": "Recruiting and hiring [M] (level 3, business theme)",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": false
+        },
+        "phase": "beta",
+        "links": {
+          "parent_taxons": [
+            {
+              "api_path": "/api/content/business/employing-people",
+              "base_path": "/business/employing-people",
+              "content_id": "35f5b496-add7-4263-8084-8510461881fe",
+              "description": "Includes pay, contracts and hiring",
+              "document_type": "taxon",
+              "locale": "en",
+              "public_updated_at": "2018-07-16T12:53:51Z",
+              "schema_name": "taxon",
+              "title": "Employing people",
+              "withdrawn": false,
+              "details": {
+                "internal_name": "Employing people [M] (merged level 2)",
+                "notes_for_editors": "",
+                "visible_to_departmental_editors": false
+              },
+              "phase": "beta",
+              "links": {
+                "parent_taxons": [
+                  {
+                    "api_path": "/api/content/business-and-industry/running-a-business",
+                    "base_path": "/business-and-industry/running-a-business",
+                    "content_id": "8aa41155-58ff-4d7d-a11a-7e3ef42863dd",
+                    "description": "",
+                    "document_type": "taxon",
+                    "locale": "en",
+                    "public_updated_at": "2018-07-16T16:02:37Z",
+                    "schema_name": "taxon",
+                    "title": "Running a business",
+                    "withdrawn": false,
+                    "details": {
+                      "internal_name": "Running a business",
+                      "notes_for_editors": "",
+                      "visible_to_departmental_editors": false
+                    },
+                    "phase": "beta",
+                    "links": {
+                      "parent_taxons": [
+                        {
+                          "api_path": "/api/content/business-and-industry/all",
+                          "base_path": "/business-and-industry/all",
+                          "content_id": "495afdb6-47be-4df1-8b38-91c8adb1eefc",
+                          "description": "",
+                          "document_type": "taxon",
+                          "locale": "en",
+                          "public_updated_at": "2018-07-16T18:11:11Z",
+                          "schema_name": "taxon",
+                          "title": "Business and industry",
+                          "withdrawn": false,
+                          "details": {
+                            "internal_name": "Business and industry (level 1) (merged with Business and Enterprise [PA])",
+                            "notes_for_editors": "",
+                            "visible_to_departmental_editors": true
+                          },
+                          "phase": "beta",
+                          "links": {
+                            "root_taxon": [
+                              {
+                                "api_path": "/api/content/",
+                                "base_path": "/",
+                                "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+                                "description": "",
+                                "document_type": "homepage",
+                                "locale": "en",
+                                "public_updated_at": "2018-06-12T15:28:48Z",
+                                "schema_name": "homepage",
+                                "title": "GOV.UK homepage",
+                                "withdrawn": false,
+                                "links": {
+                                },
+                                "api_url": "https://www.gov.uk/api/content/",
+                                "web_url": "https://www.gov.uk/"
+                              }
+                            ]
+                          },
+                          "api_url": "https://www.gov.uk/api/content/business-and-industry/all",
+                          "web_url": "https://www.gov.uk/business-and-industry/all"
+                        }
+                      ]
+                    },
+                    "api_url": "https://www.gov.uk/api/content/business-and-industry/running-a-business",
+                    "web_url": "https://www.gov.uk/business-and-industry/running-a-business"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/business/employing-people",
+              "web_url": "https://www.gov.uk/business/employing-people"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/business/recruiting-hiring",
+        "web_url": "https://www.gov.uk/business/recruiting-hiring"
+      },
+      {
+        "api_path": "/api/content/employment/recruiting-hiring",
+        "base_path": "/employment/recruiting-hiring",
+        "content_id": "55e8ea89-9ba8-4439-a703-7d26723a4ec0",
+        "document_type": "taxon",
+        "locale": "en",
+        "public_updated_at": "2018-03-08T14:41:44Z",
+        "schema_name": "taxon",
+        "title": "Recruiting and hiring",
+        "withdrawn": false,
+        "details": {
+          "internal_name": "Recruiting and hiring (level 3, work theme, content from mainstream browse)",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": false
+        },
+        "phase": "alpha",
+        "links": {
+          "parent_taxons": [
+            {
+              "api_path": "/api/content/employment/working",
+              "base_path": "/employment/working",
+              "content_id": "092348a4-b896-4f8f-a0dc-e6d4605a4904",
+              "description": "Includes holidays and finding a job",
+              "document_type": "taxon",
+              "locale": "en",
+              "public_updated_at": "2018-03-08T14:41:44Z",
+              "schema_name": "taxon",
+              "title": "Working, jobs and pensions",
+              "withdrawn": false,
+              "details": {
+                "internal_name": "Working, jobs and pensions [M] (merged, level 2, work theme)",
+                "notes_for_editors": "",
+                "visible_to_departmental_editors": false
+              },
+              "phase": "alpha",
+              "links": {
+                "parent_taxons": [
+                  {
+                    "api_path": "/api/content/work",
+                    "base_path": "/work",
+                    "content_id": "d0f1e5a3-c8f4-4780-8678-994f19104b21",
+                    "description": "To boost the number of jobs and create a flexible labour market, the government is modernising employment law while protecting employee rights. To increase the number of people in employment, we need to support them into work through the benefits system and job search support.",
+                    "document_type": "taxon",
+                    "locale": "en",
+                    "public_updated_at": "2018-06-06T16:08:30Z",
+                    "schema_name": "taxon",
+                    "title": "Work",
+                    "withdrawn": false,
+                    "details": {
+                      "internal_name": "Work (theme, level 1)",
+                      "notes_for_editors": "",
+                      "visible_to_departmental_editors": true
+                    },
+                    "phase": "alpha",
+                    "links": {
+                      "root_taxon": [
+                        {
+                          "api_path": "/api/content/",
+                          "base_path": "/",
+                          "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+                          "description": "",
+                          "document_type": "homepage",
+                          "locale": "en",
+                          "public_updated_at": "2018-06-12T15:28:48Z",
+                          "schema_name": "homepage",
+                          "title": "GOV.UK homepage",
+                          "withdrawn": false,
+                          "links": {
+                          },
+                          "api_url": "https://www.gov.uk/api/content/",
+                          "web_url": "https://www.gov.uk/"
+                        }
+                      ]
+                    },
+                    "api_url": "https://www.gov.uk/api/content/work",
+                    "web_url": "https://www.gov.uk/work"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/employment/working",
+              "web_url": "https://www.gov.uk/employment/working"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/employment/recruiting-hiring",
+        "web_url": "https://www.gov.uk/employment/recruiting-hiring"
+      }
+    ],
+    "part_of_step_navs": [
+      {
+        "api_path": "/api/content/employ-someone",
+        "base_path": "/employ-someone",
+        "content_id": "47bcdf4c-9df9-48ff-b1ad-2381ca819464",
+        "description": "Employ someone: agree a contract, right to work checks, DBS checks, workplace pensions, set up PAYE, tell HMRC",
+        "document_type": "step_by_step_nav",
+        "locale": "en",
+        "public_updated_at": "2018-07-26T08:20:20Z",
+        "schema_name": "step_by_step_nav",
+        "title": "Employ someone: step by step",
+        "withdrawn": false,
+        "details": {
+          "step_by_step_nav": {
+            "title": "Employ someone: step by step",
+            "introduction": [
+              {
+                "content_type": "text/govspeak",
+                "content": "Check what you need to do to employ someone to work for you. "
+              }
+            ],
+            "steps": [
+              {
+                "title": "Check your business is ready to employ staff",
+                "contents": [
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Prepare your business to take on employees",
+                        "href": "/get-ready-to-employ-someone"
+                      }
+                    ]
+                  }
+                ],
+                "optional": false
+              },
+              {
+                "title": "Recruit someone",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need to advertise the role and interview candidates. You can use a recruitment agency to do this or do it yourself."
+                  },
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Find out about recruiting someone yourself on Acas",
+                        "href": "http://www.acas.org.uk/index.aspx?articleid=4217"
+                      },
+                      {
+                        "text": "Find out about using a recruitment agency",
+                        "href": "/using-a-recruitment-agency-to-find-staff"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "As an employer you must make sure you recruit employees fairly."
+                  },
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Avoid discrimination during recruitment",
+                        "href": "/employer-preventing-discrimination/recruitment"
+                      },
+                      {
+                        "text": "Make your application process accessible for employees with disabilities or health conditions",
+                        "href": "/reasonable-adjustments-for-disabled-workers"
+                      }
+                    ]
+                  }
+                ],
+                "optional": false
+              },
+              {
+                "title": "Check they have the legal right to work in the UK",
+                "contents": [
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Find out how to check an applicant's right to work documents",
+                        "href": "/check-job-applicant-right-to-work"
+                      }
+                    ]
+                  }
+                ],
+                "optional": false,
+                "logic": "and"
+              },
+              {
+                "title": "Find out if they need a DBS check",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You may need to check someone's criminal record, for example, if they'll be working in healthcare or with children."
+                  },
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Find out if you need a DBS check",
+                        "href": "/dbs-check-applicant-criminal-record"
+                      },
+                      {
+                        "text": "How to do a DBS check",
+                        "href": "/dbs-check-applicant-criminal-record/how-to-apply-for-a-check"
+                      }
+                    ]
+                  }
+                ],
+                "optional": true,
+                "logic": "and"
+              },
+              {
+                "title": "Check if they need to be put into a workplace pension",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "Check if you need to put your employee into a workplace pension scheme:"
+                  },
+                  {
+                    "type": "list",
+                    "style": "choice",
+                    "contents": [
+                      {
+                        "text": "if it's the first time you're employing someone",
+                        "href": "http://www.thepensionsregulator.gov.uk/en/employers/new-employers/step-1.aspx"
+                      },
+                      {
+                        "text": "if you already employ people",
+                        "href": "http://www.thepensionsregulator.gov.uk/en/employers/new-employers/pension/i-am-an-employer-who-has-to-provide-a-pension/declare-your-compliance/your-ongoing-duties.aspx"
+                      }
+                    ]
+                  }
+                ],
+                "optional": false
+              },
+              {
+                "title": "Agree a contract and salary",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "When someone accepts a job offer they have a contract with you as their employer."
+                  },
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Check what the National Minimum Wage is for different ages",
+                        "href": "/national-minimum-wage-rates"
+                      },
+                      {
+                        "text": "Check what the National Minimum Wage is for different types of work",
+                        "href": "/minimum-wage-different-types-work"
+                      },
+                      {
+                        "text": "Check what to include in a contract",
+                        "href": "/employment-contracts-and-conditions/contract-terms"
+                      },
+                      {
+                        "text": "Agree a written statement of employment particulars",
+                        "href": "/employment-contracts-and-conditions/written-statement-of-employment-particulars"
+                      }
+                    ]
+                  }
+                ],
+                "optional": false
+              },
+              {
+                "title": "Tell HMRC about your new employee",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You must tell HMRC about your new employee on or before their first pay day."
+                  },
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Tell HMRC about a new employee",
+                        "href": "/new-employee"
+                      },
+                      {
+                        "text": "Get their personal details and P45 to work out their tax code",
+                        "href": "/new-employee/employee-information"
+                      },
+                      {
+                        "text": "If you don’t have their P45, use HMRC’s ‘starter checklist’",
+                        "href": "/new-employee/late-p45"
+                      },
+                      {
+                        "text": "Check what to do when you start paying your employee",
+                        "href": "/running-payroll"
+                      }
+                    ]
+                  }
+                ],
+                "optional": false
+              }
+            ]
+          }
+        },
+        "links": {
+          "pages_part_of_step_nav": [
+            {
+              "api_path": "/api/content/employer-preventing-discrimination",
+              "base_path": "/employer-preventing-discrimination",
+              "content_id": "a5669f74-406d-46bf-9e0f-13aad618862e",
+              "description": "Discrimination policy and equal opportunities in recruitment and in the workplace - age discrimination, disabled workers, gender reassignment, sex discrimination ",
+              "document_type": "guide",
+              "locale": "en",
+              "public_updated_at": "2015-08-21T17:14:06Z",
+              "schema_name": "guide",
+              "title": "Employers: preventing discrimination",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/employer-preventing-discrimination",
+              "web_url": "https://www.gov.uk/employer-preventing-discrimination"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/employ-someone",
+        "web_url": "https://www.gov.uk/employ-someone"
+      },
+      {
+        "api_path": "/api/content/get-ready-to-employ-someone",
+        "base_path": "/get-ready-to-employ-someone",
+        "content_id": "dc77c606-cc6b-49ac-9f40-b96959d02539",
+        "description": "Get your business ready to employ staff - your responsibilities as an employer, register with HMRC, set up PAYE, get insurance",
+        "document_type": "step_by_step_nav",
+        "locale": "en",
+        "public_updated_at": "2018-06-22T12:13:07Z",
+        "schema_name": "step_by_step_nav",
+        "title": "Get your business ready to employ staff: step by step",
+        "withdrawn": false,
+        "details": {
+          "step_by_step_nav": {
+            "title": "Get your business ready to employ staff: step by step",
+            "introduction": [
+              {
+                "content_type": "text/govspeak",
+                "content": "Check what you need to do as an employer before you can take on staff. "
+              }
+            ],
+            "steps": [
+              {
+                "title": "Decide what type of employee you need",
+                "contents": [
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Check whether you need full time or part time staff",
+                        "href": "/contract-types-and-employer-responsibilities/fulltime-and-parttime-contracts"
+                      },
+                      {
+                        "text": "Check the different types of employment status",
+                        "href": "/employment-status"
+                      }
+                    ]
+                  }
+                ],
+                "optional": false
+              },
+              {
+                "title": "Check you can afford to take on employees",
+                "contents": [
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Check how much the National Minimum Wage is",
+                        "href": "/national-minimum-wage"
+                      },
+                      {
+                        "text": "Find out how much National Insurance you need to pay for your employees",
+                        "href": "/national-insurance-rates-letters"
+                      },
+                      {
+                        "text": "Check how much sick pay your employees are eligible for",
+                        "href": "/employers-sick-pay"
+                      },
+                      {
+                        "text": "Check how much you need to pay towards your employee's pension",
+                        "href": "/workplace-pensions-employers"
+                      },
+                      {
+                        "text": "Check how much Maternity Leave you need to pay your employees",
+                        "href": "/employers-maternity-pay-leave"
+                      },
+                      {
+                        "text": "Check how much Paternity Leave you need to pay your employees",
+                        "href": "/employers-paternity-pay-leave"
+                      }
+                    ]
+                  }
+                ],
+                "optional": false,
+                "logic": "and"
+              },
+              {
+                "title": "Make your workplace safe and accessible for employees",
+                "contents": [
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Prevent discrimination",
+                        "href": "/employer-preventing-discrimination"
+                      },
+                      {
+                        "text": "Make your workplace accessible for employees with disabilities or health conditions",
+                        "href": "/reasonable-adjustments-for-disabled-workers"
+                      },
+                      {
+                        "text": "Keep employee information and data safe",
+                        "href": "/personal-data-my-employer-can-keep-about-me"
+                      },
+                      {
+                        "text": "Fire safety",
+                        "href": "/workplace-fire-safety-your-responsibilities"
+                      },
+                      {
+                        "text": "Health and safety",
+                        "href": "http://www.hse.gov.uk/simple-health-safety/index.htm"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "You also need to make checks when you recruit and employ someone. "
+                  },
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Find out what you need to check when you employ someone",
+                        "href": "/employ-someone"
+                      }
+                    ]
+                  }
+                ],
+                "optional": false
+              },
+              {
+                "title": "Register as an employer and set up PAYE",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need to register with HMRC so you can pay tax and national insurance for your employees."
+                  },
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Register as an employer and set up PAYE",
+                        "href": "/register-employer"
+                      },
+                      {
+                        "text": "Choose how to run payroll",
+                        "href": "/paye-for-employers/choose-payroll"
+                      },
+                      {
+                        "text": "If you decide to run payroll yourself, choose payroll software",
+                        "href": "/payroll-software"
+                      }
+                    ]
+                  }
+                ],
+                "optional": false
+              },
+              {
+                "title": "Check your responsibilities around workplace pensions",
+                "contents": [
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Understand your pension responsibilities as an employer",
+                        "href": "http://www.thepensionsregulator.gov.uk/en/employers/setting-up-a-business-what-to-do-for-automatic-enrolment.aspx"
+                      }
+                    ]
+                  }
+                ],
+                "optional": false
+              },
+              {
+                "title": "Get Employers' Liability insurance",
+                "contents": [
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Find out about Employers' Liability insurance",
+                        "href": "/employers-liability-insurance"
+                      }
+                    ]
+                  }
+                ],
+                "optional": false
+              },
+              {
+                "title": "Recruit and employ staff",
+                "contents": [
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "text": "Employ someone",
+                        "href": "/employ-someone"
+                      }
+                    ]
+                  }
+                ],
+                "optional": false
+              }
+            ]
+          }
+        },
+        "links": {
+          "pages_part_of_step_nav": [
+            {
+              "api_path": "/api/content/employer-preventing-discrimination",
+              "base_path": "/employer-preventing-discrimination",
+              "content_id": "a5669f74-406d-46bf-9e0f-13aad618862e",
+              "description": "Discrimination policy and equal opportunities in recruitment and in the workplace - age discrimination, disabled workers, gender reassignment, sex discrimination ",
+              "document_type": "guide",
+              "locale": "en",
+              "public_updated_at": "2015-08-21T17:14:06Z",
+              "schema_name": "guide",
+              "title": "Employers: preventing discrimination",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/employer-preventing-discrimination",
+              "web_url": "https://www.gov.uk/employer-preventing-discrimination"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/get-ready-to-employ-someone",
+        "web_url": "https://www.gov.uk/get-ready-to-employ-someone"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Employers: preventing discrimination",
+        "public_updated_at": "2015-08-21T17:14:06Z",
+        "document_type": "guide",
+        "schema_name": "guide",
+        "base_path": "/employer-preventing-discrimination",
+        "description": "Discrimination policy and equal opportunities in recruitment and in the workplace - age discrimination, disabled workers, gender reassignment, sex discrimination ",
+        "api_path": "/api/content/employer-preventing-discrimination",
+        "withdrawn": false,
+        "content_id": "a5669f74-406d-46bf-9e0f-13aad618862e",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/employer-preventing-discrimination",
+        "web_url": "https://www.gov.uk/employer-preventing-discrimination",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Discrimination policy and equal opportunities in recruitment and in the workplace - age discrimination, disabled workers, gender reassignment, sex discrimination ",
+  "details": {
+    "hide_chapter_navigation": true,
+    "parts": [
+      {
+        "title": "Overview",
+        "slug": "what-discrimination-is",
+        "body": "<p>It is against the law to treat someone less favourably than someone else because of a personal characteristic, eg religion, gender or age.</p>\n\n<p>Discrimination can include:</p>\n\n<ul>\n  <li>not hiring someone</li>\n  <li>selecting a particular person for redundancy</li>\n  <li>paying someone less than another worker without good reason</li>\n</ul>\n\n<p>You can discriminate against someone even if you don’t intend to. For example, you can discriminate indirectly by offering working conditions or rules that disadvantage one group of people more than another.</p>\n"
+      },
+      {
+        "title": "Discrimination during recruitment",
+        "slug": "recruitment",
+        "body": "<h2 id=\"discrimination-in-job-adverts\">Discrimination in job adverts</h2>\n\n<p>You must not state or imply in a job advert that you’ll discriminate against anyone. This includes saying that you aren’t able to cater for workers with a disability.</p>\n\n<p>Only use phrases like ‘recent graduate’ or ‘highly experienced’ when these are actual requirements of the job. Otherwise you could discriminate against younger or older people who might not have had the opportunity to get qualifications.</p>\n\n<p>Where you advertise might cause indirect discrimination - for example, advertising only in men’s magazines.</p>\n\n<h3 id=\"get-help-advertising-a-job-without-discriminating\">Get help advertising a job without discriminating</h3>\n\n<div class=\"contact\">\n<p><strong>Small Business Recruitment Service</strong><br>\nTelephone: 0345 601 2001 (option 2)<br>\nTextphone: 0345 601 2002<br>\n<a href=\"/call-charges\">Find out about call charges</a></p>\n</div>\n\n<h2 id=\"questions-you-cant-ask-when-recruiting\">Questions you can’t ask when recruiting</h2>\n\n<p>You must not ask candidates about <a href=\"/discrimination-your-rights/types-of-discrimination\">‘protected characteristics’</a> or whether they:</p>\n\n<ul>\n  <li>are married, single or in a civil partnership</li>\n  <li>have children or plan to have children</li>\n</ul>\n\n<h3 id=\"asking-about-health-or-disability\">Asking about health or disability</h3>\n\n<p>You can only ask about health or <a href=\"/recruitment-disabled-people\">disability</a> if:</p>\n\n<ul>\n  <li>there are necessary requirements of the job that can’t be met with <a href=\"/reasonable-adjustments-for-disabled-workers\">reasonable adjustments</a>\n</li>\n  <li>you’re finding out if someone needs help to take part in a selection test or interview</li>\n  <li>you’re using ‘<a href=\"/recruitment-disabled-people/encouraging-applications\">positive action</a>’ to recruit a disabled person</li>\n</ul>\n\n<div role=\"note\" aria-label=\"Help\" class=\"application-notice help-notice\">\n<p>You might be breaking the law if any discrimination happens during their recruitment process, even if you use a recruitment agency.</p>\n</div>\n\n<h2 id=\"asking-for-a-date-of-birth\">Asking for a date of birth</h2>\n\n<p>You can only ask for someone’s date of birth on an application form if they must be a certain age to do the job, eg selling alcohol.</p>\n\n<p>You can ask someone their date of birth on a separate equality monitoring form. You shouldn’t let the person selecting or interviewing candidates see this form.</p>\n\n<h2 id=\"spent-criminal-convictions\">Spent criminal convictions</h2>\n\n<p>Applicants don’t have to tell you about <a href=\"/exoffenders-and-employment\">criminal convictions that are spent</a>. You must treat the applicant as if the conviction has not happened, and cannot refuse to employ the person because of their conviction.</p>\n\n<p>There are some areas of employment that are exempt from this rule, eg schools.</p>\n\n<h2 id=\"trade-union-membership\">Trade union membership</h2>\n\n<p>You must not use membership of a trade union as a factor in deciding whether to employ someone. This includes:</p>\n\n<ul>\n  <li>not employing someone because they’re a member of a trade union</li>\n  <li>insisting someone joins a trade union before you’ll employ them</li>\n</ul>\n\n<h2 id=\"employing-people-with-protected-characteristics\">Employing people with protected characteristics</h2>\n\n<p>You can choose a candidate who has a <a href=\"/discrimination-your-rights/types-of-discrimination\">protected characteristic</a> over one who doesn’t if they’re both suitable for the job and you think that people with that characteristic:</p>\n\n<ul>\n  <li>are underrepresented in the workforce, profession or industry</li>\n  <li>suffer a disadvantage connected to that characteristic (eg people from a certain ethnic group are not often given jobs in your sector)</li>\n</ul>\n\n<p>You can only do this if you’re trying to address the under-representation or disadvantage for that particular characteristic. You must make decisions on a case by case basis and not because of a certain policy.</p>\n\n<p>You can’t choose a candidate who isn’t as suitable for the job just because they have a protected characteristic.</p>\n\n<h2 id=\"favouring-disabled-candidates\">Favouring disabled candidates</h2>\n\n<p>When a disabled person and a non-disabled person both meet the job requirements, you can treat the disabled person more favourably.</p>\n"
+      },
+      {
+        "title": "Discrimination during employment",
+        "slug": "discrimination-during-employment",
+        "body": "<p>You must not discriminate against your employees. This could be done by, for example:</p>\n\n<ul>\n  <li>introducing measures that discriminate between workers, eg a benefit for married \nemployees that’s not available for people in a civil partnership</li>\n  <li>paying men and women different amounts (this includes benefits, eg company cars) when they’re doing work of equal value</li>\n  <li>selecting someone for redundancy because they have a protected characteristic</li>\n  <li>failing to make reasonable adjustments for a disabled worker</li>\n  <li>firing someone for making an allegation of discrimination</li>\n  <li>firing someone because they’re a union member</li>\n  <li>unfairly rejecting a <a href=\"/flexible-working\">request for flexible working</a> from a new parent</li>\n</ul>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>This includes self-employed people on a contract for you.</p>\n</div>\n\n<p>Training and promotion can’t just happen because of an employee’s age or the time they’ve worked for you.</p>\n\n<p>You’re allowed to ask employees about their future career plans, including retirement. But you can’t just choose older workers for discussions about retirement. Such talks should be part of general discussions about each worker’s career development.</p>\n\n<h2 id=\"employment-tribunals\">Employment tribunals</h2>\n\n<p>An employee who thinks they’ve been discriminated against may raise a <a href=\"/solve-workplace-dispute/formal-procedures\">grievance</a> or take their case to an employment tribunal.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>You’re responsible for discrimination carried out by your employees unless you can show you’ve done everything you reasonably could to prevent or stop it.</p>\n</div>\n\n<h2 id=\"employing-family-members\">Employing family members</h2>\n\n<p>If you hire members of your family you must:</p>\n\n<ul>\n  <li>avoid special treatment in terms of pay, promotion and working conditions</li>\n  <li>make sure tax and <a href=\"/national-insurance\">National Insurance contributions</a> are done correctly</li>\n</ul>\n\n<h2 id=\"gender-reassignment\">Gender reassignment</h2>\n\n<p>The moment a worker tells their employer that they’re having gender reassignment, they’re protected from discrimination. Discrimination includes:</p>\n\n<ul>\n  <li>disadvantaging the worker because of the time they have to take off because of medical treatment</li>\n  <li>not enabling the worker to use facilities appropriate to their gender</li>\n</ul>\n\n<p>To avoid discrimination, you must:</p>\n\n<ul>\n  <li>change your records (eg human resources records) when the worker has a Gender Reassignment Certificate and a new birth certificate</li>\n  <li>ensure complete confidentiality of all information the worker gives you about their gender history</li>\n</ul>\n"
+      }
+    ],
+    "external_related_links": [
+
+    ]
+  }
+}

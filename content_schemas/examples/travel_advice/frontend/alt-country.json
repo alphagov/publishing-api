@@ -1,0 +1,516 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/foreign-travel-advice/turkey",
+  "content_id": "385d62b6-1fb3-4b29-80f3-cef2efa73cce",
+  "document_type": "travel_advice",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2017-02-14T15:33:43.000+00:00",
+  "publishing_app": "travel-advice-publisher",
+  "rendering_app": "government-frontend",
+  "schema_name": "travel_advice",
+  "title": "Turkey travel advice",
+  "updated_at": "2017-02-17T12:52:44.142Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "ordered_related_items": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/driving-abroad",
+        "base_path": "/driving-abroad",
+        "content_id": "e4d06cb9-9e2e-4e82-b802-0aad013ae16c",
+        "description": "You'll need a Great Britain or Northern Ireland licence to drive abroad and an International Driving Permit in some non-EU countries",
+        "document_type": "answer",
+        "locale": "en",
+        "public_updated_at": "2015-07-09T08:31:23Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Driving abroad",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/abroad/living-abroad",
+              "base_path": "/browse/abroad/living-abroad",
+              "content_id": "bbb8985a-5451-4e9d-a601-8c55853a096c",
+              "description": "Includes tax, State Pension, benefits and UK government services abroad",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:51Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Living abroad",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/abroad",
+                    "base_path": "/browse/abroad",
+                    "content_id": "86eb717a-fb40-42e7-83fa-d031a03880fb",
+                    "description": "Includes renewing passports and travel advice by country",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Passports, travel and living abroad",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/abroad",
+                    "web_url": "https://www.gov.uk/browse/abroad"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/abroad/living-abroad",
+              "web_url": "https://www.gov.uk/browse/abroad/living-abroad"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/abroad/travel-abroad",
+              "base_path": "/browse/abroad/travel-abroad",
+              "content_id": "b9849cd6-61a7-42dc-8124-362d2c7d48b0",
+              "description": "Includes the latest travel advice by country, your rights at the airport and getting help abroad",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:51Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Travel abroad",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/abroad",
+                    "base_path": "/browse/abroad",
+                    "content_id": "86eb717a-fb40-42e7-83fa-d031a03880fb",
+                    "description": "Includes renewing passports and travel advice by country",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Passports, travel and living abroad",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/abroad",
+                    "web_url": "https://www.gov.uk/browse/abroad"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/abroad/travel-abroad",
+              "web_url": "https://www.gov.uk/browse/abroad/travel-abroad"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/driving-uk-and-abroad",
+              "base_path": "/browse/driving/driving-uk-and-abroad",
+              "content_id": "231ad2c1-c1cd-4e00-8479-5277cfe05027",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-10-10T23:14:51Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Driving in the UK and abroad",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/driving",
+                    "web_url": "https://www.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/driving/driving-uk-and-abroad",
+              "web_url": "https://www.gov.uk/browse/driving/driving-uk-and-abroad"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/driving-abroad",
+        "web_url": "https://www.gov.uk/driving-abroad"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/hand-luggage-restrictions",
+        "base_path": "/hand-luggage-restrictions",
+        "content_id": "95f9c380-30bc-44c7-86b4-e9c9ef0fc272",
+        "description": "Hand luggage restrictions at UK airports - carry-on luggage, checked-in baggage, restricted items and liquids",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2015-09-07T16:23:07Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Hand luggage restrictions at UK airports",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/abroad/travel-abroad",
+              "base_path": "/browse/abroad/travel-abroad",
+              "content_id": "b9849cd6-61a7-42dc-8124-362d2c7d48b0",
+              "description": "Includes the latest travel advice by country, your rights at the airport and getting help abroad",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:51Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Travel abroad",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/abroad",
+                    "base_path": "/browse/abroad",
+                    "content_id": "86eb717a-fb40-42e7-83fa-d031a03880fb",
+                    "description": "Includes renewing passports and travel advice by country",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Passports, travel and living abroad",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/abroad",
+                    "web_url": "https://www.gov.uk/browse/abroad"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/abroad/travel-abroad",
+              "web_url": "https://www.gov.uk/browse/abroad/travel-abroad"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/hand-luggage-restrictions",
+        "web_url": "https://www.gov.uk/hand-luggage-restrictions"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/renew-adult-passport",
+        "base_path": "/renew-adult-passport",
+        "content_id": "82248bb1-c4d6-41e0-9494-d98123475626",
+        "description": "How to apply, how long it takes, how much it costs, track your application, unexpired visas, replacing a damaged passport",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2015-01-12T00:01:07Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Renew or replace your adult passport",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/abroad/passports",
+              "base_path": "/browse/abroad/passports",
+              "content_id": "dd842862-e148-4fe3-b363-e57d6a2689aa",
+              "description": "Eligibility, fees, applying, renewing and updating",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-12-05T17:00:29Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Passports",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/abroad",
+                    "base_path": "/browse/abroad",
+                    "content_id": "86eb717a-fb40-42e7-83fa-d031a03880fb",
+                    "description": "Includes renewing passports and travel advice by country",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Passports, travel and living abroad",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/abroad",
+                    "web_url": "https://www.gov.uk/browse/abroad"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/abroad/passports",
+              "web_url": "https://www.gov.uk/browse/abroad/passports"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/renew-adult-passport",
+        "web_url": "https://www.gov.uk/renew-adult-passport"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D13",
+        "api_path": "/api/content/government/organisations/foreign-commonwealth-office",
+        "base_path": "/government/organisations/foreign-commonwealth-office",
+        "content_id": "9adfc4ed-9f6c-4976-a6d8-18d34356367c",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-03-22T14:43:46Z",
+        "schema_name": "placeholder",
+        "title": "Foreign & Commonwealth Office",
+        "withdrawn": false,
+        "details": {
+          "brand": "foreign-commonwealth-office",
+          "logo": {
+            "formatted_title": "Foreign &amp;<br/>Commonwealth <br/>Office",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/foreign-commonwealth-office",
+        "web_url": "https://www.gov.uk/government/organisations/foreign-commonwealth-office"
+      }
+    ],
+    "parent": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/foreign-travel-advice",
+        "base_path": "/foreign-travel-advice",
+        "content_id": "08d48cdd-6b50-43ff-a53b-beab47f4aab0",
+        "description": "Latest travel advice by country including safety and security, entry requirements, travel warnings and health",
+        "document_type": "travel_advice_index",
+        "locale": "en",
+        "public_updated_at": "2017-02-17T12:52:36Z",
+        "schema_name": "travel_advice_index",
+        "title": "Foreign travel advice",
+        "withdrawn": false,
+        "links": {
+          "parent": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/abroad/travel-abroad",
+              "base_path": "/browse/abroad/travel-abroad",
+              "content_id": "b9849cd6-61a7-42dc-8124-362d2c7d48b0",
+              "description": "Includes the latest travel advice by country, your rights at the airport and getting help abroad",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:51Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Travel abroad",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/abroad",
+                    "base_path": "/browse/abroad",
+                    "content_id": "86eb717a-fb40-42e7-83fa-d031a03880fb",
+                    "description": "Includes renewing passports and travel advice by country",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Passports, travel and living abroad",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/abroad",
+                    "web_url": "https://www.gov.uk/browse/abroad"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/abroad/travel-abroad",
+              "web_url": "https://www.gov.uk/browse/abroad/travel-abroad"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/foreign-travel-advice",
+        "web_url": "https://www.gov.uk/foreign-travel-advice"
+      }
+    ],
+    "related": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/renew-adult-passport",
+        "base_path": "/renew-adult-passport",
+        "content_id": "82248bb1-c4d6-41e0-9494-d98123475626",
+        "description": "How to apply, how long it takes, how much it costs, track your application, unexpired visas, replacing a damaged passport",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2015-01-12T00:01:07Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Renew or replace your adult passport",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/renew-adult-passport",
+        "web_url": "https://www.gov.uk/renew-adult-passport"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/abroad",
+        "base_path": "/browse/abroad",
+        "content_id": "86eb717a-fb40-42e7-83fa-d031a03880fb",
+        "description": "Includes renewing passports and travel advice by country",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-04-08T10:48:43Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Passports, travel and living abroad",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/browse/abroad",
+        "web_url": "https://www.gov.uk/browse/abroad"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/driving-abroad",
+        "base_path": "/driving-abroad",
+        "content_id": "e4d06cb9-9e2e-4e82-b802-0aad013ae16c",
+        "description": "You'll need a Great Britain or Northern Ireland licence to drive abroad and an International Driving Permit in some non-EU countries",
+        "document_type": "answer",
+        "locale": "en",
+        "public_updated_at": "2015-07-09T08:31:23Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Driving abroad",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/driving-abroad",
+        "web_url": "https://www.gov.uk/driving-abroad"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/hand-luggage-restrictions",
+        "base_path": "/hand-luggage-restrictions",
+        "content_id": "95f9c380-30bc-44c7-86b4-e9c9ef0fc272",
+        "description": "Hand luggage restrictions at UK airports - carry-on luggage, checked-in baggage, restricted items and liquids",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2015-09-07T16:23:07Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Hand luggage restrictions at UK airports",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/hand-luggage-restrictions",
+        "web_url": "https://www.gov.uk/hand-luggage-restrictions"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/abroad/travel-abroad",
+        "base_path": "/browse/abroad/travel-abroad",
+        "content_id": "b9849cd6-61a7-42dc-8124-362d2c7d48b0",
+        "description": "Includes the latest travel advice by country, your rights at the airport and getting help abroad",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:51Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Travel abroad",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/browse/abroad/travel-abroad",
+        "web_url": "https://www.gov.uk/browse/abroad/travel-abroad"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "base_path": "/foreign-travel-advice/turkey",
+        "content_id": "385d62b6-1fb3-4b29-80f3-cef2efa73cce",
+        "description": "Latest travel advice for Turkey including safety and security, entry requirements, travel warnings and health",
+        "document_type": "travel_advice",
+        "locale": "en",
+        "public_updated_at": "2017-02-14T15:33:43Z",
+        "schema_name": "travel_advice",
+        "title": "Turkey travel advice",
+        "api_path": "/api/content/foreign-travel-advice/turkey",
+        "withdrawn": false,
+        "api_url": "https://www.gov.uk/api/content/foreign-travel-advice/turkey",
+        "web_url": "https://www.gov.uk/foreign-travel-advice/turkey",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Latest travel advice for Turkey including safety and security, entry requirements, travel warnings and health",
+  "details": {
+    "summary": "<p>The Foreign and Commonwealth Office (FCO) advise against all travel to within 10 km of the border with Syria and to the city of Diyarbakir.</p>\n\n<p>The FCO advise against all but essential travel to:</p>\n\n<ul>\n  <li>the remaining areas of Sirnak, Mardin, Sanliurfa, Gaziantep, Diyarbakir, Kilis and Hatay provinces</li>\n  <li>the provinces of Siirt, Tunceli and Hakkari </li>\n</ul>\n\n<p>British nationals made over 1.7 million visits to Turkey in 2016. It’s generally safe to travel to Turkey, but you should <a href=\"https://www.gov.uk/guidance/reduce-your-risk-from-terrorism-while-abroad\">take additional safety precautions</a>. Be alert to your surroundings and remain vigilant in crowded places popular with foreign nationals, including during festival periods such as Christmas and New Year.</p>\n\n<p>Rallies and demonstrations, official and unofficial, may take place at short notice. You should stay well away from any demonstrations. </p>\n\n<p>The situation has calmed following an attempted coup on 15 to 16 July 2016. But the security environment remains potentially volatile and a state of emergency is in place. </p>\n\n<p>In some busy areas, especially Istanbul, the Turkish authorities are stopping members of the public to conduct ID checks. There&rsquo;s also a larger than usual number of police checkpoints on main roads across Turkey. You should co-operate with officials conducting checks, and keep your passport and a printed copy of your e-visa or your residence permit with you at all times.</p>\n\n<h3 id=\"terrorism\">Terrorism</h3>\n\n<p>There is a high threat from terrorism. Terrorist groups, including Kurdish groups, Daesh (formerly referred to as ISIL) and far left organisations, continue to plan and carry out attacks. Further attacks are likely and could be indiscriminate. </p>\n\n<p>There is a heightened risk of terrorist attack against the aviation industry in Turkey. You should co-operate fully with security officials at airports.</p>\n\n<p>Most terrorist attacks have taken place in the south and east of the country and in Ankara and Istanbul. Attacks are most likely to target the Turkish state, civilians and demonstrations. Nevertheless, it’s likely that some attacks will also target western interests and tourists from western countries, particularly in the major cities.</p>\n\n<p>The Turkish authorities have successfully disrupted attack planning in the recent past and have said that security has been tightened in response to recent attacks. But further attacks are likely and could be indiscriminate. </p>\n\n<p>You should be vigilant, follow the advice of local security authorities, monitor media reports and keep up to date with this travel advice. See <a href=\"/foreign-travel-advice/turkey/terrorism\">Terrorism</a>.</p>\n\n<p>British nationals need a visa to travel to Turkey, except for cruise ship passengers with ‘British Citizen’ passports who arrive at sea ports for tourist visits to the port city or nearby cities, provided that the visit doesn’t exceed 72 hours.</p>\n\n<p>If you&rsquo;re visiting Turkey as a tourist or on business, get an <a rel=\"external\" href=\"https://www.evisa.gov.tr/\">e-Visa</a> online before you travel. Only use the <a rel=\"external\" href=\"https://www.evisa.gov.tr/\">official Republic of Turkey e-Visa website</a>. Avoid unauthorised websites as they may charge an additional fee. Some unauthorised websites have issued fake e-Visas.</p>\n\n<p>If you don’t have an e-Visa you can still get a visa on arrival for £20 in cash, although the visa on arrival service is due to be phased out. Getting an e-Visa from the official website before you travel will avoid possible problems or delays at the Turkish border, or when boarding your flight in the UK. See <a href=\"/foreign-travel-advice/turkey/entry-requirements\">Entry requirements</a></p>\n\n<p>If you’re abroad and you need emergency help from the UK government, contact the <a href=\"https://www.gov.uk/government/world/embassies\">nearest British embassy, consulate or high commission</a>. </p>\n\n<p>Take out comprehensive <a href=\"https://www.gov.uk/foreign-travel-insurance\">travel and medical insurance</a> before you travel.</p>\n\n<p>If you’re travelling to commemorate the First World War centenary, see <a href=\"https://www.gov.uk/government/news/first-world-war-centenary-advice-for-travellers\">this information and advice page</a> to help plan your trip and make sure it’s safe and trouble free.</p>\n\n<p>Many parts of Turkey are subject to earthquakes. A series of earthquakes of magnitudes up to 5.3 occurred between 6 and 12 February 2017 south west of Canakkale (Gallipoli). An earthquake of magnitude 6.9 occurred on 24 May 2014 in the northern Aegean Sea. See <a href=\"/foreign-travel-advice/turkey/natural-disasters\">Natural disasters</a></p>\n",
+    "country": {
+      "slug": "turkey",
+      "name": "Turkey"
+    },
+    "updated_at": "2017-02-16T22:52:02Z",
+    "reviewed_at": "2017-02-14T15:33:43Z",
+    "change_description": "Latest update: Summary – a series of earthquakes of magnitudes up to 5.3 occurred between 6 and 12 February 2017 south west of Canakkale (Gallipoli)",
+    "email_signup_link": "/foreign-travel-advice/turkey/email-signup",
+    "parts": [
+      {
+        "slug": "terrorism",
+        "title": "Terrorism",
+        "body": "<p>There is a high threat from terrorism.  There is considered to be a heightened threat of terrorist attack globally against UK interests and British nationals, from groups or individuals motivated by the conflict in Iraq and Syria. You should be vigilant at this time.</p>\n\n<p>A number of terrorist groups are active in Turkey. Since 2015 there has been an increase in PKK (Kurdish separatist) terrorist activity in south-east Turkey. There have been a number of attacks by other groups including suicide attacks by Daesh (formerly referred to as ISIL), attacks by the far left DHKP(C) and the Kurdish separatist group TAK, including in cities such as Ankara and Istanbul. Terrorist groups, including Daesh and the TAK, have publicly threatened to attack tourist sites in Turkey. </p>\n\n<p>Further attacks are likely. Attacks could be indiscriminate and could affect places visited by foreigners.</p>\n\n<p>There is a heightened risk of terrorist attack against the aviation industry in Turkey. You should co-operate fully with security officials at airports.</p>\n\n<p>On 1 January 2017, there was an attack on the Reina nightclub in Ortakoy, Istanbul; 39 people were killed and 69 injured.  </p>\n\n<p>On 10 December 2016, a car bomb exploded near the Besiktas football stadium in the Macka/Dolmabahce area of Istanbul. 44 people, mostly police officers, were killed, and over 150 injured. </p>\n\n<p>On 24 November 2016, a bomb exploded near the Governor’s office in Adana. 2 people were killed and 21 injured.</p>\n\n<p>On 14 October 2016, a rocket attack took place on the outskirts of Antalya towards Kemer; no casualties were reported. Separately on 14 October 2016, attacks also took place against the Turkish military in Hakkari, Diyarbakir, Van and Adiyaman resulting in 13 injuries to service personnel</p>\n\n<p>On 6 October 2016, an explosion occurred near a police headquarters in the Yenibosna area on the European side of Istanbul </p>\n\n<p>On 24 August 2016, a roadside bomb injured 2 Gendarmerie officers on the Antalya – Kemer road near Topcam.</p>\n\n<p>On 20 August 2016, an attack on a wedding party in Gaziantep killed more than 50 people and injured around 100.</p>\n\n<p>On 28 June 2016, Ataturk International Airport in Istanbul was attacked.  More than 40 people were killed.</p>\n\n<p>On 7 June 2016, a bomb attack in the Vezneciler area of Istanbul killed 7 police officers and 4 civilians.  36 people were injured.</p>\n\n<p>On 1 May 2016, a bomb attack at the Central Police Station in Gaziantep killed two police officers and injured 23 others.</p>\n\n<p>On 27 April 2016, there was a suspected suicide bomb attack at Bursa Ulu Mosque.  The bomber was killed and 7 people slightly injured.</p>\n\n<p>On 19 March 2016, there was a suicide bomb attack against tourists on Istiklal St in Istanbul, in which 4 tourists died and at least 36 people were injured.</p>\n\n<p>On 13 March 2016, a bombing in Kizilay Square, central Ankara killed more than 30 people. </p>\n\n<p>On 17 February 2016, a large bomb attack near a military barracks on Eskisehir Road in Ankara killed 28 people. </p>\n\n<p>On 12 January 2016, a suicide bomb attack in Sultanahmet in Istanbul killed 10 tourists.</p>\n\n<p>On 23 December 2015, while the airport was closed for the night, there was a mortar attack on Sabiha Gokcen airport in Istanbul.</p>\n\n<p>On 10 October 2015, there were 2 explosions near the main train station in the Ulus area of Ankara. At least 100 people were killed and more than 180 injured. </p>\n\n<p>On 20 July 2015, a suicide bomber killed 33 people and injured over 100 others in Suruc, Sanlurfa province near the Syrian border.</p>\n\n<p>On 9 June 2015, 4 people were killed in an attack in Diyarbakir. On 5 June 2015, two people were killed and many injured by an explosion at an HDP rally in Diyarbakir.</p>\n\n<p>Extremist groups based in Syria including ANF (Al Nusra Front) and Daesh have the capacity to carry out attacks in neighbouring countries, including Turkey. </p>\n\n<p>Daesh has targeted border crossings and nearby locations on the Syrian side of the border. The 20 July attack in Suruc, Sanlurfa province, is believed to have been carried out by individuals associated with Daesh. Daesh is also believed to have been responsible for the 10 October 2015 suicide bombings in Ankara, which killed over 100 people. The Turkish government have said that Daesh was responsible for the 12 January 2016 attack in Istanbul in which 10 foreign tourists were killed, the 19 March attack in which 4 foreign tourists were killed, the 1 May attack in Gaziantep in which 2 police officers were killed and the 28 June attack on Istanbul Airport in which more than 40 people were killed.</p>\n\n<p>There’s a domestic terrorist presence in the south east of the country including in Van, Bitlis, Bingol, Elazig, Mus, Batman, Erzincan, Diyarbakir and Agri provinces. In December 2012 talks began between the Turkish Government and the Kurdish aligned PKK (proscribed as a terrorist group in the UK), during which the PKK observed a ceasefire. However, following the Suruc bombing on 20 July 2015, the ceasefire ended when the PKK killed 2 Turkish police officers.</p>\n\n<p>15 August is the anniversary of the first PKK attack against Turkish government installations. Historically, this anniversary date has prompted an escalation of violence by the PKK and other splinter groups. Since the end of July 2015 there has been an intensive period of violent incidents in Turkey’s south-east and eastern provinces. The vast majority of these incidents have been PKK attacks on Turkish security forces, their premises and vehicles, in which many members of the armed forces and police have been killed and injured. There have also been attacks on infrastructure (eg oil pipelines, dams) and incidents in which civilians have been affected. The government has responded with arrests of PKK suspects in Turkey and air-strikes on PKK positions in northern Iraq.</p>\n\n<p>The anti-western, far left, proscribed terrorist group, THKP/C-Acilciler (Turkish People’s Liberation Party/Front) and the linked DHKP/C (Revolutionary People’s Liberation Front) remain active, and launched a series of attacks in Istanbul in 2015 targeting the Turkish police and judiciary. The DHKP/C attacks have mainly targeted the Turkish authorities and US diplomatic missions.</p>\n\n<p>Between approximately 30 March and 20 April, there are several dates significant to the DHKP/C, starting with the 30 March anniversary of their founding which may have been linked to previous attacks. 19 December is also recognised as an important date around which the DHKP/C may be active.</p>\n\n<p>Methods of attack have included armed assaults, suicide bombings, car bombings and rocket attacks and improvised explosive devices left in refuse bins, crowded areas and on public transport.</p>\n\n<p>Be vigilant, monitor media reports and keep up to date with the travel advice.</p>\n\n<p>Find out more about the <a href=\"https://www.gov.uk/guidance/reduce-your-risk-from-terrorism-while-abroad\">global threat from terrorism</a>, how to minimise your risk and what to do in the event of a terrorist attack.</p>\n\n<h3 id=\"kidnapping\">Kidnapping</h3>\n\n<p>There is a threat of kidnapping near the Syrian border in Turkey.</p>\n\n<p>Terrorist groups operating in Syria, including Daesh routinely use kidnapping as a tactic. They&rsquo;re present in the Syrian border areas and are capable of conducting kidnappings from across the border. Daesh and other terrorist groups view those engaged in humanitarian aid work or journalism as legitimate targets. If you’re kidnapped, the reason for your presence is unlikely to serve as protection or secure your safe release.</p>\n\n<p>The long-standing policy of the British government is not to make substantive concessions to hostage takers. The British government considers that paying ransoms and releasing prisoners increases the risk of further hostage taking.</p>\n"
+      },
+      {
+        "slug": "safety-and-security",
+        "title": "Safety and security",
+        "body": "<h3 id=\"local-travel---syrian-border\">Local travel - Syrian border</h3>\n\n<p>The FCO advise against all travel to within 10km of the border with Syria. The FCO advise against all but essential travel to the remaining areas of Sirnak, Mardin, Sanlurfa, Gaziantep, Kilis and Hatay provinces. </p>\n\n<p>On 24 August 2016, the Turkish military started operations across the Turkey-Syria border near Karkamis and declared special security zones in villages along the Turkey-Syria border in Gaziantep Province. </p>\n\n<p>Fighting in Syria continues in areas close to the Turkish border and there remains a heightened risk of terrorism in the region.</p>\n\n<p>Mortar rounds are occasionally fired from Syria into Turkey. As a result of heavy fighting in northern Syria, there has been a mass influx of refugees into southern Turkey over the past 3 years.</p>\n\n<h3 id=\"local-travel--eastern-provinces\">Local travel – eastern provinces</h3>\n<p>The FCO advise against all but essential travel to the provinces of Diyarbakir and Tunceli.  Since July 2015 there has been an intensive period of PKK attacks on Turkish security forces, their premises and vehicles. Civilians have been affected.</p>\n\n<p>The FCO advise against all travel to the city of Diyarbakir where there have been security operations against the PKK and related groups. Similar operations have taken place in the cities of Sirnak and Hakkari. Curfews have been imposed in these and other towns and cities in the region. You should take extreme care in these areas. </p>\n\n<p>A temporary Turkish military restricted zone has been imposed for the Mount Ararat area. No permission is being given for parties to enter the area, nor to climb the mountain. Other temporary military restricted zones have been established in eastern provinces. Don’t attempt to enter these zones. There may be some disruption to travel in these areas.</p>\n\n<p>The PKK have carried out attacks against Turkish security personnel and premises in Van province in August and September 2016. On 17 August 2016 an attack in central Van against a police station killed 3 people and injured 73 others.  On 4 September 2016, a mortar attack was launched against a police checkpoint in the Edremit district of Van Province, but there were no injuries. On 12 September 2016 an attack at a police checkpoint wounded at least 50 people in Van province. There have been subsequent clashes between Turkish security forces and the PKK resulting in a number of deaths and injuries. Take extra care if you’re travelling to this area; keep up to date with local media and follow the advice of the local authorities.</p>\n\n<h3 id=\"political-situation\">Political situation</h3>\n\n<p>Sporadic demonstrations take place in cities across Turkey, some of which have, in the past, become violent. In Istanbul previous demonstrations have centered on the area around Taksim Square, on Istiklal Street and in the Besiktas and Kadikoy districts and more recently in Okmeydani. In Ankara, the protests have mainly taken place in the central Kizilay district around the Prime Minister’s office. In Izmir the focus has been in the town centre, near the water front.</p>\n\n<p>You should avoid all demonstrations and leave the area if one develops. Police have used tear gas and water cannon extensively to disperse protests. The effects of tear gas can be felt several hundred metres beyond the immediate site of demonstrations. Local transport routes may be disrupted.</p>\n\n<p>The situation in Turkey has calmed following an attempted coup on 15-16 July 2016. The security environment, however, remains potentially volatile and a state of emergency remains in place. If you’re a dual British/Turkish national, you should check with the Directorate General of Migration Management (DGMM) if you believe there may be restrictions or additional requirements for travel as a result of the state of emergency.</p>\n\n<p>The presidency of the Higher Education Council has issued a revised note indicating that restrictions on leave and travel for university employees don’t apply to foreign nationals. If you’re employed at a university, you should check with your employer directly before taking leave or making any travel plans as the implementation of the restrictions is subject to the discretion of individual institutions.</p>\n\n<h3 id=\"crime\">Crime</h3>\n\n<p>Generally crime levels are low, but street robbery and pick-pocketing are common in the major tourist areas of Istanbul. You should maintain at least the same level of personal security awareness as in the UK. Alcohol and drugs can make you less alert, less in control and less aware of your environment. If you are going to drink, know your limit. Drinks served in bars overseas are often stronger than those in the UK. Buy your own drinks and keep sight of them at all times so they are not spiked. Be wary of strangers approaching you offering food and drink (which may be drugged), to change money or to take you to a restaurant or nightclub.</p>\n\n<p>Passports have been stolen from rented villas, even when they have been kept in the villa safe. This is a particular problem in Didim, Kas, Kalkan and the Fethiye/Hisaronu/Ovacik areas.</p>\n\n<p>In 2015, 18 cases of sexual assault, including rape, were reported to British consular staff in Turkey. Most of these cases occurred during the summer holiday period in coastal tourist areas. Many were committed late at night by someone the victim met during the evening. There have also been sexual attacks on minors visiting toilet facilities alone. You should be extra vigilant in these situations.</p>\n\n<p>Never accept lifts from strangers. Find a registered yellow taxi and make a note of the registration number before getting in.</p>\n\n<p>Very rarely counterfeit alcohol has been responsible for the death of some tourists. If you have any concerns, seek advice from your tour operator or the Turkish authorities.</p>\n\n<h3 id=\"road-travel\">Road travel</h3>\n\n<p>Take care when travelling by road throughout Turkey, particularly at night. Approach checkpoints slowly and follow the instructions of security personnel. Roads between the major cities are generally in excellent condition, but can be poor in remote, rural areas. Accidents are common and mainly due to poor or reckless driving. According to the Turkish police, there were 1,313,359 road traffic accidents in 2015 which resulted in 7,530 deaths and 304,421 injuries.</p>\n\n<p>If you drive in Turkey, you must have either an <a rel=\"external\" href=\"http://www.theaa.com/getaway/idp/index.html\">International Driving Permit</a> or a notarised copy (in Turkish) of your UK driving licence. If you stay in Turkey continuously for more than 6 months, you must convert your UK driving licence into a Turkish licence. Provisional driving licences aren&rsquo;t recognised.</p>\n\n<p>You will need an ‘A’ category standard motorcycle licence to hire a motorcycle over 50cc in Turkey. An ‘A1’ category ‘light motorcycle’ driving licence is only suitable for motorcycles below 50cc. By law you must wear a helmet. Failure to do so could result in a heavy fine.</p>\n\n<p>Don’t drink and drive. The police will breathalyse drunk drivers, fine you on the spot and immediately confiscate your licence for 6 months.</p>\n\n<h3 id=\"extreme-sports\">Extreme sports</h3>\n\n<p>If you participate in extreme sports (including paragliding, parasailing, white-water rafting, off-road driving and hot air ballooning), satisfy yourself that adequate safety precautions are in place. Only use reputable operators and insist on training before use. Make sure your travel insurance covers you for all the activities you want to undertake. British nationals have been injured and in some cases killed participating in extreme sports.</p>\n\n<h3 id=\"stray-dogs\">Stray dogs</h3>\n<p>Most towns and cities have stray dogs. Local authorities take action to control and manage numbers but packs congregate in parks and wastelands and can be aggressive. Take care, remain calm, and avoid approaching stray dogs. If you&rsquo;re bitten, seek medical advice as rabies and other animal borne diseases are present in Turkey.</p>\n"
+      },
+      {
+        "slug": "local-laws-and-customs",
+        "title": "Local laws and customs",
+        "body": "<p>Smoking is prohibited on public transport and in all indoor workplaces and public places. Smoking is restricted in some outdoor areas where cultural, artistic, sports or entertainment activities are held.</p>\n\n<p>Turkey has strict laws against the use, possession or trafficking of illegal drugs. If you are convicted of any of these offences, you can expect to receive a heavy fine or a prison sentence of 4 to 24 years. The possession, sale and export of antiquities is against the law.</p>\n\n<p>Dress modestly if you’re visiting a mosque or a religious shrine.</p>\n\n<p>It is illegal not to carry some form of photographic ID in Turkey. Make sure you carry your passport and a printed copy of your e-visa or your residence permit with you at all times. </p>\n\n<p>Don’t take photographs near military or official installations. Ask for permission before photographing people.</p>\n\n<p>Homosexuality is legal in Turkey. However, many parts of Turkey are socially conservative and public displays of affection may lead to unwelcome attention. </p>\n\n<p>It is an offence to insult the Turkish nation or the national flag, or to deface or tear up currency.</p>\n"
+      },
+      {
+        "slug": "entry-requirements",
+        "title": "Entry requirements",
+        "body": "<p>The information on this page covers the most common types of travel and reflects the UK government’s understanding of the rules currently in place. Unless otherwise stated, this information is for travellers using a full ‘British Citizen’ passport.</p>\n\n<p>The authorities in the country or territory you’re travelling to are responsible for setting and enforcing the rules for entry. If you’re unclear about any aspect of the entry requirements, or you need further reassurance, you’ll need to contact the <a href=\"https://www.gov.uk/government/publications/foreign-embassies-in-the-uk\">embassy, high commission or consulate</a> of the country or territory you’re travelling to. </p>\n\n<p>You should also consider checking with your transport provider or travel company to make sure your passport and other travel documents meet their requirements.  </p>\n\n<h3 id=\"visas\">Visas</h3>\n\n<p>British nationals need a visa to enter Turkey, except for cruise ship passengers with ‘British Citizen’ passports who arrive at sea ports for tourist visits to the port city or nearby cities, provided that the visit doesn’t exceed 72 hours.</p>\n\n<p>You can get an e-Visa online before you travel through the <a rel=\"external\" href=\"https://www.evisa.gov.tr/\">official Republic of Turkey e-Visa website</a>. An e-visa costs $20 and you can pay using a credit or debit card. You can apply up to 3 months in advance of your travel date. Turkish visit visas issued on arrival are valid for multiple stays up to a maximum of 90 days in a 180 day period.</p>\n\n<p>If you have any queries regarding e-Visas call the <a rel=\"external\" href=\"https://www.evisa.gov.tr/en/feedback/\">Visa Contact Centre</a> (details provided by the Turkish Ministry of Foreign Affairs).</p>\n\n<p>Some unauthorised websites may charge for information about e-Visas, and for submitting applications. These websites are not endorsed by or associated with the Turkish government. Be wary of such sites and businesses, particularly those that seek additional fees for other services. Some unauthorised websites have also issued fake e-Visas.</p>\n\n<p>In case of problems with the computer systems at the Turkish port of entry, print off and carry a paper copy of your e-Visa, or make sure you have an electronic copy on a smart phone or other device to show to the immigration officer.</p>\n\n<p>Until further notice British citizens can get a multiple entry visitor visa, valid for 90 days, on arrival at any port of entry on payment of £20 in cash (Scottish and Northern Irish currency is not accepted). However, the visa on arrival service is likely to be phased out at some point in the near future. To avoid possible problems or delays at the Turkish border, or when boarding your flight in the UK, get an e-Visa from the official website before you travel.</p>\n\n<p>At Istanbul Ataturk airport (and possibly at other airports) there will be self service e-Visa kiosks and Wi-Fi areas where visitors can apply for an e-Visa on arrival using their own smart devices.</p>\n\n<p>You can also apply for a visa before you travel from the <a rel=\"external\" href=\"http://www.turkishconsulate.org.uk/en/\">Turkish Consulate General in London</a>.\nIf you&rsquo;re planning to study or work in Turkey, or are unsure about the type of visa you require, you should apply for a visa before travel.</p>\n\n<p>If you don’t have a ‘British Citizen’ passport, but hold a different type of British nationality (eg BN(O), British Overseas Citizen, British Protected Person or British Subject), check visa requirements with the <a rel=\"external\" href=\"http://www.turkishconsulate.org.uk/en/\">Turkish Consulate General</a> before you travel. These types of passport are classed as ‘UK Special Passports’ in the Turkish e-Visa system. You’ll need to apply for a visa from the Turkish Consulate General before you travel.</p>\n\n<p>Make sure your passport has a blank page for the visa stamp. If it doesn&rsquo;t, the Turkish authorities will issue an ‘Entry-Exit form’ and put your entry-exit stamp on there. You should carry this form with you in Turkey and present it to the border officers when you leave.</p>\n\n<p>If you plan to remain in Turkey for a period of more than 90 days, you should either apply for a longer stay visa before you travel, or get a residence permit from the local authorities in Turkey before your 90 day stay has elapsed. If you intend to work in Turkey, ensure you have the correct permits. More information is available from the Turkish Ministry of the Interior. If you don&rsquo;t abide by the terms of your visa or permit, you may be fined, deported and banned from re-entering the country.</p>\n\n<p>If you&rsquo;re entering Turkey via a land border crossing, make sure your passport has a dated entry stamp before you leave the border crossing area.</p>\n\n<h3 id=\"passport-validity\">Passport validity</h3>\n<p>The Turkish government advise that your passport should be valid for at least 6 months from the date you enter Turkey. You can find more detail about the requirements for entry into Turkey on the website of the <a rel=\"external\" href=\"http://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa\">Turkish Ministry of Foreign Affairs</a>.</p>\n\n<h3 id=\"travelling-with-children\">Travelling with children</h3>\n\n<p>If you are leaving Turkey with a child who is a dual British-Turkish national, you may be asked to show the Turkish immigration authorities evidence that the Turkish parent has given permission for the child to travel.</p>\n\n<h3 id=\"uk-emergency-travel-documents\">UK Emergency Travel Documents</h3>\n\n<p>UK Emergency Travel Documents (ETD) are accepted for entry, airside transit and exit from Turkey within the dates printed on the document. ETDs should be valid for a minimum period of 6 months from the date of entry into Turkey.</p>\n"
+      },
+      {
+        "slug": "health",
+        "title": "Health",
+        "body": "<p>Visit your health professional at least 4 to 6 weeks before your trip to check whether you need any vaccinations or other preventive measures. Country specific information and advice is published by the National Travel Health Network and Centre on the <a rel=\"external\" href=\"http://travelhealthpro.org.uk/country-information/\">TravelHealthPro website</a> and by NHS (Scotland) on the <a rel=\"external\" href=\"http://www.fitfortravel.nhs.uk/destinations.aspx\">fitfortravel website</a>. Useful information and advice about healthcare abroad is also available on the <a rel=\"external\" href=\"http://www.nhs.uk/NHSEngland/Healthcareabroad/Pages/Healthcareabroad.aspx\">NHS Choices website</a>.</p>\n\n<p>The European Health Insurance Card (<a rel=\"external\" href=\"http://www.nhs.uk/NHSEngland/Healthcareabroad/EHIC/Pages/about-the-ehic.aspx\">EHIC</a>), is not valid in Turkey. Make sure you have adequate travel health insurance and accessible funds to cover the cost of any medical treatment abroad and repatriation.</p>\n\n<p>If you need emergency medical assistance during your trip, dial 112 and ask for an ambulance. You should contact your insurance/medical assistance company promptly if you are referred to a medical facility for treatment.</p>\n"
+      },
+      {
+        "slug": "natural-disasters",
+        "title": "Natural disasters",
+        "body": "<p>Many parts of Turkey are subject to earthquakes and tremors.  </p>\n\n<p>You should familiarise yourself with safety procedures in the event of an earthquake and follow any advice given by the local authorities.  </p>\n\n<p>The US Federal Emergency Management Agency has information about what to do <a rel=\"external\" href=\"http://www.ready.gov/earthquakes\">before, during and after an earthquake.</a></p>\n"
+      },
+      {
+        "slug": "money",
+        "title": "Money",
+        "body": "<p>The currency in Turkey is the Turkish Lira. ATMs are widely available in major cities and tourist areas. You can get local currency from banks and exchange bureaux, known as DOVIZ in Turkish.</p>\n"
+      },
+      {
+        "slug": "travel-advice-help-and-support",
+        "title": "Travel advice help and support",
+        "body": "\n<div role=\"note\" aria-label=\"Help\" class=\"application-notice help-notice\">\n<p>If you’re abroad and you need emergency help from the UK government, contact the <a href=\"https://www.gov.uk/government/world/embassies\">nearest British embassy, consulate or high commission</a>. If you need urgent help because something has happened to a friend or relative abroad, contact the Foreign and Commonwealth Office (FCO) in London on 020 7008 1500 (24 hours).</p>\n</div>\n\n<h3 id=\"foreign-travel-checklist\">Foreign travel checklist</h3>\n\n<p>Read our <a href=\"https://www.gov.uk/guidance/foreign-travel-checklist\">foreign travel checklist</a> to help you plan for your trip abroad and stay safe while you’re there. </p>\n\n<h3 id=\"travel-safety\">Travel safety</h3>\n\n<p>The FCO travel advice helps you make your own decisions about foreign travel. Your safety is our main concern, but we can’t provide tailored advice for individual trips. If you’re concerned about whether or not it’s safe for you to travel, you should read the travel advice for the country or territory you’re travelling to, together with information from other sources you’ve identified, before making your own decision on whether to travel. Only you can decide whether it’s safe for you to travel.  </p>\n\n<p>When we judge the level of risk to British nationals in a particular place has become unacceptably high, we’ll state on the travel advice page for that country or territory that we advise against all or all but essential travel. <a href=\"https://www.gov.uk/guidance/how-the-foreign-commonwealth-office-puts-together-travel-advice\">Read more about how the FCO assesses and categorises risk in foreign travel advice</a>.  </p>\n\n<p>Our <a href=\"https://www.gov.uk/guidance/how-to-deal-with-a-crisis-overseas\">crisis overseas page</a> suggests additional things you can do before and during foreign travel to help you stay safe.</p>\n\n<h3 id=\"refunds-and-cancellations\">Refunds and cancellations</h3>\n\n<p>If you wish to cancel or change a holiday that you’ve booked, you should contact your travel company. The question of refunds and cancellations is a matter for you and your travel company. Travel companies make their own decisions about whether or not to offer customers a refund. Many of them use our travel advice to help them reach these decisions, but we do not instruct travel companies on when they can or can’t offer a refund to their customers.</p>\n\n<p>For more information about your rights if you wish to cancel a holiday, visit <a rel=\"external\" href=\"https://www.citizensadvice.org.uk/consumer/holiday-cancellations-and-compensation/cancelling-a-holiday/\">the Citizen’s Advice Bureau website</a>. For help resolving problems with a flight booking, visit the <a rel=\"external\" href=\"https://www.caa.co.uk/Passengers/Resolving-travel-problems/\">website of the Civil Aviation Authority</a>. For questions about travel insurance, contact your insurance provider and if you’re not happy with their response, you can complain to the <a rel=\"external\" href=\"http://www.financial-ombudsman.org.uk/consumer/complaints.htm\">Financial Ombudsman Service</a>. </p>\n\n<h3 id=\"registering-your-travel-details-with-us\">Registering your travel details with us</h3>\n\n<p>We’re no longer asking people to register with us before travel. Our <a href=\"https://www.gov.uk/guidance/foreign-travel-checklist\">foreign travel checklist</a> and <a href=\"https://www.gov.uk/guidance/how-to-deal-with-a-crisis-overseas\">crisis overseas page</a> suggest things you can do before and during foreign travel to plan your trip and stay safe.</p>\n\n<h3 id=\"previous-versions-of-fco-travel-advice\">Previous versions of FCO travel advice</h3>\n\n<p>If you’re looking for a previous version of the FCO travel advice, visit the <a rel=\"external\" href=\"http://webarchive.nationalarchives.gov.uk/*/http:/www.gov.uk/foreign-travel-advice\">National Archives website</a>. If you can’t find the page you’re looking for there, <a href=\"&#109;&#097;&#105;&#108;&#116;&#111;:&#116;&#114;&#097;&#118;&#101;&#108;&#097;&#100;&#118;&#105;&#099;&#101;&#112;&#117;&#098;&#108;&#105;&#099;&#101;&#110;&#113;&#117;&#105;&#114;&#105;&#101;&#115;&#064;&#102;&#099;&#111;&#046;&#103;&#111;&#118;&#046;&#117;&#107;\">send us a request</a>. </p>\n\n<h3 id=\"further-help\">Further help</h3>\n\n<p>If you’re a British national and you have a question about travelling abroad that isn’t covered in our foreign travel advice or elsewhere on GOV.UK, you can <a href=\"&#109;&#097;&#105;&#108;&#116;&#111;:&#116;&#114;&#097;&#118;&#101;&#108;&#097;&#100;&#118;&#105;&#099;&#101;&#112;&#117;&#098;&#108;&#105;&#099;&#101;&#110;&#113;&#117;&#105;&#114;&#105;&#101;&#115;&#064;&#102;&#099;&#111;&#046;&#103;&#111;&#118;&#046;&#117;&#107;\">submit an enquiry</a>.  We’re not able to provide tailored advice for specific trips.</p>\n\n"
+      }
+    ],
+    "alert_status": [
+
+    ],
+    "max_cache_time": 10,
+    "image": {
+      "url": "https://assets.publishing.service.gov.uk/media/57909c3de5274a0da300018e/FCO_311_-_Turkey_Travel_Advice_Ed6__WEB_.jpg",
+      "content_type": "image/jpeg"
+    },
+    "document": {
+      "attachment_type": "file",
+      "id": "eafa9819-f395-4f2d-9236-4e5d573f9f1e",
+      "url": "https://assets.publishing.service.gov.uk/media/57909c3ded915d3cfd00018d/FCO_311_-_Turkey_Travel_Advice_Ed6.pdf",
+      "content_type": "application/pdf"
+    },
+    "publishing_request_id": "30560-1487285522.281-51.6.236.25-42152"
+  }
+}

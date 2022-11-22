@@ -1,0 +1,162 @@
+{
+  "base_path": "/government/organisations/hm-revenue-customs/contact/customs-excise-and-vat-fraud-reporting",
+  "content_id": "6c50a476-5681-4808-974d-c8e80bcca90d",
+  "title": "Customs, Excise and VAT fraud reporting",
+  "locale": "en",
+  "updated_at": "2015-12-02T10:42:56.350Z",
+  "public_updated_at": "2015-09-30T09:11:00.300+00:00",
+  "phase": "live",
+  "analytics_identifier": "",
+  "links": {
+    "related": [
+      {
+        "content_id": "4e661905-fd41-453a-b953-6877bfa88b45",
+        "title": "Fraud: report a benefit thief online ",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs/contact/report-a-benefit-thief-online",
+        "base_path": "/government/organisations/hm-revenue-customs/contact/report-a-benefit-thief-online",
+        "description": "If you suspect someone of benefit fraud report them online here",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs/contact/report-a-benefit-thief-online",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/report-a-benefit-thief-online",
+        "locale": "en"
+      },
+      {
+        "content_id": "e90e2f58-670d-4871-a5c8-71fd9c0b2a7b",
+        "title": "Fraudulent emails",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs/contact/reporting-fraudulent-emails",
+        "base_path": "/government/organisations/hm-revenue-customs/contact/reporting-fraudulent-emails",
+        "description": "Email address to use to report a fraudulent or phishing email that mentions HMRC",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs/contact/reporting-fraudulent-emails",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/reporting-fraudulent-emails",
+        "locale": "en"
+      },
+      {
+        "content_id": "5a21285a-f386-4820-af81-e6d2a847b223",
+        "title": "Tax evasion",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs/contact/reporting-tax-evasion",
+        "base_path": "/government/organisations/hm-revenue-customs/contact/reporting-tax-evasion",
+        "description": "Use the online form, or call or write to HMRC to report someone not paying their fair share of tax",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs/contact/reporting-tax-evasion",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/reporting-tax-evasion",
+        "locale": "en"
+      }
+    ],
+    "available_translations": [
+      {
+        "content_id": "6c50a476-5681-4808-974d-c8e80bcca90d",
+        "title": "Customs, Excise and VAT fraud reporting",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs/contact/customs-excise-and-vat-fraud-reporting",
+        "base_path": "/government/organisations/hm-revenue-customs/contact/customs-excise-and-vat-fraud-reporting",
+        "description": "Contact HMRC to report all types of smuggling, misuse of red diesel, customs, excise and VAT fraud",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs/contact/customs-excise-and-vat-fraud-reporting",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/customs-excise-and-vat-fraud-reporting",
+        "locale": "en"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "6667cce2-e809-4e21-ae09-cb0bdc1ddda3",
+        "title": "HM Revenue & Customs",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs",
+        "base_path": "/government/organisations/hm-revenue-customs",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs",
+        "locale": "en"
+      }
+    ]
+  },
+  "description": "Contact HMRC to report all types of smuggling, misuse of red diesel, customs, excise and VAT fraud",
+  "details": {
+    "slug": "customs-excise-and-vat-fraud-reporting",
+    "quick_links": [
+      {
+        "title": "Report smuggling ",
+        "url": "https://www.gov.uk/report-smuggling"
+      },
+      {
+        "title": "Report VAT fraud",
+        "url": "https://www.gov.uk/report-vat-fraud"
+      }
+    ],
+    "query_response_time": false,
+    "contact_form_links": [
+      {
+        "title": "Customs Hotline online form",
+        "link": "https://online.hmrc.gov.uk/shortforms/form/CusConf_InformB?dept-name=Customs&sub-dept-name=Hotline&location=48&origin=http://www.hmrc.gov.uk",
+        "description": "<p>Contact HMRC to report suspicious activity in relation to smuggling, customs, excise and VAT fraud.</p>\n"
+      }
+    ],
+    "more_info_contact_form": "<p>If HMRC needs to contact you about anything confidential they’ll reply by phone or post.</p>\n",
+    "email_addresses": [
+      {
+        "title": "Customs Hotline",
+        "email": "customs.hotline@hmrc.gsi.gov.uk ",
+        "description": "\n"
+      }
+    ],
+    "more_info_email_address": "<p>If HMRC needs to contact you about anything confidential they’ll reply by phone or post.</p>\n",
+    "phone_numbers": [
+      {
+        "title": "Customs Hotline",
+        "number": "0800 595 000",
+        "textphone": "",
+        "international_phone": "",
+        "fax": "0800 528 0506",
+        "description": "<p>Call or fax HMRC to report suspicious activity in relation to smuggling, customs, excise and VAT fraud.</p>\n\n<p>This number does not deal with questions about taxes, duty, benefits or tax credits.</p>\n",
+        "open_hours": "<p>24 hours a day, 7 days a week</p>\n",
+        "best_time_to_call": "\n"
+      },
+      {
+        "title": "Belgium, Denmark, France, Germany, Republic of Ireland, Netherlands",
+        "number": "+800 555 95000",
+        "textphone": "",
+        "international_phone": "",
+        "fax": "",
+        "description": "\n",
+        "open_hours": "\n",
+        "best_time_to_call": "\n"
+      },
+      {
+        "title": "Mainland Spain",
+        "number": "900 988 922",
+        "textphone": "",
+        "international_phone": "",
+        "fax": "",
+        "description": "\n",
+        "open_hours": "\n",
+        "best_time_to_call": "\n"
+      },
+      {
+        "title": "Any other country",
+        "number": "+44 208 929 0153",
+        "textphone": "",
+        "international_phone": "",
+        "fax": "",
+        "description": "\n",
+        "open_hours": "\n",
+        "best_time_to_call": "\n"
+      }
+    ],
+    "more_info_phone_number": "\n",
+    "post_addresses": [
+      {
+        "title": "HM Revenue and Customs - Customs, Excise and VAT fraud reporting",
+        "street_address": "Freepost NAT22785\r\n",
+        "postal_code": "CF14 5GX",
+        "world_location": "United Kingdom",
+        "locality": "",
+        "region": "CARDIFF",
+        "description": "<p>Write to this address to report suspicious activity in relation to smuggling, customs, excise and VAT fraud.</p>\n"
+      }
+    ],
+    "more_info_post_address": "\n",
+    "language": "en",
+    "contact_groups": [
+      {
+        "slug": "customs-excise",
+        "title": "Customs and Excise"
+      }
+    ]
+  },
+  "schema_name": "contact",
+  "document_type": "contact"
+}

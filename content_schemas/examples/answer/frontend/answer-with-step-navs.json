@@ -1,0 +1,317 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/gwasanaethau-ar-lein-cymraeg-cthem",
+  "content_id": "bcf3e1c5-b1f9-4813-a712-e9c9dd75c1f4",
+  "document_type": "answer",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "cy",
+  "phase": "live",
+  "public_updated_at": "2015-05-28T15:46:51.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "answer",
+  "title": "Gwasanaethau ar-lein Cyllid a Thollau EM yn y Gymraeg",
+  "updated_at": "2017-02-09T14:34:06.890Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "part_of_step_navs": [
+      {
+        "api_path": "/api/content/learn-to-drive-a-car",
+        "base_path": "/learn-to-drive-a-car",
+        "content_id": "e01e924b-9c7c-4c71-8241-66a575c2f61f",
+        "description": "Learn to drive a car in the UK - get a provisional licence, take driving lessons, prepare for your theory test, book your practical test.",
+        "document_type": "step_by_step_nav",
+        "locale": "en",
+        "public_updated_at": "2018-03-02T11:53:13Z",
+        "schema_name": "step_by_step_nav",
+        "title": "Learn to drive a car: step by step",
+        "withdrawn": false,
+        "details": {
+          "step_by_step_nav": {
+            "title": "Learn to drive a car: step by step",
+            "introduction": [
+              {
+                "content_type": "text/govspeak",
+                "content": "Check what you need to do to learn to drive."
+              }
+            ],
+            "steps": [
+              {
+                "title": "Check you're allowed to drive",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "Most people can start learning to drive when they’re 17."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/vehicles-can-drive",
+                        "text": "Check what age you can drive"
+                      },
+                      {
+                        "href": "/legal-obligations-drivers-riders",
+                        "text": "Requirements for driving legally"
+                      },
+                      {
+                        "href": "/driving-eyesight-rules",
+                        "text": "Driving eyesight rules"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Get a provisional driving licence",
+                "contents": [
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/apply-first-provisional-driving-licence",
+                        "text": "Apply for your first provisional driving licence",
+                        "context": "£34 - £43"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Driving lessons and practice",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need a provisional driving licence to take lessons or practice."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/guidance/the-highway-code",
+                        "text": "The Highway Code"
+                      },
+                      {
+                        "href": "/driving-lessons-learning-to-drive",
+                        "text": "Taking driving lessons"
+                      },
+                      {
+                        "href": "/find-driving-schools-and-lessons",
+                        "text": "Find driving schools, lessons and instructors"
+                      },
+                      {
+                        "href": "/government/publications/car-show-me-tell-me-vehicle-safety-questions",
+                        "text": "Practise vehicle safety questions"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Prepare for your theory test",
+                "logic": "and",
+                "contents": [
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/theory-test/revision-and-practice",
+                        "text": "Theory test revision and practice"
+                      },
+                      {
+                        "href": "/take-practice-theory-test",
+                        "text": "Take a practice theory test"
+                      },
+                      {
+                        "href": "https://www.safedrivingforlife.info/shop/product/official-dvsa-theory-test-kit-app-app",
+                        "text": "Theory and hazard perception test app"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Book and manage your theory test",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need a provisional driving licence to book your theory test."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/book-theory-test",
+                        "text": "Book your theory test",
+                        "context": "£23"
+                      },
+                      {
+                        "href": "/theory-test/what-to-take",
+                        "text": "What to take to your test"
+                      },
+                      {
+                        "href": "/change-theory-test",
+                        "text": "Change your theory test appointment"
+                      },
+                      {
+                        "href": "/check-theory-test",
+                        "text": "Check your theory test appointment details"
+                      },
+                      {
+                        "href": "/cancel-theory-test",
+                        "text": "Cancel your theory test"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Book and manage your driving test",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You must pass your theory test before you can book your driving test."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/book-driving-test",
+                        "text": "Book your driving test",
+                        "context": "£62"
+                      },
+                      {
+                        "href": "/driving-test/what-to-take",
+                        "text": "What to take to your test"
+                      },
+                      {
+                        "href": "/change-driving-test",
+                        "text": "Change your driving test appointment"
+                      },
+                      {
+                        "href": "/check-driving-test",
+                        "text": "Check your driving test appointment details"
+                      },
+                      {
+                        "href": "/cancel-driving-test",
+                        "text": "Cancel your driving test"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "When you pass",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You can start driving as soon as you pass your driving test."
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "You must have an insurance policy that allows you to drive without supervision."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/pass-plus",
+                        "text": "Find out about Pass Plus training courses"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "links": {
+          "pages_part_of_step_nav": [
+            {
+              "api_path": "/api/content/theory-test",
+              "base_path": "/theory-test",
+              "content_id": "b5d8c773-3a31-45f2-838d-255afef5511a",
+              "description": "When to book your car theory test, what to take with you, how the multiple-choice questions and hazard perception test work, and the pass mark",
+              "document_type": "guide",
+              "locale": "en",
+              "public_updated_at": "2016-12-20T13:49:20Z",
+              "schema_name": "guide",
+              "title": "Theory test: cars",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/theory-test",
+              "web_url": "https://www.gov.uk/theory-test"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/learn-to-drive-a-car",
+        "web_url": "https://www.gov.uk/learn-to-drive-a-car"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D25",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs",
+        "base_path": "/government/organisations/hm-revenue-customs",
+        "content_id": "6667cce2-e809-4e21-ae09-cb0bdc1ddda3",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-05-13T10:09:06Z",
+        "schema_name": "placeholder",
+        "title": "HM Revenue & Customs",
+        "withdrawn": false,
+        "details": {
+          "brand": "hm-revenue-customs",
+          "logo": {
+            "formatted_title": "HM Revenue<br/>&amp; Customs",
+            "crest": "hmrc"
+          }
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/hm-revenue-customs",
+        "web_url": "http://www.dev.gov.uk/government/organisations/hm-revenue-customs"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "base_path": "/gwasanaethau-ar-lein-cymraeg-cthem",
+        "content_id": "bcf3e1c5-b1f9-4813-a712-e9c9dd75c1f4",
+        "description": "Gallwch ddefnyddio’r gwasanaethau canlynol gan Gyllid a Thollau Ei Mawrhydi (CThEM) ar-lein yn y Gymraeg - Hunanasesu, TAW, Treth Gorfforaeth, Talu Wrth Ennill Ar-lein i gyflogwyr, Elusennau Ar-lein, Toll Peiriannau Hapchwarae",
+        "document_type": "answer",
+        "locale": "en",
+        "public_updated_at": "2015-05-28T15:46:51Z",
+        "schema_name": "answer",
+        "title": "Gwasanaethau ar-lein Cyllid a Thollau EM yn y Gymraeg",
+        "api_path": "/api/content/gwasanaethau-ar-lein-cymraeg-cthem",
+        "withdrawn": false,
+        "api_url": "http://www.dev.gov.uk/api/content/gwasanaethau-ar-lein-cymraeg-cthem",
+        "web_url": "http://www.dev.gov.uk/gwasanaethau-ar-lein-cymraeg-cthem",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Gallwch ddefnyddio’r gwasanaethau canlynol gan Gyllid a Thollau Ei Mawrhydi (CThEM) ar-lein yn y Gymraeg - Hunanasesu, TAW, Treth Gorfforaeth, Talu Wrth Ennill Ar-lein i gyflogwyr, Elusennau Ar-lein, Toll Peiriannau Hapchwarae",
+  "details": {
+    "body": "<p>Gallwch ddefnyddio’r gwasanaethau canlynol gan Gyllid a Thollau Ei Mawrhydi (<abbr title=\"Gyllid a Thollau Ei Mawrhydi\">CThEM</abbr>) ar-lein yn y Gymraeg:</p>\n\n<ul>\n  <li>Hunanasesiad</li>\n  <li>TAW</li>\n  <li>Treth Gorfforaeth</li>\n  <li>Talu Wrth Ennill Ar-lein i gyflogwyr</li>\n  <li>Elusennau Ar-lein</li>\n  <li>Toll Peiriannau Hapchwarae</li>\n  <li>Y Crynodeb Treth Blynyddol</li>\n  <li>Gwasanaeth Car Cwmni TWE</li>\n  <li>Gwneud Cais am Lwfans Priodasol</li>\n  <li>Gwasanaeth Talu</li>\n  <li>Gwasanaeth Cynorthwywyr y Gellir Ymddiried Ynddynt</li>\n  <li>Gwasanaeth Buddiannau drwy’r Gyflogres</li>\n  <li>Cael cyfriflen Pensiwn y Wladwriaeth</li>\n</ul>\n\n<h2 id=\"cofrestru-ar-gyfer-trethi\">Cofrestru ar gyfer trethi</h2>\n\n<p>Rhaid i chi <a rel=\"external\" href=\"https://online.hmrc.gov.uk/registration/newbusiness/introduction?lang=cym\">gofrestru ar gyfer trethi</a> cyn i chi gofrestru ar gyfer:</p>\n\n<ul>\n  <li>Treth Gorfforaeth</li>\n  <li>Hunanasesiad</li>\n  <li>TAW</li>\n  <li>Talu Wrth Ennill Ar-lein i gyflogwyr</li>\n</ul>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>Peidiwch â defnyddio acenion ar lafariaid pan fyddwch yn llenwi’r ffurflenni ar-lein.</p>\n</div>\n\n<p>Bydd <abbr title=\"Gyllid a Thollau Ei Mawrhydi\">CThEM</abbr> yn anfon y canlynol atoch:</p>\n\n<ul>\n  <li>Eich Cyfeirnod Unigryw y Trethdalwr ar gyfer Hunanasesiad neu Dreth Gorfforaeth</li>\n  <li>Rhif cofrestru ar gyfer TAW</li>\n</ul>\n\n<p>Bydd angen y rhain arnoch pan fyddwch yn cofrestru i ddefnyddio gwasanaethau ar-lein.</p>\n\n<h2 id=\"cofrestru-ar-gyfer-y-gwasanaeth\">Cofrestru ar gyfer y gwasanaeth</h2>\n\n<p>Byd angen ID Defnyddiwr a chyfrinair arnoch cyn y byddwch yn gallu mewngofnodi a defnyddio’r gwasanaeth.</p>\n\n<ol class=\"steps\">\n<li>\n<p>Ewch i <a rel=\"external\" href=\"https://online.hmrc.gov.uk/login?lang=cym\">wasanaethau ar-lein <abbr title=\"Gyllid a Thollau Ei Mawrhydi\">CThEM</abbr></a> a chlicio ‘Cofrestru’.</p>\n</li>\n<li>\n<p>Dilynwch y camau i gofrestru ar gyfer y gwasanaeth sydd ei angen arnoch.</p>\n</li>\n<li>\n<p>Byddwch yn cael ID Defnyddiwr a bydd yn rhaid i chi ddewis cyfrinair.</p>\n</li>\n</ol>\n\n<h2 id=\"dechrau-defnyddior-gwasanaeth\">Dechrau defnyddio’r gwasanaeth</h2>\n\n<p>Bydd angen cod cychwyn arnoch i ddechrau defnyddio’r holl wasanaethau hyn, ac eithrio TAW. Anfonir hwn atoch cyn pen saith diwrnod gwaith ar ôl i chi gofrestru. Os ydych chi’n byw dramor, gall gymryd hyd at 21 diwrnod i gyrraedd.</p>\n\n<p>Rhowch eich cyfrif ar waith drwy <a rel=\"external\" href=\"https://online.hmrc.gov.uk/login?lang=cym\">fewngofnodi</a> cyn pen 28 diwrnod i’r dyddiad a nodir ar y llythyr. Os na fyddwch yn gwneud hyn, bydd y cod yn dod i ben a bydd yn rhaid i chi ofyn am un newydd.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>Cysylltwch â <a href=\"/government/organisations/hm-revenue-customs/contact?search%5Bname%5D=&amp;search%5Bcontact_group_id%5D=37\">llinellau cymorth Cymraeg <abbr title=\"Gyllid a Thollau Ei Mawrhydi\">CThEM</abbr></a> os oes angen help arnoch i ddefnyddio unrhyw un o’r gwasanaethau.</p>\n</div>\n\n<h2 id=\"talu-wrth-ennill-ar-lein\">Talu Wrth Ennill Ar-lein</h2>\n\n<p>Os ydych chi’n gyflogwr newydd, bydd angen i chi ddefnyddio <a href=\"/basic-paye-tools\">Offer TWE Sylfaenol</a> neu <a href=\"/payroll-software\">feddalwedd cyflogres</a> arall i gyflwyno gwybodaeth am y gyflogres i <abbr title=\"Gyllid a Thollau Ei Mawrhydi\">CThEM</abbr>.</p>\n\n<h2 id=\"negeseuon-e-bost-gwe-rwydo-a-sgamiau-treth\">Negeseuon e-bost gwe-rwydo a sgamiau treth</h2>\n\n<p>Ni fydd <abbr title=\"Gyllid a Thollau Ei Mawrhydi\">CThEM</abbr> byth yn defnyddio negeseuon testun na negeseuon e-bost i wneud y canlynol:</p>\n\n<ul>\n  <li>rhoi gwybod i chi am ddirwy neu ad-daliad treth</li>\n  <li>gofyn am wybodaeth am daliadau personol</li>\n</ul>\n\n<p>Anfonwch unrhyw negeseuon e-bost amheus at <a href=\"mailto:gwasanaeth.cymraeg@hmrc.gsi.gov.uk\">gwasanaeth.cymraeg@hmrc.gsi.gov.uk</a> neu tarwch olwg ar <a href=\"/government/publications/genuine-hmrc-contact-and-recognising-phishing-emails.cy\">arweiniad ar adnabod sgamiau</a> <abbr title=\"Gyllid a Thollau Ei Mawrhydi\">CThEM</abbr> os nad ydych chi’n siŵr.</p>\n\n",
+    "external_related_links": [
+      {
+        "url": "https://online.hmrc.gov.uk/login?lang=cym",
+        "title": "Gwasanaethau ar-lein"
+      }
+    ]
+  },
+  "publishing_request_id": "2546-1460985144476-19268198-3242"
+}

@@ -1,0 +1,916 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/collections/academy-for-justice-commissioning-events",
+  "content_id": "60260621-7631-11e4-a3cb-005056011aef",
+  "document_type": "document_collection",
+  "first_published_at": "2014-11-05T11:18:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-11-05T11:18:00.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "document_collection",
+  "title": "Academy for Justice Commissioning events",
+  "updated_at": "2017-12-19T11:36:29.363Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "documents": [
+      {
+        "api_path": "/api/content/government/news/london-seminar-what-is-market-shaping-10-nov-2016",
+        "base_path": "/government/news/london-seminar-what-is-market-shaping-10-nov-2016",
+        "content_id": "78fa2e69-b46c-4cc6-98ea-687762e43cdd",
+        "description": "In this free seminar Fiona reported on the findings of a review undertaken to assess the implementation of the Care Act and answer the key question ‘what is market shaping?’. She also explored some of the main challenges for local authority commissioners, and reflected on the implications for public care more widely.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-10-11T11:15:00Z",
+        "schema_name": "news_article",
+        "title": "London seminar:  What is market shaping? (10 Nov, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-seminar-what-is-market-shaping-10-nov-2016",
+        "web_url": "https://www.gov.uk/government/news/london-seminar-what-is-market-shaping-10-nov-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/conference-intelligent-commissioning-2020-vision-2015",
+        "base_path": "/government/news/conference-intelligent-commissioning-2020-vision-2015",
+        "content_id": "59388331-6684-4d02-8632-c47fcd720844",
+        "description": "Following on from the success of our London conference, the second of our Academy for Justice Commissioning Intelligent Commissioning conferences took place in Manchester on 4 March, 2015",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-04-02T10:10:00Z",
+        "schema_name": "news_article",
+        "title": "Slidepack: Manchester Conference: intelligent commissioning - 20/20 vision (2015)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/conference-intelligent-commissioning-2020-vision-2015",
+        "web_url": "https://www.gov.uk/government/news/conference-intelligent-commissioning-2020-vision-2015"
+      },
+      {
+        "api_path": "/api/content/government/news/london-seminar-alliancing-in-the-uk-public-sector-19-october-2016",
+        "base_path": "/government/news/london-seminar-alliancing-in-the-uk-public-sector-19-october-2016",
+        "content_id": "89f5bbea-180f-48ad-b8b6-d04f8c7cc79e",
+        "description": "In this free seminar Linda gave an update on the key features of alliancing and alliance contracts and shared the successes, challenges and lessons learned from these alliances.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-09-20T11:15:00Z",
+        "schema_name": "news_article",
+        "title": "London seminar:  Alliancing in the UK Public Sector (19 October, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-seminar-alliancing-in-the-uk-public-sector-19-october-2016",
+        "web_url": "https://www.gov.uk/government/news/london-seminar-alliancing-in-the-uk-public-sector-19-october-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/slidepack-london-intelligent-commissioning-conference-2020-vision-january-2015",
+        "base_path": "/government/news/slidepack-london-intelligent-commissioning-conference-2020-vision-january-2015",
+        "content_id": "f36bb742-d4a7-46f6-8e73-7b87c725dfdd",
+        "description": "The first of the Academy for Justice Commissioning's Intelligent Commissioning conferences took place in London on 29 January, 2015",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-04-01T15:00:00Z",
+        "schema_name": "news_article",
+        "title": "Slidepack:  London Intelligent Commissioning Conference - 20/20 vision (January 2015)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/slidepack-london-intelligent-commissioning-conference-2020-vision-january-2015",
+        "web_url": "https://www.gov.uk/government/news/slidepack-london-intelligent-commissioning-conference-2020-vision-january-2015"
+      },
+      {
+        "api_path": "/api/content/government/news/manchester-seminar-offender-management-devolution-and-local-commissioning-3-october-2016",
+        "base_path": "/government/news/manchester-seminar-offender-management-devolution-and-local-commissioning-3-october-2016",
+        "content_id": "e813b208-18b3-48ed-9c4b-8be404b4a102",
+        "description": "Kevin discussed proposals for devolution of commissioning for prisons & probation & development of new ways to achieve better outcomes",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-09-20T11:00:00Z",
+        "schema_name": "news_article",
+        "title": "Manchester seminar:  Offender Management - Devolution and Local Commissioning (3 October, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/manchester-seminar-offender-management-devolution-and-local-commissioning-3-october-2016",
+        "web_url": "https://www.gov.uk/government/news/manchester-seminar-offender-management-devolution-and-local-commissioning-3-october-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/conference-innovative-commissioning-2013",
+        "base_path": "/government/news/conference-innovative-commissioning-2013",
+        "content_id": "60260dc6-7631-11e4-a3cb-005056011aef",
+        "description": "Speakers' presentations from this 1-day conference, which focused on 'succeeding through results' and 'partnering for success'.\r\n",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2013-10-31T00:00:00Z",
+        "schema_name": "news_article",
+        "title": "Conference: innovative commissioning (2013)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/conference-innovative-commissioning-2013",
+        "web_url": "https://www.gov.uk/government/news/conference-innovative-commissioning-2013"
+      },
+      {
+        "api_path": "/api/content/government/news/london-seminar-making-sense-of-payment-by-results-15-sept-2016",
+        "base_path": "/government/news/london-seminar-making-sense-of-payment-by-results-15-sept-2016",
+        "content_id": "52c091b9-f533-4a60-a159-1c41254495d9",
+        "description": "Russell Webster made sense of the payment by results methodology",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-07-20T14:15:00Z",
+        "schema_name": "news_article",
+        "title": "London seminar: Making sense of payment by results (15 Sept 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-seminar-making-sense-of-payment-by-results-15-sept-2016",
+        "web_url": "https://www.gov.uk/government/news/london-seminar-making-sense-of-payment-by-results-15-sept-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/bristol-seminar-effective-commissioning-in-a-devolved-landscape-an-nao-perspective-13-sept-2016",
+        "base_path": "/government/news/bristol-seminar-effective-commissioning-in-a-devolved-landscape-an-nao-perspective-13-sept-2016",
+        "content_id": "31d0f318-278e-4e3e-a3b5-c95357a08565",
+        "description": "Aileen Murphie, Director at the NAO outlined how commissioning can be effective in a changing landscape",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-07-18T14:30:00Z",
+        "schema_name": "news_article",
+        "title": "Bristol seminar:  Effective commissioning in a devolved landscape: an NAO perspective (13 Sept 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/bristol-seminar-effective-commissioning-in-a-devolved-landscape-an-nao-perspective-13-sept-2016",
+        "web_url": "https://www.gov.uk/government/news/bristol-seminar-effective-commissioning-in-a-devolved-landscape-an-nao-perspective-13-sept-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/london-seminar-digital-by-default-lessons-for-commissioning-services-in-the-digital-age-5-july-2016",
+        "base_path": "/government/news/london-seminar-digital-by-default-lessons-for-commissioning-services-in-the-digital-age-5-july-2016",
+        "content_id": "f5733809-868b-48f9-82ca-742c55785da6",
+        "description": "This seminar offeredthe opportunity to learn the lessons from BBC Radio about connecting with your customers, how to use data to shape your output and tips on what quality is right for your digital audience.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-06-07T14:30:00Z",
+        "schema_name": "news_article",
+        "title": "London seminar:  Digital by default: lessons for commissioning services in the digital age (5 July, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-seminar-digital-by-default-lessons-for-commissioning-services-in-the-digital-age-5-july-2016",
+        "web_url": "https://www.gov.uk/government/news/london-seminar-digital-by-default-lessons-for-commissioning-services-in-the-digital-age-5-july-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/london-seminar-no-health-without-justice-and-no-justice-without-health-23-june-2016",
+        "base_path": "/government/news/london-seminar-no-health-without-justice-and-no-justice-without-health-23-june-2016",
+        "content_id": "bcc5e5c4-7cc3-445b-b056-d868e3359c68",
+        "description": "10 years on: The impact of NHS healthcare commissioning for people in prison - informing future health interventions and prioritisation",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-06-07T14:30:00Z",
+        "schema_name": "news_article",
+        "title": "London seminar: No health without justice and no justice without health (23 June, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-seminar-no-health-without-justice-and-no-justice-without-health-23-june-2016",
+        "web_url": "https://www.gov.uk/government/news/london-seminar-no-health-without-justice-and-no-justice-without-health-23-june-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/manchester-seminar-hello-is-it-me-youre-commissioning-for-16-june-2016",
+        "base_path": "/government/news/manchester-seminar-hello-is-it-me-youre-commissioning-for-16-june-2016",
+        "content_id": "92d88ddd-7e3d-4c46-b4ff-2d678e535994",
+        "description": "This event will share the outcomes of a year-long cross sector Academy learning group, focused on victim services commissioning and will discuss the need for visionary leadership, a whole systems approach and design that is acutely responsive to the voice of the victim when commissioning services for victims of crime. ",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-05-20T11:30:01Z",
+        "schema_name": "news_article",
+        "title": "Manchester seminar: Hello... is it me you're commissioning for? (16 June, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/manchester-seminar-hello-is-it-me-youre-commissioning-for-16-june-2016",
+        "web_url": "https://www.gov.uk/government/news/manchester-seminar-hello-is-it-me-youre-commissioning-for-16-june-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/bristol-seminar-successful-commissioning-to-improve-public-health-services-9-june-2016",
+        "base_path": "/government/news/bristol-seminar-successful-commissioning-to-improve-public-health-services-9-june-2016",
+        "content_id": "e43266d1-5045-4bfb-ac3b-630ccd570623",
+        "description": "In this free evening seminar Cliff and Richard will explore the commissioning landscape in public health services and discuss innovative commissioning approaches.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-05-10T14:30:00Z",
+        "schema_name": "news_article",
+        "title": "Bristol seminar: Successful commissioning to improve public health services (9 June, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/bristol-seminar-successful-commissioning-to-improve-public-health-services-9-june-2016",
+        "web_url": "https://www.gov.uk/government/news/bristol-seminar-successful-commissioning-to-improve-public-health-services-9-june-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/manchester-seminar-personalisation-innovation-and-transforming-rehabilitation-19-may-2016",
+        "base_path": "/government/news/manchester-seminar-personalisation-innovation-and-transforming-rehabilitation-19-may-2016",
+        "content_id": "656b5696-6c65-4a8a-b880-be6725d6e7ff",
+        "description": "In this free seminar Chris and Caroline outlined the early stages of a socially innovative project to develop and implement a personalised approach to offender rehabilitation in the context of Transforming Rehabilitation. ",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-04-06T13:15:00Z",
+        "schema_name": "news_article",
+        "title": "Manchester seminar: Personalisation, Innovation and Transforming Rehabilitation (19 May, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/manchester-seminar-personalisation-innovation-and-transforming-rehabilitation-19-may-2016",
+        "web_url": "https://www.gov.uk/government/news/manchester-seminar-personalisation-innovation-and-transforming-rehabilitation-19-may-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/london-seminar-impact-measurement-in-the-justice-sector-and-beyond-approaches-and-latest-developments-13-april-2016",
+        "base_path": "/government/news/london-seminar-impact-measurement-in-the-justice-sector-and-beyond-approaches-and-latest-developments-13-april-2016",
+        "content_id": "81f6c689-3f44-49dc-92eb-97477a07b8f1",
+        "description": "In this free seminar Stephen and James discussed the overall purpose of evaluation and measuring impact and looked at different approaches.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-03-11T10:45:00Z",
+        "schema_name": "news_article",
+        "title": "London seminar: Impact Measurement in the justice sector and beyond:  Approaches and latest developments (13 April, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-seminar-impact-measurement-in-the-justice-sector-and-beyond-approaches-and-latest-developments-13-april-2016",
+        "web_url": "https://www.gov.uk/government/news/london-seminar-impact-measurement-in-the-justice-sector-and-beyond-approaches-and-latest-developments-13-april-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/manchester-seminar-commissioning-better-public-services-through-user-engagement",
+        "base_path": "/government/news/manchester-seminar-commissioning-better-public-services-through-user-engagement",
+        "content_id": "ea2ca73a-3ccb-4c9f-b2a3-f1589cd35d0b",
+        "description": "In this free seminar Gary discussed the principles of effective and fulfilling user engagement in service commissioning.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-02-15T11:30:00Z",
+        "schema_name": "news_article",
+        "title": "Manchester Seminar:  Commissioning better public services through user engagement (15 March, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/manchester-seminar-commissioning-better-public-services-through-user-engagement",
+        "web_url": "https://www.gov.uk/government/news/manchester-seminar-commissioning-better-public-services-through-user-engagement"
+      },
+      {
+        "api_path": "/api/content/government/news/london-seminar-correction-or-care-the-use-of-custody-for-children-in-trouble-9-march-2016",
+        "base_path": "/government/news/london-seminar-correction-or-care-the-use-of-custody-for-children-in-trouble-9-march-2016",
+        "content_id": "ef60f5b7-dd95-4797-945c-63b901547d92",
+        "description": "In this free seminar Dr Di Hart presented the findings of a Winston Churchill Travel Fellowship looking at child custody in Spain, the US and Finland. ",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-02-03T16:00:00Z",
+        "schema_name": "news_article",
+        "title": "London seminar: Correction or care? The use of custody for children in trouble (9 March, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-seminar-correction-or-care-the-use-of-custody-for-children-in-trouble-9-march-2016",
+        "web_url": "https://www.gov.uk/government/news/london-seminar-correction-or-care-the-use-of-custody-for-children-in-trouble-9-march-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/bristol-seminar-reframing-the-commissioning-of-services-for-child-sexual-abuse-29-feb-2016",
+        "base_path": "/government/news/bristol-seminar-reframing-the-commissioning-of-services-for-child-sexual-abuse-29-feb-2016",
+        "content_id": "b3b80871-a1e9-4e90-bff8-ba4c1371fe00",
+        "description": "In this free seminar Dr McCartan will discuss how reframing the commissioning of services for child sexual abuse could look using a public health approach.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-01-28T12:00:00Z",
+        "schema_name": "news_article",
+        "title": "Bristol seminar: Reframing the commissioning of services for child sexual abuse (29 Feb 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/bristol-seminar-reframing-the-commissioning-of-services-for-child-sexual-abuse-29-feb-2016",
+        "web_url": "https://www.gov.uk/government/news/bristol-seminar-reframing-the-commissioning-of-services-for-child-sexual-abuse-29-feb-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/london-seminar-offenders-with-a-learning-disability-who-cares-and-why-bother",
+        "base_path": "/government/news/london-seminar-offenders-with-a-learning-disability-who-cares-and-why-bother",
+        "content_id": "9cfb1585-1603-4cbb-85a4-542c0a753baa",
+        "description": "This free evening seminar will seek to offer insight into the key messages, how they may be put into practice and the implications for both those commissioning and delivering services. ",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-01-12T11:45:00Z",
+        "schema_name": "news_article",
+        "title": "London seminar: Offenders with a learning disability: Who cares and why bother? (10 Feb 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-seminar-offenders-with-a-learning-disability-who-cares-and-why-bother",
+        "web_url": "https://www.gov.uk/government/news/london-seminar-offenders-with-a-learning-disability-who-cares-and-why-bother"
+      },
+      {
+        "api_path": "/api/content/government/news/manchester-seminar-policing-in-the-21st-century-challenges-and-opportunities-26-jan-2016",
+        "base_path": "/government/news/manchester-seminar-policing-in-the-21st-century-challenges-and-opportunities-26-jan-2016",
+        "content_id": "e4eed30e-d548-4634-be9f-d18102451b73",
+        "description": "This free seminar plotted the challenges and opportunities facing policing in the 21st century",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-12-17T11:30:00Z",
+        "schema_name": "news_article",
+        "title": "Manchester seminar - Policing in the 21st Century: Challenges and Opportunities (26 Jan, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/manchester-seminar-policing-in-the-21st-century-challenges-and-opportunities-26-jan-2016",
+        "web_url": "https://www.gov.uk/government/news/manchester-seminar-policing-in-the-21st-century-challenges-and-opportunities-26-jan-2016"
+      },
+      {
+        "api_path": "/api/content/government/news/london-seminar-building-resilience-for-recovery-insights-into-womens-desistance-from-offending",
+        "base_path": "/government/news/london-seminar-building-resilience-for-recovery-insights-into-womens-desistance-from-offending",
+        "content_id": "49a73927-889a-4029-a26c-4fe64efd4ae0",
+        "description": "This free seminar discussed the context of women offenders lives, charting what it was – and who it was that supported them to desist from re-offending.  ",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-12-08T14:45:00Z",
+        "schema_name": "news_article",
+        "title": "London seminar:  Building resilience for recovery: Insights into women's desistance from offending (14 Jan, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-seminar-building-resilience-for-recovery-insights-into-womens-desistance-from-offending",
+        "web_url": "https://www.gov.uk/government/news/london-seminar-building-resilience-for-recovery-insights-into-womens-desistance-from-offending"
+      },
+      {
+        "api_path": "/api/content/government/news/bristol-seminar-partnership-working-post-tranforming-rehabiliation-9-december-2015",
+        "base_path": "/government/news/bristol-seminar-partnership-working-post-tranforming-rehabiliation-9-december-2015",
+        "content_id": "2a9d5f2c-03ba-4e44-89ee-160114759050",
+        "description": "Bristol seminar on working in partnership",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-10-30T12:45:00Z",
+        "schema_name": "news_article",
+        "title": "Bristol seminar: Partnership working post tranforming rehabiliation (9 December, 2015)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/bristol-seminar-partnership-working-post-tranforming-rehabiliation-9-december-2015",
+        "web_url": "https://www.gov.uk/government/news/bristol-seminar-partnership-working-post-tranforming-rehabiliation-9-december-2015"
+      },
+      {
+        "api_path": "/api/content/government/news/london-seminar-hello-is-it-me-youre-commissioning-for-3-december-2015",
+        "base_path": "/government/news/london-seminar-hello-is-it-me-youre-commissioning-for-3-december-2015",
+        "content_id": "a7020e89-ecb6-496d-a910-70253fe17bbe",
+        "description": "Commissioning victim services seminar",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-10-30T12:45:00Z",
+        "schema_name": "news_article",
+        "title": "London seminar:  Hello... is it me you're commissioning for? (3 December, 2015)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-seminar-hello-is-it-me-youre-commissioning-for-3-december-2015",
+        "web_url": "https://www.gov.uk/government/news/london-seminar-hello-is-it-me-youre-commissioning-for-3-december-2015"
+      },
+      {
+        "api_path": "/api/content/government/news/manchester-seminar-approaches-to-measuring-impact-what-can-be-done-when-circumstances-are-far-from-ideal-1-december-2015",
+        "base_path": "/government/news/manchester-seminar-approaches-to-measuring-impact-what-can-be-done-when-circumstances-are-far-from-ideal-1-december-2015",
+        "content_id": "f9609057-b7c0-4700-ab5d-84e12a1c88d9",
+        "description": "This free seminar explored the main approaches taken in the UK to understanding and describing the impact of interventions and programmes.  \r\n",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-10-30T12:30:00Z",
+        "schema_name": "news_article",
+        "title": "Manchester seminar: Approaches to measuring impact - what can be done when circumstances are far from ideal (1 December, 2015)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/manchester-seminar-approaches-to-measuring-impact-what-can-be-done-when-circumstances-are-far-from-ideal-1-december-2015",
+        "web_url": "https://www.gov.uk/government/news/manchester-seminar-approaches-to-measuring-impact-what-can-be-done-when-circumstances-are-far-from-ideal-1-december-2015"
+      },
+      {
+        "api_path": "/api/content/government/news/london-seminar-multi-agency-commissioning-the-yot-model",
+        "base_path": "/government/news/london-seminar-multi-agency-commissioning-the-yot-model",
+        "content_id": "73b1de8f-81a7-47f8-acc3-c932f5b313d5",
+        "description": "Overview of seminar including speaker, location and registration details",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-10-01T15:00:00Z",
+        "schema_name": "news_article",
+        "title": "London seminar: Multi-agency commissioning: the YOT model",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-seminar-multi-agency-commissioning-the-yot-model",
+        "web_url": "https://www.gov.uk/government/news/london-seminar-multi-agency-commissioning-the-yot-model"
+      },
+      {
+        "api_path": "/api/content/government/news/london-seminar-the-challenges-of-police-and-crime-commissioning",
+        "base_path": "/government/news/london-seminar-the-challenges-of-police-and-crime-commissioning",
+        "content_id": "17cd7573-b845-4e5b-bb6f-63d362dea7c9",
+        "description": "Overview of seminar, including speaker, location and registration details",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-10-01T14:30:00Z",
+        "schema_name": "news_article",
+        "title": "London seminar: The challenges of police and crime commissioning (27 October, 2015)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-seminar-the-challenges-of-police-and-crime-commissioning",
+        "web_url": "https://www.gov.uk/government/news/london-seminar-the-challenges-of-police-and-crime-commissioning"
+      },
+      {
+        "api_path": "/api/content/government/news/manchester-seminar-de-commissioning",
+        "base_path": "/government/news/manchester-seminar-de-commissioning",
+        "content_id": "03ff00e6-3dd7-4036-b7d0-b53699eb19b1",
+        "description": "Overview of seminar including slidepack",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-09-21T10:45:00Z",
+        "schema_name": "news_article",
+        "title": "Manchester seminar:  Effective De-commissioning: the flip side of effective commissioning (21 October, 2015)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/manchester-seminar-de-commissioning",
+        "web_url": "https://www.gov.uk/government/news/manchester-seminar-de-commissioning"
+      },
+      {
+        "api_path": "/api/content/government/news/london-evening-seminar-commissioning-to-improve-outcomes-for-young-people-9-september-2015",
+        "base_path": "/government/news/london-evening-seminar-commissioning-to-improve-outcomes-for-young-people-9-september-2015",
+        "content_id": "9bd728a1-416f-4d9b-a111-732acbe2a3e9",
+        "description": "Overview of seminar, including speaker, location and registration details",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-07-29T09:45:00Z",
+        "schema_name": "news_article",
+        "title": "Commissioning to improve outcomes for young people (9 September, 2015)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-evening-seminar-commissioning-to-improve-outcomes-for-young-people-9-september-2015",
+        "web_url": "https://www.gov.uk/government/news/london-evening-seminar-commissioning-to-improve-outcomes-for-young-people-9-september-2015"
+      },
+      {
+        "api_path": "/api/content/government/news/manchester-seminar-devolution-and-whole-system-commissioning-sept-2015",
+        "base_path": "/government/news/manchester-seminar-devolution-and-whole-system-commissioning-sept-2015",
+        "content_id": "724822bb-5c9c-4004-b3ab-c1ba109794f9",
+        "description": "Overview of seminar including slidepack",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-08-11T11:45:00Z",
+        "schema_name": "news_article",
+        "title": "Manchester seminar: Devolution and whole system commissioning (Sept 2015)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/manchester-seminar-devolution-and-whole-system-commissioning-sept-2015",
+        "web_url": "https://www.gov.uk/government/news/manchester-seminar-devolution-and-whole-system-commissioning-sept-2015"
+      },
+      {
+        "api_path": "/api/content/government/news/manchester-evening-seminar-the-next-five-years-of-criminal-justice-for-england-and-wales-20-july-2015",
+        "base_path": "/government/news/manchester-evening-seminar-the-next-five-years-of-criminal-justice-for-england-and-wales-20-july-2015",
+        "content_id": "0166e031-3872-4f7e-b10b-d0ebf702c5c9",
+        "description": "An overview of the seminar content and a copy of the slidepack",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-06-17T15:15:00Z",
+        "schema_name": "news_article",
+        "title": "Evening seminar slidepack: The next five years of criminal justice for England and Wales (20 July, 2015)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/manchester-evening-seminar-the-next-five-years-of-criminal-justice-for-england-and-wales-20-july-2015",
+        "web_url": "https://www.gov.uk/government/news/manchester-evening-seminar-the-next-five-years-of-criminal-justice-for-england-and-wales-20-july-2015"
+      },
+      {
+        "api_path": "/api/content/government/news/bristol-evening-seminar-more-than-a-provider-the-voluntary-sectors-experience-of-commissioning-june-2015",
+        "base_path": "/government/news/bristol-evening-seminar-more-than-a-provider-the-voluntary-sectors-experience-of-commissioning-june-2015",
+        "content_id": "c8845d00-dcab-469d-bea9-4419e051545d",
+        "description": "An overview of this Academy for Justice Commissioning evening seminar, including a copy of the seminar presentation",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-05-28T14:30:00Z",
+        "schema_name": "news_article",
+        "title": "Bristol Evening Seminar: More than a provider - the voluntary sector's experience of commissioning (June 2015)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/bristol-evening-seminar-more-than-a-provider-the-voluntary-sectors-experience-of-commissioning-june-2015",
+        "web_url": "https://www.gov.uk/government/news/bristol-evening-seminar-more-than-a-provider-the-voluntary-sectors-experience-of-commissioning-june-2015"
+      },
+      {
+        "api_path": "/api/content/government/news/manchester-evening-seminar-through-the-gate-services-9-june-2015",
+        "base_path": "/government/news/manchester-evening-seminar-through-the-gate-services-9-june-2015",
+        "content_id": "df2c5e4e-b66c-488a-a23c-f1ef8d3f0d35",
+        "description": "An overview of this Academy for Justice Commissioning evening seminar, including a copy of the seminar presentation",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-05-21T12:30:00Z",
+        "schema_name": "news_article",
+        "title": "Manchester Evening Seminar: Through the Gate Services (9 June, 2015)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/manchester-evening-seminar-through-the-gate-services-9-june-2015",
+        "web_url": "https://www.gov.uk/government/news/manchester-evening-seminar-through-the-gate-services-9-june-2015"
+      },
+      {
+        "api_path": "/api/content/government/news/london-evening-seminar-mental-health-treatment-requirements-14-jan-2015",
+        "base_path": "/government/news/london-evening-seminar-mental-health-treatment-requirements-14-jan-2015",
+        "content_id": "c43658d6-b18a-472f-8b9e-77f84e5c8390",
+        "description": "In this seminar speakers described the joint initiative between the National Offender Management Service and NHS England and how the programme is providing a jointly commissioned pathway of services from community to community.\r\n",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2015-03-12T13:45:00Z",
+        "schema_name": "news_article",
+        "title": "Previous Seminar Presentation: Offender Personality Disorder Pathway Programme (Mar 2015)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/london-evening-seminar-mental-health-treatment-requirements-14-jan-2015",
+        "web_url": "https://www.gov.uk/government/news/london-evening-seminar-mental-health-treatment-requirements-14-jan-2015"
+      },
+      {
+        "api_path": "/api/content/government/news/seminar-rediscovering-addiction-and-recovery-to-reduce-offending-11-dec-2014-manchester",
+        "base_path": "/government/news/seminar-rediscovering-addiction-and-recovery-to-reduce-offending-11-dec-2014-manchester",
+        "content_id": "602eb550-7631-11e4-a3cb-005056011aef",
+        "description": "An overview of this Academy for Justice Commissioning evening seminar, including details of who featured at the event and the slidepack",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2014-12-12T00:00:00Z",
+        "schema_name": "news_article",
+        "title": "Previous seminar presentation: rediscovering addiction and recovery to reduce offending (11 Dec 2014, Manchester)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/seminar-rediscovering-addiction-and-recovery-to-reduce-offending-11-dec-2014-manchester",
+        "web_url": "https://www.gov.uk/government/news/seminar-rediscovering-addiction-and-recovery-to-reduce-offending-11-dec-2014-manchester"
+      },
+      {
+        "api_path": "/api/content/government/news/seminar-sharing-information-to-transform-public-services-3-dec-2014-london",
+        "base_path": "/government/news/seminar-sharing-information-to-transform-public-services-3-dec-2014-london",
+        "content_id": "602eb208-7631-11e4-a3cb-005056011aef",
+        "description": "An introduction to this Academy for Justice Commissioning evening seminar, including details of who will feature at the event.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2014-11-01T00:00:00Z",
+        "schema_name": "news_article",
+        "title": "Seminar: sharing information to transform public services (3 Dec 2014, London)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/seminar-sharing-information-to-transform-public-services-3-dec-2014-london",
+        "web_url": "https://www.gov.uk/government/news/seminar-sharing-information-to-transform-public-services-3-dec-2014-london"
+      },
+      {
+        "api_path": "/api/content/government/news/seminar-commissioning-to-transform-liaison-and-diversion-services-5-nov-2014",
+        "base_path": "/government/news/seminar-commissioning-to-transform-liaison-and-diversion-services-5-nov-2014",
+        "content_id": "6026079c-7631-11e4-a3cb-005056011aef",
+        "description": "An overview of this Academy for Justice Commissioning evening seminar, including the speakers' presentations.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2014-11-06T00:00:00Z",
+        "schema_name": "news_article",
+        "title": "Previous Seminar Presentation: commissioning to transform liaison and diversion services (5 Nov 2014)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/seminar-commissioning-to-transform-liaison-and-diversion-services-5-nov-2014",
+        "web_url": "https://www.gov.uk/government/news/seminar-commissioning-to-transform-liaison-and-diversion-services-5-nov-2014"
+      },
+      {
+        "api_path": "/api/content/government/news/seminar-challenge-and-change-working-together-to-support-health-and-care-in-the-south-west-3-nov-2014",
+        "base_path": "/government/news/seminar-challenge-and-change-working-together-to-support-health-and-care-in-the-south-west-3-nov-2014",
+        "content_id": "60260f37-7631-11e4-a3cb-005056011aef",
+        "description": "An overview of this Academy for Justice Commissioning evening seminar, including the speaker's presentation.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2014-11-04T00:00:00Z",
+        "schema_name": "news_article",
+        "title": "Previous Bristol Seminar Presentation: Challenge and change - working together to support health and care in the South West (3 Nov 2014)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/seminar-challenge-and-change-working-together-to-support-health-and-care-in-the-south-west-3-nov-2014",
+        "web_url": "https://www.gov.uk/government/news/seminar-challenge-and-change-working-together-to-support-health-and-care-in-the-south-west-3-nov-2014"
+      },
+      {
+        "api_path": "/api/content/government/news/seminar-offenders-and-welfare-reform-21-oct-2014",
+        "base_path": "/government/news/seminar-offenders-and-welfare-reform-21-oct-2014",
+        "content_id": "602730ca-7631-11e4-a3cb-005056011aef",
+        "description": "An overview of this Academy for Justice Commissioning evening seminar, including the speaker's presentation.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2014-10-21T23:00:00Z",
+        "schema_name": "news_article",
+        "title": "Seminar: offenders and welfare reform (21 Oct 2014)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/seminar-offenders-and-welfare-reform-21-oct-2014",
+        "web_url": "https://www.gov.uk/government/news/seminar-offenders-and-welfare-reform-21-oct-2014"
+      },
+      {
+        "api_path": "/api/content/government/news/seminar-transforming-the-lives-of-troubled-families-the-manchester-evaluation-6-oct-2014",
+        "base_path": "/government/news/seminar-transforming-the-lives-of-troubled-families-the-manchester-evaluation-6-oct-2014",
+        "content_id": "60262444-7631-11e4-a3cb-005056011aef",
+        "description": "An overview of this Academy for Justice Commissioning evening seminar, including the speaker's presentation.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2014-10-06T23:00:00Z",
+        "schema_name": "news_article",
+        "title": "Seminar: transforming the lives of troubled families - the Manchester evaluation (6 Oct 2014)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/seminar-transforming-the-lives-of-troubled-families-the-manchester-evaluation-6-oct-2014",
+        "web_url": "https://www.gov.uk/government/news/seminar-transforming-the-lives-of-troubled-families-the-manchester-evaluation-6-oct-2014"
+      },
+      {
+        "api_path": "/api/content/government/news/seminar-commissioning-street-triage-services-29-sep-2014",
+        "base_path": "/government/news/seminar-commissioning-street-triage-services-29-sep-2014",
+        "content_id": "6027367d-7631-11e4-a3cb-005056011aef",
+        "description": "An overview of this Academy for Justice Commissioning evening seminar, including the speakers' presentations.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2014-09-29T23:00:00Z",
+        "schema_name": "news_article",
+        "title": "Seminar: commissioning street triage services (29 Sep 2014)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/seminar-commissioning-street-triage-services-29-sep-2014",
+        "web_url": "https://www.gov.uk/government/news/seminar-commissioning-street-triage-services-29-sep-2014"
+      },
+      {
+        "api_path": "/api/content/government/news/seminar-offenders-and-welfare-reform-21-july-2014",
+        "base_path": "/government/news/seminar-offenders-and-welfare-reform-21-july-2014",
+        "content_id": "6027346e-7631-11e4-a3cb-005056011aef",
+        "description": "An overview of this Academy for Justice Commissioning evening seminar, including the speaker's presentation.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2014-07-21T23:00:00Z",
+        "schema_name": "news_article",
+        "title": "Seminar: offenders and welfare reform (21 July 2014)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/seminar-offenders-and-welfare-reform-21-july-2014",
+        "web_url": "https://www.gov.uk/government/news/seminar-offenders-and-welfare-reform-21-july-2014"
+      },
+      {
+        "api_path": "/api/content/government/news/seminar-commissioning-to-transform-rehabilitation-17-june-2014",
+        "base_path": "/government/news/seminar-commissioning-to-transform-rehabilitation-17-june-2014",
+        "content_id": "60274153-7631-11e4-a3cb-005056011aef",
+        "description": "An overview of this Academy for Justice Commissioning evening seminar, including the speaker's presentation.\r\n",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2014-06-17T23:00:00Z",
+        "schema_name": "news_article",
+        "title": "Seminar: commissioning to transform rehabilitation (17 June 2014)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/seminar-commissioning-to-transform-rehabilitation-17-june-2014",
+        "web_url": "https://www.gov.uk/government/news/seminar-commissioning-to-transform-rehabilitation-17-june-2014"
+      },
+      {
+        "api_path": "/api/content/government/news/seminar-women-and-the-criminal-justice-system-15-may-2014",
+        "base_path": "/government/news/seminar-women-and-the-criminal-justice-system-15-may-2014",
+        "content_id": "602755f1-7631-11e4-a3cb-005056011aef",
+        "description": "An overview of this Academy for Justice Commissioning evening seminar, including the speakers' presentations.",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2014-05-15T23:00:00Z",
+        "schema_name": "news_article",
+        "title": "Seminar: women and the criminal justice system (15 May 2014)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/seminar-women-and-the-criminal-justice-system-15-may-2014",
+        "web_url": "https://www.gov.uk/government/news/seminar-women-and-the-criminal-justice-system-15-may-2014"
+      },
+      {
+        "api_path": "/api/content/government/news/bristol-seminar-experts-by-experience-engaging-the-service-user-22-nov-2016",
+        "base_path": "/government/news/bristol-seminar-experts-by-experience-engaging-the-service-user-22-nov-2016",
+        "content_id": "db4cdbba-b17c-47f5-9fe7-42ff34734fff",
+        "description": "In this free seminar Kieran and Paula will discuss the importance of understanding the “service user” voice within the Criminal Justice System. ",
+        "document_type": "news_story",
+        "locale": "en",
+        "public_updated_at": "2016-10-11T11:15:01Z",
+        "schema_name": "news_article",
+        "title": "Bristol Seminar:  Experts by Experience: engaging the service user (22 Nov, 2016)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/news/bristol-seminar-experts-by-experience-engaging-the-service-user-22-nov-2016",
+        "web_url": "https://www.gov.uk/government/news/bristol-seminar-experts-by-experience-engaging-the-service-user-22-nov-2016"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "OT1025",
+        "api_path": "/api/content/government/organisations/academy-for-justice-commissioning",
+        "base_path": "/government/organisations/academy-for-justice-commissioning",
+        "content_id": "4dfe21ee-acfa-4fc1-9513-cc764e814205",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-01-09T11:45:43Z",
+        "schema_name": "placeholder",
+        "title": "Academy for Justice Commissioning",
+        "withdrawn": false,
+        "details": {
+          "brand": "ministry-of-justice",
+          "logo": {
+            "formatted_title": "Academy for Justice Commissioning",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/academy-for-justice-commissioning",
+        "web_url": "https://www.gov.uk/government/organisations/academy-for-justice-commissioning"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/government-efficiency-transparency-and-accountability",
+        "base_path": "/government/topics/government-efficiency-transparency-and-accountability",
+        "content_id": "0a12a282-10eb-4c83-9db4-16540ae5ab01",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:06Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Government efficiency, transparency and accountability",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/government-efficiency-transparency-and-accountability",
+        "web_url": "https://www.gov.uk/government/topics/government-efficiency-transparency-and-accountability"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "OT1025",
+        "api_path": "/api/content/government/organisations/academy-for-justice-commissioning",
+        "base_path": "/government/organisations/academy-for-justice-commissioning",
+        "content_id": "4dfe21ee-acfa-4fc1-9513-cc764e814205",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-01-09T11:45:43Z",
+        "schema_name": "placeholder",
+        "title": "Academy for Justice Commissioning",
+        "withdrawn": false,
+        "details": {
+          "brand": "ministry-of-justice",
+          "logo": {
+            "formatted_title": "Academy for Justice Commissioning",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/academy-for-justice-commissioning",
+        "web_url": "https://www.gov.uk/government/organisations/academy-for-justice-commissioning"
+      }
+    ],
+    "related_policies": [
+      {
+        "api_path": "/api/content/government/policies/civil-service-reform",
+        "base_path": "/government/policies/civil-service-reform",
+        "content_id": "5d2b5b43-7631-11e4-a3cb-005056011aef",
+        "description": "What the government’s doing about civil service reform.",
+        "document_type": "policy",
+        "locale": "en",
+        "public_updated_at": "2015-05-14T17:57:01Z",
+        "schema_name": "policy",
+        "title": "Civil service reform",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/policies/civil-service-reform",
+        "web_url": "https://www.gov.uk/government/policies/civil-service-reform"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Academy for Justice Commissioning events",
+        "public_updated_at": "2014-11-05T11:18:00Z",
+        "document_type": "document_collection",
+        "schema_name": "document_collection",
+        "base_path": "/government/collections/academy-for-justice-commissioning-events",
+        "description": "Details of the Academy for Justice Commissioning’s events programme and presentations from previous events.",
+        "api_path": "/api/content/government/collections/academy-for-justice-commissioning-events",
+        "withdrawn": false,
+        "content_id": "60260621-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/collections/academy-for-justice-commissioning-events",
+        "web_url": "https://www.gov.uk/government/collections/academy-for-justice-commissioning-events",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Details of the Academy for Justice Commissioning’s events programme and presentations from previous events.",
+  "details": {
+    "change_history": [
+      {
+        "public_timestamp": "2014-11-05T11:18:00.000+00:00",
+        "note": "First published."
+      }
+    ],
+    "collection_groups": [
+      {
+        "title": "Evening seminars: coming up",
+        "body": "<div class=\"govspeak\">\n</div>",
+        "documents": [
+          "baf71620-3de7-4908-96f4-9db0e5515f9f"
+        ]
+      },
+      {
+        "title": "Past seminar information and presentations",
+        "body": "<div class=\"govspeak\"><p>An overview of each seminar with:</p>\n\n<ul>\n  <li>details of speakers</li>\n  <li>presentations</li>\n  <li>videos</li>\n</ul>\n</div>",
+        "documents": [
+          "78fa2e69-b46c-4cc6-98ea-687762e43cdd",
+          "89f5bbea-180f-48ad-b8b6-d04f8c7cc79e",
+          "e813b208-18b3-48ed-9c4b-8be404b4a102",
+          "52c091b9-f533-4a60-a159-1c41254495d9",
+          "31d0f318-278e-4e3e-a3b5-c95357a08565",
+          "f5733809-868b-48f9-82ca-742c55785da6",
+          "bcc5e5c4-7cc3-445b-b056-d868e3359c68",
+          "92d88ddd-7e3d-4c46-b4ff-2d678e535994",
+          "e43266d1-5045-4bfb-ac3b-630ccd570623",
+          "656b5696-6c65-4a8a-b880-be6725d6e7ff",
+          "81f6c689-3f44-49dc-92eb-97477a07b8f1",
+          "ea2ca73a-3ccb-4c9f-b2a3-f1589cd35d0b",
+          "ef60f5b7-dd95-4797-945c-63b901547d92",
+          "b3b80871-a1e9-4e90-bff8-ba4c1371fe00",
+          "9cfb1585-1603-4cbb-85a4-542c0a753baa",
+          "e4eed30e-d548-4634-be9f-d18102451b73",
+          "49a73927-889a-4029-a26c-4fe64efd4ae0",
+          "2a9d5f2c-03ba-4e44-89ee-160114759050",
+          "a7020e89-ecb6-496d-a910-70253fe17bbe",
+          "f9609057-b7c0-4700-ab5d-84e12a1c88d9",
+          "73b1de8f-81a7-47f8-acc3-c932f5b313d5",
+          "17cd7573-b845-4e5b-bb6f-63d362dea7c9",
+          "03ff00e6-3dd7-4036-b7d0-b53699eb19b1",
+          "9bd728a1-416f-4d9b-a111-732acbe2a3e9",
+          "724822bb-5c9c-4004-b3ab-c1ba109794f9",
+          "0166e031-3872-4f7e-b10b-d0ebf702c5c9",
+          "c8845d00-dcab-469d-bea9-4419e051545d",
+          "df2c5e4e-b66c-488a-a23c-f1ef8d3f0d35",
+          "c43658d6-b18a-472f-8b9e-77f84e5c8390",
+          "602eb550-7631-11e4-a3cb-005056011aef",
+          "602eb208-7631-11e4-a3cb-005056011aef",
+          "6026079c-7631-11e4-a3cb-005056011aef",
+          "60260f37-7631-11e4-a3cb-005056011aef",
+          "602730ca-7631-11e4-a3cb-005056011aef",
+          "60262444-7631-11e4-a3cb-005056011aef",
+          "6027367d-7631-11e4-a3cb-005056011aef",
+          "6027346e-7631-11e4-a3cb-005056011aef",
+          "60274153-7631-11e4-a3cb-005056011aef",
+          "602755f1-7631-11e4-a3cb-005056011aef",
+          "db4cdbba-b17c-47f5-9fe7-42ff34734fff"
+        ]
+      },
+      {
+        "title": "Conferences",
+        "body": "<div class=\"govspeak\">\n</div>",
+        "documents": [
+          "59388331-6684-4d02-8632-c47fcd720844",
+          "f36bb742-d4a7-46f6-8e73-7b87c725dfdd",
+          "60260dc6-7631-11e4-a3cb-005056011aef"
+        ]
+      }
+    ],
+    "body": "<div class=\"govspeak\">\n<div class=\"call-to-action\">\n<p>Follow <a rel=\"external\" href=\"https://twitter.com/Academyjustice\">@academyjustice</a> for news about events.</p>\n</div>\n\n<p>Our events programme includes monthly evening seminars with guest speakers, which take place in Bristol, London and Manchester.</p>\n\n<p>We also hold a commissioning-themed annual conference.</p>\n\n<p>All our events are free to attend and they offer the opportunity to network and share best practice with your commissioning colleagues.</p>\n\n<p>You must be a member of the Academy for Justice Commissioning to attend these events. Membership is free. Read more about how to become a member.</p>\n\n<div class=\"call-to-action\">\n<p>To register for an event, please email your details to <a href=\"mailto:academy@noms.gsi.gov.uk\">academy@noms.gsi.gov.uk</a>.</p>\n</div>\n\n</div>",
+    "emphasised_organisations": [
+      "4dfe21ee-acfa-4fc1-9513-cc764e814205"
+    ],
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "first_public_at": "2014-11-05T11:18:00.000+00:00"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "content_id": "2189bae1-a94e-4f90-917b-ffe25ec9ac4d",
+  "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb2000",
+  "title": "Introduction: contents",
+  "description": "",
+  "locale": "en",
+  "updated_at": "2015-03-03T10:54:03.662Z",
+  "public_updated_at": "2015-02-10T14:52:10.000+00:00",
+  "details": {
+    "body": "\n",
+    "section_id": "VATGPB2000",
+    "breadcrumbs": [
+
+    ],
+    "child_section_groups": [
+      {
+        "child_sections": [
+          {
+            "section_id": "VATGPB2100",
+            "title": "Introduction: scope of the manual",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb2100"
+          },
+          {
+            "section_id": "VATGPB2200",
+            "title": "Introduction: release of information",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb2200"
+          },
+          {
+            "section_id": "VATGPB2300",
+            "title": "Introduction: how to use the manual",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb2300"
+          },
+          {
+            "section_id": "VATGPB2400",
+            "title": "Introduction: Notice 749",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb2400"
+          },
+          {
+            "section_id": "VATGPB2500",
+            "title": "Introduction: representative bodies",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb2500"
+          },
+          {
+            "section_id": "VATGPB2600",
+            "title": "Introduction: HMRC contacts",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb2600"
+          }
+        ]
+      }
+    ],
+    "manual": {
+      "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies"
+    },
+    "organisations": [
+      {
+        "title": "HM Revenue & Customs",
+        "abbreviation": "HMRC",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs"
+      }
+    ]
+  },
+  "links": {
+    "available_translations": [
+      {
+        "content_id": "2189bae1-a94e-4f90-917b-ffe25ec9ac4d",
+        "title": "Introduction: contents",
+        "api_path": "/api/content/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb2000",
+        "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb2000",
+        "api_url": "https://www.gov.uk/api/content/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb2000",
+        "web_url": "https://www.gov.uk/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb2000",
+        "locale": "en"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "6667cce2-e809-4e21-ae09-cb0bdc1ddda3",
+        "title": "HM Revenue & Customs",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs",
+        "base_path": "/government/organisations/hm-revenue-customs",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs",
+        "locale": "en"
+      }
+    ]
+  },
+  "schema_name": "hmrc_manual_section",
+  "document_type": "hmrc_manual_section"
+}

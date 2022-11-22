@@ -1,0 +1,204 @@
+{
+  "content_id": "34a376eb-5a60-4a05-8d37-450660b67410",
+  "base_path": "/drug-safety-update",
+  "title": "Drug Safety Update",
+  "description": "",
+  "locale": "en",
+  "updated_at": "2015-07-21T12:45:19.565Z",
+  "public_updated_at": "2015-04-30T10:41:26.000+00:00",
+  "details": {
+    "beta": false,
+    "document_noun": "update",
+    "facets": [
+      {
+        "allowed_values": [
+          {
+            "label": "Anaesthesia and intensive care",
+            "value": "anaesthesia-intensive-care"
+          },
+          {
+            "label": "Breastfeeding",
+            "value": "breastfeeding"
+          },
+          {
+            "label": "Cancer",
+            "value": "cancer"
+          },
+          {
+            "label": "Cardiovascular disease and lipidology",
+            "value": "cardiovascular-disease-lipidology"
+          },
+          {
+            "label": "Dentistry",
+            "value": "dentistry"
+          },
+          {
+            "label": "Dermatology",
+            "value": "dermatology"
+          },
+          {
+            "label": "Dispensing GP practices",
+            "value": "dispensing-gp-practices"
+          },
+          {
+            "label": "Ear, nose and throat",
+            "value": "ear-nose-throat"
+          },
+          {
+            "label": "Endocrinology, diabetology and metabolism",
+            "value": "endocrinology-diabetology-metabolism"
+          },
+          {
+            "label": "GI, hepatology and pancreatic disorders",
+            "value": "gi-hepatology-pancreatic-disorders"
+          },
+          {
+            "label": "Haematology",
+            "value": "haematology"
+          },
+          {
+            "label": "Immunology and vaccination",
+            "value": "immunology-vaccination"
+          },
+          {
+            "label": "Immunosuppression and transplantation",
+            "value": "immunosuppression-transplantation"
+          },
+          {
+            "label": "Infectious disease",
+            "value": "infectious-disease"
+          },
+          {
+            "label": "Neurology",
+            "value": "neurology"
+          },
+          {
+            "label": "Nutrition and dietetics",
+            "value": "nutrition-dietetics"
+          },
+          {
+            "label": "Obstetrics, gynaecology and fertility",
+            "value": "obstetrics-gynaecology-fertility"
+          },
+          {
+            "label": "Ophthalmology",
+            "value": "ophthalmology"
+          },
+          {
+            "label": "Paediatrics and neonatology",
+            "value": "paediatrics-neonatology"
+          },
+          {
+            "label": "Pain management and palliation",
+            "value": "pain-management-palliation"
+          },
+          {
+            "label": "Pregnancy",
+            "value": "pregnancy"
+          },
+          {
+            "label": "Psychiatry",
+            "value": "psychiatry"
+          },
+          {
+            "label": "Radiology and imaging",
+            "value": "radiology-imaging"
+          },
+          {
+            "label": "Respiratory disease and allergy",
+            "value": "respiratory-disease-allergy"
+          },
+          {
+            "label": "Rheumatology",
+            "value": "rheumatology"
+          },
+          {
+            "label": "Urology and nephrology",
+            "value": "urology-nephrology"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "therapeutic_area",
+        "name": "Therapeutic area",
+        "preposition": "about",
+        "type": "text"
+      },
+      {
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "first_published_at",
+        "name": "Published",
+        "preposition": "published",
+        "short_name": "Published",
+        "type": "date"
+      }
+    ],
+    "filter": {
+      "document_type": "drug_safety_update"
+    },
+    "format_name": "Drug Safety Update",
+    "show_summaries": true
+  },
+  "links": {
+    "email_alert_signup": [
+      {
+        "content_id": "c7371680-8205-4f18-a533-fa987d4225cf",
+        "title": "Drug Safety Update",
+        "api_path": "/api/content/drug-safety-update/email-signup",
+        "base_path": "/drug-safety-update/email-signup",
+        "description": "The drug safety update is a monthly newsletter for healthcare professionals, bringing you information and clinical advice on the safe use of medicines.",
+        "api_url": "https://www.gov.uk/api/content/drug-safety-update/email-signup",
+        "web_url": "https://www.gov.uk/drug-safety-update/email-signup",
+        "locale": "en"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "e68b064d-dfb6-46e6-91db-48df629f0162",
+        "title": "Medicines and Healthcare products Regulatory Agency",
+        "api_path": "/api/content/government/organisations/medicines-and-healthcare-products-regulatory-agency",
+        "base_path": "/government/organisations/medicines-and-healthcare-products-regulatory-agency",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/medicines-and-healthcare-products-regulatory-agency",
+        "web_url": "https://www.gov.uk/government/organisations/medicines-and-healthcare-products-regulatory-agency",
+        "locale": "en"
+      }
+    ],
+    "related": [
+      {
+        "content_id": "79f4668f-8672-4769-9323-ee00ae0dadda",
+        "title": "Alerts and recalls for drugs and medical devices",
+        "api_path": "/api/content/drug-device-alerts",
+        "base_path": "/drug-device-alerts",
+        "description": "",
+        "api_url": "https://www.gov.uk/api/content/drug-device-alerts",
+        "web_url": "https://www.gov.uk/drug-device-alerts",
+        "locale": "en"
+      },
+      {
+        "content_id": "20c598af-8d10-4a18-8c3a-9cc52e8b7bfd",
+        "title": "Drug Safety Update: monthly PDF newsletter",
+        "api_path": "/api/content/government/publications/drug-safety-update-monthly-newsletter",
+        "base_path": "/government/publications/drug-safety-update-monthly-newsletter",
+        "description": "Monthly PDF editions of the Drug Safety Update newsletter from MHRA and its independent advisor the Commission on Human Medicines. ",
+        "api_url": "https://www.gov.uk/api/content/government/publications/drug-safety-update-monthly-newsletter",
+        "web_url": "https://www.gov.uk/government/publications/drug-safety-update-monthly-newsletter",
+        "locale": "en"
+      }
+    ],
+    "available_translations": [
+      {
+        "content_id": "34a376eb-5a60-4a05-8d37-450660b67410",
+        "title": "Drug Safety Update",
+        "api_path": "/api/content/drug-safety-update",
+        "base_path": "/drug-safety-update",
+        "description": "",
+        "api_url": "https://www.gov.uk/api/content/drug-safety-update",
+        "web_url": "https://www.gov.uk/drug-safety-update",
+        "locale": "en"
+      }
+    ]
+  },
+  "schema_name": "finder",
+  "document_type": "finder"
+}

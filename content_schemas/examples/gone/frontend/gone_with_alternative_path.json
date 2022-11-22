@@ -1,0 +1,18 @@
+{
+  "base_path": "/government/case-studies/intellectual-property-stuart-scotty",
+  "content_id": "0931e16e-5729-41a9-830a-88613775eee0",
+  "locale": "en",
+  "title": null,
+  "description": null,
+  "document_type": "gone",
+  "publishing_app": "whitehall",
+  "schema_name": "gone",
+  "details": {
+    "explanation": "<div class=\"govspeak\"><p>Incorrect title</p> </div>",
+    "alternative_path": "/government/example"
+  },
+  "updated_at": "2016-09-26T09:50:56.078Z",
+  "public_updated_at": null,
+  "links": {
+  }
+}

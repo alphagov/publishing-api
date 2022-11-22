@@ -1,0 +1,89 @@
+{
+  "content_id": "dd395436-9b40-41f3-8157-740a453ac972",
+  "base_path": "/search/all",
+  "title": "All content",
+  "description": "Find content from government",
+  "locale": "en",
+  "updated_at": "2019-01-17T13:00:00.000+00:00",
+  "public_updated_at": "2019-01-17T13:00:00.000+00:00",
+  "schema_name": "finder",
+  "document_type": "finder",
+  "details": {
+    "default_documents_per_page": 20,
+    "document_noun": "result",
+    "facets": [
+      {
+        "key": "topics",
+        "filter_key": "all_part_of_taxonomy_tree",
+        "keys": [
+          "level_one_taxon",
+          "level_two_taxon"
+        ],
+        "name": "topic",
+        "short_name": "topic",
+        "type": "taxon",
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "preposition": "about"
+      },
+      {
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "organisations",
+        "name": "Organisation",
+        "preposition": "from",
+        "short_name": "From",
+        "type": "text",
+        "show_option_select_filter": true
+      },
+      {
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "key": "people",
+        "name": "Person",
+        "preposition": "from",
+        "type": "text",
+        "show_option_select_filter": true
+      },
+      {
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "world_locations",
+        "name": "World location",
+        "preposition": "in",
+        "type": "text",
+        "show_option_select_filter": true
+      },
+      {
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "public_timestamp",
+        "name": "Updated",
+        "short_name": "Updated",
+        "type": "date"
+      }
+    ],
+    "show_summaries": true,
+    "sort": [
+      {
+        "key": "-popularity",
+        "name": "Most viewed"
+      },
+      {
+        "key": "-relevance",
+        "name": "Relevance"
+      },
+      {
+        "default": true,
+        "key": "-public_timestamp",
+        "name": "Updated (newest)"
+      },
+      {
+        "key": "public_timestamp",
+        "name": "Updated (oldest)"
+      }
+    ]
+  },
+  "links": {
+  }
+}

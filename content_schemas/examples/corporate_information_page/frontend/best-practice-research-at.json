@@ -1,0 +1,82 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/environment-agency/about/research",
+  "content_id": "5f562abc-7631-11e4-a3cb-005056011aef",
+  "document_type": "research",
+  "first_published_at": "2014-09-22T14:34:44.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2017-11-27T14:59:28.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "corporate_information_page",
+  "title": "Research at EA",
+  "updated_at": "2017-11-30T12:26:09.397Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "14221-1512044768.834-195.59.221.4-1581",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "EA199",
+        "api_path": "/api/content/government/organisations/environment-agency",
+        "base_path": "/government/organisations/environment-agency",
+        "content_id": "16628142-57b2-4611-bc03-5912785acee3",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-10-05T08:43:12Z",
+        "schema_name": "placeholder",
+        "title": "Environment Agency",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-environment-food-rural-affairs",
+          "logo": {
+            "formatted_title": "Environment Agency",
+            "image": {
+              "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/199/EA_logo_354.jpg",
+              "alt_text": "Environment Agency"
+            }
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/environment-agency",
+        "web_url": "https://www.gov.uk/government/organisations/environment-agency"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Research at EA",
+        "public_updated_at": "2017-11-27T14:59:28Z",
+        "document_type": "research",
+        "schema_name": "corporate_information_page",
+        "base_path": "/government/organisations/environment-agency/about/research",
+        "description": "Evidence underpins the work of the Environment Agency. ",
+        "api_path": "/api/content/government/organisations/environment-agency/about/research",
+        "withdrawn": false,
+        "content_id": "5f562abc-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/environment-agency/about/research",
+        "web_url": "https://www.gov.uk/government/organisations/environment-agency/about/research",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Evidence underpins the work of the Environment Agency. ",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>This includes improving the quality of the environment and reducing the impact of hazards such as pollution, floods, droughts and climate change. Our research provides the understanding, tools and techniques needed to achieve these outcomes.</p>\n\n<p>The Research team’s work includes:</p>\n\n<ul>\n  <li>providing expert scientific and technical advice, reports and guidance</li>\n  <li>determining scientific priorities for the Environment Agency</li>\n  <li>making sure we have the right research in place to meet current and future needs</li>\n  <li>providing a chemical regulatory service on behalf of the UK government</li>\n  <li>identifying future issues and problems and assessing their significance</li>\n  <li>developing innovative approaches and tools to solve environmental problems</li>\n  <li>supporting incident response</li>\n</ul>\n\n<h2 id=\"our-research-programmes\">Our research programmes</h2>\n\n<h4 id=\"joint-defra--environment-agency-flood-and-coastal-erosion-risk-management-research-and-development-programme\">Joint Defra / Environment Agency Flood and Coastal Erosion Risk Management Research and Development Programme</h4>\n\n<p>This programme is run by the Environment Agency, Defra, Welsh Government and Natural Resources Wales. It aims to serve the needs of all flood and coastal erosion risk management (FCERM) authorities in England and Wales.</p>\n\n<p>It provides the main evidence, information, tools and techniques to:</p>\n\n<ul>\n  <li>inform the development of FCERM policy and strategy</li>\n  <li>understand and assess coastal and flood risks and the processes by which these risks arise</li>\n  <li>manage flood and coastal erosion assets in a sustainable way</li>\n  <li>prepare for and manage flood events effectively</li>\n</ul>\n\n<p>Find out about the <a rel=\"external\" href=\"http://evidence.environment-agency.gov.uk/FCERM/en/Default/FCRM.aspx\">Environment Agency’s FCERM research and development projects and partnerships</a>.</p>\n\n<h4 id=\"environment-agency-air-land-and-water-research-programme\">Environment Agency Air, Land and Water Research Programme</h4>\n\n<p>The programme has 6 themes:</p>\n\n<ul>\n  <li>catchment management – supporting river basin planning including catchment-based science and hydromorphology</li>\n  <li>land and water quality – impacts, risks and control of pollution in soil, groundwater and surface water</li>\n  <li>fisheries and biodiversity – protecting and managing aquatic species, including monitoring and diagnostic tools</li>\n  <li>regulated industry – supporting permitting and guidance with a focus on air quality and nuclear regulation</li>\n  <li>climate change – understanding the impacts of climate change and supporting adaptation and resilience in business and the environment</li>\n  <li>resource use – the sustainable management of natural resources including water supplies and solid wastes</li>\n</ul>\n\n<h4 id=\"defraenvironment-agency-joint-water-evidence-programme-jwep\">Defra/Environment Agency Joint Water Evidence Programme (JWEP)</h4>\n\n<p>JWEP brings together the water-related research of Defra and the Environment Agency and provides a focus for external collaboration. This is explained in <span id=\"attachment_2419503\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/564967/JWEP_summary.pdf\">Joint Water Environment Programme (JWEP) - summary</a>\n  (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">205KB</span>, <span class=\"page-length\">2 pages</span>)\n</span>\n.</p>\n\n<p>JWEP has commissioned a number of evidence reviews and has published a guide to the production of <a href=\"https://www.gov.uk/government/publications/the-production-of-quick-scoping-reviews-and-rapid-evidence-assessments\">Quick Scoping Reviews and Rapid Evidence Assessments</a>.</p>\n\n<h2 id=\"our-collaborative-research-priorities-2016-to-2020\">Our collaborative research priorities: 2016 to 2020</h2>\n<p>These priorities set out some of the big research questions facing the Environment Agency in delivering our duties and protecting the environment and human health. It is intended to inform external researchers and research funders of longer term priorities where we would welcome opportunities to work in partnership.</p>\n\n<p><a href=\"https://www.gov.uk/government/publications/collaborative-research-priorities-for-the-environment-agency-2015-to-2019\">Collaborative research priorities for the Environment Agency</a>.</p>\n\n<h2 id=\"publications\">Publications</h2>\n\n<p>Recent research reports and summaries can be found in our <a href=\"https://www.gov.uk/government/publications?keywords=&amp;publication_filter_option=research-and-analysis&amp;topics%5B%5D=all&amp;departments%5B%5D=environment-agency&amp;official_document_status=all&amp;world_locations%5B%5D=all&amp;from_date=&amp;to_date=&amp;commit=Refresh+results\">publications catalogue</a>.</p>\n\n<p>Older publications are held in <a rel=\"external\" href=\"http://webarchive.nationalarchives.gov.uk/20140328084622/https://publications.environment-agency.gov.uk/list.html\">The National Archives</a>.</p>\n\n<h2 id=\"partnerships\">Partnerships</h2>\n\n<p>We work collaboratively where this can deliver shared research objectives more cost-effectively.\nOur partners include others within the Defra group, UK Research Councils, UK Water Industry Research (<abbr title=\"UK Water Industry Research\">UKWIR</abbr>), Construction Industry Research and Information Association (<abbr title=\"Construction Industry Research and Information Association\">CIRIA</abbr>), universities and EU-funded project partners.</p>\n\n<h2 id=\"contact-us\">Contact us</h2>\n\n<p>For further information please contact:</p>\n\n<p><a href=\"mailto:andy.croxford@environment-agency.gov.uk\">andy.croxford@environment-agency.gov.uk</a>, Deputy Director, Research</p>\n\n<p><a href=\"mailto:neil.weatherley@environment-agency.gov.uk\">neil.weatherley@environment-agency.gov.uk</a>, Air, Land and Water Programme Manager</p>\n\n<p><a href=\"mailto:alwyn.hart@environment-agency.gov.uk\">alwyn.hart@environment-agency.gov.uk</a>, Theme Expert Air, Land and Water</p>\n\n<p><a href=\"mailto:glenn.watts@environment-agency.gov.uk\">glenn.watts@environment-agency.gov.uk</a>, Theme Expert Climate Change and Resource Use</p>\n\n<p><a href=\"mailto:andy.moores@environment-agency.gov.uk\">andy.moores@environment-agency.gov.uk</a>, Joint Defra / Environment Agency FCERM Research and Development Programme Manager</p>\n\n<p><a href=\"mailto:jacqui.cotton@environment-agency.gov.uk\">jacqui.cotton@environment-agency.gov.uk</a>, Theme Expert Policy Strategy and Investment in the Joint FCERM Research and Development Programme</p>\n\n<p><a href=\"mailto:susan.manson@environment-agency.gov.uk\">susan.manson@environment-agency.gov.uk</a>, Theme Expert Incident Management and Modelling in the Joint FCERM Research and Development Programme</p>\n\n<p><a href=\"mailto:owen.tarrant@environment-agency.gov.uk\">owen.tarrant@environment-agency.gov.uk</a>, Theme Expert Asset Management in the Joint FCERM Research and Development Programme</p>\n\n</div>",
+    "organisation": "16628142-57b2-4611-bc03-5912785acee3",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

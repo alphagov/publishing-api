@@ -1,0 +1,171 @@
+{
+  "base_path": "/government/organisations/department-of-health/about",
+  "content_id": "223d5519-da25-4210-8fec-52d77a7d2af6",
+  "title": "About us",
+  "description": "The Department of Health (DH) helps people to live better for longer. We lead, shape and fund health and care in England, making sure people have the support, care and treatment they need, with the compassion, respect and dignity they deserve.",
+  "locale": "en",
+  "updated_at": "2016-05-03T14:11:53.023Z",
+  "public_updated_at": "2016-05-03T14:11:50.000+00:00",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"our-responsibilities\">Our responsibilities</h2><ul>  <li>    <p>we lead across health and care by creating national policies and legislation, providing the long-term vision and ambition to meet current and future challenges, putting health and care at the heart of government and being a global leader in health and care policy</p>  </li>  <li>    <p>we support the integrity of the system by providing funding, assuring the delivery and continuity of services and accounting to Parliament in a way that represents the best interests of the patient, public and taxpayer.</p>  </li>  <li>    <p>we champion innovation and improvement by supporting research and technology, promoting honesty, openness and transparency, and instilling a culture that values compassion, dignity and the highest quality of care above everything</p>  </li>  <li>    <p>above all, <abbr title=\"The Department of Health\">DH</abbr> encourages staff in every health and care organisation, including our own, to understand and learn from people’s experience of health and care and to apply this to everything we do</p>  </li></ul><h2 id=\"our-priorities\">Our priorities</h2><p>From 2016 to 2017, our priorities will be:</p><ul>  <li>improving out-of-hospital care</li>  <li>creating the safest, highest quality healthcare services</li>  <li>maintaining and improving performance against core standards while achieving financial balance</li>  <li>improving efficiency and productivity of the health and care system</li>  <li>preventing ill health and supporting people to live healthier lives</li>  <li>supporting research, innovation and growth</li>  <li>enabling people and communities to make decisions about their own health and care</li>  <li>building and developing the workforce</li>  <li>improving services through the use of digital technology, information and transparency</li></ul><p>Read our <a href=\"https://www.gov.uk/government/publications/department-of-health-shared-delivery-plan-2015-to-2020\">Shared Delivery Plan</a> to find out more about how we are performing against our objectives.</p><h2 id=\"who-we-are\">Who we are</h2><p><abbr title=\"The Department of Health\">DH</abbr> is a ministerial department, supported by 15 arm’s length bodies and a number of other agencies and public bodies. The department employs 2,160 staff who work in locations across the country.</p><h2 id=\"partner-organisations-and-agencies-including-contact-information\">Partner organisations and agencies including contact information</h2><p><a href=\"https://www.gov.uk/government/publications/how-to-contact-department-of-health-arms-length-bodies\">Find out more about the department’s partner organisations and agencies, also known as arm’s length bodies.</a></p><p>This page includes contact information and a list of members of the executive boards.</p></div>",
+    "organisation": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+    "corporate_information_groups": [
+      {
+        "name": "Access our information",
+        "contents": [
+          "5f54ec49-7631-11e4-a3cb-005056011aef",
+          "5f55b4d0-7631-11e4-a3cb-005056011aef",
+          "5f553aa0-7631-11e4-a3cb-005056011aef",
+          "5f5543ee-7631-11e4-a3cb-005056011aef",
+          "5f554069-7631-11e4-a3cb-005056011aef",
+          {
+            "title": "Transparency data",
+            "path": "/government/publications?departments%5B%5D=department-of-health&publication_type=transparency-data"
+          },
+          {
+            "title": "Corporate reports",
+            "path": "/government/publications?departments%5B%5D=department-of-health&publication_type=corporate-reports"
+          }
+        ]
+      },
+      {
+        "name": "Jobs and contracts",
+        "contents": [
+          "5f54e968-7631-11e4-a3cb-005056011aef",
+          "5f54eea2-7631-11e4-a3cb-005056011aef",
+          {
+            "title": "Jobs",
+            "url": "https://www.civilservicejobs.service.gov.uk/csr"
+          }
+        ]
+      }
+    ],
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  },
+  "links": {
+    "corporate_information_pages": [
+      {
+        "content_id": "5f54ec49-7631-11e4-a3cb-005056011aef",
+        "title": "Complaints procedure",
+        "api_path": "/api/content/government/organisations/department-of-health/about/complaints-procedure",
+        "base_path": "/government/organisations/department-of-health/about/complaints-procedure",
+        "locale": "en",
+        "document_type": "complaints_procedure"
+      },
+      {
+        "content_id": "5f55b4d0-7631-11e4-a3cb-005056011aef",
+        "title": "Media enquiries",
+        "api_path": "/api/content/government/organisations/department-of-health/about/media-enquiries",
+        "base_path": "/government/organisations/department-of-health/about/media-enquiries",
+        "locale": "en",
+        "document_type": "media_enquiries"
+      },
+      {
+        "content_id": "5f553aa0-7631-11e4-a3cb-005056011aef",
+        "title": "Statistics at DH",
+        "api_path": "/api/content/government/organisations/department-of-health/about/statistics",
+        "base_path": "/government/organisations/department-of-health/about/statistics",
+        "locale": "en",
+        "document_type": "statistics"
+      },
+      {
+        "content_id": "5f5543ee-7631-11e4-a3cb-005056011aef",
+        "title": "Our governance",
+        "api_path": "/api/content/government/organisations/department-of-health/about/our-governance",
+        "base_path": "/government/organisations/department-of-health/about/our-governance",
+        "locale": "en",
+        "document_type": "our_governance"
+      },
+      {
+        "content_id": "5f554069-7631-11e4-a3cb-005056011aef",
+        "title": "Equality and diversity",
+        "api_path": "/api/content/government/organisations/department-of-health/about/equality-and-diversity",
+        "base_path": "/government/organisations/department-of-health/about/equality-and-diversity",
+        "locale": "en",
+        "document_type": "equality_and_diversity"
+      },
+      {
+        "content_id": "5f54e968-7631-11e4-a3cb-005056011aef",
+        "title": "Working for DH",
+        "api_path": "/api/content/government/organisations/department-of-health/about/recruitment",
+        "base_path": "/government/organisations/department-of-health/about/recruitment",
+        "locale": "en",
+        "document_type": "recruitment"
+      },
+      {
+        "content_id": "5f54eea2-7631-11e4-a3cb-005056011aef",
+        "title": "Procurement at DH",
+        "api_path": "/api/content/government/organisations/department-of-health/about/procurement",
+        "base_path": "/government/organisations/department-of-health/about/procurement",
+        "locale": "en",
+        "document_type": "procurement"
+      },
+      {
+        "content_id": "5f55435a-7631-11e4-a3cb-005056011aef",
+        "title": "Publication scheme",
+        "api_path": "/api/content/government/organisations/department-of-health/about/publication-scheme",
+        "base_path": "/government/organisations/department-of-health/about/publication-scheme",
+        "locale": "en",
+        "document_type": "publication_scheme"
+      },
+      {
+        "content_id": "5f54ed74-7631-11e4-a3cb-005056011aef",
+        "title": "Personal information charter",
+        "api_path": "/api/content/government/organisations/department-of-health/about/personal-information-charter",
+        "base_path": "/government/organisations/department-of-health/about/personal-information-charter",
+        "locale": "en",
+        "document_type": "personal_information_charter"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+        "title": "Department of Health",
+        "api_path": "/api/content/government/organisations/department-of-health",
+        "base_path": "/government/organisations/department-of-health",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health",
+        "locale": "en",
+        "analytics_identifier": "D12",
+        "details": {
+          "brand": "department-of-health",
+          "logo": {
+            "formatted_title": "Department<br/>of Health",
+            "crest": "single-identity"
+          }
+        }
+      }
+    ],
+    "parent": [
+      {
+        "content_id": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+        "title": "Department of Health",
+        "api_path": "/api/content/government/organisations/department-of-health",
+        "base_path": "/government/organisations/department-of-health",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health",
+        "locale": "en",
+        "analytics_identifier": "D12",
+        "details": {
+          "brand": "department-of-health",
+          "logo": {
+            "formatted_title": "Department<br/>of Health",
+            "crest": "single-identity"
+          }
+        }
+      }
+    ]
+  },
+  "schema_name": "corporate_information_page",
+  "document_type": "about"
+}

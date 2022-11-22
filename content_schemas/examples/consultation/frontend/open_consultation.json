@@ -1,0 +1,102 @@
+{
+  "content_id": "bc6eceb8-377e-40f8-911f-f715bc2e5b93",
+  "base_path": "/government/consultations/postgraduate-doctoral-loans",
+  "description": "We'd like your views on the proposed loan for doctoral study.",
+  "public_updated_at": "2016-11-07T15:45:44.000+00:00",
+  "title": "Postgraduate doctoral loans",
+  "updated_at": "2016-11-07T17:37:00Z",
+  "first_published_at": "2016-11-04T10:00:00+01:00",
+  "schema_name": "consultation",
+  "document_type": "open_consultation",
+  "locale": "en",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>We are seeking external views on a postgraduate doctoral loan.</p>\n\n<p>This will offer eligible applicants up to £25,000 towards the cost of their studies. The loan will be repaid on an income-contingent basis, and we aim to launch it in the 2018 to 2019 academic year.</p>\n\n<p>We are very interested in hearing what you think about the proposed loan.</p>\n\n<p>We will consider all responses and use these to inform the design of the doctoral loan.</p>\n\n<p>Income-contingent loans are loans where the repayments will be based on how much you earn.</p>\n</div>",
+    "first_public_at": "2016-11-04T10:00:00+01:00",
+    "opening_date": "2016-11-04T10:00:00+01:00",
+    "closing_date": "2216-12-16T16:00:00+01:00",
+    "change_history": [
+      {
+        "public_timestamp": "2011-11-07T16:00:00+00:00",
+        "note": "Added sub-topic tag."
+      }
+    ],
+    "held_on_another_website_url": "https://consult.education.gov.uk/part-time-maintenance-loans/post-graduate-doctoral-loans/",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "topics": [
+
+      ],
+      "policies": [
+
+      ]
+    },
+    "government": {
+      "title": "2015 Conservative government",
+      "slug": "2015-conservative-government",
+      "current": true
+    },
+    "emphasised_organisations": [
+      "ebd15ade-73b2-4eaf-b1c3-43034a42eb37"
+    ],
+    "political": true
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "d4fbc1b9-d47d-4386-af04-ac909f868f92",
+        "title": "2015 Conservative government",
+        "locale": "en",
+        "api_path": "/api/content/government/2015-conservative-government",
+        "base_path": "/government/2015-conservative-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2015-05-08T00:00:00+00:00",
+          "ended_on": null,
+          "current": true
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2015-conservative-government",
+        "web_url": "https://www.gov.uk/government/2015-conservative-government"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "ebd15ade-73b2-4eaf-b1c3-43034a42eb37",
+        "title": "Department for Education",
+        "api_path": "/api/content/government/organisations/department-for-education",
+        "base_path": "/government/organisations/department-for-education",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-education",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-education",
+        "locale": "en",
+        "document_type": "organisation",
+        "analytics_identifier": "D25"
+      }
+    ],
+    "policy_areas": [
+      {
+        "content_id": "79c20db7-211f-4627-b56b-1a3524c4a707",
+        "title": "Higher education",
+        "api_path": "/api/content/government/topic/higher-education",
+        "base_path": "/government/topic/higher-education",
+        "api_url": "https://www.gov.uk/api/content/government/world/topic/higher-education",
+        "web_url": "https://www.gov.uk/government/world/topic/higher-education",
+        "locale": "en"
+      }
+    ],
+    "topics": [
+      {
+        "content_id": "d8ceea35-f206-459c-ad31-4793218111ec",
+        "title": "Higher education administration",
+        "base_path": "/topic/higher-education/administration",
+        "api_path": "/api/content/topic/higher-education/administration",
+        "api_url": "https://www.gov.uk/api/content/topic/higher-education/administration",
+        "web_url": "https://www.gov.uk/topic/higher-education/administration",
+        "locale": "en",
+        "document_type": "topic"
+      }
+    ]
+  }
+}

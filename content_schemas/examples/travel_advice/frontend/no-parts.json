@@ -1,0 +1,139 @@
+{
+  "content_id": "b31eb5c9-127c-4c34-9f74-3576c08a501a",
+  "base_path": "/foreign-travel-advice/antarctica",
+  "description": "Latest travel advice for Antarctica including safety and security, entry requirements, travel warnings and health",
+  "details": {
+    "summary": "<p>It's very cold.</p>",
+    "country": {
+      "name": "Antarctica",
+      "slug": "antarctica"
+    },
+    "updated_at": "2015-10-15T11:00:20+01:00",
+    "reviewed_at": "2015-08-28T17:11:23+01:00",
+    "change_description": "Latest update: Info about the cold.",
+    "alert_status": [
+
+    ],
+    "email_signup_link": "/foreign-travel-advice/email-signup",
+    "parts": [
+
+    ],
+    "max_cache_time": 10,
+    "publishing_request_id": "2546-1460985144476-19268198-3242"
+  },
+  "links": {
+    "mainstream_browse_pages": [
+      {
+        "content_id": "b9849cd6-61a7-42dc-8124-362d2c7d48b0",
+        "title": "Travel abroad",
+        "api_path": "/api/content/browse/abroad/travel-abroad",
+        "base_path": "/browse/abroad/travel-abroad",
+        "api_url": "https://www.gov.uk/api/content/browse/abroad/travel-abroad",
+        "web_url": "https://www.gov.uk/browse/abroad/travel-abroad",
+        "locale": "en"
+      },
+      {
+        "content_id": "bbb8985a-5451-4e9d-a601-8c55853a096c",
+        "title": "Living abroad",
+        "api_path": "/api/content/browse/abroad/living-abroad",
+        "base_path": "/browse/abroad/living-abroad",
+        "api_url": "https://www.gov.uk/api/content/browse/abroad/living-abroad",
+        "web_url": "https://www.gov.uk/browse/abroad/living-abroad",
+        "locale": "en"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "8b19c238-54e3-4e27-b0d7-60f8e2a677c9",
+        "title": "Foreign & Commonwealth Office",
+        "api_path": "/api/content/government/organisations/foreign-commonwealth-office",
+        "base_path": "/government/organisations/foreign-commonwealth-office",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/foreign-commonwealth-office",
+        "web_url": "https://www.gov.uk/government/government/organisations/foreign-commonwealth-office",
+        "locale": "en"
+      }
+    ],
+    "related": [
+      {
+        "content_id": "82248bb1-c4d6-41e0-9494-d98123475626",
+        "title": "Renew or replace your adult passport",
+        "api_path": "/api/content/renew-adult-passport",
+        "base_path": "/renew-adult-passport",
+        "description": null,
+        "api_url": "https://www.gov.uk/api/content/renew-adult-passport",
+        "web_url": "https://www.gov.uk/renew-adult-passport",
+        "locale": "en",
+        "links": {
+        }
+      },
+      {
+        "content_id": "86eb717a-fb40-42e7-83fa-d031a03880fb",
+        "title": "Passports, travel and living abroad",
+        "api_path": "/api/content/browse/abroad",
+        "base_path": "/browse/abroad",
+        "description": null,
+        "api_url": "https://www.gov.uk/api/content/browse/abroad",
+        "web_url": "https://www.gov.uk/browse/abroad",
+        "locale": "en",
+        "links": {
+        }
+      },
+      {
+        "content_id": "e4d06cb9-9e2e-4e82-b802-0aad013ae16c",
+        "title": "Driving abroad",
+        "api_path": "/api/content/driving-abroad",
+        "base_path": "/driving-abroad",
+        "description": null,
+        "api_url": "https://www.gov.uk/api/content/driving-abroad",
+        "web_url": "https://www.gov.uk/driving-abroad",
+        "locale": "en",
+        "links": {
+        }
+      },
+      {
+        "content_id": "95f9c380-30bc-44c7-86b4-e9c9ef0fc272",
+        "title": "Hand luggage restrictions at UK airports",
+        "api_path": "/api/content/hand-luggage-restrictions",
+        "base_path": "/hand-luggage-restrictions",
+        "description": null,
+        "api_url": "https://www.gov.uk/api/content/hand-luggage-restrictions",
+        "web_url": "https://www.gov.uk/hand-luggage-restrictions",
+        "locale": "en",
+        "links": {
+        }
+      },
+      {
+        "content_id": "b9849cd6-61a7-42dc-8124-362d2c7d48b0",
+        "title": "Travel abroad",
+        "api_path": "/api/content/browse/abroad/travel-abroad",
+        "base_path": "/browse/abroad/travel-abroad",
+        "description": null,
+        "api_url": "https://www.gov.uk/api/content/browse/abroad/travel-abroad",
+        "web_url": "https://www.gov.uk/browse/abroad/travel-abroad",
+        "locale": "en",
+        "links": {
+        }
+      }
+    ],
+    "parent": [
+      {
+        "content_id": "86eb717a-fb40-42e7-83fa-d031a03880fb",
+        "title": "Passports, travel and living abroad",
+        "api_path": "/api/content/browse/abroad",
+        "base_path": "/browse/abroad",
+        "description": null,
+        "api_url": "https://www.gov.uk/api/content/browse/abroad",
+        "web_url": "https://www.gov.uk/browse/abroad",
+        "locale": "en",
+        "links": {
+        }
+      }
+    ]
+  },
+  "locale": "en",
+  "public_updated_at": "2015-04-28T17:11:23+01:00",
+  "title": "Antarctica travel advice",
+  "updated_at": "2015-08-28T17:16:43+01:00",
+  "schema_name": "travel_advice",
+  "document_type": "travel_advice"
+}

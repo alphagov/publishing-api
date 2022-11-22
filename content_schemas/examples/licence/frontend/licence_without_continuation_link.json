@@ -1,0 +1,242 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/temporary-events-notice",
+  "content_id": "cb16a948-d4c9-4e55-99b9-2f3931481b07",
+  "document_type": "licence",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-04-27T14:48:11.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "licence",
+  "title": "Temporary Events Notice (England and Wales)",
+  "updated_at": "2017-03-10T16:01:40.758Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "mainstream_browse_pages": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/business/licences",
+        "base_path": "/browse/business/licences",
+        "content_id": "fcf23e92-328f-4990-ba44-fbee5f2f7d64",
+        "description": "Applying for licences for events and businesses",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2016-11-18T16:02:30Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Licences and licence applications",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/business/licences",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/business/licences"
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/apply-hold-street-party",
+        "base_path": "/apply-hold-street-party",
+        "content_id": "016e8bd3-0bb8-4bc8-8732-ec5dbb3a0c9e",
+        "description": "Check what you need to tell your local council if you are organising a small street party with your neighbours ",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2012-05-02T16:27:21Z",
+        "schema_name": "local_transaction",
+        "title": "Apply to hold a street party",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/local-councils",
+              "base_path": "/browse/housing-local-services/local-councils",
+              "content_id": "4f8f62a8-9ff9-45ab-b4f7-aec5d1cffbad",
+              "description": "Find and access local services",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:28:57Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Local councils and services",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Housing and local services",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/housing-local-services",
+                    "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/housing-local-services"
+                  }
+                ]
+              },
+              "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/housing-local-services/local-councils",
+              "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/housing-local-services/local-councils"
+            }
+          ]
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/apply-hold-street-party",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/apply-hold-street-party"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/contact-police",
+        "base_path": "/contact-police",
+        "content_id": "a1632f55-3b09-4b70-b05e-96aa4f8fd98b",
+        "description": "Contact the police by calling 999 to report emergencies or by calling 101 for non-emergencies",
+        "document_type": "answer",
+        "locale": "en",
+        "public_updated_at": "2012-05-02T16:26:45Z",
+        "schema_name": "answer",
+        "title": "Contact the police",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/justice/reporting-crimes-compensation",
+              "base_path": "/browse/justice/reporting-crimes-compensation",
+              "content_id": "927f15d1-69a7-4ab7-941d-9744190105be",
+              "description": "Including criminal injuries compensation and reporting suspected crimes",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:46Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Reporting crimes and getting compensation",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/justice",
+                    "base_path": "/browse/justice",
+                    "content_id": "66e4e3cc-3c35-4272-bacf-afdea2bc4da1",
+                    "description": "Legal processes, courts and the police",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Crime, justice and the law",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/justice",
+                    "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/justice"
+                  }
+                ]
+              },
+              "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/justice/reporting-crimes-compensation",
+              "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/justice/reporting-crimes-compensation"
+            }
+          ]
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/contact-police",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/contact-police"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D4",
+        "api_path": "/api/content/government/organisations/department-for-communities-and-local-government",
+        "base_path": "/government/organisations/department-for-communities-and-local-government",
+        "content_id": "2e7868a8-38f5-4ff6-b62f-9a15d1c22d28",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-07-18T17:26:50Z",
+        "schema_name": "placeholder",
+        "title": "Department for Communities and Local Government",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-communities-and-local-government",
+          "logo": {
+            "formatted_title": "Department for <br/>Communities and<br/>Local Government",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/government/organisations/department-for-communities-and-local-government",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/government/organisations/department-for-communities-and-local-government"
+      }
+    ],
+    "parent": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/business/licences",
+        "base_path": "/browse/business/licences",
+        "content_id": "fcf23e92-328f-4990-ba44-fbee5f2f7d64",
+        "description": "Applying for licences for events and businesses",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2016-11-18T16:02:30Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Licences and licence applications",
+        "withdrawn": false,
+        "links": {
+          "parent": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/business",
+              "base_path": "/browse/business",
+              "content_id": "2e47e500-8d91-4747-b6d8-cf6524d570f1",
+              "description": "Information about starting up and running a business in the UK, including help if you're self employed or a sole trader.",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-11-18T16:02:29Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Business and self-employed",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/business",
+              "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/business"
+            }
+          ]
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/business/licences",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/business/licences"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Temporary Events Notice (England and Wales)",
+        "public_updated_at": "2015-04-27T14:48:11Z",
+        "analytics_identifier": null,
+        "document_type": "licence",
+        "schema_name": "licence",
+        "base_path": "/temporary-events-notice",
+        "description": "You need a Temporary Event Notice if you want to carry out a 'licensable activity' on unlicensed premises in England or Wales",
+        "api_path": "/api/content/temporary-events-notice",
+        "withdrawn": false,
+        "content_id": "cb16a948-d4c9-4e55-99b9-2f3931481b07",
+        "locale": "en",
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/temporary-events-notice",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/temporary-events-notice",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "You need a Temporary Event Notice if you want to carry out a 'licensable activity' on unlicensed premises in England or Wales",
+  "details": {
+    "licence_identifier": "1071-5-1",
+    "licence_short_description": "A Temporary Event Notice is for carrying out a 'licensable activity' on unlicensed premises. ",
+    "licence_overview": "\n<div class=\"summary\">\n<p>Contact your council for a Temporary Event Notice (<abbr title=\"Temporary Event Notice\">TEN</abbr>) if you want to carry out a ‘licensable activity’ on unlicensed premises in England or Wales.</p>\n</div>\n\n<p>Licensable activity includes:</p>\n\n<ul>\n  <li>selling alcohol</li>\n  <li>serving alcohol to members of a private club</li>\n  <li>providing entertainment, such as music, dancing or indoor sporting events</li>\n  <li>serving hot food or drink between 11pm and 5am</li>\n</ul>\n\n<p>The process of applying is formally known as ‘serving’ a Temporary Event Notice.</p>\n\n<p>You will also need a <abbr title=\"Temporary Event Notice\">TEN</abbr> if a particular licensable activity is not included in the terms of your existing licence, for example holding a wedding reception at a community centre.</p>\n\n<h2 id=\"restrictions\">Restrictions</h2>\n\n<p>Your event must:</p>\n\n<ul>\n  <li>have fewer than 500 people at all times – including staff running the event</li>\n  <li>last no more than 168 hours (7 days)</li>\n</ul>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>You must be at least 18 to apply for a <abbr title=\"Temporary Event Notice\">TEN</abbr>.</p>\n</div>\n\n<h3 id=\"number-of-notices-you-can-apply-for\">Number of notices you can apply for</h3>\n\n<p>You need a <abbr title=\"Temporary Event Notice\">TEN</abbr> for each event you hold on the same premises.</p>\n\n<p>You can get up to 5 <abbr title=\"Temporary Event Notices\">TENs</abbr> a year. If you already have a personal licence to sell alcohol, you can be given up to 50 <abbr title=\"Temporary Event Notices\">TENs</abbr> a year.</p>\n\n<p>A single premises can have up to 15 <abbr title=\"Temporary Event Notices\">TENs</abbr> applied for in one year, as long as the total length of the events is not more than 21 days.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>If you’re organising separate but consecutive events, there must be at least a 24 hour gap between them.</p>\n</div>\n\n<h2 id=\"how-to-apply\">How to apply</h2>\n\n<p>Contact your council to apply for a <abbr title=\"Temporary Event Notice\">TEN</abbr>. You must do this at least 10 working days before your event.</p>\n\n<p>You will have to pay a fee of £21.</p>\n\n<p>You must send a copy of the <abbr title=\"Temporary Event Notice\">TEN</abbr> to the police at least 10 working days before the event. If you apply online, the council will contact the police for you.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>The date of submitting the <abbr title=\"Temporary Event Notice\">TEN</abbr> and the day of the event are not included in the total number of working days before the event.</p>\n</div>\n\n<p>You can only apply for a <abbr title=\"Temporary Event Notice\">TEN</abbr> as an individual, not an organisation.</p>\n\n<h3 id=\"late-tens\">‘Late <abbr title=\"Temporary Event Notices\">TENs</abbr>’</h3>\n\n<p>The latest you can apply for a ‘late <abbr title=\"Temporary Event Notice\">TEN</abbr>’ is 5 working days before the event (but not earlier than 9 working days).</p>\n\n<p>If you don’t hold a personal licence, you can serve up to 2 late <abbr title=\"Temporary Event Notices\">TENs</abbr> per year. If you hold a personal licence, the limit is 10. Late <abbr title=\"Temporary Event Notices\">TENs</abbr> count towards the total number of permitted <abbr title=\"Temporary Event Notices\">TENs</abbr>.</p>\n\n<h2 id=\"objections\">Objections</h2>\n<p>The council can’t refuse a notice unless the police or Environmental Health object to it. They must do this within 3 working days of receiving it. They can only object if they think your event could:</p>\n\n<ul>\n  <li>lead to crime and disorder</li>\n  <li>cause a public nuisance</li>\n  <li>be a threat to public safety</li>\n  <li>put children at risk of harm</li>\n</ul>\n\n<p>If there’s an objection, your council’s licensing committee will hold a meeting (called a ‘hearing’) no later than 24 hours before the event (unless all parties agree that a hearing isn’t needed).</p>\n\n<p>At the hearing, the committee will either approve, add conditions or reject the notice.</p>\n\n<p>If the police or Environmental Health object to a late <abbr title=\"Temporary Event Notice\">TEN</abbr>, the notice won’t be valid and you can’t hold the event.</p>\n\n<h2 id=\"appeals\">Appeals</h2>\n<p>If you disagree with the licensing committee’s decision, you can appeal to your local magistrates’ court. You must do this within 21 days, and at least 5 working days before the date of your event.</p>\n\n<h2 id=\"displaying-your-notice\">Displaying your notice</h2>\n\n<p>You must keep your <abbr title=\"Temporary Event Notice\">TEN</abbr> in a safe place where the event is held.</p>\n\n<p>You must also display a copy of the notice where it can be easily seen.</p>\n\n<h2 id=\"fines-and-penalties\">Fines and penalties</h2>\n\n<p>You could be fined if you make any false statements in your application, or face prosecution if you breach the terms of the notice.</p>\n\n<div role=\"note\" aria-label=\"Help\" class=\"application-notice help-notice\">\n<p>If you don’t have a <abbr title=\"Temporary Event Notice\">TEN</abbr> and carry out an activity that you should have a licence for (or allow your premises to be used for one), you can be fined, sent to prison for up to 6 months, or both.</p>\n</div>\n\n",
+    "external_related_links": [
+
+    ]
+  }
+}

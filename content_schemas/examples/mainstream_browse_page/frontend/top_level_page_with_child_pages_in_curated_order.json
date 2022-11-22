@@ -1,0 +1,85 @@
+{
+  "content_id": "e995bd80-cb9b-48dd-bb2c-8e9b2bbefce5",
+  "base_path": "/browse/visas-immigration",
+  "description": "Visas, settlement, asylum and sponsorship",
+  "details": {
+    "second_level_ordering": "curated",
+    "ordered_second_level_browse_pages": [
+      "0529f318-e05a-4798-9e77-a901eedfdb37",
+      "8e9576ca-8bbe-450f-9eb9-14bea6f93534",
+      "ce9f6198-f7d1-4625-9ae7-9611ffc9caa7"
+    ]
+  },
+  "links": {
+    "top_level_browse_pages": [
+      {
+        "content_id": "c4997014-d9d7-4ef8-95b3-87049db8efce",
+        "title": "Money and tax",
+        "api_path": "/api/content/browse/tax",
+        "base_path": "/browse/tax",
+        "description": "Includes VAT, debt and inheritance tax",
+        "api_url": "https://www.gov.uk/api/content/browse/tax",
+        "web_url": "https://www.gov.uk/browse/tax",
+        "locale": "en"
+      },
+      {
+        "content_id": "3b6b5aa1-7fbe-4d86-af77-5412698175fc",
+        "title": "Passports, travel and living abroad",
+        "api_path": "/api/content/browse/abroad",
+        "base_path": "/browse/abroad",
+        "description": "Includes renewing passports and travel advice by country",
+        "api_url": "https://www.gov.uk/api/content/browse/abroad",
+        "web_url": "https://www.gov.uk/browse/abroad",
+        "locale": "en"
+      },
+      {
+        "content_id": "e995bd80-cb9b-48dd-bb2c-8e9b2bbefce5",
+        "title": "Visas and immigration",
+        "api_path": "/api/content/browse/visas-immigration",
+        "base_path": "/browse/visas-immigration",
+        "description": "Visas, settlement, asylum and sponsorship",
+        "api_url": "https://www.gov.uk/api/content/browse/visas-immigration",
+        "web_url": "https://www.gov.uk/browse/visas-immigration",
+        "locale": "en"
+      }
+    ],
+    "second_level_browse_pages": [
+      {
+        "content_id": "0529f318-e05a-4798-9e77-a901eedfdb37",
+        "title": "Work visas",
+        "api_path": "/api/content/browse/visas-immigration/work-visas",
+        "base_path": "/browse/visas-immigration/work-visas",
+        "description": "Paid and voluntary work visas (eg Tier 1, Tier 2, Tier 5)",
+        "api_url": "https://www.gov.uk/api/content/browse/visas-immigration/work-visas",
+        "web_url": "https://www.gov.uk/browse/visas-immigration/work-visas",
+        "locale": "en"
+      },
+      {
+        "content_id": "ce9f6198-f7d1-4625-9ae7-9611ffc9caa7",
+        "title": "Asylum",
+        "api_path": "/api/content/browse/visas-immigration/asylum",
+        "base_path": "/browse/visas-immigration/asylum",
+        "description": "Claiming asylum as a refugee, the asylum process and support",
+        "api_url": "https://www.gov.uk/api/content/browse/visas-immigration/asylum",
+        "web_url": "https://www.gov.uk/browse/visas-immigration/asylum",
+        "locale": "en"
+      },
+      {
+        "content_id": "8e9576ca-8bbe-450f-9eb9-14bea6f93534",
+        "title": "Transit visas",
+        "api_path": "/api/content/browse/visas-immigration/transit-visas",
+        "base_path": "/browse/visas-immigration/transit-visas",
+        "description": "In transit through the UK: airside, landside or the common travel area",
+        "api_url": "https://www.gov.uk/api/content/browse/visas-immigration/transit-visas",
+        "web_url": "https://www.gov.uk/browse/visas-immigration/transit-visas",
+        "locale": "en"
+      }
+    ]
+  },
+  "locale": "en",
+  "public_updated_at": "2015-04-20T15:46:10.000+00:00",
+  "title": "Benefits",
+  "updated_at": "2015-04-20T15:50:11.000+00:00",
+  "schema_name": "mainstream_browse_page",
+  "document_type": "mainstream_browse_page"
+}

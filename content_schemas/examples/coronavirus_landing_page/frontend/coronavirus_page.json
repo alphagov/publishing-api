@@ -1,0 +1,351 @@
+{
+  "base_path": "/coronavirus",
+  "content_id": "774cee22-d896-44c1-a611-e3109cce8eae",
+  "document_type": "coronavirus_landing_page",
+  "description": "Find out about the government response to coronavirus (COVID-19) and what you need to do.",
+  "phase": "live",
+  "publishing_app": "collections-publisher",
+  "public_updated_at": "2020-03-25T14:40:22Z",
+  "rendering_app": "collections",
+  "schema_name": "coronavirus_landing_page",
+  "title": "Coronavirus (COVID-19): what you need to do",
+  "locale": "en",
+  "updated_at": "2020-03-25T14:40:22Z",
+  "links": {
+  },
+  "details": {
+    "meta_description": "Find out about the government response to coronavirus (COVID-19) and what you need to do.",
+    "stay_at_home": {
+      "pretext": "Stay at home",
+      "list": [
+        "Only go outside for food, health reasons or work (where this absolutely cannot be done from home)",
+        "Stay 2 metres (6ft) away from other people",
+        "Wash your hands as soon as you get home"
+      ]
+    },
+    "guidance": {
+      "pretext": "Anyone can spread the virus.",
+      "link": {
+        "href": "/government/publications/full-guidance-on-staying-at-home-and-away-from-others",
+        "text": "Full guidance on staying at home and away from others"
+      }
+    },
+    "announcements_label": "Announcements",
+    "announcements": [
+      {
+        "text": "You must stay at home apart from essential travel or you may be fined",
+        "href": "/government/publications/full-guidance-on-staying-at-home-and-away-from-others"
+      },
+      {
+        "text": "If you live in the UK and are currently abroad you are strongly advised to return now",
+        "href": "/guidance/travel-advice-novel-coronavirus"
+      },
+      {
+        "text": "All non-essential shops and community spaces are closed",
+        "href": "/government/publications/further-businesses-and-premises-to-close"
+      }
+    ],
+    "nhs_banner": {
+      "heading": "Do not leave home if you or someone you live with has either:",
+      "list": [
+        "a high temperature",
+        "a new, continuous cough"
+      ],
+      "call_to_action": {
+        "title": "Check the NHS website if you have symptoms",
+        "href": "https://www.nhs.uk/conditions/coronavirus-covid-19/"
+      }
+    },
+    "explainer_title": "",
+    "explainer_text": "",
+    "sections": [
+      {
+        "title": "How to protect yourself and others",
+        "sub_sections": [
+          {
+            "title": "",
+            "list": [
+              {
+                "label": "Staying at home if you think you have coronavirus (self-isolating)",
+                "url": "/government/publications/covid-19-stay-at-home-guidance"
+              },
+              {
+                "label": "Full guidance on staying at home and away from others",
+                "url": "/government/publications/full-guidance-on-staying-at-home-and-away-from-others"
+              },
+              {
+                "label": "How to protect extremely vulnerable people (shielding)",
+                "url": "/government/publications/guidance-on-shielding-and-protecting-extremely-vulnerable-persons-from-covid-19/guidance-on-shielding-and-protecting-extremely-vulnerable-persons-from-covid-19"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Employment and financial support",
+        "sub_sections": [
+          {
+            "title": "",
+            "list": [
+              {
+                "label": "Check if you can get statutory sick pay (SSP)",
+                "url": "/statutory-sick-pay"
+              },
+              {
+                "label": "Check if you're eligible for Universal Credit",
+                "url": "/universal-credit"
+              },
+              {
+                "label": "Check if you're eligible for Employment and Support Allowance (ESA)",
+                "url": "/employment-support-allowance"
+              },
+              {
+                "label": "Your rights if your hours are cut or you’re laid off",
+                "url": "/lay-offs-short-timeworking"
+              },
+              {
+                "label": "What to do if you cannot pay your tax bill on time",
+                "url": "/difficulties-paying-hmrc"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "School closures, education, and childcare",
+        "sub_sections": [
+          {
+            "title": "",
+            "list": [
+              {
+                "label": "What parents and carers need to know about closures",
+                "url": "/government/publications/closure-of-educational-settings-information-for-parents-and-carers"
+              },
+              {
+                "label": "Guidance for schools and local authorities on closures",
+                "url": "/government/publications/covid-19-school-closures"
+              },
+              {
+                "label": "School opening for children of key workers",
+                "url": "/government/publications/coronavirus-covid-19-maintaining-educational-provision"
+              },
+              {
+                "label": "Cancelled exams",
+                "url": "/government/publications/coronavirus-covid-19-cancellation-of-gcses-as-and-a-levels-in-2020/coronavirus-covid-19-cancellation-of-gcses-as-and-a-levels-in-2020"
+              },
+              {
+                "label": "Dealing with COVID-19 in nurseries, schools and universities",
+                "url": "/government/publications/guidance-to-educational-settings-about-covid-19"
+              },
+              {
+                "label": "Supporting vulnerable children",
+                "url": "/government/publications/coronavirus-covid-19-guidance-on-vulnerable-children-and-young-people"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Businesses and other organisations",
+        "sub_sections": [
+          {
+            "title": "",
+            "list": [
+              {
+                "label": "How to keep your employees safe",
+                "url": "/government/publications/guidance-to-employers-and-businesses-about-covid-19"
+              },
+              {
+                "label": "How to clean workplaces safely",
+                "url": "/government/publications/covid-19-decontamination-in-non-healthcare-settings"
+              },
+              {
+                "label": "Check what you need to do about Statutory Sick Pay",
+                "url": "/employers-sick-pay"
+              },
+              {
+                "label": "Find out what to do for different businesses and organisations",
+                "url": "/government/collections/coronavirus-covid-19-list-of-guidance"
+              },
+              {
+                "label": "UK businesses trading internationally",
+                "url": "/government/publications/coronavirus-covid-19-guidance-for-uk-businesses"
+              },
+              {
+                "label": "What the government is doing to support businesses",
+                "url": "/government/publications/guidance-to-employers-and-businesses-about-covid-19"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Healthcare workers and carers",
+        "sub_sections": [
+          {
+            "title": "",
+            "list": [
+              {
+                "label": "NHS guidance for people working in healthcare",
+                "url": "https://www.england.nhs.uk/coronavirus/"
+              },
+              {
+                "label": "How to protect people in residential care, supported living and home care",
+                "url": "/government/publications/covid-19-residential-care-supported-living-and-home-care-guidance"
+              },
+              {
+                "label": "How to manage adult social care",
+                "url": "/government/publications/covid-19-ethical-framework-for-adult-social-care"
+              },
+              {
+                "label": "How to protect extremely vulnerable people (shielding)",
+                "url": "/government/publications/guidance-on-shielding-and-protecting-extremely-vulnerable-persons-from-covid-19/guidance-on-shielding-and-protecting-extremely-vulnerable-persons-from-covid-19"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Travel",
+        "sub_sections": [
+          {
+            "title": "",
+            "list": [
+              {
+                "label": "Information for British citizens travelling abroad",
+                "url": "/guidance/travel-advice-novel-coronavirus"
+              },
+              {
+                "label": "Foreign travel advice for each country",
+                "url": "/foreign-travel-advice"
+              },
+              {
+                "label": "What to do if you're visiting the UK from China and you can't travel home",
+                "url": "/guidance/coronavirus-immigration-guidance-if-youre-unable-to-return-to-china-from-the-uk"
+              },
+              {
+                "label": "Avoid travel to second homes, campsites and caravan parks",
+                "url": "/government/news/covid-19-essential-travel-guidance"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "How coronavirus is affecting public services",
+        "sub_sections": [
+          {
+            "title": "Benefits",
+            "list": [
+              {
+                "label": "Employment and Support Allowance (ESA)",
+                "url": "/employment-support-allowance/your-esa-claim"
+              },
+              {
+                "label": "Personal Independence Payment (PIP)",
+                "url": "/pip/how-to-claim"
+              },
+              {
+                "label": "Universal credit",
+                "url": "/universal-credit/how-to-claim"
+              }
+            ]
+          },
+          {
+            "title": "Crime, justice and the law",
+            "list": [
+              {
+                "label": "Court and tribunal cases",
+                "url": "/guidance/coronavirus-covid-19-courts-and-tribunals-planning-and-preparation"
+              },
+              {
+                "label": "Visiting prisoners",
+                "url": "/guidance/coronavirus-covid-19-and-prisons"
+              }
+            ]
+          },
+          {
+            "title": "Driving and transport",
+            "list": [
+              {
+                "label": "Driving and theory tests suspended",
+                "url": "/guidance/coronavirus-covid-19-driving-tests-and-theory-tests"
+              },
+              {
+                "label": "MOTs for heavy vehicles suspended",
+                "url": "/guidance/coronavirus-covid-19-mots-for-lorries-buses-and-trailers"
+              },
+              {
+                "label": "Relaxation of drivers’ hours rules",
+                "url": "/government/publications/covid-19-guidance-on-drivers-hours-relaxations/coronavirus-covid-19-guidance-on-drivers-hours-relaxations"
+              },
+              {
+                "label": "Vehicle approval tests suspended",
+                "url": "/guidance/coronavirus-covid-19-vehicle-approval-tests"
+              }
+            ]
+          },
+          {
+            "title": "Housing and local services",
+            "list": [
+              {
+                "label": "Planning inspections",
+                "url": "/guidance/coronavirus-covid-19-planning-inspectorate-guidance"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "How you can help",
+        "sub_sections": [
+          {
+            "title": "",
+            "list": [
+              {
+                "label": "Help produce ventilators and components",
+                "url": "https://ventilator.herokuapp.com"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Coronavirus (COVID-19) cases in the UK",
+        "sub_sections": [
+          {
+            "title": "",
+            "list": [
+              {
+                "label": "Track coronavirus cases in the UK",
+                "url": "/government/publications/covid-19-track-coronavirus-cases"
+              },
+              {
+                "label": "Latest number of coronavirus cases in the UK",
+                "url": "/guidance/coronavirus-covid-19-information-for-the-public"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "topic_section": {
+      "header": "All coronavirus (COVID-19) information",
+      "text": "Browse information related to coronavirus",
+      "links": [
+        {
+          "label": "News",
+          "url": "/search/news-and-communications?topical_events%5B%5D=coronavirus-covid-19-uk-government-response"
+        },
+        {
+          "label": "Guidance",
+          "url": "/search/all?topical_events%5B%5D=coronavirus-covid-19-uk-government-response&order=updated-newest"
+        }
+      ]
+    },
+    "notifications": {
+      "intro": "Stay up to date with GOV.UK",
+      "email_link": "Sign up to get emails when we change any coronavirus information on the GOV.UK website"
+    }
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-individuals-pensioners-and-employees",
+  "content_id": "24a6bd65-0a4a-4693-83b1-bf7fbda4e01e",
+  "document_type": "contact",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-12-12T12:49:17.000+00:00",
+  "publishing_app": "contacts",
+  "rendering_app": "government-frontend",
+  "schema_name": "contact",
+  "title": "Income Tax: general enquiries",
+  "updated_at": "2017-02-15T14:58:21.647Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D25",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs",
+        "base_path": "/government/organisations/hm-revenue-customs",
+        "content_id": "6667cce2-e809-4e21-ae09-cb0bdc1ddda3",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-05-13T10:09:06Z",
+        "schema_name": "placeholder",
+        "title": "HM Revenue & Customs",
+        "withdrawn": false,
+        "details": {
+          "brand": "hm-revenue-customs",
+          "logo": {
+            "formatted_title": "HM Revenue<br/>&amp; Customs",
+            "crest": "hmrc"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs"
+      }
+    ],
+    "related": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/government/organisations/hm-revenue-customs/contact/income-tax-and-capital-gains-tax-enquiries-for-non-uk-residents",
+        "base_path": "/government/organisations/hm-revenue-customs/contact/income-tax-and-capital-gains-tax-enquiries-for-non-uk-residents",
+        "content_id": "ba17008f-a9f0-4c97-bc6c-ca161adf2fbd",
+        "description": "Contact HMRC for help with Income Tax or Capital Gains Tax if you live or work abroad",
+        "document_type": "contact",
+        "locale": "en",
+        "public_updated_at": "2015-09-30T10:10:50Z",
+        "schema_name": "contact",
+        "title": "Non-UK residents: Income Tax and Capital Gains ",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs/contact/income-tax-and-capital-gains-tax-enquiries-for-non-uk-residents",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/income-tax-and-capital-gains-tax-enquiries-for-non-uk-residents"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-self-employed",
+        "base_path": "/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-self-employed",
+        "content_id": "f74cfdf1-780e-4f87-a5b3-df47f868ec6d",
+        "description": "Contact HMRC if you're self-employed and have an Income Tax enquiry or need to report changes to your personal details",
+        "document_type": "contact",
+        "locale": "en",
+        "public_updated_at": "2015-09-30T10:19:15Z",
+        "schema_name": "contact",
+        "title": "Self-employed: Income Tax",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-self-employed",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-self-employed"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/government/organisations/hm-revenue-customs/contact/welsh-language-helplines",
+        "base_path": "/government/organisations/hm-revenue-customs/contact/welsh-language-helplines",
+        "content_id": "81af275a-f85f-4b1d-8cb2-640c0a043cc5",
+        "description": "Cysylltwch â CThEM am help gyda Threth Incwm, Hunanasesiad, credydau treth, Yswiriant Gwladol, Budd-dal Plant, TWE a mwy",
+        "document_type": "contact",
+        "locale": "en",
+        "public_updated_at": "2015-09-29T10:38:30Z",
+        "schema_name": "contact",
+        "title": "Treth Incwm, Hunanasesiad a mwy",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs/contact/welsh-language-helplines",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/welsh-language-helplines"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "base_path": "/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-individuals-pensioners-and-employees",
+        "content_id": "24a6bd65-0a4a-4693-83b1-bf7fbda4e01e",
+        "description": "Contact HMRC for help with questions about Income Tax, including PAYE coding notices, Marriage Allowance and changing your personal details",
+        "document_type": "contact",
+        "locale": "en",
+        "public_updated_at": "2016-12-12T12:49:17Z",
+        "schema_name": "contact",
+        "title": "Income Tax: general enquiries",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-individuals-pensioners-and-employees",
+        "withdrawn": false,
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-individuals-pensioners-and-employees",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-individuals-pensioners-and-employees",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Contact HMRC for help with questions about Income Tax, including PAYE coding notices, Marriage Allowance and changing your personal details",
+  "details": {
+    "slug": "income-tax-enquiries-for-individuals-pensioners-and-employees",
+    "quick_links": [
+      {
+        "title": "Claim a tax refund ",
+        "url": "https://www.gov.uk/claim-tax-refund"
+      },
+      {
+        "title": "Tax overpayments and underpayments",
+        "url": "https://www.gov.uk/tax-overpayments-and-underpayments"
+      },
+      {
+        "title": "When to expect a reply",
+        "url": "http://www.hmrc.gov.uk/tools/progress-tool/employee.htm"
+      }
+    ],
+    "query_response_time": false,
+    "contact_form_links": [
+      {
+        "title": "Tell HMRC about changes that could affect your tax code",
+        "link": "https://www.gov.uk/check-income-tax-current-year",
+        "description": "<p>This service is part of the <a href=\"https://www.gov.uk/personal-tax-account\">personal tax account</a>, and you can use it to check:</p>\n\n<ul>\n  <li>your tax code</li>\n  <li>the information HMRC holds about your employment</li>\n  <li>an estimate of how much tax you’ll pay</li>\n</ul>\n"
+      },
+      {
+        "title": "Tell HMRC you've changed name or address ",
+        "link": "https://www.gov.uk/tell-hmrc-change-of-details",
+        "description": "\n"
+      }
+    ],
+    "more_info_contact_form": "<p>If HMRC needs to contact you about anything confidential they’ll reply by phone or post.<br><br>\nRead about the <a href=\"/tax-overpayments-and-underpayments?utm_source=tax-overpayment-underpayment&amp;utm_medium=internal-link&amp;utm_campaign=p800\">P800 calculation</a> if you’ve received a P800 and have any questions.  <br id=\"phone\"></p>\n\n<h2 id=\"twitter\">Twitter</h2>\n<p>You can use Twitter to get general help from HMRC. We can’t discuss specific cases or an individual’s tax affairs, so please don’t give any personal details.</p>\n\n<p>Start your tweet with @HMRCcustomers</p>\n\n<h3 id=\"opening-times-br\">Opening times: <br>\n</h3>\n<p>8am and 8pm, Monday to Friday <br>\n8am and 4pm Saturdays <br>\nClosed Sundays</p>\n",
+    "email_addresses": [
+
+    ],
+    "more_info_email_address": "\n",
+    "phone_numbers": [
+      {
+        "title": "Taxes Helpline",
+        "number": "0300 200 3300",
+        "textphone": "0300 200 3319",
+        "international_phone": "+44 135 535 9022",
+        "fax": "",
+        "description": "<p>Call HMRC for help with questions about Income Tax, including:</p>\n\n<ul>\n  <li>PAYE coding notices</li>\n  <li>Marriage Allowance</li>\n  <li>changing your personal details</li>\n</ul>\n\n<p>Have your National Insurance number with you when you phone.</p>\n",
+        "open_hours": "<p>8am to 8pm, Monday to Friday<br>\n8am to 4pm Saturday<br>\n9am to 5pm Sunday<br></p>\n\n<p>Closed bank holidays.</p>\n",
+        "best_time_to_call": "<p>Phone lines are less busy before 10am, Monday to Friday and less busy on Sundays.</p>\n"
+      }
+    ],
+    "more_info_phone_number": "\n<div class=\"call-to-action\">\n<p>Get help <a href=\"https://www.gov.uk/dealing-hmrc-additional-needs/overview\">dealing with HMRC if you have additional needs</a>.</p>\n</div>\n",
+    "post_addresses": [
+      {
+        "title": "Pay As You Earn and Self Assessment",
+        "street_address": "HM Revenue and Customs",
+        "postal_code": "BX9 1AS",
+        "world_location": "United Kingdom",
+        "locality": "",
+        "region": "",
+        "description": "<p>Write to HMRC at this address for all Income Tax queries except <a href=\"https://www.gov.uk/government/organisations/hm-revenue-customs/contact/complain-about-hmrc\">complaints</a>.</p>\n\n<p>You don’t need to include a street name, city name or PO box when writing to this address.</p>\n\n<p>Couriers should use a <a href=\"https://www.gov.uk/government/organisations/hm-revenue-customs/contact/couriers\">different address</a>.</p>\n"
+      }
+    ],
+    "more_info_post_address": "\n",
+    "language": "en",
+    "contact_groups": [
+
+    ]
+  }
+}

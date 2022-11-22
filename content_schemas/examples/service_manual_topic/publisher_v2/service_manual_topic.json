@@ -1,0 +1,32 @@
+{
+  "publishing_app": "service-manual-publisher",
+  "rendering_app": "service-manual-frontend",
+  "locale": "en",
+  "update_type": "minor",
+  "base_path": "/service-manual/technology",
+  "public_updated_at": "2016-02-11T15:42:55Z",
+  "title": "Technology",
+  "description": "A tech description.",
+  "phase": "beta",
+  "routes": [
+    {
+      "type": "exact",
+      "path": "/service-manual/technology"
+    }
+  ],
+  "details": {
+    "visually_collapsed": true,
+    "groups": [
+      {
+        "name": "Security",
+        "description": "A security description.",
+        "content_ids": [
+          "f84918f1-de82-4a8e-a4c5-d65872307a4f",
+          "1e8c2361-ad63-4513-b7c0-9888c0880092"
+        ]
+      }
+    ]
+  },
+  "document_type": "service_manual_topic",
+  "schema_name": "service_manual_topic"
+}

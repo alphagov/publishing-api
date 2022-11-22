@@ -1,0 +1,288 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/speeches/glasgow-2014-commonwealth-games-airspace-restrictions",
+  "content_id": "5f4a6aac-7631-11e4-a3cb-005056011aef",
+  "document_type": "written_statement",
+  "first_published_at": "2014-04-01T08:55:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-04-01T08:55:00.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "speech",
+  "title": "Glasgow 2014 Commonwealth Games airspace restrictions",
+  "updated_at": "2018-01-10T14:07:43.544Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "1243-1502190415.911-10.3.3.1-410",
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D9",
+        "api_path": "/api/content/government/organisations/department-for-transport",
+        "base_path": "/government/organisations/department-for-transport",
+        "content_id": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:08:03Z",
+        "schema_name": "placeholder",
+        "title": "Department for Transport",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Department<br/>for Transport",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-transport",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-transport"
+      },
+      {
+        "analytics_identifier": "PC469",
+        "api_path": "/api/content/government/organisations/civil-aviation-authority",
+        "base_path": "/government/organisations/civil-aviation-authority",
+        "content_id": "1400bcfb-c0f2-4e1c-b8fb-1135a2b83088",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2014-10-15T14:36:33Z",
+        "schema_name": "placeholder",
+        "title": "Civil Aviation Authority",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Civil Aviation Authority"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/civil-aviation-authority",
+        "web_url": "https://www.gov.uk/government/organisations/civil-aviation-authority"
+      }
+    ],
+    "people": [
+      {
+        "api_path": "/api/content/government/people/robert-goodwill",
+        "base_path": "/government/people/robert-goodwill",
+        "content_id": "852e8c7b-c0f1-11e4-8223-005056011aef",
+        "document_type": "person",
+        "locale": "en",
+        "public_updated_at": "2017-07-24T13:25:54Z",
+        "schema_name": "placeholder",
+        "title": "Robert Goodwill MP",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/robert-goodwill",
+        "web_url": "https://www.gov.uk/government/people/robert-goodwill"
+      }
+    ],
+    "policies": [
+      {
+        "api_path": "/api/content/government/policies/aviation-and-airports",
+        "base_path": "/government/policies/aviation-and-airports",
+        "content_id": "5c768539-7631-11e4-a3cb-005056011aef",
+        "description": "Our airports and airlines support the UK economy. We’re making sure they provide the domestic and international connections the UK needs to grow and prosper. We’re looking at the impact of air travel on climate change and also on noise levels for people living near airports. We’re continuing to make sure that air travel is safe and secure.",
+        "document_type": "policy",
+        "locale": "en",
+        "public_updated_at": "2015-08-10T14:09:30Z",
+        "schema_name": "policy",
+        "title": "Aviation and airports",
+        "withdrawn": false,
+        "links": {
+          "working_groups": [
+            {
+              "api_path": "/api/content/government/speeches/glasgow-2014-commonwealth-games-airspace-restrictions",
+              "base_path": "/government/speeches/glasgow-2014-commonwealth-games-airspace-restrictions",
+              "content_id": "5f4a6aac-7631-11e4-a3cb-005056011aef",
+              "description": "Temporary airspace restrictions will be put in place for the Commonwealth Games.",
+              "document_type": "written_statement",
+              "locale": "en",
+              "public_updated_at": "2014-04-01T08:55:00Z",
+              "schema_name": "speech",
+              "title": "Glasgow 2014 Commonwealth Games airspace restrictions",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/government/speeches/glasgow-2014-commonwealth-games-airspace-restrictions",
+              "web_url": "https://www.gov.uk/government/speeches/glasgow-2014-commonwealth-games-airspace-restrictions"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/policies/aviation-and-airports",
+        "web_url": "https://www.gov.uk/government/policies/aviation-and-airports"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/transport",
+        "base_path": "/government/topics/transport",
+        "content_id": "020cdae2-ee93-4fca-bfb7-3f5f8f5751d1",
+        "document_type": "policy_area",
+        "locale": "en",
+        "public_updated_at": "2013-07-22T09:04:54Z",
+        "schema_name": "placeholder",
+        "title": "Transport",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/transport",
+        "web_url": "https://www.gov.uk/government/topics/transport"
+      },
+      {
+        "api_path": "/api/content/government/topics/uk-economy",
+        "base_path": "/government/topics/uk-economy",
+        "content_id": "f10df7ae-e3a6-4f9c-b764-541f62c8e6cf",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:06Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "UK economy",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/uk-economy",
+        "web_url": "https://www.gov.uk/government/topics/uk-economy"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D9",
+        "api_path": "/api/content/government/organisations/department-for-transport",
+        "base_path": "/government/organisations/department-for-transport",
+        "content_id": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:08:03Z",
+        "schema_name": "placeholder",
+        "title": "Department for Transport",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Department<br/>for Transport",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-transport",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-transport"
+      }
+    ],
+    "related_policies": [
+      {
+        "api_path": "/api/content/government/policies/aviation-and-airports",
+        "base_path": "/government/policies/aviation-and-airports",
+        "content_id": "5c768539-7631-11e4-a3cb-005056011aef",
+        "description": "Our airports and airlines support the UK economy. We’re making sure they provide the domestic and international connections the UK needs to grow and prosper. We’re looking at the impact of air travel on climate change and also on noise levels for people living near airports. We’re continuing to make sure that air travel is safe and secure.",
+        "document_type": "policy",
+        "locale": "en",
+        "public_updated_at": "2015-08-10T14:09:30Z",
+        "schema_name": "policy",
+        "title": "Aviation and airports",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/policies/aviation-and-airports",
+        "web_url": "https://www.gov.uk/government/policies/aviation-and-airports"
+      }
+    ],
+    "roles": [
+      {
+        "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state-for-transport--2",
+        "base_path": "/government/ministers/parliamentary-under-secretary-of-state-for-transport--2",
+        "content_id": "846dcc00-c0f1-11e4-8223-005056011aef",
+        "document_type": "placeholder_ministerial_role",
+        "locale": "en",
+        "public_updated_at": "2015-12-09T11:14:21Z",
+        "schema_name": "placeholder_ministerial_role",
+        "title": "Parliamentary Under Secretary of State for Transport",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state-for-transport--2",
+        "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state-for-transport--2"
+      }
+    ],
+    "speaker": [
+      {
+        "api_path": "/api/content/government/people/robert-goodwill",
+        "base_path": "/government/people/robert-goodwill",
+        "content_id": "852e8c7b-c0f1-11e4-8223-005056011aef",
+        "document_type": "person",
+        "locale": "en",
+        "public_updated_at": "2017-07-24T13:25:54Z",
+        "schema_name": "placeholder",
+        "title": "Robert Goodwill MP",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/robert-goodwill",
+        "web_url": "https://www.gov.uk/government/people/robert-goodwill"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Glasgow 2014 Commonwealth Games airspace restrictions",
+        "public_updated_at": "2014-04-01T08:55:00Z",
+        "document_type": "written_statement",
+        "schema_name": "speech",
+        "base_path": "/government/speeches/glasgow-2014-commonwealth-games-airspace-restrictions",
+        "description": "Temporary airspace restrictions will be put in place for the Commonwealth Games.",
+        "api_path": "/api/content/government/speeches/glasgow-2014-commonwealth-games-airspace-restrictions",
+        "withdrawn": false,
+        "content_id": "5f4a6aac-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/speeches/glasgow-2014-commonwealth-games-airspace-restrictions",
+        "web_url": "https://www.gov.uk/government/speeches/glasgow-2014-commonwealth-games-airspace-restrictions",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Temporary airspace restrictions will be put in place for the Commonwealth Games.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>The 20th Commonwealth Games are due to take place in Glasgow this summer. While overall responsibility for the security of the games rests with Police Scotland, aviation is a matter reserved to the UK Parliament under devolution legislation. Police Scotland has, therefore, requested that the government develop a set of temporary airspace restrictions from 13 July to 6 August (2014) to help protect the games venues from potential airborne risks.</p>\n\n<p>Initial proposals were developed during the autumn of last year, based on a scaled down version of the model used successfully during the London 2012 Olympic Games. Police Scotland, working with colleagues from the <a rel=\"external\" href=\"http://www.caa.co.uk/\">Civil Aviation Authority (<abbr title=\"Civil Aviation Authority\">CAA</abbr>)</a> have subsequently engaged extensively with aviation representatives from the airports located within the proposed airspace restrictions to test the proposals and to develop mitigations to minimise the impact on business as usual.</p>\n\n<p>As a result of that engagement work the government, with the assistance of the <abbr title=\"Civil Aviation Authority\">CAA</abbr>, refined its proposals and has now prepared the necessary statutory instruments to give effect to the temporary airspace restrictions that will be put in place for the Commonwealth Games. NATS, the UK’s en-route air traffic service provider and publisher of the UK’s aeronautical information, will be publishing the details of these regulations on 17 April 2014 in a number of aeronautical information circulars. In addition, full details of the planned airspace restrictions, including maps, will be published on the <a rel=\"external\" href=\"http://www.airspacesafety.com\">Airspace and Safety Initiative website</a>.</p>\n\n<p>In total there are 6 sets of regulations, 2 covering the Glasgow area (a core prohibited zone over the city’s Commonwealth Games venues and athletes’ village, surrounded by a larger restricted zone), and 4 smaller restrictions of shorter duration, protecting specific events:</p>\n\n<ul>\n  <li>the cycling time trials at Muirhead</li>\n  <li>the triathlon events at Strathclyde Country Park</li>\n  <li>the diving competition at the Royal Commonwealth Pool in Edinburgh</li>\n  <li>the shooting competition at the Barry Buddon range near Dundee</li>\n</ul>\n\n<p>All the regulations have been designed to allow aviation business to continue as usual so far as possible, while ensuring the safety and security of the Commonwealth Games. They also provide specific exemptions for aircraft such as those operated by the police or emergency medical services to enter the protected airspace. We do not expect that any airports within the restricted airspace will need to close as a result of the planned measures, and there should be no impact on scheduled air services that will be vital to competitors, officials and spectators.</p>\n\n<p>The government’s paramount objective is the delivery of a safe and secure 2014 Commonwealth Games for all, and the airspace restrictions will help to provide this whilst minimising the impact on the aviation community, so far as possible. However, the government reserves the right to implement additional airspace security measures should the need arise.</p>\n\n</div>",
+    "political": true,
+    "delivered_on": "2014-04-01T09:30:00+01:00",
+    "change_history": [
+      {
+        "public_timestamp": "2014-04-01T09:55:00.000+01:00",
+        "note": "First published."
+      }
+    ],
+    "image": {
+      "alt_text": "Robert Goodwill MP",
+      "url": "/government/uploads/system/uploads/person/image/415/Robert_Goodwill.jpg"
+    },
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": true
+    },
+    "first_public_at": "2014-04-01T09:55:00.000+01:00"
+  }
+}

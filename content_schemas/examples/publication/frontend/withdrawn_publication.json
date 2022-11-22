@@ -1,0 +1,85 @@
+{
+  "base_path": "/government/publications/a-guide-for-pig-keepers",
+  "content_id": "5d3866dd-7631-11e4-a3cb-005056011aef",
+  "title": "A guide for pig keepers",
+  "description": "Guidance for pig keepers on registering, identifying and moving your pigs.",
+  "locale": "en",
+  "updated_at": "2015-12-02T10:43:02.887Z",
+  "public_updated_at": "2013-09-06T09:11:28.000+00:00",
+  "withdrawn_notice": {
+    "explanation": "<div class=\"govspeak\"><p>This information is now out of date. For our current guidance please read <a href=\"https://www.gov.uk/government/collections/guidance-for-keepers-of-sheep-goats-and-pigs\">guidance for keepers of sheep, goats and pigs</a>.</p></div>",
+    "withdrawn_at": "2015-01-13T13:05:30Z"
+  },
+  "details": {
+    "body": "<div class=\"govspeak\"><p>This guide provides information for pig keepers on registering, identifying and moving your pigs.</p>\n\n<p>Whether you keep one pet pig or a commercial herd you must by law be registered as a pig keeper with the <a rel=\"external\" href=\"http://www.defra.gov.uk/ahvla-en/\">Animal Health and Veterinary Laboratories Agency (<abbr title=\"Animal Health and Veterinary Laboratories Agency\">AHVLA</abbr>)</a>. </p>\n\n<p>In the event of a disease outbreak, knowing the precise location of all livestock is essential for effective measures to control and eradicate disease. You place both your own and other livestock in the area at risk if you do not register your holding or <a href=\"http://www.dev.gov.uk/guidance/disease-notification-duties-of-farmers\">report notifiable diseases</a>.</p>\n\n<h2 id=\"further-information\">Further information</h2>\n\n<ul>\n  <li><a href=\"http://www.dev.gov.uk/guidance/pigs-identification-registration-and-movement\">Pigs: identification, registration and movement</a></li>\n</ul>\n\n</div>",
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_871896\">\n<div class=\"attachment-thumb\">\n<a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/394915/pb13647-new-pig-keepers-guide.pdf\"><img alt=\"\" src=\"https://assets.digital.cabinet-office.gov.uk/government/uploads/system/uploads/attachment_data/file/394915/thumbnail_pb13647-new-pig-keepers-guide.pdf.png\"></a>\n</div>\n<div class=\"attachment-details\">\n<h2 class=\"title\"><a aria-describedby=\"attachment-871896-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/394915/pb13647-new-pig-keepers-guide.pdf\">A guide for pig keepers</a></h2>\n<p class=\"metadata\">\n<span class=\"references\">\nRef: <span class=\"unique_reference\">PB13985</span>\n</span>\n<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">1.15MB</span>, <span class=\"page-length\">21 pages</span>\n</p>\n\n\n<div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-871896-accessibility-help\">\n<h2>This file may not be suitable for users of assistive technology.\n<a class=\"toggler\" href=\"#attachment-871896-accessibility-request\" data-controls=\"attachment-871896-accessibility-request\" data-expanded=\"false\" role=\"button\" aria-controls=\"attachment-871896-accessibility-request\" aria-expanded=\"false\">Request a different format.</a>\n</h2>\n<p id=\"attachment-871896-accessibility-request\" class=\"js-hidden\" aria-live=\"polite\" role=\"region\">\nIf you use assistive technology and need a version of this document\nin a more accessible format, please email\n<a href=\"mailto:defra.helpline@defra.gsi.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20A%20guide%20for%20pig%20keepers%0A%20%20Original%20format%3A%20pdf%0A%20%20Unique%20reference%3A%20PB13985%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27A%20guide%20for%20pig%20keepers%27%20in%20an%20alternative%20format\">defra.helpline@defra.gsi.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n</p>\n</div>\n</div>\n</section>"
+    ],
+    "first_public_at": "2011-09-29T01:00:00+01:00",
+    "change_history": [
+      {
+        "public_timestamp": "2013-09-06T10:11:28+01:00",
+        "note": "Published updated pig keepers guide."
+      },
+      {
+        "public_timestamp": "2011-09-29T01:00:00+01:00",
+        "note": "First published."
+      }
+    ],
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    },
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "political": false,
+    "emphasised_organisations": [
+      "de4e9dc6-cca4-43af-a594-682023b84d6c"
+    ]
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "de4e9dc6-cca4-43af-a594-682023b84d6c",
+        "title": "Department for Environment, Food & Rural Affairs",
+        "api_path": "/api/content/government/organisations/department-for-environment-food-rural-affairs",
+        "base_path": "/government/organisations/department-for-environment-food-rural-affairs",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-environment-food-rural-affairs",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs",
+        "locale": "en",
+        "analytics_identifier": "D7"
+      }
+    ]
+  },
+  "schema_name": "publication",
+  "document_type": "guidance"
+}

@@ -1,0 +1,266 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/publications/cabinet-office-special-advisers-gifts-hospitality-and-meetings-april-to-june-2014",
+  "content_id": "4888cf80-f9a2-4bab-9c95-3e21cdeadd33",
+  "document_type": "transparency",
+  "first_published_at": "2015-03-13T11:45:39.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-03-13T11:45:39.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "publication",
+  "title": "Cabinet Office: special advisers' gifts, hospitality and meetings, April to June 2014",
+  "updated_at": "2018-01-10T13:53:00.820Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "document_collections": [
+      {
+        "api_path": "/api/content/government/collections/special-advisers-transparency-publications",
+        "base_path": "/government/collections/special-advisers-transparency-publications",
+        "content_id": "5eb6d017-7631-11e4-a3cb-005056011aef",
+        "description": "This series brings together all documents relating to Cabinet Office special advisers’ transparency publications.",
+        "document_type": "document_collection",
+        "locale": "en",
+        "public_updated_at": "2017-12-14T12:30:35Z",
+        "schema_name": "document_collection",
+        "title": "Cabinet Office: special advisers’ transparency publications",
+        "withdrawn": false,
+        "links": {
+          "documents": [
+            {
+              "api_path": "/api/content/government/publications/cabinet-office-special-advisers-gifts-hospitality-and-meetings-april-to-june-2014",
+              "base_path": "/government/publications/cabinet-office-special-advisers-gifts-hospitality-and-meetings-april-to-june-2014",
+              "content_id": "4888cf80-f9a2-4bab-9c95-3e21cdeadd33",
+              "description": "Data on gifts and hospitality received by special advisers, and meetings they attended with senior media figures.",
+              "document_type": "transparency",
+              "locale": "en",
+              "public_updated_at": "2015-03-13T11:45:39Z",
+              "schema_name": "publication",
+              "title": "Cabinet Office: special advisers' gifts, hospitality and meetings, April to June 2014",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/government/publications/cabinet-office-special-advisers-gifts-hospitality-and-meetings-april-to-june-2014",
+              "web_url": "https://www.gov.uk/government/publications/cabinet-office-special-advisers-gifts-hospitality-and-meetings-april-to-june-2014"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/collections/special-advisers-transparency-publications",
+        "web_url": "https://www.gov.uk/government/collections/special-advisers-transparency-publications"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D2",
+        "api_path": "/api/content/government/organisations/cabinet-office",
+        "base_path": "/government/organisations/cabinet-office",
+        "content_id": "96ae61d6-c2a1-48cb-8e67-da9d105ae381",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:07:57Z",
+        "schema_name": "placeholder",
+        "title": "Cabinet Office",
+        "withdrawn": false,
+        "details": {
+          "brand": "cabinet-office",
+          "logo": {
+            "formatted_title": "Cabinet Office",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/cabinet-office",
+        "web_url": "https://www.gov.uk/government/organisations/cabinet-office"
+      },
+      {
+        "analytics_identifier": "OT532",
+        "api_path": "/api/content/government/organisations/prime-ministers-office-10-downing-street",
+        "base_path": "/government/organisations/prime-ministers-office-10-downing-street",
+        "content_id": "705dbea4-8bd7-422e-ba9c-254557f77f81",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-03-09T20:00:54Z",
+        "schema_name": "placeholder",
+        "title": "Prime Minister's Office, 10 Downing Street",
+        "withdrawn": false,
+        "details": {
+          "brand": "cabinet-office",
+          "logo": {
+            "formatted_title": "Prime Minister&#39;s Office, 10 Downing Street",
+            "crest": "eo"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/prime-ministers-office-10-downing-street",
+        "web_url": "https://www.gov.uk/government/organisations/prime-ministers-office-10-downing-street"
+      },
+      {
+        "analytics_identifier": "OT537",
+        "api_path": "/api/content/government/organisations/deputy-prime-ministers-office",
+        "base_path": "/government/organisations/deputy-prime-ministers-office",
+        "content_id": "5a1467ef-2946-4d06-831d-8153d25d6ff4",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-05-11T16:17:58Z",
+        "schema_name": "placeholder",
+        "title": "Deputy Prime Minister's Office",
+        "withdrawn": false,
+        "details": {
+          "brand": "cabinet-office",
+          "logo": {
+            "formatted_title": "The Deputy Prime Minister&#39;s Office",
+            "crest": "eo"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/deputy-prime-ministers-office",
+        "web_url": "https://www.gov.uk/government/organisations/deputy-prime-ministers-office"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/government-efficiency-transparency-and-accountability",
+        "base_path": "/government/topics/government-efficiency-transparency-and-accountability",
+        "content_id": "0a12a282-10eb-4c83-9db4-16540ae5ab01",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:06Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Government efficiency, transparency and accountability",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/government-efficiency-transparency-and-accountability",
+        "web_url": "https://www.gov.uk/government/topics/government-efficiency-transparency-and-accountability"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D2",
+        "api_path": "/api/content/government/organisations/cabinet-office",
+        "base_path": "/government/organisations/cabinet-office",
+        "content_id": "96ae61d6-c2a1-48cb-8e67-da9d105ae381",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:07:57Z",
+        "schema_name": "placeholder",
+        "title": "Cabinet Office",
+        "withdrawn": false,
+        "details": {
+          "brand": "cabinet-office",
+          "logo": {
+            "formatted_title": "Cabinet Office",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/cabinet-office",
+        "web_url": "https://www.gov.uk/government/organisations/cabinet-office"
+      }
+    ],
+    "related_policies": [
+      {
+        "api_path": "/api/content/government/policies/government-transparency-and-accountability",
+        "base_path": "/government/policies/government-transparency-and-accountability",
+        "content_id": "5d278051-7631-11e4-a3cb-005056011aef",
+        "description": "What the government’s doing about government transparency and accountability.",
+        "document_type": "policy",
+        "locale": "en",
+        "public_updated_at": "2015-05-26T15:15:26Z",
+        "schema_name": "policy",
+        "title": "Government transparency and accountability",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/policies/government-transparency-and-accountability",
+        "web_url": "https://www.gov.uk/government/policies/government-transparency-and-accountability"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Cabinet Office: special advisers' gifts, hospitality and meetings, April to June 2014",
+        "public_updated_at": "2015-03-13T11:45:39Z",
+        "document_type": "transparency",
+        "schema_name": "publication",
+        "base_path": "/government/publications/cabinet-office-special-advisers-gifts-hospitality-and-meetings-april-to-june-2014",
+        "description": "Data on gifts and hospitality received by special advisers, and meetings they attended with senior media figures.",
+        "api_path": "/api/content/government/publications/cabinet-office-special-advisers-gifts-hospitality-and-meetings-april-to-june-2014",
+        "withdrawn": false,
+        "content_id": "4888cf80-f9a2-4bab-9c95-3e21cdeadd33",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/publications/cabinet-office-special-advisers-gifts-hospitality-and-meetings-april-to-june-2014",
+        "web_url": "https://www.gov.uk/government/publications/cabinet-office-special-advisers-gifts-hospitality-and-meetings-april-to-june-2014",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Data on gifts and hospitality received by special advisers, and meetings they attended with senior media figures.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>Cabinet Office publishes quarterly details of special advisers’ meetings with senior media figures and any gifts or hospitality they received on a quarterly basis.</p>\n</div>",
+    "change_history": [
+      {
+        "public_timestamp": "2015-03-13T11:45:39.000+00:00",
+        "note": "First published."
+      }
+    ],
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_953795\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/412445/no10_Spad_April_-_June__2014_transparency_returns.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/412445/thumbnail_no10_Spad_April_-_June__2014_transparency_returns.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/412445/no10_Spad_April_-_June__2014_transparency_returns.pdf\">Number 10&#39;s special advisers&#39; gifts, hospitality and meetings, April to June 2014</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">164KB</span>, <span class=\"page-length\">5 pages</span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_953799\">\n  <div class=\"attachment-thumb\">\n      <img alt=\"\" src=\"/government/assets/pub-cover-spreadsheet-471052e0d03e940bbc62528a05ac204a884b553e4943e63c8bffa6b8baef8967.png\" />\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\">Number 10&#39;s special advisers&#39; hospitality, April to June 2014</h2>\n    <p class=\"metadata\">\n        <span class=\"preview\">\n          <strong>\n            <a href=\"/government/uploads/system/uploads/attachment_data/file/412297/no10_spad_hospitality_apr_jun_14.csv/preview\">View online</a>\n          </strong>\n        </span>\n        <span class=\"download\">\n          <a href=\"/government/uploads/system/uploads/attachment_data/file/412297/no10_spad_hospitality_apr_jun_14.csv\">\n            <strong>Download CSV</strong>\n            1.43KB\n</a>        </span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_953800\">\n  <div class=\"attachment-thumb\">\n      <img alt=\"\" src=\"/government/assets/pub-cover-spreadsheet-471052e0d03e940bbc62528a05ac204a884b553e4943e63c8bffa6b8baef8967.png\" />\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\">Number 10&#39;s special advisers&#39; meetings with senior media figures, April to June 2014</h2>\n    <p class=\"metadata\">\n        <span class=\"preview\">\n          <strong>\n            <a href=\"/government/uploads/system/uploads/attachment_data/file/412298/no10_spad_media_meetings_apr_jun_14.csv/preview\">View online</a>\n          </strong>\n        </span>\n        <span class=\"download\">\n          <a href=\"/government/uploads/system/uploads/attachment_data/file/412298/no10_spad_media_meetings_apr_jun_14.csv\">\n            <strong>Download CSV</strong>\n            423Bytes\n</a>        </span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_953802\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/412446/DPM_SpAdReturn-Apr-Jun14.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/412446/thumbnail_DPM_SpAdReturn-Apr-Jun14.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/412446/DPM_SpAdReturn-Apr-Jun14.pdf\">Deputy Prime Minister&#39;s Office special advisers&#39; gifts, hospitality and meetings, April to June 2014</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">134KB</span>, <span class=\"page-length\">2 pages</span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_953804\">\n  <div class=\"attachment-thumb\">\n      <img alt=\"\" src=\"/government/assets/pub-cover-spreadsheet-471052e0d03e940bbc62528a05ac204a884b553e4943e63c8bffa6b8baef8967.png\" />\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\">Deputy Prime Minister&#39;s Office special advisers&#39; hospitality, April to June 2014</h2>\n    <p class=\"metadata\">\n        <span class=\"preview\">\n          <strong>\n            <a href=\"/government/uploads/system/uploads/attachment_data/file/412301/DPM_spad_hospitality_apr_jun_2014.csv/preview\">View online</a>\n          </strong>\n        </span>\n        <span class=\"download\">\n          <a href=\"/government/uploads/system/uploads/attachment_data/file/412301/DPM_spad_hospitality_apr_jun_2014.csv\">\n            <strong>Download CSV</strong>\n            1.57KB\n</a>        </span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_953807\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/412630/Cabinet_Office_spads_return_Apr_-_June_2014.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/412630/thumbnail_Cabinet_Office_spads_return_Apr_-_June_2014.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/412630/Cabinet_Office_spads_return_Apr_-_June_2014.pdf\">Cabinet Office&#39;s special advisers gifts, hospitality and meetings, April to June 2014</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">136KB</span>, <span class=\"page-length\">3 pages</span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_953842\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/412310/business_managers_spads_AprJun2014.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/412310/thumbnail_business_managers_spads_AprJun2014.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/412310/business_managers_spads_AprJun2014.pdf\">Leaders of the House and Government Whips&#39; special advisers&#39; gifts, hospitality and meetings, April to June 2014</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">84.2KB</span>, <span class=\"page-length\">3 pages</span>\n    </p>\n\n\n  </div>\n</section>"
+    ],
+    "emphasised_organisations": [
+      "96ae61d6-c2a1-48cb-8e67-da9d105ae381",
+      "705dbea4-8bd7-422e-ba9c-254557f77f81",
+      "5a1467ef-2946-4d06-831d-8153d25d6ff4"
+    ],
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+        "government-transparency-and-accountability"
+      ],
+      "topics": [
+
+      ]
+    },
+    "first_public_at": "2015-03-13T11:45:39.000+00:00"
+  }
+}

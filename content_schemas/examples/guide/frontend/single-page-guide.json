@@ -1,0 +1,472 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/take-pet-abroad",
+  "content_id": "bc210087-fe91-4e48-8214-0d5273a099d5",
+  "document_type": "guide",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-12-29T00:01:03.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "guide",
+  "title": "Bringing your pet dog, cat or ferret to the UK",
+  "updated_at": "2017-02-21T15:52:48.482Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "mainstream_browse_pages": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/abroad/travel-abroad",
+        "base_path": "/browse/abroad/travel-abroad",
+        "content_id": "b9849cd6-61a7-42dc-8124-362d2c7d48b0",
+        "description": "Includes the latest travel advice by country, your rights at the airport and getting help abroad",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:51Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Travel abroad",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/abroad/travel-abroad",
+        "web_url": "http://www.dev.gov.uk/browse/abroad/travel-abroad"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/visas-immigration/arriving-in-the-uk",
+        "base_path": "/browse/visas-immigration/arriving-in-the-uk",
+        "content_id": "2d9903ac-4194-4034-a53b-30d768f4fafb",
+        "description": "Entering the UK, going through customs and moving your belongings",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:57:22Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Arriving in the UK",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/visas-immigration/arriving-in-the-uk",
+        "web_url": "http://www.dev.gov.uk/browse/visas-immigration/arriving-in-the-uk"
+      }
+    ],
+    "meets_user_needs": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/needs/follow-the-pet-travel-rules",
+        "base_path": "/needs/follow-the-pet-travel-rules",
+        "content_id": "560cc525-39ac-48f2-94e0-841fceea9c21",
+        "description": null,
+        "document_type": "need",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:39Z",
+        "schema_name": "need",
+        "title": "As a pet-owner travelling outside the EU or residing abroad, I need to follow the pet travel rules, so that my pet won't be quarantined or destroyed (103481)",
+        "withdrawn": false,
+        "details": {
+          "applies_to_all_organisations": false,
+          "benefit": "my pet won't be quarantined or destroyed ",
+          "goal": "follow the pet travel rules",
+          "justifications": [
+            "It's something only government does",
+            "It's something the government provides/does/pays for"
+          ],
+          "met_when": [
+            "knows to microchip an animal that is travelling if they get a rabies shot",
+            "knows how to report a bad reaction to a microchip"
+          ],
+          "role": "pet-owner travelling outside the EU or residing abroad",
+          "need_id": "103481"
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/needs/follow-the-pet-travel-rules",
+        "web_url": "http://www.dev.gov.uk/needs/follow-the-pet-travel-rules"
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/bringing-food-animals-plants-into-uk",
+        "base_path": "/bringing-food-animals-plants-into-uk",
+        "content_id": "44b94792-05d9-4b95-9193-69de9ee87f09",
+        "description": "Bringing animals, plants or food into the UK - pet passports, plant health certificates, the rules around meat, dairy and fish products",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2014-12-03T12:54:41Z",
+        "schema_name": "guide",
+        "title": "Bringing food, animals or plants into the UK",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/abroad/travel-abroad",
+              "base_path": "/browse/abroad/travel-abroad",
+              "content_id": "b9849cd6-61a7-42dc-8124-362d2c7d48b0",
+              "description": "Includes the latest travel advice by country, your rights at the airport and getting help abroad",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:51Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Travel abroad",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/abroad",
+                    "base_path": "/browse/abroad",
+                    "content_id": "86eb717a-fb40-42e7-83fa-d031a03880fb",
+                    "description": "Includes renewing passports and travel advice by country",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Passports, travel and living abroad",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/abroad",
+                    "web_url": "http://www.dev.gov.uk/browse/abroad"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/abroad/travel-abroad",
+              "web_url": "http://www.dev.gov.uk/browse/abroad/travel-abroad"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/visas-immigration/arriving-in-the-uk",
+              "base_path": "/browse/visas-immigration/arriving-in-the-uk",
+              "content_id": "2d9903ac-4194-4034-a53b-30d768f4fafb",
+              "description": "Entering the UK, going through customs and moving your belongings",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:57:22Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Arriving in the UK",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/visas-immigration",
+                    "base_path": "/browse/visas-immigration",
+                    "content_id": "df6fcdc4-62bc-4e05-90e3-cb2e452453a4",
+                    "description": "Visas, settlement, asylum and sponsorship",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Visas and immigration",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/visas-immigration",
+                    "web_url": "http://www.dev.gov.uk/browse/visas-immigration"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/visas-immigration/arriving-in-the-uk",
+              "web_url": "http://www.dev.gov.uk/browse/visas-immigration/arriving-in-the-uk"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/bringing-food-animals-plants-into-uk",
+        "web_url": "http://www.dev.gov.uk/bringing-food-animals-plants-into-uk"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/caring-for-pets",
+        "base_path": "/caring-for-pets",
+        "content_id": "b9a226e0-86ac-4ee6-8bf3-dab7ccaeea31",
+        "description": "Information on the legal responsibilities of people who own or care for domestic pets",
+        "document_type": "answer",
+        "locale": "en",
+        "public_updated_at": "2014-12-10T15:37:23Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Caring for pets",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/noise-neighbours",
+              "base_path": "/browse/housing-local-services/noise-neighbours",
+              "content_id": "ae8c76fb-16ac-4c8a-94e1-47de716896af",
+              "description": "Includes neighbour disputes, reporting noise nuisance, pest control and looking after pets",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:29:40Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Noise, neighbours, pets and pests",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Housing and local services",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+                    "web_url": "http://www.dev.gov.uk/browse/housing-local-services"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/noise-neighbours",
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services/noise-neighbours"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/caring-for-pets",
+        "web_url": "http://www.dev.gov.uk/caring-for-pets"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/horse-passport",
+        "base_path": "/horse-passport",
+        "content_id": "d9f61057-fd9d-4b92-a5c9-e1fac20790d5",
+        "description": "Horses, ponies, donkeys and related animals like zebras must have a horse passport and it must be with the animal at all times\r\n",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2015-05-19T12:48:07Z",
+        "schema_name": "guide",
+        "title": "Getting and using a horse passport",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/noise-neighbours",
+              "base_path": "/browse/housing-local-services/noise-neighbours",
+              "content_id": "ae8c76fb-16ac-4c8a-94e1-47de716896af",
+              "description": "Includes neighbour disputes, reporting noise nuisance, pest control and looking after pets",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:29:40Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Noise, neighbours, pets and pests",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Housing and local services",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+                    "web_url": "http://www.dev.gov.uk/browse/housing-local-services"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/noise-neighbours",
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services/noise-neighbours"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/horse-passport",
+        "web_url": "http://www.dev.gov.uk/horse-passport"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/guidance/put-your-pet-in-rabies-quarantine",
+        "base_path": "/guidance/put-your-pet-in-rabies-quarantine",
+        "content_id": "55ad6241-dea8-43f9-8908-964f7be06993",
+        "description": "When your pet must go in quarantine, how to book a pet carrier and quarantine premises, and how to get your pet released from quarantine.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2016-06-09T10:12:31Z",
+        "schema_name": "detailed_guide",
+        "title": "Put your pet in rabies quarantine",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/guidance/put-your-pet-in-rabies-quarantine",
+        "web_url": "http://www.dev.gov.uk/guidance/put-your-pet-in-rabies-quarantine"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "EA52",
+        "api_path": "/api/content/government/organisations/animal-health-and-veterinary-laboratories-agency",
+        "base_path": "/government/organisations/animal-health-and-veterinary-laboratories-agency",
+        "content_id": "e0a272d7-82da-495a-a8c5-cc3787817271",
+        "description": null,
+        "document_type": "placeholder_organisation",
+        "locale": "en",
+        "public_updated_at": "2014-10-15T14:35:26Z",
+        "schema_name": "placeholder_organisation",
+        "title": "Animal Health and Veterinary Laboratories Agency",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-environment-food-rural-affairs",
+          "logo": {
+            "formatted_title": "Animal Health and <br/>Veterinary Laboratories <br/>Agency",
+            "crest": null
+          }
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/animal-health-and-veterinary-laboratories-agency",
+        "web_url": "http://www.dev.gov.uk/government/organisations/animal-health-and-veterinary-laboratories-agency"
+      },
+      {
+        "analytics_identifier": "D7",
+        "api_path": "/api/content/government/organisations/department-for-environment-food-rural-affairs",
+        "base_path": "/government/organisations/department-for-environment-food-rural-affairs",
+        "content_id": "de4e9dc6-cca4-43af-a594-682023b84d6c",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-12-09T12:38:41Z",
+        "schema_name": "placeholder",
+        "title": "Department for Environment, Food & Rural Affairs",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-environment-food-rural-affairs",
+          "logo": {
+            "formatted_title": "Department<br/>for Environment<br/>Food &amp; Rural Affairs",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/department-for-environment-food-rural-affairs",
+        "web_url": "http://www.dev.gov.uk/government/organisations/department-for-environment-food-rural-affairs"
+      },
+      {
+        "analytics_identifier": "D13",
+        "api_path": "/api/content/government/organisations/foreign-commonwealth-office",
+        "base_path": "/government/organisations/foreign-commonwealth-office",
+        "content_id": "9adfc4ed-9f6c-4976-a6d8-18d34356367c",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-03-22T14:43:46Z",
+        "schema_name": "placeholder",
+        "title": "Foreign & Commonwealth Office",
+        "withdrawn": false,
+        "details": {
+          "brand": "foreign-commonwealth-office",
+          "logo": {
+            "formatted_title": "Foreign &amp;<br/>Commonwealth <br/>Office",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/foreign-commonwealth-office",
+        "web_url": "http://www.dev.gov.uk/government/organisations/foreign-commonwealth-office"
+      }
+    ],
+    "parent": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/visas-immigration/arriving-in-the-uk",
+        "base_path": "/browse/visas-immigration/arriving-in-the-uk",
+        "content_id": "2d9903ac-4194-4034-a53b-30d768f4fafb",
+        "description": "Entering the UK, going through customs and moving your belongings",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:57:22Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Arriving in the UK",
+        "withdrawn": false,
+        "links": {
+          "parent": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/visas-immigration",
+              "base_path": "/browse/visas-immigration",
+              "content_id": "df6fcdc4-62bc-4e05-90e3-cb2e452453a4",
+              "description": "Visas, settlement, asylum and sponsorship",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-04-08T10:48:44Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Visas and immigration",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/visas-immigration",
+              "web_url": "http://www.dev.gov.uk/browse/visas-immigration"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/visas-immigration/arriving-in-the-uk",
+        "web_url": "http://www.dev.gov.uk/browse/visas-immigration/arriving-in-the-uk"
+      }
+    ],
+    "topics": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/topic/animal-welfare/pets",
+        "base_path": "/topic/animal-welfare/pets",
+        "content_id": "3e275a11-0fae-425b-a7a1-fe434594693f",
+        "description": "List of information about pets.",
+        "document_type": "topic",
+        "locale": "en",
+        "public_updated_at": "2015-08-11T15:03:41Z",
+        "schema_name": "topic",
+        "title": "Pets",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/topic/animal-welfare/pets",
+        "web_url": "http://www.dev.gov.uk/topic/animal-welfare/pets"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Bringing your pet dog, cat or ferret to the UK",
+        "public_updated_at": "2014-12-29T00:01:03Z",
+        "analytics_identifier": null,
+        "document_type": "guide",
+        "schema_name": "guide",
+        "base_path": "/take-pet-abroad",
+        "description": "Taking pets abroad on holiday or to live - pet passports, PETS travel scheme, microchipping, rabies vaccinations, quarantine, travelling with assistance dogs",
+        "api_path": "/api/content/take-pet-abroad",
+        "withdrawn": false,
+        "content_id": "bc210087-fe91-4e48-8214-0d5273a099d5",
+        "locale": "en",
+        "api_url": "http://www.dev.gov.uk/api/content/take-pet-abroad",
+        "web_url": "http://www.dev.gov.uk/take-pet-abroad",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Taking pets abroad on holiday or to live - pet passports, PETS travel scheme, microchipping, rabies vaccinations, quarantine, travelling with assistance dogs",
+  "details": {
+    "parts": [
+      {
+        "title": "Overview",
+        "slug": "overview",
+        "body": "<p>You can enter or return to the UK with your pet cat, dog or ferret if it:</p>\n\n<ul>\n  <li>has been <a href=\"/take-pet-abroad/microchip\">microchipped</a>\n</li>\n  <li>has a <a href=\"/take-pet-abroad/pet-passport\">pet passport or third-country official veterinary certificate</a>\n</li>\n  <li>has been <a href=\"/take-pet-abroad/rabies-vaccination-boosters-and-blood-tests\">vaccinated against rabies</a> - it will also need a blood test if you’re travelling from an ‘<a href=\"/take-pet-abroad/listed-and-unlisted-countries\">unlisted country</a>’</li>\n</ul>\n\n<p>Dogs must also usually have a <a href=\"/take-pet-abroad/tapeworm-treatment-dogs\">tapeworm treatment</a>.</p>\n\n<p>Your pet may be <a href=\"/guidance/put-your-pet-in-rabies-quarantine\">put into quarantine</a> for up to 4 months if you don’t follow these rules - or refused entry if you travelled by sea. You’re responsible for any fees or charges.</p>\n\n<p>You must follow extra rules if the animals will be:</p>\n\n<ul>\n  <li>\n    <p>sold in the UK from <a href=\"/guidance/importing-live-animals-or-animal-products-from-non-eu-countries\">outside the <abbr title=\"European Union\">EU</abbr></a> or <a href=\"/guidance/moving-live-animals-or-animal-products-as-part-of-eu-trade\">inside the <abbr title=\"European Union\">EU</abbr></a></p>\n  </li>\n  <li>\n    <p>re-homed in the UK from <a href=\"/guidance/balai-directive-moving-live-animals-semen-and-embryos\">inside or outside the <abbr title=\"European Union\">EU</abbr></a></p>\n  </li>\n</ul>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>There are different rules for entering other countries from the UK with your pet. Check the rules for the country you’re travelling to.</p>\n</div>\n\n<h2 id=\"before-you-travel\">Before you travel</h2>\n\n<p>Check if the company you’re travelling with:</p>\n\n<ul>\n  <li>will accept your pet for travel - and how many they’ll accept if you have more than one</li>\n  <li>needs any proof that your pet is fit and healthy to travel, for example a <a rel=\"external\" href=\"http://www.bva.co.uk/Workplace-guidance/Veterinary-certification/Cat-and-dog-export-certification/\">letter from a vet</a> or certain information in your <a href=\"/take-pet-abroad/pet-passport\">pet passport</a>\n</li>\n</ul>\n\n<h2 id=\"travelling-with-your-pet\">Travelling with your pet</h2>\n\n<p>Your pet must arrive in the UK no more than 5 days before or after you, or you’ll have to follow <a href=\"/guidance/balai-directive-moving-live-animals-semen-and-embryos\">different rules</a>.</p>\n\n<p>You must use an <a href=\"/take-pet-abroad/approved-routes\">approved transport company and route</a> unless you’re travelling between the UK and Ireland.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>You need to <a href=\"/government/publications/pet-travel-declaration-for-the-non-commercial-movement-of-animals\">fill in a declaration</a> confirming that you aren’t going to sell or transfer the ownership of your pet.</p>\n</div>\n\n<h3 id=\"authorising-someone-else-to-travel-with-your-pet\">Authorising someone else to travel with your pet</h3>\n\n<p>Your pet can travel with someone else if you’ve authorised it in writing.</p>\n\n<h2 id=\"bringing-other-animals\">Bringing other animals</h2>\n\n<p>The rules are different if you’re <a href=\"/bringing-food-animals-plants-into-uk/pets-and-other-animals\">bringing other animals into the UK</a>.</p>\n\n"
+      }
+    ],
+    "external_related_links": [
+
+    ]
+  }
+}

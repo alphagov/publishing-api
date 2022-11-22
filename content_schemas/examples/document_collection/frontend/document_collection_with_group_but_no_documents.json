@@ -1,0 +1,79 @@
+{
+  "content_id": "44a0a1f2-c059-41e1-a866-0cdae4968da1",
+  "base_path": "/government/collections/with-group-but-no-documents",
+  "description": "The standards set out a group that contains no documents",
+  "public_updated_at": "2016-02-29T09:24:10.000+00:00",
+  "title": "Group containing no documents",
+  "updated_at": "2016-05-17T11:27:14.152Z",
+  "schema_name": "document_collection",
+  "document_type": "document_collection",
+  "locale": "en",
+  "withdrawn_notice": {
+  },
+  "details": {
+    "collection_groups": [
+      {
+        "title": "Missing documents",
+        "body": "<div class=\"govspeak\">\n<p>The standard sets out what you must be able to do and what you must know and understand to show developed driving competence.</p>\n</div>",
+        "documents": [
+          "afeeb5a6-29e8-491c-816d-90af7e1307fe",
+          "e72cdd98-002b-47c2-ac91-e1a5ae1ce16a"
+        ]
+      }
+    ],
+    "first_public_at": "2016-02-29T09:24:10.000+00:00",
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "political": false,
+    "emphasised_organisations": [
+      "d39237a5-678b-4bb5-a372-eb2cb036933d"
+    ]
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "d39237a5-678b-4bb5-a372-eb2cb036933d",
+        "title": "Driver and Vehicle Standards Agency",
+        "api_path": "/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "base_path": "/government/organisations/driver-and-vehicle-standards-agency",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "web_url": "https://www.gov.uk/government/organisations/driver-and-vehicle-standards-agency",
+        "locale": "en",
+        "analytics_identifier": "EA570"
+      }
+    ],
+    "policy_areas": [
+      {
+        "content_id": "8034be95-4ac2-4fff-93c5-e7514ed9504a",
+        "title": "Tax and revenue",
+        "api_path": "/api/content/government/topics/tax-and-revenue",
+        "base_path": "/government/topics/tax-and-revenue",
+        "api_url": "https://www.gov.uk/api/content/government/world/topics/tax-and-revenue",
+        "web_url": "https://www.gov.uk/government/world/topics/tax-and-revenue",
+        "locale": "en"
+      }
+    ]
+  }
+}

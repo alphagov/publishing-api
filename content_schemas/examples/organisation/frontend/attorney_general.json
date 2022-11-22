@@ -1,0 +1,988 @@
+{
+  "analytics_identifier": "D1",
+  "base_path": "/government/organisations/attorney-generals-office",
+  "content_id": "25aacd68-dc0c-4041-9c3a-df59a5357c23",
+  "document_type": "organisation",
+  "first_published_at": "2011-10-11T16:11:43.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2020-05-01T07:52:25.000+00:00",
+  "publishing_app": "whitehall",
+  "publishing_scheduled_at": null,
+  "rendering_app": "collections",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "organisation",
+  "title": "Attorney General's Office",
+  "updated_at": "2020-05-01T11:21:26.707Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "29127-1588332084.604-10.13.3.19-1852",
+  "links": {
+    "ordered_board_members": [
+      {
+        "content_id": "852e9e6b-c0f1-11e4-8223-005056011aef",
+        "title": "Rowena Collins Rice",
+        "locale": "en",
+        "api_path": "/api/content/government/people/rowena-collins-rice",
+        "base_path": "/government/people/rowena-collins-rice",
+        "document_type": "person",
+        "public_updated_at": "2015-07-13T08:24:22Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/478/s465_RowenaCollinsRice.jpg",
+            "alt_text": "Rowena Collins Rice"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "5a4223e5-0721-4094-89e9-798e5645dc87",
+              "title": "Rowena Collins Rice - Director General of the Attorney General's Office (AGO)",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:12:18Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2012-12-01T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 569
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8461ad63-c0f1-11e4-8223-005056011aef",
+                    "title": "Director General of the Attorney General's Office (AGO)",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2013-01-21T15:01:45Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Director General of the Attorney General’s Office (<abbr title=\"Attorney General's Office\">AGO</abbr>) heads a team of 40-50 legal, policy and administrative staff, supporting the Attorney General and Solicitor General across the range of their functions.</p>\n\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/rowena-collins-rice",
+        "web_url": "https://www.gov.uk/government/people/rowena-collins-rice"
+      },
+      {
+        "content_id": "6b26ce5a-d3d4-4c50-aa33-5f6f9c95651e",
+        "title": "Shehzad Charania MBE",
+        "locale": "en",
+        "api_path": "/api/content/government/people/shehzad-charania",
+        "base_path": "/government/people/shehzad-charania",
+        "document_type": "person",
+        "public_updated_at": "2020-02-14T14:10:53Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/4215/s465_960_x_640_S2.png",
+            "alt_text": "Shehzad Charania MBE"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "dbd52672-fcc0-4639-9358-605995ea3b75",
+              "title": "Shehzad Charania MBE - Deputy Legal Secretary and Head of Operations",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2020-02-14T11:12:43Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-03-16T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 6066
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "84619579-c0f1-11e4-8223-005056011aef",
+                    "title": "Director and Deputy Head of the Attorney General’s Office",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2020-02-14T11:13:45Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/shehzad-charania",
+        "web_url": "https://www.gov.uk/government/people/shehzad-charania"
+      }
+    ],
+    "ordered_child_organisations": [
+      {
+        "content_id": "cae0cb98-8c71-416e-b7af-c46f535219fd",
+        "title": "Treasury Solicitor’s Department",
+        "locale": "en",
+        "analytics_identifier": "D30",
+        "api_path": "/api/content/government/organisations/treasury-solicitor-s-department",
+        "base_path": "/government/organisations/treasury-solicitor-s-department",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "Treasury <br/>Solicitor’s <br/>Department",
+            "crest": "single-identity"
+          },
+          "brand": "attorney-generals-office",
+          "default_news_image": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/treasury-solicitor-s-department",
+        "web_url": "https://www.gov.uk/government/organisations/treasury-solicitor-s-department"
+      },
+      {
+        "content_id": "6c97de66-80ac-4eca-9a19-92d16442e72f",
+        "title": "Crown Prosecution Service",
+        "locale": "en",
+        "analytics_identifier": "D101",
+        "api_path": "/api/content/government/organisations/crown-prosecution-service",
+        "base_path": "/government/organisations/crown-prosecution-service",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "Crown Prosecution Service"
+          },
+          "brand": "attorney-generals-office",
+          "default_news_image": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/crown-prosecution-service",
+        "web_url": "https://www.gov.uk/government/organisations/crown-prosecution-service"
+      },
+      {
+        "content_id": "ebae4517-422f-44dd-9f87-13304c9815cb",
+        "title": "Serious Fraud Office",
+        "locale": "en",
+        "analytics_identifier": "D115",
+        "api_path": "/api/content/government/organisations/serious-fraud-office",
+        "base_path": "/government/organisations/serious-fraud-office",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "Serious Fraud Office"
+          },
+          "brand": "attorney-generals-office",
+          "default_news_image": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/serious-fraud-office",
+        "web_url": "https://www.gov.uk/government/organisations/serious-fraud-office"
+      },
+      {
+        "content_id": "80d7633e-2e65-46f0-8328-d71692ca3cc4",
+        "title": "HM Crown Prosecution Service Inspectorate",
+        "locale": "en",
+        "analytics_identifier": "OT347",
+        "api_path": "/api/content/government/organisations/hm-crown-prosecution-service-inspectorate",
+        "base_path": "/government/organisations/hm-crown-prosecution-service-inspectorate",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "HM Crown Prosecution <br/>Service Inspectorate"
+          },
+          "brand": "attorney-generals-office",
+          "default_news_image": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-crown-prosecution-service-inspectorate",
+        "web_url": "https://www.gov.uk/government/organisations/hm-crown-prosecution-service-inspectorate"
+      },
+      {
+        "content_id": "bac52ec5-df89-42b3-a034-2de01107f1d3",
+        "title": "Government Legal Department",
+        "locale": "en",
+        "analytics_identifier": "D1108",
+        "api_path": "/api/content/government/organisations/government-legal-department",
+        "base_path": "/government/organisations/government-legal-department",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "Government <br/>Legal Department",
+            "crest": "single-identity"
+          },
+          "brand": "attorney-generals-office",
+          "default_news_image": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/government-legal-department",
+        "web_url": "https://www.gov.uk/government/organisations/government-legal-department"
+      }
+    ],
+    "ordered_contacts": [
+      {
+        "content_id": "46407c21-d5d8-40d3-a6e0-1398093069b6",
+        "title": "Correspondence address",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2020-03-19T16:41:14Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "Given the current situation with Covid-19 we unfortunately cannot guarantee that hard copy post will be processed and responded to in a timely manner. Where possible, all correspondence, including ULS requests, should be sent via email. You can also contact us by telephone on the correspondence number above. We apologise for this change in practice.\r\n\r\nWe strive to answer all electronic correspondence that falls within the remit of the AGO within 20 days. However, we are unable to reply to matters that do not fall within the responsibility of the AGO.\r\n\r\nCorrespondence that falls within the remit of the AGO will be stored in digital form only. Correspondence which falls outside the remit of the AGO will not be retained. The AGO will not keep hard copies of any material sent to us and we are unable to return them to the sender. Please ensure you only send copy material to us.",
+          "title": "Correspondence address",
+          "contact_form_links": null,
+          "post_addresses": [
+            {
+              "title": "Attorney General’s Office",
+              "street_address": "102 Petty France",
+              "locality": "London",
+              "postal_code": "SW1H 9EA",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": [
+            {
+              "title": "Attorney General’s Office",
+              "email": "correspondence@attorneygeneral.gov.uk"
+            }
+          ],
+          "phone_numbers": [
+            {
+              "title": "Telephone - 020 7271 2492",
+              "number": "We are not able to provide legal advice to members of the public or businesses."
+            }
+          ]
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "57c1b198-69de-4eb5-90a2-2fbe72395de5",
+        "title": "Media enquiries",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2019-02-22T17:01:38Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "If you have an urgent media enquiry out of office hours, please contact the duty press officer. Please note this number does not accept text messages.",
+          "title": "Media enquiries",
+          "contact_form_links": null,
+          "post_addresses": [
+
+          ],
+          "email_addresses": [
+            {
+              "email": "press.office@attorneygeneral.gov.uk"
+            }
+          ],
+          "phone_numbers": [
+            {
+              "title": "Media enquiries",
+              "number": "020 7271 2465 / 2440 / 2516"
+            },
+            {
+              "title": "Out of hours",
+              "number": "07548 212 146"
+            }
+          ]
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "7fb43a6a-16da-4011-9d27-bc250f49c02c",
+        "title": "Refer a Crown Court Sentence",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2017-11-22T14:29:13Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": null,
+          "title": "Refer a Crown Court Sentence",
+          "contact_form_links": null,
+          "post_addresses": [
+
+          ],
+          "email_addresses": [
+            {
+              "email": "ULS.Referrals@attorneygeneral.gov.uk"
+            }
+          ],
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "577c1fde-b238-489b-83bb-0534cfafa5d9",
+        "title": "Nominations of Counsel",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2017-11-22T14:20:42Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": null,
+          "title": "Nominations of Counsel",
+          "contact_form_links": null,
+          "post_addresses": [
+
+          ],
+          "email_addresses": [
+            {
+              "email": "nominations@attorneygeneral.gov.uk"
+            }
+          ],
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "00c2435d-c187-49d9-87fe-4361e90cdec4",
+        "title": "Report Contempt of Court",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2018-06-01T14:04:48Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": null,
+          "title": "Report Contempt of Court",
+          "contact_form_links": null,
+          "post_addresses": [
+
+          ],
+          "email_addresses": [
+            {
+              "email": "Contempt.SharedMailbox@attorneygeneral.gov.uk "
+            }
+          ],
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "bd27615e-f6a8-437b-b38a-115b70260e5b",
+        "title": "Freedom of Information requests",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2017-11-22T14:28:57Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": null,
+          "title": "Freedom of Information requests",
+          "contact_form_links": null,
+          "post_addresses": [
+
+          ],
+          "email_addresses": [
+            {
+              "email": "correspondence@attorneygeneral.gov.uk"
+            }
+          ],
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      }
+    ],
+    "ordered_ministers": [
+      {
+        "content_id": "d00d3aaf-1654-4f39-8753-f65caa035aeb",
+        "title": "The Rt Hon Suella Braverman QC MP",
+        "locale": "en",
+        "api_path": "/api/content/government/people/braverman",
+        "base_path": "/government/people/braverman",
+        "document_type": "person",
+        "public_updated_at": "2020-02-25T12:01:26Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3345/s465_No10_2018_004_ReshuffleGOV_089.jpg",
+            "alt_text": "The Rt Hon Suella Braverman QC MP"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "4c14829d-2480-4285-84ac-90ffc7887dbc",
+              "title": "Suella Braverman MP - Attorney General",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2020-02-13T14:48:09Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2020-02-13T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 6023
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "845e6aa7-c0f1-11e4-8223-005056011aef",
+                    "title": "Attorney General",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/attorney-general",
+                    "base_path": "/government/ministers/attorney-general",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2016-07-20T15:22:24Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Attorney General is chief legal adviser to the Crown and has a number of independent public interest functions, as well as overseeing the Law Officers’ departments. These are:</p>\n\n<ul>\n  <li>the Crown Prosecution Service</li>\n  <li>the Serious Fraud Office</li>\n  <li>Her Majesty’s Crown Prosecution Service Inspectorate</li>\n  <li>the Government Legal Department</li>\n</ul>\n\n<p>Other responsibilities include:</p>\n\n<ul>\n  <li>acting as principal legal adviser on questions of EU and international law, human rights and devolution issues</li>\n  <li>referring unduly lenient sentences to the Court of Appeal</li>\n  <li>bringing proceedings for contempt of court</li>\n  <li>intervening in certain proceedings to protect charities</li>\n  <li>dealing with questions of law arising on government Bills</li>\n  <li>legal aspects of all major international and domestic litigation involving the government</li>\n</ul>\n\n<p>The Attorney General also holds the separate office of Advocate General for Northern Ireland. The Advocate General for Scotland has specific responsibility for Scottish law matters.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/attorney-general",
+                    "web_url": "https://www.gov.uk/government/ministers/attorney-general"
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "1bbd4518-9c34-4efa-9440-c820b057da32",
+              "title": "Suella Braverman - Parliamentary Under Secretary of State",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-11-06T00:13:44Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2018-01-09T00:00:00+00:00",
+                "ended_on": "2018-11-15T00:00:00+00:00",
+                "current": false,
+                "person_appointment_order": 4547
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "2d0a6ab1-9c15-4b80-8b3b-eb084af99fd4",
+                    "title": "Parliamentary Under Secretary of State",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--93",
+                    "base_path": "/government/ministers/parliamentary-under-secretary-of-state--93",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2018-11-20T17:44:09Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<ul>\n  <li>EU (Withdrawal Agreement) Bill</li>\n  <li>Vote on the final deal</li>\n  <li>English Regions</li>\n  <li>Security Partnership &amp; Justice</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--93",
+                    "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--93"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/braverman",
+        "web_url": "https://www.gov.uk/government/people/braverman"
+      },
+      {
+        "content_id": "5f0540df-1651-44b8-9032-54eee7692867",
+        "title": "The Rt Hon Michael Ellis QC MP",
+        "locale": "en",
+        "api_path": "/api/content/government/people/michael-ellis",
+        "base_path": "/government/people/michael-ellis",
+        "document_type": "person",
+        "public_updated_at": "2019-12-20T12:30:47Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/2802/s465_Michael_Ellis_MP_960x640.jpg",
+            "alt_text": "The Rt Hon Michael Ellis QC MP"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "ce077c18-41b0-43a2-93b0-70b902c2f2bb",
+              "title": "The Rt Hon Michael Ellis QC - Assistant Government Whip",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-11-06T00:12:35Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2016-07-17T00:00:00+01:00",
+                "ended_on": "2017-06-14T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 3526
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "84618e06-c0f1-11e4-8223-005056011aef",
+                    "title": "Assistant Government Whip",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/assistant-government-whip--7",
+                    "base_path": "/government/ministers/assistant-government-whip--7",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2018-07-25T19:45:01Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Whips are MPs or Lords appointed by each party to help organise their party’s contribution to parliamentary business. They are responsible for making sure the maximum number of their party members vote, and vote the way their party wants.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/assistant-government-whip--7",
+                    "web_url": "https://www.gov.uk/government/ministers/assistant-government-whip--7"
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "d5c3734e-2ca2-4683-97db-f73110c4bc88",
+              "title": "The Rt Hon Michael Ellis QC - Parliamentary Secretary of State (Deputy Leader of the House of Commons)",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-11-06T00:12:35Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2016-07-17T00:00:00+01:00",
+                "ended_on": "2018-01-08T00:00:00+00:00",
+                "current": false,
+                "person_appointment_order": 3508
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "845e84dc-c0f1-11e4-8223-005056011aef",
+                    "title": "Parliamentary Secretary of State (Deputy Leader of the House of Commons)",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/parliamentary-secretary-deputy-leader-of-the-house-of-commons",
+                    "base_path": "/government/ministers/parliamentary-secretary-deputy-leader-of-the-house-of-commons",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2017-06-15T14:00:46Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-secretary-deputy-leader-of-the-house-of-commons",
+                    "web_url": "https://www.gov.uk/government/ministers/parliamentary-secretary-deputy-leader-of-the-house-of-commons"
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "bfd95c7d-65c9-4822-986d-a12c7787de64",
+              "title": "The Rt Hon Michael Ellis QC - Parliamentary Under Secretary of State (Minister for Arts, Heritage and Tourism)",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-11-06T00:12:35Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2018-01-09T00:00:00+00:00",
+                "ended_on": "2019-05-23T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 4570
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "943061d5-ea68-4582-a616-331ade949486",
+                    "title": "Parliamentary Under Secretary of State (Minister for Arts, Heritage and Tourism)",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--99",
+                    "base_path": "/government/ministers/parliamentary-under-secretary-of-state--99",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2019-08-12T13:37:24Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<ul>\n  <li>Arts</li>\n  <li>Museums and Cultural Property</li>\n  <li>Libraries</li>\n  <li>Heritage</li>\n  <li>Tourism</li>\n  <li>Gambling and lotteries</li>\n  <li>Cultural diplomacy</li>\n  <li>Overall approach to culture and place, including focus on enriching lives</li>\n  <li>Public appointments</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--99",
+                    "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--99"
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "8dc377e8-c965-446b-9f75-1fe19d314fa8",
+              "title": "The Rt Hon Michael Ellis QC - Minister of State",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-11-06T00:12:35Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-05-23T00:00:00+01:00",
+                "ended_on": "2019-07-25T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 5473
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "948d7334-8c37-4b03-baee-8476d8330a6c",
+                    "title": "Minister of State",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/minister-of-state--57",
+                    "base_path": "/government/ministers/minister-of-state--57",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2020-02-19T10:24:39Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Chris Heaton-Harris has responsibility for:</p>\n\n<ul>\n  <li>rail</li>\n  <li>East West Rail</li>\n  <li>cycling and walking</li>\n  <li>Crossrail and Crossrail 2</li>\n  <li>accessibility</li>\n  <li>corporate</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/minister-of-state--57",
+                    "web_url": "https://www.gov.uk/government/ministers/minister-of-state--57"
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "842a3aca-c609-4f64-9ecc-4b30576f50af",
+              "title": "The Rt Hon Michael Ellis QC - Solicitor General",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-11-06T00:12:35Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-07-26T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5620
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "845e6af3-c0f1-11e4-8223-005056011aef",
+                    "title": "Solicitor General",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/solicitor-general",
+                    "base_path": "/government/ministers/solicitor-general",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2019-06-05T15:00:45Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Solicitor General supports the Attorney across the range of his responsibilities. This includes:</p>\n\n<ul>\n  <li>deputising for the Attorney General and being responsible for such matters as the Attorney General delegates</li>\n  <li>providing support to the Attorney General in his superintendence of the Government Legal Department, the Crown Prosecution Service, the Service Prosecuting Authority, HM Crown Prosecution Service Inspectorate and the Serious Fraud Office</li>\n  <li>providing support to the Attorney General on civil litigation and advice on civil law matters and on the public interest function</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/solicitor-general",
+                    "web_url": "https://www.gov.uk/government/ministers/solicitor-general"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/michael-ellis",
+        "web_url": "https://www.gov.uk/government/people/michael-ellis"
+      }
+    ],
+    "ordered_roles": [
+      {
+        "content_id": "845e6aa7-c0f1-11e4-8223-005056011aef",
+        "title": "Attorney General",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/attorney-general",
+        "base_path": "/government/ministers/attorney-general",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2016-07-20T15:22:24Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Attorney General is chief legal adviser to the Crown and has a number of independent public interest functions, as well as overseeing the Law Officers’ departments. These are:</p>\n\n<ul>\n  <li>the Crown Prosecution Service</li>\n  <li>the Serious Fraud Office</li>\n  <li>Her Majesty’s Crown Prosecution Service Inspectorate</li>\n  <li>the Government Legal Department</li>\n</ul>\n\n<p>Other responsibilities include:</p>\n\n<ul>\n  <li>acting as principal legal adviser on questions of EU and international law, human rights and devolution issues</li>\n  <li>referring unduly lenient sentences to the Court of Appeal</li>\n  <li>bringing proceedings for contempt of court</li>\n  <li>intervening in certain proceedings to protect charities</li>\n  <li>dealing with questions of law arising on government Bills</li>\n  <li>legal aspects of all major international and domestic litigation involving the government</li>\n</ul>\n\n<p>The Attorney General also holds the separate office of Advocate General for Northern Ireland. The Advocate General for Scotland has specific responsibility for Scottish law matters.</p>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/attorney-general",
+        "web_url": "https://www.gov.uk/government/ministers/attorney-general"
+      },
+      {
+        "content_id": "845e6af3-c0f1-11e4-8223-005056011aef",
+        "title": "Solicitor General",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/solicitor-general",
+        "base_path": "/government/ministers/solicitor-general",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2019-06-05T15:00:45Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Solicitor General supports the Attorney across the range of his responsibilities. This includes:</p>\n\n<ul>\n  <li>deputising for the Attorney General and being responsible for such matters as the Attorney General delegates</li>\n  <li>providing support to the Attorney General in his superintendence of the Government Legal Department, the Crown Prosecution Service, the Service Prosecuting Authority, HM Crown Prosecution Service Inspectorate and the Serious Fraud Office</li>\n  <li>providing support to the Attorney General on civil litigation and advice on civil law matters and on the public interest function</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/solicitor-general",
+        "web_url": "https://www.gov.uk/government/ministers/solicitor-general"
+      },
+      {
+        "content_id": "84619579-c0f1-11e4-8223-005056011aef",
+        "title": "Director and Deputy Head of the Attorney General’s Office",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2020-02-14T11:13:45Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "8461ad63-c0f1-11e4-8223-005056011aef",
+        "title": "Director General of the Attorney General's Office (AGO)",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2013-01-21T15:01:45Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Director General of the Attorney General’s Office (<abbr title=\"Attorney General's Office\">AGO</abbr>) heads a team of 40-50 legal, policy and administrative staff, supporting the Attorney General and Solicitor General across the range of their functions.</p>\n\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "content_id": "25aacd68-dc0c-4041-9c3a-df59a5357c23",
+        "title": "Attorney General's Office",
+        "locale": "en",
+        "analytics_identifier": "D1",
+        "api_path": "/api/content/government/organisations/attorney-generals-office",
+        "base_path": "/government/organisations/attorney-generals-office",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "Attorney <br/>General&#39;s <br/>Office",
+            "crest": "single-identity"
+          },
+          "brand": "attorney-generals-office",
+          "default_news_image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/459/s300_Courts_of_Justice_new.jpg",
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/459/s960_Courts_of_Justice_new.jpg"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/attorney-generals-office",
+        "web_url": "https://www.gov.uk/government/organisations/attorney-generals-office"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Attorney General's Office",
+        "public_updated_at": "2020-05-01T07:52:25Z",
+        "analytics_identifier": "D1",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "base_path": "/government/organisations/attorney-generals-office",
+        "api_path": "/api/content/government/organisations/attorney-generals-office",
+        "withdrawn": false,
+        "content_id": "25aacd68-dc0c-4041-9c3a-df59a5357c23",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/attorney-generals-office",
+        "web_url": "https://www.gov.uk/government/organisations/attorney-generals-office",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "The Attorney General’s Office (AGO) provides legal advice and support to the Attorney General and the Solicitor General (the Law Officers) who give legal advice to government. The AGO helps the Law Officers perform other duties in the public interest, such as looking at sentences which may be too low. AGO is a ministerial department, supported by 4 agencies and public bodies .",
+  "details": {
+    "acronym": "AGO",
+    "alternative_format_contact_email": "correspondence@attorneygeneral.gov.uk",
+    "body": "<div class=\"govspeak\"><p>The Attorney General’s Office (AGO) provides legal advice and support to the Attorney General and the Solicitor General (the Law Officers) who give legal advice to government. The AGO helps the Law Officers perform other duties in the public interest, such as looking at sentences which may be too low.</p>\n\n<p><abbr title=\"Attorney General's Office\">AGO</abbr> is a ministerial department, supported by <a class=\"govuk-link\" href=\"/government/organisations#attorney-generals-office\">4 agencies and public bodies</a>.</p>\n</div>",
+    "brand": "attorney-generals-office",
+    "logo": {
+      "formatted_title": "Attorney <br/>General&#39;s <br/>Office",
+      "crest": "single-identity"
+    },
+    "foi_exempt": false,
+    "ordered_corporate_information_pages": [
+      {
+        "title": "Statistics at AGO",
+        "href": "/government/organisations/attorney-generals-office/about/statistics"
+      },
+      {
+        "title": "Our energy use",
+        "href": "/government/organisations/attorney-generals-office/about/our-energy-use"
+      },
+      {
+        "title": "Our governance",
+        "href": "/government/organisations/attorney-generals-office/about/our-governance"
+      },
+      {
+        "title": "Complaints procedure",
+        "href": "/government/organisations/attorney-generals-office/about/complaints-procedure"
+      },
+      {
+        "title": "Jobs",
+        "href": "https://www.civilservicejobs.service.gov.uk/csr"
+      }
+    ],
+    "secondary_corporate_information_pages": "Read about the types of information we routinely publish in our <a class=\"brand__color\" href=\"/government/organisations/attorney-generals-office/about/publication-scheme\">Publication scheme</a>. Our <a class=\"brand__color\" href=\"/government/organisations/attorney-generals-office/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information. Find out <a class=\"brand__color\" href=\"/government/organisations/attorney-generals-office/about-our-services\">About our services</a>.",
+    "ordered_featured_links": [
+      {
+        "title": "Attorney General's guidance to the legal profession",
+        "href": "https://www.gov.uk/browse/justice/courts-sentencing-tribunals/attorney-general-guidance-to-the-legal-profession"
+      }
+    ],
+    "ordered_featured_documents": [
+      {
+        "title": "Attorney General seeking feedback on new disclosure guidelines",
+        "href": "/government/news/attorney-general-seeking-feedback-on-new-disclosure-guidelines",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/75777/SB_new.jpg",
+          "alt_text": "Attorney General, the Rt Hon Suella Braverman QC MP"
+        },
+        "summary": "<div class=\"govspeak\"><p>A new consultation has been launched on changes to the Attorney General’s Guidelines on Disclosure</p>\n</div>",
+        "public_updated_at": "2020-02-26T14:00:31.000+00:00",
+        "document_type": "Press release"
+      },
+      {
+        "title": "Attorney General provides undertaking for Grenfell Tower Inquiry",
+        "href": "/government/news/attorney-general-provides-undertaking-for-grenfell-tower-inquiry",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/75779/Justicia.jpg",
+          "alt_text": "Justicia"
+        },
+        "summary": "<div class=\"govspeak\"><p>Knowing that it will not jeopardise the police’s investigation or prospects of a future criminal prosecution, the Attorney General has given an undertaking in the case of the Grenfell Tower fire.</p>\n</div>",
+        "public_updated_at": "2020-02-26T15:00:10.000+00:00",
+        "document_type": "Press release"
+      },
+      {
+        "title": "Media advisory notice - PC Andrew Harper",
+        "href": "/government/news/media-advisory-notice-pc-andrew-harper",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/76140/Michael_Ellis_MP.png",
+          "alt_text": "Solicitor General"
+        },
+        "summary": "<div class=\"govspeak\">\n<p>The Solicitor General Rt. Hon Michael Ellis QC MP wishes to draw attention to the requirement not to publish material, including online, which could jeopardise the defendants’ right to a fair trial.</p>\n</div>",
+        "public_updated_at": "2020-03-16T13:35:41.000+00:00",
+        "document_type": "Press release"
+      },
+      {
+        "title": "New Attorney General appointed",
+        "href": "/government/news/new-attorney-general-appointed--2",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/75522/SB_new.jpg",
+          "alt_text": "Attorney General Suella Braverman MP"
+        },
+        "summary": "<div class=\"govspeak\"><p>Suella Braverman MP has been appointed Attorney General for England and Wales.</p>\n</div>",
+        "public_updated_at": "2020-02-13T17:48:20.000+00:00",
+        "document_type": "Press release"
+      },
+      {
+        "title": "Outcome of unduly lenient sentence referrals",
+        "href": "/government/statistical-data-sets/outcome-of-unduly-lenient-sentence-referrals",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/67150/courts-of-justice.JPG",
+          "alt_text": "Courts of Justice "
+        },
+        "summary": "<div class=\"govspeak\"><p>Recent sentences examined by the Attorney General’s Office under the Unduly Lenient Sentence Scheme.</p>\n</div>",
+        "public_updated_at": "2020-04-28T14:44:23.000+01:00",
+        "document_type": "Statistical data set"
+      },
+      {
+        "title": "Sentence increased for London man who kidnapped and sexually abused eight-year-old boy",
+        "href": "/government/news/sentence-increased-for-london-man-who-kidnapped-and-sexually-abused-eight-year-old-boy",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/76397/RCJ_AS_6.jpg",
+          "alt_text": "Royal Courts of Justice"
+        },
+        "summary": "<div class=\"govspeak\"><p>Shane Upton has had his sentence increased at the Court of Appeal following intervention by the Solicitor General, the Rt Hon Michael Ellis QC MP.</p>\n</div>",
+        "public_updated_at": "2020-03-24T13:33:20.000+00:00",
+        "document_type": "News story"
+      }
+    ],
+    "ordered_promotional_features": [
+
+    ],
+    "important_board_members": 1,
+    "organisation_featuring_priority": "news",
+    "organisation_govuk_status": {
+      "status": "live",
+      "url": null,
+      "updated_at": null
+    },
+    "organisation_type": "ministerial_department",
+    "organisation_political": true,
+    "social_media_links": [
+      {
+        "service_type": "twitter",
+        "title": "Twitter - @attorneygeneral",
+        "href": "https://twitter.com/@attorneygeneral"
+      }
+    ],
+    "default_news_image": {
+      "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/459/s300_Courts_of_Justice_new.jpg",
+      "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/459/s960_Courts_of_Justice_new.jpg"
+    }
+  }
+}

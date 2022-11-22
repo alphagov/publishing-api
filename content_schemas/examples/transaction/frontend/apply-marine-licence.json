@@ -1,0 +1,257 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/apply-marine-licence",
+  "content_id": "0d046315-1b9e-4a85-bd7f-4246b295fba8",
+  "document_type": "transaction",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-07-30T11:37:28.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "transaction",
+  "title": "Apply for a marine licence",
+  "updated_at": "2017-03-15T12:32:23.888Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "mainstream_browse_pages": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/business/maritime",
+        "base_path": "/browse/business/maritime",
+        "content_id": "206cab77-67ee-43d4-bdba-9291ff374bba",
+        "description": "Includes health and safety onboard, crew, registering vessels",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2016-11-18T16:02:30Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Maritime vessels and work at sea",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/business/maritime",
+        "web_url": "http://www.dev.gov.uk/browse/business/maritime"
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/burial-at-sea",
+        "base_path": "/burial-at-sea",
+        "content_id": "02d952f6-a2f6-4661-89f4-1c9e6c861d7a",
+        "description": "You must have a licence from the Marine Management Organisation to bury a body at sea",
+        "document_type": "licence",
+        "locale": "en",
+        "public_updated_at": "2015-07-31T16:23:32Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Get a licence for a burial at sea in England",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/births-deaths-marriages/death",
+              "base_path": "/browse/births-deaths-marriages/death",
+              "content_id": "0384fade-ef89-4dd7-8578-3df1d1699fa4",
+              "description": "Reporting a death, wills, probate and Inheritance Tax",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:46Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Death and bereavement",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/births-deaths-marriages",
+                    "base_path": "/browse/births-deaths-marriages",
+                    "content_id": "f5fe5c9e-e5f1-4b76-9b07-a0af649c440c",
+                    "description": "Parenting, civil partnerships, divorce and lasting power of attorney",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Births, deaths, marriages and care",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/births-deaths-marriages",
+                    "web_url": "http://www.dev.gov.uk/browse/births-deaths-marriages"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/births-deaths-marriages/death",
+              "web_url": "http://www.dev.gov.uk/browse/births-deaths-marriages/death"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/business/licences",
+              "base_path": "/browse/business/licences",
+              "content_id": "fcf23e92-328f-4990-ba44-fbee5f2f7d64",
+              "description": "Applying for licences for events and businesses",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-11-18T16:02:30Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Licences and licence applications",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/business",
+                    "base_path": "/browse/business",
+                    "content_id": "2e47e500-8d91-4747-b6d8-cf6524d570f1",
+                    "description": "Information about starting up and running a business in the UK, including help if you're self employed or a sole trader.",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-11-18T16:02:29Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Business and self-employed",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/business",
+                    "web_url": "http://www.dev.gov.uk/browse/business"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/business/licences",
+              "web_url": "http://www.dev.gov.uk/browse/business/licences"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/burial-at-sea",
+        "web_url": "http://www.dev.gov.uk/burial-at-sea"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/disposal-of-dredged-material-at-sea",
+        "base_path": "/disposal-of-dredged-material-at-sea",
+        "content_id": "c860a465-fa91-4ed4-9a64-f31a809eb246",
+        "description": "How to get a licence so you can get rid of waste materials at sea around the UK and where to apply for deposits in inshore and offshore waters and contact information for England and Wales.",
+        "document_type": "licence",
+        "locale": "en",
+        "public_updated_at": "2012-11-02T16:48:00Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Disposal of dredged material at sea (England and Wales)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/disposal-of-dredged-material-at-sea",
+        "web_url": "http://www.dev.gov.uk/disposal-of-dredged-material-at-sea"
+      }
+    ],
+    "suggested_ordered_related_items": [
+      {
+        "api_path": "/api/content/fishing-vessel-licence-under-10-metres",
+        "base_path": "/fishing-vessel-licence-under-10-metres",
+        "content_id": "f4dc89b9-1234-4af0-b59d-f4a631409c45",
+        "description": "Fishing vessel licence description",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2019-01-23T19:16:06Z",
+        "schema_name": "guide",
+        "title": "Get a fishing vessel licence: vessels 10 metres or under",
+        "withdrawn": false
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "PB57",
+        "api_path": "/api/content/government/organisations/marine-management-organisation",
+        "base_path": "/government/organisations/marine-management-organisation",
+        "content_id": "8d56bb52-2f79-4b6d-9fc6-6d7dcc4f7586",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-02-15T12:04:27Z",
+        "schema_name": "placeholder",
+        "title": "Marine Management Organisation",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-environment-food-rural-affairs",
+          "logo": {
+            "formatted_title": "Marine <br/>Management <br/>Organisation",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/marine-management-organisation",
+        "web_url": "http://www.dev.gov.uk/government/organisations/marine-management-organisation"
+      }
+    ],
+    "parent": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/business/maritime",
+        "base_path": "/browse/business/maritime",
+        "content_id": "206cab77-67ee-43d4-bdba-9291ff374bba",
+        "description": "Includes health and safety onboard, crew, registering vessels",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2016-11-18T16:02:30Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Maritime vessels and work at sea",
+        "withdrawn": false,
+        "links": {
+          "parent": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/business",
+              "base_path": "/browse/business",
+              "content_id": "2e47e500-8d91-4747-b6d8-cf6524d570f1",
+              "description": "Information about starting up and running a business in the UK, including help if you're self employed or a sole trader.",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-11-18T16:02:29Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Business and self-employed",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/business",
+              "web_url": "http://www.dev.gov.uk/browse/business"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/business/maritime",
+        "web_url": "http://www.dev.gov.uk/browse/business/maritime"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Apply for a marine licence",
+        "public_updated_at": "2014-07-30T11:37:28Z",
+        "analytics_identifier": null,
+        "document_type": "transaction",
+        "schema_name": "transaction",
+        "base_path": "/apply-marine-licence",
+        "description": "Get a licence to carry out any work that disturbs the seabed, including building, laying pipelines or cables, dredging and disposing of waste, or get a marine wildlife licence if you might disturb protected species",
+        "api_path": "/api/content/apply-marine-licence",
+        "withdrawn": false,
+        "content_id": "0d046315-1b9e-4a85-bd7f-4246b295fba8",
+        "locale": "en",
+        "api_url": "http://www.dev.gov.uk/api/content/apply-marine-licence",
+        "web_url": "http://www.dev.gov.uk/apply-marine-licence",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Get a licence to carry out any work that disturbs the seabed, including building, laying pipelines or cables, dredging and disposing of waste, or get a marine wildlife licence if you might disturb protected species",
+  "details": {
+    "introductory_paragraph": "<p>Register and apply for a marine licence to do work that will disturb the seabed, eg construction work, laying cables and pipes, dredging, disposing of waste and working with explosives.</p>\n\n<p>Apply for a wildlife licence to do work that might disturb protected species.</p>\n\n",
+    "will_continue_on": "",
+    "transaction_start_link": "https://marinelicensing.marinemanagement.org.uk/mmo/fox/live/MMO_LOGIN/login",
+    "more_information": "<p>Use this service to:</p>\n\n<ul>\n  <li>apply for a marine licence</li>\n  <li>apply for a wildlife licence</li>\n  <li>ask for advice on how to prepare and submit a licence application</li>\n</ul>\n\n<h2 id=\"fees\">Fees</h2>\n\n<p>Fees for licences vary depending on the size of the project and how complicated the application is.</p>\n\n<p>Check the <a href=\"/government/publications/marine-licensing-fees\">full list of charges</a> for advice and licence fees.</p>\n\n<h2 id=\"northern-ireland-scotland-and-wales\">Northern Ireland, Scotland and Wales</h2>\n\n<p>Apply for a licence from:</p>\n\n<ul>\n  <li><a rel=\"external\" href=\"http://www.doeni.gov.uk/niea/water-home/marine_licensing_ni-3.htm\">Department of Environment Northern Ireland</a></li>\n  <li><a rel=\"external\" href=\"http://www.scotland.gov.uk/Topics/marine/Licensing/marine\">Marine Scotland</a></li>\n  <li><a rel=\"external\" href=\"http://naturalresourceswales.gov.uk/apply-buy-report/apply-buy-grid/marine-licensing/marine-coastal-access-act/?lang=en#.U1aNjKLc9O0\">Natural Resources Wales</a></li>\n</ul>\n\n",
+    "what_you_need_to_know": "<ul>\n  <li>Available in England only</li>\n  <li>Debit or credit card required</li>\n  <li>Email address required</li>\n  <li>Not available in Northern Ireland</li>\n  <li>Not available in Scotland</li>\n  <li>Not available in Wales</li>\n</ul>\n",
+    "external_related_links": [
+
+    ],
+    "downtime_message": "This service will be unavailable from 1pm to 8pm on Thursday 16 March."
+  }
+}

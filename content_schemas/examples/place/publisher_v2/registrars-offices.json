@@ -1,0 +1,44 @@
+{
+  "title": "Registry offices",
+  "base_path": "/register-offices",
+  "description": "Find local register offices to register births, marriages and deaths",
+  "schema_name": "place",
+  "document_type": "place",
+  "public_updated_at": "2016-03-10T09:57:08.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "routes": [
+    {
+      "path": "/register-offices",
+      "type": "prefix"
+    },
+    {
+      "path": "/register-offices.json",
+      "type": "exact"
+    }
+  ],
+  "redirects": [
+
+  ],
+  "update_type": "major",
+  "change_note": null,
+  "details": {
+    "external_related_links": [
+
+    ],
+    "introduction": [
+      {
+        "content_type": "text/govspeak",
+        "content": "Enter your postcode to find your local register office."
+      }
+    ],
+    "more_information": [
+      {
+        "content_type": "text/govspeak",
+        "content": "Registrars deal with births, marriages, civil partnerships and death."
+      }
+    ],
+    "place_type": "registrars-offices"
+  },
+  "locale": "en"
+}

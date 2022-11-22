@@ -1,0 +1,136 @@
+{
+  "content_id": "975cf540-6e64-40e3-b62a-df655a8c99ef",
+  "base_path": "/employment-appeal-tribunal-decisions",
+  "title": "Employment appeal tribunal decisions",
+  "description": "Find decisions on appeals against employment tribunals heard by the Employment Appeal Tribunal.",
+  "locale": "en",
+  "updated_at": "2015-10-29T14:30:59.334Z",
+  "public_updated_at": "2015-10-29T12:18:39.000+00:00",
+  "details": {
+    "document_noun": "decision",
+    "filter": {
+      "document_type": "employment_appeal_tribunal_decision"
+    },
+    "format_name": "Employment appeal tribunal decision",
+    "show_summaries": true,
+    "summary": "<p>Find decisions on appeals against employment tribunals heard by the Employment Appeal Tribunal.</p><p>Includes decisions after [month year]. Find details of <a rel=\"external\" href=\"http://www.employmentappeals.gov.uk/Public/Search.aspx\">older cases.</a></p>",
+    "facets": [
+      {
+        "key": "tribunal_decision_categories",
+        "name": "Category",
+        "type": "text",
+        "preposition": "categorised as",
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "allowed_values": [
+          {
+            "label": "Age Discrimination",
+            "value": "age-discrimination"
+          },
+          {
+            "label": "Race Discrimination",
+            "value": "race-discrimination"
+          }
+        ]
+      },
+      {
+        "key": "tribunal_decision_categories_name",
+        "name": "Category name",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": false
+      },
+      {
+        "key": "tribunal_decision_sub_categories",
+        "name": "Sub-category",
+        "type": "text",
+        "preposition": "sub-categorised as",
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "allowed_values": [
+          {
+            "label": "Race Discrimination - Detriment",
+            "value": "race-discrimination-detriment"
+          },
+          {
+            "label": "Race Discrimination - Direct",
+            "value": "race-discrimination-direct"
+          }
+        ]
+      },
+      {
+        "key": "tribunal_decision_sub_categories_name",
+        "name": "Sub-category name",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": false
+      },
+      {
+        "key": "tribunal_decision_landmark",
+        "name": "Landmark",
+        "type": "text",
+        "display_as_result_metadata": false,
+        "filterable": false,
+        "allowed_values": [
+          {
+            "label": "Landmark",
+            "value": "landmark"
+          },
+          {
+            "label": "Not landmark",
+            "value": "not-landmark"
+          }
+        ]
+      },
+      {
+        "key": "tribunal_decision_landmark_name",
+        "name": "Landmark name",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": false
+      },
+      {
+        "key": "tribunal_decision_decision_date",
+        "name": "Decision date",
+        "short_name": "Decided",
+        "type": "date",
+        "display_as_result_metadata": true,
+        "filterable": true
+      }
+    ]
+  },
+  "links": {
+    "organisations": [
+
+    ],
+    "related": [
+
+    ],
+    "email_alert_signup": [
+      {
+        "content_id": "1f5911f4-417a-4380-a5a0-674ebff332df",
+        "title": "Employment appeal tribunal decisions",
+        "api_path": "/api/content/employment-appeal-tribunal-decisions/email-signup",
+        "base_path": "/employment-appeal-tribunal-decisions/email-signup",
+        "description": "You'll get an email each time a decision is updated or a new decision is published.",
+        "api_url": "https://www.gov.uk/api/content/employment-appeal-tribunal-decisions/email-signup",
+        "web_url": "https://www.gov.uk/employment-appeal-tribunal-decisions/email-signup",
+        "locale": "en"
+      }
+    ],
+    "available_translations": [
+      {
+        "content_id": "975cf540-6e64-40e3-b62a-df655a8c99ef",
+        "title": "Employment appeal tribunal decisions",
+        "api_path": "/api/content/employment-appeal-tribunal-decisions",
+        "base_path": "/employment-appeal-tribunal-decisions",
+        "description": "Find decisions on appeals against employment tribunals heard by the Employment Appeal Tribunal.",
+        "api_url": "https://www.gov.uk/api/content/employment-appeal-tribunal-decisions",
+        "web_url": "https://www.gov.uk/employment-appeal-tribunal-decisions",
+        "locale": "en"
+      }
+    ]
+  },
+  "schema_name": "finder",
+  "document_type": "finder"
+}

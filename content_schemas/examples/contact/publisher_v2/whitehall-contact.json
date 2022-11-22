@@ -1,0 +1,35 @@
+{
+  "locale": "en",
+  "schema_name": "contact",
+  "document_type": "contact",
+  "title": "Government Digital Service",
+  "description": "Government Digital Service",
+  "details": {
+    "contact_type": "general",
+    "feature_on_homepage": true,
+    "post_addresses": [
+      {
+        "title": "Aviation House",
+        "street_address": "Aviation House\n125 Kingsway",
+        "locality": "London",
+        "postal_code": "WC2B 6NH",
+        "world_location": "United Kingdom"
+      }
+    ],
+    "phone_numbers": [
+
+    ],
+    "email_addresses": [
+
+    ],
+    "contact_groups": [
+      {
+        "title": "Online Services",
+        "slug": "online-services"
+      }
+    ]
+  },
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "phase": "live"
+}

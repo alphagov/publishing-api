@@ -1,0 +1,99 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/seed-potato-import-notification-northern-ireland",
+  "content_id": "3d462fd6-fa8d-4b8c-8f07-d1f885674827",
+  "document_type": "licence",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-03-23T15:40:47.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "licence",
+  "title": "Seed potato import notification (Northern Ireland)",
+  "updated_at": "2017-03-10T16:08:56.927Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D753",
+        "api_path": "/api/content/government/organisations/department-of-agriculture-and-rural-development",
+        "base_path": "/government/organisations/department-of-agriculture-and-rural-development",
+        "content_id": "11e064e0-5079-4216-b693-c10b8167c620",
+        "description": null,
+        "document_type": "placeholder_organisation",
+        "locale": "en",
+        "public_updated_at": "2014-10-15T14:37:34Z",
+        "schema_name": "placeholder_organisation",
+        "title": "Department of Agriculture and Rural Development",
+        "withdrawn": false,
+        "details": {
+          "brand": null,
+          "logo": {
+            "formatted_title": "Department of Agriculture and Rural Development",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/government/organisations/department-of-agriculture-and-rural-development",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/government/organisations/department-of-agriculture-and-rural-development"
+      },
+      {
+        "analytics_identifier": "DA1021",
+        "api_path": "/api/content/government/organisations/northern-ireland-executive",
+        "base_path": "/government/organisations/northern-ireland-executive",
+        "content_id": "2aecc4c9-6ef3-43fb-9a82-987e3321db25",
+        "description": null,
+        "document_type": "placeholder_organisation",
+        "locale": "en",
+        "public_updated_at": "2014-10-15T14:38:39Z",
+        "schema_name": "placeholder_organisation",
+        "title": "Northern Ireland Executive ",
+        "withdrawn": false,
+        "details": {
+          "brand": null,
+          "logo": {
+            "formatted_title": "Northern Ireland Executive",
+            "crest": null
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/government/organisations/northern-ireland-executive",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/government/organisations/northern-ireland-executive"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Seed potato import notification (Northern Ireland)",
+        "public_updated_at": "2015-03-23T15:40:47Z",
+        "analytics_identifier": null,
+        "document_type": "licence",
+        "schema_name": "licence",
+        "base_path": "/seed-potato-import-notification-northern-ireland",
+        "description": "You must notify DARD if you intend to import seed potatoes into Northern Ireland",
+        "api_path": "/api/content/seed-potato-import-notification-northern-ireland",
+        "withdrawn": false,
+        "content_id": "3d462fd6-fa8d-4b8c-8f07-d1f885674827",
+        "locale": "en",
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/seed-potato-import-notification-northern-ireland",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/seed-potato-import-notification-northern-ireland",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "You must notify DARD if you intend to import seed potatoes into Northern Ireland",
+  "details": {
+    "licence_identifier": "9423-4-1",
+    "will_continue_on": "the Department of Agriculture and Rural Development website",
+    "continuation_link": "http://www.dardni.gov.uk/index/farming/crops-and-horticulture/potatoes/seed-potatoes.htm",
+    "licence_short_description": "You must notify DARD if you intend to import seed potatoes into Northern Ireland",
+    "licence_overview": "<p>You must notify the Department for Agriculture and Rural Development (<abbr title=\"Department of Agriculture and Rural Development\">DARD</abbr>) if you intend to import seed potatoes into Northern Ireland.</p>\n\n<p>You must do this for all seed potatoes imported from outside Northern Ireland, including Scotland and the Republic of Ireland.</p>\n\n<h2 id=\"how-to-apply\">How to apply</h2>\n\n<p>Contact <abbr title=\"Department of Agriculture and Rural Development\">DARD</abbr> for an application form.</p>\n\n<div class=\"contact\">\n<p><strong>Department for Agriculture and Rural Development</strong><br>\n0300 200 7852<br>\n<a href=\"/call-charges\">Find out about call charges</a></p>\n</div>\n\n<p>Your notification form must be received by <abbr title=\"Department of Agriculture and Rural Development\">DARD</abbr> at least 48 hours before the importation. You must send a new notification form for each importation.</p>\n\n<p>You should send your completed notification form to <abbr title=\"Department of Agriculture and Rural Development\">DARD</abbr>.</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\nAgri-food Inspection Branch\n<br>Room 1019\n<br>Dundonald House\n<br>Upper Newtownards Road\n<br>Belfast\n<br>BT4 3SB\n<br>\n</p></div></div>\n\n<h2 id=\"conditions\">Conditions</h2>\n\n<p>A portion of your imports will be inspected and sampled. You won’t be charged for this.</p>\n\n",
+    "external_related_links": [
+
+    ]
+  }
+}

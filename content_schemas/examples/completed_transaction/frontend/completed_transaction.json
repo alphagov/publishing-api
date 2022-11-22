@@ -1,0 +1,44 @@
+{
+  "details": {
+    "external_related_links": [
+
+    ]
+  },
+  "description": "",
+  "links": {
+    "available_translations": [
+      {
+        "links": {
+        },
+        "web_url": "http://www.dev.gov.uk/done/send-prisoner-money",
+        "api_url": "http://www.dev.gov.uk/api/content/done/send-prisoner-money",
+        "locale": "en",
+        "content_id": "17bc2b0c-595d-4e88-8331-463488f61eba",
+        "withdrawn": false,
+        "title": "Thank you",
+        "public_updated_at": "2016-11-15T00:01:04Z",
+        "analytics_identifier": null,
+        "document_type": "completed_transaction",
+        "schema_name": "completed_transaction",
+        "base_path": "/done/send-prisoner-money",
+        "description": "",
+        "api_path": "/api/content/done/send-prisoner-money"
+      }
+    ]
+  },
+  "locale": "en",
+  "first_published_at": "2016-11-15T00:01:05.000+00:00",
+  "document_type": "completed_transaction",
+  "content_id": "17bc2b0c-595d-4e88-8331-463488f61eba",
+  "base_path": "/done/send-prisoner-money",
+  "analytics_identifier": null,
+  "phase": "live",
+  "public_updated_at": "2016-11-15T00:01:04.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "completed_transaction",
+  "title": "Thank you",
+  "updated_at": "2017-02-24T15:55:27.533Z",
+  "withdrawn_notice": {
+  }
+}

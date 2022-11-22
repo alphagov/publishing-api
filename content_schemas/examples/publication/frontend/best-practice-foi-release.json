@@ -1,0 +1,158 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/publications/number-of-ex-regular-service-personnel-in-fr20",
+  "content_id": "5f5e1bb5-7631-11e4-a3cb-005056011aef",
+  "document_type": "foi_release",
+  "first_published_at": "2014-05-29T10:48:35.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-05-29T10:48:35.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "publication",
+  "title": "Number of ex-regular service personnel in FR20",
+  "updated_at": "2018-01-10T12:27:26.060Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D17",
+        "api_path": "/api/content/government/organisations/ministry-of-defence",
+        "base_path": "/government/organisations/ministry-of-defence",
+        "content_id": "d994e55c-48c9-4795-b872-58d8ec98af12",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:07:59Z",
+        "schema_name": "placeholder",
+        "title": "Ministry of Defence",
+        "withdrawn": false,
+        "details": {
+          "brand": "ministry-of-defence",
+          "logo": {
+            "formatted_title": "Ministry<br/>of Defence",
+            "crest": "mod"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ministry-of-defence",
+        "web_url": "https://www.gov.uk/government/organisations/ministry-of-defence"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/defence-and-armed-forces",
+        "base_path": "/government/topics/defence-and-armed-forces",
+        "content_id": "b360d7b0-664d-4030-93f9-ee8bff36ab53",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:07Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Defence and armed forces",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/defence-and-armed-forces",
+        "web_url": "https://www.gov.uk/government/topics/defence-and-armed-forces"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D17",
+        "api_path": "/api/content/government/organisations/ministry-of-defence",
+        "base_path": "/government/organisations/ministry-of-defence",
+        "content_id": "d994e55c-48c9-4795-b872-58d8ec98af12",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:07:59Z",
+        "schema_name": "placeholder",
+        "title": "Ministry of Defence",
+        "withdrawn": false,
+        "details": {
+          "brand": "ministry-of-defence",
+          "logo": {
+            "formatted_title": "Ministry<br/>of Defence",
+            "crest": "mod"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ministry-of-defence",
+        "web_url": "https://www.gov.uk/government/organisations/ministry-of-defence"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Number of ex-regular service personnel in FR20",
+        "public_updated_at": "2014-05-29T10:48:35Z",
+        "document_type": "foi_release",
+        "schema_name": "publication",
+        "base_path": "/government/publications/number-of-ex-regular-service-personnel-in-fr20",
+        "description": "MOD response to an FOI request for number of ex-regular service personnel part of Future Reserves 2020 (FR20).",
+        "api_path": "/api/content/government/publications/number-of-ex-regular-service-personnel-in-fr20",
+        "withdrawn": false,
+        "content_id": "5f5e1bb5-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/publications/number-of-ex-regular-service-personnel-in-fr20",
+        "web_url": "https://www.gov.uk/government/publications/number-of-ex-regular-service-personnel-in-fr20",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "MOD response to an FOI request for number of ex-regular service personnel part of Future Reserves 2020 (FR20).",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>MOD response to a Freedom of Information (FOI) request dated 14 February 2014 for the number of ex-regular service personnel who are now part of Future Reserves 2020 (FR20). It also includes the number of regular service personnel who were made redundant prior to joining the reserves.</p>\n</div>",
+    "change_history": [
+      {
+        "public_timestamp": "2014-05-29T11:48:35.000+01:00",
+        "note": "First published."
+      }
+    ],
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_586261\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/315163/PUBLIC_1392629965.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/315163/thumbnail_PUBLIC_1392629965.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/315163/PUBLIC_1392629965.pdf\">Number of ex-regular service personnel now part of FR20</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">1.84MB</span>, <span class=\"page-length\">2 pages</span>\n    </p>\n\n\n  </div>\n</section>"
+    ],
+    "emphasised_organisations": [
+      "d994e55c-48c9-4795-b872-58d8ec98af12"
+    ],
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    },
+    "first_public_at": "2014-05-29T11:48:35.000+01:00"
+  }
+}

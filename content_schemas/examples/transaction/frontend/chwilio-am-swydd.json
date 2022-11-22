@@ -1,0 +1,258 @@
+{
+  "details": {
+    "external_related_links": [
+
+    ],
+    "more_information": "<h2 id=\"cofrestru\">Cofrestru</h2>\n<p><a rel=\"external\" href=\"https://myaccount.gateway.gov.uk/Pages/Registration/RegisterWithUserId.aspx?role=i\">Cofrestrwch gyda Paru Swyddi Ar-lein</a> i arbed chwiliadau am waith, llwytho eich CV, sefydlu rhybuddion e-bost a chadw golwg ar eich ceisiadau yn y gorffennol.</p>\n\n<p>Gwnewch nodyn o’ch rhif Porth y Llywodraeth pan fyddwch yn cofrestru, byddwch ei angen yn hwyrach ymlaen i fewngofnodi.</p>\n\n<p>Mae’n rhaid i chi hefyd ddilysu eich cyfeiriad e-bost drwy glicio ar y ddolen yn yr e-bost o gadarnhad. Edrychwch yn eich ffolderi ‘spam’ os nad yw yn eich mewnflwch.</p>\n\n<h2 id=\"help\">Help</h2>\n<p>Darllenwch <a rel=\"external\" href=\"https://chwiliadgwaith.direct.gov.uk/Help/Faq.aspx\">Cwestiynau cyffredin am Paru Swyddi Ar-lein</a> i gael help gyda’r gwasanaeth.</p>\n\n<p><a rel=\"external\" href=\"https://chwiliadgwaith.direct.gov.uk/FedHandler.ashx\">Mewngofnodwch i Paru Swyddi Ar-lein</a> a defnyddiwch y ffurflen gysylltu os oes gennych gyfrif yn barod ac yn methu dod o hyd i ateb i’ch problem.</p>\n\n<p>Defnyddiwch <a rel=\"external\" href=\"https://chwiliadgwaith.direct.gov.uk/ContactUs.aspx\">ffurflen gysylltu cyffredinol Paru Swyddi Ar-lein</a> os oes gennych broblemau mewngofnodi neu os nad oes gennych gyfrif.</p>\n\n<p>Chwiliwch am swyddi yng Ngogledd Iwerddon gyda <a rel=\"external\" href=\"http://www.jobcentreonline.com\">Jobcentre Online.</a></p>\n\n<p>Mae Paru Swyddi Ar-lein wedi disodli teclyn chwiliad gwaith y Ganolfan Byd Gwaith.</p>\n",
+    "transaction_start_link": "https://chwiliadgwaith.direct.gov.uk/JobSearch/PowerSearch.aspx",
+    "will_continue_on": "Paru Swyddi Ar-lein",
+    "introductory_paragraph": "<p>Chwilio a gwneud cais am swyddi llawn amser neu ran amser ym Mhrydain Fawr a thramor.</p>\n\n<p><a rel=\"external\" href=\"https://chwiliadgwaith.direct.gov.uk/FedHandler.ashx\">Mewngofnodwch i Paru Swyddi Ar-lein</a> os oes gennych gyfrif.</p>\n\n<p><a rel=\"external\" href=\"https://chwiliadgwaith.direct.gov.uk/Account/LoginHelp.aspx\">Ailosodwch eich cyfrinair neu’ch ID defnyddiwr</a> os ydych wedi eu hanghofio.</p>\n\n<p>Gallwch barhau i chwilio am a gwneud cais am swyddi heb gyfrif.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>Mae’r dudalen hon ar gael hefyd yn Saesneg (<a href=\"/jobsearch\">English</a>).</p>\n</div>\n"
+  },
+  "description": "Welsh/Cymraeg: Dewch o hyd i swydd drwy ddefnyddio gwasanaeth Paru Swyddi Ar-lein  – gall ceiswyr swyddi gyfateb eu CV a’u sgiliau i swyddi sydd wedi cael eu postio gan gwmnïau",
+  "links": {
+    "available_translations": [
+      {
+        "links": {
+        },
+        "web_url": "http://www.dev.gov.uk/chwilio-am-swydd",
+        "api_url": "http://www.dev.gov.uk/api/content/chwilio-am-swydd",
+        "locale": "cy",
+        "content_id": "2176cab5-7600-493d-9e54-06c7f27297c5",
+        "withdrawn": false,
+        "title": "Dod o hyd i swydd gyda Paru Swyddi Ar-lein",
+        "public_updated_at": "2015-12-23T14:22:43Z",
+        "analytics_identifier": null,
+        "document_type": "transaction",
+        "schema_name": "transaction",
+        "base_path": "/chwilio-am-swydd",
+        "description": "Welsh/Cymraeg: Dewch o hyd i swydd drwy ddefnyddio gwasanaeth Paru Swyddi Ar-lein  – gall ceiswyr swyddi gyfateb eu CV a’u sgiliau i swyddi sydd wedi cael eu postio gan gwmnïau",
+        "api_path": "/api/content/chwilio-am-swydd"
+      }
+    ],
+    "organisations": [
+      {
+        "web_url": "http://www.dev.gov.uk/government/organisations/department-for-work-pensions.cy",
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/department-for-work-pensions.cy",
+        "links": {
+        },
+        "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Adran Gwaith <br/>a Phensiynau"
+          },
+          "brand": "department-for-work-pensions"
+        },
+        "withdrawn": false,
+        "title": "Adran Gwaith a Phensiynau",
+        "schema_name": "placeholder",
+        "analytics_identifier": "D10",
+        "api_path": "/api/content/government/organisations/department-for-work-pensions.cy",
+        "base_path": "/government/organisations/department-for-work-pensions.cy",
+        "content_id": "b548a09f-8b35-4104-89f4-f1a40bf3136d",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "cy",
+        "public_updated_at": "2016-12-16T11:37:21Z"
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "web_url": "http://www.dev.gov.uk/moving-from-benefits-to-work",
+        "api_url": "http://www.dev.gov.uk/api/content/moving-from-benefits-to-work",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/benefits/entitlement",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/benefits/entitlement",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/benefits",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/benefits",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Benefits",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/benefits",
+                    "base_path": "/browse/benefits",
+                    "content_id": "f141fa95-0d79-4aed-8429-ed223a8f106a",
+                    "description": "Includes tax credits, eligibility and appeals",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Benefits entitlement",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/benefits/entitlement",
+              "base_path": "/browse/benefits/entitlement",
+              "content_id": "c8d06606-7af8-45b8-aa65-84ef19e15a9b",
+              "description": "Includes when and how benefit payments are made, benefits calculators and benefit fraud",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-07-07T13:02:21Z"
+            },
+            {
+              "web_url": "http://www.dev.gov.uk/browse/benefits/jobseekers-allowance",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/benefits/jobseekers-allowance",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/benefits",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/benefits",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Benefits",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/benefits",
+                    "base_path": "/browse/benefits",
+                    "content_id": "f141fa95-0d79-4aed-8429-ed223a8f106a",
+                    "description": "Includes tax credits, eligibility and appeals",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Jobseeker's Allowance and low income benefits",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/benefits/jobseekers-allowance",
+              "base_path": "/browse/benefits/jobseekers-allowance",
+              "content_id": "b29e0536-505b-4b33-b71a-135efeee211e",
+              "description": "Includes Income Support, Budgeting Loans and Pension Credit",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:49Z"
+            },
+            {
+              "web_url": "http://www.dev.gov.uk/browse/working/finding-job",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/working/finding-job",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/working",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/working",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Working, jobs and pensions",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/working",
+                    "base_path": "/browse/working",
+                    "content_id": "a24f0662-bbfe-4b77-9ec0-e73240e88b9a",
+                    "description": "Includes holidays and finding a job",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Finding a job",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/working/finding-job",
+              "base_path": "/browse/working/finding-job",
+              "content_id": "eceb3053-43d1-4a49-873d-85ff9ade7066",
+              "description": "Job search, Jobseeker's Allowance (JSA), volunteering, apprenticeships and job offers",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:43Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Help with moving from benefits to work",
+        "schema_name": "guide",
+        "analytics_identifier": null,
+        "api_path": "/api/content/moving-from-benefits-to-work",
+        "base_path": "/moving-from-benefits-to-work",
+        "content_id": "ddab1211-399a-4a31-91a0-bdcd1a542af1",
+        "description": "Find out about help you can get moving from benefits to work - work trials, programmes and clubs, New Enterprise Allowance, help with drug or alcohol problems, carer support",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2014-12-03T17:35:34Z"
+      },
+      {
+        "web_url": "http://www.dev.gov.uk/jobsearch-rights",
+        "api_url": "http://www.dev.gov.uk/api/content/jobsearch-rights",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/working/finding-job",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/working/finding-job",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/working",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/working",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Working, jobs and pensions",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/working",
+                    "base_path": "/browse/working",
+                    "content_id": "a24f0662-bbfe-4b77-9ec0-e73240e88b9a",
+                    "description": "Includes holidays and finding a job",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Finding a job",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/working/finding-job",
+              "base_path": "/browse/working/finding-job",
+              "content_id": "eceb3053-43d1-4a49-873d-85ff9ade7066",
+              "description": "Job search, Jobseeker's Allowance (JSA), volunteering, apprenticeships and job offers",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:43Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Your rights and safety when looking for a job",
+        "schema_name": "generic_with_external_related_links",
+        "analytics_identifier": null,
+        "api_path": "/api/content/jobsearch-rights",
+        "base_path": "/jobsearch-rights",
+        "content_id": "c67916ea-924c-425a-9a8b-1596c8ecba6f",
+        "description": "Help and advice on finding a job including where to look and safety when looking for a job ",
+        "document_type": "answer",
+        "locale": "en",
+        "public_updated_at": "2013-04-02T09:21:33Z"
+      }
+    ]
+  },
+  "withdrawn_notice": {
+  },
+  "locale": "cy",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "document_type": "transaction",
+  "content_id": "2176cab5-7600-493d-9e54-06c7f27297c5",
+  "base_path": "/chwilio-am-swydd",
+  "analytics_identifier": null,
+  "phase": "live",
+  "public_updated_at": "2015-12-23T14:22:43.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "transaction",
+  "title": "Dod o hyd i swydd gyda Paru Swyddi Ar-lein",
+  "updated_at": "2017-03-06T18:03:48.803Z"
+}

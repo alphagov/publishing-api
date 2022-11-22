@@ -1,0 +1,37 @@
+{
+  "title": "Get a divorce: step by step",
+  "publishing_app": "collections-publisher",
+  "rendering_app": "collections",
+  "routes": [
+    {
+      "path": "/get-a-divorce",
+      "type": "exact"
+    }
+  ],
+  "redirects": [
+
+  ],
+  "locale": "en",
+  "update_type": "major",
+  "public_updated_at": "2018-01-18T15:46:10.000+00:00",
+  "document_type": "step_by_step_nav",
+  "schema_name": "step_by_step_nav",
+  "base_path": "/get-a-divorce",
+  "description": "<p>How to file for divorce if you’re in England or Wales.</p><p>There is a different process if you’re <a href=\"/divorce/respond-to-a-divorce-petition\">responding to a divorce petition</a>, or if you’re in <a href=\"https://www.scotcourts.gov.uk/taking-action/divorce-and-dissolution-of-civil-partnership\">Scotland</a> or <a href=\"https://www.nidirect.gov.uk/articles/getting-divorcedissolution-civil-partnership\">Northern Ireland</a>.</p>",
+  "links": {
+  },
+  "details": {
+    "step_by_step_nav": {
+      "title": "Get a divorce: step by step",
+      "introduction": [
+        {
+          "content_type": "text/govspeak",
+          "content": "Check what you need to do to get a divorce."
+        }
+      ],
+      "steps": [
+
+      ]
+    }
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/case-studies/get-britain-building-carlisle-park",
+  "content_id": "5d05fce5-7631-11e4-a3cb-005056011aef",
+  "document_type": "case_study",
+  "first_published_at": "2012-12-17T15:45:44.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2012-12-17T15:45:44.000+00:00",
+  "publishing_app": "whitehall",
+  "publishing_scheduled_at": null,
+  "rendering_app": "government-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "case_study",
+  "title": "Get Britain Building: Carlisle Park",
+  "updated_at": "2018-08-04T10:18:42.566Z",
+  "description": "Nearly 400 homes are set to be built on the site of a former tar distillery thanks to Gleeson Homes and HCA investment.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>A new community of nearly 400 homes is set to be built on the site of a former tar distillery thanks to Gleeson Homes and investment from the Homes and Communities Agency (<abbr title=\"Homes and Communities Agency\">HCA</abbr>).</p>\n\n<p>The Croda Tar Distillery, on the border between Kilnhurst and Swinton, closed in the early 1990s. Over the past 2 decades the 31 acre site has lain derelict with the heavily contaminated site proving a challenge for developers.</p>\n\n<p>However in 2010 Gleeson identified the site, which is adjacent to the Sheffield &amp; South Yorkshire Navigation Canal, as having great potential for new low cost homes.</p>\n\n<p>Working with Rotherham Borough Council and remediation specialists, work is now underway to clean up the site. </p>\n\n<p>Once the clean-up has been completed Gleeson Homes will begin to transform the area into 381 new 2, 3 and 4 bedroom homes.  The developer will be making use of £2.2 million of investment from the Homes and Communities Agency’s (<abbr title=\"Homes and Communities Agency\">HCA</abbr>) Get Britain Building programme to start the first phase of 125 homes.</p>\n\n<p>Craig Johns, Area Manager at the <abbr title=\"Homes and Communities Agency\">HCA</abbr> said: </p>\n\n<p>“The development at Carlisle Park offers a real choice of quality homes to local residents where they want to live at a price they can afford. Our investment will ensure that a local firm will provide these homes which will help safeguard jobs in South Yorkshire.”</p>\n\n<p>The development will feature a mix of first time buyer and family homes, set among public open space and children’s play areas.</p>\n\n<p>Steve Gamble, Gleeson Homes Group Land Director said: </p>\n\n<p>“We are delighted that Carlisle Park is part of the Get Britain Building programme. The programme will help us to deliver the first tranche of 125 new homes which are built and priced to suit local people.  </p>\n\n<p>“The project will also have a positive effect of the wider community with the creation of new jobs, apprenticeship opportunities for local young people and investment back into the local area.”</p>\n\n<p>A recoverable investment, the Get Britain Building programme helps developers access finance, and to help bring forward marginal sites by sharing risk. </p>\n\n<p>Up to 16,000 homes on stalled sites across England will be built by March 2015 thanks to this programme.</p></div>",
+    "first_public_at": "2012-12-17T15:45:44+00:00",
+    "image": {
+      "alt_text": "Carlisle Park",
+      "caption": "Carlisle Park",
+      "url": "http://static.dev.gov.uk/government/uploads/system/uploads/image_data/file/5693/s300_Carlisle_Park_1_960x640.jpg"
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "topics": [
+
+      ],
+      "policies": [
+
+      ]
+    },
+    "format_display_type": "case_study",
+    "emphasised_organisations": [
+      "8b19c238-54e3-4e27-b0d7-60f8e2a677c9"
+    ]
+  },
+  "links": {
+    "organisations": [
+      {
+        "content_id": "8b19c238-54e3-4e27-b0d7-60f8e2a677c9",
+        "title": "Department for International Development",
+        "base_path": "/government/organisations/department-for-international-development",
+        "api_path": "/api/content/government/organisations/department-for-international-development",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-international-development",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-international-development",
+        "locale": "en",
+        "analytics_identifier": "L2",
+        "document_type": "organisation"
+      }
+    ],
+    "related_policies": [
+
+    ],
+    "world_locations": [
+      {
+        "content_id": "456af51f-5fd3-4855-8a33-52cb32ff9985",
+        "title": "Pakistan",
+        "locale": "en",
+        "schema_name": "world_location",
+        "analytics_identifier": "WL3"
+      }
+    ],
+    "worldwide_organisations": [
+      {
+        "content_id": "f1ec569a-3471-4de0-947c-a4f3bcccb983",
+        "title": "DFID Pakistan",
+        "base_path": "/government/world/organisations/dfid-pakistan",
+        "api_path": "/api/content/government/world/organisations/dfid-pakistan",
+        "api_url": "https://www.gov.uk/api/content/government/world/organisations/dfid-pakistan",
+        "web_url": "https://www.gov.uk/government/world/organisations/dfid-pakistan",
+        "locale": "en",
+        "analytics_identifier": "W4"
+      }
+    ],
+    "available_translations": [
+      {
+        "content_id": "cc717565-1290-4a22-b8d4-4b25facb3c8f",
+        "title": "Pakistan: In school for the first time",
+        "api_path": "/api/content/government/case-studies/pakistan-in-school-for-the-first-time",
+        "base_path": "/government/case-studies/pakistan-in-school-for-the-first-time",
+        "api_url": "https://www.gov.uk/api/content/government/case-studies/pakistan-in-school-for-the-first-time",
+        "web_url": "https://www.gov.uk/government/case-studies/pakistan-in-school-for-the-first-time",
+        "locale": "en"
+      },
+      {
+        "content_id": "cc717565-1290-4a22-b8d4-4b25facb3c8f",
+        "title": "پاکستان: اسکول میں پہلی بارداخلہ",
+        "api_path": "/api/content/government/case-studies/pakistan-in-school-for-the-first-time.ur",
+        "base_path": "/government/case-studies/pakistan-in-school-for-the-first-time.ur",
+        "api_url": "https://www.gov.uk/api/content/government/case-studies/pakistan-in-school-for-the-first-time.ur",
+        "web_url": "https://www.gov.uk/government/case-studies/pakistan-in-school-for-the-first-time.ur",
+        "locale": "ur"
+      }
+    ],
+    "document_collections": [
+      {
+        "content_id": "def40c5f-52d0-4dca-80ea-b0da5caeebcd",
+        "title": "Work Programme real life stories",
+        "api_path": "/api/content/government/collections/work-programme-real-life-stories",
+        "base_path": "/government/collections/work-programme-real-life-stories",
+        "api_url": "https://www.gov.uk/api/content/government/collections/work-programme-real-life-stories",
+        "web_url": "https://www.gov.uk/government/collections/work-programme-real-life-stories",
+        "locale": "en",
+        "document_type": "document_collection"
+      }
+    ],
+    "ordered_related_items": [
+
+    ],
+    "suggested_ordered_related_items": [
+      {
+        "api_path": "/api/content/government/news/a-record-year-for-culture-in-the-northern-powerhouse",
+        "base_path": "/government/news/a-record-year-for-culture-in-the-northern-powerhouse",
+        "content_id": "bd22b146-e0f3-4344-9979-e6d28d5437ca",
+        "description": "More than 5 million people enjoyed the government-sponsored museums and galleries in the Northern Powerhouse between April and October 2018.",
+        "document_type": "press_release",
+        "locale": "en",
+        "public_updated_at": "2018-12-28T01:57:33Z",
+        "schema_name": "news_article",
+        "title": "A record year for culture in the Northern Powerhouse",
+        "withdrawn": false
+      }
+    ]
+  }
+}

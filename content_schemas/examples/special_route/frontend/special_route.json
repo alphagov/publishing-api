@@ -1,0 +1,41 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government",
+  "content_id": "4672b1ff-f147-4d49-a5f4-4959588da5a8",
+  "document_type": "special_route",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2017-07-13T13:19:35.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "whitehall-frontend",
+  "schema_name": "special_route",
+  "title": "Government prefix",
+  "updated_at": "2017-07-13T13:19:35.580Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "22151-1499951975.433-10.3.3.1-392",
+  "links": {
+    "available_translations": [
+      {
+        "title": "Government prefix",
+        "public_updated_at": "2017-07-13T13:19:35Z",
+        "document_type": "special_route",
+        "schema_name": "special_route",
+        "base_path": "/government",
+        "description": "The prefix route under which almost all government content is published.",
+        "api_path": "/api/content/government",
+        "withdrawn": false,
+        "content_id": "4672b1ff-f147-4d49-a5f4-4959588da5a8",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government",
+        "web_url": "https://www.gov.uk/government",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "The prefix route under which almost all government content is published.",
+  "details": {
+  }
+}

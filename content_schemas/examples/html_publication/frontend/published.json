@@ -1,0 +1,54 @@
+{
+  "content_id": "1d0ba5bd-8a0a-41a7-950a-c7b819da6336",
+  "base_path": "/government/publications/tr4-8ee-mr-derek-mears-environmental-permit-application-advertisement/tr4-8ee-mr-derek-mears-environmental-permit-application",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"details-of-the-application\">Details of the application</h2>\n\n<p>The Environment Agency has received a new bespoke application for an environmental permit under the Environmental Permitting (England and Wales) Regulations 2010 from Mr Derek Mears.</p>\n\n<h4 id=\"application-number\">Application number</h4>\n\n<p>EPR/DB3790RD/A001</p>\n\n<h4 id=\"regulated-facility-type\">Regulated facility type</h4>\n\n<p>Septic tank and infiltration system</p>\n\n<h4 id=\"regulated-facility-location\">Regulated facility location</h4>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\nMount Hawke Holiday Bungalows\n<br>Mount Hawke\n<br>Truro\n<br>Cornwall\n<br>TR4 8EE\n<br>\n</p></div></div>\n\n<h4 id=\"national-grid-reference-discharge-point\">National grid reference discharge point</h4>\n\n<p>SW 70775 47417</p>\n\n<h4 id=\"receiving-environment\">Receiving environment</h4>\n\n<p>Groundwater</p>\n\n<h4 id=\"effluent-type\">Effluent type</h4>\n\n<p>Septic tank effluent</p>\n\n<h4 id=\"volume\">Volume</h4>\n\n<p>4.2 cubic metres per day</p>\n\n<h2 id=\"how-to-view-the-application\">How to view the application</h2>\n\n<p>You can view the information on the Environment Agency register</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\nEnvironment Agency\n<br>Public Register\n<br>Sir John Moore House\n<br>Victoria Square\n<br>Bodmin\n<br>Cornwall\n<br>PL31 1EB \n<br>\n</p></div></div>\n\n<p>You can view the register from 9.30am to 4.30pm, Monday to Friday. Call the Environment Agency on 03708 506 506 to arrange an appointment. You can ask for a copy of documents on the register. The Environment Agency may charge to cover copying costs.</p>\n\n<h2 id=\"how-to-comment-on-the-application\">How to comment on the application</h2>\n\n<p>If you have any comments on the application send these by 14 January 2016.</p>\n\n<p>Email: <a href=\"mailto:psc-waterquality@environment-agency.gov.uk\">psc-waterquality@environment-agency.gov.uk</a></p>\n\n<p>Or write to:</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\nEnvironment Agency\n<br>Permitting and Support Centre \n<br>WQ Team\n<br>Quadrant 2\n<br>99 Parkway Avenue\n<br>Sheffield\n<br>S9 4WF\n<br>\n</p></div></div>\n\n<p>The Environment Agency will normally put any responses it receives on the public register. This includes your name and contact details. Tell us if you don’t want your response to be public.</p>\n</div>",
+    "public_timestamp": "2016-01-17T14:19:42.460Z",
+    "first_published_version": true,
+    "political": false
+  },
+  "schema_name": "html_publication",
+  "document_type": "html_publication",
+  "links": {
+    "parent": [
+      {
+        "content_id": "8b19c238-54e3-4e27-b0d7-60f8e2a677c9",
+        "schema_name": "placeholder_publication",
+        "document_type": "notice",
+        "title": "TR4 8EE, Mr Derek Mears: environmental permit application advertisement",
+        "api_path": "/api/content/government/publications/tr4-8ee-mr-derek-mears-environmental-permit-application-advertisement",
+        "base_path": "/government/publications/tr4-8ee-mr-derek-mears-environmental-permit-application-advertisement",
+        "api_url": "https://www.gov.uk/api/content/government/publications/tr4-8ee-mr-derek-mears-environmental-permit-application-advertisement",
+        "web_url": "https://www.gov.uk/government/publications/tr4-8ee-mr-derek-mears-environmental-permit-application-advertisement",
+        "locale": "en"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "90c1be18-70a4-476b-9244-ef4c36e1a042",
+        "title": "Environment Agency",
+        "details": {
+          "logo": {
+            "formatted_title": "Environment Agency",
+            "crest": null,
+            "image": {
+              "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/199/EAlogo.png",
+              "alt_text": "Environment Agency"
+            }
+          }
+        },
+        "api_path": "/api/content/government/organisations/environment-agency",
+        "base_path": "/government/organisations/environment-agency",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/environment-agency",
+        "web_url": "https://www.gov.uk/government/organisations/environment-agency",
+        "locale": "en",
+        "analytics_identifier": "E2"
+      }
+    ]
+  },
+  "locale": "en",
+  "public_updated_at": "2016-01-17T14:19:42.460Z",
+  "title": "TR4 8EE, Mr Derek Mears: environmental permit application",
+  "description": null,
+  "updated_at": "2016-01-17T14:19:42.460Z"
+}

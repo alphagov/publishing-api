@@ -1,0 +1,79 @@
+{
+  "base_path": "/government/statistical-data-sets/example-statistical-data-set-political",
+  "content_id": "5c85ab8a-7631-11e4-a3cb-123456789abc",
+  "title": "Example statistical data set with political",
+  "description": "Statistics focusing on transport data relating to the 2012 Olympic and Paralympic period, compared to the same period in the previous year.",
+  "locale": "en",
+  "updated_at": "2016-11-16T15:11:11.115Z",
+  "public_updated_at": "2012-12-13T09:30:00.000+00:00",
+  "schema_name": "statistical_data_set",
+  "document_type": "statistical_data_set",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>This is not intended to be a comprehensive review of transport performance in London or Great Britain during the Games, but supplements evidence from other sources.</p><h2 id=\"olympics\">Olympics</h2><p><span id=\"attachment_385319\" class=\"attachment-inline\"> <a href=\"/government/uploads/system/uploads/attachment_data/file/35761/tsgb_2012_-_olympics_summary.pdf\">Olympics</a> (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">243KB</span>)</span></p><h2 id=\"table-tsgb1001\">Table TSGB1001</h2><p><span id=\"attachment_385320\" class=\"attachment-inline\"> <a href=\"/government/uploads/system/uploads/attachment_data/file/36591/TSGB1001.xls\">Sea passenger statistics at United Kingdom ports, July to September, 2011 and 2012</a> (<span class=\"type\">MS Excel Spreadsheet</span>, <span class=\"file-size\">48KB</span>)</span></p><h2 id=\"table-tsgb1002\">Table TSGB1002</h2><p><span id=\"attachment_385315\" class=\"attachment-inline\"> <a href=\"/government/uploads/system/uploads/attachment_data/file/35757/TSGB1002.xls\">Air traffic at United Kingdom airports, July to September, 2011 and 2012</a> (<span class=\"type\">MS Excel Spreadsheet</span>, <span class=\"file-size\">59KB</span>)</span></p><h2 id=\"table-tsgb1003\">Table TSGB1003</h2><p><span id=\"attachment_385316\" class=\"attachment-inline\"> <a href=\"/government/uploads/system/uploads/attachment_data/file/35758/TSGB1003.xls\">Punctuality at selected United Kingdom airports, July to August, 2011 and 2012</a> (<span class=\"type\">MS Excel Spreadsheet</span>, <span class=\"file-size\">52.5KB</span>)</span></p><h2 id=\"table-tsgb1004\">Table TSGB1004</h2><p><span id=\"attachment_385317\" class=\"attachment-inline\"> <a href=\"/government/uploads/system/uploads/attachment_data/file/35759/TSGB1004.xls\">National Rail Games Tickets (NRGT) revenue and sales</a> (<span class=\"type\">MS Excel Spreadsheet</span>, <span class=\"file-size\">53.5KB</span>)</span></p><h2 id=\"table-tsgb1005\">Table TSGB1005</h2><p><span id=\"attachment_385318\" class=\"attachment-inline\"> <a href=\"/government/uploads/system/uploads/attachment_data/file/35760/TSGB1005.xls\">Average week day speed (miles per hour) on local 'A' roads in the six London host boroughs</a> (<span class=\"type\">MS Excel Spreadsheet</span>, <span class=\"file-size\">44.5KB</span>)</span></p></div>",
+    "first_public_at": "2012-12-13T09:30:00+00:00",
+    "government": {
+      "current": false,
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government"
+    },
+    "political": true,
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    },
+    "emphasised_organisations": [
+      "4c717efc-f47b-478e-a76d-ce1ae0af1946"
+    ]
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D9",
+        "api_path": "/api/content/government/organisations/department-for-transport",
+        "base_path": "/government/organisations/department-for-transport",
+        "content_id": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
+        "locale": "en",
+        "title": "Department for Transport",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-transport",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-transport"
+      }
+    ],
+    "document_collections": [
+      {
+        "content_id": "5eb61f5d-7631-11e4-a3cb-005056011aef",
+        "title": "Transport Statistics Great Britain",
+        "api_path": "/api/content/government/collections/transport-statistics-great-britain",
+        "base_path": "/government/collections/transport-statistics-great-britain",
+        "api_url": "https://www.gov.uk/api/content/government/collections/transport-statistics-great-britain",
+        "web_url": "https://www.gov.uk/government/collections/transport-statistics-great-britain",
+        "locale": "en"
+      }
+    ]
+  }
+}

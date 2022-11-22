@@ -1,0 +1,81 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/search/news-and-communications/email-signup",
+  "content_id": "54fa4dca-4dfb-40a5-b860-127716f02e75",
+  "document_type": "finder_email_signup",
+  "first_published_at": "2019-02-05T11:50:59.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2019-04-09T15:00:18.000+00:00",
+  "publishing_app": "rummager",
+  "publishing_scheduled_at": null,
+  "rendering_app": "finder-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "finder_email_signup",
+  "title": "News and communications",
+  "updated_at": "2019-04-09T15:00:19.425Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "1894-1554822018.782-10.3.3.1-388",
+  "links": {
+    "available_translations": [
+      {
+        "title": "News and communications",
+        "public_updated_at": "2019-04-09T15:00:18Z",
+        "document_type": "finder_email_signup",
+        "schema_name": "finder_email_signup",
+        "base_path": "/search/news-and-communications/email-signup",
+        "description": "You'll get an email each time news or communications are published.",
+        "api_path": "/api/content/search/news-and-communications/email-signup",
+        "withdrawn": false,
+        "content_id": "54fa4dca-4dfb-40a5-b860-127716f02e75",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/search/news-and-communications/email-signup",
+        "web_url": "https://www.gov.uk/search/news-and-communications/email-signup",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "You'll get an email each time news or communications are published.",
+  "details": {
+    "filter": {
+      "content_purpose_subgroup": [
+        "news",
+        "speeches_and_statements"
+      ]
+    },
+    "email_filter_by": null,
+    "subscription_list_title_prefix": "News and communications ",
+    "email_filter_facets": [
+      {
+        "facet_id": "people",
+        "facet_name": "people"
+      },
+      {
+        "facet_id": "organisations",
+        "facet_name": "organisations"
+      },
+      {
+        "facet_id": "world_locations",
+        "facet_name": "world locations"
+      },
+      {
+        "facet_id": "level_one_taxon",
+        "filter_key": "all_part_of_taxonomy_tree",
+        "facet_name": "topics"
+      },
+      {
+        "facet_id": "level_two_taxon",
+        "filter_key": "all_part_of_taxonomy_tree",
+        "facet_name": "topics"
+      },
+      {
+        "facet_id": "related_to_brexit",
+        "filter_key": "all_part_of_taxonomy_tree",
+        "filter_value": "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
+        "facet_name": "topics"
+      }
+    ]
+  }
+}

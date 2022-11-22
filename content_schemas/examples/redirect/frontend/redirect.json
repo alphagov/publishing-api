@@ -1,0 +1,36 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/406beacon",
+  "content_id": null,
+  "document_type": "redirect",
+  "first_published_at": "2017-10-20T09:21:02.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2017-10-20T09:21:02.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": null,
+  "schema_name": "redirect",
+  "title": null,
+  "updated_at": "2017-12-13T15:11:33.804Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+  },
+  "description": null,
+  "details": {
+  },
+  "redirects": [
+    {
+      "path": "/406beacon",
+      "type": "exact",
+      "destination": "/maritime-safety-weather-and-navigation/register-406-mhz-beacons?query=answer#fragment"
+    },
+    {
+      "path": "/406beacon/prefix",
+      "type": "prefix",
+      "destination": "/new-406-beacons-destination",
+      "segments_mode": "preserve"
+    }
+  ]
+}

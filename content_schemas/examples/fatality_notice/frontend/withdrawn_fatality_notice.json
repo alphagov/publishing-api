@@ -1,0 +1,68 @@
+{
+  "content_id": "5d7c16b5-2462-43e7-af1c-082b59a0acf2",
+  "base_path": "/government/fatalities/sir-george-pomeroy-colley-no-longer-killed-in-boer-war",
+  "description": "It is with great sadness that the Ministry of Defence must confirm that Sir George Pomeroy Colley, died in battle in Zululand on 27 February 1881.",
+  "public_updated_at": "1881-02-27T15:45:44.000+00:00",
+  "title": "Sir George Pomeroy Colley killed in Boer War",
+  "updated_at": "2016-09-14T10:37:00Z",
+  "schema_name": "fatality_notice",
+  "document_type": "fatality_notice",
+  "locale": "en",
+  "withdrawn_notice": {
+    "explanation": "<div class=\"govspeak\"><p>This content is not factually correct. For current information please go to <a rel=\"external\" href=\"https://en.wikipedia.org/wiki/George_Pomeroy_Colley\">https://en.wikipedia.org/wiki/George_Pomeroy_Colley</a></p></div>",
+    "withdrawn_at": "2016-09-14T13:05:30Z"
+  },
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"sir-george-pomeroy-colley\">Sir George Pomeroy Colley</h2><figure class=\"image embedded\">  <div class=\"img\"></div>  <figcaption>Sir George Pomeroy Colley (All rights reserved.)</figcaption></figure><p>Colley served nearly all of his military and administrative career in British South Africa, but he played a significant part in the Second Anglo-Afghan War as military secretary and then private secretary to the governor-general of India, Lord Lytton. The war began in November 1878 and ended in May 1879 with the Treaty of Gandamak.</p><p>After the war Colley returned to South Africa, became high commissioner for South Eastern Africa in 1880… and died a year later at the Battle of Majuba Hill during the First Boer War.</p><p>A british officer had the following to say</p><blockquote>  <p class=\"last-child\">Major General Colley was an exceptional talent, and it is with great sadness that we have learned about this loss. His contribution to Britain through his efforts in the Boer War will not be forgotten.</p></blockquote></div>",
+    "first_public_at": "1881-02-27T15:45:44.000+00:00",
+    "change_history": [
+      {
+        "public_timestamp": "2016-09-14T18:19:27+01:00",
+        "note": "Updated information."
+      },
+      {
+        "public_timestamp": "1881-02-27T15:45:44.000+00:00",
+        "note": "First published."
+      }
+    ],
+    "emphasised_organisations": [
+      "6667cce2-e809-4e21-ae09-cb0bdc1ddda3"
+    ]
+  },
+  "links": {
+    "organisations": [
+      {
+        "content_id": "6667cce2-e809-4e21-ae09-cb0bdc1ddda3",
+        "title": "Ministry of Defence",
+        "api_path": "/api/content/government/organisations/ministry-of-defence",
+        "base_path": "/government/organisations/ministry-of-defence",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ministry-of-defence",
+        "web_url": "https://www.gov.uk/government/organisations/ministry-of-defence",
+        "locale": "en",
+        "analytics_identifier": "D25"
+      }
+    ],
+    "policy_areas": [
+      {
+        "content_id": "b360d7b0-664d-4030-93f9-ee8bff36ab53",
+        "title": "Defence and armed forces",
+        "api_path": "/api/content/government/topics/defence-and-armed-forces",
+        "base_path": "/government/topics/defence-and-armed-forces",
+        "api_url": "https://www.gov.uk/api/content/government/topics/defence-and-armed-forces",
+        "web_url": "https://www.gov.uk/government/topics/defence-and-armed-forces",
+        "locale": "en"
+      }
+    ],
+    "field_of_operation": [
+      {
+        "content_id": "fd2565bf-12da-4fda-8413-824f92031688",
+        "title": "Zululand",
+        "api_path": "/api/content/government/fields-of-operation/zululand",
+        "base_path": "/government/fields-of-operation/zululand",
+        "api_url": "https://www.gov.uk/api/content/government/fields-of-operation/zululand",
+        "web_url": "https://www.gov.uk/government/fields-of-operation/zululand",
+        "locale": "en"
+      }
+    ]
+  }
+}

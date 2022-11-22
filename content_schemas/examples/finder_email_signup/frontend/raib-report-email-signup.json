@@ -1,0 +1,107 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/raib-reports/email-signup",
+  "content_id": "db81c7e8-b1b6-4c29-992a-1289f1b63073",
+  "document_type": "finder_email_signup",
+  "links": {
+    "related": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/raib-reports",
+        "api_url": "https://www.gov.uk/api/content/raib-reports",
+        "base_path": "/raib-reports",
+        "content_id": "e3ff7fc5-6788-45de-83f0-cbf34e9fe8bd",
+        "description": "Find reports of RAIB investigations into rail accidents and incidents",
+        "locale": "en",
+        "public_updated_at": "2016-06-13T14:30:40.000Z",
+        "title": "Rail Accident Investigation Branch reports",
+        "web_url": "https://www.gov.uk/raib-reports",
+        "links": {
+        }
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "OT249",
+        "api_path": "/api/content/government/organisations/rail-accident-investigation-branch",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/rail-accident-investigation-branch",
+        "base_path": "/government/organisations/rail-accident-investigation-branch",
+        "content_id": "013872d8-8bbb-4e80-9b79-45c7c5cf9177",
+        "description": null,
+        "locale": "en",
+        "public_updated_at": "2015-04-01T09:33:41.000Z",
+        "title": "Rail Accident Investigation Branch",
+        "web_url": "https://www.gov.uk/government/organisations/rail-accident-investigation-branch",
+        "links": {
+        }
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/raib-reports/email-signup",
+        "api_url": "https://www.gov.uk/api/content/raib-reports/email-signup",
+        "base_path": "/raib-reports/email-signup",
+        "content_id": "db81c7e8-b1b6-4c29-992a-1289f1b63073",
+        "description": "You'll get an email each time a report is updated or a new report is published.",
+        "locale": "en",
+        "public_updated_at": "2016-06-13T14:30:40.000Z",
+        "title": "Rail Accident Investigation Branch reports",
+        "web_url": "https://www.gov.uk/raib-reports/email-signup"
+      }
+    ]
+  },
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-06-13T14:30:40.000+00:00",
+  "publishing_app": "specialist-publisher",
+  "rendering_app": "finder-frontend",
+  "schema_name": "finder_email_signup",
+  "title": "Rail Accident Investigation Branch reports",
+  "updated_at": "2016-06-13T14:31:34.931Z",
+  "withdrawn_notice": {
+  },
+  "description": "You'll get an email each time a report is updated or a new report is published.",
+  "details": {
+    "beta": false,
+    "email_filter_facets": [
+      {
+        "facet_id": "railway_type",
+        "facet_name": "Railway types",
+        "facet_choices": [
+          {
+            "key": "heavy-rail",
+            "radio_button_name": "Heavy rail",
+            "topic_name": "heavy rail",
+            "prechecked": false
+          },
+          {
+            "key": "light-rail",
+            "radio_button_name": "Light rail",
+            "topic_name": "light rail",
+            "prechecked": false
+          },
+          {
+            "key": "metros",
+            "radio_button_name": "Metros",
+            "topic_name": "metros",
+            "prechecked": false
+          },
+          {
+            "key": "heritage-railways",
+            "radio_button_name": "Heritage railways",
+            "topic_name": "heritage railways",
+            "prechecked": false
+          }
+        ]
+      }
+    ],
+    "email_filter_by": "railway_type",
+    "subscription_list_title_prefix": {
+      "singular": "Rail Accident Investigation Branch (RAIB) reports with the following railway type: ",
+      "plural": "Rail Accident Investigation Branch (RAIB) reports with the following railway types: ",
+      "many": "Rail Accident Investigation Branch (RAIB) reports: "
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "details": {
+    "external_related_links": [
+
+    ],
+    "promotion": {
+      "url": "http://www.register-to-vote.gov.uk",
+      "category": "register_to_vote"
+    }
+  },
+  "description": "",
+  "links": {
+    "available_translations": [
+      {
+        "links": {
+        },
+        "web_url": "http://www.dev.gov.uk/done/apply-faster-entry-usa",
+        "api_url": "http://www.dev.gov.uk/api/content/done/apply-faster-entry-usa",
+        "locale": "en",
+        "content_id": "cc7c72db-74c6-486d-8f1a-f58396f6d614",
+        "withdrawn": false,
+        "title": "Thank you",
+        "public_updated_at": "2016-06-28T13:40:57Z",
+        "analytics_identifier": null,
+        "document_type": "completed_transaction",
+        "schema_name": "completed_transaction",
+        "base_path": "/done/apply-faster-entry-usa",
+        "description": "",
+        "api_path": "/api/content/done/apply-faster-entry-usa"
+      }
+    ]
+  },
+  "locale": "en",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "document_type": "completed_transaction",
+  "content_id": "cc7c72db-74c6-486d-8f1a-f58396f6d614",
+  "base_path": "/done/apply-faster-entry-usa",
+  "analytics_identifier": null,
+  "phase": "live",
+  "public_updated_at": "2016-06-28T13:40:57.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "completed_transaction",
+  "title": "Thank you",
+  "updated_at": "2017-02-24T16:03:17.091Z",
+  "withdrawn_notice": {
+  }
+}

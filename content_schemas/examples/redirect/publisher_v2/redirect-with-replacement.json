@@ -1,0 +1,15 @@
+{
+  "base_path": "/406beacon",
+  "locale": "en",
+  "publishing_app": "short-url-manager",
+  "public_updated_at": "2016-02-25T16:10:40Z",
+  "redirects": [
+    {
+      "path": "/406beacon",
+      "type": "exact",
+      "destination": "/maritime-safety-weather-and-navigation/register-406-mhz-beacons?query=answer#fragment"
+    }
+  ],
+  "document_type": "redirect",
+  "schema_name": "redirect"
+}

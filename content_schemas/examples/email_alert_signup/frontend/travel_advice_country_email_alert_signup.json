@@ -1,0 +1,33 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/foreign-travel-advice/afghanistan/email-signup",
+  "content_id": "46a855db-51ff-4bf2-b31b-a61bceb9ab43",
+  "description": "Afghanistan travel advice Email Alert Signup",
+  "details": {
+    "breadcrumbs": [
+      {
+        "link": "/foreign-travel-advice/afghanistan",
+        "title": "Afghanistan travel advice"
+      }
+    ],
+    "govdelivery_title": "Afghanistan travel advice",
+    "subscriber_list": {
+      "document_type": "travel_advice",
+      "links": {
+        "countries": [
+          "5a292f20-a9b6-46ea-b35f-584f8b3d7392"
+        ]
+      }
+    },
+    "summary": "You'll get an email each time Afghanistan travel advice is updated."
+  },
+  "links": {
+  },
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-03-09T10:13:52.000+00:00",
+  "title": "Afghanistan travel advice",
+  "updated_at": "2016-03-09T10:13:52.428Z",
+  "schema_name": "email_alert_signup",
+  "document_type": "email_alert_signup"
+}

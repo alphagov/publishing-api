@@ -1,0 +1,79 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/driver-and-vehicle-standards-agency/about/media-enquiries",
+  "content_id": "5f5603c2-7631-11e4-a3cb-005056011aef",
+  "document_type": "media_enquiries",
+  "first_published_at": "2014-03-28T15:38:26.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-03-28T15:38:26.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "corporate_information_page",
+  "title": "Media enquiries",
+  "updated_at": "2018-01-01T19:27:21.793Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "1242-1502374144.798-10.3.3.1-410",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "EA570",
+        "api_path": "/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "base_path": "/government/organisations/driver-and-vehicle-standards-agency",
+        "content_id": "d39237a5-678b-4bb5-a372-eb2cb036933d",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-12-12T21:20:49Z",
+        "schema_name": "placeholder",
+        "title": "Driver and Vehicle Standards Agency",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Driver &amp; Vehicle<br/>Standards<br/>Agency",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "web_url": "https://www.gov.uk/government/organisations/driver-and-vehicle-standards-agency"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Media enquiries",
+        "public_updated_at": "2014-03-28T15:38:26Z",
+        "document_type": "media_enquiries",
+        "schema_name": "corporate_information_page",
+        "base_path": "/government/organisations/driver-and-vehicle-standards-agency/about/media-enquiries",
+        "description": "Contact our press office if you're a journalist with an enquiry about driving tests, instructors, MOTs, vehicle recalls or road safety.",
+        "api_path": "/api/content/government/organisations/driver-and-vehicle-standards-agency/about/media-enquiries",
+        "withdrawn": false,
+        "content_id": "5f5603c2-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/driver-and-vehicle-standards-agency/about/media-enquiries",
+        "web_url": "https://www.gov.uk/government/organisations/driver-and-vehicle-standards-agency/about/media-enquiries",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Contact our press office if you're a journalist with an enquiry about driving tests, instructors, MOTs, vehicle recalls or road safety.",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"contact-our-press-office\">Contact our press office</h2>\n\n<p>Contact our press office if you’re a journalist or have a media enquiry about the <a href=\"https://www.gov.uk/government/organisations/driver-and-vehicle-standards-agency/about\">work we do</a>, including driving tests and regulating the MOT scheme.</p>\n\n<div class=\"contact \" id=\"contact_1735\">\n  <div class=\"content\">\n    <h3>\n<abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr> press office</h3>\n\n    <div class=\"vcard contact-inner\">\n\n        <div class=\"email-url-number\">\n            <p class=\"email\">\n              <span class=\"type\">Email</span>\n              <a class=\"email\" href=\"mailto:pressoffice@dvsa.gov.uk\">pressoffice@dvsa.gov.uk</a>\n            </p>\n            <p class=\"tel\">\n              <span class=\"type\">Telephone</span>\n              0115 936 6135 or 0117 954 3208\n            </p>\n            <p class=\"tel\">\n              <span class=\"type\">Telephone out of hours</span>\n              0115  936 6135\n            </p>\n        </div>\n\n        <p class=\"comments\">Only contact the press office if you're a journalist. The press office can't help with general customer support enquiries.</p>\n\n    </div>\n  </div>\n</div>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>Contact the <a href=\"https://www.gov.uk/government/organisations/driver-and-vehicle-licensing-agency/about/media-enquiries\">DVLA press office</a> if your query is about driving licences, or vehicle registration and tax.</p>\n</div>\n\n<h3 id=\"if-youre-not-a-journalist\">If you’re not a journalist</h3>\n\n<p><a href=\"https://www.gov.uk/contact-dvsa/y\">Contact our customer service team</a> instead.</p>\n\n<h2 id=\"resources-for-journalists\">Resources for journalists</h2>\n\n<p>This information is available on GOV.UK:</p>\n\n<ul>\n  <li><a href=\"https://www.gov.uk/government/announcements?departments%5B%5D=driver-and-vehicle-standards-agency\">our announcements</a></li>\n  <li><a href=\"https://www.gov.uk/government/organisations/driver-and-vehicle-standards-agency/about/statistics\">our statistics</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/history-of-road-safety-and-the-driving-test\">the history of road safety, The Highway Code and the driving test</a></li>\n</ul>\n\n<p>Follow us on <a rel=\"external\" href=\"https://twitter.com/dvsapressoffice\">Twitter</a>, find our images on <a rel=\"external\" href=\"http://www.flickr.com/people/dsagovuk/\">Flickr</a> and watch our videos on <a rel=\"external\" href=\"http://www.youtube.com/user/dvsagovuk\">YouTube</a>.</p>\n\n</div>",
+    "organisation": "d39237a5-678b-4bb5-a372-eb2cb036933d",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

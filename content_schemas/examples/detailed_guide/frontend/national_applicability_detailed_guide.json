@@ -1,0 +1,96 @@
+{
+  "content_id": "5d5ea667-7631-11e4-a3cb-005056011aef",
+  "base_path": "/guidance/housing-finance-and-household-expenditure-notes-and-definitions",
+  "description": "Information on how statistics on housing finance and household expenditure are compiled.",
+  "public_updated_at": "2013-02-27T12:01:17+00:00",
+  "title": "Housing finance and household expenditure: notes and definitions",
+  "schema_name": "detailed_guide",
+  "document_type": "detailed_guide",
+  "locale": "en",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"overview\">Overview</h2>\n\n<p>This guidance is to be read in conjunction with the <a rel=\"external\" href=\"https://www.gov.uk/government/organisations/department-for-communities-and-local-government/series/housing-finance-and-household-expenditure-social-housing\">series on housing finance and household expenditure</a> which includes the latest sets of live tables.</p>\n\n<h2 id=\"expenditure-and-income-on-housing-from-housing-revenue-account\">Expenditure and income on housing from Housing Revenue Account</h2>\n\n<p>Each local authority is required by statute to keep a Housing Revenue Account in which are recorded the annual revenue income and expenditure in respect of dwellings and other property provided under <a rel=\"external\" href=\"http://www.legislation.gov.uk/ukpga/1985/68/part/II\" title=\"Housing Act 1985: Part II\">Part II of the Housing Act 1985.</a> Housing Revenue Account self-financing was implemented as part of the <a rel=\"external\" href=\"http://www.legislation.gov.uk/ukpga/2011/20/contents/enacted\" title=\"Localism Act 2011\">Localism Act 2011.</a> As a result of this, the previous subsidy system ceased in April 2012 and we are in the process of reviewing the basis of the <a href=\"http://www.dev.gov.uk/government/statistical-data-sets/live-tables-on-housing-finance-and-household-expenditure\" title=\"Live tables on housing finance and household expenditure\">live tables</a>.</p>\n\n<p>The main items of expenditure are:</p>\n\n<ul>\n  <li>loan charges in respect of moneys borrowed for the provision or improvement of local authority housing accommodation mainly under Part II of the Housing Act 1985</li>\n  <li>supervision and management</li>\n  <li>housing repairs</li>\n</ul>\n\n<p>The main items of income are:</p>\n\n<ul>\n  <li>rents (excluding rates and water charges)</li>\n  <li>Exchequer housing subsidies</li>\n  <li>investment and interest income from the sale of dwellings</li>\n</ul>\n\n<p>Figures of expenditure and income for each authority are collected annually by the Department for Communities and Local Government in housing subsidy claim forms.</p>\n\n<h2 id=\"renewal-grants\">Renewal grants</h2>\n\n<p>Live table 313 relates to grants paid under the <a rel=\"external\" href=\"http://www.legislation.gov.uk/ukpga/1996/53/contents\" title=\"Housing Grants, Construction and Regeneration Act 1996\">Housing Grants, Construction and Regeneration Act 1996.</a></p>\n\n<p>The Housing Grants, Construction and Regeneration 1996 Act came into operation in December 1996, replacing the Local Government and Housing Act 1989. The main effect of the 1996 Act was to make most grants discretionary rather than to change significantly the nature of the grants, although there were some modifications. Just one area of the 1989 Act, renewal areas, was left completely unchanged. It was repealed in July 2003. However, payments will continue for grants previously approved.</p>\n\n<p>Some of the main types of grants are detailed below.</p>\n\n<h3 id=\"home-repair-assistance\">Home Repair Assistance</h3>\n\n<p>Home Repair Assistance (<abbr title=\"Home Repair Assistance\">HRA</abbr>) was available at the authority’s discretion for financial support or materials to facilitate small-scale works of improvement, adaptation or improvement of a dwelling. It replaced Minor Works Assistance (1989 Act) and was intended, like its predecessor, to compliment the mainstream system of renovation grants. <abbr title=\"Home Repair Assistance\">HRA</abbr> was limited to a maximum of £2,000 per application, and no more than £4,000 was granted to any 1 property over a 3 year period.</p>\n\n<p><abbr title=\"Home Repair Assistance\">HRA</abbr> was not directly means-tested, although to be considered for a grant, an applicant would have had to be in receipt of at least 1 state benefit. In addition, they would have had to be over 18, had the power to carry out the works, and have lived in the dwelling as their only or main residence, or care for an elderly, infirm or disabled person. This grant was available to people living in mobile homes and houseboats.</p>\n\n<p>Examples of typical <abbr title=\"Home Repair Assistance\">HRA</abbr> works are:</p>\n\n<ul>\n  <li>securing the basic fabric of the property from wind or rain</li>\n  <li>protecting the occupants from immediate exposure to danger (that is, emergency works)</li>\n  <li>replacement of lead pipes</li>\n  <li>repairs to doors or windows</li>\n  <li>removal of radon</li>\n  <li>crime prevention measures</li>\n  <li>wheelchair ramps or grip rails</li>\n</ul>\n\n<h3 id=\"renovation-grants\">Renovation grants</h3>\n\n<p>This grant was the main type of grant for the improvement and/or repair of dwellings and for the conversion of houses and other buildings into flats for letting. It was mainly available to owner-occupiers and landlords (other than Houses in Multiple Occupation landlords), though it was available to tenants who were liable for works under the terms of their lease. The amount of grant was decided by the costs of the works concerned and the test of financial resources.</p>\n\n<p>The main purposes of the grant were:</p>\n\n<ul>\n  <li>to bring property up to the standard of fitness for human habitation (see below) - if a property is below this standard, then action will be required by the local authority, and if renovation is most appropriate then a grant is mandatory to owner-occupiers; grant is only mandatory to landlords if the works are required to comply with a repair notice</li>\n  <li>to repair and/or improve a property beyond the standard of fitness - grant is discretionary and it can be given in addition to mandatory grant, or on its own in the case of property already fit; for this reason the numbers of grants given out may exceed the numbers of dwellings renovated</li>\n  <li>for home insulation, where grant is discretionary</li>\n  <li>for heating, where again grant is discretionary, unless it is to make a property meet the fitness standard</li>\n  <li>for providing satisfactory internal arrangements, where grant is discretionary</li>\n  <li>for conversions, where grant is discretionary</li>\n</ul>\n\n<h3 id=\"common-parts-grants\">Common parts grants</h3>\n\n<p>This grant was available to help with the improvement or repair of the common parts of buildings containing one or more flats, where at least three-quarters of the flats have occupying tenants (that is owner-occupiers, long leaseholders or tenants whose flat is their main residence). Grants were available to landlords, landlords together with occupying tenants, or to occupying tenants if their lease made them liable for the works in question. Grants for works by a landlord to comply with a repair notice would have been mandatory; all other grants were discretionary. The amount of grant was decided by the test of financial resources.</p>\n\n<h3 id=\"houses-in-multiple-occupation-grants\">Houses in Multiple Occupation grants</h3>\n\n<p>This grant was available to cover works on Houses in Multiple Occupation (HMOs) where the occupants did not form a single household. It was only available to landlords. If works were required to comply with a statutory notice, then the grant was mandatory. Otherwise work to bring the <abbr title=\"House in Multiple Occupation\">HMO</abbr> up to the standard of fitness was discretionary. Discretionary grants were available for works to HMOs similar to those described in relation to the renovation grant. They were also available for the conversion of property into a <abbr title=\"House in Multiple Occupation\">HMO</abbr>. The amount of grant again depended on the test of financial resources.</p>\n\n<h3 id=\"minor-works-assistance\">Minor Works Assistance</h3>\n\n<p>This was available for carrying out small-scale works (costing up to £1,080), including insulation work. Assistance was only available to owner-occupiers or private sector tenants (including housing association tenants) who received an income related benefit. This assistance was for the following purposes:</p>\n\n<ul>\n  <li>to improve thermal insulation</li>\n  <li>for minor works to repair, improve or adapt a property for elderly occupants</li>\n  <li>to adapt property to enable an elderly person to move in with the occupants</li>\n  <li>to carry out minor repairs to a property in a clearance area</li>\n  <li>to replace lead piping in the water supply</li>\n</ul>\n\n<h2 id=\"disabled-facilities-grants\">Disabled Facilities Grants</h2>\n\n<p>Live table 314 provides data on the number and amount of Disabled Facilities Grants paid out by local authorities. For years up to and including 2007 to 2008, data were collected in the Housing Strategy Statistical Appendix (<abbr title=\"Housing Strategy Statistical Appendix\">HSSA</abbr>) return. For 2008 to 2009, this section was removed from the <abbr title=\"Housing Strategy Statistical Appendix\">HSSA</abbr> form to avoid duplication and data are taken from the Disabled Facilities Grant subsidy claim forms. Expenditure covers central Disabled Facilities Grant monies provided by the Department for Communities and Local Government to local authorities and any additional expenditure made by authorities directly.</p>\n\n<p>This grant is available for adapting, or providing facilities for, the home of a disabled person to make it more suitable for them to live in. It is also available for adaptations to the common parts of buildings containing 1 or more flats for a disabled person. Grants are available to, or on behalf of, registered or eligible disabled persons. They can be made to owner-occupiers, housing association tenants or to landlords on behalf of disabled tenants.</p>\n\n<p>The funding arrangements for providing adaptations to local authority tenants is different as the local authority must pay for them from their own resources. They cannot access the specific grant paid by the government to local authorities to reimburse them for expenditure incurred on Disabled Facilities Grants. Mandatory grants are available for works to make the disabled person manage more independently at home. The amount of grant is subject to a test of financial resources and has a grant maximum currently set at £30,000. Discretionary grant is available for other works to make a home suitable for disabled occupant’s accommodation, welfare or employment.</p>\n\n</div>",
+    "first_public_at": "2013-02-27T12:01:17+00:00",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "topics": [
+        "government/national-and-official-statistics"
+      ],
+      "policies": [
+
+      ]
+    },
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "change_history": [
+      {
+        "public_timestamp": "2013-02-27T12:01:17+00:00",
+        "note": "First published."
+      }
+    ],
+    "political": false,
+    "emphasised_organisations": [
+      "2e7868a8-38f5-4ff6-b62f-9a15d1c22d28"
+    ],
+    "national_applicability": {
+      "england": {
+        "label": "England",
+        "applicable": true
+      },
+      "northern_ireland": {
+        "label": "Northern Ireland",
+        "applicable": false
+      },
+      "scotland": {
+        "label": "Scotland",
+        "applicable": false
+      },
+      "wales": {
+        "label": "Wales",
+        "applicable": false
+      }
+    }
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "2e7868a8-38f5-4ff6-b62f-9a15d1c22d28",
+        "title": "Department for Communities and Local Government",
+        "api_path": "/api/content/government/organisations/department-for-communities-and-local-government",
+        "base_path": "/government/organisations/department-for-communities-and-local-government",
+        "api_url": "https://www.gov.uk/api/conent/government/organisations/department-for-communities-and-local-government",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-communities-and-local-government",
+        "locale": "en",
+        "analytics_identifier": "D4",
+        "document_type": "organisation"
+      }
+    ],
+    "parent": [
+
+    ]
+  },
+  "updated_at": "2016-09-26T09:50:56.078Z"
+}

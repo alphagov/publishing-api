@@ -1,0 +1,603 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/eu-withdrawal-act-2018-statutory-instruments/eu-exit-guide",
+  "content_id": "aebe8527-168f-47b4-8800-170a8fbb5fd6",
+  "document_type": "statutory_instrument",
+  "first_published_at": "2018-06-28T09:52:43.000+00:00",
+  "locale": "en",
+  "need_ids": [
+
+  ],
+  "phase": "live",
+  "public_updated_at": "2018-06-28T09:52:43.000+00:00",
+  "publishing_app": "specialist-publisher",
+  "publishing_scheduled_at": null,
+  "rendering_app": "government-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "specialist_document",
+  "title": "EU exit guide",
+  "updated_at": "2018-06-28T09:59:44.727Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "31459-1530179984.524-10.1.3.110-1819",
+  "links": {
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "CO1163",
+        "api_path": "/api/content/courts-tribunals/court-of-appeal-civil-division",
+        "base_path": "/courts-tribunals/court-of-appeal-civil-division",
+        "content_id": "e6c3bb29-e8ae-4a62-8ec6-c8b8d78c29ee",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-11-16T11:59:23Z",
+        "schema_name": "organisation",
+        "title": "Court of Appeal Civil Division",
+        "withdrawn": false,
+        "details": {
+          "brand": null,
+          "logo": {
+            "formatted_title": "Court of Appeal <br/>Civil Division"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/courts-tribunals/court-of-appeal-civil-division",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/courts-tribunals/court-of-appeal-civil-division"
+      }
+    ],
+    "taxons": [
+      {
+        "api_path": "/api/content/government/brexit",
+        "base_path": "/government/brexit",
+        "content_id": "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
+        "description": "Information about EU Exit including the article 50 process, negotiations, and announcements about policy changes as a result of EU Exit.",
+        "document_type": "taxon",
+        "locale": "en",
+        "public_updated_at": "2018-06-05T16:41:45Z",
+        "schema_name": "taxon",
+        "title": "Brexit",
+        "withdrawn": false,
+        "details": {
+          "internal_name": "Brexit [P]",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": false
+        },
+        "phase": "live",
+        "links": {
+          "parent_taxons": [
+            {
+              "api_path": "/api/content/government/all",
+              "base_path": "/government/all",
+              "content_id": "e48ab80a-de80-4e83-bf59-26316856a5f9",
+              "description": "Information about the civil service, Europe and EU Exit, public safety and security, digital government, government efficiency, accountability and transparency, as well as funding, science and innovation. \r\n",
+              "document_type": "taxon",
+              "locale": "en",
+              "public_updated_at": "2018-06-06T16:32:12Z",
+              "schema_name": "taxon",
+              "title": "Government",
+              "withdrawn": false,
+              "details": {
+                "internal_name": "Government (level 1, theme)",
+                "notes_for_editors": "",
+                "visible_to_departmental_editors": true
+              },
+              "phase": "alpha",
+              "links": {
+                "root_taxon": [
+                  {
+                    "api_path": "/api/content/",
+                    "base_path": "/",
+                    "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+                    "description": "",
+                    "document_type": "homepage",
+                    "locale": "en",
+                    "public_updated_at": "2018-06-12T15:28:48Z",
+                    "schema_name": "homepage",
+                    "title": "GOV.UK homepage",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/",
+                    "web_url": "https://www-origin.integration.publishing.service.gov.uk/"
+                  }
+                ]
+              },
+              "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/government/all",
+              "web_url": "https://www-origin.integration.publishing.service.gov.uk/government/all"
+            }
+          ]
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/government/brexit",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/government/brexit"
+      }
+    ],
+    "finder": [
+      {
+        "api_path": "/api/content/eu-withdrawal-act-2018-statutory-instruments",
+        "base_path": "/eu-withdrawal-act-2018-statutory-instruments",
+        "content_id": "f722816d-7e12-4055-8e7e-68b2d144e2b6",
+        "description": "Find EU Withdrawal Act statutory instruments",
+        "document_type": "finder",
+        "locale": "en",
+        "public_updated_at": "2018-06-27T16:16:40Z",
+        "schema_name": "finder",
+        "title": "EU Withdrawal Act 2018 statutory instruments",
+        "withdrawn": false,
+        "details": {
+          "facets": [
+            {
+              "key": "laid_date",
+              "name": "Laid on",
+              "short_name": "Laid on",
+              "type": "date",
+              "display_as_result_metadata": true,
+              "filterable": true
+            },
+            {
+              "key": "sift_end_date",
+              "name": "Sift end date",
+              "short_name": "Sift end date",
+              "type": "date",
+              "display_as_result_metadata": false,
+              "filterable": false
+            },
+            {
+              "key": "sifting_status",
+              "name": "Sifting status",
+              "type": "text",
+              "preposition": "with status",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Open",
+                  "value": "open"
+                },
+                {
+                  "label": "Closed",
+                  "value": "closed"
+                },
+                {
+                  "label": "Withdrawn",
+                  "value": "withdrawn"
+                }
+              ]
+            },
+            {
+              "key": "subject",
+              "name": "Subject",
+              "type": "text",
+              "preposition": "relating to",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Business",
+                  "value": "business"
+                },
+                {
+                  "label": "Crime, justice and law",
+                  "value": "crime-justice-and-law"
+                },
+                {
+                  "label": "Defence",
+                  "value": "defence"
+                },
+                {
+                  "label": "Education, training and skills",
+                  "value": "education-training-and-skills"
+                },
+                {
+                  "label": "Entering and staying in the UK",
+                  "value": "entering-and-staying-in-the-uk"
+                },
+                {
+                  "label": "Environment",
+                  "value": "environment"
+                },
+                {
+                  "label": "Going and being abroad",
+                  "value": "going-and-being-abroad"
+                },
+                {
+                  "label": "Government",
+                  "value": "government"
+                },
+                {
+                  "label": "Health and social care",
+                  "value": "health-and-social-care"
+                },
+                {
+                  "label": "Housing, local and community",
+                  "value": "housing-local-and-community"
+                },
+                {
+                  "label": "International",
+                  "value": "international"
+                },
+                {
+                  "label": "Life circumstances",
+                  "value": "life-circumstances"
+                },
+                {
+                  "label": "Money",
+                  "value": "money"
+                },
+                {
+                  "label": "Parenting, childcare and children's services",
+                  "value": "parenting-childcare-and-childrens-services"
+                },
+                {
+                  "label": "Regional and local government",
+                  "value": "regional-and-local-government"
+                },
+                {
+                  "label": "Society and culture",
+                  "value": "society-and-culture"
+                },
+                {
+                  "label": "Transport",
+                  "value": "transport"
+                },
+                {
+                  "label": "Welfare",
+                  "value": "welfare"
+                },
+                {
+                  "label": "Work",
+                  "value": "work"
+                }
+              ]
+            }
+          ]
+        },
+        "links": {
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/eu-withdrawal-act-2018-statutory-instruments",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/eu-withdrawal-act-2018-statutory-instruments"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "OT1037",
+        "api_path": "/api/content/government/organisations/civil-service-government-economic-service",
+        "base_path": "/government/organisations/civil-service-government-economic-service",
+        "content_id": "4e34a225-1264-4af4-961a-22784b510232",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-03-29T16:07:51Z",
+        "schema_name": "organisation",
+        "title": "Government Economic Service",
+        "withdrawn": false,
+        "details": {
+          "acronym": "",
+          "body": "<div class=\"govspeak\"><p>We support economists in the Civil Service.</p>\n\n<p>Government Economic Service is part of the <a class=\"brand__color\" href=\"/government/organisations/civil-service\">Civil Service</a>.</p>\n</div>",
+          "brand": "cabinet-office",
+          "logo": {
+            "formatted_title": "Government Economic Service",
+            "crest": "single-identity"
+          },
+          "foi_exempt": false,
+          "ordered_corporate_information_pages": [
+            {
+              "title": "Corporate reports",
+              "href": "/government/publications?departments%5B%5D=civil-service-government-economic-service&publication_type=corporate-reports"
+            },
+            {
+              "title": "Working for Government Economic Service",
+              "href": "/government/organisations/civil-service-government-economic-service/about/recruitment"
+            },
+            {
+              "title": "Jobs",
+              "href": "https://www.civilservicejobs.service.gov.uk/csr"
+            }
+          ],
+          "secondary_corporate_information_pages": "",
+          "ordered_featured_links": [
+
+          ],
+          "ordered_featured_documents": [
+            {
+              "title": "New Joint GES Heads of Profession - Sam Beckett (BEIS) and Clare Lombardelli (HMT)",
+              "href": "/government/news/new-joint-ges-heads-of-profession-sam-beckett-beis-and-clare-lombardelli-hmt",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/61676/Sam_and_Clare_March_2018.jpg",
+                "alt_text": "joint-heads-of ges-profession"
+              },
+              "summary": "<div class=\"govspeak\"><p>As the first women acting in this capacity, Sam and Clare are delighted to be working together in continuing to build a GES that is open, diverse and influential.</p>\n</div>",
+              "public_updated_at": "2018-03-29T17:02:10.000+01:00",
+              "document_type": "News story"
+            },
+            {
+              "title": "About us",
+              "href": "/government/organisations/civil-service-government-economic-service/about",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/56990/GES1.jpg",
+                "alt_text": "ges"
+              },
+              "summary": "<div class=\"govspeak\"><p>We support economists in the Civil Service.</p>\n\n</div>",
+              "public_updated_at": "2015-02-03T14:43:32.000+00:00",
+              "document_type": "Corporate information"
+            },
+            {
+              "title": "Economic Adviser Recruitment",
+              "href": "/government/publications/economic-adviser-recruitment",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/61635/AE_Feature_pic.jpg",
+                "alt_text": "Join now"
+              },
+              "summary": "<div class=\"govspeak\"><p>Grade 7 Economic Advisers\n£45k+ \nPermanent/fixed term for two years with possibility of permanency</p>\n</div>",
+              "public_updated_at": "2018-04-30T13:51:20.000+01:00",
+              "document_type": "Guidance"
+            },
+            {
+              "title": "Assistant Economist Recruitment",
+              "href": "/guidance/assistant-economist-recruitment",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/61636/sandwichstudent.jpg",
+                "alt_text": "standing"
+              },
+              "summary": "<div class=\"govspeak\"><p>A Brilliant Career in the Government Economic Service. Join us as an Assistant Economist.</p>\n</div>",
+              "public_updated_at": "2018-01-12T13:03:16.000+00:00",
+              "document_type": "Detailed guide"
+            }
+          ],
+          "ordered_promotional_features": [
+
+          ],
+          "ordered_ministers": [
+
+          ],
+          "ordered_board_members": [
+
+          ],
+          "ordered_military_personnel": [
+
+          ],
+          "ordered_traffic_commissioners": [
+
+          ],
+          "ordered_chief_professional_officers": [
+
+          ],
+          "ordered_special_representatives": [
+
+          ],
+          "important_board_members": 1,
+          "organisation_featuring_priority": "news",
+          "organisation_govuk_status": {
+            "status": "live",
+            "url": null,
+            "updated_at": null
+          },
+          "organisation_type": "sub_organisation",
+          "social_media_links": [
+            {
+              "service_type": "twitter",
+              "title": "Twitter",
+              "href": "https://twitter.com/GES_UK"
+            },
+            {
+              "service_type": "linkedin",
+              "title": "Linkedin",
+              "href": "https://www.linkedin.com/company/ukgovernmenteconomicservice"
+            },
+            {
+              "service_type": "other",
+              "title": "GES Members' Website",
+              "href": "https://members.ges.gov.uk/"
+            }
+          ]
+        },
+        "links": {
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/government/organisations/civil-service-government-economic-service",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/government/organisations/civil-service-government-economic-service"
+      },
+      {
+        "analytics_identifier": "OT1042",
+        "api_path": "/api/content/government/organisations/civil-service-government-operational-research-service",
+        "base_path": "/government/organisations/civil-service-government-operational-research-service",
+        "content_id": "0a884634-3590-44f1-bdb1-46eeac2f8211",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2014-10-15T14:38:45Z",
+        "schema_name": "organisation",
+        "title": "Government Operational Research Service",
+        "withdrawn": false,
+        "details": {
+          "acronym": "",
+          "body": "<div class=\"govspeak\"><p>We support operational research analysts across government, helping them to contribute to policy-making, strategy and operations.</p>\n\n<p>Government Operational Research Service is part of the <a class=\"brand__color\" href=\"/government/organisations/civil-service\">Civil Service</a>.</p>\n</div>",
+          "brand": "cabinet-office",
+          "logo": {
+            "formatted_title": "Government operational research service",
+            "crest": "single-identity"
+          },
+          "foi_exempt": false,
+          "ordered_corporate_information_pages": [
+            {
+              "title": "Jobs",
+              "href": "https://www.civilservicejobs.service.gov.uk/csr"
+            }
+          ],
+          "secondary_corporate_information_pages": "",
+          "ordered_featured_links": [
+
+          ],
+          "ordered_featured_documents": [
+
+          ],
+          "ordered_promotional_features": [
+
+          ],
+          "ordered_ministers": [
+
+          ],
+          "ordered_board_members": [
+
+          ],
+          "ordered_military_personnel": [
+
+          ],
+          "ordered_traffic_commissioners": [
+
+          ],
+          "ordered_chief_professional_officers": [
+
+          ],
+          "ordered_special_representatives": [
+
+          ],
+          "important_board_members": 1,
+          "organisation_featuring_priority": "news",
+          "organisation_govuk_status": {
+            "status": "live",
+            "url": null,
+            "updated_at": null
+          },
+          "organisation_type": "sub_organisation",
+          "social_media_links": [
+
+          ]
+        },
+        "links": {
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/government/organisations/civil-service-government-operational-research-service",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/government/organisations/civil-service-government-operational-research-service"
+      },
+      {
+        "analytics_identifier": "CO1163",
+        "api_path": "/api/content/courts-tribunals/court-of-appeal-civil-division",
+        "base_path": "/courts-tribunals/court-of-appeal-civil-division",
+        "content_id": "e6c3bb29-e8ae-4a62-8ec6-c8b8d78c29ee",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-11-16T11:59:23Z",
+        "schema_name": "organisation",
+        "title": "Court of Appeal Civil Division",
+        "withdrawn": false,
+        "details": {
+          "acronym": "",
+          "body": "<div class=\"govspeak\">\n<p>Court of Appeal Civil Division is a court of <a class=\"brand__color\" href=\"/government/organisations/hm-courts-and-tribunals-service\">HM Courts &amp; Tribunals Service</a>.</p>\n</div>",
+          "brand": null,
+          "logo": {
+            "formatted_title": "Court of Appeal <br/>Civil Division"
+          },
+          "foi_exempt": false,
+          "ordered_corporate_information_pages": [
+            {
+              "title": "Jobs",
+              "href": "https://www.civilservicejobs.service.gov.uk/csr"
+            }
+          ],
+          "secondary_corporate_information_pages": "",
+          "ordered_featured_links": [
+            {
+              "title": "Appeal to the Court of Appeal Civil Division",
+              "href": "https://www.gov.uk/guidance/appeal-to-the-court-of-appeal-civil-division"
+            },
+            {
+              "title": "Judicial assistants in the Court of Appeal Civil Division",
+              "href": "https://www.gov.uk/guidance/judicial-assistants-in-the-court-of-appeal-civil-division"
+            },
+            {
+              "title": "Track the progress of a case",
+              "href": "http://casetracker.justice.gov.uk/listing_calendar/search.jsp"
+            },
+            {
+              "title": "Timescales for listing cases",
+              "href": "https://www.judiciary.gov.uk/publications/practice-guidance-court-of-appeal-hear-by-dates/"
+            },
+            {
+              "title": "Find out which court or tribunal to appeal to ",
+              "href": "https://www.gov.uk/which-court-or-tribunal-to-appeal-to"
+            }
+          ],
+          "ordered_featured_documents": [
+
+          ],
+          "ordered_promotional_features": [
+
+          ],
+          "ordered_ministers": [
+
+          ],
+          "ordered_board_members": [
+
+          ],
+          "ordered_military_personnel": [
+
+          ],
+          "ordered_traffic_commissioners": [
+
+          ],
+          "ordered_chief_professional_officers": [
+
+          ],
+          "ordered_special_representatives": [
+
+          ],
+          "important_board_members": 1,
+          "organisation_featuring_priority": "service",
+          "organisation_govuk_status": {
+            "status": "live",
+            "url": null,
+            "updated_at": null
+          },
+          "organisation_type": "court",
+          "social_media_links": [
+
+          ]
+        },
+        "links": {
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/courts-tribunals/court-of-appeal-civil-division",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/courts-tribunals/court-of-appeal-civil-division"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "EU exit guide",
+        "public_updated_at": "2018-06-28T09:52:43Z",
+        "document_type": "statutory_instrument",
+        "schema_name": "specialist_document",
+        "base_path": "/eu-withdrawal-act-2018-statutory-instruments/eu-exit-guide",
+        "description": "EU exit link to finders development test",
+        "api_path": "/api/content/eu-withdrawal-act-2017-statutory-instruments/eu-exit-guide",
+        "withdrawn": false,
+        "content_id": "aebe8527-168f-47b4-8800-170a8fbb5fd6",
+        "locale": "en",
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/eu-withdrawal-act-2018-statutory-instruments/eu-exit-guide",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/eu-withdrawal-act-2018-statutory-instruments/eu-exit-guide",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "EU exit link to finders development test",
+  "details": {
+    "body": "<h2 id=\"testing-a-link-back-to-the-eu-withdrawal-act-2018-statutory-instruments-finder\">Testing a link back to the EU Withdrawal Act 2018 statutory instruments finder</h2>\n\n<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>\n\n<table>\n  <thead>\n    <tr>\n      <th>Table</th>\n      <th>of</th>\n      <th>contents</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Item 2</td>\n      <td>of</td>\n      <td>3 items</td>\n    </tr>\n    <tr>\n      <td>Item 2</td>\n      <td>of</td>\n      <td>3 items</td>\n    </tr>\n    <tr>\n      <td>Item 3</td>\n      <td>of</td>\n      <td>3 items</td>\n    </tr>\n  </tbody>\n</table>\n",
+    "metadata": {
+      "sifting_status": "withdrawn",
+      "subject": [
+        "crime-justice-and-law"
+      ],
+      "withdrawn_date": "2018-01-01"
+    },
+    "max_cache_time": 10,
+    "temporary_update_type": false,
+    "headers": [
+      {
+        "text": "Testing a link back to the EU Withdrawal Act 2018 statutory instruments finder",
+        "level": 2,
+        "id": "testing-a-link-back-to-the-eu-withdrawal-act-2018-statutory-instruments-finder"
+      }
+    ],
+    "change_history": [
+      {
+        "note": "First published.",
+        "public_timestamp": "2018-06-28T09:52:43.507Z"
+      }
+    ]
+  }
+}

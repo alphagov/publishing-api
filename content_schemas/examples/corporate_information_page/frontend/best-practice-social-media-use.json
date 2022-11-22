@@ -1,0 +1,79 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/department-for-transport/about/social-media-use",
+  "content_id": "5f55a937-7631-11e4-a3cb-005056011aef",
+  "document_type": "social_media_use",
+  "first_published_at": "2017-09-07T17:22:27.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2017-09-07T16:22:27.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "corporate_information_page",
+  "title": "Social media use",
+  "updated_at": "2018-01-10T14:07:46.814Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "9620-1504856838.866-165.225.81.20-1737",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D9",
+        "api_path": "/api/content/government/organisations/department-for-transport",
+        "base_path": "/government/organisations/department-for-transport",
+        "content_id": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:08:03Z",
+        "schema_name": "placeholder",
+        "title": "Department for Transport",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Department<br/>for Transport",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-transport",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-transport"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Social media use",
+        "public_updated_at": "2017-09-07T16:22:27Z",
+        "document_type": "social_media_use",
+        "schema_name": "corporate_information_page",
+        "base_path": "/government/organisations/department-for-transport/about/social-media-use",
+        "description": "Information about departmental social media policies.",
+        "api_path": "/api/content/government/organisations/department-for-transport/about/social-media-use",
+        "withdrawn": false,
+        "content_id": "5f55a937-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-transport/about/social-media-use",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-transport/about/social-media-use",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Information about departmental social media policies.",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"dft-twitter-policy\">\n<abbr title=\"Department for Transport\">DfT</abbr> Twitter policy</h2>\n\n<p>The department’s twitter channel <a rel=\"external\" href=\"https://twitter.com/transportgovuk\">@transportgovuk</a> is managed by the digital engagement team, on behalf of colleagues across the department.</p>\n\n<p>We do not use automation tools eg <abbr title=\"really simple syndication\">RSS</abbr> feeds to generate tweets.</p>\n\n<p>If you follow us, you can expect between 2 to 10 tweets a day.</p>\n\n<p>Tweets will include alerts about:</p>\n\n<ul>\n  <li>announcements</li>\n  <li>press releases</li>\n  <li>new content published on our website</li>\n  <li>new content uploaded to other digital channels eg YouTube</li>\n  <li>marketing campaign messages</li>\n  <li>invitations to consult</li>\n  <li>information from our ministerial team about what they’re doing</li>\n  <li>occasional live coverage of events</li>\n</ul>\n\n<h3 id=\"following-dft\">Following <abbr title=\"Department for Transport\">DfT</abbr>\n</h3>\n\n<p>If you follow us on Twitter we may follow you back. Being followed by us does not imply endorsement of any kind.</p>\n\n<h3 id=\"dft-availability\">\n<abbr title=\"Department for Transport\">DfT</abbr> availability</h3>\n\n<p>We will update and monitor our Twitter account during office hours, Monday to Friday. Twitter may occasionally be unavailable and we accept no responsibility for lack of service due to Twitter downtime.</p>\n\n<h3 id=\"replies-and-direct-messages-from-dft\">@replies and direct messages from <abbr title=\"Department for Transport\">DfT</abbr>\n</h3>\n\n<p>We welcome feedback, ideas and engagement from all our followers, and endeavour to join the conversation where possible. However, we are not able to reply individually to all the messages we receive via Twitter.</p>\n\n<p>The digital engagement team read all @replies and direct messages and ensures that any emerging themes or helpful suggestions are passed to the relevant colleagues in the department.</p>\n\n<p>We cannot engage on issues of party politics or answer questions which break the rules of our general comments policy.</p>\n\n<p>The usual ways of contacting us for official correspondence are detailed in the <a href=\"https://www.gov.uk/government/organisations/department-for-transport#org-contacts\">contact us</a>.</p>\n\n<h2 id=\"think-road-safety-twitter-policy\">THINK! road safety twitter policy</h2>\n\n<p>The THINK! road safety channel <a rel=\"external\" href=\"https://twitter.com/thinkgovuk\">@THINKgovuk</a> is managed by the THINK! campaigns team.</p>\n\n<p>We do not use automation tools eg <abbr title=\"really simple syndication\">RSS</abbr> feeds to generate tweets.</p>\n\n<p>If you follow us, you can expect between 2 to 10 tweets a day.</p>\n\n<p>Tweets will include alerts about:</p>\n\n<ul>\n  <li>THINK! campaigns</li>\n  <li>road safety information</li>\n  <li>THINK! press releases</li>\n  <li>new content published on THINK! channels</li>\n  <li>events relevant to road safety</li>\n  <li>selected road safety news from stakeholders</li>\n</ul>\n\n<h3 id=\"following-think\">Following THINK!</h3>\n\n<p>If you follow us on Twitter we may follow you back. Being followed by us does not imply endorsement of any kind.</p>\n\n<h3 id=\"think-availability\">THINK! availability</h3>\n\n<p>We will update and monitor our Twitter account during office hours, Monday to Friday. Twitter may occasionally be unavailable and we accept no responsibility for lack of service due to Twitter downtime.</p>\n\n<h3 id=\"replies-and-direct-messages-from-think\">@replies and direct messages from THINK!</h3>\n\n<p>We welcome feedback, ideas and engagement from all our followers, and endeavour to join the conversation where possible. However, we are not able to reply individually to all the messages we receive via Twitter.</p>\n\n<p>The campaigns team read all @replies and direct messages and ensures that any emerging themes or helpful suggestions are passed to the relevant colleagues in the team.</p>\n\n<p>We cannot engage on issues of party politics or answer questions which break the rules of our general comments policy.</p>\n\n<p><a href=\"mailto:dftpublicity@dft.gsi.gov.uk\">Contact the THINK! campaigns team</a> outside of Twitter if necessary.</p>\n\n<h2 id=\"year-of-engineering-twitter-policy\">Year of Engineering twitter policy</h2>\n\n<p>The Year of Engineering (<abbr title=\"Year of Engineering\">YoE</abbr>) channel  <a rel=\"external\" href=\"https://twitter.com/YoEgovuk\">@YoEgovuk</a> is managed by the <abbr title=\"Year of Engineering\">YoE</abbr> team at the Department for Transport.</p>\n\n<p>We do not use automation tools eg <abbr title=\"really simple syndication\">RSS</abbr> feeds to generate tweets.</p>\n\n<p>If you follow us, you can expect between 2 to 10 tweets a day.</p>\n\n<p>Tweets will include alerts about:</p>\n\n<ul>\n  <li>\n<abbr title=\"Year of Engineering\">YoE</abbr> campaign activity</li>\n  <li>selected partner activity relevant to the <abbr title=\"Year of Engineering\">YoE</abbr> objectives</li>\n  <li>\n<abbr title=\"Year of Engineering\">YoE</abbr> press releases</li>\n  <li>new content published on <abbr title=\"Year of Engineering\">YoE</abbr> channels</li>\n  <li>events relevant to the <abbr title=\"Year of Engineering\">YoE</abbr> objective</li>\n</ul>\n\n<h3 id=\"following-yoe\">Following <abbr title=\"Year of Engineering\">YoE</abbr>\n</h3>\n\n<p>If you follow us on Twitter we may follow you back. Being followed by us does not imply endorsement of any kind.</p>\n\n<h3 id=\"yoe-availability\">\n<abbr title=\"Year of Engineering\">YoE</abbr> Availability</h3>\n\n<p>We will update and monitor our Twitter account during office hours, Monday to Friday. Twitter may occasionally be unavailable and we accept no responsibility for lack of service due to Twitter downtime.</p>\n\n<h3 id=\"replies-and-direct-messages-from-yoe\">@replies and direct messages from <abbr title=\"Year of Engineering\">YoE</abbr>\n</h3>\n\n<p>We welcome feedback, ideas and engagement from all our followers, and endeavour to join the conversation where possible. However, we are not able to reply individually to all the messages we receive via Twitter.</p>\n\n<p>The campaigns team read all @replies and direct messages and ensures that any emerging themes or helpful suggestions are passed to the relevant colleagues in the team.</p>\n\n<p>We cannot engage on issues of party politics or answer questions which break the rules of our general comments policy.</p>\n\n<p>Contact the <a href=\"mailto:yearofengineering@dft.gsi.gov.uk\"><abbr title=\"Year of Engineering\">YoE</abbr> campaigns team</a> outside of Twitter if necessary.</p>\n\n<h2 id=\"transport-agencies-social-media-use\">Transport agencies’ social media use</h2>\n\n<ul>\n  <li><a href=\"https://www.gov.uk/government/organisations/driver-and-vehicle-licensing-agency/about/social-media-use\"><abbr title=\"Driver and Vehicle Licensing Agency\">DVLA</abbr></a></li>\n  <li><a href=\"https://www.gov.uk/government/organisations/driver-and-vehicle-standards-agency/about/social-media-use\"><abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr></a></li>\n  <li><a href=\"https://www.gov.uk/government/organisations/highways-england/about/social-media-use\">Highways England</a></li>\n</ul>\n\n</div>",
+    "organisation": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

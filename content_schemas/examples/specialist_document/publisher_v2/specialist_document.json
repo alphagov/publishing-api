@@ -1,0 +1,70 @@
+{
+  "base_path": "/cma-cases/example-cma-case",
+  "title": "Example CMA Case",
+  "description": "This is the summary of an example CMA case",
+  "public_updated_at": "2015-02-11T13:45:00.000+00:00",
+  "publishing_app": "specialist-publisher",
+  "rendering_app": "government-frontend",
+  "locale": "en",
+  "phase": "live",
+  "details": {
+    "body": [
+      {
+        "content_type": "text/html",
+        "content": "<h2 id=\"header\">Header</h2>\n\n<p>This is the long body of an example CMA case</p>\n\n<p>This is the long body of an example CMA case</p>\n\n<p>This is the long body of an example CMA case</p>\n\n<p>This is the long body of an example CMA case</p>\n\n<p>This is the long body of an example CMA case</p>\n\n<p>This is the long body of an example CMA case</p>\n\n<p>This is the long body of an example CMA case</p>\n\n<p>This is the long body of an example CMA case</p>\n\n<p>This is the long body of an example CMA case</p>\n\n<p>This is the long body of an example CMA case</p>\n"
+      },
+      {
+        "content_type": "text/govspeak",
+        "content": "## Header\r\n\r\nThis is the long body of an example CMA case\r\n\r\nThis is the long body of an example CMA case\r\n\r\nThis is the long body of an example CMA case\r\n\r\nThis is the long body of an example CMA case\r\n\r\nThis is the long body of an example CMA case\r\n\r\nThis is the long body of an example CMA case\r\n\r\nThis is the long body of an example CMA case\r\n\r\nThis is the long body of an example CMA case\r\n\r\nThis is the long body of an example CMA case\r\n\r\nThis is the long body of an example CMA case"
+      }
+    ],
+    "attachments": [
+      {
+        "attachment_type": "file",
+        "id": "0aa1aa33-36b9-4677-a643-52b9034a1c32",
+        "content_id": "0aa1aa33-36b9-4677-a643-52b9034a1c32",
+        "url": "https://assets.digital.cabinet-office.gov.uk/media/56e7fc15ed915d037a000004/example-cma-case-image.jpg",
+        "content_type": "application/jpg",
+        "title": "example cma case image",
+        "created_at": "2015-02-11T13:45:00.000+00:00",
+        "updated_at": "2015-02-13T13:45:00.000+00:00"
+      },
+      {
+        "attachment_type": "file",
+        "id": "130d2b69-e32f-437f-9caa-89a4246fbe39",
+        "content_id": "130d2b69-e32f-437f-9caa-89a4246fbe39",
+        "url": "https://assets.digital.cabinet-office.gov.uk/media/56e7fc15ed915d037a000004/example-cma-case-pdf.pdf",
+        "content_type": "application/pdf",
+        "title": "example cma case pdf",
+        "created_at": "2015-02-11T13:45:00.000+00:00",
+        "updated_at": "2015-02-13T13:45:00.000+00:00"
+      }
+    ],
+    "change_history": [
+
+    ],
+    "metadata": {
+      "bulk_published": false,
+      "opened_date": "2014-01-01",
+      "closed_date": "2015-02-02",
+      "case_type": "ca98-and-civil-cartels",
+      "case_state": "open",
+      "market_sector": [
+        "energy"
+      ],
+      "outcome_type": "ca98-commitment"
+    },
+    "max_cache_time": 10
+  },
+  "routes": [
+    {
+      "path": "/cma-cases/example-cma-case",
+      "type": "exact"
+    }
+  ],
+  "redirects": [
+
+  ],
+  "document_type": "cma_case",
+  "schema_name": "specialist_document"
+}

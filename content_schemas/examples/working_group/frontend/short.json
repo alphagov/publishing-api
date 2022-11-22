@@ -1,0 +1,16 @@
+{
+  "base_path": "/government/groups/aviation-statistics-team",
+  "content_id": "0f566c9c-2b58-4527-95ab-9f936191ce5d",
+  "title": "Aviation statistics team",
+  "description": "",
+  "locale": "en",
+  "updated_at": "2015-12-08T15:26:28.258Z",
+  "public_updated_at": "2015-04-15T16:12:55.000+00:00",
+  "details": {
+    "email": "aviation.stats@dft.gsi.gov.uk"
+  },
+  "schema_name": "working_group",
+  "document_type": "working_group",
+  "links": {
+  }
+}

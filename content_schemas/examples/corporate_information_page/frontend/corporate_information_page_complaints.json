@@ -1,0 +1,79 @@
+{
+  "base_path": "/government/organisations/department-of-health/about/complaints-procedure",
+  "content_id": "5f54ec49-7631-11e4-a3cb-005056011aef",
+  "title": "Complaints procedure",
+  "description": "We take complaints about our work, staff and levels of service very seriously. If you are not satisfied, please follow the process for raising a formal complaint.",
+  "locale": "en",
+  "updated_at": "2016-05-03T14:11:53.023Z",
+  "public_updated_at": "2016-05-03T14:11:50.000+00:00",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"what-complaints-we-can-and-cant-deal-with\">What complaints we can and can’t deal with</h2><p>We can only handle complaints about the work, staff and levels of service provided by the Department of Health (<abbr title=\"Department for Health\">DH</abbr>).</p><p>We can’t deal with:</p><ul>  <li><a rel=\"external\" href=\"http://www.nhs.uk/choiceintheNHS/Rightsandpledges/complaints/Pages/NHScomplaints.aspx\">complaints about hospitals, <abbr title=\"General Practitioner\">GP</abbr> practices and other <abbr title=\"National Health Service\">NHS</abbr> services</a></li>  <li><a rel=\"external\" href=\"http://www.lgo.org.uk/adult-social-care/\">complaints about social care services</a></li></ul><h2 id=\"complaints-about-dh\">Complaints about <abbr title=\"Department for Health\">DH</abbr></h2><p>If you want to speak to someone about a complaint, you can call our public enquiries call centre on 020 7210 4850 (lines are open 8:30am to 5:30pm Monday to Friday, excluding bank holidays), where we will try to resolve the issue if we can.</p><p>Or contact us by textphone on 020 7210 5025 (lines are open from 8:30am to 5:30pm Monday to Friday, excluding bank holidays).</p><p>If you prefer to put your complaint in writing, in the first place, write to the person who handled your query: that’s usually the quickest way to resolve a problem. If you’re still not satisfied, ask for your complaint to be escalated to their team leader or line manager.</p><h2 id=\"what-information-well-need-from-you\">What information we’ll need from you</h2><p>We will need:</p><ul>  <li>a clear, detailed description of what your complaint is about</li>  <li>copies of any letters or emails related to the complaint</li>  <li>a correspondence case reference number, if you have it</li>  <li>your email address or postal address (so we can reply)</li></ul><p>We aim to respond to complaints within 20 working days. If we can’t reply to you within this time, we will let you know and tell you when you can expect a reply.</p><p>If the problem is still unresolved, you can make a formal complaint to our Complaints Manager.</p><h2 id=\"how-to-make-a-formal-complaint-about-dh\">How to make a formal complaint about <abbr title=\"Department for Health\">DH</abbr></h2><p>You can make a formal complaint by post, online or by phone.</p><p>Write to:</p><div class=\"address\"><div class=\"adr org fn\"><p>Complaints Manager<br>Ministerial Correspondence and Public Enquiries<br>Department of Health<br>Richmond House<br>79 Whitehall<br>London<br>SW1A 2NS<br></p></div></div><p>Fill in our <a rel=\"external\" href=\"http://www.info.doh.gov.uk/contactus.nsf/memo?openform\">web contact form</a> (please put ‘For the attention of the Complaints Manager’ in the subject line).</p><p>Phone our public enquiries call centre on 020 7210 4850 (lines are open 8:30am to 5:30pm Monday to Friday, excluding bank holidays). Our call centre staff can take a note of your complaint to pass on to the Complaints Manager, or arrange a suitable time for an advisor to do so.Please note it is advisable to place detailed complaints in writing, where possible, to ensure your concerns are comprehensively covered.</p><h2 id=\"what-happens-next\">What happens next</h2><p>When you’ve made your complaint, we will:</p><ul>  <li>send an email to let you know that we’ve received it (as long as you’ve provided a valid email address)</li>  <li>investigate your complaint (looking at whether your questions were answered, whether you suffered any injustice or hardship, and what remedy would be fair and proportionate in the circumstances)</li></ul><h2 id=\"what-to-do-if-youre-not-satisfied\">What to do If you’re not satisfied</h2><p>If you are not satisfied with the outcome of your formal complaint you can ask <a rel=\"external\" href=\"http://findyourmp.parliament.uk/\">your local <abbr title=\"Member of Parliament\">MP</abbr></a> to refer it to the Parliamentary and Health Service Ombudsman.</p><p>You have to go through your <abbr title=\"Member of Parliament\">MP</abbr> - you can’t approach the ombudsman directly. The ombudsman investigates complaints where government departments or other public bodies have not acted properly or fairly, or have provided a poor service. Government departments have to co-operate with the ombudsman by law.</p><h3 id=\"appealing-against-a-decision-by-the-ombudsman\">Appealing against a decision by the Ombudsman</h3><p>If you are unhappy with the Ombudsman’s decision you can <a rel=\"external\" href=\"http://www.ombudsman.org.uk/make-a-complaint/unhappy-with-our-service\">appeal directly to the Ombudsman</a>.</p></div>",
+    "organisation": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  },
+  "links": {
+    "organisations": [
+      {
+        "content_id": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+        "title": "Department of Health",
+        "api_path": "/api/content/government/organisations/department-of-health",
+        "base_path": "/government/organisations/department-of-health",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health",
+        "locale": "en",
+        "analytics_identifier": "D12",
+        "details": {
+          "brand": "department-of-health",
+          "logo": {
+            "formatted_title": "Department<br/>of Health",
+            "crest": "single-identity"
+          }
+        }
+      }
+    ],
+    "parent": [
+      {
+        "content_id": "223d5519-da25-4210-8fec-52d77a7d2af6",
+        "title": "About us",
+        "api_path": "/api/content/government/organisations/department-of-health/about",
+        "base_path": "/government/organisations/department-of-health/about",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health/about",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health/about",
+        "locale": "en",
+        "links": {
+          "parent": [
+            {
+              "content_id": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+              "title": "Department of Health",
+              "api_path": "/api/content/government/organisations/department-of-health",
+              "base_path": "/government/organisations/department-of-health",
+              "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health",
+              "web_url": "https://www.gov.uk/government/organisations/department-of-health",
+              "locale": "en",
+              "analytics_identifier": "D12",
+              "details": {
+                "brand": "department-of-health",
+                "logo": {
+                  "formatted_title": "Department<br/>of Health",
+                  "crest": "single-identity"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "schema_name": "corporate_information_page",
+  "document_type": "complaints_procedure"
+}

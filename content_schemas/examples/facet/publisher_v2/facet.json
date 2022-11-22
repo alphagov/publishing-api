@@ -1,0 +1,13 @@
+{
+  "document_type": "facet",
+  "publishing_app": "content-tagger",
+  "rendering_app": "finder-frontend",
+  "schema_name": "facet",
+  "title": "Sector / Business area",
+  "details": {
+    "filterable": true,
+    "key": "sector_business_area",
+    "name": "Sector / Business area",
+    "type": "text"
+  }
+}

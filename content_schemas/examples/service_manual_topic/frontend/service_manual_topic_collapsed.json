@@ -1,0 +1,107 @@
+{
+  "base_path": "/service-manual/test-topic",
+  "content_id": "cd02b82d-c706-435c-a2fc-2dcabd168ef4",
+  "title": "Service Manual Test Topic",
+  "locale": "en",
+  "updated_at": "2016-01-15T16:53:47.645Z",
+  "public_updated_at": "2016-01-15T15:31:21.000+00:00",
+  "phase": "alpha",
+  "analytics_identifier": null,
+  "links": {
+    "content_owners": [
+      {
+        "content_id": "fb87cca9-311e-4fd3-af42-03616164a407",
+        "title": "Agile delivery community",
+        "api_path": "/api/content/service-manual/communities/agile-delivery-community",
+        "base_path": "/service-manual/communities/agile-delivery-community",
+        "description": "Agile delivery community takes care of...",
+        "api_url": "https://www.gov.uk/api/content/service-manual/communities/agile-delivery-community",
+        "web_url": "https://www.gov.uk/service-manual/communities/agile-delivery-community",
+        "locale": "en",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "d6f49e7f-4f54-44e6-815b-ac3098a5f509",
+        "title": "User research community",
+        "api_path": "/api/content/service-manual/communities/user-research-community",
+        "base_path": "/service-manual/communities/user-research-community",
+        "description": "User research community takes care of...",
+        "api_url": "https://www.gov.uk/api/content/service-manual/communities/user-research-community",
+        "web_url": "https://www.gov.uk/service-manual/communities/user-research-community",
+        "locale": "en",
+        "analytics_identifier": null
+      }
+    ],
+    "linked_items": [
+      {
+        "content_id": "60b91f03-9dfe-4cb1-a01b-d0391b261cd8",
+        "title": "Helpdesk",
+        "api_path": "/api/content/service-manual/operations/helpdesk",
+        "base_path": "/service-manual/operations/helpdesk",
+        "description": "Description",
+        "api_url": "https://www.gov.uk/api/content/service-manual/operations/helpdesk",
+        "web_url": "https://www.gov.uk/service-manual/operations/helpdesk",
+        "locale": "en",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "0c23c42e-d1ae-433a-834b-ebc5e4c3785f",
+        "title": "Accessibility",
+        "api_path": "/api/content/service-manual/user-centred-design/accessibility",
+        "base_path": "/service-manual/user-centred-design/accessibility",
+        "description": "Description",
+        "api_url": "https://www.gov.uk/api/content/service-manual/user-centred-design/accessibility",
+        "web_url": "https://www.gov.uk/service-manual/user-centred-design/accessibility",
+        "locale": "en",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "56b79735-fd9b-4119-a9f4-682098087953",
+        "title": "Addresses",
+        "api_path": "/api/content/service-manual/user-centred-design/resources/patterns/addresses",
+        "base_path": "/service-manual/user-centred-design/resources/patterns/addresses",
+        "description": "Description",
+        "api_url": "https://www.gov.uk/api/content/service-manual/user-centred-design/resources/patterns/addresses",
+        "web_url": "https://www.gov.uk/service-manual/user-centred-design/resources/patterns/addresses",
+        "locale": "en",
+        "analytics_identifier": null
+      }
+    ],
+    "available_translations": [
+      {
+        "content_id": "cd02b82d-c706-435c-a2fc-2dcabd168ef4",
+        "title": "This should be looking goooooood",
+        "api_path": "/api/content/service-manual/test-topic",
+        "base_path": "/service-manual/test-topic",
+        "description": "A good lookin topic",
+        "api_url": "https://www.gov.uk/api/content/service-manual/test-topic",
+        "web_url": "https://www.gov.uk/service-manual/test-topic",
+        "locale": "en"
+      }
+    ]
+  },
+  "description": "Service Manual Topic description",
+  "details": {
+    "visually_collapsed": true,
+    "groups": [
+      {
+        "name": "Group 1",
+        "description": "The first group",
+        "content_ids": [
+          "0c23c42e-d1ae-433a-834b-ebc5e4c3785f",
+          "56b79735-fd9b-4119-a9f4-682098087953"
+        ]
+      },
+      {
+        "name": "Group 2",
+        "description": "The second group",
+        "content_ids": [
+          "60b91f03-9dfe-4cb1-a01b-d0391b261cd8",
+          "65744959-71cc-495c-922e-da4709a5f89b"
+        ]
+      }
+    ]
+  },
+  "schema_name": "service_manual_topic",
+  "document_type": "service_manual_topic"
+}

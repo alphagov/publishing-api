@@ -1,0 +1,181 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/speeches/lord-mcnally-s-speaking-note-for-westminster-legal-policy-forum-event",
+  "content_id": "5dffd904-7631-11e4-a3cb-005056011aef",
+  "document_type": "speech",
+  "first_published_at": "2012-05-22T00:00:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2012-05-22T00:00:00.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "speech",
+  "title": "Lord McNally’s speaking note for Westminster Legal Policy Forum event",
+  "updated_at": "2018-01-10T12:36:48.656Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "13384-1502190205.075-10.3.3.1-410",
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D18",
+        "api_path": "/api/content/government/organisations/ministry-of-justice",
+        "base_path": "/government/organisations/ministry-of-justice",
+        "content_id": "dcc907d6-433c-42df-9ffb-d9c68be5dc4d",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:07:59Z",
+        "schema_name": "placeholder",
+        "title": "Ministry of Justice",
+        "withdrawn": false,
+        "details": {
+          "brand": "ministry-of-justice",
+          "logo": {
+            "formatted_title": "Ministry<br/>of Justice",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ministry-of-justice",
+        "web_url": "https://www.gov.uk/government/organisations/ministry-of-justice"
+      }
+    ],
+    "people": [
+      {
+        "api_path": "/api/content/government/people/lord-mcnally",
+        "base_path": "/government/people/lord-mcnally",
+        "content_id": "85293a0e-c0f1-11e4-8223-005056011aef",
+        "document_type": "placeholder_person",
+        "locale": "en",
+        "public_updated_at": "2014-07-09T11:54:37Z",
+        "schema_name": "placeholder_person",
+        "title": "The Rt Hon Lord McNally",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/lord-mcnally",
+        "web_url": "https://www.gov.uk/government/people/lord-mcnally"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D18",
+        "api_path": "/api/content/government/organisations/ministry-of-justice",
+        "base_path": "/government/organisations/ministry-of-justice",
+        "content_id": "dcc907d6-433c-42df-9ffb-d9c68be5dc4d",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:07:59Z",
+        "schema_name": "placeholder",
+        "title": "Ministry of Justice",
+        "withdrawn": false,
+        "details": {
+          "brand": "ministry-of-justice",
+          "logo": {
+            "formatted_title": "Ministry<br/>of Justice",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ministry-of-justice",
+        "web_url": "https://www.gov.uk/government/organisations/ministry-of-justice"
+      }
+    ],
+    "roles": [
+      {
+        "api_path": "/api/content/government/ministers/minister-of-state--18",
+        "base_path": "/government/ministers/minister-of-state--18",
+        "content_id": "845e7e2f-c0f1-11e4-8223-005056011aef",
+        "document_type": "placeholder_ministerial_role",
+        "locale": "en",
+        "public_updated_at": "2013-12-19T12:47:10Z",
+        "schema_name": "placeholder_ministerial_role",
+        "title": "Minister of State for Justice",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/minister-of-state--18",
+        "web_url": "https://www.gov.uk/government/ministers/minister-of-state--18"
+      }
+    ],
+    "speaker": [
+      {
+        "api_path": "/api/content/government/people/lord-mcnally",
+        "base_path": "/government/people/lord-mcnally",
+        "content_id": "85293a0e-c0f1-11e4-8223-005056011aef",
+        "document_type": "placeholder_person",
+        "locale": "en",
+        "public_updated_at": "2014-07-09T11:54:37Z",
+        "schema_name": "placeholder_person",
+        "title": "The Rt Hon Lord McNally",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/lord-mcnally",
+        "web_url": "https://www.gov.uk/government/people/lord-mcnally"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Lord McNally’s speaking note for Westminster Legal Policy Forum event",
+        "public_updated_at": "2012-05-22T00:00:00Z",
+        "document_type": "speech",
+        "schema_name": "speech",
+        "base_path": "/government/speeches/lord-mcnally-s-speaking-note-for-westminster-legal-policy-forum-event",
+        "description": "Lord McNally's speaking note covers social mobility within the legal professions and judicial diversity.",
+        "api_path": "/api/content/government/speeches/lord-mcnally-s-speaking-note-for-westminster-legal-policy-forum-event",
+        "withdrawn": false,
+        "content_id": "5dffd904-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/speeches/lord-mcnally-s-speaking-note-for-westminster-legal-policy-forum-event",
+        "web_url": "https://www.gov.uk/government/speeches/lord-mcnally-s-speaking-note-for-westminster-legal-policy-forum-event",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Lord McNally's speaking note covers social mobility within the legal professions and judicial diversity.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>Thank you for inviting me here today. I am also particularly pleased to see Lord Justice Goldring and Lady Justice Black here as well, as this demonstrates the importance that the government, the Judiciary and the JAC place on these issues.</p>\n\n<p>This policy forum deals with 2 very important issues: social mobility within the legal professions and judicial diversity. I was delighted to see on the agenda discussions on work that either is or could be done to help increase social mobility, inclusivity and diversity within the legal professions. It is reassuring to know that these are recognised as real issues which need to be addressed.</p>\n\n<p>I am also pleased to see on the agenda a discussion about the work being done with regards to legal education. With a changing legal services market, legal education and training must keep pace. This means building on the foundations already in place and taking the opportunity to look critically at how education and training is delivered now and in the future.</p>\n\n<p>I very much welcome the current review of legal education and training, and support the legal profession’s collaborative approach to work in this important area. I look forward to seeing how the legal education and training review develops.</p>\n\n<p>It is important that we collectively do all we can to encourage an independent, strong, diverse and effective legal profession indeed this is one of the regulatory objectives enshrined in the Legal Services Act 2007. It is therefore encouraging to see the profession actively taking forward initiatives in these areas.</p>\n\n<p>The changing profile of the profession is encouraging. It is evolving into a more inclusive and diverse one. However, we are not quite there yet, and I feel we are still playing catch up with the realities of Britain in the 21st century. Despite seeing greater diversity at entry level, the picture looks less promising when you look at the more senior levels, an issue often compounded by retention and progression within the professions.</p>\n\n<p>And what does this have to do with judicial diversity?</p>\n\n<p>Well, we cannot expect to make significant progress in increasing the diversity of the judiciary unless we see a positive change in the diversity of the eligible pool, hence, the importance of all the work being done to increase mobility and diversity within the legal professions.</p>\n\n<p>I am not just talking about diversity in ethnicity and gender terms; but also in terms of the representation of barristers, solicitors, fellows of the Chartered Institute of Legal Executives and members of the employed legal professions, who are all eligible to apply for certain judicial offices.</p>\n\n<p>The judiciary play a critical role in the administration of justice. It is therefore essential, as with the legal professions, that the diverse society in which we live is represented by those who hold judicial offices.</p>\n\n<p>Although some progress has been made in this area, such progress has been slow and the more visible progress has been confined to the lower courts. It is still the case that after eight years Baroness Hale remains the sole woman on the Supreme Court and we still do not have a single ethnic minority judge in the Court of Appeal or above. Of course judges must always be appointed on merit; however increasing the diversity of the judiciary is not incompatible with this principle. We need to ensure barriers to progression faced by underrepresented groups are removed that we have a sufficiently diverse pool of eligible candidates from which to pick our judges and that there are no catch 22 in the selection process.</p>\n\n<p>We must ensure that opportunities for judicial office are seen in a more positive and progressive light, and that those eligible members of the legal professionals are actively encouraged to apply for a judicial office.</p>\n\n<p>The government is doing its part in increasing the diversity of the judiciary, and we are committed to this. The Ministry of Justice recently published on 11th May its response to consultation on judicial appointments and diversity, outlining the policy changes taken forward in the Crime and Courts Bill, which was introduced in the House of Lords on 10th May. These changes include introducing part-time working into the senior courts and allowing the use of a ‘tipping point’ principle when 2 candidates are indistinguishable on merit so as to enhance the diversity of judicial office holders.</p>\n\n<p>We strongly believe in the changes we are making and their potential to help with the problem of judicial diversity.</p>\n\n<p>Appointments will continue to be made on merit, but the introduction of our changes could enable the diversity of the judiciary to increase.</p>\n\n<p>Today I hope I have re-affirmed the government’s commitment to increasing diversity both within the judiciary and within the legal professions, and the government’s commitment to providing leadership in this area.</p>\n\n<p>I am under no illusion that there is no single solution to the issue of increasing diversity. But, even though I started my career as a Fabian, I do not think this is a matter which will be solved by the inevitability of gradualness.</p>\n\n<p>I believe that the reforms we are introducing will help to give momentum to the changes needed in this area. A concerted effort by all is needed to encourage people from underrepresented groups to apply for judicial office. We must dispel any myths surrounding the appointments process. It is the commitment shown by all involved in the process which will mean progress in this area, a progress I believe will enhance confidence in our justice system whilst retaining the rightful esteem in which our judiciary is held.</p>\n</div>",
+    "political": true,
+    "delivered_on": "2012-05-22T01:00:00+01:00",
+    "change_history": [
+      {
+        "public_timestamp": "2012-05-22T01:00:00.000+01:00",
+        "note": "First published."
+      }
+    ],
+    "speech_type_explanation": "Speaker's notes, may differ from delivered version",
+    "image": {
+      "alt_text": "The Rt Hon Lord McNally",
+      "url": "/government/uploads/system/uploads/person/image/75/Lord_McNally.jpg"
+    },
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "first_public_at": "2012-05-22T01:00:00.000+01:00"
+  }
+}

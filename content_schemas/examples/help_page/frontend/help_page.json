@@ -1,0 +1,98 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/help/cookies",
+  "content_id": "d6d6caaf-77db-47e1-8206-30cd4f3d0e3f",
+  "document_type": "help_page",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-12-16T12:49:50.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "help_page",
+  "title": "Cookies",
+  "updated_at": "2017-01-30T12:30:33.483Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "ordered_related_items": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/help/about-govuk",
+        "base_path": "/help/about-govuk",
+        "content_id": "464c5c16-dcdb-4ed0-9ba7-341ee652038a",
+        "description": "GOV.UK is the best place to find government services and information for citizens and businesses, guidance for professionals, government policy",
+        "document_type": "help_page",
+        "locale": "en",
+        "public_updated_at": "2014-11-12T12:25:24Z",
+        "schema_name": "help_page",
+        "title": "About GOV.UK",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/help/about-govuk",
+        "web_url": "http://www.dev.gov.uk/help/about-govuk"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/help/terms-conditions",
+        "base_path": "/help/terms-conditions",
+        "content_id": "df47bc71-2e96-4993-8342-11b4ba464f1d",
+        "description": "The terms and conditions for using GOV.UK - Government Digital Service, GDS, services, transactions, external links",
+        "document_type": "help_page",
+        "locale": "en",
+        "public_updated_at": "2015-10-06T13:20:06Z",
+        "schema_name": "help_page",
+        "title": "Terms and conditions",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/help/terms-conditions",
+        "web_url": "http://www.dev.gov.uk/help/terms-conditions"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/help/privacy-policy",
+        "base_path": "/help/privacy-policy",
+        "content_id": "333f53c7-36a2-47b9-b52d-e249929f6ef1",
+        "description": "What data is collected when you use gov.uk - how it's used, where it's stored, your rights",
+        "document_type": "help_page",
+        "locale": "en",
+        "public_updated_at": "2013-09-18T14:55:58Z",
+        "schema_name": "help_page",
+        "title": "Privacy policy",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/help/privacy-policy",
+        "web_url": "http://www.dev.gov.uk/help/privacy-policy"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "base_path": "/help/cookies",
+        "content_id": "d6d6caaf-77db-47e1-8206-30cd4f3d0e3f",
+        "description": "GOV.UK uses cookies to collect information about how users browse the site",
+        "document_type": "help_page",
+        "locale": "en",
+        "public_updated_at": "2014-12-16T12:49:50Z",
+        "schema_name": "help_page",
+        "title": "Cookies",
+        "api_path": "/api/content/help/cookies",
+        "withdrawn": false,
+        "api_url": "http://www.dev.gov.uk/api/content/help/cookies",
+        "web_url": "http://www.dev.gov.uk/help/cookies",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "GOV.UK uses cookies to collect information about how users browse the site",
+  "details": {
+    "body": "\n<div class=\"summary\">\n<p>GOV.UK puts small files (known as ‘cookies’) onto your computer to collect information about how you browse the site.</p>\n</div>\n\n<p>Cookies are used to:</p>\n\n<ul>\n  <li>measure how you use the website so it can be updated and improved based on your needs</li>\n  <li>remember the notifications you’ve seen so that we don’t show them to you again</li>\n</ul>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>GOV.UK cookies aren’t used to identify you personally.</p>\n</div>\n\n<p>You’ll normally see a message on the site before we store a cookie on your computer.</p>\n\n<p>Find out more about <a rel=\"external\" href=\"http://www.aboutcookies.org/\">how to manage cookies.</a></p>\n\n<h2 id=\"how-cookies-are-used-on-govuk\">How cookies are used on GOV.UK</h2>\n\n<h3 id=\"measuring-website-usage-google-analytics\">Measuring website usage (Google Analytics)</h3>\n\n<p>We use Google Analytics software to collect information about how you use GOV.UK. We do this to help make sure the site is meeting the needs of its users and to help us make improvements, eg <a rel=\"external\" href=\"https://insidegovuk.blog.gov.uk/2015/03/26/new-tool-to-see-trending-searches/\">improving site search.</a></p>\n\n<p>Google Analytics stores information about:</p>\n\n<ul>\n  <li>the pages you visit on GOV.UK</li>\n  <li>how long you spend on each GOV.UK page </li>\n  <li>how you got to the site </li>\n  <li>what you click on while you’re visiting the site</li>\n</ul>\n\n<p>We don’t collect or store your personal information (eg your name or address) so this information can’t be used to identify who you are.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>We don’t allow Google to use or share our analytics data.</p>\n</div>\n\n<p>Google Analytics sets the following cookies:</p>\n\n<h3 id=\"universal-analytics\">Universal Analytics</h3>\n\n<table>\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Purpose</th>\n      <th>Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>_ga</td>\n      <td>This helps us count how many people visit GOV.UK by tracking if you’ve visited before</td>\n      <td>2 years</td>\n    </tr>\n    <tr>\n      <td>_gat</td>\n      <td>Used to manage the rate at which page view requests are made</td>\n      <td>10 minutes</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"google-analytics\">Google Analytics</h3>\n\n<table>\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Purpose</th>\n      <th>Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>_utma</td>\n      <td>Like _ga, this lets us know if you’ve visited before, so we can count how many of our visitors are new to GOV.UK or to a certain page</td>\n      <td>2 years</td>\n    </tr>\n    <tr>\n      <td>_utmb</td>\n      <td>This works with _utmc to calculate the average length of time you spend on GOV.UK</td>\n      <td>30 minutes</td>\n    </tr>\n    <tr>\n      <td>_utmc</td>\n      <td>This works with _utmb to calculate when you close your browser</td>\n      <td>when you close your browser</td>\n    </tr>\n    <tr>\n      <td>_utmz</td>\n      <td>This tells us how you reached GOV.UK (eg from another website or a search engine)</td>\n      <td>6 months</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"govuk-events\">GOV.UK events</h3>\n\n<table>\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Purpose</th>\n      <th>Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>analytics_next_page_call</td>\n      <td>This lets us know the next page you visit on GOV.UK, so we can make journeys better</td>\n      <td>when you close your browser</td>\n    </tr>\n    <tr>\n      <td>govuk_contact_referrer</td>\n      <td>This lets us know the last page you visited before using the contact GOV.UK form</td>\n      <td>1 day</td>\n    </tr>\n  </tbody>\n</table>\n\n<p>You can <a rel=\"external\" href=\"https://tools.google.com/dlpage/gaoptout\">opt out of Google Analytics cookies.</a></p>\n\n<h3 id=\"our-introductory-message\">Our introductory message</h3>\n\n<p>You may see a pop-up welcome message when you first visit GOV.UK. We’ll store a cookie so that your computer knows you’ve seen it and knows not to show it again.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Purpose</th>\n      <th>Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>seen_cookie_message</td>\n      <td>Saves a message to let us know that you’ve seen our cookie message</td>\n      <td>1 month</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"your-progress-when-applying-for-a-licence\">Your progress when applying for a licence</h3>\n\n<p>When you apply for a licence using the ‘apply for a licence’ service, we’ll set a cookie to remember your progress through the forms. These cookies don’t store your personal data and are deleted once you’ve completed the transaction.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Purpose</th>\n      <th>Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>licensing_session</td>\n      <td>Set to remember information you’ve entered into a form when applying for a licence</td>\n      <td>When you close your browser</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"youtube-videos\">YouTube videos</h3>\n\n<p>We use YouTube to provide videos on some pages of the site. YouTube sets cookies when you visit one of these pages.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Purpose</th>\n      <th>Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>_use_hitbox</td>\n      <td>This is a randomly generated number that identifies your browser</td>\n      <td>When you close your browser</td>\n    </tr>\n    <tr>\n      <td>VISITOR_INFO1_LIVE</td>\n      <td>Lets Youtube count the views of embedded Youtube videos</td>\n      <td>9 months</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"government-services\">Government services</h3>\n\n<p>Most services we link to are run by different government departments, eg HM Revenue and Customs (<abbr title=\"HM Revenue and Customs\">HMRC</abbr>) or the Home Office. These services may set additional cookies and, if so, will have their own cookies policy.</p>\n\n<h3 id=\"browser-upgrade-prompt\">Browser upgrade prompt</h3>\n\n<p>We log a cookie the first time you visit GOV.UK to let us know you’ve visited once.</p>\n\n<p>If you’re using an out-of-date browser the next time you visit, we’ll show you a message suggesting you upgrade.</p>\n\n<p>We’ll also save a cookie that lets us know you don’t want to see the prompt if you dismiss it.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Purpose</th>\n      <th>Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>govuk_not_first_visit</td>\n      <td>Stops us prompting you to upgrade an out-of-date browser until after your first visit</td>\n      <td>28 days</td>\n    </tr>\n    <tr>\n      <td>govuk_browser_upgrade_dismissed</td>\n      <td>Saves a message to let us know you’ve seen and dismissed the browser upgrade prompt</td>\n      <td>28 days</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"our-performance-survey\">Our performance survey</h3>\n\n<p>We select some users to take part in a performance survey. If you take part, or dismiss the survey, we’ll save a cookie that lets us know you’ve seen the message so that we don’t show it to you again.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Purpose</th>\n      <th>Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>govuk_takenUserSatisfactionSurvey</td>\n      <td>Saves a message to remember if you’ve taken the survey or dismissed it</td>\n      <td>4 months</td>\n    </tr>\n  </tbody>\n</table>\n\n<p>We use <a rel=\"external\" href=\"http://www.surveymonkey.com/\">SurveyMonkey</a> to collect responses to the survey. If you take part, SurveyMonkey will save extra cookies to your computer to track your progress through it.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Purpose</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>mbox, SSOE, TS5159a2 and TSd0b041, ep201, ep202, utma, utmc and utmz</td>\n      <td>We use Survey Monkey for the performance survey on GOV.UK. For more information, please see <a rel=\"external\" href=\"https://www.surveymonkey.com/mp/policy/privacy-policy/\">Survey Monkey privacy information</a>\n</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"multivariate-testing\">Multivariate testing</h3>\n\n<p>We sometimes test different versions of pages with different users to see which work better. We’ll save a cookie so that you consistently see the same version when browsing GOV.UK.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Purpose</th>\n      <th>Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>multivariatetest_cohort_topics_menu_text</td>\n      <td>Remember which version of the page you were shown</td>\n      <td>1 month</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"hmrc-web-chat\">\n<abbr title=\"HM Revenue and Customs\">HMRC</abbr> web chat</h3>\n<p><abbr title=\"HM Revenue and Customs\">HMRC</abbr> uses web chat to help you with problems you might have with their content and services.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Purpose</th>\n      <th>Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>JSESSIONID</td>\n      <td>Set to remember information you’ve entered during a web chat</td>\n      <td>When you close your browser</td>\n    </tr>\n    <tr>\n      <td>egofrreofferignore, egofrreofferaccept, egofrreofferreject, egofrnoreoffer, egofrcountforsession, egofroffersbeingshown, egofrservernotready, egofrreferrer, egofrsessionstarttime</td>\n      <td>Set to track information about how you interact with web chat</td>\n      <td>When you close your browser</td>\n    </tr>\n  </tbody>\n</table>\n\n",
+    "external_related_links": [
+
+    ]
+  }
+}

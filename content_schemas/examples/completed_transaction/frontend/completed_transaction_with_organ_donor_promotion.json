@@ -1,0 +1,50 @@
+{
+  "details": {
+    "external_related_links": [
+
+    ],
+    "promotion": {
+      "url": "https://www.organdonation.nhs.uk/how_to_become_a_donor/registration/registration_form.asp",
+      "opt_in_url": "https://www.organdonation.nhs.uk/how_to_become_a_donor/registration/registration_form.asp",
+      "opt_out_url": "https://www.organdonation.nhs.uk/how_to_become_a_donor/registration/registration_form.asp",
+      "category": "organ_donor"
+    }
+  },
+  "description": "",
+  "links": {
+    "available_translations": [
+      {
+        "links": {
+        },
+        "web_url": "http://www.dev.gov.uk/done/view-driving-licence",
+        "api_url": "http://www.dev.gov.uk/api/content/done/view-driving-licence",
+        "locale": "en",
+        "content_id": "9e9c357e-58cd-4b35-bd57-2c072760a166",
+        "withdrawn": false,
+        "title": "Thank you",
+        "public_updated_at": "2016-06-28T13:40:57Z",
+        "analytics_identifier": null,
+        "document_type": "completed_transaction",
+        "schema_name": "completed_transaction",
+        "base_path": "/done/view-driving-licence",
+        "description": "",
+        "api_path": "/api/content/done/view-driving-licence"
+      }
+    ]
+  },
+  "locale": "en",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "document_type": "completed_transaction",
+  "content_id": "9e9c357e-58cd-4b35-bd57-2c072760a166",
+  "base_path": "/done/view-driving-licence",
+  "analytics_identifier": null,
+  "phase": "live",
+  "public_updated_at": "2016-06-28T13:40:57.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "completed_transaction",
+  "title": "Thank you",
+  "updated_at": "2017-02-24T16:03:17.091Z",
+  "withdrawn_notice": {
+  }
+}

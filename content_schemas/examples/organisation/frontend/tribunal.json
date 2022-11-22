@@ -1,0 +1,217 @@
+{
+  "analytics_identifier": "CO1134",
+  "base_path": "/courts-tribunals/employment-appeal-tribunal",
+  "content_id": "caeb418c-d11c-4352-92e9-47b21289f696",
+  "document_type": "organisation",
+  "first_published_at": "2015-05-29T12:01:59.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2020-05-01T07:57:49.000+00:00",
+  "publishing_app": "whitehall",
+  "publishing_scheduled_at": null,
+  "rendering_app": "collections",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "organisation",
+  "title": "Employment Appeal Tribunal",
+  "updated_at": "2020-05-04T08:13:14.320Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "1486-1588319869.423-10.13.4.55-540",
+  "links": {
+    "ordered_contacts": [
+      {
+        "content_id": "5036b271-1f4b-499f-bf8e-50d8927d8702",
+        "title": "General enquiries (England and Wales)",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2019-04-29T07:52:41Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": null,
+          "title": "General enquiries (England and Wales)",
+          "contact_form_links": null,
+          "post_addresses": [
+            {
+              "title": "Employment Appeal Tribunal (EAT)",
+              "street_address": "5th Floor\r\nRolls Building\r\n7 Rolls Buildings\r\nFetter Lane",
+              "locality": "London",
+              "postal_code": "EC4A 1NL",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": [
+            {
+              "title": "Employment Appeal Tribunal (EAT)",
+              "email": "londoneat@justice.gov.uk"
+            }
+          ],
+          "phone_numbers": [
+            {
+              "title": "Telephone",
+              "number": "020 7273 1041"
+            },
+            {
+              "title": "Fax",
+              "number": "01264 785 028 "
+            }
+          ]
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "286f3494-ac3b-488b-833e-b072765e4831",
+        "title": "General enquiries (Scotland)",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2019-02-27T10:38:53Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": null,
+          "title": "General enquiries (Scotland)",
+          "contact_form_links": null,
+          "post_addresses": [
+            {
+              "title": "Employment Appeal Tribunal (EAT)",
+              "street_address": "George House\r\n126 George Street",
+              "locality": "Edinburgh",
+              "postal_code": "EH2 4HH",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": [
+            {
+              "title": "Employment Appeal Tribunal (EAT)",
+              "email": "edinburgheat@justice.gov.uk"
+            }
+          ],
+          "phone_numbers": [
+            {
+              "title": "Telephone",
+              "number": "0131 225 3963"
+            },
+            {
+              "title": "Fax",
+              "number": "01264 785 030"
+            }
+          ]
+        },
+        "links": {
+        }
+      }
+    ],
+    "ordered_parent_organisations": [
+      {
+        "content_id": "6f757605-ab8f-4b62-84e4-99f79cf085c2",
+        "title": "HM Courts & Tribunals Service",
+        "locale": "en",
+        "analytics_identifier": "EA73",
+        "api_path": "/api/content/government/organisations/hm-courts-and-tribunals-service",
+        "base_path": "/government/organisations/hm-courts-and-tribunals-service",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "HM Courts &amp; <br/>Tribunals Service",
+            "crest": "single-identity"
+          },
+          "brand": "ministry-of-justice",
+          "default_news_image": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-courts-and-tribunals-service",
+        "web_url": "https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "content_id": "caeb418c-d11c-4352-92e9-47b21289f696",
+        "title": "Employment Appeal Tribunal",
+        "locale": "en",
+        "analytics_identifier": "CO1134",
+        "api_path": "/api/content/courts-tribunals/employment-appeal-tribunal",
+        "base_path": "/courts-tribunals/employment-appeal-tribunal",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "Employment Appeal Tribunal"
+          },
+          "brand": null,
+          "default_news_image": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/courts-tribunals/employment-appeal-tribunal",
+        "web_url": "https://www.gov.uk/courts-tribunals/employment-appeal-tribunal"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Employment Appeal Tribunal",
+        "public_updated_at": "2020-05-01T07:57:49Z",
+        "analytics_identifier": "CO1134",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "base_path": "/courts-tribunals/employment-appeal-tribunal",
+        "api_path": "/api/content/courts-tribunals/employment-appeal-tribunal",
+        "withdrawn": false,
+        "content_id": "caeb418c-d11c-4352-92e9-47b21289f696",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/courts-tribunals/employment-appeal-tribunal",
+        "web_url": "https://www.gov.uk/courts-tribunals/employment-appeal-tribunal",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Coronavirus (COVID-19) judicial advice and guidance We’re responsible for handling appeals against decisions made by the Employment Tribunal where a legal mistake may have been made in the case. This might be because the Employment Tribunal: got the law wrong didn’t apply the correct law didn’t follow the correct procedures and this affected the decision had no evidence to support its decision was unfairly biased towards the other party We also hear appeals and applications about decisions made by the Certification Officer and the Central Arbitration Committee. Who we are We are an independent tribunal which settles legal disputes around employment law. Tribunal information Forms and further guidance Cause list Practice direction and statements Previous decisions Complaints procedure",
+  "details": {
+    "acronym": "",
+    "alternative_format_contact_email": "",
+    "body": "<div class=\"govspeak\">\n<div class=\"call-to-action\">\n<p><a rel=\"external\" href=\"https://www.judiciary.uk/coronavirus-covid-19-advice-and-guidance/\" class=\"govuk-link\">Coronavirus (COVID-19) judicial advice and guidance</a></p>\n</div>\n\n<p>We’re responsible for handling appeals against decisions made by the Employment Tribunal where a legal mistake may have been made in the case. This might be because the Employment Tribunal:</p>\n\n<ul>\n  <li>got the law wrong</li>\n  <li>didn’t apply the correct law</li>\n  <li>didn’t follow the correct procedures and this affected the decision</li>\n  <li>had no evidence to support its decision</li>\n  <li>was unfairly biased towards the other party</li>\n</ul>\n\n<p>We also hear appeals and applications about decisions made by the Certification Officer and the Central Arbitration Committee.</p>\n\n<h2 id=\"who-we-are\">Who we are</h2>\n\n<p>We are an independent tribunal which settles legal disputes around employment law.</p>\n\n<h2 id=\"tribunal-information\">Tribunal information</h2>\n\n<ul>\n  <li><a href=\"https://www.gov.uk/government/collections/employment-appeal-tribunal-forms\" class=\"govuk-link\">Forms and further guidance</a></li>\n  <li><a rel=\"external\" href=\"http://www.employmentappeals.gov.uk/public/causelist.aspx\" class=\"govuk-link\">Cause list</a></li>\n  <li><a rel=\"external\" href=\"https://www.judiciary.gov.uk/publications/?filter_type=publication&amp;search=&amp;tax-single-subject=-1&amp;tax-single-publication-type=-1&amp;tax-single-publication-jurisdiction=998&amp;date-range-after=&amp;date-range-before=\" class=\"govuk-link\">Practice direction and statements</a></li>\n  <li><a href=\"https://www.gov.uk/employment-appeal-tribunal-decisions\" class=\"govuk-link\">Previous decisions</a></li>\n  <li><a href=\"https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure\" class=\"govuk-link\">Complaints procedure</a></li>\n</ul>\n</div>",
+    "brand": null,
+    "logo": {
+      "formatted_title": "Employment Appeal Tribunal"
+    },
+    "foi_exempt": false,
+    "ordered_corporate_information_pages": [
+      {
+        "title": "Jobs",
+        "href": "https://www.civilservicejobs.service.gov.uk/csr"
+      }
+    ],
+    "secondary_corporate_information_pages": "",
+    "ordered_featured_links": [
+      {
+        "title": "Appeal to the tribunal",
+        "href": "https://www.gov.uk/appeal-employment-appeal-tribunal"
+      }
+    ],
+    "ordered_featured_documents": [
+
+    ],
+    "ordered_promotional_features": [
+
+    ],
+    "important_board_members": 1,
+    "organisation_featuring_priority": "service",
+    "organisation_govuk_status": {
+      "status": "live",
+      "url": null,
+      "updated_at": null
+    },
+    "organisation_type": "tribunal",
+    "organisation_political": false,
+    "social_media_links": [
+
+    ]
+  }
+}

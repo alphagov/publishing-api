@@ -1,0 +1,44 @@
+{
+  "content_id": "648b0f5d-a3f7-44bb-95bc-87e0d16c69bf",
+  "public_updated_at": "2017-01-04T08:17:10+00:00",
+  "locale": "en",
+  "details": {
+    "collections": [
+      {
+        "title": "Standards",
+        "description": "Meet the standards for government services",
+        "links": [
+          {
+            "title": "The Service Standard",
+            "url": "https://www.gov.uk/service-manual/service-standard",
+            "description": "Learn about the 14 point standard that government services must meet"
+          },
+          {
+            "title": "Service Manual",
+            "url": "https://www.gov.uk/service-manual",
+            "description": "How to build a service that meets the standard: agile delivery, technology, user research, accessibility, training options and more"
+          }
+        ]
+      },
+      {
+        "title": "Buying",
+        "description": "Extra skills, people and technology to help build your service",
+        "links": [
+          {
+            "title": "Digital Marketplace",
+            "url": "https://www.gov.uk/digital-marketplace",
+            "description": "Buy cloud technology and specialist services for digital projects"
+          }
+        ]
+      }
+    ]
+  },
+  "links": {
+  },
+  "base_path": "/service-toolkit",
+  "description": "All you need to design, build and run services that meet government standards.",
+  "title": "Service Toolkit",
+  "updated_at": "2017-01-04T08:54:30+00:00",
+  "schema_name": "service_manual_service_toolkit",
+  "document_type": "service_manual_service_toolkit"
+}

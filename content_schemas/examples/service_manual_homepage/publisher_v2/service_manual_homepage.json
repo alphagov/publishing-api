@@ -1,0 +1,18 @@
+{
+  "publishing_app": "service-manual-publisher",
+  "rendering_app": "service-manual-frontend",
+  "locale": "en",
+  "details": {
+  },
+  "base_path": "/service-manual",
+  "description": "Helping government teams create and run great digital services that meet the Service Standard.",
+  "title": "Service manual",
+  "routes": [
+    {
+      "path": "/service-manual",
+      "type": "exact"
+    }
+  ],
+  "document_type": "service_manual_homepage",
+  "schema_name": "service_manual_homepage"
+}

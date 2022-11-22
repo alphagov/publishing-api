@@ -1,0 +1,227 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/guidance/prepare-a-charity-annual-return",
+  "content_id": "5fec94c4-7631-11e4-a3cb-005056011aef",
+  "description": "You must send an annual return (or update your details) every year if your charity is registered in England or Wales.",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"charity-annual-returns\">Charity annual returns</h2>\n\n<p>Over 6 million people search for and <a href=\"https://www.gov.uk/find-charity-information\">find charities’ details online</a> every year. The annual return you complete tells potential donors, funders, volunteers and beneficiaries about your charity. For example:</p>\n\n<ul>\n  <li>how people can contact your charity</li>\n  <li>what it is set up to do</li>\n  <li>how it meets its aims</li>\n  <li>how much money it makes and spends</li>\n  <li>where it operates</li>\n</ul>\n\n<p>You can find most of the information you need in your charity’s accounts and trustees’ annual report.</p>\n\n<h2 id=\"completing-annual-returns--the-law\">Completing annual returns – the law</h2>\n\n<div class=\"call-to-action\">\n<p>As a charity trustee, by law you must keep your charity’s registered details up-to-date. You need to <a href=\"https://www.gov.uk/change-your-charitys-details\">update your charity’s details</a> before you complete its annual return.</p>\n</div>\n\n<p>If your charity’s income is more than £10,000, you must complete an annual return within 10 months of the end of each financial reporting period. Charitable incorporated organisations (CIOs) must complete an annual return regardless of their income.</p>\n\n<p>If you fail to meet this legal requirement, your charity’s details will be marked ‘overdue’. This could put off potential donors, funders or volunteers.</p>\n\n<p>After 6 months the Charity Commission may remove your charity’s details altogether and consider whether further action is needed.</p>\n\n<p>If your charity is not a CIO and its income is under £10,000, complete the annual return to meet your legal obligation to keep your registered details up-to-date.</p>\n\n<h2 id=\"what-a-charity-annual-return-includes\">What a charity annual return includes</h2>\n\n<p>Your charity annual return is an online form - before you start, you’ll need:</p>\n\n<ul>\n  <li>your charity’s online services password</li>\n  <li>your registered charity number</li>\n  <li>registration numbers for any linked charities (if applicable)</li>\n</ul>\n\n<h3 id=\"financial-information\">Financial information</h3>\n\n<p>From your charity’s latest accounts, provide:</p>\n\n<ul>\n  <li>start and end dates for the financial period you’re reporting (for example 01/04/2013 to 31/03/2014)</li>\n  <li>total income and total spending for this reporting period</li>\n  <li>total spending outside England and Wales (if applicable)</li>\n</ul>\n\n<p>If your charity’s income is over £25,000, you’ll need to submit a PDF copy of its accounts – these do not need to be signed. CIOs must submit accounts regardless of their income. These accounts need to be agreed by the trustees and you should also include a PDF copy of your independent examiner or auditor’s report.</p>\n\n<p>If your charity’s income is over £25,000, you also need to send its trustees’ annual report (TAR). CIOs must submit a TAR regardless of their income.</p>\n\n<p>If your charity’s income is over £500,000, you’ll need to include extra financial information from its accounts in the form.</p>\n\n<h3 id=\"serious-incident-reports\">Serious incident reports</h3>\n\n<p>If your charity has an income of £25,000 or more, you must state if any serious incidents took place in the last year, including any that you should have reported but did not.</p>\n\n<h2 id=\"when-to-complete-your-annual-return\">When to complete your annual return</h2>\n\n<p>Complete your charity’s annual return as soon as you approve its latest accounts and trustees’ annual report.</p>\n\n<div class=\"call-to-action\">\n<p>If your charity’s income is more than £10,000, by law, you must complete an annual return within 10 months of the financial reporting period ending. All CIOs must complete an annual return regardless of their income.</p>\n</div>\n\n<p>As trustees, you’re responsible for making sure your charity’s annual return is completed on time. If you delegate this task – for example, to a member of staff – make sure they know what to do and when it is due.</p>\n\n<p>Plan ahead to make sure your charity completes its annual return on time. You should also:</p>\n\n<ul>\n  <li>\n<a href=\"https://www.gov.uk/change-your-charitys-details\">update the charity’s details</a> whenever something changes, such as a trustee being replaced</li>\n  <li>keep your charity’s password safe, particularly if the person who has it leaves the charity</li>\n  <li>arrange handover training if someone takes over responsibility for completing the annual return</li>\n  <li>arrange a trustee meeting to agree the accounts and trustees’ annual report within two months of the financial period ending</li>\n</ul>\n\n<div class=\"call-to-action\">\n<p><a href=\"https://www.gov.uk/send-charity-annual-return\">Complete your charity’s annual return now</a>.</p>\n</div>\n</div>",
+    "change_history": [
+      {
+        "note": "First published.",
+        "public_timestamp": "2013-05-23T00:00:00.000+01:00"
+      }
+    ],
+    "emphasised_organisations": [
+      "489e651f-34c8-4b34-bdd7-e13c2324cde3"
+    ],
+    "first_public_at": "2013-05-23T00:00:00.000+01:00",
+    "government": {
+      "current": false,
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government"
+    },
+    "national_applicability": {
+      "england": {
+        "applicable": true,
+        "label": "England"
+      },
+      "northern_ireland": {
+        "alternative_url": "",
+        "applicable": false,
+        "label": "Northern Ireland"
+      },
+      "scotland": {
+        "alternative_url": "",
+        "applicable": false,
+        "label": "Scotland"
+      },
+      "wales": {
+        "applicable": true,
+        "label": "Wales"
+      }
+    },
+    "political": false,
+    "related_mainstream_content": [
+
+    ],
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+        "running-charity/managing-charity",
+        "running-charity/money-accounts"
+      ]
+    }
+  },
+  "document_type": "detailed_guidance",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/guidance/prepare-a-charity-annual-return.cy",
+        "api_url": "https://www.gov.uk/api/content/guidance/prepare-a-charity-annual-return.cy",
+        "base_path": "/guidance/prepare-a-charity-annual-return.cy",
+        "content_id": "5fec94c4-7631-11e4-a3cb-005056011aef",
+        "description": "Mae'n rhaid i chi anfon ffurflen flynyddol (neu ddiweddaru eich manylion) bob blwyddyn os yw'ch elusen wedi cofrestru yng Nghymru neu Loegr.",
+        "document_type": "detailed_guidance",
+        "locale": "cy",
+        "public_updated_at": "2013-05-22T23:00:00.000+00:00",
+        "schema_name": "detailed_guide",
+        "title": "Paratoi ffurflen flynyddol elusen",
+        "web_url": "https://www.gov.uk/guidance/prepare-a-charity-annual-return.cy"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/guidance/prepare-a-charity-annual-return",
+        "api_url": "https://www.gov.uk/api/content/guidance/prepare-a-charity-annual-return",
+        "base_path": "/guidance/prepare-a-charity-annual-return",
+        "content_id": "5fec94c4-7631-11e4-a3cb-005056011aef",
+        "description": "You must send an annual return (or update your details) every year if your charity is registered in England or Wales.",
+        "document_type": "detailed_guidance",
+        "locale": "en",
+        "public_updated_at": "2013-05-22T23:00:00.000+00:00",
+        "schema_name": "detailed_guide",
+        "title": "Prepare a charity annual return",
+        "web_url": "https://www.gov.uk/guidance/prepare-a-charity-annual-return"
+      }
+    ],
+    "document_collections": [
+
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D98",
+        "api_path": "/api/content/government/organisations/charity-commission",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/charity-commission",
+        "base_path": "/government/organisations/charity-commission",
+        "content_id": "489e651f-34c8-4b34-bdd7-e13c2324cde3",
+        "description": null,
+        "details": {
+          "brand": "department-for-business-innovation-skills",
+          "logo": {
+            "crest": null,
+            "formatted_title": "Charity Commission"
+          }
+        },
+        "document_type": "placeholder_organisation",
+        "links": {
+        },
+        "locale": "en",
+        "public_updated_at": "2014-10-15T14:35:31.000+00:00",
+        "schema_name": "placeholder_organisation",
+        "title": "The Charity Commission",
+        "web_url": "https://www.gov.uk/government/organisations/charity-commission"
+      }
+    ],
+    "parent": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/topic/running-charity/managing-charity",
+        "api_url": "https://www.gov.uk/api/content/topic/running-charity/managing-charity",
+        "base_path": "/topic/running-charity/managing-charity",
+        "content_id": "cf2ab891-5bd9-4788-8254-f9444423719c",
+        "description": "List of information about Managing your charity.",
+        "document_type": "topic",
+        "locale": "en",
+        "public_updated_at": "2016-03-21T13:12:32.000+00:00",
+        "schema_name": "topic",
+        "title": "Managing your charity",
+        "web_url": "https://www.gov.uk/topic/running-charity/managing-charity"
+      }
+    ],
+    "related_guides": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/guidance/charity-commission-services-log-in-or-get-a-password",
+        "api_url": "https://www.gov.uk/api/content/guidance/charity-commission-services-log-in-or-get-a-password",
+        "base_path": "/guidance/charity-commission-services-log-in-or-get-a-password",
+        "content_id": "601aa6ca-7631-11e4-a3cb-005056011aef",
+        "description": "Start or continue your charity's annual return or registration application, plus how to get a new or replacement password.",
+        "document_type": "detailed_guidance",
+        "locale": "en",
+        "public_updated_at": "2013-03-31T23:00:00.000+00:00",
+        "schema_name": "detailed_guide",
+        "title": "Charity Commission services: log in or get a password",
+        "web_url": "https://www.gov.uk/guidance/charity-commission-services-log-in-or-get-a-password"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/guidance/prepare-a-charity-trustees-annual-report",
+        "api_url": "https://www.gov.uk/api/content/guidance/prepare-a-charity-trustees-annual-report",
+        "base_path": "/guidance/prepare-a-charity-trustees-annual-report",
+        "content_id": "5feebf0e-7631-11e4-a3cb-005056011aef",
+        "description": "What to put in your trustees' annual report, depending on your charity's income and the value of its assets.",
+        "document_type": "detailed_guidance",
+        "locale": "en",
+        "public_updated_at": "2013-05-09T23:00:00.000+00:00",
+        "schema_name": "detailed_guide",
+        "title": "Prepare a charity trustees' annual report",
+        "web_url": "https://www.gov.uk/guidance/prepare-a-charity-trustees-annual-report"
+      }
+    ],
+    "topics": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/topic/running-charity/money-accounts",
+        "api_url": "https://www.gov.uk/api/content/topic/running-charity/money-accounts",
+        "base_path": "/topic/running-charity/money-accounts",
+        "content_id": "6db5a402-5916-4820-89a6-a19c6c9e085e",
+        "description": "List of information about Charity money, tax and accounts.",
+        "document_type": "topic",
+        "locale": "en",
+        "public_updated_at": "2015-08-11T15:10:00.000+00:00",
+        "schema_name": "topic",
+        "title": "Charity money, tax and accounts",
+        "web_url": "https://www.gov.uk/topic/running-charity/money-accounts"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/topic/running-charity/managing-charity",
+        "api_url": "https://www.gov.uk/api/content/topic/running-charity/managing-charity",
+        "base_path": "/topic/running-charity/managing-charity",
+        "content_id": "cf2ab891-5bd9-4788-8254-f9444423719c",
+        "description": "List of information about Managing your charity.",
+        "document_type": "topic",
+        "locale": "en",
+        "public_updated_at": "2016-03-21T13:12:32.000+00:00",
+        "schema_name": "topic",
+        "title": "Managing your charity",
+        "web_url": "https://www.gov.uk/topic/running-charity/managing-charity"
+      }
+    ]
+  },
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2013-05-22T23:00:00.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "whitehall-frontend",
+  "schema_name": "detailed_guide",
+  "title": "Prepare a charity annual return",
+  "updated_at": "2016-06-29T08:00:38.144Z",
+  "withdrawn_notice": {
+  }
+}

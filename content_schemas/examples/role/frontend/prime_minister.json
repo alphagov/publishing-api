@@ -1,0 +1,228 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/ministers/prime-minister",
+  "content_id": "845e5811-c0f1-11e4-8223-005056011aef",
+  "document_type": "ministerial_role",
+  "first_published_at": "2011-10-11T16:11:44.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2020-09-01T15:40:54.000+00:00",
+  "publishing_app": "whitehall",
+  "publishing_scheduled_at": null,
+  "rendering_app": "collections",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "role",
+  "title": "Prime Minister",
+  "updated_at": "2021-03-01T15:58:58.375Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "16549-1598974854.417-10.13.1.4-3103",
+  "links": {
+    "role_appointments": [
+      {
+        "content_id": "614abfd2-a26b-4df9-af6c-179e0fe1d99d",
+        "title": "The Rt Hon David Cameron - Prime Minister",
+        "locale": "en",
+        "document_type": "role_appointment",
+        "public_updated_at": "2019-11-07T15:02:24Z",
+        "schema_name": "role_appointment",
+        "withdrawn": false,
+        "details": {
+          "started_on": "2010-05-12T00:00:00+01:00",
+          "ended_on": "2016-07-13T00:00:00+01:00",
+          "current": false,
+          "person_appointment_order": 1
+        },
+        "links": {
+          "person": [
+            {
+              "content_id": "8529186b-c0f1-11e4-8223-005056011aef",
+              "title": "The Rt Hon David Cameron",
+              "locale": "en",
+              "api_path": "/api/content/government/people/david-cameron",
+              "base_path": "/government/people/david-cameron",
+              "document_type": "person",
+              "public_updated_at": "2019-11-07T15:02:24Z",
+              "schema_name": "person",
+              "withdrawn": false,
+              "details": {
+                "body": "<p>David Cameron was Prime Minister from May 2010 until July 2016.</>",
+                "image": {
+                  "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/1/s465_David_Cameron.jpg",
+                  "alt_text": "The Rt Hon David Cameron"
+                }
+              },
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/government/people/david-cameron",
+              "web_url": "https://www.gov.uk/government/people/david-cameron"
+            }
+          ],
+          "role": [
+            {
+              "content_id": "845e5811-c0f1-11e4-8223-005056011aef",
+              "title": "Prime Minister",
+              "locale": "en",
+              "api_path": "/api/content/government/ministers/prime-minister",
+              "base_path": "/government/ministers/prime-minister",
+              "document_type": "ministerial_role",
+              "public_updated_at": "2020-09-01T15:40:54Z",
+              "schema_name": "role",
+              "withdrawn": false,
+              "details": {
+                "body": "<p>The Prime Minister is the leader of Her Majesty’s Government.</p>",
+                "role_payment_type": null,
+                "seniority": 0
+              },
+              "links": {
+                "ordered_parent_organisations": [
+                  {
+                    "content_id": "96ae61d6-c2a1-48cb-8e67-da9d105ae381",
+                    "title": "Cabinet Office",
+                    "locale": "en",
+                    "analytics_identifier": "D2",
+                    "api_path": "/api/content/government/organisations/cabinet-office",
+                    "base_path": "/government/organisations/cabinet-office",
+                    "document_type": "organisation",
+                    "schema_name": "organisation",
+                    "withdrawn": false,
+                    "details": {
+                      "logo": {
+                        "crest": "single-identity",
+                        "formatted_title": "Cabinet Office"
+                      },
+                      "brand": "cabinet-office",
+                      "default_news_image": {
+                        "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/148/s300_cabinet-office.jpg",
+                        "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/148/s960_cabinet-office.jpg"
+                      },
+                      "organisation_govuk_status": {
+                        "url": null,
+                        "status": "live",
+                        "updated_at": null
+                      }
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/organisations/cabinet-office",
+                    "web_url": "https://www.gov.uk/government/organisations/cabinet-office"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/government/ministers/prime-minister",
+              "web_url": "https://www.gov.uk/government/ministers/prime-minister"
+            }
+          ]
+        }
+      }
+    ],
+    "ministerial": [
+      {
+        "content_id": "324e4708-2285-40a0-b3aa-cb13af14ec5f",
+        "title": "Ministers",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers",
+        "base_path": "/government/ministers",
+        "document_type": "finder",
+        "public_updated_at": "2020-05-18T15:47:56Z",
+        "schema_name": "placeholder",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers",
+        "web_url": "https://www.gov.uk/government/ministers"
+      }
+    ],
+    "ordered_parent_organisations": [
+      {
+        "content_id": "96ae61d6-c2a1-48cb-8e67-da9d105ae381",
+        "title": "Cabinet Office",
+        "locale": "en",
+        "analytics_identifier": "D2",
+        "api_path": "/api/content/government/organisations/cabinet-office",
+        "base_path": "/government/organisations/cabinet-office",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Cabinet Office"
+          },
+          "brand": "cabinet-office",
+          "default_news_image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/148/s300_cabinet-office.jpg",
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/148/s960_cabinet-office.jpg"
+          },
+          "organisation_govuk_status": {
+            "url": null,
+            "status": "live",
+            "updated_at": null
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/cabinet-office",
+        "web_url": "https://www.gov.uk/government/organisations/cabinet-office"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "96ae61d6-c2a1-48cb-8e67-da9d105ae381",
+        "title": "Cabinet Office",
+        "locale": "en",
+        "analytics_identifier": "D2",
+        "api_path": "/api/content/government/organisations/cabinet-office",
+        "base_path": "/government/organisations/cabinet-office",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Cabinet Office"
+          },
+          "brand": "cabinet-office",
+          "default_news_image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/148/s300_cabinet-office.jpg",
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/148/s960_cabinet-office.jpg"
+          },
+          "organisation_govuk_status": {
+            "url": null,
+            "status": "live",
+            "updated_at": null
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/cabinet-office",
+        "web_url": "https://www.gov.uk/government/organisations/cabinet-office"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Prime Minister",
+        "public_updated_at": "2020-09-01T15:40:54Z",
+        "document_type": "ministerial_role",
+        "schema_name": "role",
+        "base_path": "/government/ministers/prime-minister",
+        "api_path": "/api/content/government/ministers/prime-minister",
+        "withdrawn": false,
+        "content_id": "845e5811-c0f1-11e4-8223-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/ministers/prime-minister",
+        "web_url": "https://www.gov.uk/government/ministers/prime-minister",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "The Prime Minister is the leader of Her Majesty’s Government.</p>",
+  "details": {
+    "body": "<p>The Prime Minister is the leader of Her Majesty’s Government</p>",
+    "seniority": 0,
+    "role_payment_type": null,
+    "attends_cabinet_type": null,
+    "supports_historical_accounts": true
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "title": "Cookies",
+  "base_path": "/help/cookies",
+  "description": "GOV.UK uses cookies to collect information about how users browse the site",
+  "schema_name": "help_page",
+  "document_type": "help_page",
+  "public_updated_at": "2014-12-16T12:49:50.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "routes": [
+    {
+      "path": "/help/cookies",
+      "type": "exact"
+    },
+    {
+      "path": "/help/cookies.json",
+      "type": "exact"
+    }
+  ],
+  "redirects": [
+
+  ],
+  "update_type": "minor",
+  "change_note": null,
+  "details": {
+    "body": [
+      {
+        "content_type": "text/govspeak",
+        "content": "$!GOV.UK puts small files (known as 'cookies') onto your computer to collect information about how you browse the site. $!\r\n\r\nCookies are used to: \r\n\r\n- measure how you use the website so it can be updated and improved based on your needs\r\n- remember the notifications you've seen so that we don't show them to you again\r\n\r\n^GOV.UK cookies aren’t used to identify you personally.^\r\n\r\nYou'll normally see a message on the site before we store a cookie on your computer.\r\n\r\nFind out more about [how to manage cookies.](http://www.aboutcookies.org/)\r\n \r\n##How cookies are used on GOV.UK\r\n\r\n###Measuring website usage (Google Analytics)\r\n\r\nWe use Google Analytics software to collect information about how you use GOV.UK. We do this to help make sure the site is meeting the needs of its users and to help us make improvements, eg [improving site search.](https://insidegovuk.blog.gov.uk/2015/03/26/new-tool-to-see-trending-searches/)\r\n\r\nGoogle Analytics stores information about:\r\n\r\n- the pages you visit on GOV.UK \r\n- how long you spend on each GOV.UK page \r\n- how you got to the site  \r\n- what you click on while you're visiting the site\r\n\r\nWe don't collect or store your personal information (eg your name or address) so this information can't be used to identify who you are. \r\n\r\n^We don't allow Google to use or share our analytics data.^\r\n\r\nGoogle Analytics sets the following cookies:\r\n\r\n###Universal Analytics\r\n\r\nName | Purpose | Expires\r\n-|-|-\r\n_ga | This helps us count how many people visit GOV.UK by tracking if you've visited before | 2 years\r\n_gat | Used to manage the rate at which page view requests are made | 10 minutes\r\n\r\n\r\n###Google Analytics\r\n\r\nName | Purpose | Expires\r\n-|-|-\r\n_utma | Like _ga, this lets us know if you’ve visited before, so we can count how many of our visitors are new to GOV.UK or to a certain page | 2 years\r\n_utmb | This works with _utmc to calculate the average length of time you spend on GOV.UK | 30 minutes\r\n_utmc | This works with _utmb to calculate when you close your browser | when you close your browser\r\n_utmz | This tells us how you reached GOV.UK (eg from another website or a search engine) | 6 months\r\n\r\n###GOV.UK events\r\n\r\nName | Purpose | Expires\r\n-|-|-\r\nanalytics_next_page_call | This lets us know the next page you visit on GOV.UK, so we can make journeys better | when you close your browser\r\ngovuk_contact_referrer | This lets us know the last page you visited before using the contact GOV.UK form | 1 day\r\n\r\nYou can [opt out of Google Analytics cookies.](https://tools.google.com/dlpage/gaoptout)\r\n\r\n###Our introductory message\r\n\r\nYou may see a pop-up welcome message when you first visit GOV.UK. We’ll store a cookie so that your computer knows you’ve seen it and knows not to show it again.\r\n\r\nName | Purpose | Expires\r\n-|-|-\r\nseen_cookie_message | Saves a message to let us know that you've seen our cookie message | 1 month\r\n\r\n###Your progress when applying for a licence\r\n\r\nWhen you apply for a licence using the 'apply for a licence' service, we'll set a cookie to remember your progress through the forms. These cookies don't store your personal data and are deleted once you've completed the transaction.\r\n\r\nName | Purpose | Expires\r\n-|-|-\r\nlicensing_session | Set to remember information you've entered into a form when applying for a licence | When you close your browser\r\n\r\n###YouTube videos\r\n\r\nWe use YouTube to provide videos on some pages of the site. YouTube sets cookies when you visit one of these pages.\r\n\r\nName | Purpose | Expires\r\n-|-|-\r\n_use_hitbox | This is a randomly generated number that identifies your browser | When you close your browser\r\nVISITOR_INFO1_LIVE | Lets Youtube count the views of embedded Youtube videos| 9 months\r\n\r\n###Government services\r\n\r\nMost services we link to are run by different government departments, eg HM Revenue and Customs (HMRC) or the Home Office. These services may set additional cookies and, if so, will have their own cookies policy.\r\n\r\n###Browser upgrade prompt\r\n\r\nWe log a cookie the first time you visit GOV.UK to let us know you've visited once. \r\n\r\nIf you're using an out-of-date browser the next time you visit, we'll show you a message suggesting you upgrade. \r\n\r\nWe'll also save a cookie that lets us know you don't want to see the prompt if you dismiss it.\r\n\r\nName | Purpose | Expires\r\n- | - | -\r\ngovuk_not_first_visit | Stops us prompting you to upgrade an out-of-date browser until after your first visit | 28 days\r\ngovuk_browser_upgrade_dismissed | Saves a message to let us know you've seen and dismissed the browser upgrade prompt | 28 days\r\n\r\n###Our performance survey\r\n\r\nWe select some users to take part in a performance survey. If you take part, or dismiss the survey, we'll save a cookie that lets us know you've seen the message so that we don't show it to you again.\r\n\r\nName | Purpose | Expires\r\n-|-|-\r\ngovuk_takenUserSatisfactionSurvey | Saves a message to remember if you've taken the survey or dismissed it | 4 months\r\n\r\nWe use [SurveyMonkey](http://www.surveymonkey.com/) to collect responses to the survey. If you take part, SurveyMonkey will save extra cookies to your computer to track your progress through it.\r\n\r\n\r\nName | Purpose |  \r\n- | - | -\r\nmbox, SSOE, TS5159a2 and TSd0b041, ep201, ep202, utma, utmc and utmz | We use Survey Monkey for the performance survey on GOV.UK. For more information, please see [Survey Monkey privacy information](https://www.surveymonkey.com/mp/policy/privacy-policy/) |  \r\n\r\n###Multivariate testing\r\n\r\nWe sometimes test different versions of pages with different users to see which work better. We'll save a cookie so that you consistently see the same version when browsing GOV.UK.\r\n\r\nName | Purpose | Expires\r\n- | - | -\r\nmultivariatetest_cohort_topics_menu_text | Remember which version of the page you were shown | 1 month  \r\n\r\n###HMRC web chat\r\nHMRC uses web chat to help you with problems you might have with their content and services.\r\n\r\nName | Purpose | Expires\r\n- | - | -\r\nJSESSIONID | Set to remember information you've entered during a web chat | When you close your browser\r\negofrreofferignore, egofrreofferaccept, egofrreofferreject, egofrnoreoffer, egofrcountforsession, egofroffersbeingshown, egofrservernotready, egofrreferrer, egofrsessionstarttime | Set to track information about how you interact with web chat | When you close your browser\r\n\r\n*[HMRC]: HM Revenue and Customs\r\n"
+      }
+    ],
+    "external_related_links": [
+
+    ]
+  },
+  "locale": "en"
+}

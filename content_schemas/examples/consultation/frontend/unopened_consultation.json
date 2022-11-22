@@ -1,0 +1,107 @@
+{
+  "content_id": "da8fddf3-8c8f-4eb8-ab9c-6cfd9c8f7254",
+  "base_path": "/government/consultations/gda-of-hitachi-ge-nuclear-energy-ltds-uk-advanced-boiling-water-reactor",
+  "description": "How the Environment Agency is proposing to consult with stakeholders on Hitachi-GE Nuclear Energy Ltd’s UK Advanced Boiling Water Reactor.",
+  "public_updated_at": "2016-10-31T16:04:58.000+00:00",
+  "title": "GDA of Hitachi-GE Nuclear Energy Ltd’s UK Advanced Boiling Water Reactor",
+  "updated_at": "2016-11-16T15:33:24.545Z",
+  "schema_name": "consultation",
+  "document_type": "consultation",
+  "locale": "en",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>The Environment Agency is proposing to consult with stakeholders on the generic design assessment (GDA) of Hitachi-GE Nuclear Energy Ltd’s (Hitachi-GE) UK Advanced Boiling Water Reactor (ABWR).</p><p>The consultation will be open from 12 December 2016 until 3 March 2017.</p></div>",
+    "first_public_at": "2016-10-31T16:04:58.000+00:00",
+    "opening_date": "2200-10-05T14:00:00+01:00",
+    "closing_date": "2210-10-31T17:00:00+01:00",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "topics": [
+
+      ],
+      "policies": [
+
+      ]
+    },
+    "government": {
+      "title": "2015 Conservative government",
+      "slug": "2015-conservative-government",
+      "current": true
+    },
+    "emphasised_organisations": [
+      "ebd15ade-73b2-4eaf-b1c3-43034a42eb37"
+    ],
+    "political": true
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "d4fbc1b9-d47d-4386-af04-ac909f868f92",
+        "title": "2015 Conservative government",
+        "locale": "en",
+        "api_path": "/api/content/government/2015-conservative-government",
+        "base_path": "/government/2015-conservative-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2015-05-08T00:00:00+00:00",
+          "ended_on": null,
+          "current": true
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2015-conservative-government",
+        "web_url": "https://www.gov.uk/government/2015-conservative-government"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "16628142-57b2-4611-bc03-5912785acee3",
+        "title": "Environment Agency",
+        "api_path": "/api/content/government/organisations/environment-agency",
+        "base_path": "/government/government/organisations/environment-agency",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/environment-agency",
+        "web_url": "https://www.gov.uk/government/organisations/environment-agency",
+        "locale": "en",
+        "document_type": "organisation",
+        "analytics_identifier": "EA199"
+      }
+    ],
+    "related_policies": [
+      {
+        "content_id": "5d37acc4-7631-11e4-a3cb-005056011aef",
+        "title": "Radioactive and nuclear substances and waste",
+        "base_path": "/government/policies/radioactive-and-nuclear-substances-and-waste",
+        "api_path": "/api/content/government/policies/radioactive-and-nuclear-substances-and-waste",
+        "api_url": "https://www.gov.uk/api/content/government/policies/radioactive-and-nuclear-substances-and-waste",
+        "web_url": "https://www.gov.uk/government/policies/radioactive-and-nuclear-substances-and-waste",
+        "locale": "en",
+        "document_type": "policy"
+      }
+    ],
+    "document_collections": [
+      {
+        "content_id": "60201cd6-7631-11e4-a3cb-005056011aef",
+        "title": "New nuclear power: assessing power station designs",
+        "api_path": "/api/content/government/collections/assessing-new-nuclear-power-station-designs",
+        "base_path": "/government/collections/assessing-new-nuclear-power-station-designs",
+        "api_url": "https://www.gov.uk/api/content/government/collections/assessing-new-nuclear-power-station-designs",
+        "web_url": "https://www.gov.uk/government/collections/assessing-new-nuclear-power-station-designs",
+        "locale": "en",
+        "document_type": "document_collection"
+      }
+    ],
+    "topics": [
+      {
+        "content_id": "ce0487a3-72a9-4348-acd8-0d5b41a5a724",
+        "title": "Nuclear regulation",
+        "api_path": "/api/content/topic/environmental-management/nuclear-regulation",
+        "base_path": "/topic/environmental-management/nuclear-regulation",
+        "api_url": "https://www.gov.uk/api/content/topic/environmental-management/nuclear-regulation",
+        "web_url": "https://www.gov.uk/topic/environmental-management/nuclear-regulation",
+        "locale": "en",
+        "document_type": "topic"
+      }
+    ]
+  }
+}

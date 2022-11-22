@@ -1,0 +1,65 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/highways-england/services-information",
+  "content_id": "7c6cae47-9806-4964-bb74-c67a0733b240",
+  "document_type": "services_and_information",
+  "first_published_at": "2016-11-09T15:39:23.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-11-10T12:58:31.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "whitehall-frontend",
+  "schema_name": "generic",
+  "title": "Services and information - Highways England",
+  "updated_at": "2016-11-10T12:58:32.344Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "parent": [
+      {
+        "analytics_identifier": "EA1114",
+        "api_path": "/api/content/government/organisations/highways-england",
+        "base_path": "/government/organisations/highways-england",
+        "content_id": "ddad017a-eb20-41d9-8386-56293be68aab",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-11-10T12:58:31Z",
+        "schema_name": "placeholder",
+        "title": "Highways England",
+        "details": {
+          "brand": null,
+          "logo": {
+            "formatted_title": "Highways England",
+            "crest": null
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/highways-england",
+        "web_url": "https://www.gov.uk/government/organisations/highways-england"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "content_id": "7c6cae47-9806-4964-bb74-c67a0733b240",
+        "description": null,
+        "document_type": "services_and_information",
+        "public_updated_at": "2016-11-10T12:58:31Z",
+        "schema_name": "generic",
+        "title": "Services and information - Highways England",
+        "base_path": "/government/organisations/highways-england/services-information",
+        "locale": "en",
+        "api_path": "/api/content/government/organisations/highways-england/services-information",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/highways-england/services-information",
+        "web_url": "https://www.gov.uk/government/organisations/highways-england/services-information",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "",
+  "details": {
+  }
+}
