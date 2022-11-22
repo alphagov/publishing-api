@@ -11,7 +11,7 @@ gem "gds-sso"
 gem "govspeak"
 gem "govuk_app_config"
 gem "govuk_document_types"
-gem "govuk_schemas"
+gem "govuk_schemas", github: "alphagov/govuk_schemas", ref: "configurable-schema-location"
 gem "govuk_sidekiq"
 gem "jsonnet", "~>0.4.0" #  0.5 (current latest) does not currently compile on our CI machines
 gem "json-schema", require: false
