@@ -1,6 +1,6 @@
 # GOV.UK content schemas
 
-This repo contains [JSON Schema](http://json-schema.org/) files and examples of the content that uses them on GOV.UK.
+This directory contains [JSON Schema](http://json-schema.org/) files and examples of the content that uses them on GOV.UK.
 
 The actual JSON schema files live in `dist` and are generated from [Jsonnet templates](https://jsonnet.org) in `source`. Using templates makes it easier to duplicate common blocks across multiple schemas e.g. format and URL fields. **Do not edit files in `dist` manually**, as they will be overwritten.
 
@@ -18,26 +18,12 @@ You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-do
 
 **Use GOV.UK Docker to run any commands that follow.**
 
-### Running the tests
-
-Run the full test suite and linting:
-
-```
-bundle exec rake
-```
-
-Run the tests only:
-
-```
-bundle exec rake spec
-```
-
 ### Building the schemas
 
 Use this to validate a change to the schemas, without having to run the tests.
 
 ```
-bundle exec rake build
+bundle exec rake build_schemas
 ```
 
 ### Further documentation
@@ -46,7 +32,6 @@ bundle exec rake build
 * [How to add a new content schema](docs/adding-a-new-schema.md)
 * [Working with JSON Schema keywords](docs/working-with-json-schema-keywords.md)
 * [Contract testing against govuk-content-schemas](docs/contract-testing-against-schemas.md)
-* [Running your frontend against the examples and random content (content-store not needed)](docs/running-frontend-against-examples.md)
 
 ## Licence
 
