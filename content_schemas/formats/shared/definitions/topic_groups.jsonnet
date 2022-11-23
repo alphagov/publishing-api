@@ -13,10 +13,6 @@
         name: {
           type: "string",
         },
-        description: {
-          description: "DEPRECATED",
-          type: "string",
-        },
         contents: {
           description: "DEPRECATED",
           type: "array",
