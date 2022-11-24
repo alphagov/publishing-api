@@ -173,9 +173,6 @@
       ],
       "additionalProperties": false,
       "properties": {
-        "public_updated_at": {
-          "$ref": "#/definitions/public_updated_at"
-        },
         "publish_time": {
           "type": "string",
           "format": "date-time"

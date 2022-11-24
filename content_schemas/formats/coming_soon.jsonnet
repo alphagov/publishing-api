@@ -10,9 +10,6 @@
           type: "string",
           format: "date-time",
         },
-        public_updated_at: {
-          "$ref": "#/definitions/public_updated_at",
-        },
       },
     },
   },

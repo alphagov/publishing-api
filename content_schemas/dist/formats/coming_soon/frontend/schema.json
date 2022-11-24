@@ -294,9 +294,6 @@
         "change_history": {
           "$ref": "#/definitions/change_history"
         },
-        "public_updated_at": {
-          "$ref": "#/definitions/public_updated_at"
-        },
         "publish_time": {
           "type": "string",
           "format": "date-time"
