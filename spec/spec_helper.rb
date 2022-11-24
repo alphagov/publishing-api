@@ -32,12 +32,6 @@ end
 if GovukSchemas::Schema.all.empty?
   raise <<-MESSAGE
     No schemas found
-
-    The Publishing API tests require that the govuk-content-schemas
-    are available. These are accessed through the GovukSchemas gem,
-    which defaults to looking for the govuk-content-schemas repository
-    at ../govuk-content-schemas and can be configured through the
-    GOVUK_CONTENT_SCHEMAS_PATH environment variable.
   MESSAGE
 end
 
