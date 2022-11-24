@@ -86,6 +86,11 @@ def checkGeneratedSchemasAreUpToDate(govuk) {
     }
 }
 
+boolean schemasDirChangedInBranch(branchName) {
+  noChangesToSchemasOnBranch = sh(script: "git diff --exit-code origin/main -- 'content_schemas/dist/' ${branchName} --  'content_schemas/dist/' ", returnStatus: true) == 0
+  return !noChangesToSchemasOnBranch
+}
+
 def checkSchemaDependentProjects() {
 // Run schema tests outside of 'node' definition, so that they do not block the
 // original executor while the downstream tests are being run
@@ -123,32 +128,37 @@ def checkSchemaDependentProjects() {
         'whitehall',
       ]
 
-      for (dependentApp in schemasDependentApplications) {
-        // Dummy parameter to prevent mutation of the parameter used
-        // inside the closure below. If this is not defined, all of the
-        // builds will be for the last application in the array.
-        def app = dependentApp
+      if ( schemasDirChangedInBranch(env.BRANCH_NAME) ) {
 
-        dependentBuilds[app] = {
-          start = System.currentTimeMillis()
+        for (dependentApp in schemasDependentApplications) {
+          // Dummy parameter to prevent mutation of the parameter used
+          // inside the closure below. If this is not defined, all of the
+          // builds will be for the last application in the array.
+          def app = dependentApp
 
-          build job: "/${app}/deployed-to-production",
-            parameters: [
-              [$class: 'BooleanParameterValue',
-                name: 'IS_SCHEMA_TEST',
-                value: true],
-              [$class: 'StringParameterValue',
-                name: 'SCHEMA_BRANCH',
-                value: env.BRANCH_NAME],
-              [$class: 'StringParameterValue',
-                name: 'SCHEMA_COMMIT',
-                value: env.GIT_COMMIT_HASH]
-            ], wait: false
+          dependentBuilds[app] = {
+            start = System.currentTimeMillis()
+
+            build job: "/${app}/deployed-to-production",
+              parameters: [
+                [$class: 'BooleanParameterValue',
+                  name: 'IS_SCHEMA_TEST',
+                  value: true],
+                [$class: 'StringParameterValue',
+                  name: 'SCHEMA_BRANCH',
+                  value: env.BRANCH_NAME],
+                [$class: 'StringParameterValue',
+                  name: 'SCHEMA_COMMIT',
+                  value: env.GIT_COMMIT_HASH]
+              ], wait: false
+          }
         }
-      }
 
       parallel dependentBuilds
 
+      } else {
+        echo "no changes to schemas detected, skipping dependent apps stage"
+      }
     }
 }
 
