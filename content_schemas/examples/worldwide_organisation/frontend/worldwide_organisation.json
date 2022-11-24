@@ -1,0 +1,16 @@
+{
+  "base_path": "/world/uk-embassy-in-country",
+  "content_id": "dabfe21e-e78c-46b8-9d73-c24a2a450811",
+  "document_type": "worldwide_organisation",
+  "description": "Find out about the UK's embassy in this country.",
+  "phase": "live",
+  "publishing_app": "whitehall",
+  "public_updated_at": "2022-11-24T10:03:22Z",
+  "rendering_app": "government-frontend",
+  "schema_name": "worldwide_organisation",
+  "title": "UK Embassy in Country",
+  "locale": "en",
+  "updated_at": "2022-11-24T10:03:22Z",
+  "details": {},
+  "links": {}
+}
