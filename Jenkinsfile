@@ -90,7 +90,7 @@ boolean isMyDirChanged() {
 echo "any changes detected"
 echo "${currentBuild.changeSets.length}"
 
-  noChangesToSchemasOnBranch = sh(script: "git diff origin/main -- 'content_schemas/dist/' ${env.branch_name} --  'content_schemas/dist/' --exit-code", returnStatus: true) == 0
+  noChangesToSchemasOnBranch = sh(script: "git diff origin/main -- 'content_schemas/dist/' ${env.BRANCH_NAME} --  'content_schemas/dist/' --exit-code", returnStatus: true) == 0
   echo "${noChangesToSchemasOnBranch}"
   return !noChangesToSchemasOnBranch
 }
