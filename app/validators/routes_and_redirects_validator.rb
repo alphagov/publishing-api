@@ -216,7 +216,7 @@ private
       errors.add(:redirects, "#{prefix} should not start with a hyphen") if
         subdomain.starts_with?("-")
       errors.add(:redirects, "#{prefix} contains prohibited characters") unless
-        subdomain =~ /\A[a-z0-9\-]*\z/i
+        subdomain =~ /\A[a-z0-9-]*\z/i
     end
 
     def reject_query_parameters_and_fragment(destination)
