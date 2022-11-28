@@ -767,10 +767,6 @@
               "$ref": "#/definitions/absolute_path"
             }
           },
-          "description": {
-            "description": "DEPRECATED",
-            "type": "string"
-          },
           "name": {
             "type": "string"
           }
