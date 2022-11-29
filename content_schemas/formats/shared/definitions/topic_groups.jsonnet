@@ -13,18 +13,15 @@
         name: {
           type: "string",
         },
-        description: {
-          description: "DEPRECATED",
-          type: "string",
-        },
         contents: {
+          description: "DEPRECATED",
           type: "array",
           items: {
             "$ref": "#/definitions/absolute_path",
           },
         },
         content_ids: {
-          description: "DEPRECATED",
+          description: "Ordered list of content_ids of content that is in the topic group",
           "$ref": "#/definitions/guid_list",
         },
       },
