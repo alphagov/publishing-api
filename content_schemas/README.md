@@ -28,10 +28,10 @@ bundle exec rake build_schemas
 
 ### Further documentation
 
-* [How to change an existing content schema](docs/changing-an-existing-content-schema.md)
-* [How to add a new content schema](docs/adding-a-new-schema.md)
-* [Working with JSON Schema keywords](docs/working-with-json-schema-keywords.md)
-* [Contract testing against govuk-content-schemas](docs/contract-testing-against-schemas.md)
+* [How to change an existing content schema](../docs/content_schemas/changing-an-existing-content-schema.md)
+* [How to add a new content schema](../docs/content_schemas/adding-a-new-schema.md)
+* [Working with JSON Schema keywords](../docs/content_schemas/working-with-json-schema-keywords.md)
+* [Contract testing against govuk-content-schemas](../docs/content_schemas/contract-testing-against-schemas.md)
 
 ## Licence
 
