@@ -14,14 +14,15 @@ node {
         description: "The branch of content-store to test pacts against"
       ),
     ],
-    beforeTest: {
-      govuk.setEnvar("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
-    },
+    // Run rake default tasks except for pact:verify as that is ran via
+    // a separate GitHub action.
+    overrideTestTask: { sh("bundle exec rake rubocop spec") },
     afterTest: {
       lock("publishing-api-$NODE_NAME-test") {
         govuk.setEnvar("GIT_COMMIT_HASH", govuk.getFullCommitHash())
         checkGeneratedSchemasAreUpToDate(govuk);
         checkSchemaDependentProjects();
+        govuk.setEnvar("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
         govuk.setEnvar("PACT_CONSUMER_VERSION", "branch-${env.BRANCH_NAME}");
         publishPublishingApiPactTests();
         runContentStorePactTests(govuk);
