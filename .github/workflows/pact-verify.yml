@@ -36,19 +36,12 @@ jobs:
     env:
       PACT_CONSUMER_VERSION: ${{ inputs.pact_consumer_version || 'branch-main' }}
       TEST_DATABASE_URL: postgresql://postgres@localhost/test-db
-      GOVUK_CONTENT_SCHEMAS_PATH: vendor/govuk-content-schemas
       RAILS_ENV: test
     steps:
       - uses: actions/checkout@v3
         with:
           repository: alphagov/publishing-api
           ref: ${{ inputs.commitish || github.sha }}
-      - uses: actions/checkout@v3
-        name: Clone content schemas
-        with:
-          repository: alphagov/govuk-content-schemas
-          ref: deployed-to-production
-          path: vendor/govuk-content-schemas
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
