@@ -88,7 +88,7 @@ def checkGeneratedSchemasAreUpToDate(govuk) {
 }
 
 boolean schemasDirChangedInBranch(branchName) {
-  noChangesToSchemasOnBranch = sh(script: "git diff --exit-code origin/main -- 'content_schemas/dist/' ${branchName} --  'content_schemas/dist/' ", returnStatus: true) == 0
+  noChangesToSchemasOnBranch = sh(script: "git diff --exit-code origin/main -- 'content_schemas/' ${branchName} --  'content_schemas/' ", returnStatus: true) == 0
   return !noChangesToSchemasOnBranch
 }
 
