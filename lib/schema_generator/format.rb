@@ -176,7 +176,7 @@ module SchemaGenerator
         specified_document_types = Array(document_types)
         disallowed = specified_document_types - allowed_document_types
         if disallowed.any?
-          raise InvalidFormat, "Encountered document types which are not allowed in `lib/govuk_content_schemas/allowed_document_types.yml`: #{disallowed.join(', ')}"
+          raise InvalidFormat, "Encountered document types which are not allowed in `content_schemas/allowed_document_types.yml`: #{disallowed.join(', ')}"
         end
 
         build_definition(specified_document_types)
