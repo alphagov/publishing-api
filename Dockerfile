@@ -12,7 +12,6 @@ COPY . /app
 
 FROM $base_image
 
-ENV GOVUK_CONTENT_SCHEMAS_PATH=/govuk-content-schemas
 ENV GOVUK_APP_NAME=publishing-api
 
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
