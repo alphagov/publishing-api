@@ -231,8 +231,8 @@ RSpec.describe DownstreamDiscardDraftWorker do
     end
 
     it "logs the conflict" do
-      expect(Sidekiq::Logger).to receive(:warn)
-        .with(%r{Cannot discard '/foo'})
+      expect_any_instance_of(Sidekiq::Logger).to receive(:warn).with(%r{Cannot discard '/foo'})
+
       subject.perform(arguments)
     end
   end
