@@ -42,7 +42,7 @@ The Publishing API also has [contract tests with GDS API Adapters](https://docs.
 
 ## Licence
 
-[MIT License](LICENSE)
+[MIT License](LICENCE)
 
 [content-store]: https://github.com/alphagov/content-store
 [content-store-field-documentation]: https://github.com/alphagov/content-store/blob/master/docs/content_item_fields.md
