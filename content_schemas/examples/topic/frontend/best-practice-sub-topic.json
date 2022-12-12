@@ -6384,11 +6384,6 @@
     "groups": [
       {
         "name": "Getting started",
-        "contents": [
-          "/corporation-tax",
-          "/limited-company-formation",
-          "/running-a-limited-company"
-        ],
         "content_ids": [
           "3489076b-8c47-42ac-850d-03181891ab61",
           "f96fd362-99aa-49b7-9095-914fe762bf16",
@@ -6397,11 +6392,6 @@
       },
       {
         "name": "Preparing accounts for Corporation Tax",
-        "contents": [
-          "/prepare-file-annual-accounts-for-limited-company",
-          "/first-company-accounts-and-return",
-          "/corporation-tax-accounting-period"
-        ],
         "content_ids": [
           "c29da376-a38e-49c8-b93a-e1c7416987f7",
           "4f3b1755-32c1-4a8d-b0f8-30ce1ee57747",
@@ -6410,13 +6400,6 @@
       },
       {
         "name": "Working out your Corporation Tax",
-        "contents": [
-          "/corporation-tax-rates",
-          "/guidance/corporation-tax-calculating-and-claiming-a-loss",
-          "/tax-when-your-company-sells-assets",
-          "/directors-loans",
-          "/guidance/tonnage-tax-for-shipping-companies"
-        ],
         "content_ids": [
           "6124e1b7-7bc4-4e88-8c51-c8b58adbd3d2",
           "a37b1391-cbe2-4c91-8763-6262aaecabf7",
@@ -6427,19 +6410,6 @@
       },
       {
         "name": "Reliefs",
-        "contents": [
-          "/guidance/corporation-tax-making-a-claim-or-election",
-          "/guidance/corporation-tax-marginal-relief",
-          "/marginal-relief-calculator",
-          "/capital-allowances",
-          "/guidance/corporation-tax-research-and-development-rd-relief",
-          "/guidance/corporation-tax-creative-industry-tax-reliefs",
-          "/guidance/corporation-tax-the-patent-box",
-          "/guidance/corporation-tax-disincorporation-relief",
-          "/charities-and-tax",
-          "/tax-relief-cascs",
-          "/tax-limited-company-gives-to-charity"
-        ],
         "content_ids": [
           "542849d1-76d7-4cab-bb6e-af4a9b4fea71",
           "de9283f6-a7fe-4972-bf1b-4c7a0cb290c3",
@@ -6456,13 +6426,6 @@
       },
       {
         "name": "Payments and refunds",
-        "contents": [
-          "/pay-corporation-tax",
-          "/get-refund-interest-corporation-tax",
-          "/guidance/corporation-tax-interest-charges",
-          "/guidance/corporation-tax-group-payment-arrangements",
-          "/guidance/corporation-tax-paying-in-instalments"
-        ],
         "content_ids": [
           "857d8f26-4bca-4a83-9421-8277b1dc3e60",
           "46a7ff86-cd81-4f54-9a3c-14b6ee6eed4b",
@@ -6473,14 +6436,6 @@
       },
       {
         "name": "Filing your return",
-        "contents": [
-          "/file-your-company-accounts-and-tax-return",
-          "/prepare-file-annual-accounts-for-limited-company",
-          "/guidance/corporation-tax-use-hmrcs-free-filing-software",
-          "/government/publications/corporation-tax-change-adobe-reader-settings",
-          "/government/publications/corporation-tax-sample-accounts-and-computation-templates",
-          "/guidance/corporation-tax-penalties"
-        ],
         "content_ids": [
           "930ecca2-3848-4e13-adb6-ef4ec568ba65",
           "6972c8f9-569f-4ec5-81b3-911def035c20",
@@ -6492,11 +6447,6 @@
       },
       {
         "name": "Changes to your company",
-        "contents": [
-          "/guidance/corporation-tax-trading-and-non-trading",
-          "/change-your-companys-year-end",
-          "/guidance/corporation-tax-selling-or-closing-your-company"
-        ],
         "content_ids": [
           "8a334878-50d0-4ad5-b814-7a0f324b8a45",
           "fc8f43f6-77b4-485c-b337-d2fcc40841b1",
@@ -6505,11 +6455,6 @@
       },
       {
         "name": "Forms and reference material",
-        "contents": [
-          "/government/collections/corporation-tax-forms",
-          "/government/collections/company-taxation-manual",
-          "/government/collections/corporation-tax-online-filing-and-electronic-payment"
-        ],
         "content_ids": [
           "5b646e40-aed9-4904-a889-88964088e9ec",
           "ecc76348-9c76-4e99-8d23-0b3474b294ee",
