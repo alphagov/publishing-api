@@ -168,7 +168,7 @@ GEM
       nokogiri (~> 1.12)
       rinku (~> 2.0)
       sanitize (~> 6)
-    govuk_app_config (4.11.0)
+    govuk_app_config (4.11.1)
       logstasher (~> 2.1)
       plek (>= 4, < 6)
       prometheus_exporter (~> 2.0)
@@ -318,7 +318,7 @@ GEM
     parslet (2.0.0)
     pg (1.4.5)
     plek (5.0.0)
-    prometheus_exporter (2.0.3)
+    prometheus_exporter (2.0.6)
       webrick
     public_suffix (5.0.1)
     puma (6.0.0)
@@ -520,7 +520,7 @@ GEM
       activerecord (>= 4.2)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.3)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   aarch64-linux
