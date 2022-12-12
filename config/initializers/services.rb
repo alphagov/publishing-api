@@ -38,7 +38,8 @@ PublishingAPI.register_service(
 rabbitmq_config = if ENV["DISABLE_QUEUE_PUBLISHER"] || (Rails.env.test? && ENV["ENABLE_QUEUE_IN_TEST_MODE"].blank?)
                     { noop: true }
                   elsif ENV["RABBITMQ_URL"]
-                    { exchange: ENV.fetch("RABBITMQ_EXCHANGE", "published_documents") }
+                    { exchange: ENV.fetch("RABBITMQ_EXCHANGE", "published_documents"),
+                      vhost: "/" }
                   else
                     Rails.application.config_for(:rabbitmq).symbolize_keys
                   end
