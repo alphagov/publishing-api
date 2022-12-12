@@ -142,7 +142,7 @@ GEM
     filelock (1.1.1)
     find_a_port (1.0.1)
     fuzzy_match (2.1.0)
-    gds-api-adapters (84.0.0)
+    gds-api-adapters (85.0.0)
       addressable
       link_header
       null_logger
@@ -320,7 +320,7 @@ GEM
     plek (5.0.0)
     prometheus_exporter (2.0.3)
       webrick
-    public_suffix (5.0.0)
+    public_suffix (5.0.1)
     puma (6.0.0)
       nio4r (~> 2.0)
     racc (1.6.1)
