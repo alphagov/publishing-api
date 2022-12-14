@@ -48,6 +48,9 @@
         "$ref": "#/definitions/international_development_fund_metadata",
       },
       {
+        "$ref": "#/definitions/licence_transaction_metadata",
+      },
+      {
         "$ref": "#/definitions/flood_and_coastal_erosion_risk_management_research_report",
       },
       {
@@ -2078,6 +2081,49 @@
             "more-than-1000000",
           ],
         },
+      },
+    },
+  },
+  licence_transaction_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      country: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "england",
+            "wales",
+            "scotland",
+            "northern-ireland",
+          ],
+        },
+      },
+      sector: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      activity: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      will_continue_on: {
+        "$ref": "#/definitions/will_continue_on",
+      },
+      continuation_link: {
+        type: "string",
+        format: "uri",
+      },
+      licence_identifier: {
+        type: "string",
       },
     },
   },

@@ -74,6 +74,7 @@
         "export_health_certificate",
         "flood_and_coastal_erosion_risk_management_research_report",
         "international_development_fund",
+        "licence_transaction",
         "maib_report",
         "marine_notice",
         "medical_safety_alert",
@@ -536,6 +537,9 @@
         },
         {
           "$ref": "#/definitions/international_development_fund_metadata"
+        },
+        {
+          "$ref": "#/definitions/licence_transaction_metadata"
         },
         {
           "$ref": "#/definitions/flood_and_coastal_erosion_risk_management_research_report"
@@ -2359,6 +2363,49 @@
         }
       }
     },
+    "licence_transaction_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "activity": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bulk_published": {
+          "type": "boolean"
+        },
+        "continuation_link": {
+          "type": "string",
+          "format": "uri"
+        },
+        "country": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "england",
+              "wales",
+              "scotland",
+              "northern-ireland"
+            ]
+          }
+        },
+        "licence_identifier": {
+          "type": "string"
+        },
+        "sector": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "will_continue_on": {
+          "$ref": "#/definitions/will_continue_on"
+        }
+      }
+    },
     "locale": {
       "type": "string",
       "enum": [
@@ -4149,6 +4196,10 @@
           }
         }
       }
+    },
+    "will_continue_on": {
+      "description": "Description of the website the adjoining external link will be taking the user to",
+      "type": "string"
     },
     "withdrawn_notice": {
       "type": "object",
