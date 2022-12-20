@@ -378,7 +378,7 @@
         "type": "object",
         "required": [
           "name",
-          "contents"
+          "content_ids"
         ],
         "additionalProperties": false,
         "properties": {
