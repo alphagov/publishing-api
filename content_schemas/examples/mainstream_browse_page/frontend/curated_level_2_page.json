@@ -6,11 +6,6 @@
     "groups": [
       {
         "name": "Fraud",
-        "contents": [
-          "/benefit-fraud",
-          "/national-benefit-fraud-hotline",
-          "/benefit-integrity-centres"
-        ],
         "content_ids": [
           "3489076b-8c47-42ac-850d-03181891ab61",
           "f96fd362-99aa-49b7-9095-914fe762bf16",
@@ -19,10 +14,6 @@
       },
       {
         "name": "Complaints",
-        "contents": [
-          "/complain-debt-management",
-          "/complain-independent-case-examiner"
-        ],
         "content_ids": [
           "5f559439-7631-11e4-a3cb-005056011aef",
           "8828ac41-a83a-4281-81e1-75f7ef84c731"

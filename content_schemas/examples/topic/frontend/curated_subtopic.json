@@ -6,10 +6,6 @@
     "groups": [
       {
         "name": "Oil rigs",
-        "contents": [
-          "/oil-rig-safety-requirements",
-          "/oil-rig-staffing"
-        ],
         "content_ids": [
           "23b1b97f-0efc-4a23-ae3f-ea2600c5ec8c",
           "28f6435f-9181-4df1-b603-9296ec246f17"
@@ -17,9 +13,6 @@
       },
       {
         "name": "Piping",
-        "contents": [
-          "/undersea-piping-restrictions"
-        ],
         "content_ids": [
           "f84918f1-de82-4a8e-a4c5-d65872307a4f"
         ]
