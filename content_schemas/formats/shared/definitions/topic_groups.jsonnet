@@ -7,7 +7,7 @@
       additionalProperties: false,
       required: [
         "name",
-        "contents",
+        "content_ids",
       ],
       properties: {
         name: {
