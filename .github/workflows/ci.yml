@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "Jenkinsfile"
+      - ".git**"
+  pull_request:
+
+jobs:
+  security-analysis:
+    name: Security Analysis
+    uses: alphagov/govuk-infrastructure/.github/workflows/brakeman.yml@main
+
+  lint-ruby:
+    name: Lint Ruby
+    uses: alphagov/govuk-infrastructure/.github/workflows/rubocop.yml@main
+
+  test-ruby:
+    name: Test Ruby
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Postgres
+        id: setup-postgres
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-postgres@main
+
+      - name: Setup Redis
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@main
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Initialize database
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-postgres.outputs.db-url }}
+        run: bundle exec rails db:setup
+
+      - name: Run RSpec
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-postgres.outputs.db-url }}
+        run: bundle exec rake spec
+
+  check-schemas-build:
+    name: Check content schemas are built
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Build content schemas
+        run: bundle exec rake build_schemas
+
+      - name: Check for uncommited changes
+        run: |
+          if git diff --exit-code; then
+            echo "No uncommit changes detected."
+          else
+            echo "::error title=Uncommited changes to content schemas::If these are your changes, build the content schemas and commit the changes."
+            exit 1
+          fi
+            
