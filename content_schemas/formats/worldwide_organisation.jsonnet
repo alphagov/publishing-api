@@ -25,6 +25,7 @@
           },
           description: "A set of links to corporate information pages to display for the worldwide organisation.",
         },
+        social_media_links: (import "shared/definitions/_social_media_links.jsonnet"),
       },
     },
     links: (import "shared/base_links.jsonnet") + {

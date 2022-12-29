@@ -218,45 +218,7 @@
           "description": "Determines whether content published by this organisation represents governments policies and can be eligible for history mode",
           "type": "boolean"
         },
-        social_media_links: {
-          type: "array",
-          items: {
-            type: "object",
-            additionalProperties: false,
-            required: [
-              "service_type",
-              "title",
-              "href",
-            ],
-            properties: {
-              service_type: {
-                type: "string",
-                enum: [
-                  "blog",
-                  "email",
-                  "facebook",
-                  "flickr",
-                  "foursquare",
-                  "google-plus",
-                  "instagram",
-                  "linkedin",
-                  "other",
-                  "pinterest",
-                  "twitter",
-                  "youtube",
-                ],
-              },
-              title: {
-                type: "string",
-              },
-              href: {
-                type: "string",
-                format: "uri",
-              },
-            },
-          },
-          description: "A set of links to social media profiles for the organisation.",
-        },
+        social_media_links: (import "shared/definitions/_social_media_links.jsonnet"),
         external_related_links: {
           "$ref": "#/definitions/external_related_links",
         },
