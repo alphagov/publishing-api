@@ -4,6 +4,7 @@
       type: "object",
       additionalProperties: false,
       properties: {
+        logo: (import "shared/definitions/_organisation_logo.jsonnet"),
         ordered_corporate_information_pages: {
           type: "array",
           items: {
