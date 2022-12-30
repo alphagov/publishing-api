@@ -1,5 +1,8 @@
 {
   type: "object",
+  required: [
+    "formatted_title",
+  ],
   properties: {
     formatted_title: {
       type: "string",
