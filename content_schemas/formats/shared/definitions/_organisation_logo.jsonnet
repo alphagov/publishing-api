@@ -3,6 +3,7 @@
   required: [
     "formatted_title",
   ],
+  additionalProperties: false,
   properties: {
     formatted_title: {
       type: "string",
