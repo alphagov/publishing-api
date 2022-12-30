@@ -8,10 +8,7 @@
       type: "string",
     },
     crest: {
-      type: [
-        "string",
-        "null",
-      ],
+      type: "string",
       enum: [
         "bis",
         "dit",
@@ -24,7 +21,6 @@
         "so",
         "ukaea",
         "wales",
-        null,
       ],
     },
     image: {
