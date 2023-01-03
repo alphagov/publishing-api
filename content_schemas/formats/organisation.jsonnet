@@ -39,38 +39,7 @@
           type: "boolean",
           description: "Whether the organisation is exempt from Freedom of Information requests.",
         },
-        logo: {
-          type: "object",
-          properties: {
-            formatted_title: {
-              type: "string",
-            },
-            crest: {
-              type: [
-                "string",
-                "null",
-              ],
-              enum: [
-                "bis",
-                "dit",
-                "eo",
-                "hmrc",
-                "ho",
-                "mod",
-                "portcullis",
-                "single-identity",
-                "so",
-                "ukaea",
-                "wales",
-                null,
-              ],
-            },
-            image: {
-              "$ref": "#/definitions/image",
-            },
-          },
-          description: "The organisation's logo, including the logo image and formatted name.",
-        },
+        logo: (import "shared/definitions/_organisation_logo.jsonnet"),
         ordered_corporate_information_pages: {
           type: "array",
           items: {
@@ -249,45 +218,7 @@
           "description": "Determines whether content published by this organisation represents governments policies and can be eligible for history mode",
           "type": "boolean"
         },
-        social_media_links: {
-          type: "array",
-          items: {
-            type: "object",
-            additionalProperties: false,
-            required: [
-              "service_type",
-              "title",
-              "href",
-            ],
-            properties: {
-              service_type: {
-                type: "string",
-                enum: [
-                  "blog",
-                  "email",
-                  "facebook",
-                  "flickr",
-                  "foursquare",
-                  "google-plus",
-                  "instagram",
-                  "linkedin",
-                  "other",
-                  "pinterest",
-                  "twitter",
-                  "youtube",
-                ],
-              },
-              title: {
-                type: "string",
-              },
-              href: {
-                type: "string",
-                format: "uri",
-              },
-            },
-          },
-          description: "A set of links to social media profiles for the organisation.",
-        },
+        social_media_links: (import "shared/definitions/_social_media_links.jsonnet"),
         external_related_links: {
           "$ref": "#/definitions/external_related_links",
         },

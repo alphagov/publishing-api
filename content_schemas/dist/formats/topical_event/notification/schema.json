@@ -615,7 +615,7 @@
           }
         },
         "social_media_links": {
-          "description": "A set of links to social media profiles for the topical event.",
+          "description": "A set of links to social media profiles for the object.",
           "type": "array",
           "items": {
             "type": "object",
