@@ -469,6 +469,97 @@
       "properties": {
         "change_history": {
           "$ref": "#/definitions/change_history"
+        },
+        "logo": {
+          "description": "The organisation's logo, including the logo image and formatted name.",
+          "type": "object",
+          "required": [
+            "formatted_title"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "crest": {
+              "type": "string",
+              "enum": [
+                "bis",
+                "dit",
+                "eo",
+                "hmrc",
+                "ho",
+                "mod",
+                "portcullis",
+                "single-identity",
+                "so",
+                "ukaea",
+                "wales"
+              ]
+            },
+            "formatted_title": {
+              "type": "string"
+            },
+            "image": {
+              "$ref": "#/definitions/image"
+            }
+          }
+        },
+        "ordered_corporate_information_pages": {
+          "description": "A set of links to corporate information pages to display for the worldwide organisation.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "content_id",
+              "title"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "content_id": {
+                "$ref": "#/definitions/guid"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "social_media_links": {
+          "description": "A set of links to social media profiles for the object.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "service_type",
+              "title",
+              "href"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "href": {
+                "type": "string",
+                "format": "uri"
+              },
+              "service_type": {
+                "type": "string",
+                "enum": [
+                  "blog",
+                  "email",
+                  "facebook",
+                  "flickr",
+                  "foursquare",
+                  "google-plus",
+                  "instagram",
+                  "linkedin",
+                  "other",
+                  "pinterest",
+                  "twitter",
+                  "youtube"
+                ]
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     },
@@ -613,6 +704,48 @@
     "guid": {
       "type": "string",
       "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
+    },
+    "image": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "alt_text": {
+          "type": "string"
+        },
+        "caption": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "credit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "high_resolution_url": {
+          "description": "URL to a high resolution version of the image, for use by third parties such as Twitter, Facebook or Slack. Used by the machine readable metadata component. Don't use this on user-facing web pages, as it might be very large.",
+          "type": "string",
+          "format": "uri"
+        },
+        "url": {
+          "description": "URL to the image. The image should be in a suitable resolution for display on the page.",
+          "type": "string",
+          "format": "uri"
+        }
+      }
     },
     "locale": {
       "type": "string",

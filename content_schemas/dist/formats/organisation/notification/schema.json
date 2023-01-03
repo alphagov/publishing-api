@@ -552,12 +552,13 @@
         "logo": {
           "description": "The organisation's logo, including the logo image and formatted name.",
           "type": "object",
+          "required": [
+            "formatted_title"
+          ],
+          "additionalProperties": false,
           "properties": {
             "crest": {
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": "string",
               "enum": [
                 "bis",
                 "dit",
@@ -569,8 +570,7 @@
                 "single-identity",
                 "so",
                 "ukaea",
-                "wales",
-                null
+                "wales"
               ]
             },
             "formatted_title": {
@@ -756,7 +756,7 @@
           "type": "string"
         },
         "social_media_links": {
-          "description": "A set of links to social media profiles for the organisation.",
+          "description": "A set of links to social media profiles for the object.",
           "type": "array",
           "items": {
             "type": "object",
