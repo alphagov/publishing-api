@@ -363,5 +363,110 @@
       },
     },
     description: "A set of featured documents to display.",
+  },
+  promotional_feature_item_image: {
+    items: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: [
+          "summary",
+          "double_width",
+          "image",
+        ],
+        properties: {
+          title: {
+            "$ref": "#/definitions/promotional_feature_item_title",
+          },
+          href: {
+            "$ref": "#/definitions/promotional_feature_item_href",
+          },
+          summary: {
+            "$ref": "#/definitions/promotional_feature_item_summary",
+          },
+          image: {
+            "$ref": "#/definitions/image",
+          },
+          double_width: {
+            "$ref": "#/definitions/promotional_feature_item_double_width",
+          },
+          links: {
+            "$ref": "#/definitions/promotional_feature_item_links",
+          },
+        },
+      },
+    },
+  },
+  promotional_feature_youtube: {
+    items: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: [
+          "summary",
+          "double_width",
+          "youtube_video_id",
+        ],
+        properties: {
+          title: {
+            "$ref": "#/definitions/promotional_feature_item_title",
+          },
+          href: {
+            "$ref": "#/definitions/promotional_feature_item_href",
+          },
+          summary: {
+            "$ref": "#/definitions/promotional_feature_item_summary",
+          },
+          youtube_video_id: {
+            type: "string",
+          },
+          double_width: {
+            "$ref": "#/definitions/promotional_feature_item_double_width",
+          },
+          links: {
+            "$ref": "#/definitions/promotional_feature_item_links",
+          },
+        },
+      },
+    },
+  },
+  promotional_feature_item_title: {
+    type: [
+      "string",
+      "null",
+    ],
+  },
+  promotional_feature_item_href: {
+    type: [
+      "string",
+      "null",
+    ],
+  },
+  promotional_feature_item_summary: {
+    type: "string",
+  },
+  promotional_feature_item_double_width: {
+    type: "boolean",
+  },
+  promotional_feature_item_links: {
+    type: "array",
+    items: {
+      type: "object",
+      additionalProperties: false,
+      required: [
+        "title",
+        "href",
+      ],
+      properties: {
+        title: {
+          type: "string",
+        },
+        href: {
+          type: "string",
+        },
+      },
+    },
   }
 }
