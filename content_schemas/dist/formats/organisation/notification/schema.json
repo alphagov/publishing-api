@@ -621,54 +621,14 @@
               "items": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "required": [
-                    "summary",
-                    "double_width"
-                  ],
-                  "additionalProperties": false,
-                  "properties": {
-                    "double_width": {
-                      "type": "boolean"
+                  "anyOf": [
+                    {
+                      "$ref": "#/definitions/promotional_feature_item_image"
                     },
-                    "href": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
-                    },
-                    "image": {
-                      "$ref": "#/definitions/image"
-                    },
-                    "links": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": [
-                          "title",
-                          "href"
-                        ],
-                        "additionalProperties": false,
-                        "properties": {
-                          "href": {
-                            "type": "string"
-                          },
-                          "title": {
-                            "type": "string"
-                          }
-                        }
-                      }
-                    },
-                    "summary": {
-                      "type": "string"
-                    },
-                    "title": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
+                    {
+                      "$ref": "#/definitions/promotional_feature_youtube"
                     }
-                  }
+                  ]
                 }
               },
               "title": {
@@ -1152,6 +1112,111 @@
     "payload_version": {
       "description": "Counter to indicate when the payload was generated",
       "type": "integer"
+    },
+    "promotional_feature_item_double_width": {
+      "type": "boolean"
+    },
+    "promotional_feature_item_href": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "promotional_feature_item_image": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "summary",
+            "double_width",
+            "image"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "double_width": {
+              "$ref": "#/definitions/promotional_feature_item_double_width"
+            },
+            "href": {
+              "$ref": "#/definitions/promotional_feature_item_href"
+            },
+            "image": {
+              "$ref": "#/definitions/image"
+            },
+            "links": {
+              "$ref": "#/definitions/promotional_feature_item_links"
+            },
+            "summary": {
+              "$ref": "#/definitions/promotional_feature_item_summary"
+            },
+            "title": {
+              "$ref": "#/definitions/promotional_feature_item_title"
+            }
+          }
+        }
+      }
+    },
+    "promotional_feature_item_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "title",
+          "href"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "href": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "promotional_feature_item_summary": {
+      "type": "string"
+    },
+    "promotional_feature_item_title": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "promotional_feature_youtube": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "summary",
+            "double_width",
+            "youtube_video_id"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "double_width": {
+              "$ref": "#/definitions/promotional_feature_item_double_width"
+            },
+            "href": {
+              "$ref": "#/definitions/promotional_feature_item_href"
+            },
+            "links": {
+              "$ref": "#/definitions/promotional_feature_item_links"
+            },
+            "summary": {
+              "$ref": "#/definitions/promotional_feature_item_summary"
+            },
+            "title": {
+              "$ref": "#/definitions/promotional_feature_item_title"
+            },
+            "youtube_video_id": {
+              "type": "string"
+            }
+          }
+        }
+      }
     },
     "public_updated_at": {
       "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
