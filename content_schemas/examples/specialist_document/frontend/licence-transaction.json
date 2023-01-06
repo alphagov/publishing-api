@@ -8,14 +8,14 @@
     "body": "<h2 id=\"statutory-timetable\">Statutory timetable</h2>\n\n<table>\n <thead>\n <tr>\n <th>Phase 1 date</th>\n <th>Action</th>\n </tr>\n </thead>\n <tbody>\n <tr>\n <td>7 September 2015</td>\n <td>Deadline for phase 1 decision (*)</td>\n </tr>\n <tr>\n <td>10 to 24 July 2015</td>\n <td>Invitation to comment</td>\n </tr>\n <tr>\n <td>10 July 2015</td>\n <td>Launch of merger inquiry</td>\n </tr>\n </tbody>\n</table>\n\n<p>(*) This date is the current statutory deadline by when the decision will be announced. If any change occurs, the information is refreshed as soon as practicable. However, the CMA cannot guarantee that the decision will be announced on or before this current deadline, as the deadline of a given case may change during the merger assessment process due to different reasons.</p>\n\n<h2 id=\"phase-1\">Phase 1</h2>\n\n<h3 id=\"invitation-to-comment-closes-24-july-2015\">Invitation to comment: closes 24 July 2015</h3>\n\n<p>10 July 2015: The CMA is considering whether it is or may be the case that this transaction has resulted in the creation of a relevant merger situation under the merger provisions of the Enterprise Act 2002 and, if so, whether the creation of that situation has resulted, or may be expected to result, in a substantial lessening of competition within any market or markets in the United Kingdom for goods or services.</p>\n\n<h3 id=\"launch-of-cma-merger-inquiry\">Launch of CMA merger inquiry</h3>\n\n<p>10 July 2015: The CMA announced the launch of its merger inquiry by notice to the parties.</p>\n\n<ul>\n <li><a rel=\"external\" href=\"https://assets.digital.cabinet-office.gov.uk/media/559fc1b240f0b61564000047/Richemont-Yoox-NAP_commencement_of_initial_period_notice.pdf\">Commencement of initial period notice</a> (10.7.15)</li>\n</ul>\n\n<h3 id=\"contact\">Contact</h3>\n\n<p>Please send written representations about any competition issues to:</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\nSuzanne Van Scheijen\n<br />Competition and Markets Authority \n<br />Victoria House \n<br />Southampton Row \n<br />London \n<br />WC1B 4AD\n<br />\n</p></div></div>\n\n<p><a href=\"&#109;&#097;&#105;&#108;&#116;&#111;:&#083;&#117;&#122;&#097;&#110;&#110;&#101;&#046;&#086;&#097;&#110;&#083;&#099;&#104;&#101;&#105;&#106;&#101;&#110;&#064;&#099;&#109;&#097;&#046;&#103;&#115;&#105;&#046;&#103;&#111;&#118;&#046;&#117;&#107;\">&#083;&#117;&#122;&#097;&#110;&#110;&#101;&#046;&#086;&#097;&#110;&#083;&#099;&#104;&#101;&#105;&#106;&#101;&#110;&#064;&#099;&#109;&#097;&#046;&#103;&#115;&#105;&#046;&#103;&#111;&#118;&#046;&#117;&#107;</a></p>\n",
     "metadata": {
       "bulk_published": false,
-      "location": [
+      "licence_transaction_location": [
         "england"
       ],
-      "industry": [
+      "licence_transaction_industry": [
         "licenced_nightclubs"
       ],
-      "will_continue_on": "some external government website",
-      "continuation_link": "https://www.random.gov.uk/licence"
+      "licence_transaction_will_continue_on": "some external government website",
+      "licence_transaction_continuation_link": "https://www.random.gov.uk/licence"
     },
     "max_cache_time": 10,
     "headers": [
