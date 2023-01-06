@@ -2091,7 +2091,7 @@
       bulk_published: {
         type: "boolean",
       },
-      country: {
+      location: {
         type: "array",
         items: {
           type: "string",
@@ -2103,13 +2103,7 @@
           ],
         },
       },
-      sector: {
-        type: "array",
-        items: {
-          type: "string",
-        },
-      },
-      activity: {
+      industry: {
         type: "array",
         items: {
           type: "string",
