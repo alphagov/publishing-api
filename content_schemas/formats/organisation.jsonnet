@@ -86,54 +86,10 @@
               items: {
                 type: "array",
                 items: {
-                  type: "object",
-                  additionalProperties: false,
-                  required: [
-                    "summary",
-                    "double_width",
+                  anyOf: [
+                    { "$ref": "#/definitions/promotional_feature_item_image" },
+                    { "$ref": "#/definitions/promotional_feature_youtube" },
                   ],
-                  properties: {
-                    title: {
-                      type: [
-                        "string",
-                        "null",
-                      ],
-                    },
-                    href: {
-                      type: [
-                        "string",
-                        "null",
-                      ],
-                    },
-                    summary: {
-                      type: "string",
-                    },
-                    image: {
-                      "$ref": "#/definitions/image",
-                    },
-                    double_width: {
-                      type: "boolean",
-                    },
-                    links: {
-                      type: "array",
-                      items: {
-                        type: "object",
-                        additionalProperties: false,
-                        required: [
-                          "title",
-                          "href",
-                        ],
-                        properties: {
-                          title: {
-                            type: "string",
-                          },
-                          href: {
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
                 },
               },
             },
