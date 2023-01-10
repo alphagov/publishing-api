@@ -82,7 +82,7 @@ module_function
   ORGANISATION_FIELDS = (DEFAULT_FIELDS - [:public_updated_at] + details_fields(:logo, :brand, :default_news_image, :organisation_govuk_status)).freeze
   TAXON_FIELDS = (DEFAULT_FIELDS + %i[description details phase]).freeze
   NEED_FIELDS = (DEFAULT_FIELDS + details_fields(:role, :goal, :benefit, :met_when, :justifications)).freeze
-  FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
+  FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets, :hide_from_external_crawlers)).freeze
   MINISTERIAL_ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :role_payment_type, :seniority)).freeze
   PERSON_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :image)).freeze
   PERSON_FIELDS_WITH_IMAGE = (DEFAULT_FIELDS + details_fields(:image)).freeze
