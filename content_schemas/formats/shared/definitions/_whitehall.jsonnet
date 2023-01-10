@@ -372,7 +372,6 @@
         additionalProperties: false,
         required: [
           "summary",
-          "double_width",
           "image",
         ],
         properties: {
@@ -406,7 +405,6 @@
         additionalProperties: false,
         required: [
           "summary",
-          "double_width",
           "youtube_video_id",
         ],
         properties: {
