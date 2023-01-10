@@ -5,7 +5,8 @@
 * create a branch
 * make changes to the relevant schema fragment under `formats/<format name>.jsonnet`
 * change the relevant frontend examples (or add a new example)
-* run `rake` to compile a new schema.json and test the example against the schema
+* run `rake build_schemas` to compile a new schema.json
+* run `rake` to test the example against the schema
 * commit and push
 * open a PR
 * watch the multi-build status to see if all apps are compatible with the change
