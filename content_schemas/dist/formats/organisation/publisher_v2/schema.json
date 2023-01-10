@@ -718,7 +718,6 @@
           "type": "object",
           "required": [
             "summary",
-            "double_width",
             "image"
           ],
           "additionalProperties": false,
@@ -780,7 +779,6 @@
           "type": "object",
           "required": [
             "summary",
-            "double_width",
             "youtube_video_id"
           ],
           "additionalProperties": false,

@@ -1455,7 +1455,6 @@
               "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/promotional_feature_item/image/1/Transparency.jpg",
               "alt_text": "Magnifying glass studying a graph"
             },
-            "double_width": false,
             "links": [
               {
                 "title": "Single departmental plans",
@@ -1575,7 +1574,6 @@
             "href": "",
             "summary": "The Number 10 media blog provides an opportunity to share the government’s position on a wide range of issues directly to the public.",
             "youtube_video_id": "fFmDQn9Lbl4",
-            "double_width": false,
             "links": [
               {
                 "title": "Number 10 media blog",
