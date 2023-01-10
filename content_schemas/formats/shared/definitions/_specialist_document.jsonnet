@@ -2091,7 +2091,7 @@
       bulk_published: {
         type: "boolean",
       },
-      country: {
+      licence_transaction_location: {
         type: "array",
         items: {
           type: "string",
@@ -2103,26 +2103,20 @@
           ],
         },
       },
-      sector: {
+      licence_transaction_industry: {
         type: "array",
         items: {
           type: "string",
         },
       },
-      activity: {
-        type: "array",
-        items: {
-          type: "string",
-        },
-      },
-      will_continue_on: {
+      licence_transaction_will_continue_on: {
         "$ref": "#/definitions/will_continue_on",
       },
-      continuation_link: {
+      licence_transaction_continuation_link: {
         type: "string",
         format: "uri",
       },
-      licence_identifier: {
+      licence_transaction_licence_identifier: {
         type: "string",
       },
     },
