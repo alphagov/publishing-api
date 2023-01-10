@@ -70,6 +70,10 @@
         summary: {
           "$ref": "#/definitions/finder_summary",
         },
+        hide_from_external_crawlers: {
+          description: "Ability to turn on hiding this finder from external crawlers, such as search engines, for when they contain sensitive data",
+          type: "boolean",
+        },
       },
     },
   },
