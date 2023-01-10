@@ -1,0 +1,107 @@
+name: Test Content Schemas (2)
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+    paths:
+      - "content_schemas/**"
+      - "!content_schemas/README.md"
+  pull_request:
+    paths:
+      - "content_schemas/**"
+      - "!content_schemas/README.md"
+
+jobs:
+  test-info-frontend:
+    name: Test Info Frontend
+    uses: alphagov/info-frontend/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-licence-finder:
+    name: Test Licence Finder
+    uses: alphagov/licence-finder/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-manuals-publisher:
+    name: Test Manuals Publisher
+    uses: alphagov/manuals-publisher/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-publisher:
+    name: Test Publisher
+    uses: alphagov/publisher/.github/workflows/minitest.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-search-api:
+    name: Test Search API
+    uses: alphagov/search-api/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-search-admin:
+    name: Test Search Admin
+    uses: alphagov/search-admin/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-service-manual-frontend:
+    name: Test Service Manual Frontend
+    uses: alphagov/service-manual-frontend/.github/workflows/minitest.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-service-manual-publisher:
+    name: Test Service Manual Publisher
+    uses: alphagov/service-manual-publisher/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-short-url-manager:
+    name: Test Short URL Manager
+    uses: alphagov/short-url-manager/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-smart-answers:
+    name: Test Smart Answers
+    uses: alphagov/smart-answers/.github/workflows/minitest.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-specialist-publisher:
+    name: Test Specialist Publisher
+    uses: alphagov/specialist-publisher/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-travel-advice-publisher:
+    name: Test Travel Advice Publisher
+    uses: alphagov/travel-advice-publisher/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-whitehall:
+    name: Test Whitehall
+    uses: alphagov/whitehall/.github/workflows/minitest.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+

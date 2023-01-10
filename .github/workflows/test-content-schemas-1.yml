@@ -1,0 +1,113 @@
+name: Test Content Schemas (1)
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+    paths:
+      - "content_schemas/**"
+      - "!content_schemas/README.md"
+  pull_request:
+    paths:
+      - "content_schemas/**"
+      - "!content_schemas/README.md"
+
+jobs:
+  test-collections-publisher:
+    name: Test Collections Publisher
+    uses: alphagov/collections-publisher/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-collections:
+    name: Test Collections
+    uses: alphagov/collections/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-contacts-admin:
+    name: Test Contacts Admin
+    uses: alphagov/contacts-admin/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-content-data-api:
+    name: Test Content Data API
+    uses: alphagov/content-data-api/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-content-publisher:
+    name: Test Content Publisher
+    uses: alphagov/content-publisher/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-content-store:
+    name: Test Content Store
+    uses: alphagov/content-store/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-content-tagger:
+    name: Test Content Tagger
+    uses: alphagov/content-tagger/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-email-alert-frontend:
+    name: Test Email Alert Frontend
+    uses: alphagov/email-alert-frontend/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-email-alert-service:
+    name: Test Email Alert Service
+    uses: alphagov/email-alert-service/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-feedback:
+    name: Test Feedback
+    uses: alphagov/feedback/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-finder-frontend:
+    name: Test Finder Frontend
+    uses: alphagov/finder-frontend/.github/workflows/rspec.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-frontend:
+    name: Test Frontend
+    uses: alphagov/frontend/.github/workflows/minitest.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-government-frontend:
+    name: Test Government Frontend
+    uses: alphagov/government-frontend/.github/workflows/minitest.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
+
+  test-hmrc-manuals-api:
+    name: Test HMRC Manuals API
+    uses: alphagov/hmrc-manuals-api/.github/workflows/minitest.yml@main
+    with:
+      ref: 'main'
+      publishingApiRef: ${{ github.ref }}
