@@ -1113,9 +1113,6 @@
       "description": "Counter to indicate when the payload was generated",
       "type": "integer"
     },
-    "promotional_feature_item_double_width": {
-      "type": "boolean"
-    },
     "promotional_feature_item_href": {
       "type": [
         "string",
@@ -1133,9 +1130,6 @@
           ],
           "additionalProperties": false,
           "properties": {
-            "double_width": {
-              "$ref": "#/definitions/promotional_feature_item_double_width"
-            },
             "href": {
               "$ref": "#/definitions/promotional_feature_item_href"
             },
@@ -1194,9 +1188,6 @@
           ],
           "additionalProperties": false,
           "properties": {
-            "double_width": {
-              "$ref": "#/definitions/promotional_feature_item_double_width"
-            },
             "href": {
               "$ref": "#/definitions/promotional_feature_item_href"
             },

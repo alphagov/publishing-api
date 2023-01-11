@@ -1483,7 +1483,6 @@
               "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/promotional_feature_item/image/2/BorisJohnson.jpg",
               "alt_text": "Boris Johnson"
             },
-            "double_width": false,
             "links": [
               {
                 "title": "Read his biography",
@@ -1512,7 +1511,6 @@
               "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/promotional_feature_item/image/4/Historian.jpg",
               "alt_text": "Anthony Seldon"
             },
-            "double_width": false,
             "links": [
               {
                 "title": "About the Number 10 guest historian series",
@@ -1532,7 +1530,6 @@
               "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/promotional_feature_item/image/5/No10DoorAjar-2.jpg",
               "alt_text": "The door of Number 10 Downing Street"
             },
-            "double_width": false,
             "links": [
               {
                 "title": "Learn about 10 Downing Street",
@@ -1556,7 +1553,6 @@
               "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/promotional_feature_item/image/64/m_thatcher.jpg",
               "alt_text": "Margaret Thatcher"
             },
-            "double_width": false,
             "links": [
               {
                 "title": "View all past Prime Ministers",
