@@ -428,6 +428,7 @@
             additionalProperties: false,
             required: [
               "id",
+              "alt_text",
             ],
             properties: {
               id: {
