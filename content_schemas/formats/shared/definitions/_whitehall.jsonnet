@@ -387,9 +387,6 @@
           image: {
             "$ref": "#/definitions/image",
           },
-          double_width: {
-            "$ref": "#/definitions/promotional_feature_item_double_width",
-          },
           links: {
             "$ref": "#/definitions/promotional_feature_item_links",
           },
@@ -416,9 +413,6 @@
           },
           summary: {
             "$ref": "#/definitions/promotional_feature_item_summary",
-          },
-          double_width: {
-            "$ref": "#/definitions/promotional_feature_item_double_width",
           },
           links: {
             "$ref": "#/definitions/promotional_feature_item_links",
@@ -456,9 +450,6 @@
   },
   promotional_feature_item_summary: {
     type: "string",
-  },
-  promotional_feature_item_double_width: {
-    type: "boolean",
   },
   promotional_feature_item_links: {
     type: "array",
