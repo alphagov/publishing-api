@@ -1573,7 +1573,10 @@
             "title": "",
             "href": "",
             "summary": "The Number 10 media blog provides an opportunity to share the government’s position on a wide range of issues directly to the public.",
-            "youtube_video_id": "fFmDQn9Lbl4",
+            "youtube_video": {
+              "id": "fFmDQn9Lbl4",
+              "alt_text": "Video of a cat picking the Euros winner."
+            },
             "links": [
               {
                 "title": "Number 10 media blog",

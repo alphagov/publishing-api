@@ -779,7 +779,7 @@
           "type": "object",
           "required": [
             "summary",
-            "youtube_video_id"
+            "youtube_video"
           ],
           "additionalProperties": false,
           "properties": {
@@ -798,8 +798,20 @@
             "title": {
               "$ref": "#/definitions/promotional_feature_item_title"
             },
-            "youtube_video_id": {
-              "type": "string"
+            "youtube_video": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "alt_text": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
