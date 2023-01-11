@@ -405,7 +405,7 @@
         additionalProperties: false,
         required: [
           "summary",
-          "youtube_video_id",
+          "youtube_video",
         ],
         properties: {
           title: {
@@ -417,14 +417,26 @@
           summary: {
             "$ref": "#/definitions/promotional_feature_item_summary",
           },
-          youtube_video_id: {
-            type: "string",
-          },
           double_width: {
             "$ref": "#/definitions/promotional_feature_item_double_width",
           },
           links: {
             "$ref": "#/definitions/promotional_feature_item_links",
+          },
+          youtube_video: {
+            type: "object",
+            additionalProperties: false,
+            required: [
+              "id",
+            ],
+            properties: {
+              id: {
+                type: "string",
+              },
+              alt_text: {
+                type: "string",
+              },
+            },
           },
         },
       },
