@@ -1203,7 +1203,8 @@
             "youtube_video": {
               "type": "object",
               "required": [
-                "id"
+                "id",
+                "alt_text"
               ],
               "additionalProperties": false,
               "properties": {
