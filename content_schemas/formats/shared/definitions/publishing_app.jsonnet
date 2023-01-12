@@ -10,6 +10,7 @@
       "contacts",
       "content-publisher",
       "content-tagger",
+      "contentful-listener-api",
       "email-alert-frontend",
       "external-link-tracker",
       "feedback",
