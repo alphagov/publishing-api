@@ -32,4 +32,10 @@
   update_type: {
     "$ref": "#/definitions/update_type",
   },
+  cms_entity_ids: {
+    type: "array",
+    items: {
+      type: "string",
+    },
+  },
 }
