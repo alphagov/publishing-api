@@ -35,6 +35,12 @@
         "string"
       ]
     },
+    "cms_entity_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "description": {
       "$ref": "#/definitions/description_optional"
     },
@@ -358,6 +364,7 @@
         "contacts",
         "content-publisher",
         "content-tagger",
+        "contentful-listener-api",
         "email-alert-frontend",
         "external-link-tracker",
         "feedback",

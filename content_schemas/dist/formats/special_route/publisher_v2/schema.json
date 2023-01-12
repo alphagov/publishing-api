@@ -32,13 +32,17 @@
         "string"
       ]
     },
+    "cms_entity_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "description": {
       "$ref": "#/definitions/description_optional"
     },
     "details": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {}
+      "$ref": "#/definitions/details"
     },
     "document_type": {
       "type": "string",
@@ -345,6 +349,11 @@
         }
       ]
     },
+    "details": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {}
+    },
     "first_published_at": {
       "description": "The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
       "type": "string",
@@ -448,6 +457,7 @@
         "contacts",
         "content-publisher",
         "content-tagger",
+        "contentful-listener-api",
         "email-alert-frontend",
         "external-link-tracker",
         "feedback",

@@ -53,9 +53,7 @@
       "$ref": "#/definitions/description_optional"
     },
     "details": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {}
+      "$ref": "#/definitions/details"
     },
     "document_type": {
       "type": "string",
@@ -526,6 +524,27 @@
         }
       ]
     },
+    "change_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "public_timestamp",
+          "note"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "note": {
+            "description": "A summary of the change",
+            "type": "string"
+          },
+          "public_timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
     "description_optional": {
       "anyOf": [
         {
@@ -535,6 +554,15 @@
           "type": "null"
         }
       ]
+    },
+    "details": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "change_history": {
+          "$ref": "#/definitions/change_history"
+        }
+      }
     },
     "first_published_at": {
       "description": "The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
@@ -782,6 +810,7 @@
         "contacts",
         "content-publisher",
         "content-tagger",
+        "contentful-listener-api",
         "email-alert-frontend",
         "external-link-tracker",
         "feedback",
