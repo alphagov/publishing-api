@@ -6,6 +6,9 @@ Dockerfile
 Jenkinsfile
 Procfile
 README.md
+content_schemas/*.md
+content_schemas/examples
+content_schemas/formats
 coverage
 docs
 features
