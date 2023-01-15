@@ -1,20 +1,23 @@
-ARG base_image=ghcr.io/alphagov/govuk-ruby-base:3.1.2
-ARG builder_image=ghcr.io/alphagov/govuk-ruby-builder:3.1.2
+ARG ruby_version=3.1.2
+ARG base_image=ghcr.io/alphagov/govuk-ruby-base:$ruby_version
+ARG builder_image=ghcr.io/alphagov/govuk-ruby-builder:$ruby_version
+
 
 FROM $builder_image AS builder
 
-ENV GOVUK_APP_NAME=publishing-api
-WORKDIR /app
-COPY Gemfile Gemfile.lock .ruby-version /app/
+WORKDIR $APP_HOME
+COPY Gemfile* .ruby-version ./
 RUN bundle install
-COPY . /app
+COPY . .
 
 
 FROM $base_image
 
 ENV GOVUK_APP_NAME=publishing-api
 
-COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
-COPY --from=builder /app /app/
-WORKDIR /app
-CMD ["bundle", "exec", "puma"]
+WORKDIR $APP_HOME
+COPY --from=builder $BUNDLE_PATH $BUNDLE_PATH
+COPY --from=builder $APP_HOME .
+
+USER app
+CMD ["puma"]
