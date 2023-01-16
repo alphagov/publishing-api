@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "rails", "7.0.4"
 
 gem "aws-sdk-s3"
+gem "bootsnap", require: false
 gem "bunny"
 gem "dalli"
 gem "fuzzy_match"
