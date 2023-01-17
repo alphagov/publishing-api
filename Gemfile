@@ -16,7 +16,6 @@ gem "govuk_schemas"
 gem "govuk_sidekiq"
 gem "jsonnet", "~>0.4.0" #  0.5 (current latest) does not currently compile on our CI machines
 gem "json-schema", require: false
-gem "mail", "~> 2.7.1" # TODO: remove once https://github.com/mikel/mail/issues/1489 is fixed.
 gem "oj"
 gem "pg"
 gem "plek"
