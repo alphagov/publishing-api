@@ -66,11 +66,11 @@ RSpec.describe Commands::V2::PutContent do
         .with(
           "downstream_high",
           a_hash_including(
-            :content_id,
-            :locale,
-            update_dependencies: true,
-            source_command: "put_content",
-            source_fields: [],
+            "content_id" => content_id,
+            "locale" => locale,
+            "update_dependencies" => true,
+            "source_command" => "put_content",
+            "source_fields" => [],
           ),
         )
 
@@ -82,7 +82,7 @@ RSpec.describe Commands::V2::PutContent do
 
       expect(DownstreamDraftWorker)
         .to receive(:perform_async_in_queue)
-        .with("downstream_high", a_hash_including(source_fields: %i[title]))
+        .with("downstream_high", a_hash_including("source_fields" => %w[title]))
 
       described_class.call(updated_payload)
     end
@@ -358,9 +358,9 @@ RSpec.describe Commands::V2::PutContent do
     context "field doesn't change between drafts" do
       it "doesn't update the dependencies" do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
-          .with(anything, a_hash_including(update_dependencies: true))
+          .with(anything, a_hash_including("update_dependencies" => true))
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
-          .with(anything, a_hash_including(update_dependencies: false))
+          .with(anything, a_hash_including("update_dependencies" => false))
         described_class.call(payload)
         described_class.call(payload)
       end

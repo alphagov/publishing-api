@@ -230,7 +230,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
-          a_hash_including(:content_id, :locale, update_dependencies: true),
+          a_hash_including("content_id", "locale", "update_dependencies" => true),
         )
 
       described_class.call(payload)
@@ -245,12 +245,12 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     it "sends to the downstream draft worker without updating dependencies if it hasn't changed" do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
-        .with(anything, a_hash_including(update_dependencies: true))
+        .with(anything, a_hash_including("update_dependencies" => true))
 
       described_class.call(payload)
 
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
-        .with(anything, a_hash_including(update_dependencies: false))
+        .with(anything, a_hash_including("update_dependencies" => false))
 
       described_class.call(payload)
     end
@@ -270,10 +270,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
           expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
-              a_hash_including(
-                content_id:,
-                locale:,
-              ),
+              a_hash_including("content_id", "locale" => locale),
             )
         end
 
@@ -304,10 +301,10 @@ RSpec.describe Commands::V2::PatchLinkSet do
         .with(
           "downstream_high",
           a_hash_including(
-            :content_id,
-            :locale,
-            message_queue_event_type: "links",
-            update_dependencies: true,
+            "content_id",
+            "locale",
+            "message_queue_event_type" => "links",
+            "update_dependencies" => true,
           ),
         )
 
@@ -316,12 +313,12 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     it "sends to the downstream live worker without updating dependencies if it hasn't changed" do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-        .with(anything, a_hash_including(update_dependencies: true))
+        .with(anything, a_hash_including("update_dependencies" => true))
 
       described_class.call(payload)
 
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-        .with(anything, a_hash_including(update_dependencies: false))
+        .with(anything, a_hash_including("update_dependencies" => false))
 
       described_class.call(payload)
     end
@@ -330,11 +327,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
         .with(
           "downstream_low",
-          a_hash_including(
-            :content_id,
-            :locale,
-            message_queue_event_type: "links",
-          ),
+          a_hash_including("content_id", "locale", "message_queue_event_type" => "links"),
         )
 
       described_class.call(payload.merge(bulk_publishing: true))
@@ -355,7 +348,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
-              a_hash_including(content_id:, locale:),
+              a_hash_including("content_id" => content_id, "locale" => locale),
             )
         end
 
@@ -388,13 +381,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     it "sends to downstream draft worker" do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
-        .with(
-          "downstream_high",
-          a_hash_including(
-            :content_id,
-            :locale,
-          ),
-        )
+        .with("downstream_high", a_hash_including("content_id", "locale"))
 
       described_class.call(payload)
     end
@@ -404,9 +391,9 @@ RSpec.describe Commands::V2::PatchLinkSet do
         .with(
           "downstream_high",
           a_hash_including(
-            :content_id,
-            :locale,
-            message_queue_event_type: "links",
+            "content_id",
+            "locale",
+            "message_queue_event_type" => "links",
           ),
         )
 
@@ -434,7 +421,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     it "sends link_a downstream as an orphaned content_id when replaced by link_b" do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-        .with("downstream_high", a_hash_including(orphaned_content_ids: [link_a]))
+        .with("downstream_high", a_hash_including("orphaned_content_ids" => [link_a]))
 
       described_class.call(payload)
     end

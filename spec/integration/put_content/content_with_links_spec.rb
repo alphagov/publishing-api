@@ -44,7 +44,7 @@ RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
       it "passes the old link to dependency resolution" do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
           "downstream_high",
-          a_hash_including(orphaned_content_ids: [content_id]),
+          a_hash_including("orphaned_content_ids" => [content_id]),
         )
         put "/v2/content/#{content_id}", params: payload.to_json
       end
@@ -56,7 +56,7 @@ RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
       it "passes the old link to dependency resolution" do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
           "downstream_high",
-          a_hash_including(orphaned_content_ids: [content_id]),
+          a_hash_including("orphaned_content_ids" => [content_id]),
         )
         put "/v2/content/#{content_id}", params: payload.to_json
       end

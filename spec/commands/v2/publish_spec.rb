@@ -53,7 +53,7 @@ RSpec.describe Commands::V2::Publish do
 
     it "sets the source_command to publish" do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-        .with("downstream_high", hash_including(source_command: "publish"))
+        .with("downstream_high", hash_including("source_command" => "publish"))
 
       described_class.call(payload)
     end
@@ -64,7 +64,7 @@ RSpec.describe Commands::V2::Publish do
         .with(
           "downstream_high",
           hash_including(
-            source_fields: [],
+            "source_fields" => [],
           ),
         )
 
@@ -83,7 +83,7 @@ RSpec.describe Commands::V2::Publish do
 
         it "uses the update_type from the draft edition" do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-            .with("downstream_high", hash_including(message_queue_event_type: "major"))
+            .with("downstream_high", hash_including("message_queue_event_type" => "major"))
 
           described_class.call(payload)
         end
@@ -133,10 +133,10 @@ RSpec.describe Commands::V2::Publish do
       it "updates the dependencies" do
         expect(DownstreamDraftWorker)
           .to receive(:perform_async_in_queue)
-          .with("downstream_high", a_hash_including(update_dependencies: true))
+          .with("downstream_high", a_hash_including("update_dependencies" => true))
         expect(DownstreamLiveWorker)
           .to receive(:perform_async_in_queue)
-          .with("downstream_high", a_hash_including(update_dependencies: true))
+          .with("downstream_high", a_hash_including("update_dependencies" => true))
 
         described_class.call(payload)
       end
@@ -197,11 +197,11 @@ RSpec.describe Commands::V2::Publish do
       it "updates the dependencies" do
         expect(DownstreamDraftWorker)
           .to receive(:perform_async_in_queue)
-          .with("downstream_high", a_hash_including(update_dependencies: true))
+          .with("downstream_high", a_hash_including("update_dependencies" => true))
 
         expect(DownstreamLiveWorker)
           .to receive(:perform_async_in_queue)
-          .with("downstream_high", a_hash_including(update_dependencies: true))
+          .with("downstream_high", a_hash_including("update_dependencies" => true))
 
         described_class.call(payload)
       end
@@ -212,7 +212,7 @@ RSpec.describe Commands::V2::Publish do
             .with(
               "downstream_high",
               hash_including(
-                source_fields: contain_exactly(:public_updated_at, :title),
+                "source_fields" => contain_exactly("public_updated_at", "title"),
               ),
             ),
         )
@@ -240,11 +240,11 @@ RSpec.describe Commands::V2::Publish do
       it "doesn't updates the dependencies" do
         expect(DownstreamDraftWorker)
           .to receive(:perform_async_in_queue)
-          .with("downstream_high", a_hash_including(update_dependencies: false))
+          .with("downstream_high", a_hash_including("update_dependencies" => false))
 
         expect(DownstreamLiveWorker)
           .to receive(:perform_async_in_queue)
-          .with("downstream_high", a_hash_including(update_dependencies: false))
+          .with("downstream_high", a_hash_including("update_dependencies" => false))
 
         described_class.call(payload)
       end
@@ -369,7 +369,7 @@ RSpec.describe Commands::V2::Publish do
           .to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(:content_id, :locale),
+            a_hash_including("content_id", "locale"),
           )
 
         described_class.call(payload)
@@ -544,7 +544,7 @@ RSpec.describe Commands::V2::Publish do
 
       it "sends link_a downstream as an orphaned content_id when draft item is published" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-          .with("downstream_high", a_hash_including(orphaned_content_ids: [link_a]))
+          .with("downstream_high", a_hash_including("orphaned_content_ids" => [link_a]))
 
         described_class.call(payload)
       end
@@ -565,7 +565,7 @@ RSpec.describe Commands::V2::Publish do
 
       it "sends to the draft downstream" do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
-          .with("downstream_high", a_hash_including(update_dependencies: true))
+          .with("downstream_high", a_hash_including("update_dependencies" => true))
 
         described_class.call(payload)
       end

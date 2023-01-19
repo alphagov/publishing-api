@@ -35,31 +35,31 @@ RSpec.describe Commands::V2::RepresentDownstream do
 
       it "doesn't update dependencies" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-          .with(anything, a_hash_including(update_dependencies: false))
+          .with(anything, a_hash_including("update_dependencies" => false))
           .at_least(1).times
         subject.call(Document.pluck(:content_id), with_drafts: false)
       end
 
       it "has a message_queue_event_type of 'links'" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-          .with(anything, a_hash_including(message_queue_event_type: "links"))
+          .with(anything, a_hash_including("message_queue_event_type" => "links"))
           .at_least(1).times
         subject.call(Document.pluck(:content_id), with_drafts: false)
       end
 
       it "updates for each locale" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-          .with(anything, a_hash_including(locale: "en"))
+          .with(anything, a_hash_including("locale" => "en"))
           .exactly(2).times
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-          .with(anything, a_hash_including(locale: "fr"))
+          .with(anything, a_hash_including("locale" => "fr"))
           .exactly(1).times
         subject.call(Document.pluck(:content_id), with_drafts: false)
       end
 
       it "has a source_command of 'represent_downstream'" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-          .with(anything, a_hash_including(source_command: "represent_downstream"))
+          .with(anything, a_hash_including("source_command" => "represent_downstream"))
           .at_least(1).times
         subject.call(Document.pluck(:content_id), with_drafts: false)
       end
@@ -68,7 +68,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
     context "scope" do
       it "can specify a scope" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-          .with("downstream_low", a_hash_including(:content_id, :locale))
+          .with("downstream_low", a_hash_including("content_id", "locale"))
           .exactly(2).times
         subject.call(
           Edition.with_document.where(document_type: "nonexistent-schema").pluck("documents.content_id"),
@@ -82,7 +82,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_low",
-            a_hash_including(:content_id, :locale, update_dependencies: false),
+            a_hash_including("content_id", "locale", "update_dependencies" => false),
           )
           .exactly(5).times
         subject.call(Document.pluck(:content_id), with_drafts: true)
@@ -97,7 +97,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
     context "queue optional" do
       it "can be set to use the high priority queue" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-          .with("downstream_high", a_hash_including(:content_id))
+          .with("downstream_high", a_hash_including("content_id"))
           .at_least(1).times
         subject.call(Document.pluck(:content_id), queue: DownstreamQueue::HIGH_QUEUE)
       end

@@ -5,10 +5,10 @@ class DownstreamDraftWorker
   include Sidekiq::Worker
   include PerformAsyncInQueue
 
-  sidekiq_options queue: HIGH_QUEUE,
-                  lock: :until_executing,
-                  lock_args_method: :uniq_args,
-                  on_conflict: :log
+  sidekiq_options "queue" => HIGH_QUEUE,
+                  "lock" => :until_executing,
+                  "lock_args_method" => :uniq_args,
+                  "on_conflict" => :log
 
   def self.uniq_args(args)
     [
@@ -21,7 +21,7 @@ class DownstreamDraftWorker
   end
 
   def perform(args = {})
-    assign_attributes(args.symbolize_keys)
+    assign_attributes(args)
 
     unless edition
       raise AbortWorkerError, "A downstreamable edition was not found for content_id: #{content_id} and locale: #{locale}"
@@ -59,29 +59,29 @@ private
               :source_fields
 
   def assign_attributes(attributes)
-    @content_id = attributes.fetch(:content_id)
-    @locale = attributes.fetch(:locale)
+    @content_id = attributes.fetch("content_id")
+    @locale = attributes.fetch("locale")
     @edition = Queries::GetEditionForContentStore.call(content_id, locale, include_draft: true)
     @payload_version = Event.maximum_id
-    @orphaned_content_ids = attributes.fetch(:orphaned_content_ids, [])
-    @update_dependencies = attributes.fetch(:update_dependencies, true)
+    @orphaned_content_ids = attributes.fetch("orphaned_content_ids", [])
+    @update_dependencies = attributes.fetch("update_dependencies", true)
     @dependency_resolution_source_content_id = attributes.fetch(
-      :dependency_resolution_source_content_id,
+      "dependency_resolution_source_content_id",
       nil,
     )
-    @source_command = attributes[:source_command]
-    @source_fields = attributes.fetch(:source_fields, [])
+    @source_command = attributes["source_command"]
+    @source_fields = attributes.fetch("source_fields", [])
   end
 
   def enqueue_dependencies
     DependencyResolutionWorker.perform_async(
-      content_store: Adapters::DraftContentStore,
-      content_id:,
-      locale:,
-      orphaned_content_ids:,
-      source_command:,
-      source_document_type: edition.document_type,
-      source_fields:,
+      "content_store" => "Adapters::DraftContentStore",
+      "content_id" => content_id,
+      "locale" => locale,
+      "orphaned_content_ids" => orphaned_content_ids,
+      "source_command" => source_command,
+      "source_document_type" => edition.document_type,
+      "source_fields" => source_fields,
     )
   end
 

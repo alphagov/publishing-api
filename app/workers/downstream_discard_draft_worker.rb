@@ -6,7 +6,7 @@ class DownstreamDiscardDraftWorker
   sidekiq_options queue: HIGH_QUEUE
 
   def perform(args = {})
-    assign_attributes(args.symbolize_keys)
+    assign_attributes(args)
 
     current_path = edition.try(:base_path)
     if current_path
@@ -38,23 +38,23 @@ private
               :source_document_type
 
   def assign_attributes(attributes)
-    @base_path = attributes.fetch(:base_path)
-    @content_id = attributes.fetch(:content_id)
-    @locale = attributes.fetch(:locale)
+    @base_path = attributes.fetch("base_path")
+    @content_id = attributes.fetch("content_id")
+    @locale = attributes.fetch("locale")
     @payload_version = Event.maximum_id
     @edition = Queries::GetEditionForContentStore.call(content_id, locale, include_draft: true)
-    @update_dependencies = attributes.fetch(:update_dependencies, true)
-    @source_command = attributes[:source_command]
-    @source_document_type = attributes[:source_document_type]
+    @update_dependencies = attributes.fetch("update_dependencies", true)
+    @source_command = attributes["source_command"]
+    @source_document_type = attributes["source_document_type"]
   end
 
   def enqueue_dependencies
     DependencyResolutionWorker.perform_async(
-      content_store: Adapters::DraftContentStore,
-      content_id:,
-      locale:,
-      source_command:,
-      source_document_type: edition&.document_type || source_document_type,
+      "content_store" => "Adapters::DraftContentStore",
+      "content_id" => content_id,
+      "locale" => locale,
+      "source_command" => source_command,
+      "source_document_type" => edition&.document_type || source_document_type,
     )
   end
 
