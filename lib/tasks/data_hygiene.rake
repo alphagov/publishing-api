@@ -37,4 +37,23 @@ namespace :data_hygiene do
       puts "rake 'represent_downstream:content_id[#{args[:content_id]}]'"
     end
   end
+
+  desc "Removes invalid about page drafts from world organisations that can prevent editing"
+  task remove_invalid_worldorg_drafts: :environment do
+    about_pages = Edition
+                    .where(document_type: "about", state: "draft")
+                    .select { |edition| edition.base_path =~ /\A\/world\/organisations\/[^\/]+\z/ }
+                    .map { |edition| [edition.document.content_id, edition.document.locale] }
+
+    puts "Found #{about_pages.size} invalid draft Worldwide Organisation editions to remove"
+    about_pages.each do |content_id, locale|
+      puts "Removing draft edition #{content_id}"
+      Commands::V2::DiscardDraft.call(
+        {
+          content_id:,
+          locale:,
+        },
+      )
+    end
+  end
 end
