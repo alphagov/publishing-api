@@ -19,6 +19,12 @@ jobs:
     name: Lint Ruby
     uses: alphagov/govuk-infrastructure/.github/workflows/rubocop.yml@main
 
+  run-gds-api-adapters-pact-tests:
+    name: Run GDS API Adapter Pact tests
+    uses: ./.github/workflows/pact-verify.yml
+    with:
+      ref: ${{ github.ref }}
+
   test-ruby:
     name: Test Ruby
     runs-on: ubuntu-latest
