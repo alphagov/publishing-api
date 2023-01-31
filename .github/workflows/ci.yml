@@ -51,24 +51,11 @@ jobs:
         run: bundle exec rake spec
 
       # We upload the generated pact tests so they can be used in a later action
-      - name: Create pact artifact
+      - name: Create and upload pact test artifact
         uses: actions/upload-artifact@v3
         with:
           name: pacts
           path: spec/pacts/*.json
-
-      - name: Publish Pact tests
-        # We only publish the main branch as this is the only one
-        # that automated tests pull from the pact broker. We use GitHub Action
-        # artifacts to test branches.
-        if: ${{ github.ref == 'refs/heads/main' }}
-        env:
-          PACT_BROKER_BASE_URL: https://pact-broker.cloudapps.digital
-          PACT_BROKER_USERNAME: ${{ secrets.GOVUK_PACT_BROKER_USERNAME }}
-          PACT_BROKER_PASSWORD: ${{ secrets.GOVUK_PACT_BROKER_PASSWORD }}
-          PACT_CONSUMER_VERSION: branch-${{ github.ref_name }}
-          PACT_TARGET_BRANCH: branch-${{ github.ref_name }}
-        run: bundle exec rake pact:publish:branch
 
   check-schemas-build:
     name: Check content schemas are built
@@ -97,7 +84,23 @@ jobs:
   run-content-store-pact-tests:
     name: Run Content Store Pact tests
     needs: test-ruby
-    uses: alphagov/content-store/.github/workflows/verify-pact.yml@pact-artifact
+    uses: alphagov/content-store/.github/workflows/verify-pact.yml@main
     with:
       ref: deployed-to-production
       pact_artifact: pacts
+
+  delete-pact-artifact:
+    name: Delete Pact artifact
+    needs:
+      - test-ruby
+      - run-content-store-pact-tests
+    # Run whenever test-ruby is a success regardless of run-content-store-pact-tests outcome
+    if: ${{ needs.test-ruby.result == 'success' && always() }}
+    runs-on: ubuntu-latest
+    steps:
+      # As of Jan 2023, GitHub doesn't provide a delete artifact equivalent to
+      # their upload / download ones
+      - uses: geekyeggo/delete-artifact@v2
+        with:
+          name: pacts
+
