@@ -43,6 +43,7 @@
     },
     links: (import "shared/base_links.jsonnet") + {
       person: "The person who is represented by this historic appointment",
+      ordered_related_items: "A list of related historic appointments"
     },
   },
 }
