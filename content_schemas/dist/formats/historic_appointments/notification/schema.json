@@ -121,6 +121,7 @@
         "help_page",
         "high_commissioner_role",
         "historic_appointment",
+        "historic_appointments",
         "history",
         "hmrc_manual",
         "hmrc_manual_section",
@@ -557,8 +558,41 @@
     },
     "details": {
       "type": "object",
+      "required": [
+        "appointments_without_historical_accounts"
+      ],
       "additionalProperties": false,
       "properties": {
+        "appointments_without_historical_accounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "dates_in_office": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "end_year": {
+                      "type": "integer"
+                    },
+                    "start_year": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              },
+              "image_url": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
+        },
         "change_history": {
           "$ref": "#/definitions/change_history"
         }
