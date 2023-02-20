@@ -38,6 +38,7 @@ module_function
     %i[ordered_ministers role_appointments role],
     %i[ordered_special_representatives role_appointments role],
     %i[ordered_traffic_commissioners role_appointments role],
+    %i[historical_accounts person],
   ].freeze
 
   REVERSE_LINKS = {
@@ -83,6 +84,7 @@ module_function
   TAXON_FIELDS = (DEFAULT_FIELDS + %i[description details phase]).freeze
   NEED_FIELDS = (DEFAULT_FIELDS + details_fields(:role, :goal, :benefit, :met_when, :justifications)).freeze
   FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
+  HISTORIC_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:political_party, :previous_dates_in_office))
   MINISTERIAL_ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :role_payment_type, :seniority)).freeze
   PERSON_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :image)).freeze
   PERSON_FIELDS_WITH_IMAGE = (DEFAULT_FIELDS + details_fields(:image)).freeze
@@ -149,6 +151,8 @@ module_function
       { document_type: :finder,
         link_type: :finder,
         fields: FINDER_FIELDS },
+      { document_type: :historic_appointment,
+        fields: HISTORIC_APPOINTMENT_FIELDS },
       { document_type: :mainstream_browse_page,
         fields: DEFAULT_FIELDS_AND_DESCRIPTION },
       { document_type: :person,
