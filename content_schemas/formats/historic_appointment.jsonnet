@@ -19,6 +19,7 @@
           description: "String containing the year of birth",
           type: "string"
         },
+        dates_in_office: (import "shared/definitions/_dates_in_office.jsonnet"),
         died: {
           description: "String containing the date of death",
           type: "string"
@@ -35,10 +36,6 @@
           description: "String containing the political party of the office holder",
           type: "string"
         },
-        previous_dates_in_office: {
-          description: "String containing the previous dates in office",
-          type: "string"
-        }
       },
     },
     links: (import "shared/base_links.jsonnet") + {

@@ -394,6 +394,21 @@
         "change_history": {
           "$ref": "#/definitions/change_history"
         },
+        "dates_in_office": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "end_year": {
+                "type": "integer"
+              },
+              "start_year": {
+                "type": "integer"
+              }
+            }
+          }
+        },
         "died": {
           "description": "String containing the date of death",
           "type": "string"
@@ -408,10 +423,6 @@
         },
         "political_party": {
           "description": "String containing the political party of the office holder",
-          "type": "string"
-        },
-        "previous_dates_in_office": {
-          "description": "String containing the previous dates in office",
           "type": "string"
         }
       }

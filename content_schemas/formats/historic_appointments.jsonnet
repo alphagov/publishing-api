@@ -14,17 +14,7 @@
                  title: {
                      type: "string"
                  },
-                 dates_in_office: {
-                     type: "array",
-                     items: {
-                        type: "object",
-                        additionalProperties: false,
-                        properties: {
-                            start_year: { type: "integer" },
-                            end_year: { type: "integer" },
-                        }
-                     }
-                 },
+                 dates_in_office: (import "shared/definitions/_dates_in_office.jsonnet"),
                  image_url: {
                     type: "string"
                  }
