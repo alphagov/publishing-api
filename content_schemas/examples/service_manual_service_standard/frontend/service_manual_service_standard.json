@@ -8,7 +8,7 @@
   "phase": "beta",
   "public_updated_at": "2016-06-30T13:28:52.000+00:00",
   "publishing_app": "service-manual-publisher",
-  "rendering_app": "service-manual-frontend",
+  "rendering_app": "government-frontend",
   "schema_name": "service_manual_service_standard",
   "title": "Service Standard",
   "updated_at": "2016-06-30T13:28:53.128Z",

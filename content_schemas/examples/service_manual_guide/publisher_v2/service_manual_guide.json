@@ -1,6 +1,6 @@
 {
   "publishing_app": "service-manual-publisher",
-  "rendering_app": "service-manual-frontend",
+  "rendering_app": "government-frontend",
   "locale": "en",
   "details": {
     "body": "<h2 id=\"what\">What it is, why it works and how to do it</h2>\n<p>Agile methodologies will help you and your team to build world-class, user-centred services quickly and affordably.</p>\n",
