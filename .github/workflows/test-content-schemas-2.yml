@@ -56,13 +56,6 @@ jobs:
       ref: 'main'
       publishingApiRef: ${{ github.ref }}
 
-  test-service-manual-frontend:
-    name: Test Service Manual Frontend
-    uses: alphagov/service-manual-frontend/.github/workflows/minitest.yml@main
-    with:
-      ref: 'main'
-      publishingApiRef: ${{ github.ref }}
-
   test-service-manual-publisher:
     name: Test Service Manual Publisher
     uses: alphagov/service-manual-publisher/.github/workflows/rspec.yml@main
