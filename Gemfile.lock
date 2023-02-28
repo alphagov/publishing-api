@@ -323,7 +323,7 @@ GEM
     parser (3.2.0.0)
       ast (~> 2.4.1)
     parslet (2.0.0)
-    pg (1.4.5)
+    pg (1.4.6)
     plek (5.0.0)
     prometheus_exporter (2.0.8)
       webrick
