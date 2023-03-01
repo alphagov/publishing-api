@@ -222,7 +222,8 @@
       "required": [
         "body",
         "change_history",
-        "emphasised_organisations"
+        "emphasised_organisations",
+        "roll_call_introduction"
       ],
       "additionalProperties": false,
       "properties": {
@@ -237,6 +238,9 @@
         },
         "first_public_at": {
           "$ref": "#/definitions/first_public_at"
+        },
+        "roll_call_introduction": {
+          "type": "string"
         }
       }
     },
