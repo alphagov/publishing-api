@@ -8,6 +8,7 @@
         "body",
         "change_history",
         "emphasised_organisations",
+        "roll_call_introduction"
       ],
       properties: {
         body: {
@@ -21,6 +22,9 @@
         },
         emphasised_organisations: {
           "$ref": "#/definitions/emphasised_organisations",
+        },
+        roll_call_introduction: {
+          type: "string",
         },
       },
     },
