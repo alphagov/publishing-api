@@ -1,6 +1,6 @@
 {
   "publishing_app": "service-manual-publisher",
-  "rendering_app": "service-manual-frontend",
+  "rendering_app": "government-frontend",
   "locale": "en",
   "update_type": "major",
   "base_path": "/service-manual/service-standard",

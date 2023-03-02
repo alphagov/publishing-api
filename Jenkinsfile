@@ -119,7 +119,6 @@ def checkSchemaDependentProjects() {
         'publisher',
         'search-api',
         'search-admin',
-        'service-manual-frontend',
         'service-manual-publisher',
         'short-url-manager',
         'smartanswers',
