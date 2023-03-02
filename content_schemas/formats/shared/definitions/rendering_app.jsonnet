@@ -17,7 +17,6 @@
       "info-frontend",
       "licencefinder",
       "performanceplatform-big-screen-view",
-      "rummager",
       "search-api",
       "smartanswers",
       "spotlight",
