@@ -44,6 +44,7 @@ RSpec.describe ExpansionRules do
     let(:taxon_fields) { default_fields + %i[description details phase] }
     let(:default_fields_and_description) { default_fields + %i[description] }
     let(:need_fields) { default_fields + [%i[details role], %i[details goal], %i[details benefit], %i[details met_when], %i[details justifications]] }
+    let(:fatality_notice_fields) { default_fields + [%i[details roll_call_introduction]] }
     let(:finder_fields) { default_fields + [%i[details facets]] }
     let(:historic_appointment_fields) { default_fields + [%i[details political_party], %i[details dates_in_office]] }
     let(:ministerial_role_fields) { role_fields + [%i[details seniority]] }
@@ -64,6 +65,7 @@ RSpec.describe ExpansionRules do
 
     specify { expect(rules.expansion_fields(:contact)).to eq(contact_fields) }
     specify { expect(rules.expansion_fields(:historic_appointment)).to eq(historic_appointment_fields) }
+    specify { expect(rules.expansion_fields(:fatality_notice)).to eq(fatality_notice_fields) }
     specify { expect(rules.expansion_fields(:mainstream_browse_page)).to eq(default_fields_and_description) }
     specify { expect(rules.expansion_fields(:need)).to eq(need_fields) }
     specify { expect(rules.expansion_fields(:organisation)).to eq(organisation_fields) }

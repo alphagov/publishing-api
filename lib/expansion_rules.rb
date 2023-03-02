@@ -84,6 +84,7 @@ module_function
   TAXON_FIELDS = (DEFAULT_FIELDS + %i[description details phase]).freeze
   NEED_FIELDS = (DEFAULT_FIELDS + details_fields(:role, :goal, :benefit, :met_when, :justifications)).freeze
   FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
+  FATALITY_NOTICE_FIELDS = (DEFAULT_FIELDS + details_fields(:roll_call_introduction))
   HISTORIC_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:political_party, :dates_in_office))
   MINISTERIAL_ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :role_payment_type, :seniority)).freeze
   PERSON_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :image)).freeze
@@ -148,6 +149,8 @@ module_function
         fields: TAXON_FIELDS },
       { document_type: :need,
         fields: NEED_FIELDS },
+      { document_type: :fatality_notice,
+        fields: FATALITY_NOTICE_FIELDS },
       { document_type: :finder,
         link_type: :finder,
         fields: FINDER_FIELDS },
