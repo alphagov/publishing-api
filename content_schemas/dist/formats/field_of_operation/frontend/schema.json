@@ -248,6 +248,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "fatality_notices": {
+          "description": "Fatality notices for this field of operation",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "finder": {
           "description": "Powers links from content back to finders the content is surfaced on",
           "$ref": "#/definitions/frontend_links_with_base_path"
