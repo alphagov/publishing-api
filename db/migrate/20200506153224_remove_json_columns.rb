@@ -1,4 +1,4 @@
-class RemoveJsonColumns < ActiveRecord::Migration[6.0]
+class RemoveJSONColumns < ActiveRecord::Migration[6.0]
   def up
     change_table :access_limits, bulk: true do |t|
       t.remove :temp_users, :temp_organisations
