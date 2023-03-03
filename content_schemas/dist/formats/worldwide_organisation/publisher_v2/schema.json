@@ -337,6 +337,10 @@
         }
       ]
     },
+    "body": {
+      "description": "The main content provided as HTML rendered from govspeak",
+      "type": "string"
+    },
     "description_optional": {
       "anyOf": [
         {
@@ -351,6 +355,9 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "body": {
+          "$ref": "#/definitions/body"
+        },
         "logo": {
           "description": "The organisation's logo, including the logo image and formatted name.",
           "type": "object",
