@@ -4,6 +4,14 @@ require "aws-sdk-core"
 Aws.config.update(
   logger: ::Rails.logger,
   region: ENV["S3_EXPORT_REGION"] || "eu-west-1",
-  credentials: Aws::Credentials.new(ENV["EVENT_LOG_AWS_ACCESS_ID"] || "id", ENV["EVENT_LOG_AWS_SECRET_KEY"] || "key"),
 )
+
+if ENV["EVENT_LOG_AWS_ACCESS_ID"]
+  Aws.config.update(
+    credentials: Aws::Credentials.new(
+      ENV["EVENT_LOG_AWS_ACCESS_ID"],
+      ENV["EVENT_LOG_AWS_SECRET_KEY"],
+    ),
+  )
+end
 # rubocop:enable Rails/SaveBang
