@@ -1,4 +1,4 @@
-class RenameJsonColumns < ActiveRecord::Migration[5.2]
+class RenameJSONColumns < ActiveRecord::Migration[5.2]
   def change
     change_table :access_limits, bulk: true do |t|
       t.rename :users, :old_users
