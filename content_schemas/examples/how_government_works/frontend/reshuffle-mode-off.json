@@ -1,0 +1,27 @@
+{
+  "base_path": "/government/how-government-works",
+  "content_id": "f4ee5ff5-13f2-484a-9ea3-26a769a25e9a",
+  "description": "About the government.",
+  "details": {
+    "department_counts": {
+      "ministerial_departments": 6,
+      "non_ministerial_departments": 1,
+      "agencies_and_public_bodies": 1
+    },
+    "ministerial_role_counts": {
+      "prime_minister": 1,
+      "cabinet_ministers": 2,
+      "other_ministers": 3,
+      "total_ministers": 6
+    },
+    "reshuffle_in_progress": false
+  },
+  "document_type": "how_government_works",
+  "links": {},
+  "locale": "en",
+  "public_updated_at": "2023-03-06T11:01:01+00:00",
+  "rendering_app": "whitehall-frontend",
+  "schema_name": "how_government_works",
+  "title": "How government works",
+  "updated_at": "2023-03-06T11:01:01+00:00"
+}
