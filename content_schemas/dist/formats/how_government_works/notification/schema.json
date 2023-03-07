@@ -2,17 +2,29 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "required": [
+    "analytics_identifier",
     "base_path",
     "content_id",
     "description",
     "details",
     "document_type",
+    "email_document_supertype",
+    "expanded_links",
+    "first_published_at",
+    "government_document_supertype",
+    "govuk_request_id",
     "links",
     "locale",
+    "payload_version",
+    "phase",
     "public_updated_at",
+    "publishing_app",
+    "redirects",
+    "rendering_app",
+    "routes",
     "schema_name",
     "title",
-    "updated_at"
+    "update_type"
   ],
   "additionalProperties": false,
   "properties": {
@@ -25,213 +37,35 @@
     "content_id": {
       "$ref": "#/definitions/guid"
     },
+    "content_purpose_document_supertype": {
+      "description": "DEPRECATED. Use `content_purpose_subgroup`.",
+      "type": "string"
+    },
+    "content_purpose_subgroup": {
+      "description": "Document subgroup grouping documents by purpose. Narrows down the purpose defined in content_purpose_supergroup.",
+      "type": "string"
+    },
+    "content_purpose_supergroup": {
+      "description": "Document supergroup grouping documents by a purpose",
+      "type": "string"
+    },
     "description": {
       "$ref": "#/definitions/description_optional"
     },
     "details": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {}
+      "$ref": "#/definitions/details"
     },
     "document_type": {
       "type": "string",
       "enum": [
-        "aaib_report",
-        "about",
-        "about_our_services",
-        "accessible_documents_policy",
-        "access_and_opening",
-        "ambassador_role",
-        "animal_disease_case",
-        "answer",
-        "asylum_support_decision",
-        "authored_article",
-        "board_member_role",
-        "business_finance_support_scheme",
-        "calculator",
-        "calendar",
-        "case_study",
-        "chief_professional_officer_role",
-        "chief_scientific_officer_role",
-        "chief_scientific_advisor_role",
-        "closed_consultation",
-        "cma_case",
-        "coming_soon",
-        "complaints_procedure",
-        "completed_transaction",
-        "consultation",
-        "consultation_outcome",
-        "contact",
-        "coronavirus_landing_page",
-        "corporate_report",
-        "correspondence",
-        "countryside_stewardship_grant",
-        "decision",
-        "deputy_head_of_mission_role",
-        "detailed_guidance",
-        "detailed_guide",
-        "dfid_research_output",
-        "document_collection",
-        "drcf_digital_markets_research",
-        "drug_safety_update",
-        "email_alert_signup",
-        "employment_appeal_tribunal_decision",
-        "employment_tribunal_decision",
-        "equality_and_diversity",
-        "esi_fund",
-        "export_health_certificate",
-        "external_content",
-        "facet",
-        "fatality_notice",
-        "field_of_operation",
-        "finder",
-        "finder_email_signup",
-        "flood_and_coastal_erosion_risk_management_research_report",
-        "foi_release",
-        "form",
-        "get_involved",
-        "gone",
-        "government",
-        "government_response",
-        "governor_role",
-        "guidance",
-        "guide",
-        "help_page",
-        "high_commissioner_role",
-        "historic_appointment",
-        "historic_appointments",
-        "history",
-        "hmrc_manual",
-        "hmrc_manual_section",
-        "homepage",
-        "how_government_works",
-        "html_publication",
-        "impact_assessment",
-        "imported",
-        "independent_report",
-        "international_development_fund",
-        "international_treaty",
-        "knowledge_alpha",
-        "licence",
-        "license_finder",
-        "licence_transaction",
-        "local_transaction",
-        "maib_report",
-        "mainstream_browse_page",
-        "manual",
-        "manual_section",
-        "map",
-        "marine_notice",
-        "media_enquiries",
-        "medical_safety_alert",
-        "membership",
-        "military_role",
-        "ministerial_role",
-        "ministers_index",
-        "modern_slavery_statement",
-        "national",
-        "national_statistics",
-        "national_statistics_announcement",
-        "need",
-        "news_article",
-        "news_story",
-        "notice",
-        "official",
-        "official_statistics",
-        "official_statistics_announcement",
-        "oim_project",
-        "open_consultation",
-        "oral_statement",
-        "organisation",
-        "our_energy_use",
-        "our_governance",
-        "person",
-        "personal_information_charter",
-        "petitions_and_campaigns",
-        "place",
-        "placeholder",
-        "placeholder_ministerial_role",
-        "placeholder_organisation",
-        "placeholder_person",
-        "placeholder_policy_area",
-        "placeholder_worldwide_organisation",
-        "policy_area",
-        "policy_paper",
-        "press_release",
-        "procurement",
-        "product_safety_alert_report_recall",
-        "promotional",
-        "protected_food_drink_name",
-        "publication_scheme",
-        "raib_report",
-        "recruitment",
-        "redirect",
-        "regulation",
-        "research",
-        "research_for_development_output",
-        "residential_property_tribunal_decision",
-        "role_appointment",
-        "search",
-        "service_manual_guide",
-        "service_manual_homepage",
-        "service_manual_service_standard",
-        "service_manual_service_toolkit",
-        "service_manual_topic",
-        "service_sign_in",
-        "service_standard_report",
-        "services_and_information",
-        "simple_smart_answer",
-        "smart_answer",
-        "social_media_use",
-        "special_representative_role",
-        "special_route",
-        "speech",
-        "staff_update",
-        "standard",
-        "statistical_data_set",
-        "statistics",
-        "statistics_announcement",
-        "statutory_guidance",
-        "statutory_instrument",
-        "step_by_step_nav",
-        "take_part",
-        "tax_tribunal_decision",
-        "taxon",
-        "terms_of_reference",
-        "topic",
-        "topical_event",
-        "topical_event_about_page",
-        "traffic_commissioner_regulatory_decision",
-        "traffic_commissioner_role",
-        "transaction",
-        "transparency",
-        "travel_advice",
-        "travel_advice_index",
-        "unpublishing",
-        "uk_market_conformity_assessment_body",
-        "utaac_decision",
-        "vanish",
-        "welsh_language_scheme",
-        "working_group",
-        "world_location",
-        "world_location_news",
-        "world_news_story",
-        "worldwide_office_staff_role",
-        "worldwide_organisation",
-        "written_statement"
+        "how_government_works"
       ]
     },
-    "first_published_at": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/first_published_at"
-        },
-        {
-          "type": "null"
-        }
-      ]
+    "email_document_supertype": {
+      "description": "Document supertype grouping intended to power the Whitehall finders and email subscriptions",
+      "type": "string"
     },
-    "links": {
+    "expanded_links": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -245,6 +79,10 @@
         },
         "children": {
           "description": "Link type automatically added by Publishing API",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
+        "current_prime_minister": {
+          "description": "Link to the person page for the current prime minister",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "document_collections": {
@@ -343,14 +181,99 @@
         }
       }
     },
+    "first_published_at": {
+      "$ref": "#/definitions/first_published_at"
+    },
+    "government_document_supertype": {
+      "description": "Document supertype grouping intended to power the Whitehall finders and email subscriptions",
+      "type": "string"
+    },
+    "govuk_request_id": {
+      "$ref": "#/definitions/govuk_request_id"
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "current_prime_minister": {
+          "description": "Link to the person page for the current prime minister",
+          "$ref": "#/definitions/guid_list"
+        },
+        "finder": {
+          "description": "Powers links from content back to finders the content is surfaced on",
+          "$ref": "#/definitions/guid_list"
+        },
+        "lead_organisations": {
+          "description": "DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "mainstream_browse_pages": {
+          "description": "Powers the /browse section of the site. These are known as sections in some legacy apps.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "meets_user_needs": {
+          "description": "The user needs this piece of content meets.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_related_items": {
+          "description": "Related items, can be any page on GOV.UK. Mostly used for mainstream content to power the sidebar. Ordering of the links is determined by the editor in Content Tagger.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_related_items_overrides": {
+          "description": "Related items, can be any page on GOV.UK. Overrides 'more like this' automatically generated links in the beta navigation.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "organisations": {
+          "description": "All organisations linked to this content item. This should include lead organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "original_primary_publishing_organisation": {
+          "description": "The organisation that published the original version of the page. Corresponds to the first of the 'Lead organisations' in Whitehall for the first edition, and is empty for all other publishing applications.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "parent": {
+          "description": "The parent content item.",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
+        "policy_areas": {
+          "description": "A largely deprecated tag currently only used to power email alerts.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "primary_publishing_organisation": {
+          "description": "The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
+        "suggested_ordered_related_items": {
+          "description": "New A/B test suggestions for related items. Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms included in this A/B test.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "taxons": {
+          "description": "Prototype-stage taxonomy label for this content item",
+          "$ref": "#/definitions/guid_list"
+        },
+        "topics": {
+          "description": "Powers the /topic section of the site. These are known as specialist sectors in some legacy apps.",
+          "$ref": "#/definitions/guid_list"
+        }
+      }
+    },
     "locale": {
       "$ref": "#/definitions/locale"
+    },
+    "navigation_document_supertype": {
+      "description": "Document type grouping powering the new taxonomy-based navigation pages",
+      "type": "string"
     },
     "need_ids": {
       "type": "array",
       "items": {
         "type": "string"
       }
+    },
+    "payload_version": {
+      "$ref": "#/definitions/payload_version"
     },
     "phase": {
       "description": "The service design phase of this content item - https://www.gov.uk/service-manual/phases",
@@ -362,14 +285,7 @@
       ]
     },
     "public_updated_at": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/public_updated_at"
-        },
-        {
-          "type": "null"
-        }
-      ]
+      "$ref": "#/definitions/public_updated_at"
     },
     "publishing_app": {
       "$ref": "#/definitions/publishing_app_name"
@@ -377,41 +293,40 @@
     "publishing_request_id": {
       "$ref": "#/definitions/publishing_request_id"
     },
-    "publishing_scheduled_at": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/publishing_scheduled_at"
-        },
-        {
-          "type": "null"
-        }
-      ]
+    "redirects": {
+      "type": "array",
+      "additionalItems": false,
+      "items": {}
     },
     "rendering_app": {
-      "$ref": "#/definitions/rendering_app_optional"
+      "$ref": "#/definitions/rendering_app"
     },
-    "scheduled_publishing_delay_seconds": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/scheduled_publishing_delay_seconds"
-        },
-        {
-          "type": "null"
-        }
-      ]
+    "routes": {
+      "$ref": "#/definitions/routes"
     },
     "schema_name": {
       "type": "string",
       "enum": [
-        "special_route"
+        "how_government_works"
       ]
     },
-    "title": {
-      "$ref": "#/definitions/title_optional"
+    "search_user_need_document_supertype": {
+      "description": "Document supertype grouping core and government documents",
+      "type": "string"
     },
-    "updated_at": {
-      "type": "string",
-      "format": "date-time"
+    "title": {
+      "$ref": "#/definitions/title"
+    },
+    "update_type": {
+      "$ref": "#/definitions/update_type"
+    },
+    "user_journey_document_supertype": {
+      "description": "Document type grouping powering analytics of user journeys",
+      "type": "string"
+    },
+    "user_need_document_supertype": {
+      "description": "DEPRECATED. Use `content_purpose_document_supertype`.",
+      "type": "string"
     },
     "withdrawn_notice": {
       "$ref": "#/definitions/withdrawn_notice"
@@ -437,6 +352,27 @@
         }
       ]
     },
+    "change_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "public_timestamp",
+          "note"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "note": {
+            "description": "A summary of the change",
+            "type": "string"
+          },
+          "public_timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
     "description_optional": {
       "anyOf": [
         {
@@ -446,6 +382,73 @@
           "type": "null"
         }
       ]
+    },
+    "details": {
+      "type": "object",
+      "required": [
+        "reshuffle_in_progress"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "change_history": {
+          "$ref": "#/definitions/change_history"
+        },
+        "department_counts": {
+          "description": "Number of departments by type",
+          "type": "object",
+          "required": [
+            "ministerial_departments",
+            "non_ministerial_departments",
+            "agencies_and_public_bodies"
+          ],
+          "properties": {
+            "agencies_and_public_bodies": {
+              "description": "Number of agencies and public bodies",
+              "type": "integer"
+            },
+            "ministerial_departments": {
+              "description": "Number of ministerial departments",
+              "type": "integer"
+            },
+            "non_ministerial_departments": {
+              "description": "Number of non-ministerial departments",
+              "type": "integer"
+            }
+          }
+        },
+        "ministerial_role_counts": {
+          "description": "Number of ministerial role appointments by type",
+          "type": "object",
+          "required": [
+            "prime_minister",
+            "cabinet_ministers",
+            "other_ministers",
+            "total_ministers"
+          ],
+          "properties": {
+            "cabinet_ministers": {
+              "description": "Number of current people in cabinet roles",
+              "type": "integer"
+            },
+            "other_ministers": {
+              "description": "Number of current people in non-cabinet ministerial roles",
+              "type": "integer"
+            },
+            "prime_minister": {
+              "description": "Number of current people in the prime minister role",
+              "type": "integer"
+            },
+            "total_ministers": {
+              "description": "Number of current ministers",
+              "type": "integer"
+            }
+          }
+        },
+        "reshuffle_in_progress": {
+          "description": "Boolean as to whether there is a ministerial reshuffle taking place",
+          "type": "boolean"
+        }
+      }
     },
     "first_published_at": {
       "description": "The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
@@ -585,9 +588,22 @@
         }
       }
     },
+    "govuk_request_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "guid": {
       "type": "string",
       "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
+    },
+    "guid_list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/guid"
+      },
+      "uniqueItems": true
     },
     "locale": {
       "type": "string",
@@ -660,6 +676,10 @@
         "zh-tw"
       ]
     },
+    "payload_version": {
+      "description": "Counter to indicate when the payload was generated",
+      "type": "integer"
+    },
     "public_updated_at": {
       "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
       "type": "string",
@@ -715,11 +735,6 @@
         }
       ]
     },
-    "publishing_scheduled_at": {
-      "description": "When this content was last scheduled for publishing. Determined by the publishing intent sent by the publishing API.",
-      "type": "string",
-      "format": "date-time"
-    },
     "rendering_app": {
       "description": "The application that renders this item.",
       "type": "string",
@@ -748,22 +763,41 @@
         "whitehall-frontend"
       ]
     },
-    "rendering_app_optional": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/rendering_app"
+    "route": {
+      "type": "object",
+      "required": [
+        "path",
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string"
         },
-        {
-          "type": "null"
+        "type": {
+          "enum": [
+            "prefix",
+            "exact"
+          ]
         }
-      ]
+      }
     },
-    "scheduled_publishing_delay_seconds": {
-      "description": "The delay between the most recent scheduled and actual publishing times. Determined by the content store based on the publishing intent.",
-      "type": "integer"
+    "routes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/route"
+      },
+      "minItems": 1
     },
-    "title_optional": {
+    "title": {
       "type": "string"
+    },
+    "update_type": {
+      "enum": [
+        "major",
+        "minor",
+        "republish"
+      ]
     },
     "withdrawn_notice": {
       "type": "object",
