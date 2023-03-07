@@ -497,9 +497,6 @@
               "image": {
                 "$ref": "#/definitions/image"
               },
-              "image_url": {
-                "type": "string"
-              },
               "title": {
                 "type": "string"
               }
