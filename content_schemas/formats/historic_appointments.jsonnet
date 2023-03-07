@@ -1,5 +1,5 @@
 (import "shared/default_format.jsonnet") + {
-  definitions: {
+  definitions: (import "shared/definitions/_whitehall.jsonnet") + {
     details: {
       type: "object",
       additionalProperties: false,
@@ -17,7 +17,10 @@
                  dates_in_office: (import "shared/definitions/_dates_in_office.jsonnet"),
                  image_url: {
                     type: "string"
-                 }
+                 },
+                 image: {
+                    "$ref": "#/definitions/image",
+                 },
                }
             }
         }
