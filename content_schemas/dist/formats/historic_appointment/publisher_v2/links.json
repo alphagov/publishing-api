@@ -47,6 +47,10 @@
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
         },
+        "person": {
+          "description": "The person who is represented by this historic appointment",
+          "$ref": "#/definitions/guid_list"
+        },
         "policy_areas": {
           "description": "A largely deprecated tag currently only used to power email alerts.",
           "$ref": "#/definitions/guid_list"

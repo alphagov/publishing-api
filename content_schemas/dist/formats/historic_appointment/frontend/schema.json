@@ -116,6 +116,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "person": {
+          "description": "The person who is represented by this historic appointment",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "policies": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
