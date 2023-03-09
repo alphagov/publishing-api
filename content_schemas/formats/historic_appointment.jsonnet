@@ -38,8 +38,10 @@
         },
       },
     },
-    links: (import "shared/base_links.jsonnet") + {
-      person: "The person who is represented by this historic appointment",
+  },
+  links: (import "shared/base_links.jsonnet") + {
+    person: {
+       description: "The person who is represented by this historic appointment"
     },
   },
 }

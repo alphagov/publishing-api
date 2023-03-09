@@ -134,6 +134,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "person": {
+          "description": "The person who is represented by this historic appointment",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "policies": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -227,6 +231,10 @@
           "description": "The parent content item.",
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
+        },
+        "person": {
+          "description": "The person who is represented by this historic appointment",
+          "$ref": "#/definitions/guid_list"
         },
         "policy_areas": {
           "description": "A largely deprecated tag currently only used to power email alerts.",

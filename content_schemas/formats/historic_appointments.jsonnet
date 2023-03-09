@@ -24,4 +24,9 @@
       },
     },
   },
+  links: (import "shared/base_links.jsonnet") + {
+    historical_accounts: {
+       description: "The historical appointments associated with this role"
+    },
+  },
 }

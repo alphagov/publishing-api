@@ -14,6 +14,10 @@
           "description": "Powers links from content back to finders the content is surfaced on",
           "$ref": "#/definitions/guid_list"
         },
+        "historical_accounts": {
+          "description": "The historical appointments associated with this role",
+          "$ref": "#/definitions/guid_list"
+        },
         "lead_organisations": {
           "description": "DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.",
           "$ref": "#/definitions/guid_list"
