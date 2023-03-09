@@ -1,0 +1,106 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/fields-of-operation/field-of-operation",
+  "content_id": "6904ac09-246d-4dd5-9aea-3c9b607f2ac5",
+  "document_type": "field_of_operation",
+  "first_published_at": "2016-09-28T09:59:22.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2023-03-06T15:25:15.000+00:00",
+  "publishing_app": "whitehall",
+  "publishing_scheduled_at": null,
+  "rendering_app": "whitehall-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "field_of_operation",
+  "title": "Iraq",
+  "updated_at": "2023-03-06T15:25:16.251Z",
+  "withdrawn_notice": {},
+  "publishing_request_id": "21949-1678116315.598-10.13.4.184-540",
+  "links": {
+    "fatality_notices": [
+      {
+        "content_id": "1a2b3c4d-7631-11e4-a3cb-005056011aef",
+        "title": "A fatality notice",
+        "locale": "en",
+        "api_path": "/api/content/government/fatalities/fatality-notice-one",
+        "base_path": "/government/fatalities/fatality-notice-one",
+        "document_type": "fatality_notice",
+        "public_updated_at": "2005-09-05T00:00:00Z",
+        "schema_name": "fatality_notice",
+        "withdrawn": false,
+        "details": {
+          "roll_call_introduction": "A fatality sadly occurred on 1 December"
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/fatalities/fatality-notice-one",
+        "web_url": "https://www.gov.uk/government/fatalities/fatality-notice-one"
+      },
+      {
+        "content_id": "5d6c7b8a-7631-11e4-a3cb-005056011aef",
+        "title": "A second fatality notice",
+        "locale": "en",
+        "api_path": "/api/content/government/fatalities/fatality-notice-two",
+        "base_path": "/government/fatalities/fatality-notice-two",
+        "document_type": "fatality_notice",
+        "public_updated_at": "2003-03-22T01:00:00Z",
+        "schema_name": "fatality_notice",
+        "withdrawn": false,
+        "details": {
+          "roll_call_introduction": "A fatality sadly occurred on 2 December"
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/fatalities/flight-lieutenant-kev-main",
+        "web_url": "https://www.gov.uk/government/fatalities/flight-lieutenant-kev-main"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "content_id": "d994e55c-48c9-4795-b872-58d8ec98af12",
+        "title": "Ministry of Defence",
+        "locale": "en",
+        "analytics_identifier": "D17",
+        "api_path": "/api/content/government/organisations/ministry-of-defence",
+        "base_path": "/government/organisations/ministry-of-defence",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "details": {
+          "logo": {
+            "crest": "mod",
+            "formatted_title": "Ministry<br/>of Defence"
+          },
+          "brand": "ministry-of-defence",
+          "default_news_image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/569/s300_ministry-of-defence-building.jpg",
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/569/s960_ministry-of-defence-building.jpg"
+          },
+          "organisation_govuk_status": {
+            "url": null,
+            "status": "live",
+            "updated_at": null
+          }
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ministry-of-defence",
+        "web_url": "https://www.gov.uk/government/organisations/ministry-of-defence"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Iraq",
+        "public_updated_at": "2023-03-06T15:25:15Z",
+        "document_type": "field_of_operation",
+        "schema_name": "field_of_operation",
+        "base_path": "/government/fields-of-operation/field-of-operation",
+        "api_path": "/api/content/government/fields-of-operation/field-of-operation",
+        "withdrawn": false,
+        "content_id": "6904ac09-246d-4dd5-9aea-3c9b607f2ac5",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/fields-of-operation/field-of-operation",
+        "web_url": "https://www.gov.uk/government/fields-of-operation/field-of-operation",
+        "links": {}
+      }
+    ]
+  },
+  "description": "It is with very deep regret that the following fatalities are announced.",
+  "details": {}
+}
