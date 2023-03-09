@@ -99,6 +99,7 @@ module_function
 
   CUSTOM_EXPANSION_FIELDS_FOR_PEOPLE = (
     %i[
+      current_prime_minister
       ordered_ministers
       ordered_board_members
       ordered_military_personnel

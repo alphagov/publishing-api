@@ -77,6 +77,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:service_manual_topic)).to eq(service_manual_topic_fields) }
     specify { expect(rules.expansion_fields(:topical_event)).to eq(default_fields) }
 
+    specify { expect(rules.expansion_fields(:person, link_type: :current_prime_minister)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_ministers)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_board_members)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_military_personnel)).to eq(person_with_image_fields) }
