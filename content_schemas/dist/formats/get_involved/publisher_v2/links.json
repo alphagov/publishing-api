@@ -60,6 +60,10 @@
           "description": "New A/B test suggestions for related items. Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms included in this A/B test.",
           "$ref": "#/definitions/guid_list"
         },
+        "take_part_pages": {
+          "description": "The take part pages to display on this page",
+          "$ref": "#/definitions/guid_list"
+        },
         "taxons": {
           "description": "Prototype-stage taxonomy label for this content item",
           "$ref": "#/definitions/guid_list"
