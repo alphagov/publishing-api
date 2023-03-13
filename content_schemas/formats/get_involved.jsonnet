@@ -46,4 +46,9 @@
       },
     },
   },
+  links: (import "shared/base_links.jsonnet") + {
+    take_part_pages: {
+       description: "The take part pages to display on this page"
+    },
+  },
 }
