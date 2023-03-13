@@ -1,0 +1,705 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/get-involved",
+  "content_id": "dbe329f1-359c-43f7-8944-580d4742aa91",
+  "document_type": "get_involved",
+  "first_published_at": "2016-04-07T13:16:57.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2021-10-29T12:29:28.000+00:00",
+  "publishing_app": "whitehall",
+  "publishing_scheduled_at": null,
+  "rendering_app": "government-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "get_involved",
+  "title": "Get involved",
+  "updated_at": "2023-03-11T10:26:02.767Z",
+  "withdrawn_notice": {},
+  "publishing_request_id": "8956-1635510568.916-10.13.6.64-539",
+  "links": {
+    "mainstream_browse_pages": [{
+        "content_id": "abc8dd38-bbb7-40a9-b5a2-4b8a2b0db699",
+        "title": "Living in the UK, government and democracy",
+        "locale": "en",
+        "api_path": "/api/content/browse/citizenship/government",
+        "base_path": "/browse/citizenship/government",
+        "document_type": "mainstream_browse_page",
+        "public_updated_at": "2022-08-03T13:09:45Z",
+        "schema_name": "mainstream_browse_page",
+        "withdrawn": false,
+        "description": "Petitioning the government, government statistics, immigration status checks, national emergencies and terrorism",
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/browse/citizenship/government",
+        "web_url": "https://www.gov.uk/browse/citizenship/government"
+      },
+      {
+        "content_id": "7ef2c175-8a4b-4eb9-969b-304c6b9a1452",
+        "title": "Charities, volunteering and honours",
+        "locale": "en",
+        "api_path": "/api/content/browse/citizenship/charities-honours",
+        "base_path": "/browse/citizenship/charities-honours",
+        "document_type": "mainstream_browse_page",
+        "public_updated_at": "2015-06-24T13:56:46Z",
+        "schema_name": "mainstream_browse_page",
+        "withdrawn": false,
+        "description": "Nominating someone for an honour, setting up a charity, community participation",
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/browse/citizenship/charities-honours",
+        "web_url": "https://www.gov.uk/browse/citizenship/charities-honours"
+      }
+    ],
+    "suggested_ordered_related_items": [{
+        "content_id": "6a4d4940-d4db-4ccd-8ad0-2954b7d1b090",
+        "title": "Apply for qualified teacher status (QTS) if you teach outside the UK",
+        "locale": "en",
+        "api_path": "/api/content/government/publications/apply-for-qualified-teacher-status-qts-if-you-teach-outside-the-uk",
+        "base_path": "/government/publications/apply-for-qualified-teacher-status-qts-if-you-teach-outside-the-uk",
+        "document_type": "guidance",
+        "public_updated_at": "2023-01-26T10:51:25Z",
+        "schema_name": "publication",
+        "withdrawn": false,
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/publications/apply-for-qualified-teacher-status-qts-if-you-teach-outside-the-uk",
+        "web_url": "https://www.gov.uk/government/publications/apply-for-qualified-teacher-status-qts-if-you-teach-outside-the-uk"
+      },
+      {
+        "content_id": "e65157db-4279-4748-8521-22ce66e5ef20",
+        "title": "Volunteering and claiming benefits",
+        "locale": "en",
+        "api_path": "/api/content/guidance/volunteering-and-claiming-benefits",
+        "base_path": "/guidance/volunteering-and-claiming-benefits",
+        "document_type": "detailed_guide",
+        "public_updated_at": "2019-07-15T07:51:00Z",
+        "schema_name": "detailed_guide",
+        "withdrawn": false,
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/guidance/volunteering-and-claiming-benefits",
+        "web_url": "https://www.gov.uk/guidance/volunteering-and-claiming-benefits"
+      },
+      {
+        "content_id": "7bcfcf7c-6c82-45fc-8de8-c79b0b13ff93",
+        "title": "Apply for communication support at a job interview if you have a disability or health condition (Access to Work)",
+        "locale": "en",
+        "api_path": "/api/content/guidance/apply-for-communication-support-at-a-job-interview-if-you-have-a-disability-or-health-condition-access-to-work",
+        "base_path": "/guidance/apply-for-communication-support-at-a-job-interview-if-you-have-a-disability-or-health-condition-access-to-work",
+        "document_type": "detailed_guide",
+        "public_updated_at": "2021-05-28T08:30:01Z",
+        "schema_name": "detailed_guide",
+        "withdrawn": false,
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/guidance/apply-for-communication-support-at-a-job-interview-if-you-have-a-disability-or-health-condition-access-to-work",
+        "web_url": "https://www.gov.uk/guidance/apply-for-communication-support-at-a-job-interview-if-you-have-a-disability-or-health-condition-access-to-work"
+      },
+      {
+        "content_id": "14479fe5-ccc8-4c4f-bc70-bf446bcba8e7",
+        "title": "Borders, immigration and citizenship: privacy information notice",
+        "locale": "en",
+        "api_path": "/api/content/government/publications/personal-information-use-in-borders-immigration-and-citizenship",
+        "base_path": "/government/publications/personal-information-use-in-borders-immigration-and-citizenship",
+        "document_type": "guidance",
+        "public_updated_at": "2022-11-15T11:21:49Z",
+        "schema_name": "publication",
+        "withdrawn": false,
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/publications/personal-information-use-in-borders-immigration-and-citizenship",
+        "web_url": "https://www.gov.uk/government/publications/personal-information-use-in-borders-immigration-and-citizenship"
+      },
+      {
+        "content_id": "71d116a9-5080-4ebe-a206-7474db49129a",
+        "title": "Living safely with respiratory infections, including COVID-19",
+        "locale": "en",
+        "api_path": "/api/content/guidance/living-safely-with-respiratory-infections-including-covid-19",
+        "base_path": "/guidance/living-safely-with-respiratory-infections-including-covid-19",
+        "document_type": "detailed_guide",
+        "public_updated_at": "2022-06-16T14:57:53Z",
+        "schema_name": "detailed_guide",
+        "withdrawn": false,
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/guidance/living-safely-with-respiratory-infections-including-covid-19",
+        "web_url": "https://www.gov.uk/guidance/living-safely-with-respiratory-infections-including-covid-19"
+      }
+    ],
+    "take_part_pages": [{
+        "content_id": "73940c62-2580-42b1-9c22-f8e85b71065d",
+        "title": "Volunteer",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/volunteer",
+        "base_path": "/government/get-involved/take-part/volunteer",
+        "document_type": "take_part",
+        "public_updated_at": "2022-01-05T14:45:32Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Find out how to volunteer in your local community and give your time to help others.",
+        "details": {
+          "body": "<div class=\"govspeak\">\n<div class=\"call-to-action\">\n<p>Find out about <a href=\"https://www.gov.uk/coronavirus-volunteering/ways-to-volunteer\" class=\"govuk-link\">volunteering during coronavirus (COVID-19).</a></p>\n</div>\n\n<h2 id=\"what-is-it\">What is it?</h2>\n<p>Anyone can volunteer. It can be very rewarding and is a great way to:</p>\n\n<ul>\n  <li>meet new people</li>\n  <li>gain new or use existing skills</li>\n  <li>get experience</li>\n  <li>make a big difference to your community</li>\n</ul>\n\n<p>There are lots of easy ways to give your time to help others – from having a cup of tea with an elderly neighbour, to helping out in your local area or making a regular commitment to volunteer with a charity or community group.</p>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n<p>There are several organisations that can help you find a way to volunteer that suits you.</p>\n\n<p><a rel=\"external\" href=\"https://doit.life/ours\" class=\"govuk-link\">Do-it.org</a> is a database of UK volunteering opportunities. You can search more than a million volunteering opportunities by interest, activity or location and then apply online.</p>\n\n<p>You can also contact <a rel=\"external\" href=\"https://www.ncvo.org.uk/ncvo-volunteering/i-want-to-volunteer\" class=\"govuk-link\">National Council for Voluntary Organisations (NCVO)</a>, <a rel=\"external\" href=\"http://www.volunteerscotland.net/\" class=\"govuk-link\">Volunteer Scotland</a>, <a rel=\"external\" href=\"http://www.volunteering-wales.net/\" class=\"govuk-link\">Volunteering Wales</a>, <a rel=\"external\" href=\"http://www.jerseycharities.org/\" class=\"govuk-link\">Jersey Charities</a>, <a rel=\"external\" href=\"http://www.charity.org.gg/\" class=\"govuk-link\">Guernsey Charities</a> or <a rel=\"external\" href=\"http://www.volunteeringmatters.org.uk\" class=\"govuk-link\">Volunteering Matters</a> to find opportunities in your area.</p>\n\n<p><a rel=\"external\" href=\"https://www.joininuk.org/\" class=\"govuk-link\">Join-in</a> runs volunteering projects as a legacy of the London 2012 Olympic and Paralympic Games. Contact them to find out about how to get involved with local sporting and community projects.</p>\n\n<h3 id=\"young-people\">Young people</h3>\n\n<p>Young people can also volunteer either at school or in their own time. If you’re aged 16 or 17 you can take part in the <a rel=\"external\" href=\"https://www.ncsyes.co.uk/\" class=\"govuk-link\">National Citizen Service (NCS)</a>.</p>\n\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/1/s300_BigTreePlant.jpg",
+            "alt_text": "Volunteers working in a garden"
+          },
+          "ordering": 1
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/volunteer",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/volunteer"
+      },
+      {
+        "content_id": "fd9551d5-cf92-4c00-aada-10fcf34a50d6",
+        "title": "National Citizen Service",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/national-citizen-service",
+        "base_path": "/government/get-involved/take-part/national-citizen-service",
+        "document_type": "take_part",
+        "public_updated_at": "2022-12-20T11:55:02Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "If you're 16 or 17 years old, you can take part in the National Citizen Service",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-ncs\">What is NCS?</h2>\n<p>Designed specially for 16 and 17 year olds, the NCS experience exists to engage, unite and empower young people, building your confidence so you can go out there and achieve your dreams, no matter where you’re from or what your background is.</p>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n<p>From April 2023, the way NCS works will be different. There’ll be opportunities to build confidence, get the skills you need to smash future work and life goals independently, and the tools to make connections and a positive impact in the world around you.</p>\n\n<p>Find out more and sign up today at the <a rel=\"external\" href=\"http://wearencs.com\" class=\"govuk-link\">NCS site</a>.</p>\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/2/s300_20_16_020_NCS_Gov_website_image_960x_640.jpg",
+            "alt_text": ""
+          },
+          "ordering": 2
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/national-citizen-service",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/national-citizen-service"
+      },
+      {
+        "content_id": "685093b3-d4fc-430b-8a14-409828f9b8d5",
+        "title": "Start a public service mutual",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/start-a-public-service-mutual",
+        "base_path": "/government/get-involved/take-part/start-a-public-service-mutual",
+        "document_type": "take_part",
+        "public_updated_at": "2021-09-30T10:38:47Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "If you work in the public sector, you may be able to set up a public service mutual.",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n\n<p>Public service mutuals are organisations that have left the public sector but continue delivering public services. Employee control plays a significant role in their operation.</p>\n\n<p>There are many forms of mutual. You might think of major employee-owned businesses like John Lewis or building societies such as Nationwide which are fully or majority owned by their members. But mutuals can also be co-operatives or social enterprises.</p>\n\n<p>Mutuals are free from government control and help their staff deliver and improve their services as they know best.</p>\n\n<p>Mutuals let dedicated public servants combine their passion for helping others with their desire to provide world-class services, and share in the rewards of success.</p>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n\n<p>Setting up a public service mutual may be for you if you’re working in the public sector and think that:</p>\n\n<ul>\n  <li>you can run a service more effectively, achieving better outcomes for users</li>\n  <li>you can deliver a service more efficiently, saving on costs and time</li>\n  <li>you have identified a gap in service provision</li>\n  <li>you want greater control and autonomy over the service you work in</li>\n</ul>\n\n<h2 id=\"where-can-i-find-out-more\">Where can I find out more?</h2>\n\n<p>Read guidance on <a href=\"https://www.gov.uk/government/collections/public-service-mutuals\" class=\"govuk-link\">how to start a public service mutual</a> or email <a href=\"mailto:mutuals@culture.gov.uk\" class=\"govuk-link\">mutuals@culture.gov.uk</a>.</p>\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/4/s300_DONE_Start-a-public-service-mutual-960.jpg",
+            "alt_text": "Work colleagues watch a presentation"
+          },
+          "ordering": 3
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/start-a-public-service-mutual",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/start-a-public-service-mutual"
+      },
+      {
+        "content_id": "393a4bf0-c792-4364-baba-5b6cf2cf40c2",
+        "title": "Set up a new school ",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/set-up-a-new-school",
+        "base_path": "/government/get-involved/take-part/set-up-a-new-school",
+        "document_type": "take_part",
+        "public_updated_at": "2021-09-30T10:38:47Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Free schools are independent, state-funded schools.",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n\n<p>Free schools are a way of improving choice for parents and driving up standards in schools for young people of all backgrounds.</p>\n\n<p>The <a rel=\"external\" href=\"http://www.education.gov.uk/schools/leadership/typesofschools/freeschools\" class=\"govuk-link\">free schools programme</a> provides teachers, parents, charities and community groups with the opportunity to set up new, independent, state-funded schools that raise educational standards.</p>\n\n<p>Over 250 free schools are now open in every region of England, with more than 100 due to open from September 2015 onwards. Many have been set up by local parents, community groups or teachers.</p>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n\n<p>If you’re interested in setting up a new school, visit the <a rel=\"external\" href=\"http://www.newschoolsnetwork.org/set-up-a-free-school\" class=\"govuk-link\">New Schools Network website</a> for more information and advice. You can call them on 020 7537 9208  or email <a href=\"mailto:info@newschoolsnetwork.org\" class=\"govuk-link\">info@newschoolsnetwork.org</a>.</p>\n\n<p>The <a rel=\"external\" href=\"http://www.education.gov.uk/schools/leadership/typesofschools/freeschools/a00222175/open\" class=\"govuk-link\">Department for Education (<abbr title=\"Department for Education\">DfE</abbr>)</a> also has details of the process and the criteria applications will be assessed against.</p>\n\n<p>Applications to set up a new school need to be submitted to the <abbr title=\"Department for Education\">DfE</abbr>, which runs 3 application rounds each year.</p>\n\n<p>The process for setting up a new school has been streamlined. It usually takes little more than a year from the <abbr title=\"Department for Education\">DfE</abbr> granting initial approval for a school to the school opening its doors to pupils.</p>\n\n<p>So, although the process for setting up a new school is rigorous it’s now much faster and simpler.</p>\n\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/5/s300_DONE_Set-up-a-new-school-960.jpg",
+            "alt_text": "Teacher writing on a white board"
+          },
+          "ordering": 4
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/set-up-a-new-school",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/set-up-a-new-school"
+      },
+      {
+        "content_id": "92c74ebd-0d1f-48cb-b411-10653bd54c6d",
+        "title": "Help make your neighbourhood a safer place",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/help-make-your-neighbourhood-a-safer-place",
+        "base_path": "/government/get-involved/take-part/help-make-your-neighbourhood-a-safer-place",
+        "document_type": "take_part",
+        "public_updated_at": "2021-09-30T10:38:47Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "You can help make your local area safer in a number of different ways. ",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n<p>There are lots of ways you can help make your neighbourhood a safer place, whatever your skills, availability or experience.</p>\n\n<p>You can be anything from a part-time volunteer, helping to tackle graffiti in your neighbourhood, to a Special Constable, with the same powers as a regular police officer.</p>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n\n<h3 id=\"join-neighbourhood-watch\">Join Neighbourhood Watch</h3>\n<p>You can join or set up a local Neighbourhood Watch. These are run entirely by the community, for the community, and volunteers work in their own time and to their own strengths.</p>\n\n<p>Find out more about <a rel=\"external\" href=\"https://www.ourwatch.org.uk/join\" class=\"govuk-link\">joining a scheme or starting a new one</a> in your area.</p>\n\n<h3 id=\"volunteer-for-crimestoppers\">Volunteer for Crimestoppers</h3>\n<p>Join the hundreds of volunteers who are already helping this independent crime-fighting charity. You could find yourself involved in anything from organising fundraising dinners to developing a publicity campaign to catch criminals in your area.</p>\n\n<p>Find out <a rel=\"external\" href=\"https://crimestoppers-uk.org/get-involved/volunteer-for-crimestoppers/\" class=\"govuk-link\">how to volunteer for Crimestoppers</a>.</p>\n\n<h3 id=\"become-a-police-support-volunteer\">Become a Police Support Volunteer</h3>\n<p>Police Support Volunteers work alongside the police in everything from supporting victims of hate crime to managing community events and talking to schools and local businesses.</p>\n\n<p><abbr title=\"Police Support Volunteers\">PSVs</abbr> provide crucial support to the police and work in their own time and with their own community. Your local police force can give you more information.</p>\n\n<p>Find out <a rel=\"external\" href=\"http://www.police.uk/?view=force_sites\" class=\"govuk-link\">how to become a PSV</a> by contacting your local police force.</p>\n\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/7/s300_help_make_your_neighbourhood_safe.jpg",
+            "alt_text": ""
+          },
+          "ordering": 5
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/help-make-your-neighbourhood-a-safer-place",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/help-make-your-neighbourhood-a-safer-place"
+      },
+      {
+        "content_id": "e3c5daf3-242e-4b85-b06c-00a8df76b1ca",
+        "title": "Decide where homes, shops and businesses should be built",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/decide-where-new-homes-shops-facilities-and-businesses-should-be-built",
+        "base_path": "/government/get-involved/take-part/decide-where-new-homes-shops-facilities-and-businesses-should-be-built",
+        "document_type": "take_part",
+        "public_updated_at": "2022-01-05T12:08:26Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Your community can get involved in making decisions about where new buildings should be built.",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n\n<p>You and your community could decide where and when to build new homes, shops, businesses or facilities in your local area.</p>\n\n<p>Rather than applying for planning permission, you can use the ‘Right to Build’ to create small-scale, site-specific, community-led developments.</p>\n\n<p>This can include building houses for private sale, community facilities like local shops, or anything else that the community needs.</p>\n\n<h2 id=\"how-can-i-take-part\">How can I take part?</h2>\n\n<p>There are some minimum requirements which must be met in order to use the Right to Build.</p>\n\n<p>Town and Parish councils can use the Right to Build, or communities can establish their own corporate body to manage the developments, and to make sure any benefits from development are reinvested in the community.</p>\n\n<p>Find out more about Right to Build and get more advice and support on the <a rel=\"external\" href=\"https://mycommunity.org.uk/understanding-community-right-to-build-orders\" class=\"govuk-link\">My Community Rights</a> website.</p>\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/8/s300_right_to_build_960.jpg",
+            "alt_text": "Man in a hardhat surveying a building"
+          },
+          "ordering": 6
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/decide-where-new-homes-shops-facilities-and-businesses-should-be-built",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/decide-where-new-homes-shops-facilities-and-businesses-should-be-built"
+      },
+      {
+        "content_id": "98876f0d-fc03-4cf8-9c1f-773aa19be197",
+        "title": "Challenge to run a local service",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/challenge-to-run-a-local-service",
+        "base_path": "/government/get-involved/take-part/challenge-to-run-a-local-service",
+        "document_type": "take_part",
+        "public_updated_at": "2022-01-05T12:06:48Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Your group could take over the running of a local service, if you could make improvements.",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n<p>The ‘Community Right to Challenge’ lets you bid to take over local services, if you could run them better. Councils are looking to local groups for innovative ideas on how to shape services.</p>\n\n<p>So, whether you’re a local community group, a social enterprise, a parish council or a group of council employees, you can develop your ability to run local government services.</p>\n\n<p>If you’d like to take over the service entirely, the Right to Challenge lets you set out your proposals to your local council, which must consider them.</p>\n\n<p>If the council accepts your proposal, you can compete to run the service in an open competition.</p>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n<p>Speak to your local authority about your initial idea and get more information about the service, its costs, the number of staff involved and any other relevant details.</p>\n\n<p>Councils can set time limits on when they will accept a challenge, so you will need to find out from them if this applies in your area.</p>\n\n<p>Think about your own group or organisation’s capability and whether you need to develop any particular aspects of it to be able to compete to run a service.</p>\n\n<p>The <a rel=\"external\" href=\"https://mycommunity.org.uk/understanding-the-community-right-to-challenge/\" class=\"govuk-link\">My Community Rights website</a> has more details about the process and the support available.</p>\n\n<p>Once you’re ready, you can send a written expression of interest to your local authority.</p>\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/10/s300_Challenge_to_run_960.jpg",
+            "alt_text": "Girl reading in a library"
+          },
+          "ordering": 7
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/challenge-to-run-a-local-service",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/challenge-to-run-a-local-service"
+      },
+      {
+        "content_id": "49020f3b-8b3e-47bf-b4d1-b828d4d1dec9",
+        "title": "Improve your social housing",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/improve-your-social-housing",
+        "base_path": "/government/get-involved/take-part/improve-your-social-housing",
+        "document_type": "take_part",
+        "public_updated_at": "2022-01-05T12:03:51Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Improve where you live by making sure your landlord provides what you need.",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n\n<p>If you’re a social housing tenant, you have the power to make sure your landlord provides the services, support and advice you need.</p>\n\n<p>This means that you can take a bigger role in your community by looking at your landlord’s performance and negotiating improvements. You’ll be able to help resolve local complaints, run a maintenance service, or even take on the management of local housing services.</p>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n\n<p>You can play a bigger role in your community by:</p>\n\n<ul>\n  <li>getting training and support to challenge your landlord</li>\n  <li>setting up a tenant panel where you live</li>\n  <li>helping to shape services</li>\n  <li>managing a housing service or repairs budget</li>\n  <li>exercising your ‘Right to Manage’, which lets council tenants take over management of local housing services</li>\n</ul>\n\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/11/s300_Improve_your_social_housing_960.jpg",
+            "alt_text": "Man fitting a lock to a door"
+          },
+          "ordering": 8
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/improve-your-social-housing",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/improve-your-social-housing"
+      },
+      {
+        "content_id": "96b0c57e-9508-4746-8b77-b0ff5954f37e",
+        "title": "Protect a local building",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/protect-a-local-building",
+        "base_path": "/government/get-involved/take-part/protect-a-local-building",
+        "document_type": "take_part",
+        "public_updated_at": "2022-01-05T12:00:01Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Use the Community Right to Bid to mark out local buildings or land as valuable to your community. ",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n<p>You can make sure that you have the chance to save any community buildings or land put on sale in your neighbourhood.</p>\n\n<p>Using the ‘Community Right to Bid’, you can nominate buildings and land as an asset of community value.</p>\n\n<p>This means that if it ever goes up for sale, you can ‘stop the clock’ for up to 6 months, giving you the opportunity to get together with your neighbours and raise the finances to bid to buy it.</p>\n\n<p>You can nominate anything with community value, whether it’s publicly or privately owned. This includes:</p>\n\n<ul>\n  <li>village shops</li>\n  <li>community centres</li>\n  <li>local pubs</li>\n  <li>libraries</li>\n  <li>playing fields</li>\n</ul>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n<p>There’s a 7-step process to saving community buildings and land, from identifying and mapping these community assets to managing them.</p>\n\n<p>You can read more about the <a rel=\"external\" href=\"https://mycommunity.org.uk/nominating-an-asset-of-community-value-acv-and-community-right-to-bid\" class=\"govuk-link\">Community Right to Bid</a> on GOV.UK, or go to the <a rel=\"external\" href=\"http://mycommunity.org.uk/take-action/land-and-building-assets/step-by-step/\" class=\"govuk-link\">My Community Rights website</a> for details about how the process works.</p>\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/12/s300_Protect_a_local_building_960.jpg",
+            "alt_text": "An old building"
+          },
+          "ordering": 9
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/protect-a-local-building",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/protect-a-local-building"
+      },
+      {
+        "content_id": "2ba8a2d7-ff5b-47c2-a45e-6aceb699dce3",
+        "title": "Organise a street party",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/organise-a-street-party",
+        "base_path": "/government/get-involved/take-part/organise-a-street-party",
+        "document_type": "take_part",
+        "public_updated_at": "2021-09-30T10:38:47Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Meet your neighbours, celebrate an event or mark an occasion with a party. ",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n<p>It’s easier than you might think to organise a local street party. It’s a great way to meet your neighbours, celebrate national or local events, or just say thanks to someone in your area.</p>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n<p>You don’t need to fill in complicated forms to ask for a street closure to have a street party.</p>\n\n<p>All your council needs to know is where and when the closure will take place so they can plan around this (for example, so that the emergency services know).</p>\n\n<p><a href=\"https://www.gov.uk/apply-hold-street-party\" class=\"govuk-link\">Enter your postcode here</a> to find out how to apply to hold a street party in your area.</p>\n\n<p>Your council shouldn’t charge you for a road closure - if your council tries to charge you for this, you can challenge them about it.</p>\n\n<p>If you don’t want to close the road, or you can’t close it (for example, if you live on a main road), you could consider organising a ‘Street Meet’ on private land instead, such as a driveway or garden.</p>\n\n<h3 id=\"licences-and-insurance\">Licences and insurance</h3>\n\n<p>You don’t need a licence for food, alcohol or entertainment unless you’re planning to charge or open your event to the general public.</p>\n\n<p>You also don’t need to have public liability insurance. If your council insists on it you can challenge them about this.</p>\n\n<p><a href=\"https://www.gov.uk/government/publications/your-guide-to-organising-a-street-party\" class=\"govuk-link\">Read the step-by-step guide</a> for more information about organising your street party.</p>\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/13/s300_streetparty-960.jpg",
+            "alt_text": "Tug-of-war at a street party outside Number 10"
+          },
+          "ordering": 10
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/organise-a-street-party",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/organise-a-street-party"
+      },
+      {
+        "content_id": "4c1dca61-4469-4c06-817e-f2689f007fb0",
+        "title": "Take over a local pub, shop, or green space for the community",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/take-over-a-local-pub-shop-or-green-space-for-the-community",
+        "base_path": "/government/get-involved/take-part/take-over-a-local-pub-shop-or-green-space-for-the-community",
+        "document_type": "take_part",
+        "public_updated_at": "2022-01-05T11:55:18Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Ways to help your area by supporting local businesses and services, and reclaiming underused space. ",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n<p>Do you have a village shop that needs to stay open? Do you want to use empty land to grow fruit and vegetables? Could your local pub use some help to continue to thrive?</p>\n\n<p>Communities are full of valuable spaces, buildings and facilities, whether they’re gardens providing an oasis of green, or the only shop within walking distance. These are assets to your local area, and are often crucial to local people.</p>\n\n<p>Sometimes, these facilities struggle to stay open, fall into disrepair or could just benefit from a little extra care. If this is the case, you can take them over and make sure your community gets the best possible use from them.</p>\n\n<p>This could involve running a post office from your local pub, creating an orchard on previously disused land, or saving a struggling neighbourhood shop.</p>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n<p>There is lots of information and help available if you want to take over a local business or green space for the community. You can find out how to:</p>\n\n<ul>\n  <li>run a community shop, with tips from the <a rel=\"external\" href=\"https://plunkett.co.uk/how-we-help/\" class=\"govuk-link\">Plunkett Foundation</a>\n</li>\n  <li>run a community library, using <a rel=\"external\" href=\"http://libraries.communityknowledgehub.org.uk/action-planning-tool\" class=\"govuk-link\">advice for Community Managed Libraries</a>\n</li>\n  <li>use your community pub to keep and support local services, with <a rel=\"external\" href=\"http://www.pubisthehub.org.uk/\" class=\"govuk-link\">Pub is the Hub</a>\n</li>\n  <li>form a co-operative pub, with advice from the <a rel=\"external\" href=\"https://plunkett.co.uk/how-we-help/\" class=\"govuk-link\">Plunkett Foundation</a>\n</li>\n  <li>find a space to grow food, with <a href=\"https://www.gov.uk/government/publications/space-for-food-growing-a-guide\" class=\"govuk-link\">guidance for community groups and individuals</a>\n</li>\n  <li>set up a community orchard, using a <a href=\"https://www.gov.uk/government/publications/community-orchards-a-how-to-guide\" class=\"govuk-link\">guide for community groups</a>\n</li>\n  <li>apply for an allotment <a href=\"https://www.gov.uk/apply-allotment\" class=\"govuk-link\">from your local council</a>\n</li>\n</ul>\n\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/17/s300_Take_over_a_pub_etc-960.JPG",
+            "alt_text": "Disused building"
+          },
+          "ordering": 11
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/take-over-a-local-pub-shop-or-green-space-for-the-community",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/take-over-a-local-pub-shop-or-green-space-for-the-community"
+      },
+      {
+        "content_id": "99d7bd7e-1339-488d-a9ce-e0d6bdc853f7",
+        "title": "Volunteer as a school governor",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/volunteer-as-a-school-governor",
+        "base_path": "/government/get-involved/take-part/volunteer-as-a-school-governor",
+        "document_type": "take_part",
+        "public_updated_at": "2021-09-30T10:38:47Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Could you help set a school's direction and ensure that its budget is properly managed? ",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n<p>The governing body is the strategic decision-making body in each school and academy. It has a crucial role in making sure every child gets the best possible education.</p>\n\n<p>Governing bodies:</p>\n\n<ul>\n  <li>set the school’s strategic direction</li>\n  <li>hold the head teacher to account for a school’s performance</li>\n  <li>ensure that the school’s budget is properly managed</li>\n</ul>\n\n<p>Governing bodies meet at least once a term. Many use sub-committees to look at more detailed aspects of their work and advise them on decisions. Committees often look at issues like pupil performance, the curriculum, staffing, finance and premises.</p>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n<p>Governing bodies need committed and enthusiastic people with relevant skills. Training can be provided and there are many sources of advice and support available.</p>\n\n<p>Governors are volunteers, but can receive ‘out of pocket’ expenses.</p>\n\n<p>The Inspiring Governors Alliance was launched in May 2014 to encourage more people to get involved. You can find out more about becoming a governor from the <a rel=\"external\" href=\"http://www.inspiringgovernors.org/\" class=\"govuk-link\">Inspiring Governors website</a>.</p>\n\n<p>You can also contact a school local to you, or your <a href=\"https://www.gov.uk/find-your-local-council\" class=\"govuk-link\">local council</a>, to find out how to become a school governor. <a rel=\"external\" href=\"http://www.becomeagovernor.org.uk/\" class=\"govuk-link\">SGOSS</a>, the governor recruitment charity, helps to recruit governors with useful business skills and matches them with local schools. <a rel=\"external\" href=\"http://www.inspiringthefuture.org/\" class=\"govuk-link\">Inspiring the future</a> helps people from the world of work volunteer in schools in a range of ways, including as governor.</p>\n\n<p>Information and resources for governors are available from the <a rel=\"external\" href=\"http://www.nga.org.uk/\" class=\"govuk-link\">National Governors’ Association</a>. The Department for Education also offers information and guidance including the <a href=\"https://www.gov.uk/government/publications/governors-handbook\" class=\"govuk-link\">Governors’ Handbook</a> which explains the role of governors.</p>\n\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/14/s300_School_governor_960.jpg",
+            "alt_text": "Teacher in a classroom"
+          },
+          "ordering": 12
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/volunteer-as-a-school-governor",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/volunteer-as-a-school-governor"
+      },
+      {
+        "content_id": "231c2a63-a48c-4525-b816-0c6607623211",
+        "title": "Set up a town or parish council",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/set-up-a-town-or-parish-council",
+        "base_path": "/government/get-involved/take-part/set-up-a-town-or-parish-council",
+        "document_type": "take_part",
+        "public_updated_at": "2021-09-30T10:38:47Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Local councils provide services to meet local needs and improve community wellbeing.",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n\n<p>Town and parish councils are the first level of local government. They provide communities with a democratic voice and a structure for taking community action.</p>\n\n<p>More than a third of people in England currently have a town or parish council, and the government is making it easier to set one up.</p>\n\n<h2 id=\"how-can-i-take-part\">How can I take part?</h2>\n\n<p>To set up your own town or parish council, you’ll need to first give your local authority a petition containing the signatures of at least 7.5% of the local population.</p>\n\n<p>The petition must:</p>\n\n<ul>\n  <li>state exactly what it proposes: creating a parish or town council for a defined area</li>\n  <li>contain the signatures of at least 7.5% of local electors, based on the most recent electoral register - you’ll need more signatures for areas with fewer than 2,500 electors</li>\n</ul>\n\n<p>If the petition is valid, your local authority will carry out a ‘community governance review’ to see if a local council should be created.</p>\n\n<p>A neighbourhood forum that’s had a <a rel=\"external\" href=\"http://mycommunity.org.uk/programme/neighbourhood-planning/\" class=\"govuk-link\">neighbourhood development plan</a> passed at referendum can trigger a community governance review without needing a petition.</p>\n\n<p>You can get more information and advice about what you need to do from the National Association of Local Councils’ (<abbr title=\"National Association of Local Councils\">NALC</abbr>) <a rel=\"external\" href=\"http://www.nalc.gov.uk/our-work/create-a-council\" class=\"govuk-link\">Create a Council</a> site or you can contact your County Association of Local Councils. Each county has its own association. You can <a rel=\"external\" href=\"http://www.nalc.gov.uk/about-county-associations\" class=\"govuk-link\">find contact details on the <abbr title=\"National Association of Local Councils\">NALC</abbr> website</a>. For London, contact <abbr title=\"National Association of Local Councils\">NALC</abbr> direct. You may be able to get funding from them to help with this.</p>\n\n<p>You can also read about what happens after a petition is submitted in <a href=\"https://www.gov.uk/government/publications/community-governance-reviews-guidance\" class=\"govuk-link\">‘Guidance on Community Governance Reviews’</a> which explains how local authorities should review the petitions.</p>\n\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/15/s300_Town_Parish_council_960.jpg",
+            "alt_text": "Aerial view of houses"
+          },
+          "ordering": 13
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/set-up-a-town-or-parish-council",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/set-up-a-town-or-parish-council"
+      },
+      {
+        "content_id": "d944e7da-5a8e-4fe6-9d4e-b737a05b9260",
+        "title": "Invest in local enterprises",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/invest-in-local-enterprises",
+        "base_path": "/government/get-involved/take-part/invest-in-local-enterprises",
+        "document_type": "take_part",
+        "public_updated_at": "2021-09-30T10:38:47Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Use 'community shares' to support and invest in local businesses.",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n\n<p>Community shares are a way for community groups to raise money. By buying shares and becoming part-owners of a business, local people can become supporters, volunteers and advocates for the business.</p>\n\n<p>Community shares can be used to support many different types of business, like saving a local pub or setting up a renewable energy project. If an enterprise is working for the good of your local area, investment from local people can be invaluable.</p>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n\n<p>Visit <a rel=\"external\" href=\"http://www.microgenius.org.uk\" class=\"govuk-link\">Microgenius</a> to buy and sell community shares.</p>\n\n<p>You could get involved as:</p>\n\n<ul>\n  <li>an enterprise - by offering community shares</li>\n  <li>a supporter - by buying community shares</li>\n  <li>an adviser - by providing advice and support to community enterprises</li>\n</ul>\n\n<p>The <a rel=\"external\" href=\"http://communityshares.org.uk/\" class=\"govuk-link\">Community Shares Unit</a> is a dedicated support service to promote community shares. It provides resources including <a rel=\"external\" href=\"https://communityshares.org.uk/practitioners-guide-community-shares\" class=\"govuk-link\">‘The Practitioners’ Guide to Community Shares’</a> to help anyone wanting to offer community shares.</p>\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/16/s300_Investing_960.jpg",
+            "alt_text": " "
+          },
+          "ordering": 14
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/invest-in-local-enterprises",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/invest-in-local-enterprises"
+      },
+      {
+        "content_id": "ebcc5d8b-f5aa-4003-83e2-dfbd66f14dc3",
+        "title": "Help run a charity",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/help-run-a-charity",
+        "base_path": "/government/get-involved/take-part/help-run-a-charity",
+        "document_type": "take_part",
+        "public_updated_at": "2022-01-05T11:32:42Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Find out how you could help run a charity by volunteering as a charity trustee.",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"charity-trustees\">Charity trustees</h2>\n\n<p>Charity trustees direct how a charity is run and help make sure it does what it was set up to do. This includes making sure the charity:</p>\n\n<ul>\n  <li>sticks to its charitable mission</li>\n  <li>has the money it needs</li>\n  <li>spends that money responsibly on the activities it was raised for</li>\n  <li>follows the law and doesn’t break its own rules</li>\n</ul>\n\n<p>Charity trustees are also known as:</p>\n\n<ul>\n  <li>directors</li>\n  <li>board members</li>\n  <li>governors</li>\n  <li>committee members</li>\n</ul>\n\n<h3 id=\"what-they-do\">What they do</h3>\n\n<p>Charities vary widely in terms of size and purpose. Most charities are very small and many don’t have paid staff. In small charities, trustees may be expected to essentially run the charity. In larger charities, staff take on the day-to-day work and trustees have a more strategic role.</p>\n\n<p>The main purpose of a trustee is to decide the charity’s priorities and future plans. Some also give practical help with the charity’s activities. Charity trustees also make sure the charity achieves its plans effectively.</p>\n\n<p>The role of charity trustee requires commitment and responsibility. It also allows you to see the charity’s positive effects on people and society. Being a charity trustee can also help you gain new skills and experience that can help you develop your career.</p>\n\n<h2 id=\"becoming-a-trustee\">Becoming a trustee</h2>\n\n<p>You must be over 18 to be a trustee (or 16 if the charity is set up as a company or Charitable Incorporated Organisation).</p>\n\n<p>Charities need committed and enthusiastic people from a wide range of backgrounds. It depends on the charity whether you need any particular skills or experience.</p>\n\n<p>Your charity should give you an introduction to its work, your role and advice about more training.</p>\n\n<p>Charity trustees are almost always unpaid, but can receive ‘out of pocket’ expenses such as travel or childcare costs.</p>\n\n<h3 id=\"who-cant-be-a-trustee\">Who can’t be a trustee</h3>\n\n<p>Some people can’t be a charity trustee, for example because they:</p>\n\n<ul>\n  <li>have an unspent criminal conviction involving dishonesty or deception</li>\n  <li>are an undischarged bankrupt</li>\n  <li>have been banned from serving as a company director</li>\n</ul>\n\n<h2 id=\"find-vacancies-for-trustees\">Find vacancies for trustees</h2>\n\n<p>There are lots of ways you can find vacancies:</p>\n\n<ul>\n  <li>look for adverts in the press</li>\n  <li>find vacancies on the <a rel=\"external\" href=\"https://do-it.org/opportunities/search\" class=\"govuk-link\">Do-It website</a>\n</li>\n  <li>approach charities directly</li>\n  <li>use an organisation like <a rel=\"external\" href=\"http://www.reachskills.org.uk/trusteeworks\" class=\"govuk-link\">Trusteeworks</a> or <a rel=\"external\" href=\"http://www.trustees-unlimited.co.uk/\" class=\"govuk-link\">trustees-unlimited</a>, which match skilled volunteers to trustee roles</li>\n  <li>ask at your local volunteer centre</li>\n  <li>get more contacts and information on the <a rel=\"external\" href=\"http://www.trusteesweek.blogspot.co.uk/\" class=\"govuk-link\">Trustees’ Week</a> website</li>\n</ul>\n\n<h2 id=\"get-advice-about-becoming-a-trustee\">Get advice about becoming a trustee</h2>\n\n<p>The Charity Commission’s guide <a rel=\"external\" href=\"http://www.charitycommission.gov.uk/detailed-guidance/trustees-staff-and-volunteers/the-essential-trustee-what-you-need-to-know-cc3/\" class=\"govuk-link\">The Essential Trustee</a> explains the main legal responsibilities trustees have.</p>\n\n<p>The <a rel=\"external\" href=\"https://knowhow.ncvo.org.uk/governance/getting-started-in-governance/trustees\" class=\"govuk-link\">National Council for Voluntary Organisations</a> (NCVO) is a good place to find out more about becoming a charity trustee.</p>\n\n<p>Photo above by <a rel=\"external\" href=\"http://www.flickr.com/photos/dwonderwall/3341419176/\" class=\"govuk-link\">Dwonderwall</a> on Flickr. Used under <a rel=\"external\" href=\"http://creativecommons.org/licenses/by-nc-nd/3.0\" class=\"govuk-link\">Creative Commons</a>.</p>\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/20/s300_72dpi_3341419176_2f2d1690ab_o.jpg",
+            "alt_text": "\"\""
+          },
+          "ordering": 15
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/help-run-a-charity",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/help-run-a-charity"
+      },
+      {
+        "content_id": "73d398fd-cfbb-4af1-8d96-775728659355",
+        "title": "Make a neighbourhood plan",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/make-a-neighbourhood-plan",
+        "base_path": "/government/get-involved/take-part/make-a-neighbourhood-plan",
+        "document_type": "take_part",
+        "public_updated_at": "2021-09-30T10:38:47Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Have a say in development in your area by joining a neighbourhood planning group, or starting one of your own. ",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n<p>Neighbourhood planning is a new way for communities to have a say in the future of the places where they live and work. It gives you the power to produce a plan with real legal weight that directs development in your local area. It helps you:</p>\n\n<ul>\n  <li>choose where you want new homes, shops and offices to be built</li>\n  <li>have your say on what those new buildings should look like</li>\n  <li>grant planning permission for the new buildings you want to see go ahead</li>\n</ul>\n\n<p>Groups can get tailored advice, support and grants to develop their neighbourhood plans.</p>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n<p>More than 2,400 communities across England have already started neighbourhood planning. They’re always looking for more people to get involved.</p>\n\n<p>If a plan isn’t already being produced for your area, you can gather community interest and start your own. There are several sources of advice and support for communities interested in neighbourhood planning, including grants and technical support.</p>\n\n<p>The <a rel=\"external\" href=\"https://neighbourhoodplanning.org/\" class=\"govuk-link\">‘Neighbourhood Planning’</a> website has support, advice and funding details.</p>\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/18/s300_make_a_neighbourhood_plan.jpg",
+            "alt_text": "Aerial view of houses"
+          },
+          "ordering": 16
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/make-a-neighbourhood-plan",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/make-a-neighbourhood-plan"
+      },
+      {
+        "content_id": "3cf5409e-5ca9-469a-99e5-57d4c3cfd3b6",
+        "title": "Create a community library",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/create-a-community-library",
+        "base_path": "/government/get-involved/take-part/create-a-community-library",
+        "document_type": "take_part",
+        "public_updated_at": "2021-09-30T10:38:47Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "Find out how you can help support local libraries, including taking on ownership and management. ",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n<p>Public library services are highly valued by the communities they serve. However, alongside other public sector services, they are facing enormous financial challenges.</p>\n\n<p>A growing number of library authorities now work with communities to build sustainable library services, with local people:</p>\n\n<ul>\n  <li>supporting public libraries</li>\n  <li>managing them, in some places</li>\n  <li>taking on ownership and management of library buildings</li>\n</ul>\n\n<p>Community libraries offer a way to manage local resources and support the public library service, not replace it.</p>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n<p>Most library services have worked with community groups and volunteers for decades. Library authorities can choose whether to involve communities more in their library service, and if so, how they might do this.</p>\n\n<p>Local authorities can also invite individuals, groups and organisations to discuss proposals for maintaining the authority’s library services. Contact your local library authority to see if you can get involved.</p>\n\n<p>If you want to take over a library building, or if you want to run the library service, the <a rel=\"external\" href=\"http://www.mycommunityrights.org.uk/\" class=\"govuk-link\">‘My Community Rights’</a> programme has advice and practical help, including details of funding.</p>\n\n<p>You can also read the Arts Council England and Local Government Association <a rel=\"external\" href=\"http://www.artscouncil.org.uk/community-libraries-learning-experience\" class=\"govuk-link\">research into community libraries</a>, which shows the different ways communities have been involved with their libraries.</p>\n\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/19/s300_community_libraries.jpg",
+            "alt_text": "Girl reading in a library"
+          },
+          "ordering": 17
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/create-a-community-library",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/create-a-community-library"
+      },
+      {
+        "content_id": "18a7d315-090c-4d3c-8a1a-c5a54e33b232",
+        "title": "Become a councillor",
+        "locale": "en",
+        "api_path": "/api/content/government/get-involved/take-part/become-a-councillor",
+        "base_path": "/government/get-involved/take-part/become-a-councillor",
+        "document_type": "take_part",
+        "public_updated_at": "2022-01-05T11:43:10Z",
+        "schema_name": "take_part",
+        "withdrawn": false,
+        "description": "All councils are led by democratically elected councillors who set the vision and direction, and represent their local community.",
+        "details": {
+          "body": "<div class=\"govspeak\"><h2 id=\"what-is-it\">What is it?</h2>\n<p>There are roughly 20,000 local councillors in England. Councillors are elected to the local council to represent their own local community, so they must either live or work in the area.</p>\n\n<p>Each councillor has their own reasons for running but the role offers the chance to make a huge difference to the quality of life for people in your local area. Being an effective councillor requires both commitment and hard work. Councillors have to balance the needs and interests of residents, the political party they represent (if any) and the council.</p>\n\n<p>The councillor’s role centres around community leadership and engagement, responsibilities include:</p>\n\n<ul>\n  <li>representing the ward for which they are elected</li>\n  <li>decision-making - developing and reviewing council policy</li>\n  <li>scrutinising decisions taken by the councillors on the executive or cabinet</li>\n  <li>regulatory, quasi-judicial and statutory duties</li>\n</ul>\n\n<h2 id=\"how-can-i-get-involved\">How can I get involved?</h2>\n<p>Once you’ve decided to get involved and stand as a councillor there are 2 main routes; you can decide to stand for one of the political parties/groups or as an independent.</p>\n\n<h3 id=\"representing-a-political-party\">Representing a political party</h3>\n\n<p>If you want to represent a political party then get involved with your party locally as soon as possible. They will advise on what is involved and ultimately select a candidate.</p>\n\n<h3 id=\"standing-as-an-independent-candidate\">Standing as an independent candidate</h3>\n\n<p>If you’re thinking of standing as an independent candidate you can contact your council’s electoral services department. You will need to start becoming aware of issues in your local area; what your local council is doing about these issues; and how your own opinion differs from the political parties.</p>\n\n<h3 id=\"getting-officially-nominated\">Getting officially nominated</h3>\n\n<p>Whether you’ve been selected by a party or are standing as an independent candidate, you must make sure that you are officially nominated as the election date draws nearer. This means getting 10 people to sign your nomination papers (signatories must be registered electors in the ward where you wish to stand) available from your local council’s democratic services department.</p>\n\n<p>You must also give your consent in writing to your nomination. All the necessary documents must be submitted 19 working days before the day of the election.</p>\n\n<p>For more detailed information please visit the <a rel=\"external\" href=\"http://www.beacouncillor.org.uk\" class=\"govuk-link\">Be a councillor website</a>\nor download the <a rel=\"external\" href=\"https://www.local.gov.uk/councillors-guide-2018-desktop-use\" class=\"govuk-link\">Be a councillor guide</a>.</p>\n\n</div>",
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/take_part_page/image/21/s300_local_coun_web.jpg",
+            "alt_text": "Headshots of 6 councillors"
+          },
+          "ordering": 18
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/get-involved/take-part/become-a-councillor",
+        "web_url": "https://www.gov.uk/government/get-involved/take-part/become-a-councillor"
+      }
+    ],
+    "taxons": [{
+        "content_id": "0bb6e269-4c6d-432d-96b6-f2b343a7603c",
+        "title": "Charities, volunteering and honours",
+        "locale": "en",
+        "api_path": "/api/content/society-and-culture/charities-honours",
+        "base_path": "/society-and-culture/charities-honours",
+        "document_type": "taxon",
+        "public_updated_at": "2018-08-22T13:12:16Z",
+        "schema_name": "taxon",
+        "withdrawn": false,
+        "details": {
+          "internal_name": "Charities, volunteering and honours [M]",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": false
+        },
+        "phase": "live",
+        "links": {
+          "parent_taxons": [{
+            "content_id": "e2ca2f1a-0ff3-43ce-b813-16645ff27904",
+            "title": "Society and culture",
+            "locale": "en",
+            "api_path": "/api/content/society-and-culture",
+            "base_path": "/society-and-culture",
+            "document_type": "taxon",
+            "public_updated_at": "2018-09-16T20:31:27Z",
+            "schema_name": "taxon",
+            "withdrawn": false,
+            "description": "",
+            "details": {
+              "internal_name": "Society and culture",
+              "notes_for_editors": "",
+              "visible_to_departmental_editors": true
+            },
+            "phase": "live",
+            "links": {
+              "root_taxon": [{
+                "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+                "title": "GOV.UK homepage",
+                "locale": "en",
+                "api_path": "/api/content/",
+                "base_path": "/",
+                "document_type": "homepage",
+                "public_updated_at": "2019-06-21T11:52:37Z",
+                "schema_name": "homepage",
+                "withdrawn": false,
+                "links": {},
+                "api_url": "https://www.gov.uk/api/content/",
+                "web_url": "https://www.gov.uk/"
+              }]
+            },
+            "api_url": "https://www.gov.uk/api/content/society-and-culture",
+            "web_url": "https://www.gov.uk/society-and-culture"
+          }]
+        },
+        "api_url": "https://www.gov.uk/api/content/society-and-culture/charities-honours",
+        "web_url": "https://www.gov.uk/society-and-culture/charities-honours"
+      },
+      {
+        "content_id": "95d06252-5d75-42fb-9c5c-038ab6b482e4",
+        "title": "Democracy",
+        "locale": "en",
+        "api_path": "/api/content/government/democracy",
+        "base_path": "/government/democracy",
+        "document_type": "taxon",
+        "public_updated_at": "2018-08-17T15:32:42Z",
+        "schema_name": "taxon",
+        "withdrawn": false,
+        "details": {
+          "internal_name": "Democracy",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": false
+        },
+        "phase": "live",
+        "links": {
+          "parent_taxons": [{
+            "content_id": "e48ab80a-de80-4e83-bf59-26316856a5f9",
+            "title": "Government",
+            "locale": "en",
+            "api_path": "/api/content/government/all",
+            "base_path": "/government/all",
+            "document_type": "taxon",
+            "public_updated_at": "2018-09-16T20:29:39Z",
+            "schema_name": "taxon",
+            "withdrawn": false,
+            "description": "",
+            "details": {
+              "internal_name": "Government",
+              "notes_for_editors": "",
+              "visible_to_departmental_editors": true
+            },
+            "phase": "live",
+            "links": {
+              "root_taxon": [{
+                "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+                "title": "GOV.UK homepage",
+                "locale": "en",
+                "api_path": "/api/content/",
+                "base_path": "/",
+                "document_type": "homepage",
+                "public_updated_at": "2019-06-21T11:52:37Z",
+                "schema_name": "homepage",
+                "withdrawn": false,
+                "links": {},
+                "api_url": "https://www.gov.uk/api/content/",
+                "web_url": "https://www.gov.uk/"
+              }]
+            },
+            "api_url": "https://www.gov.uk/api/content/government/all",
+            "web_url": "https://www.gov.uk/government/all"
+          }]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/democracy",
+        "web_url": "https://www.gov.uk/government/democracy"
+      },
+      {
+        "content_id": "e48ab80a-de80-4e83-bf59-26316856a5f9",
+        "title": "Government",
+        "locale": "en",
+        "api_path": "/api/content/government/all",
+        "base_path": "/government/all",
+        "document_type": "taxon",
+        "public_updated_at": "2018-09-16T20:29:39Z",
+        "schema_name": "taxon",
+        "withdrawn": false,
+        "description": "",
+        "details": {
+          "internal_name": "Government",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "phase": "live",
+        "links": {
+          "root_taxon": [{
+            "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+            "title": "GOV.UK homepage",
+            "locale": "en",
+            "api_path": "/api/content/",
+            "base_path": "/",
+            "document_type": "homepage",
+            "public_updated_at": "2019-06-21T11:52:37Z",
+            "schema_name": "homepage",
+            "withdrawn": false,
+            "links": {},
+            "api_url": "https://www.gov.uk/api/content/",
+            "web_url": "https://www.gov.uk/"
+          }]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/all",
+        "web_url": "https://www.gov.uk/government/all"
+      }
+    ],
+    "available_translations": [{
+      "title": "Get involved",
+      "public_updated_at": "2021-10-29T12:29:28Z",
+      "document_type": "get_involved",
+      "schema_name": "get_involved",
+      "base_path": "/government/get-involved",
+      "api_path": "/api/content/government/get-involved",
+      "withdrawn": false,
+      "content_id": "dbe329f1-359c-43f7-8944-580d4742aa91",
+      "locale": "en",
+      "api_url": "https://www.gov.uk/api/content/government/get-involved",
+      "web_url": "https://www.gov.uk/government/get-involved",
+      "links": {}
+    }]
+  },
+  "description": "Find out how you can engage with government directly, and take part locally, nationally or internationally.",
+  "details": {}
+}
