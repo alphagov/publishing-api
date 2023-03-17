@@ -352,7 +352,12 @@
     "details": {
       "type": "object",
       "additionalProperties": false,
-      "properties": {}
+      "properties": {
+        "casualties": {
+          "description": "A list of casualties associated with a given fatality notice",
+          "type": "object"
+        }
+      }
     },
     "first_published_at": {
       "description": "The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.",

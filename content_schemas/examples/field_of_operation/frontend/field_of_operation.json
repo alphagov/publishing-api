@@ -102,5 +102,12 @@
     ]
   },
   "description": "It is with very deep regret that the following fatalities are announced.",
-  "details": {}
+  "details": {
+    "casualties": {
+      "654": [
+        "Person A has sadly passed away",
+        "Person B has sadly passed away"
+      ]
+    }
+  }
 }

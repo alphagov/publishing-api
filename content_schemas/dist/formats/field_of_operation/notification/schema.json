@@ -570,6 +570,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "casualties": {
+          "description": "A list of casualties associated with a given fatality notice",
+          "type": "object"
+        },
         "change_history": {
           "$ref": "#/definitions/change_history"
         }
