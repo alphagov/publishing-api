@@ -171,6 +171,14 @@
           description: "Include this in search result metadata. Can be set for non-filterable facets.",
           type: "boolean",
         },
+        large: {
+          description: "When set to true, the height of the option select facet will be larger",
+          type: "boolean",
+        },
+        open_on_load: {
+          description: "When set to true, the option select facet will always be open on page load",
+          type: "boolean",
+        },
         name: {
           description: "Label for the facet.",
           type: "string",

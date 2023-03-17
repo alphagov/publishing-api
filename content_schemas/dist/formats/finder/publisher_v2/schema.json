@@ -321,9 +321,17 @@
               "type": "string"
             }
           },
+          "large": {
+            "description": "When set to true, the height of the option select facet will be larger",
+            "type": "boolean"
+          },
           "name": {
             "description": "Label for the facet.",
             "type": "string"
+          },
+          "open_on_load": {
+            "description": "When set to true, the option select facet will always be open on page load",
+            "type": "boolean"
           },
           "open_value": {
             "description": "Value that determines the open state (the key field is in the future) of a topical facet.",
