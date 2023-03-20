@@ -230,6 +230,12 @@
         "body": {
           "$ref": "#/definitions/body"
         },
+        "casualties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "change_history": {
           "$ref": "#/definitions/change_history"
         },
