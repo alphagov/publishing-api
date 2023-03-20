@@ -14,6 +14,12 @@
         body: {
           "$ref": "#/definitions/body",
         },
+        casualties: {
+          type: "array",
+          items: {
+            type: "string"
+          }
+        },
         first_public_at: {
           "$ref": "#/definitions/first_public_at",
         },
