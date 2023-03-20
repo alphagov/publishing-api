@@ -67,7 +67,7 @@
       },
     },
   },
-  edition_links: (import "shared/base_edition_links.jsonnet") + {
+  links: (import "shared/base_links.jsonnet") + {
     ordered_parent_organisations: "Organisations that own this role.",
     ministerial: {
       description: "Link to the ministers index page, present if this is a ministerial role.",
