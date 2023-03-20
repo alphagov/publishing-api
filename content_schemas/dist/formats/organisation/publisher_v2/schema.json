@@ -59,62 +59,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "ordered_board_members": {
-          "description": "Board members primarily for use with Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_chief_professional_officers": {
-          "description": "Chief professional officers primarily for use with Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_child_organisations": {
-          "description": "Child organisations primarily for use with Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_contacts": {
-          "description": "Contact details primarily for use with Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_featured_policies": {
-          "description": "Featured policies primarily for use with Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_foi_contacts": {
-          "description": "FoI contact details primarily for use with Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_high_profile_groups": {
-          "description": "High profile groups primarily for use with Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_military_personnel": {
-          "description": "Military personnel primarily for use with Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_ministers": {
-          "description": "Ministers primarily for use with Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_parent_organisations": {
-          "description": "Parent organisations primarily for use with Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_roles": {
-          "description": "Organisational roles primarily for use with Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_special_representatives": {
-          "description": "Special representatives primarily for use with Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_successor_organisations": {
-          "description": "Successor organisations primarily for use with closed Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_traffic_commissioners": {
-          "description": "Traffic commissioners primarily for use with Whitehall organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
         "policy_areas": {
           "description": "A largely deprecated tag currently only used to power email alerts.",
           "$ref": "#/definitions/guid_list"

@@ -10,6 +10,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "corporate_information_pages": {
+          "description": "Corporate information pages for this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
         "finder": {
           "description": "Powers links from content back to finders the content is surfaced on",
           "$ref": "#/definitions/guid_list"
@@ -24,6 +28,10 @@
         },
         "meets_user_needs": {
           "description": "The user needs this piece of content meets.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_contacts": {
+          "description": "Contact details for this Worldwide Organisation",
           "$ref": "#/definitions/guid_list"
         },
         "ordered_related_items": {
@@ -56,6 +64,10 @@
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
         },
+        "sponsoring_organisations": {
+          "description": "Sponsoring organisations for this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
         "suggested_ordered_related_items": {
           "description": "New A/B test suggestions for related items. Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms included in this A/B test.",
           "$ref": "#/definitions/guid_list"
@@ -66,6 +78,10 @@
         },
         "topics": {
           "description": "Powers the /topic section of the site. These are known as specialist sectors in some legacy apps.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "world_locations": {
+          "description": "World Locations associated with this Worldwide Organisation",
           "$ref": "#/definitions/guid_list"
         }
       }

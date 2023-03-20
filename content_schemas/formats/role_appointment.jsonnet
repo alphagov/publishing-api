@@ -28,7 +28,7 @@
       },
     },
   },
-  edition_links: (import "shared/base_edition_links.jsonnet") + {
+  links: (import "shared/base_links.jsonnet") + {
     person: "The person that is currently appointed to the relevant role.",
     role: "The role that the relevant person is currently appointed to.",
   },

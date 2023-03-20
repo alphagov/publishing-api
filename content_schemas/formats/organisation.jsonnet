@@ -184,7 +184,7 @@
       },
     },
   },
-  edition_links: (import "shared/base_edition_links.jsonnet") + {
+  links: (import "shared/base_links.jsonnet") + {
     ordered_board_members: "Board members primarily for use with Whitehall organisations.",
     ordered_chief_professional_officers: "Chief professional officers primarily for use with Whitehall organisations.",
     ordered_child_organisations: "Child organisations primarily for use with Whitehall organisations.",

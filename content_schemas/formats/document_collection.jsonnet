@@ -76,5 +76,6 @@
     related_policies: "",
     related_mainstream_content: "",
     documents: "",
+    topical_events: "The topical events that are part of this document collection.",
   },
 }

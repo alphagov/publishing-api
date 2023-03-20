@@ -69,15 +69,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "ministerial": {
-          "description": "Link to the ministers index page, present if this is a ministerial role.",
-          "$ref": "#/definitions/guid_list",
-          "maxItems": 1
-        },
-        "ordered_parent_organisations": {
-          "description": "Organisations that own this role.",
-          "$ref": "#/definitions/guid_list"
-        },
         "policy_areas": {
           "description": "A largely deprecated tag currently only used to power email alerts.",
           "$ref": "#/definitions/guid_list"

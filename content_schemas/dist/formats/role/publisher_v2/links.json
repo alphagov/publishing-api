@@ -26,6 +26,15 @@
           "description": "The user needs this piece of content meets.",
           "$ref": "#/definitions/guid_list"
         },
+        "ministerial": {
+          "description": "Link to the ministers index page, present if this is a ministerial role.",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
+        "ordered_parent_organisations": {
+          "description": "Organisations that own this role.",
+          "$ref": "#/definitions/guid_list"
+        },
         "ordered_related_items": {
           "description": "Related items, can be any page on GOV.UK. Mostly used for mainstream content to power the sidebar. Ordering of the links is determined by the editor in Content Tagger.",
           "$ref": "#/definitions/guid_list"
