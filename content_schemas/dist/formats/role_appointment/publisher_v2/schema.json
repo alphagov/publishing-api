@@ -56,16 +56,8 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "person": {
-          "description": "The person that is currently appointed to the relevant role.",
-          "$ref": "#/definitions/guid_list"
-        },
         "policy_areas": {
           "description": "A largely deprecated tag currently only used to power email alerts.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "role": {
-          "description": "The role that the relevant person is currently appointed to.",
           "$ref": "#/definitions/guid_list"
         }
       }

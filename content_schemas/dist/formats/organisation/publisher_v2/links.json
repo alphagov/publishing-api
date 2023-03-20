@@ -26,12 +26,68 @@
           "description": "The user needs this piece of content meets.",
           "$ref": "#/definitions/guid_list"
         },
+        "ordered_board_members": {
+          "description": "Board members primarily for use with Whitehall organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_chief_professional_officers": {
+          "description": "Chief professional officers primarily for use with Whitehall organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_child_organisations": {
+          "description": "Child organisations primarily for use with Whitehall organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_contacts": {
+          "description": "Contact details primarily for use with Whitehall organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_featured_policies": {
+          "description": "Featured policies primarily for use with Whitehall organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_foi_contacts": {
+          "description": "FoI contact details primarily for use with Whitehall organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_high_profile_groups": {
+          "description": "High profile groups primarily for use with Whitehall organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_military_personnel": {
+          "description": "Military personnel primarily for use with Whitehall organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_ministers": {
+          "description": "Ministers primarily for use with Whitehall organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_parent_organisations": {
+          "description": "Parent organisations primarily for use with Whitehall organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
         "ordered_related_items": {
           "description": "Related items, can be any page on GOV.UK. Mostly used for mainstream content to power the sidebar. Ordering of the links is determined by the editor in Content Tagger.",
           "$ref": "#/definitions/guid_list"
         },
         "ordered_related_items_overrides": {
           "description": "Related items, can be any page on GOV.UK. Overrides 'more like this' automatically generated links in the beta navigation.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_roles": {
+          "description": "Organisational roles primarily for use with Whitehall organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_special_representatives": {
+          "description": "Special representatives primarily for use with Whitehall organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_successor_organisations": {
+          "description": "Successor organisations primarily for use with closed Whitehall organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_traffic_commissioners": {
+          "description": "Traffic commissioners primarily for use with Whitehall organisations.",
           "$ref": "#/definitions/guid_list"
         },
         "organisations": {

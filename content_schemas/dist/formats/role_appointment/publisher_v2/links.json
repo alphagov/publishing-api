@@ -47,6 +47,10 @@
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
         },
+        "person": {
+          "description": "The person that is currently appointed to the relevant role.",
+          "$ref": "#/definitions/guid_list"
+        },
         "policy_areas": {
           "description": "A largely deprecated tag currently only used to power email alerts.",
           "$ref": "#/definitions/guid_list"
@@ -55,6 +59,10 @@
           "description": "The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.",
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
+        },
+        "role": {
+          "description": "The role that the relevant person is currently appointed to.",
+          "$ref": "#/definitions/guid_list"
         },
         "suggested_ordered_related_items": {
           "description": "New A/B test suggestions for related items. Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms included in this A/B test.",
