@@ -222,7 +222,8 @@
             "vaccination",
             "supplementary-movement-control",
             "wild-bird-control",
-            "wild-bird-monitoring"
+            "wild-bird-monitoring",
+            "none"
           ]
         }
       },

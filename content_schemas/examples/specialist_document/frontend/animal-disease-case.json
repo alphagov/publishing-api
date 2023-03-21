@@ -246,6 +246,10 @@
                 {
                   "label": "Wild bird monitoring area",
                   "value": "wild-bird-monitoring"
+                },
+                {
+                  "label": "None",
+                  "value": "none"
                 }
               ]
             },
