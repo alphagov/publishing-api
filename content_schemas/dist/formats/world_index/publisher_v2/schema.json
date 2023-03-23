@@ -44,191 +44,7 @@
     "document_type": {
       "type": "string",
       "enum": [
-        "aaib_report",
-        "about",
-        "about_our_services",
-        "accessible_documents_policy",
-        "access_and_opening",
-        "ambassador_role",
-        "animal_disease_case",
-        "answer",
-        "asylum_support_decision",
-        "authored_article",
-        "board_member_role",
-        "business_finance_support_scheme",
-        "calculator",
-        "calendar",
-        "case_study",
-        "chief_professional_officer_role",
-        "chief_scientific_officer_role",
-        "chief_scientific_advisor_role",
-        "closed_consultation",
-        "cma_case",
-        "coming_soon",
-        "complaints_procedure",
-        "completed_transaction",
-        "consultation",
-        "consultation_outcome",
-        "contact",
-        "coronavirus_landing_page",
-        "corporate_report",
-        "correspondence",
-        "countryside_stewardship_grant",
-        "decision",
-        "deputy_head_of_mission_role",
-        "detailed_guidance",
-        "detailed_guide",
-        "dfid_research_output",
-        "document_collection",
-        "drcf_digital_markets_research",
-        "drug_safety_update",
-        "email_alert_signup",
-        "employment_appeal_tribunal_decision",
-        "employment_tribunal_decision",
-        "equality_and_diversity",
-        "esi_fund",
-        "export_health_certificate",
-        "external_content",
-        "facet",
-        "fatality_notice",
-        "field_of_operation",
-        "fields_of_operation",
-        "finder",
-        "finder_email_signup",
-        "flood_and_coastal_erosion_risk_management_research_report",
-        "foi_release",
-        "form",
-        "get_involved",
-        "gone",
-        "government",
-        "government_response",
-        "governor_role",
-        "guidance",
-        "guide",
-        "help_page",
-        "high_commissioner_role",
-        "historic_appointment",
-        "historic_appointments",
-        "history",
-        "hmrc_manual",
-        "hmrc_manual_section",
-        "homepage",
-        "how_government_works",
-        "html_publication",
-        "impact_assessment",
-        "imported",
-        "independent_report",
-        "international_development_fund",
-        "international_treaty",
-        "knowledge_alpha",
-        "licence",
-        "license_finder",
-        "licence_transaction",
-        "local_transaction",
-        "maib_report",
-        "mainstream_browse_page",
-        "manual",
-        "manual_section",
-        "map",
-        "marine_notice",
-        "media_enquiries",
-        "medical_safety_alert",
-        "membership",
-        "military_role",
-        "ministerial_role",
-        "ministers_index",
-        "modern_slavery_statement",
-        "national",
-        "national_statistics",
-        "national_statistics_announcement",
-        "need",
-        "news_article",
-        "news_story",
-        "notice",
-        "official",
-        "official_statistics",
-        "official_statistics_announcement",
-        "oim_project",
-        "open_consultation",
-        "oral_statement",
-        "organisation",
-        "our_energy_use",
-        "our_governance",
-        "person",
-        "personal_information_charter",
-        "petitions_and_campaigns",
-        "place",
-        "placeholder",
-        "placeholder_ministerial_role",
-        "placeholder_organisation",
-        "placeholder_person",
-        "placeholder_policy_area",
-        "placeholder_worldwide_organisation",
-        "policy_area",
-        "policy_paper",
-        "press_release",
-        "procurement",
-        "product_safety_alert_report_recall",
-        "promotional",
-        "protected_food_drink_name",
-        "publication_scheme",
-        "raib_report",
-        "recruitment",
-        "redirect",
-        "regulation",
-        "research",
-        "research_for_development_output",
-        "residential_property_tribunal_decision",
-        "role_appointment",
-        "search",
-        "service_manual_guide",
-        "service_manual_homepage",
-        "service_manual_service_standard",
-        "service_manual_service_toolkit",
-        "service_manual_topic",
-        "service_sign_in",
-        "service_standard_report",
-        "services_and_information",
-        "simple_smart_answer",
-        "smart_answer",
-        "social_media_use",
-        "special_representative_role",
-        "special_route",
-        "speech",
-        "staff_update",
-        "standard",
-        "statistical_data_set",
-        "statistics",
-        "statistics_announcement",
-        "statutory_guidance",
-        "statutory_instrument",
-        "step_by_step_nav",
-        "take_part",
-        "tax_tribunal_decision",
-        "taxon",
-        "terms_of_reference",
-        "topic",
-        "topical_event",
-        "topical_event_about_page",
-        "traffic_commissioner_regulatory_decision",
-        "traffic_commissioner_role",
-        "transaction",
-        "transparency",
-        "travel_advice",
-        "travel_advice_index",
-        "unpublishing",
-        "uk_market_conformity_assessment_body",
-        "utaac_decision",
-        "vanish",
-        "welsh_language_scheme",
-        "working_group",
-        "world_index",
-        "world_location",
-        "world_location_news",
-        "world_news_story",
-        "worldwide_office_staff_role",
-        "worldwide_organisation",
-        "written_statement"
+        "world_index"
       ]
     },
     "first_published_at": {
@@ -290,7 +106,7 @@
     "schema_name": {
       "type": "string",
       "enum": [
-        "generic_with_external_related_links"
+        "world_index"
       ]
     },
     "title": {
@@ -340,6 +156,10 @@
         }
       ]
     },
+    "body": {
+      "description": "The main content provided as HTML rendered from govspeak",
+      "type": "string"
+    },
     "description_optional": {
       "anyOf": [
         {
@@ -352,34 +172,67 @@
     },
     "details": {
       "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "external_related_links": {
-          "$ref": "#/definitions/external_related_links"
-        }
-      }
-    },
-    "external_link": {
-      "type": "object",
       "required": [
-        "title",
-        "url"
+        "international_delegations",
+        "world_locations"
       ],
       "additionalProperties": false,
       "properties": {
-        "title": {
-          "type": "string"
+        "body": {
+          "$ref": "#/definitions/body"
         },
-        "url": {
-          "type": "string",
-          "format": "uri"
+        "international_delegations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "slug",
+              "active"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "active": {
+                "description": "Whether the location is currently active",
+                "type": "boolean"
+              },
+              "name": {
+                "description": "The name of the international delegation",
+                "type": "string"
+              },
+              "slug": {
+                "description": "The slug of the international delegation",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "world_locations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "slug",
+              "active"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "active": {
+                "description": "Whether the location is currently active",
+                "type": "boolean"
+              },
+              "name": {
+                "description": "The name of the world location",
+                "type": "string"
+              },
+              "slug": {
+                "description": "The slug of the world location",
+                "type": "string"
+              }
+            }
+          }
         }
-      }
-    },
-    "external_related_links": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/external_link"
       }
     },
     "first_published_at": {
