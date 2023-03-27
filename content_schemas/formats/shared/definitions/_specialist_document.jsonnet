@@ -57,6 +57,9 @@
         "$ref": "#/definitions/maib_report_metadata",
       },
       {
+        "$ref": "#/definitions/marine_equipment_approved_recommendation_metadata",
+      },
+      {
         "$ref": "#/definitions/marine_notice_metadata",
       },
       {
@@ -2156,6 +2159,42 @@
       date_of_occurrence: {
         type: "string",
         pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+      },
+    },
+  },
+  marine_equipment_approved_recommendation_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      category: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "life-saving-appliances",
+            "marine-pollution-prevention",
+            "fire-protection-equipment",
+            "navigation-equipment",
+            "radio-communication-equipment",
+            "equipment-required-under-colregs",
+            "other-safety-equipment",
+            "equipment-under-solas-chapter-ii-1",
+            "general",
+          ]
+        },
+      },
+      year_adopted: {
+        type: "string",
+        pattern: "^[1-9][0-9]{3}$",
+      },
+      reference_number: {
+        type: "string",
+      },
+      keyword: {
+        type: "string"
       },
     },
   },
