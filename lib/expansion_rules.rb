@@ -32,8 +32,14 @@ module_function
     %i[role_appointments role],
     %i[role_appointments role ordered_parent_organisations],
     %i[ministers role_appointments person],
+    %i[ordered_also_attends_cabinet role_appointments role],
+    %i[ordered_assistant_whips role_appointments role],
+    %i[ordered_baronessess_and_ladies_in_waiting_whips role_appointments role],
     %i[ordered_board_members role_appointments role],
     %i[ordered_chief_professional_officers role_appointments role],
+    %i[ordered_house_lords_whips role_appointments role],
+    %i[ordered_house_of_commons_whips role_appointments role],
+    %i[ordered_junior_lords_of_the_treasury_whips role_appointments role],
     %i[ordered_military_personnel role_appointments role],
     %i[ordered_ministers role_appointments role],
     %i[ordered_special_representatives role_appointments role],
@@ -88,7 +94,7 @@ module_function
   HISTORIC_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:political_party, :dates_in_office))
   MINISTERIAL_ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :role_payment_type, :seniority)).freeze
   PERSON_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :image)).freeze
-  PERSON_FIELDS_WITH_IMAGE = (DEFAULT_FIELDS + details_fields(:image)).freeze
+  PERSON_FIELDS_WITH_IMAGE = (DEFAULT_FIELDS + details_fields(:image, :privy_counsellor)).freeze
   ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :role_payment_type)).freeze
   ROLE_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:started_on, :ended_on, :current, :person_appointment_order)).freeze
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i[details step_by_step_nav title], %i[details step_by_step_nav steps]]).freeze
@@ -100,12 +106,19 @@ module_function
   CUSTOM_EXPANSION_FIELDS_FOR_PEOPLE = (
     %i[
       current_prime_minister
-      ordered_ministers
+      ordered_also_attends_cabinet
+      ordered_assistant_whips
+      ordered_baronessess_and_ladies_in_waiting_whips
       ordered_board_members
-      ordered_military_personnel
-      ordered_traffic_commissioners
+      ordered_cabinet_ministers
       ordered_chief_professional_officers
+      ordered_house_lords_whips
+      ordered_house_of_commons_whips
+      ordered_junior_lords_of_the_treasury_whips
+      ordered_military_personnel
+      ordered_ministers
       ordered_special_representatives
+      ordered_traffic_commissioners
     ].map do |link_type|
       { document_type: :person, link_type:, fields: PERSON_FIELDS_WITH_IMAGE }
     end
