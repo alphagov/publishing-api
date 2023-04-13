@@ -173,6 +173,10 @@
         "reshuffle"
       ],
       "properties": {
+        "body": {
+          "description": "The main text to show on the page",
+          "type": "string"
+        },
         "reshuffle": {
           "message": "string"
         }
