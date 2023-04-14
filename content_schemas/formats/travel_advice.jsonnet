@@ -5,7 +5,6 @@
       type: "object",
       additionalProperties: false,
       required: [
-        "summary",
         "country",
         "updated_at",
         "reviewed_at",
