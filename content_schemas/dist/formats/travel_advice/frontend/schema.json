@@ -323,7 +323,6 @@
     "details": {
       "type": "object",
       "required": [
-        "summary",
         "country",
         "updated_at",
         "reviewed_at",
