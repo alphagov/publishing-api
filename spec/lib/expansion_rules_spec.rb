@@ -49,7 +49,7 @@ RSpec.describe ExpansionRules do
     let(:historic_appointment_fields) { default_fields + [%i[details political_party], %i[details dates_in_office]] }
     let(:ministerial_role_fields) { role_fields + [%i[details seniority]] }
     let(:person_fields) { default_fields + [%i[details body], %i[details image]] }
-    let(:person_with_image_fields) { default_fields + [%i[details image]] }
+    let(:person_with_image_fields) { default_fields + [%i[details image], %i[details privy_counsellor]] }
     let(:role_fields) { default_fields + [%i[details body], %i[details role_payment_type]] }
     let(:role_appointment_fields) { default_fields + [%i[details started_on], %i[details ended_on], %i[details current], %i[details person_appointment_order]] }
     let(:service_manual_topic_fields) { default_fields + %i[description] }
@@ -78,12 +78,19 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:topical_event)).to eq(default_fields) }
 
     specify { expect(rules.expansion_fields(:person, link_type: :current_prime_minister)).to eq(person_with_image_fields) }
-    specify { expect(rules.expansion_fields(:person, link_type: :ordered_ministers)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_also_attends_cabinet)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_assistant_whips)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_baronessess_and_ladies_in_waiting_whips)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_board_members)).to eq(person_with_image_fields) }
-    specify { expect(rules.expansion_fields(:person, link_type: :ordered_military_personnel)).to eq(person_with_image_fields) }
-    specify { expect(rules.expansion_fields(:person, link_type: :ordered_traffic_commissioners)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_cabinet_ministers)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_chief_professional_officers)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_house_lords_whips)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_house_of_commons_whips)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_junior_lords_of_the_treasury_whips)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_military_personnel)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_ministers)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_special_representatives)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_traffic_commissioners)).to eq(person_with_image_fields) }
 
     specify { expect(rules.expansion_fields(:ministerial_role)).to eq(ministerial_role_fields) }
 
