@@ -1,5 +1,6 @@
 (import "shared/default_format.jsonnet") + {
-  definitions: (import "shared/definitions/_whitehall.jsonnet") + {
+  definitions: (import "shared/definitions/_whitehall.jsonnet") +
+               (import "shared/definitions/_image_with_srcset.jsonnet") + {
     details: {
       type: "object",
       additionalProperties: false,
@@ -12,15 +13,7 @@
           type: "string",
         },
         image: {
-          properties: {
-           url: {
-             type: "string",
-             format: "uri",
-           },
-           alt_text: {
-             type: "string",
-           },
-          },
+          "$ref": "#/definitions/image_with_srcset",
         },
         start_date: {
           type: "string",
