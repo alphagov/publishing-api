@@ -36,6 +36,7 @@ module_function
     %i[ordered_assistant_whips role_appointments role],
     %i[ordered_baronessess_and_ladies_in_waiting_whips role_appointments role],
     %i[ordered_board_members role_appointments role],
+    %i[ordered_cabinet_ministers role_appointments role],
     %i[ordered_chief_professional_officers role_appointments role],
     %i[ordered_house_lords_whips role_appointments role],
     %i[ordered_house_of_commons_whips role_appointments role],
