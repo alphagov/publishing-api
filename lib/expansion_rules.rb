@@ -35,6 +35,7 @@ module_function
     %i[ordered_also_attends_cabinet role_appointments role],
     %i[ordered_assistant_whips role_appointments role],
     %i[ordered_baronessess_and_ladies_in_waiting_whips role_appointments role],
+    %i[ordered_baronesses_and_lords_in_waiting_whips role_appointments role],
     %i[ordered_board_members role_appointments role],
     %i[ordered_cabinet_ministers role_appointments role],
     %i[ordered_chief_professional_officers role_appointments role],
@@ -111,6 +112,7 @@ module_function
       ordered_also_attends_cabinet
       ordered_assistant_whips
       ordered_baronessess_and_ladies_in_waiting_whips
+      ordered_baronesses_and_lords_in_waiting_whips
       ordered_board_members
       ordered_cabinet_ministers
       ordered_chief_professional_officers
