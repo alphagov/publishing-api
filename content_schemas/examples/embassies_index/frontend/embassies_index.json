@@ -1,0 +1,56 @@
+{
+  "base_path": "/world/embassies",
+  "content_id": "8e2cb457-81c1-484e-baa5-d714538c7c66",
+  "description": "",
+  "details": {
+    "world_locations": [
+      {
+        "name": "Afghanistan",
+        "assistance_available": "remote",
+        "remote_office": {
+          "name": "British Embassy Kabul",
+          "country": "Qatar",
+          "path": "/world/organisations/british-embassy-kabul"
+        }
+      },
+      {
+        "name": "Anguilla",
+        "assistance_available": "none"
+      },
+      {
+        "name": "Argentina",
+        "assistance_available": "local",
+        "organisations_with_embassy_offices": [
+          {
+            "locality": "",
+            "name": "British Embassy Buenos Aires",
+            "path": "/world/organisations/british-embassy-buenos-aires"
+          },
+          {
+            "locality": "",
+            "name": "UK Science & Innovation Network in Argentina",
+            "path": "/world/organisations/uk-science-innovation-network-in-argentina--2"
+          }
+        ]
+      }
+    ]
+  },
+  "document_type": "embassies_index",
+  "links": {
+    "parent": [
+      {
+        "base_path": "/world",
+        "content_id": "369729ba-7776-4123-96be-2e3e98e153e1",
+        "locale": "en",
+        "title": ""
+      }
+    ]
+  },
+  "locale": "en",
+  "publishing_app": "whitehall",
+  "rendering_app": "collections",
+  "schema_name": "embassies_index",
+  "title": "Find a British embassy, high commission or consulate",
+  "public_updated_at": "2016-09-14T18:19:27+01:00",
+  "updated_at": "2016-09-14T10:37:00Z"
+}
