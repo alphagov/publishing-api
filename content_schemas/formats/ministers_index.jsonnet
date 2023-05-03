@@ -38,9 +38,6 @@
     ordered_house_lords_whips: {
       description: "Links to the current House of Lords whips in the correct order"
     },
-    ordered_baronessess_and_ladies_in_waiting_whips: {
-      description: "Links to the current Baroness and Ladies in Waiting whips in the correct order"
-    },
     ordered_baronesses_and_lords_in_waiting_whips: {
       description: "Links to the current Baronesses and Lords in Waiting whips in the correct order"
     }

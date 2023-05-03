@@ -80,7 +80,6 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:person, link_type: :current_prime_minister)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_also_attends_cabinet)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_assistant_whips)).to eq(person_with_image_fields) }
-    specify { expect(rules.expansion_fields(:person, link_type: :ordered_baronessess_and_ladies_in_waiting_whips)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_baronesses_and_lords_in_waiting_whips)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_board_members)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_cabinet_ministers)).to eq(person_with_image_fields) }
