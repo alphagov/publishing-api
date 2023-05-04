@@ -117,24 +117,24 @@
           ]
         },
         "links": {},
-        "api_url": "https://www.gov.uk/api/content/aaib-reports",
-        "web_url": "https://www.gov.uk/aaib-reports"
+        "api_url": "https://www.gov.uk/api/content/eurovision-winners",
+        "web_url": "https://www.gov.uk/eurovision-winners"
       }
     ],
     "available_translations": [
       {
         "analytics_identifier": null,
-        "api_url": "https://www.gov.uk/api/content/aaib-reports/aaib-investigation-to-rotorsport-uk-calidus-g-pcpc",
-        "base_path": "/aaib-reports/aaib-investigation-to-rotorsport-uk-calidus-g-pcpc",
+        "api_url": "https://www.gov.uk/api/content/eurovision-winners/xyz",
+        "base_path": "/eurovision-winners/xyz",
         "content_id": "9854f859-3413-4d6d-b6d5-6a10cf2a9030",
-        "description": "Overturned after rotor struck tailplane during preparation for takeoff, Damyns Hall Aerodrome, Essex, 8 April 2015.",
-        "document_type": "aaib_report",
+        "description": "The latest band on the scene",
+        "document_type": "eurovision_winner",
         "locale": "en",
         "public_updated_at": "2015-07-09T08:17:10Z",
         "schema_name": "specialist_document",
-        "title": "AAIB investigation to Rotorsport UK Calidus, G-PCPC\t",
-        "web_url": "https://www.gov.uk/aaib-reports/aaib-investigation-to-rotorsport-uk-calidus-g-pcpc",
-        "api_path": "/api/content/aaib-reports/aaib-investigation-to-rotorsport-uk-calidus-g-pcpc",
+        "title": "The future eurovision winners",
+        "web_url": "https://www.gov.uk/eurovision-winners/xyz",
+        "api_path": "/api/content/eurovision-winners/xyz",
         "links": {}
       }
     ]
