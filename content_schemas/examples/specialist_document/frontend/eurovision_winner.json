@@ -1,0 +1,142 @@
+{
+  "content_id": "c1ab22b4-be6c-40ec-800e-e9ec284361ee",
+  "public_updated_at": "2015-07-09T08:17:10+00:00",
+  "locale": "en",
+  "details": {
+    "metadata": {
+      "performer_name": "The PubEx team",
+      "song_name": "The ballad of specialist publisher",
+      "country_represented": [
+        "Portugal"
+      ],
+      "date_won": "04-05-23",
+      "bulk_published": false
+    },
+    "change_history": [
+      {
+        "public_timestamp": "2015-07-09T08:17:10Z",
+        "note": "First published."
+      }
+    ],
+    "body": "Some super cool facts",
+    "max_cache_time": 10
+  },
+  "base_path": "/eurovision-winner/xyz",
+  "description": "The latest band on the scene",
+  "title": "The future eurovision winners",
+  "updated_at": "2015-07-09T08:54:30+00:00",
+  "schema_name": "specialist_document",
+  "document_type": "eurovision_winner",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "OT248",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-digital-culture-media-sport",
+        "base_path": "/government/organisations/department-for-digital-culture-media-sport",
+        "content_id": "fd62c5a4-714d-47fe-a612-595d1739251c",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-04-15T10:04:28Z",
+        "schema_name": "placeholder",
+        "title": "Eurovision winners",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-digital-culture-media-sport",
+        "details": {
+          "brand": "department-for-digital-culture-media-sport",
+          "logo": {
+            "formatted_title": "Department <br/>for Culture,<br/>Media &amp; Sport",
+            "crest": "single-identity"
+          }
+        },
+        "links": {},
+        "api_path": "/api/content/government/organisations/department-for-culture-media-and-sport"
+      }
+    ],
+    "finder": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/eurovision-winners",
+        "base_path": "/eurovision-winners",
+        "content_id": "b7574bba-969f-4c49-855a-ae1586258ff6",
+        "description": "Find the previous eurovision winners and information about their performances",
+        "document_type": "finder",
+        "locale": "en",
+        "public_updated_at": "2017-03-15T14:44:21Z",
+        "schema_name": "finder",
+        "title": "Eurovision winners",
+        "withdrawn": false,
+        "details": {
+          "facets": [
+            {
+              "key": "performer_name",
+              "name": "Name of performer",
+              "type": "text",
+              "preposition": "Performer name",
+              "display_as_result_metadata": true,
+              "filterable": false
+            },
+            {
+              "key": "country_represented",
+              "name": "Country represented",
+              "type": "text",
+              "preposition": "representing",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Portugal",
+                  "value": "portugal"
+                },
+                {
+                  "label": "Israel",
+                  "value": "israel"
+                },
+                {
+                  "label": "Netherlands",
+                  "value": "netherlands"
+                },
+                {
+                  "label": "Italy",
+                  "value": "italy"
+                },
+                {
+                  "label": "Ukraine",
+                  "value": "ukraine"
+                }
+              ]
+            },
+            {
+              "key": "date_won",
+              "name": "Date won",
+              "short_name": "date_won",
+              "type": "date",
+              "preposition": "Won on",
+              "display_as_result_metadata": true,
+              "filterable": true
+            }
+          ]
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/aaib-reports",
+        "web_url": "https://www.gov.uk/aaib-reports"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "api_url": "https://www.gov.uk/api/content/aaib-reports/aaib-investigation-to-rotorsport-uk-calidus-g-pcpc",
+        "base_path": "/aaib-reports/aaib-investigation-to-rotorsport-uk-calidus-g-pcpc",
+        "content_id": "9854f859-3413-4d6d-b6d5-6a10cf2a9030",
+        "description": "Overturned after rotor struck tailplane during preparation for takeoff, Damyns Hall Aerodrome, Essex, 8 April 2015.",
+        "document_type": "aaib_report",
+        "locale": "en",
+        "public_updated_at": "2015-07-09T08:17:10Z",
+        "schema_name": "specialist_document",
+        "title": "AAIB investigation to Rotorsport UK Calidus, G-PCPC\t",
+        "web_url": "https://www.gov.uk/aaib-reports/aaib-investigation-to-rotorsport-uk-calidus-g-pcpc",
+        "api_path": "/api/content/aaib-reports/aaib-investigation-to-rotorsport-uk-calidus-g-pcpc",
+        "links": {}
+      }
+    ]
+  }
+}
