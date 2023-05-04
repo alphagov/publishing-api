@@ -12,6 +12,7 @@
     "drug_safety_update",
     "employment_appeal_tribunal_decision",
     "employment_tribunal_decision",
+    "eurovision_winner"
     "esi_fund",
     "export_health_certificate",
     "flood_and_coastal_erosion_risk_management_research_report",
