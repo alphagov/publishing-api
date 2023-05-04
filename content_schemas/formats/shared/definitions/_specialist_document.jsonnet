@@ -42,6 +42,9 @@
         "$ref": "#/definitions/european_structural_investment_fund_metadata",
       },
       {
+        "$ref": "#/definitions/eurovision_winner_metadata",
+      },
+      {
         "$ref": "#/definitions/export_health_certificate_metadata",
       },
       {
@@ -1453,6 +1456,28 @@
       },
     },
   },
+  eurovision_winner_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      performer_name: { type: "string" },
+      song_name: { type: "string" },
+      country_represented: {
+        type: "string",
+        enum: [
+          "portugal",
+          "israel",
+          "netherlands",
+          "italy",
+          "ukraine"
+        ],
+      },
+      date_won: { 
+        type: "string",
+        pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+       },
+    },
+  }
   export_health_certificate_metadata: {
     type: "object",
     additionalProperties: false,
