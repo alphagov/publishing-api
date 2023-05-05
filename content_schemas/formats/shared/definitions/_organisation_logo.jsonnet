@@ -12,7 +12,7 @@
       type: "string",
       enum: [
         "bis",
-        "dit",
+        "dbt",
         "eo",
         "hmrc",
         "ho",
