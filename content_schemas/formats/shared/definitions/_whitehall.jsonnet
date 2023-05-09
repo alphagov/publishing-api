@@ -107,7 +107,7 @@
               ],
               enum: [
                 "bis",
-                "dit",
+                "dbt",
                 "eo",
                 "hmrc",
                 "ho",
