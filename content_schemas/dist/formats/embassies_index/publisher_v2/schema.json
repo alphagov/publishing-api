@@ -83,6 +83,7 @@
         "drcf_digital_markets_research",
         "drug_safety_update",
         "email_alert_signup",
+        "embassies_index",
         "employment_appeal_tribunal_decision",
         "employment_tribunal_decision",
         "equality_and_diversity",
@@ -353,7 +354,24 @@
     "details": {
       "type": "object",
       "additionalProperties": false,
-      "properties": {}
+      "properties": {
+        "world_locations": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/local_offices"
+              },
+              {
+                "$ref": "#/definitions/remote_offices"
+              },
+              {
+                "$ref": "#/definitions/no_offices"
+              }
+            ]
+          }
+        }
+      }
     },
     "first_published_at": {
       "description": "The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
@@ -370,6 +388,53 @@
         "$ref": "#/definitions/guid"
       },
       "uniqueItems": true
+    },
+    "local_offices": {
+      "type": "object",
+      "required": [
+        "name",
+        "assistance_available",
+        "organisations_with_embassy_offices"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "assistance_available": {
+          "type": "string",
+          "enum": [
+            "local"
+          ]
+        },
+        "name": {
+          "description": "The name of the world location e.g. Argentina",
+          "type": "string"
+        },
+        "organisations_with_embassy_offices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "locality",
+              "name",
+              "path"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "locality": {
+                "description": "The locality of the office as set by Whitehall, e.g. Sydney",
+                "type": "string"
+              },
+              "name": {
+                "description": "The name of the worldwide organisation that this office belongs to, e.g. British Embassy Buenos Aires",
+                "type": "string"
+              },
+              "path": {
+                "description": "The path to the worldwide organisation that this office belongs to, e.g. /world/organisations/british-embassy-buenos-aires",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
     },
     "locale": {
       "type": "string",
@@ -442,6 +507,26 @@
         "zh-tw"
       ]
     },
+    "no_offices": {
+      "type": "object",
+      "required": [
+        "name",
+        "assistance_available"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "assistance_available": {
+          "type": "string",
+          "enum": [
+            "none"
+          ]
+        },
+        "name": {
+          "description": "The name of the world location e.g. Anguilla",
+          "type": "string"
+        }
+      }
+    },
     "public_updated_at": {
       "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
       "type": "string",
@@ -485,6 +570,49 @@
         "travel-advice-publisher",
         "whitehall"
       ]
+    },
+    "remote_offices": {
+      "type": "object",
+      "required": [
+        "name",
+        "assistance_available",
+        "remote_office"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "assistance_available": {
+          "type": "string",
+          "enum": [
+            "remote"
+          ]
+        },
+        "name": {
+          "description": "The name of the world location e.g. Argentina",
+          "type": "string"
+        },
+        "remote_office": {
+          "type": "object",
+          "required": [
+            "name",
+            "country",
+            "path"
+          ],
+          "properties": {
+            "country": {
+              "description": "The remote country that this office is located in, e.g. Qatar",
+              "type": "string"
+            },
+            "name": {
+              "description": "The name of the worldwide organisation that this office belongs to, e.g. British Embassy Kabul",
+              "type": "string"
+            },
+            "path": {
+              "description": "The path to the worldwide organisation that this office belongs to, e.g. /world/organisations/british-embassy-kabul",
+              "type": "string"
+            }
+          }
+        }
+      }
     },
     "rendering_app": {
       "description": "The application that renders this item.",
