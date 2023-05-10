@@ -47,7 +47,7 @@ RSpec.describe ExpansionRules do
     let(:fatality_notice_fields) { default_fields + [%i[details roll_call_introduction], %i[details casualties]] }
     let(:finder_fields) { default_fields + [%i[details facets]] }
     let(:historic_appointment_fields) { default_fields + [%i[details political_party], %i[details dates_in_office]] }
-    let(:ministerial_role_fields) { role_fields + [%i[details seniority]] }
+    let(:ministerial_role_fields) { role_fields + [%i[details seniority], %i[details whip_organisation]] }
     let(:person_fields) { default_fields + [%i[details body], %i[details image]] }
     let(:person_with_image_fields) { default_fields + [%i[details image], %i[details privy_counsellor]] }
     let(:role_fields) { default_fields + [%i[details body], %i[details role_payment_type]] }
