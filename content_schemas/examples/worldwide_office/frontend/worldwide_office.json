@@ -1,0 +1,17 @@
+{
+  "base_path": "/world/organisations/british-consulate-general-atlanta/office/british-consulate-general-atlanta",
+  "content_id": "e9789264-2d9c-4776-8ecc-2f7aa681d456",
+  "description": "",
+  "locale": "en",
+  "publishing_app": "whitehall",
+  "rendering_app": "collections",
+  "schema_name": "worldwide_office",
+  "document_type": "worldwide_office",
+  "title": "British Consulate General Atlanta",
+  "public_updated_at": "2016-09-14T18:19:27+01:00",
+  "updated_at": "2016-09-14T10:37:00Z",
+  "details": {
+    "access_and_opening_times": "<div class=\"govspeak\"><p>Telephone: 9.00am to 4.00pm Monday to Friday (except Public Holidays), Emergency Consular Service for British nationals available out of hours.</p></div>"
+  },
+  "links": {}
+}
