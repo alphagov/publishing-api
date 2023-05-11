@@ -292,7 +292,7 @@
     "schema_name": {
       "type": "string",
       "enum": [
-        "world_location_news"
+        "worldwide_office"
       ]
     },
     "title": {
@@ -354,27 +354,13 @@
     },
     "details": {
       "type": "object",
-      "required": [
-        "ordered_featured_links",
-        "mission_statement",
-        "ordered_featured_documents"
-      ],
       "additionalProperties": false,
       "properties": {
-        "mission_statement": {
-          "type": "string"
-        },
-        "ordered_featured_documents": {
-          "$ref": "#/definitions/ordered_featured_documents"
-        },
-        "ordered_featured_links": {
-          "$ref": "#/definitions/ordered_featured_links"
-        },
-        "world_location_news_type": {
-          "type": "string",
-          "enum": [
-            "international_delegation",
-            "world_location"
+        "access_and_opening_times": {
+          "description": "The access and opening times for this Worldwide Office.",
+          "type": [
+            "string",
+            "null"
           ]
         }
       }
@@ -394,48 +380,6 @@
         "$ref": "#/definitions/guid"
       },
       "uniqueItems": true
-    },
-    "image": {
-      "type": "object",
-      "required": [
-        "url"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "alt_text": {
-          "type": "string"
-        },
-        "caption": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "credit": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "high_resolution_url": {
-          "description": "URL to a high resolution version of the image, for use by third parties such as Twitter, Facebook or Slack. Used by the machine readable metadata component. Don't use this on user-facing web pages, as it might be very large.",
-          "type": "string",
-          "format": "uri"
-        },
-        "url": {
-          "description": "URL to the image. The image should be in a suitable resolution for display on the page.",
-          "type": "string",
-          "format": "uri"
-        }
-      }
     },
     "locale": {
       "type": "string",
@@ -507,68 +451,6 @@
         "zh-hk",
         "zh-tw"
       ]
-    },
-    "ordered_featured_documents": {
-      "description": "A set of featured documents to display.",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "title",
-          "href",
-          "image",
-          "summary",
-          "public_updated_at",
-          "document_type"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "document_type": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "href": {
-            "type": "string"
-          },
-          "image": {
-            "$ref": "#/definitions/image"
-          },
-          "public_updated_at": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "summary": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "ordered_featured_links": {
-      "description": "A set of featured links to display.",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "title",
-          "href"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "href": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          }
-        }
-      }
     },
     "public_updated_at": {
       "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
