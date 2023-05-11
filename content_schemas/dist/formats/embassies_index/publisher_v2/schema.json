@@ -355,6 +355,9 @@
     },
     "details": {
       "type": "object",
+      "required": [
+        "world_locations"
+      ],
       "additionalProperties": false,
       "properties": {
         "world_locations": {
