@@ -267,6 +267,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "contact": {
+          "description": "Contact details for this Worldwide Office",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "document_collections": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -377,6 +381,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "contact": {
+          "description": "Contact details for this Worldwide Office",
+          "$ref": "#/definitions/guid_list"
+        },
         "finder": {
           "description": "Powers links from content back to finders the content is surfaced on",
           "$ref": "#/definitions/guid_list"
@@ -485,7 +493,7 @@
     "schema_name": {
       "type": "string",
       "enum": [
-        "generic_with_external_related_links"
+        "worldwide_office"
       ]
     },
     "search_user_need_document_supertype": {
@@ -565,35 +573,16 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "access_and_opening_times": {
+          "description": "The access and opening times for this Worldwide Office.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "change_history": {
           "$ref": "#/definitions/change_history"
-        },
-        "external_related_links": {
-          "$ref": "#/definitions/external_related_links"
         }
-      }
-    },
-    "external_link": {
-      "type": "object",
-      "required": [
-        "title",
-        "url"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "title": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string",
-          "format": "uri"
-        }
-      }
-    },
-    "external_related_links": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/external_link"
       }
     },
     "first_published_at": {
