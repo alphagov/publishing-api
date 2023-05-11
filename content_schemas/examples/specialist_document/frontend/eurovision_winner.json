@@ -6,9 +6,7 @@
     "metadata": {
       "performer_name": "The PubEx team",
       "song_name": "The ballad of specialist publisher",
-      "country_represented": [
-        "Portugal"
-      ],
+      "country_represented": "portugal",
       "date_won": "2023-05-04",
       "bulk_published": false
     },
