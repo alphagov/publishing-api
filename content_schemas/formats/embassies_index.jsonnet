@@ -107,6 +107,9 @@
     details: {
       type: "object",
       additionalProperties: false,
+      required: [
+        "world_locations"
+      ],
       properties: {
         world_locations: {
           type: "array",

@@ -473,6 +473,9 @@
     },
     "details": {
       "type": "object",
+      "required": [
+        "world_locations"
+      ],
       "additionalProperties": false,
       "properties": {
         "change_history": {
