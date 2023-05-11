@@ -18,6 +18,7 @@
     "international_development_fund",
     "licence_transaction",
     "maib_report",
+    "marine_equipment_approved_recommendation",
     "marine_notice",
     "medical_safety_alert",
     "oim_project",

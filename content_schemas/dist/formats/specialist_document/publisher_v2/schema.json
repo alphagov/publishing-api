@@ -62,6 +62,7 @@
         "international_development_fund",
         "licence_transaction",
         "maib_report",
+        "marine_equipment_approved_recommendation",
         "marine_notice",
         "medical_safety_alert",
         "oim_project",
@@ -371,6 +372,9 @@
         },
         {
           "$ref": "#/definitions/maib_report_metadata"
+        },
+        {
+          "$ref": "#/definitions/marine_equipment_approved_recommendation_metadata"
         },
         {
           "$ref": "#/definitions/marine_notice_metadata"
@@ -2191,6 +2195,42 @@
               "recreational-craft-power"
             ]
           }
+        }
+      }
+    },
+    "marine_equipment_approved_recommendation_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bulk_published": {
+          "type": "boolean"
+        },
+        "category": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "life-saving-appliances",
+              "marine-pollution-prevention",
+              "fire-protection-equipment",
+              "navigation-equipment",
+              "radio-communication-equipment",
+              "equipment-required-under-colregs",
+              "other-safety-equipment",
+              "equipment-under-solas-chapter-ii-1",
+              "general"
+            ]
+          }
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "reference_number": {
+          "type": "string"
+        },
+        "year_adopted": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]{3}$"
         }
       }
     },
