@@ -6,6 +6,9 @@
         "$ref": "#/definitions/aaib_report_metadata",
       },
       {
+        "$ref": "#/definitions/ai_assurance_portfolio_technique_metadata",
+      },
+      {
         "$ref": "#/definitions/animal_disease_case_metadata",
       },
       {
@@ -175,6 +178,107 @@
       },
     },
   },
+  ai_assurance_portfolio_technique_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      use_case: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "big-data-analytics",
+            "data-driven-profiling",
+            "natural-language-processing-and-generation",
+            "image-recognition-and-video-processing",
+            "machine-learning",
+            "deep-learning",
+            "virtual-agents-or-artificial-conversational-interfaces",
+            "robotic-process-automation-and-decision-management",
+            "robotics-and-autonomous-vehicles-systems",
+          ],
+        },
+      },
+      sector: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "agriculture-forestry-and-fishing",
+            "mining-and-quarrying",
+            "manufacturing",
+            "energy-and-utilities",
+            "construction",
+            "retail",
+            "transportation-and-storage",
+            "accommodation-and-food-service",
+            "digital-and-comms",
+            "financial-and-insurance",
+            "real-estate",
+            "professional-scientific-and-professional-activities",
+            "administrative-and-support-services",
+            "public-administration-and-defence",
+            "education",
+            "healthcare-and-social-work",
+            "arts-entertainment-and-recreation",
+            "other-services"
+          ]
+        },
+      },
+      principle: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "safety-security-and-robustness",
+            "appropriate-transparency-and-explainability",
+            "fairness",
+            "accountability-and-governance",
+            "contestability-and-redress"
+          ],
+        },
+      },
+      key_function: { 
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "r-and-d",
+            "product-and-service-development",
+            "manufacturing",
+            "service-operations",
+            "supply-chain-management",
+            "human-resources",
+            "marketing-and-sales",
+            "customer-services",
+            "risk-management",
+            "strategy-and-corporate-finance",
+          ],
+        },
+      },
+      ai_assurance_technique: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "data-assurance",
+            "compliance-audit",
+            "formal-verification",
+            "performance-testing",
+            "certification",
+            "risk-assessment",
+            "impact-assessment",
+            "impact-evaluation",
+            "conformity-assessment",
+            "bias-audit"
+          ],
+        },
+      },
+    },
+  }, 
   animal_disease_case_metadata: {
     type: "object",
     additionalProperties: false,
