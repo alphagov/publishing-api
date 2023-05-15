@@ -4,6 +4,7 @@
       type: "object",
       additionalProperties: false,
       properties: {
+        logo: (import "shared/definitions/_organisation_logo.jsonnet"),
         access_and_opening_times: {
            type: [
              "string",
