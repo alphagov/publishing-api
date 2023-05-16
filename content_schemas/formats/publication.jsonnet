@@ -20,7 +20,6 @@
     "regulation",
     "international_treaty",
     "impact_assessment",
-    "imported",
   ],
   definitions: (import "shared/definitions/_whitehall.jsonnet") + {
     details: {
