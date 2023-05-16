@@ -44,8 +44,7 @@
     "document_type": {
       "type": "string",
       "enum": [
-        "detailed_guide",
-        "detailed_guidance"
+        "detailed_guide"
       ]
     },
     "first_published_at": {

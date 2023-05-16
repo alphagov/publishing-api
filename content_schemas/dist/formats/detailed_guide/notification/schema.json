@@ -58,8 +58,7 @@
     "document_type": {
       "type": "string",
       "enum": [
-        "detailed_guide",
-        "detailed_guidance"
+        "detailed_guide"
       ]
     },
     "email_document_supertype": {
