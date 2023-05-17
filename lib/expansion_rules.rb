@@ -43,6 +43,7 @@ module_function
     %i[ordered_junior_lords_of_the_treasury_whips role_appointments role],
     %i[ordered_military_personnel role_appointments role],
     %i[ordered_ministerial_departments ordered_ministers role_appointments role],
+    %i[ordered_ministerial_departments ordered_roles],
     %i[ordered_ministers role_appointments role],
     %i[ordered_special_representatives role_appointments role],
     %i[ordered_traffic_commissioners role_appointments role],
