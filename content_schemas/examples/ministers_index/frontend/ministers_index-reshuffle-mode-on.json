@@ -1,0 +1,26 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/ministers",
+  "content_id": "324e4708-2285-40a0-b3aa-cb13af14ec5f",
+  "document_type": "ministers_index",
+  "first_published_at": "2016-11-14T16:28:54.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2023-05-16T16:32:31.000+00:00",
+  "publishing_app": "whitehall",
+  "publishing_scheduled_at": null,
+  "rendering_app": "whitehall-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "ministers_index",
+  "title": "Ministers",
+  "updated_at": "2023-05-16T16:33:12.247Z",
+  "withdrawn_notice": {},
+  "publishing_request_id": "21-1684254751.844-10.1.28.61-389",
+  "links": {},
+  "description": null,
+  "details": {
+    "reshuffle": {
+      "message": "Reshuffle in progress"
+    }
+  }
+}
