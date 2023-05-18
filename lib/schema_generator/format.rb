@@ -269,11 +269,19 @@ module SchemaGenerator
       ALLOWED_KEYS = %w[description required minItems maxItems].freeze
       LINKS_WITHOUT_BASE_PATHS = %w[
         facets
+        ordered_also_attends_cabinet
+        ordered_assistant_whips
+        ordered_baronesses_and_lords_in_waiting_whips
         ordered_board_members
+        ordered_cabinet_ministers
         ordered_chief_professional_officers
         ordered_contacts
         ordered_foi_contacts
+        ordered_house_lords_whips
+        ordered_house_of_commons_whips
+        ordered_junior_lords_of_the_treasury_whips
         ordered_military_personnel
+        ordered_ministerial_departments
         ordered_ministers
         ordered_roles
         ordered_special_representatives
