@@ -14,9 +14,6 @@
         "parts",
       ],
       properties: {
-        summary: {
-          "$ref": "#/definitions/multiple_content_types",
-        },
         country: {
           "$ref": "#/definitions/country",
         },

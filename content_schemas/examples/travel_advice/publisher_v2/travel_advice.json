@@ -3,16 +3,6 @@
   "title": "Albania travel advice",
   "description": "Latest travel advice for Albania including safety and security, entry requirements, travel warnings and health",
   "details": {
-    "summary": [
-      {
-        "content_type": "text/govspeak",
-        "content": "Over 80,000 British nationals visit Albania every year. Most visits are trouble-free."
-      },
-      {
-        "content_type": "text/html",
-        "content": "<p>Over 80,000 British nationals visit Albania every year. Most visits are trouble-free.</p>"
-      }
-    ],
     "country": {
       "name": "Albania",
       "slug": "albania"
@@ -35,6 +25,20 @@
       "content_type": "application/pdf"
     },
     "parts": [
+      {
+        "slug": "summary",
+        "title": "Summary",
+        "body": [
+          {
+            "content_type": "text/govspeak",
+            "content": "Over 80,000 British nationals visit Albania every year. Most visits are trouble-free."
+          },
+          {
+            "content_type": "text/html",
+            "content": "<p>Over 80,000 British nationals visit Albania every year. Most visits are trouble-free.</p>"
+          }
+        ]
+      },
       {
         "slug": "safety-and-security",
         "title": "Safety and security",
