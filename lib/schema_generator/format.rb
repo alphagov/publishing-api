@@ -268,6 +268,7 @@ module SchemaGenerator
     class Links
       ALLOWED_KEYS = %w[description required minItems maxItems].freeze
       LINKS_WITHOUT_BASE_PATHS = %w[
+        contact
         facets
         ordered_also_attends_cabinet
         ordered_assistant_whips
