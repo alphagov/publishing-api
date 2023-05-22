@@ -3,7 +3,6 @@
   "base_path": "/foreign-travel-advice/antarctica",
   "description": "Latest travel advice for Antarctica including safety and security, entry requirements, travel warnings and health",
   "details": {
-    "summary": "<p>It's very cold.</p>",
     "country": {
       "name": "Antarctica",
       "slug": "antarctica"

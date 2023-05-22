@@ -467,9 +467,6 @@
           "type": "string",
           "format": "date-time"
         },
-        "summary": {
-          "$ref": "#/definitions/multiple_content_types"
-        },
         "updated_at": {
           "type": "string",
           "format": "date-time"
