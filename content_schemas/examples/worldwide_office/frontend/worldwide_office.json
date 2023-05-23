@@ -1,17 +1,107 @@
 {
-  "base_path": "/world/organisations/british-consulate-general-atlanta/office/british-consulate-general-atlanta",
-  "content_id": "e9789264-2d9c-4776-8ecc-2f7aa681d456",
-  "description": "",
-  "locale": "en",
-  "publishing_app": "whitehall",
-  "rendering_app": "collections",
-  "schema_name": "worldwide_office",
+  "analytics_identifier": null,
+  "base_path": "/world/organisations/british-embassy-manila/office/consular-services",
+  "content_id": "9fb8f153-5276-4de5-aa95-ebaba85d21c5",
   "document_type": "worldwide_office",
-  "title": "British Consulate General Atlanta",
-  "public_updated_at": "2016-09-14T18:19:27+01:00",
-  "updated_at": "2016-09-14T10:37:00Z",
-  "details": {
-    "access_and_opening_times": "<div class=\"govspeak\"><p>Telephone: 9.00am to 4.00pm Monday to Friday (except Public Holidays), Emergency Consular Service for British nationals available out of hours.</p></div>"
+  "first_published_at": "2023-05-17T15:36:40.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2023-05-17T15:36:40.000+00:00",
+  "publishing_app": "whitehall",
+  "publishing_scheduled_at": null,
+  "rendering_app": "whitehall-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "worldwide_office",
+  "title": "British Embassy Manila",
+  "updated_at": "2023-05-17T15:36:40.779Z",
+  "withdrawn_notice": {},
+  "publishing_request_id": "21-1684337800.688-10.13.25.54-403",
+  "links": {
+    "contact": [
+      {
+        "content_id": "5be699d9-f6ac-407d-8868-5516095e872f",
+        "title": "Consular section",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2022-08-29T14:36:05Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "24/7 consular support is available by telephone for all routine enquiries and emergencies. Please call +63 (02) 8 858 2200 / +44 20 7136 6857. \r\n\r\nPublic access to the embassy is by appointment only. Please visit https://www.gov.uk/world/philippines or call +63 (02) 8 858 2200.",
+          "title": "Consular section",
+          "contact_form_links": [
+            {
+              "link": "http://www.gov.uk/contact-consulate-manila"
+            }
+          ],
+          "post_addresses": [
+            {
+              "title": "British Embassy Manila",
+              "region": "Manila",
+              "locality": "Taguig City",
+              "postal_code": "1634",
+              "street_address": "120 Upper McKinley Road, McKinley Hill",
+              "world_location": "Philippines",
+              "iso2_country_code": "ph"
+            }
+          ],
+          "email_addresses": [
+            {
+              "email": "ukinthephilippines@fco.gov.uk",
+              "title": "British Embassy Manila"
+            }
+          ],
+          "phone_numbers": [
+            {
+              "title": "Telephone",
+              "number": "+63 (02) 8 858 2200 / +44 20 7136 6857 (line open 24/7)"
+            },
+            {
+              "title": "Fax",
+              "number": "+63 (02) 8 858 2342"
+            }
+          ]
+        },
+        "links": {}
+      }
+    ],
+    "parent": [
+      {
+        "content_id": "f4c988ad-7a30-11e4-a3cb-005056011aef",
+        "title": "British Embassy Manila",
+        "locale": "en",
+        "analytics_identifier": "WO217",
+        "api_path": "/api/content/world/organisations/british-embassy-manila",
+        "base_path": "/world/organisations/british-embassy-manila",
+        "document_type": "worldwide_organisation",
+        "public_updated_at": "2014-04-04T08:30:32Z",
+        "schema_name": "worldwide_organisation",
+        "withdrawn": false,
+        "description": "The British Embassy in Philippines maintains and develops relations between the UK and Philippines. ",
+        "links": {},
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/world/organisations/british-embassy-manila",
+        "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/british-embassy-manila"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "British Embassy Manila",
+        "public_updated_at": "2023-05-17T15:36:40Z",
+        "document_type": "worldwide_office",
+        "schema_name": "worldwide_office",
+        "base_path": "/world/organisations/british-embassy-manila/office/consular-services",
+        "api_path": "/api/content/world/organisations/british-embassy-manila/office/consular-services",
+        "withdrawn": false,
+        "content_id": "9fb8f153-5276-4de5-aa95-ebaba85d21c5",
+        "locale": "en",
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/world/organisations/british-embassy-manila/office/consular-services",
+        "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/british-embassy-manila/office/consular-services",
+        "links": {}
+      }
+    ]
   },
-  "links": {}
+  "description": null,
+  "details": {
+    "access_and_opening_times": "<div class=\"govspeak\"><h2 id=\"disabled-access\">Disabled access</h2>\n\n<p>The British Embassy Manila is keen to ensure that our building and services are fully accessible to disabled members of the public.</p>\n\n<p>For security reasons, visitors to Visa and Consular Section are not permitted to drive their vehicles into the Embassy compound but there is reasonable space at the main entrance outside of the compound to allow them to be dropped off.  The foot entrance to the building is a via a secure turnstile. Mobility impaired persons who are unable to pass through this security system are invited to use the vehicle entrance. There they will, like other visitors, be required to undergo a security inspection. Following this they will under escort travel along a well-lit covered footpath (wide enough for a wheel chair), to either the main entrance or to the Visa and Consular entrance of the main building. Static guards and or the escort will assist if required, in opening these front doors. Both entrances are on the ground floor.</p>\n\n<p>Hearing and Sight dogs will be permitted within the building. Mobile induction loops are available to visitors if required. Accessible toilets (wide doors complete with handrails and fitted with alarm buttons) are likewise available to staff and visitors. The single building lift has buttons in Braille and provides accessibility to all floors.</p>\n\n<p>If you need assistance to visit us or have other accessibility concerns, please contact the Security Manager at (63) (2) 858 2200.</p>\n\n<h2 id=\"public-holidays-for-2023\">Public Holidays for 2023</h2>\n\n<ul>\n  <li>\n    <p>Monday, 2 January - New Year’s Day</p>\n  </li>\n  <li>\n    <p>Thursday, 6 April - Maundy Thursday</p>\n  </li>\n  <li>\n    <p>Friday, 7 April - Good Friday</p>\n  </li>\n  <li>\n    <p>Friday, 21 April - Eid Al Fitr</p>\n  </li>\n  <li>\n    <p>Monday, 1 May - Labor Day</p>\n  </li>\n  <li>\n    <p>Monday, 8 May - Coronation Day</p>\n  </li>\n  <li>\n    <p>Monday, 29 May - Spring Bank Holiday</p>\n  </li>\n  <li>\n    <p>Monday, 12 June - Philippine Independence Day</p>\n  </li>\n  <li>\n    <p>Wednesday, 28 June - Eid Al Adha</p>\n  </li>\n  <li>\n    <p>Monday, 28 August - Summer Bank Holiday</p>\n  </li>\n  <li>\n    <p>Wednesday, 1 November - All Saint’s Day</p>\n  </li>\n  <li>\n    <p>Thursday, 2 November - All Soul’s Day</p>\n  </li>\n  <li>\n    <p>Monday, 25 December - Christmas Day</p>\n  </li>\n  <li>\n    <p>Tuesday, 26 December - Boxing Day</p>\n  </li>\n  <li>\n    <p>Friday, 29 December - Rizal Day</p>\n  </li>\n</ul>\n</div>"
+  }
 }

@@ -238,7 +238,7 @@
         },
         "contact": {
           "description": "Contact details for this Worldwide Office",
-          "$ref": "#/definitions/frontend_links_with_base_path"
+          "$ref": "#/definitions/frontend_links"
         },
         "document_collections": {
           "description": "Link type automatically added by Publishing API",
