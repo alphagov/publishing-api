@@ -365,6 +365,10 @@
         "topics": {
           "description": "Powers the /topic section of the site. These are known as specialist sectors in some legacy apps.",
           "$ref": "#/definitions/frontend_links_with_base_path"
+        },
+        "worldwide_organisation": {
+          "description": "The Worldwide Organisation that this Worldwide Office belongs to",
+          "$ref": "#/definitions/frontend_links_with_base_path"
         }
       }
     },
@@ -442,6 +446,10 @@
         },
         "topics": {
           "description": "Powers the /topic section of the site. These are known as specialist sectors in some legacy apps.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "worldwide_organisation": {
+          "description": "The Worldwide Organisation that this Worldwide Office belongs to",
           "$ref": "#/definitions/guid_list"
         }
       }

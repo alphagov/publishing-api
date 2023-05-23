@@ -16,5 +16,6 @@
   },
   links: (import "shared/base_links.jsonnet") + {
     contact: "Contact details for this Worldwide Office",
+    worldwide_organisation: "The Worldwide Organisation that this Worldwide Office belongs to",
   },
 }
