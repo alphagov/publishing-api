@@ -48,6 +48,7 @@ module_function
     %i[ordered_special_representatives role_appointments role],
     %i[ordered_traffic_commissioners role_appointments role],
     %i[historical_accounts person],
+    %i[worldwide_organisation sponsoring_organisations],
   ].freeze
 
   REVERSE_LINKS = {
