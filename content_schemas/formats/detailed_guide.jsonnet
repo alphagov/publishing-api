@@ -1,7 +1,6 @@
 (import "shared/default_format.jsonnet") + {
   document_type: [
     "detailed_guide",
-    "detailed_guidance",
   ],
   definitions: (import "shared/definitions/_whitehall.jsonnet") + {
     details: {

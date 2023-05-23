@@ -7,7 +7,6 @@
     "cma_case",
     "uk_market_conformity_assessment_body",
     "countryside_stewardship_grant",
-    "dfid_research_output",
     "drcf_digital_markets_research",
     "drug_safety_update",
     "employment_appeal_tribunal_decision",

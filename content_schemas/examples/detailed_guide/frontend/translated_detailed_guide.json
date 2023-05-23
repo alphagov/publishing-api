@@ -57,7 +57,7 @@
       ]
     }
   },
-  "document_type": "detailed_guidance",
+  "document_type": "detailed_guide",
   "first_published_at": "2016-02-29T09:24:10.000+00:00",
   "links": {
     "government": [
@@ -87,7 +87,7 @@
         "base_path": "/guidance/prepare-a-charity-annual-return.cy",
         "content_id": "5fec94c4-7631-11e4-a3cb-005056011aef",
         "description": "Mae'n rhaid i chi anfon ffurflen flynyddol (neu ddiweddaru eich manylion) bob blwyddyn os yw'ch elusen wedi cofrestru yng Nghymru neu Loegr.",
-        "document_type": "detailed_guidance",
+        "document_type": "detailed_guide",
         "locale": "cy",
         "public_updated_at": "2013-05-22T23:00:00.000+00:00",
         "schema_name": "detailed_guide",
@@ -101,7 +101,7 @@
         "base_path": "/guidance/prepare-a-charity-annual-return",
         "content_id": "5fec94c4-7631-11e4-a3cb-005056011aef",
         "description": "You must send an annual return (or update your details) every year if your charity is registered in England or Wales.",
-        "document_type": "detailed_guidance",
+        "document_type": "detailed_guide",
         "locale": "en",
         "public_updated_at": "2013-05-22T23:00:00.000+00:00",
         "schema_name": "detailed_guide",
@@ -161,7 +161,7 @@
         "base_path": "/guidance/charity-commission-services-log-in-or-get-a-password",
         "content_id": "601aa6ca-7631-11e4-a3cb-005056011aef",
         "description": "Start or continue your charity's annual return or registration application, plus how to get a new or replacement password.",
-        "document_type": "detailed_guidance",
+        "document_type": "detailed_guide",
         "locale": "en",
         "public_updated_at": "2013-03-31T23:00:00.000+00:00",
         "schema_name": "detailed_guide",
@@ -175,7 +175,7 @@
         "base_path": "/guidance/prepare-a-charity-trustees-annual-report",
         "content_id": "5feebf0e-7631-11e4-a3cb-005056011aef",
         "description": "What to put in your trustees' annual report, depending on your charity's income and the value of its assets.",
-        "document_type": "detailed_guidance",
+        "document_type": "detailed_guide",
         "locale": "en",
         "public_updated_at": "2013-05-09T23:00:00.000+00:00",
         "schema_name": "detailed_guide",
