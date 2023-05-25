@@ -60,6 +60,9 @@
         },
         brexit_no_deal_notice: {
           "$ref": "#/definitions/brexit_no_deal_notice",
+        },
+        mapped_specialist_topic_content_id: {
+          type: "string",
         }
       },
     },
