@@ -336,7 +336,7 @@
         },
         "worldwide_organisation": {
           "description": "The Worldwide Organisation that this Worldwide Office belongs to",
-          "$ref": "#/definitions/frontend_links_with_base_path"
+          "$ref": "#/definitions/frontend_links"
         }
       }
     },

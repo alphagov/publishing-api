@@ -288,6 +288,7 @@ module SchemaGenerator
         ordered_special_representatives
         ordered_traffic_commissioners
         world_locations
+        worldwide_organisation
       ].freeze
 
       attr_reader :links
