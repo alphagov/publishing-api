@@ -83,6 +83,75 @@
         "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/british-embassy-manila"
       }
     ],
+    "worldwide_organisation": [
+      {
+        "content_id": "f4c988ad-7a30-11e4-a3cb-005056011aef",
+        "title": "British Embassy Manila",
+        "locale": "en",
+        "analytics_identifier": "WO217",
+        "api_path": "/api/content/world/organisations/british-embassy-manila",
+        "base_path": "/world/organisations/british-embassy-manila",
+        "document_type": "worldwide_organisation",
+        "public_updated_at": "2014-04-04T08:30:32Z",
+        "schema_name": "worldwide_organisation",
+        "withdrawn": false,
+        "description": "The British Embassy in Philippines maintains and develops relations between the UK and Philippines. ",
+        "links": {
+          "sponsoring_organisations": [
+            {
+              "content_id": "f9fcf3fe-2751-4dca-97ca-becaeceb4b26",
+              "title": "Foreign, Commonwealth & Development Office",
+              "locale": "en",
+              "analytics_identifier": "D1315",
+              "api_path": "/api/content/government/organisations/foreign-commonwealth-development-office",
+              "base_path": "/government/organisations/foreign-commonwealth-development-office",
+              "document_type": "organisation",
+              "schema_name": "organisation",
+              "withdrawn": false,
+              "details": {
+                "logo": {
+                  "crest": "single-identity",
+                  "formatted_title": "Foreign, Commonwealth<br/>&amp; Development Office"
+                },
+                "brand": "foreign-commonwealth-development-office",
+                "default_news_image": {
+                  "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/548/s300_fcdo-main-building.jpg",
+                  "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/548/s960_fcdo-main-building.jpg"
+                },
+                "organisation_govuk_status": {
+                  "url": null,
+                  "status": "live",
+                  "updated_at": null
+                }
+              },
+              "links": {},
+              "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/foreign-commonwealth-development-office",
+              "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/foreign-commonwealth-development-office"
+            }
+          ],
+          "world_locations": [
+            {
+              "content_id": "5e9f1506-7706-11e4-a3cb-005056011aef",
+              "title": "Philippines",
+              "schema_name": "world_location",
+              "locale": "en",
+              "analytics_identifier": "WL109",
+              "links": {}
+            },
+            {
+              "content_id": "5e9f33e4-7706-11e4-a3cb-005056011aef",
+              "title": "Palau",
+              "schema_name": "world_location",
+              "locale": "en",
+              "analytics_identifier": "WL191",
+              "links": {}
+            }
+          ]
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/world/organisations/british-embassy-manila",
+        "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/british-embassy-manila"
+      }
+    ],
     "available_translations": [
       {
         "title": "British Embassy Manila",
