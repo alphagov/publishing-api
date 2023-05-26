@@ -1,0 +1,78 @@
+{
+  "content_id": "bc6eceb8-377e-40f8-911f-f715bc2e5b93",
+  "base_path": "/government/call_for_evidence/youth-vaping-call-for-evidence",
+  "description": "A call for evidence seeking information on a range of themes about children and vaping (using an e-cigarette) to inform evidence-based policy decisions.",
+  "public_updated_at": "2023-05-15T15:52:59.000+00:00",
+  "title": "Youth Vaping",
+  "updated_at": "2023-05-24T22:45:10.294Z",
+  "first_published_at": "2023-04-11T13:01:57.000+00:00",
+  "schema_name": "call_for_evidence",
+  "document_type": "call_for_evidence",
+  "locale": "en",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>The government is holding this call for evidence to identify opportunities to reduce the number of children (people aged under 18) accessing and using vape products, while ensuring they are still easily available as a quit aid for adult smokers.</p>\n</div>",
+    "first_public_at": "2023-04-11T13:01:57.000+00:00",
+    "opening_date": "2023-04-11T13:01:57.000+00:00",
+    "closing_date": "2231-04-16T13:01:57.000+00:00",
+    "change_history": [
+      {
+        "public_timestamp": "2021-11-07T16:00:00+00:00",
+        "note": "Added sub-topic tag."
+      }
+    ],
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "topics": [
+
+      ],
+      "policies": [
+
+      ]
+    },
+    "government": {
+      "title": "2015 Conservative government",
+      "slug": "2015-conservative-government",
+      "current": true
+    },
+    "emphasised_organisations": [
+      "e85f9a3f-451d-4a3e-9b63-17b13149269f"
+    ],
+    "political": true
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "d4fbc1b9-d47d-4386-af04-ac909f868f92",
+        "title": "2015 Conservative government",
+        "locale": "en",
+        "api_path": "/api/content/government/2015-conservative-government",
+        "base_path": "/government/2015-conservative-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2015-05-08T00:00:00+00:00",
+          "ended_on": null,
+          "current": true
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2015-conservative-government",
+        "web_url": "https://www.gov.uk/government/2015-conservative-government"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "e85f9a3f-451d-4a3e-9b63-17b13149269f",
+        "title": "Office for Health Improvement and Disparities",
+        "api_path": "/api/content/government/organisations/office-for-health-improvement-and-disparities",
+        "base_path": "/government/organisations/office-for-health-improvement-and-disparities",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/office-for-health-improvement-and-disparities",
+        "web_url": "https://www.gov.uk/government/organisations/office-for-health-improvement-and-disparities",
+        "locale": "en",
+        "document_type": "organisation",
+        "analytics_identifier": "OT1341"
+      }
+    ]
+  }
+}
