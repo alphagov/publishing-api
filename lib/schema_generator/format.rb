@@ -270,6 +270,7 @@ module SchemaGenerator
       LINKS_WITHOUT_BASE_PATHS = %w[
         contact
         facets
+        office_staff
         ordered_also_attends_cabinet
         ordered_assistant_whips
         ordered_baronesses_and_lords_in_waiting_whips
@@ -287,6 +288,8 @@ module SchemaGenerator
         ordered_roles
         ordered_special_representatives
         ordered_traffic_commissioners
+        primary_role_person
+        secondary_role_person
         world_locations
         worldwide_organisation
       ].freeze

@@ -45,6 +45,9 @@ module_function
     %i[ordered_ministerial_departments ordered_ministers role_appointments role],
     %i[ordered_ministerial_departments ordered_roles],
     %i[ordered_ministers role_appointments role],
+    %i[office_staff role_appointments role],
+    %i[primary_role_person role_appointments role],
+    %i[secondary_role_person role_appointments role],
     %i[ordered_special_representatives role_appointments role],
     %i[ordered_traffic_commissioners role_appointments role],
     %i[historical_accounts person],
@@ -124,6 +127,7 @@ module_function
       ordered_ministers
       ordered_special_representatives
       ordered_traffic_commissioners
+      primary_role_person
     ].map do |link_type|
       { document_type: :person, link_type:, fields: PERSON_FIELDS_WITH_IMAGE }
     end

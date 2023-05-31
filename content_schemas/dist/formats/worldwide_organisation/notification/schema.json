@@ -286,6 +286,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links"
         },
+        "office_staff": {
+          "description": "People currently appointed to office staff roles in this Worldwide Organisation",
+          "$ref": "#/definitions/frontend_links"
+        },
         "ordered_contacts": {
           "description": "Contact details for this Worldwide Organisation",
           "$ref": "#/definitions/frontend_links"
@@ -328,12 +332,20 @@
           "$ref": "#/definitions/frontend_links_with_base_path",
           "maxItems": 1
         },
+        "primary_role_person": {
+          "description": "The person currently appointed to a primary role in this Worldwide Organisation",
+          "$ref": "#/definitions/frontend_links"
+        },
         "related_to_step_navs": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "role_appointments": {
           "description": "Link type automatically added by Publishing API",
+          "$ref": "#/definitions/frontend_links"
+        },
+        "secondary_role_person": {
+          "description": "The person currently appointed to a secondary role in this Worldwide Organisation",
           "$ref": "#/definitions/frontend_links"
         },
         "secondary_to_step_navs": {
@@ -400,6 +412,10 @@
           "description": "The user needs this piece of content meets.",
           "$ref": "#/definitions/guid_list"
         },
+        "office_staff": {
+          "description": "People currently appointed to office staff roles in this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
         "ordered_contacts": {
           "description": "Contact details for this Worldwide Organisation",
           "$ref": "#/definitions/guid_list"
@@ -433,6 +449,14 @@
           "description": "The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.",
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
+        },
+        "primary_role_person": {
+          "description": "The person currently appointed to a primary role in this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
+        "secondary_role_person": {
+          "description": "The person currently appointed to a secondary role in this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
         },
         "sponsoring_organisations": {
           "description": "Sponsoring organisations for this Worldwide Organisation",
