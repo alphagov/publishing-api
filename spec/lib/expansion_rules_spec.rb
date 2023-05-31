@@ -91,6 +91,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_ministers)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_special_representatives)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_traffic_commissioners)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :primary_role_person)).to eq(person_with_image_fields) }
 
     specify { expect(rules.expansion_fields(:ministerial_role)).to eq(ministerial_role_fields) }
 

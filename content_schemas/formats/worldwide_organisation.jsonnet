@@ -35,6 +35,9 @@
   links: (import "shared/base_links.jsonnet") + {
     corporate_information_pages: "Corporate information pages for this Worldwide Organisation",
     ordered_contacts: "Contact details for this Worldwide Organisation",
+    primary_role_person: "The person currently appointed to a primary role in this Worldwide Organisation",
+    secondary_role_person: "The person currently appointed to a secondary role in this Worldwide Organisation",
+    office_staff: "People currently appointed to office staff roles in this Worldwide Organisation",
     sponsoring_organisations: "Sponsoring organisations for this Worldwide Organisation",
     world_locations: "World Locations associated with this Worldwide Organisation"
   },

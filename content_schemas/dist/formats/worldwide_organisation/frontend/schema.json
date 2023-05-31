@@ -268,6 +268,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links"
         },
+        "office_staff": {
+          "description": "People currently appointed to office staff roles in this Worldwide Organisation",
+          "$ref": "#/definitions/frontend_links"
+        },
         "ordered_contacts": {
           "description": "Contact details for this Worldwide Organisation",
           "$ref": "#/definitions/frontend_links"
@@ -310,12 +314,20 @@
           "$ref": "#/definitions/frontend_links_with_base_path",
           "maxItems": 1
         },
+        "primary_role_person": {
+          "description": "The person currently appointed to a primary role in this Worldwide Organisation",
+          "$ref": "#/definitions/frontend_links"
+        },
         "related_to_step_navs": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "role_appointments": {
           "description": "Link type automatically added by Publishing API",
+          "$ref": "#/definitions/frontend_links"
+        },
+        "secondary_role_person": {
+          "description": "The person currently appointed to a secondary role in this Worldwide Organisation",
           "$ref": "#/definitions/frontend_links"
         },
         "secondary_to_step_navs": {
