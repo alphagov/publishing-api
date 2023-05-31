@@ -66,6 +66,50 @@
     ]
   },
   "links": {
+    "corporate_information_pages": [
+      {
+        "content_id": "5f5560f5-7631-11e4-a3cb-005056011aef",
+        "title": "Personal information charter",
+        "locale": "en",
+        "api_path": "/api/content/world/organisations/british-deputy-high-commission-hyderabad/about/personal-information-charter",
+        "base_path": "/world/organisations/british-deputy-high-commission-hyderabad/about/personal-information-charter",
+        "document_type": "personal_information_charter",
+        "public_updated_at": "2013-03-21T07:28:00Z",
+        "schema_name": "placeholder_corporate_information_page",
+        "withdrawn": false,
+        "links": {},
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/world/organisations/british-deputy-high-commission-hyderabad/about/personal-information-charter",
+        "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/british-deputy-high-commission-hyderabad/about/personal-information-charter"
+      },
+      {
+        "content_id": "5f5c6821-7631-11e4-a3cb-005056011aef",
+        "title": "About us",
+        "locale": "en",
+        "api_path": "/api/content/world/organisations/british-deputy-high-commission-hyderabad/about/about",
+        "base_path": "/world/organisations/british-deputy-high-commission-hyderabad/about/about",
+        "document_type": "about",
+        "public_updated_at": "2014-10-27T11:03:46Z",
+        "schema_name": "placeholder_corporate_information_page",
+        "withdrawn": false,
+        "links": {},
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/world/organisations/british-deputy-high-commission-hyderabad/about/about",
+        "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/british-deputy-high-commission-hyderabad/about/about"
+      },
+      {
+        "content_id": "e6329651-2b52-43a3-9830-8ca18919eaeb",
+        "title": "Complaints procedure",
+        "locale": "en",
+        "api_path": "/api/content/world/organisations/british-deputy-high-commission-hyderabad/about/complaints-procedure",
+        "base_path": "/world/organisations/british-deputy-high-commission-hyderabad/about/complaints-procedure",
+        "document_type": "complaints_procedure",
+        "public_updated_at": "2019-04-03T13:30:35Z",
+        "schema_name": "placeholder_corporate_information_page",
+        "withdrawn": false,
+        "links": {},
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/world/organisations/british-deputy-high-commission-hyderabad/about/complaints-procedure",
+        "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/british-deputy-high-commission-hyderabad/about/complaints-procedure"
+      }
+    ],
     "office_staff": [
       {
         "content_id": "ce444f49-5d65-47b3-b1fb-8fbbd9523ce4",
