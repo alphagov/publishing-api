@@ -470,6 +470,38 @@
         "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/people/justin-sosne",
         "web_url": "https://www.integration.publishing.service.gov.uk/government/people/justin-sosne"
       }
+    ],
+    "sponsoring_organisations": [
+      {
+        "content_id": "f9fcf3fe-2751-4dca-97ca-becaeceb4b26",
+        "title": "Foreign, Commonwealth & Development Office",
+        "locale": "en",
+        "analytics_identifier": "D1315",
+        "api_path": "/api/content/government/organisations/foreign-commonwealth-development-office",
+        "base_path": "/government/organisations/foreign-commonwealth-development-office",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Foreign, Commonwealth<br/>&amp; Development Office"
+          },
+          "brand": "foreign-commonwealth-development-office",
+          "default_news_image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/548/s300_fcdo-main-building.jpg",
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/548/s960_fcdo-main-building.jpg"
+          },
+          "organisation_govuk_status": {
+            "url": null,
+            "status": "live",
+            "updated_at": null
+          }
+        },
+        "links": {},
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/foreign-commonwealth-development-office",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/foreign-commonwealth-development-office"
+      }
     ]
   }
 }
