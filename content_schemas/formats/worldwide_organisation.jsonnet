@@ -28,6 +28,10 @@
           },
           description: "A set of links to corporate information pages to display for the worldwide organisation.",
         },
+        secondary_corporate_information_pages: {
+          type: "string",
+          description: "A string containing sentences and links to corporate information pages that are not included in ordered_corporate_information_pages.",
+        },
         social_media_links: (import "shared/definitions/_social_media_links.jsonnet"),
       },
     },
