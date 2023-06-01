@@ -502,6 +502,16 @@
         "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/foreign-commonwealth-development-office",
         "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/foreign-commonwealth-development-office"
       }
+    ],
+    "world_locations": [
+      {
+        "content_id": "5e9f047a-7706-11e4-a3cb-005056011aef",
+        "title": "India",
+        "schema_name": "world_location",
+        "locale": "en",
+        "analytics_identifier": "WL61",
+        "links": {}
+      }
     ]
   }
 }
