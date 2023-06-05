@@ -195,6 +195,55 @@
         "web_url": "https://www.integration.publishing.service.gov.uk/government/people/rachel-galloway"
       }
     ],
+    "ordered_contacts": [
+      {
+        "content_id": "337afec8-c97e-443b-95b2-dffb629841f7",
+        "title": "British Deputy High Commission Hyderabad",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2020-09-02T12:51:40Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "For enquiries that are not about consular issues, email web.newdelhi@fcdo.gov.uk ",
+          "title": "British Deputy High Commission Hyderabad",
+          "contact_form_links": [
+            {
+              "link": "https://www.contact-embassy.service.gov.uk/?country=India&post=British%20Deputy%20High%20Commission%20Hyderabad"
+            }
+          ],
+          "post_addresses": [
+            {
+              "locality": "Hyderabad",
+              "postal_code": "500 034",
+              "street_address": "2nd Floor, Taj Deccan Hotel, \r\nRoad No.1, Banjara Hills,",
+              "world_location": "India",
+              "iso2_country_code": "in"
+            }
+          ],
+          "email_addresses": null,
+          "phone_numbers": [
+            {
+              "title": "General telephone",
+              "number": "+91 (40) 6666 9147 / 48  //  +44 20 7008 5000 "
+            },
+            {
+              "title": "Emergency telephone ",
+              "number": "+91 (11) 2419 2100 / +44 20 7008 5000 (24 hrs a day)"
+            },
+            {
+              "title": "Fax",
+              "number": "+91 (40) 6666 9149 "
+            },
+            {
+              "title": "Consular telephone",
+              "number": "+91 (44) 42192151 / +44 20 7008 5000"
+            }
+          ]
+        },
+        "links": {}
+      }
+    ],
     "primary_role_person": [
       {
         "content_id": "8532daf3-c0f1-11e4-8223-005056011aef",
@@ -469,6 +518,48 @@
         },
         "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/people/justin-sosne",
         "web_url": "https://www.integration.publishing.service.gov.uk/government/people/justin-sosne"
+      }
+    ],
+    "sponsoring_organisations": [
+      {
+        "content_id": "f9fcf3fe-2751-4dca-97ca-becaeceb4b26",
+        "title": "Foreign, Commonwealth & Development Office",
+        "locale": "en",
+        "analytics_identifier": "D1315",
+        "api_path": "/api/content/government/organisations/foreign-commonwealth-development-office",
+        "base_path": "/government/organisations/foreign-commonwealth-development-office",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Foreign, Commonwealth<br/>&amp; Development Office"
+          },
+          "brand": "foreign-commonwealth-development-office",
+          "default_news_image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/548/s300_fcdo-main-building.jpg",
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/548/s960_fcdo-main-building.jpg"
+          },
+          "organisation_govuk_status": {
+            "url": null,
+            "status": "live",
+            "updated_at": null
+          }
+        },
+        "links": {},
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/foreign-commonwealth-development-office",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/foreign-commonwealth-development-office"
+      }
+    ],
+    "world_locations": [
+      {
+        "content_id": "5e9f047a-7706-11e4-a3cb-005056011aef",
+        "title": "India",
+        "schema_name": "world_location",
+        "locale": "en",
+        "analytics_identifier": "WL61",
+        "links": {}
       }
     ]
   }
