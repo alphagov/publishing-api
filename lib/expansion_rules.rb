@@ -112,6 +112,7 @@ module_function
   TAKE_PART_PAGE_FIELDS = (DEFAULT_FIELDS + %i[description details]).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = %i[content_id title schema_name locale analytics_identifier].freeze
+  WORLDWIDE_OFFICE_FIELDS = (DEFAULT_FIELDS + details_fields(:access_and_opening_times)).freeze
 
   CUSTOM_EXPANSION_FIELDS_FOR_PEOPLE = (
     %i[
@@ -204,6 +205,8 @@ module_function
         fields: TRAVEL_ADVICE_FIELDS },
       { document_type: :world_location,
         fields: WORLD_LOCATION_FIELDS },
+      { document_type: :worldwide_office,
+        fields: WORLDWIDE_OFFICE_FIELDS },
       { document_type: :worldwide_organisation,
         fields: DEFAULT_FIELDS_AND_DESCRIPTION },
       { document_type: :government,

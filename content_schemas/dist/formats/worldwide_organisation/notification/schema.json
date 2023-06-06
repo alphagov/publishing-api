@@ -269,7 +269,7 @@
         },
         "home_page_offices": {
           "description": "The offices, other than the main office, to be shown on the home page of this Worldwide Organisation",
-          "$ref": "#/definitions/frontend_links_with_base_path"
+          "$ref": "#/definitions/frontend_links"
         },
         "lead_organisations": {
           "description": "DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.",
@@ -281,7 +281,7 @@
         },
         "main_office": {
           "description": "The main office for this Worldwide Organisation",
-          "$ref": "#/definitions/frontend_links_with_base_path"
+          "$ref": "#/definitions/frontend_links"
         },
         "mainstream_browse_pages": {
           "description": "Powers the /browse section of the site. These are known as sections in some legacy apps.",

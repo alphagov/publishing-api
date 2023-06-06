@@ -57,6 +57,7 @@ RSpec.describe ExpansionRules do
     let(:step_by_step_auth_bypass_fields) { step_by_step_fields + %i[auth_bypass_ids] }
     let(:travel_advice_fields) { default_fields + [%i[details country], %i[details change_description]] }
     let(:world_location_fields) { %i[content_id title schema_name locale analytics_identifier] }
+    let(:worldwide_office_fields) { default_fields + [%i[details access_and_opening_times]] }
 
     specify { expect(rules.expansion_fields(:redirect)).to eq([]) }
     specify { expect(rules.expansion_fields(:gone)).to eq([]) }
@@ -119,6 +120,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:travel_advice)).to eq(travel_advice_fields) }
     specify { expect(rules.expansion_fields(:world_location)).to eq(world_location_fields) }
     specify { expect(rules.expansion_fields(:worldwide_organisation)).to eq(default_fields_and_description) }
+    specify { expect(rules.expansion_fields(:worldwide_office)).to eq(worldwide_office_fields) }
 
     specify { expect(rules.expansion_fields(:finder, link_type: :finder)).to eq(finder_fields) }
     specify { expect(rules.expansion_fields(:parent, link_type: :finder)).to eq(default_fields) }
