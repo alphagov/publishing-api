@@ -270,6 +270,8 @@ module SchemaGenerator
       LINKS_WITHOUT_BASE_PATHS = %w[
         contact
         facets
+        home_page_offices
+        main_office
         office_staff
         ordered_also_attends_cabinet
         ordered_assistant_whips
