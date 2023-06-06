@@ -521,6 +521,178 @@
         "web_url": "https://www.integration.publishing.service.gov.uk/government/people/justin-sosne"
       }
     ],
+    "main_office": [
+      {
+        "content_id": "58c83be0-6264-4cb0-a652-126d57e8c0b7",
+        "title": "British Embassy Madrid",
+        "locale": "en",
+        "api_path": "/api/content/world/organisations/british-embassy-madrid/office/british-embassy",
+        "base_path": "/world/organisations/british-embassy-madrid/office/british-embassy",
+        "document_type": "worldwide_office",
+        "public_updated_at": "2023-05-17T15:30:59Z",
+        "schema_name": "worldwide_office",
+        "withdrawn": false,
+        "links": {
+          "contact": [
+            {
+              "content_id": "410c4c3b-5c1c-4617-b603-4356bedcc85e",
+              "title": "British Embassy Madrid",
+              "locale": "en",
+              "document_type": "contact",
+              "public_updated_at": "2023-05-25T12:46:54Z",
+              "schema_name": "contact",
+              "withdrawn": false,
+              "details": {
+                "description": "Use our contact form for consular enquiries: \r\nwww.gov.uk/contact-consulate-madrid\r\n",
+                "title": "British Embassy Madrid",
+                "contact_form_links": null,
+                "post_addresses": [
+                  {
+                    "locality": "Madrid",
+                    "postal_code": "28046",
+                    "street_address": "Torre Emperador Castellana\r\nPaseo de la Castellana 259D ",
+                    "world_location": "Spain",
+                    "iso2_country_code": "es"
+                  }
+                ],
+                "email_addresses": null,
+                "phone_numbers": [
+                  {
+                    "title": "Telephone",
+                    "number": "+34 91 714 6300 / +44 20 7008 5000"
+                  },
+                  {
+                    "title": "Fax",
+                    "number": "+34 917 146 301"
+                  }
+                ]
+              },
+              "links": {}
+            }
+          ]
+        },
+        "details": {
+          "access_and_opening_times": "<div class=\"govspeak\"><h2 id=\"privacy-notice\">Privacy notice</h2>\n\n<p>If you visit the British Embassy Madrid see our <a href=\"https://www.gov.uk/government/publications/fcdo-privacy-notice-visitors-to-diplomatic-missions-and-residences-during-the-coronavirus-covid-19-pandemic\" class=\"govuk-link\">privacy notice for visitors</a> which explains how we will process your data for security and public health management reasons.</p>\n\n<h2 id=\"opening-hours\">Opening hours</h2>\n\n<p>British Embassy opening hours: Monday to Friday, 8:30am to 5pm</p>\n\n<p>The British Consulate General in Madrid is open by appointment only.</p>\n\n<p>24/7 support is available by telephone for all routine enquiries and emergencies. Please call + (34) 91 714 6300</p>\n\n<h2 id=\"public-holidays\">2023 public holidays</h2>\n\n<p>Our offices will be closed for the following public holidays in 2023:</p>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Date</th>\n      <th scope=\"col\">Public holiday</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Monday 2 January</td>\n      <td>New Year’s Day (substitute day)</td>\n    </tr>\n    <tr>\n      <td>Friday 6 January</td>\n      <td>Epifanía del Señor</td>\n    </tr>\n    <tr>\n      <td>Thursday 6 April</td>\n      <td>Maundy Thursday</td>\n    </tr>\n    <tr>\n      <td>Friday 7 April</td>\n      <td>Good Friday</td>\n    </tr>\n    <tr>\n      <td>Monday 10 April</td>\n      <td>Easter Monday</td>\n    </tr>\n    <tr>\n      <td>Monday 1 May</td>\n      <td>International Worker’s Day</td>\n    </tr>\n    <tr>\n      <td>Tuesday 2 May</td>\n      <td>Día de la Comunidad de Madrid</td>\n    </tr>\n    <tr>\n      <td>Monday 8 May</td>\n      <td>Coronation of His Majesty King Charles III</td>\n    </tr>\n    <tr>\n      <td>Tuesday 15 August</td>\n      <td>Asuncion de la Virgen</td>\n    </tr>\n    <tr>\n      <td>Thursday 12 October</td>\n      <td>Fiesta Nacional de España</td>\n    </tr>\n    <tr>\n      <td>Wednesday 1 November</td>\n      <td>Día de Todos los Santos</td>\n    </tr>\n    <tr>\n      <td>Wednesday 6 December</td>\n      <td>Constitution Day</td>\n    </tr>\n    <tr>\n      <td>Friday 8 December</td>\n      <td>Día Inmaculada Concepción</td>\n    </tr>\n    <tr>\n      <td>Monday 25 December</td>\n      <td>Christmas Day</td>\n    </tr>\n    <tr>\n      <td>Tuesday 26 December</td>\n      <td>Boxing Day</td>\n    </tr>\n  </tbody>\n</table>\n\n<h2 id=\"map\">Map</h2>\n<p>You can find a map of our office location on our <a rel=\"external\" href=\"http://maps.google.com/maps/ms?hl=en&ie=UTF8&msa=0&msid=115412150757145224958.00046f4c14d86aedbed2f&z=17\" class=\"govuk-link\">Google Map page.</a></p>\n\n<h2 id=\"disabled-access\">Disabled access</h2>\n<p>Our offices are fully equipped with facilities for disabled visitors including lifts and ramps for wheelchairs. If you need special assistance, please contact us before your visit.</p>\n\n<h2 id=\"security-regulations\">Security regulations</h2>\n<p>The British Embassy Madrid security regulations, in line with all British diplomatic missions world-wide, do not permit visitors to enter the embassy with mobile telephones, laptops, PDAs or any other similar electrical devices. We prefer that you arrive at the embassy without them.   If this is not possible we  will  retain them at the entrance during your visit.  Visitors are required to pass through a number of security checks where such items will be detected.</p>\n\n<p>Weapons (including pepper sprays), or any object that our security staff consider could be used as a weapon (scissors, screwdrivers, small blades), are also forbidden. These will not be retained by our staff. Should you arrive with such an object you will not be granted access but will be asked to return without it.</p>\n\n<p>These regulations are intended to help us ensure the security for our staff and visitors. Your co-operation is appreciated.</p>\n\n<h2 id=\"parking\">Parking</h2>\n<p>Unfortunately there is no public parking in Torre Espacio itself. The nearest public car park is La Paz car park, which is next to the Hospital La Paz and directly opposite Torre Espacio.</p>\n\n<p>La Paz car park can be accessed via Calle del Arzobispo Morcillo, next to the Hospital de la Paz on the north side of Torre Espacio. The car park offers:</p>\n\n<ul>\n  <li>24 hour service</li>\n  <li>emergency battery for starting vehicles</li>\n  <li>wheelchair hire service</li>\n  <li>discount vouchers for business premises and available advertising spots</li>\n</ul>\n\n<p>More details on La Paz car park can be found on the <a rel=\"external\" href=\"http://www.metrovacesa.com/web/productos/aparcamientos/alquilar/promocion/aparcamiento-la-paz/13.422/\" class=\"govuk-link\">MetroVacesa website</a></p>\n\n<p>If La Paz car park is full, there is a large public car park at Plaza Castilla (about 15 minutes walk from our offices). To get to the consulate-general from Plaza Castilla, take the metro to Begoña - see instructions below on how to arrive by metro.</p>\n\n<h2 id=\"bus\">Bus</h2>\n<p>For those who prefer to travel by bus to Torre Espacio you can find detailed information on <a rel=\"external\" href=\"http://www.emtmadrid.es/index.html?lang=eng\" class=\"govuk-link\">Madrid’s municipal transport website</a> where you can plan your personalised route.</p>\n\n<h2 id=\"metro\">Metro</h2>\n<p>The nearest metro stop is metro Begoña (linea 10). When arriving at the station Begoña take the exit sign posted La Paz or you will have a much longer walk to the Torre Espacio. Route maps and service information can be found on the <a rel=\"external\" href=\"http://www.metromadrid.es/es/index.html\" class=\"govuk-link\">MetroMadrid website</a>.</p>\n</div>"
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/world/organisations/british-embassy-madrid/office/british-embassy",
+        "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/british-embassy-madrid/office/british-embassy"
+      }
+    ],
+    "home_page_offices": [
+      {
+        "content_id": "0fae3258-42cf-4c87-baf4-4c514b851b35",
+        "title": "Department for Business and Trade Germany",
+        "locale": "en",
+        "api_path": "/api/content/world/organisations/department-for-business-and-trade-germany/office/uk-trade-investment-duesseldorf",
+        "base_path": "/world/organisations/department-for-business-and-trade-germany/office/uk-trade-investment-duesseldorf",
+        "document_type": "worldwide_office",
+        "public_updated_at": "2023-05-17T15:36:02Z",
+        "schema_name": "worldwide_office",
+        "withdrawn": false,
+        "links": {
+          "contact": [
+            {
+              "content_id": "53df7197-901c-48fc-b9b4-ed649903f1f0",
+              "title": "Department for Business and Trade Dusseldorf",
+              "locale": "en",
+              "document_type": "contact",
+              "public_updated_at": "2023-03-07T15:44:04Z",
+              "schema_name": "contact",
+              "withdrawn": false,
+              "details": {
+                "description": null,
+                "title": "Department for Business and Trade Dusseldorf",
+                "contact_form_links": null,
+                "post_addresses": [
+                  {
+                    "title": "British Consulate-General",
+                    "locality": "Dusseldorf",
+                    "postal_code": "40227",
+                    "street_address": "Willi-Becker-Allee 10 ",
+                    "world_location": "Germany",
+                    "iso2_country_code": "de"
+                  }
+                ],
+                "email_addresses": [
+                  {
+                    "email": "DITGermany.Enquiries@fcdo.gov.uk",
+                    "title": "British Consulate-General"
+                  }
+                ],
+                "phone_numbers": [
+                  {
+                    "title": "Enquiries",
+                    "number": "+49 (0)211 94480"
+                  }
+                ]
+              },
+              "links": {}
+            }
+          ]
+        },
+        "details": {
+          "access_and_opening_times": "<div class=\"govspeak\"><h2 id=\"privacy-notice\">Privacy notice</h2>\n\n<p>If you visit the British Embassy Madrid see our <a href=\"https://www.gov.uk/government/publications/fcdo-privacy-notice-visitors-to-diplomatic-missions-and-residences-during-the-coronavirus-covid-19-pandemic\" class=\"govuk-link\">privacy notice for visitors</a> which explains how we will process your data for security and public health management reasons.</p>\n\n<h2 id=\"opening-hours\">Opening hours</h2>\n\n<p>British Embassy opening hours: Monday to Friday, 8:30am to 5pm</p>\n\n<p>The British Consulate General in Madrid is open by appointment only.</p>\n\n<p>24/7 support is available by telephone for all routine enquiries and emergencies. Please call + (34) 91 714 6300</p>\n\n<h2 id=\"public-holidays\">2023 public holidays</h2>\n\n<p>Our offices will be closed for the following public holidays in 2023:</p>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Date</th>\n      <th scope=\"col\">Public holiday</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Monday 2 January</td>\n      <td>New Year’s Day (substitute day)</td>\n    </tr>\n    <tr>\n      <td>Friday 6 January</td>\n      <td>Epifanía del Señor</td>\n    </tr>\n    <tr>\n      <td>Thursday 6 April</td>\n      <td>Maundy Thursday</td>\n    </tr>\n    <tr>\n      <td>Friday 7 April</td>\n      <td>Good Friday</td>\n    </tr>\n    <tr>\n      <td>Monday 10 April</td>\n      <td>Easter Monday</td>\n    </tr>\n    <tr>\n      <td>Monday 1 May</td>\n      <td>International Worker’s Day</td>\n    </tr>\n    <tr>\n      <td>Tuesday 2 May</td>\n      <td>Día de la Comunidad de Madrid</td>\n    </tr>\n    <tr>\n      <td>Monday 8 May</td>\n      <td>Coronation of His Majesty King Charles III</td>\n    </tr>\n    <tr>\n      <td>Tuesday 15 August</td>\n      <td>Asuncion de la Virgen</td>\n    </tr>\n    <tr>\n      <td>Thursday 12 October</td>\n      <td>Fiesta Nacional de España</td>\n    </tr>\n    <tr>\n      <td>Wednesday 1 November</td>\n      <td>Día de Todos los Santos</td>\n    </tr>\n    <tr>\n      <td>Wednesday 6 December</td>\n      <td>Constitution Day</td>\n    </tr>\n    <tr>\n      <td>Friday 8 December</td>\n      <td>Día Inmaculada Concepción</td>\n    </tr>\n    <tr>\n      <td>Monday 25 December</td>\n      <td>Christmas Day</td>\n    </tr>\n    <tr>\n      <td>Tuesday 26 December</td>\n      <td>Boxing Day</td>\n    </tr>\n  </tbody>\n</table>\n\n<h2 id=\"map\">Map</h2>\n<p>You can find a map of our office location on our <a rel=\"external\" href=\"http://maps.google.com/maps/ms?hl=en&ie=UTF8&msa=0&msid=115412150757145224958.00046f4c14d86aedbed2f&z=17\" class=\"govuk-link\">Google Map page.</a></p>\n\n<h2 id=\"disabled-access\">Disabled access</h2>\n<p>Our offices are fully equipped with facilities for disabled visitors including lifts and ramps for wheelchairs. If you need special assistance, please contact us before your visit.</p>\n\n<h2 id=\"security-regulations\">Security regulations</h2>\n<p>The British Embassy Madrid security regulations, in line with all British diplomatic missions world-wide, do not permit visitors to enter the embassy with mobile telephones, laptops, PDAs or any other similar electrical devices. We prefer that you arrive at the embassy without them.   If this is not possible we  will  retain them at the entrance during your visit.  Visitors are required to pass through a number of security checks where such items will be detected.</p>\n\n<p>Weapons (including pepper sprays), or any object that our security staff consider could be used as a weapon (scissors, screwdrivers, small blades), are also forbidden. These will not be retained by our staff. Should you arrive with such an object you will not be granted access but will be asked to return without it.</p>\n\n<p>These regulations are intended to help us ensure the security for our staff and visitors. Your co-operation is appreciated.</p>\n\n<h2 id=\"parking\">Parking</h2>\n<p>Unfortunately there is no public parking in Torre Espacio itself. The nearest public car park is La Paz car park, which is next to the Hospital La Paz and directly opposite Torre Espacio.</p>\n\n<p>La Paz car park can be accessed via Calle del Arzobispo Morcillo, next to the Hospital de la Paz on the north side of Torre Espacio. The car park offers:</p>\n\n<ul>\n  <li>24 hour service</li>\n  <li>emergency battery for starting vehicles</li>\n  <li>wheelchair hire service</li>\n  <li>discount vouchers for business premises and available advertising spots</li>\n</ul>\n\n<p>More details on La Paz car park can be found on the <a rel=\"external\" href=\"http://www.metrovacesa.com/web/productos/aparcamientos/alquilar/promocion/aparcamiento-la-paz/13.422/\" class=\"govuk-link\">MetroVacesa website</a></p>\n\n<p>If La Paz car park is full, there is a large public car park at Plaza Castilla (about 15 minutes walk from our offices). To get to the consulate-general from Plaza Castilla, take the metro to Begoña - see instructions below on how to arrive by metro.</p>\n\n<h2 id=\"bus\">Bus</h2>\n<p>For those who prefer to travel by bus to Torre Espacio you can find detailed information on <a rel=\"external\" href=\"http://www.emtmadrid.es/index.html?lang=eng\" class=\"govuk-link\">Madrid’s municipal transport website</a> where you can plan your personalised route.</p>\n\n<h2 id=\"metro\">Metro</h2>\n<p>The nearest metro stop is metro Begoña (linea 10). When arriving at the station Begoña take the exit sign posted La Paz or you will have a much longer walk to the Torre Espacio. Route maps and service information can be found on the <a rel=\"external\" href=\"http://www.metromadrid.es/es/index.html\" class=\"govuk-link\">MetroMadrid website</a>.</p>\n</div>"
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/world/organisations/department-for-business-and-trade-germany/office/uk-trade-investment-duesseldorf",
+        "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/department-for-business-and-trade-germany/office/uk-trade-investment-duesseldorf"
+      },
+      {
+        "content_id": "a9e4a8a4-4b7d-44bd-9d04-b0e910141c22",
+        "title": "Department for Business and Trade Germany",
+        "locale": "en",
+        "api_path": "/api/content/world/organisations/department-for-business-and-trade-germany/office/uk-trade-investment-munich",
+        "base_path": "/world/organisations/department-for-business-and-trade-germany/office/uk-trade-investment-munich",
+        "document_type": "worldwide_office",
+        "public_updated_at": "2023-05-17T15:36:04Z",
+        "schema_name": "worldwide_office",
+        "withdrawn": false,
+        "links": {
+          "contact": [
+            {
+              "content_id": "d7196415-647c-4b81-8e9f-8436c53e45f0",
+              "title": "Department for Business and Trade Munich",
+              "locale": "en",
+              "document_type": "contact",
+              "public_updated_at": "2023-03-07T15:44:23Z",
+              "schema_name": "contact",
+              "withdrawn": false,
+              "details": {
+                "description": null,
+                "title": "Department for Business and Trade Munich",
+                "contact_form_links": null,
+                "post_addresses": [
+                  {
+                    "title": "British Consulate-General",
+                    "locality": "81675 Munich",
+                    "street_address": "Moehlstr. 5 ",
+                    "world_location": "Germany",
+                    "iso2_country_code": "de"
+                  }
+                ],
+                "email_addresses": [
+                  {
+                    "email": "DITGermany.Enquiries@fcdo.gov.uk",
+                    "title": "British Consulate-General"
+                  }
+                ],
+                "phone_numbers": [
+                  {
+                    "title": "Enquiries",
+                    "number": "+49 (0)89 211090"
+                  }
+                ]
+              },
+              "links": {}
+            }
+          ]
+        },
+        "details": {
+          "access_and_opening_times": null
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/world/organisations/department-for-business-and-trade-germany/office/uk-trade-investment-munich",
+        "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/department-for-business-and-trade-germany/office/uk-trade-investment-munich"
+      }
+    ],
     "sponsoring_organisations": [
       {
         "content_id": "f9fcf3fe-2751-4dca-97ca-becaeceb4b26",
