@@ -19,6 +19,17 @@ class Presenters::RedirectPresenter
     )
   end
 
+  def self.from_published_edition(edition)
+    new(
+      base_path: edition.base_path,
+      content_id: edition.content_id,
+      publishing_app: edition.publishing_app,
+      public_updated_at: edition.public_updated_at,
+      redirects: edition.redirects,
+      locale: edition.locale,
+    )
+  end
+
   def for_content_store(payload_version)
     present.merge(payload_version:)
   end
