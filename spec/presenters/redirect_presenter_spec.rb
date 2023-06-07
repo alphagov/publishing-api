@@ -4,7 +4,7 @@ RSpec.describe Presenters::RedirectPresenter do
     let(:edition) { create(:unpublishing, type: "redirect").edition }
 
     subject(:result) do
-      described_class.from_edition(edition).for_message_queue(payload_version)
+      described_class.from_unpublished_edition(edition).for_message_queue(payload_version)
     end
 
     it "matches the notification schema" do

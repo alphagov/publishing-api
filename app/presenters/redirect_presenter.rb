@@ -8,7 +8,7 @@ class Presenters::RedirectPresenter
     @locale = locale
   end
 
-  def self.from_edition(edition)
+  def self.from_unpublished_edition(edition)
     new(
       base_path: edition.base_path,
       content_id: edition.content_id,

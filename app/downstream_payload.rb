@@ -45,7 +45,7 @@ private
   end
 
   def redirect_presenter
-    Presenters::RedirectPresenter.from_edition(edition)
+    Presenters::RedirectPresenter.from_unpublished_edition(edition)
   end
 
   def gone_presenter
