@@ -674,6 +674,36 @@
         "links": {},
         "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/foreign-commonwealth-development-office",
         "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/foreign-commonwealth-development-office"
+      },
+      {
+        "content_id": "aa750cdf-7925-429d-a2b3-0d9fa47d2c48",
+        "title": "Department for Business and Trade",
+        "locale": "en",
+        "analytics_identifier": "D1382",
+        "api_path": "/api/content/government/organisations/department-for-business-and-trade",
+        "base_path": "/government/organisations/department-for-business-and-trade",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "crest": "dbt",
+            "formatted_title": "Department for<br/>Business &amp; Trade"
+          },
+          "brand": "department-for-business-and-trade",
+          "default_news_image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/575/s300_DBT_Plaque-2.jpg",
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/575/s960_DBT_Plaque-2.jpg"
+          },
+          "organisation_govuk_status": {
+            "url": null,
+            "status": "live",
+            "updated_at": null
+          }
+        },
+        "links": {},
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/department-for-business-and-trade",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/department-for-business-and-trade"
       }
     ],
     "world_locations": [
@@ -683,6 +713,14 @@
         "schema_name": "world_location",
         "locale": "en",
         "analytics_identifier": "WL61",
+        "links": {}
+      },
+      {
+        "content_id": "5e9f047a-7706-11e4-a3cb-005056011aee",
+        "title": "Another location",
+        "schema_name": "world_location",
+        "locale": "en",
+        "analytics_identifier": "WLexample",
         "links": {}
       }
     ]
