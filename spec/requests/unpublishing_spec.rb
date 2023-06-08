@@ -108,6 +108,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
           locale: edition.locale,
           publishing_app: edition.publishing_app,
           public_updated_at: Time.zone.now.iso8601,
+          first_published_at: edition.first_published_at.iso8601,
           redirects: [
             {
               path: base_path,

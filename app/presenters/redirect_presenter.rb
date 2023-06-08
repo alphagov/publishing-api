@@ -1,11 +1,12 @@
 class Presenters::RedirectPresenter
-  def initialize(base_path:, content_id:, publishing_app:, redirects:, locale:, public_updated_at: nil)
+  def initialize(base_path:, content_id:, publishing_app:, redirects:, locale:, public_updated_at: nil, first_published_at: nil)
     @base_path = base_path
     @content_id = content_id
     @publishing_app = publishing_app
     @public_updated_at = public_updated_at
     @redirects = redirects
     @locale = locale
+    @first_published_at = first_published_at
   end
 
   def self.from_unpublished_edition(edition)
@@ -14,6 +15,7 @@ class Presenters::RedirectPresenter
       content_id: edition.content_id,
       publishing_app: edition.publishing_app,
       public_updated_at: edition.unpublishing.unpublished_at || edition.unpublishing.created_at,
+      first_published_at: edition.first_published_at,
       redirects: edition.unpublishing.redirects,
       locale: edition.locale,
     )
@@ -25,6 +27,7 @@ class Presenters::RedirectPresenter
       content_id: edition.content_id,
       publishing_app: edition.publishing_app,
       public_updated_at: edition.public_updated_at,
+      first_published_at: edition.first_published_at,
       redirects: edition.redirects,
       locale: edition.locale,
     )
@@ -51,6 +54,7 @@ private
   attr_reader :base_path,
               :publishing_app,
               :public_updated_at,
+              :first_published_at,
               :redirects,
               :content_id,
               :locale
@@ -64,9 +68,14 @@ private
       publishing_app:,
       redirects:,
     }
-    if public_updated_at.present?
-      attributes[:public_updated_at] = public_updated_at.iso8601
-    end
-    attributes
+    attributes.merge(formatted_dates)
+  end
+
+  def formatted_dates
+    {
+      public_updated_at:,
+      first_published_at:,
+    }.compact
+     .transform_values(&:iso8601)
   end
 end
