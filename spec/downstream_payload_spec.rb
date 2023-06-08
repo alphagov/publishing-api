@@ -158,17 +158,53 @@ RSpec.describe DownstreamPayload do
   end
 
   describe "#message_queue_payload" do
-    let(:edition) do
-      create_edition(:live_edition, update_type: "major")
+    context "a published edition" do
+      let(:edition) { create_edition(:live_edition, update_type: "major") }
+
+      it "uses the edition presenter" do
+        expect_any_instance_of(Presenters::EditionPresenter).to receive(:for_message_queue).with(payload_version)
+        downstream_payload.message_queue_payload
+      end
     end
 
-    it "returns a message queue payload" do
-      expect(downstream_payload.message_queue_payload).to include(
-        base_path: edition.base_path,
-        title: edition.title,
-        update_type: edition.update_type,
-        govuk_request_id: anything,
-      )
+    context "a gone edition" do
+      let(:edition) { create_edition(:gone_unpublished_edition, update_type: "major") }
+
+      it "uses the gone presenter" do
+        expect_any_instance_of(Presenters::GonePresenter).to receive(:for_message_queue).with(payload_version)
+        downstream_payload.message_queue_payload
+      end
+    end
+
+    context "a vanish edition" do
+      let(:edition) { create_edition(:vanish_unpublished_edition, update_type: "major") }
+
+      it "uses the vanish presenter" do
+        expect_any_instance_of(Presenters::VanishPresenter).to receive(:for_message_queue).with(payload_version)
+        downstream_payload.message_queue_payload
+      end
+    end
+
+    context "an unpublished redirect" do
+      let(:edition) { create_edition(:redirect_unpublished_edition, update_type: "major") }
+      let(:redirect_presenter_double) { instance_double(Presenters::RedirectPresenter) }
+
+      it "uses the redirect presenter" do
+        expect(Presenters::RedirectPresenter).to receive(:from_unpublished_edition).and_return(redirect_presenter_double)
+        expect(redirect_presenter_double).to receive(:for_message_queue).with(payload_version)
+        downstream_payload.message_queue_payload
+      end
+    end
+
+    context "a published redirect" do
+      let(:edition) { create_edition(:redirect_live_edition, update_type: "major") }
+      let(:redirect_presenter_double) { instance_double(Presenters::RedirectPresenter) }
+
+      it "uses the redirect presenter" do
+        expect(Presenters::RedirectPresenter).to receive(:from_published_edition).and_return(redirect_presenter_double)
+        expect(redirect_presenter_double).to receive(:for_message_queue).with(payload_version)
+        downstream_payload.message_queue_payload
+      end
     end
   end
 end
