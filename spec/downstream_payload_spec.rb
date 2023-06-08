@@ -109,10 +109,23 @@ RSpec.describe DownstreamPayload do
     end
 
     context "published item" do
-      let(:edition) { create_edition(:live_edition) }
+      context "standard edition" do
+        let(:edition) { create_edition(:live_edition) }
 
-      it "returns a content store payload" do
-        expect(downstream_payload.content_store_payload).to include(content_store_payload_hash)
+        it "returns a content store payload" do
+          expect(downstream_payload.content_store_payload).to include(content_store_payload_hash)
+        end
+      end
+
+      context "redirect edition" do
+        let(:edition) { create_edition(:redirect_live_edition) }
+        let(:redirect_presenter_double) { instance_double(Presenters::RedirectPresenter) }
+
+        it "returns a content store payload" do
+          expect(Presenters::RedirectPresenter).to receive(:from_published_edition).and_return(redirect_presenter_double)
+          expect(redirect_presenter_double).to receive(:for_content_store).with(payload_version)
+          downstream_payload.content_store_payload
+        end
       end
     end
 

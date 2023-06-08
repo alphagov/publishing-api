@@ -61,6 +61,7 @@ private
   end
 
   def content_store_presenter
+    return redirect_presenter if edition.document_type == "redirect"
     return content_presenter unless unpublished?
 
     case unpublishing.type
