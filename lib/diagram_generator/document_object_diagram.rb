@@ -1,7 +1,7 @@
 module DiagramGenerator
   class DocumentObjectDiagram
     def initialize(document_id = nil)
-      @document = document_id ? Document.find(document_id) : Document.last
+      @document = document_id ? Document.unscoped.find(document_id) : Document.unscoped.last
       # avoid duplicates
       @emitted_objects = []
       @emitted_links = []
@@ -18,7 +18,8 @@ module DiagramGenerator
       puts "node PublishingApi {"
       emit_object(@document, %i[content_id])
 
-      @document.editions.each do |edition|
+      editions = Edition.unscoped.where(document_id: @document.id)
+      editions.each do |edition|
         dump_edition(@document, edition)
       end
 
@@ -70,7 +71,7 @@ module DiagramGenerator
 
       emit_link(document, edition, "*--")
 
-      if (unpublishing = edition.unpublishing)
+      if (unpublishing = Unpublishing.unscoped.where(edition_id: edition.id).first)
         emit_object(unpublishing, %i[type explanation alternative_path unpublished_at redirects])
         emit_link(edition, unpublishing, "*-")
       end
