@@ -33,6 +33,26 @@
           description: "A string containing sentences and links to corporate information pages that are not included in ordered_corporate_information_pages.",
         },
         social_media_links: (import "shared/definitions/_social_media_links.jsonnet"),
+        world_location_names: {
+          type: "array",
+          items: {
+            type: "object",
+            additionalProperties: false,
+            required: [
+              "content_id",
+              "name",
+            ],
+            properties: {
+              content_id: {
+                "$ref": "#/definitions/guid",
+              },
+              name: {
+                type: "string",
+              },
+            },
+          },
+          description: "The names of the associated world locations in the same language as the worldwide organisation content.",
+        },
       },
     },
   },

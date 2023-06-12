@@ -64,7 +64,17 @@
         "content_id": "5f5560f5-7631-11e4-a3cb-005056011aef"
       }
     ],
-    "secondary_corporate_information_pages": "Our <a class=\"govuk-link\" href=\"/world/organisations/british-deputy-high-commission-hyderabad/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information."
+    "secondary_corporate_information_pages": "Our <a class=\"govuk-link\" href=\"/world/organisations/british-deputy-high-commission-hyderabad/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
+    "world_location_names": [
+      {
+        "content_id": "5e9f047a-7706-11e4-a3cb-005056011aef",
+        "name": "India with translation"
+      },
+      {
+        "content_id": "5e9f047a-7706-11e4-a3cb-005056011aee",
+        "name": "Another location with translation"
+      }
+    ]
   },
   "links": {
     "corporate_information_pages": [
