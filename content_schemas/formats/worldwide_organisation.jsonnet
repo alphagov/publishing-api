@@ -38,7 +38,6 @@
   },
   links: (import "shared/base_links.jsonnet") + {
     corporate_information_pages: "Corporate information pages for this Worldwide Organisation",
-    ordered_contacts: "Contact details for this Worldwide Organisation",
     main_office: "The main office for this Worldwide Organisation",
     home_page_offices: "The offices, other than the main office, to be shown on the home page of this Worldwide Organisation",
     primary_role_person: "The person currently appointed to a primary role in this Worldwide Organisation",
