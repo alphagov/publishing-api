@@ -45,7 +45,11 @@ private
   end
 
   def redirect_presenter
-    Presenters::RedirectPresenter.from_edition(edition)
+    if unpublishing
+      Presenters::RedirectPresenter.from_unpublished_edition(edition)
+    else
+      Presenters::RedirectPresenter.from_published_edition(edition)
+    end
   end
 
   def gone_presenter
@@ -57,6 +61,7 @@ private
   end
 
   def content_store_presenter
+    return redirect_presenter if edition.document_type == "redirect"
     return content_presenter unless unpublished?
 
     case unpublishing.type
@@ -67,6 +72,7 @@ private
   end
 
   def message_queue_presenter
+    return redirect_presenter if edition.document_type == "redirect"
     return content_presenter unless unpublished?
 
     case unpublishing.type
