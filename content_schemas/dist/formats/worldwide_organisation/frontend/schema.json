@@ -602,6 +602,26 @@
               }
             }
           }
+        },
+        "world_location_names": {
+          "description": "The names of the associated world locations in the same language as the worldwide organisation content.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "content_id",
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "content_id": {
+                "$ref": "#/definitions/guid"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     },
