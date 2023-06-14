@@ -1,0 +1,140 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/world/organisations/british-embassy-manila/about/recruitment",
+  "content_id": "5f558c51-7631-11e4-a3cb-005056011aef",
+  "document_type": "recruitment",
+  "first_published_at": "2014-05-02T07:10:44.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-04-01T02:30:23.000+00:00",
+  "publishing_app": "whitehall",
+  "publishing_scheduled_at": null,
+  "rendering_app": "whitehall-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "worldwide_corporate_information_page",
+  "title": "Working for British Embassy Manila",
+  "updated_at": "2023-06-13T11:54:15.006Z",
+  "withdrawn_notice": {},
+  "publishing_request_id": "21-1686657254.903-10.1.32.45-403",
+  "links": {
+    "parent": [
+      {
+        "content_id": "f4c988ad-7a30-11e4-a3cb-005056011aef",
+        "title": "British Embassy Manila",
+        "locale": "en",
+        "analytics_identifier": "WO217",
+        "api_path": "/api/content/world/organisations/british-embassy-manila",
+        "base_path": "/world/organisations/british-embassy-manila",
+        "document_type": "worldwide_organisation",
+        "public_updated_at": "2014-04-04T08:30:32Z",
+        "schema_name": "worldwide_organisation",
+        "withdrawn": false,
+        "description": "The British Embassy in Philippines maintains and develops relations between the UK and Philippines. ",
+        "links": {},
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/world/organisations/british-embassy-manila",
+        "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/british-embassy-manila"
+      }
+    ],
+    "worldwide_organisation": [
+      {
+        "content_id": "f4c988ad-7a30-11e4-a3cb-005056011aef",
+        "title": "British Embassy Manila",
+        "locale": "en",
+        "analytics_identifier": "WO217",
+        "api_path": "/api/content/world/organisations/british-embassy-manila",
+        "base_path": "/world/organisations/british-embassy-manila",
+        "document_type": "worldwide_organisation",
+        "public_updated_at": "2014-04-04T08:30:32Z",
+        "schema_name": "worldwide_organisation",
+        "withdrawn": false,
+        "description": "The British Embassy in Philippines maintains and develops relations between the UK and Philippines. ",
+        "links": {
+          "sponsoring_organisations": [
+            {
+              "content_id": "f9fcf3fe-2751-4dca-97ca-becaeceb4b26",
+              "title": "Foreign, Commonwealth & Development Office",
+              "locale": "en",
+              "analytics_identifier": "D1315",
+              "api_path": "/api/content/government/organisations/foreign-commonwealth-development-office",
+              "base_path": "/government/organisations/foreign-commonwealth-development-office",
+              "document_type": "organisation",
+              "schema_name": "organisation",
+              "withdrawn": false,
+              "details": {
+                "logo": {
+                  "crest": "single-identity",
+                  "formatted_title": "Foreign, Commonwealth<br/>&amp; Development Office"
+                },
+                "brand": "foreign-commonwealth-development-office",
+                "default_news_image": {
+                  "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/548/s300_fcdo-main-building.jpg",
+                  "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/548/s960_fcdo-main-building.jpg"
+                },
+                "organisation_govuk_status": {
+                  "url": null,
+                  "status": "live",
+                  "updated_at": null
+                }
+              },
+              "links": {},
+              "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/foreign-commonwealth-development-office",
+              "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/foreign-commonwealth-development-office"
+            }
+          ],
+          "world_locations": [
+            {
+              "content_id": "5e9f1506-7706-11e4-a3cb-005056011aef",
+              "title": "Philippines",
+              "schema_name": "world_location",
+              "locale": "en",
+              "analytics_identifier": "WL109",
+              "links": {}
+            },
+            {
+              "content_id": "5e9f33e4-7706-11e4-a3cb-005056011aef",
+              "title": "Palau",
+              "schema_name": "world_location",
+              "locale": "en",
+              "analytics_identifier": "WL191",
+              "links": {}
+            }
+          ]
+        },
+        "details": {
+          "world_location_names": [
+            {
+              "content_id": "5e9f1506-7706-11e4-a3cb-005056011aef",
+              "name": "Philippines with translation"
+            },
+            {
+              "content_id": "5e9f33e4-7706-11e4-a3cb-005056011aef",
+              "name": "Palau with translation"
+            }
+          ]
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/world/organisations/british-embassy-manila",
+        "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/british-embassy-manila"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Working for British Embassy Manila",
+        "public_updated_at": "2016-04-01T02:30:23Z",
+        "document_type": "recruitment",
+        "schema_name": "worldwide_corporate_information_page",
+        "base_path": "/world/organisations/british-embassy-manila/about/recruitment",
+        "api_path": "/api/content/world/organisations/british-embassy-manila/about/recruitment",
+        "withdrawn": false,
+        "content_id": "5f558c51-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/world/organisations/british-embassy-manila/about/recruitment",
+        "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/british-embassy-manila/about/recruitment",
+        "links": {}
+      }
+    ]
+  },
+  "description": "The description for the worldwide corporate information page",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"general-information\">General information</h2>\n\n<p>Fair competition is at the centre of recruitment at the British Embassy Manila. This is why we do not maintain a database of potential candidates, cannot accept applications on a speculative basis and are unable to hold CVs on file to be considered for future vacancies.</p>\n\n<h3 id=\"civil-services-competences-and-the-selection-process\">Civil Services Competences and the selection process</h3>\n\n<p>Selection is based on the overall suitability of the candidate against the skills, qualifications and competences required in the position, as may be demonstrated by applicants through the application form and the interview. The specific requirements for each position can be found in the job description.</p>\n\n<p>We recommend all applicants understand the Civil Service competences before applying for any role and in preparation for interviews.</p>\n\n<p><span id=\"attachment_7373614\" class=\"attachment-inline\"><a class=\"govuk-link\" href=\"https://assets.integration.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/325497/Competences_D7_L_.pdf\">Core competencies for D7(L), or LE1 S</a> (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">177 KB</span>, <span class=\"page-length\" lang=\"en\">8 pages</span>)</span></p>\n\n<p><span id=\"attachment_7373615\" class=\"attachment-inline\"><a class=\"govuk-link\" href=\"https://assets.integration.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/325498/Competences_D6_L_.pdf\">Core competencies for D6(L), or LE1 S</a> (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">177 KB</span>, <span class=\"page-length\" lang=\"en\">8 pages</span>)</span></p>\n\n<p><span id=\"attachment_7373616\" class=\"attachment-inline\"><a class=\"govuk-link\" href=\"https://assets.integration.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/325499/Competences_C5_L_.pdf\">Core competencies for C5(L), or LE1 S</a> (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">176 KB</span>, <span class=\"page-length\" lang=\"en\">8 pages</span>)</span></p>\n\n<p><span id=\"attachment_7373617\" class=\"attachment-inline\"><a class=\"govuk-link\" href=\"https://assets.integration.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/325500/Competences_C4_L_.pdf\">Core competencies for C4(L), or LE1</a> (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">175 KB</span>, <span class=\"page-length\" lang=\"en\">8 pages</span>)</span></p>\n\n<p><span id=\"attachment_7373618\" class=\"attachment-inline\"><a class=\"govuk-link\" href=\"https://assets.integration.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/325501/Competences_B3_L_.pdf\">Core competencies for B3(L), or LE2</a> (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">172 KB</span>, <span class=\"page-length\" lang=\"en\">8 pages</span>)</span></p>\n\n<p><span id=\"attachment_7373619\" class=\"attachment-inline\"><a class=\"govuk-link\" href=\"https://assets.integration.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/325502/Competences_A2_L_.pdf\">Core competencies for A2(L), or LE3</a> (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">171 KB</span>, <span class=\"page-length\" lang=\"en\">8 pages</span>)</span></p>\n\n<p><span id=\"attachment_7373620\" class=\"attachment-inline\"><a class=\"govuk-link\" href=\"https://assets.integration.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/325503/Competences_A1_L_.pdf\">Core competencies for A1(L), or LE4</a> (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">171 KB</span>, <span class=\"page-length\" lang=\"en\">8 pages</span>)</span></p>\n\n<p><span id=\"attachment_7373621\" class=\"attachment-inline\"><a class=\"govuk-link\" href=\"https://assets.integration.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/325504/Competences_S1__S2__S3.pdf\">Core competencies for S1, S2, S3, or LE5</a> (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">161 KB</span>, <span class=\"page-length\" lang=\"en\">6 pages</span>)</span></p>\n\n<h2 id=\"current-work-opportunities\">Current work opportunities</h2>\n\n<p>If you are interested in job opportunities at the British Embassy in Manila or one of the other UK delegations, UKTI offices, other government departments or consulates in Philippines, please visit the <a rel=\"external\" href=\"https://fco.tal.net/vx/lang-en-GB/mobile-0/appcentre-1/brand-2/xf-7810a1ba3247/candidate\" class=\"govuk-link\">FCDO Local Staff vacancies website</a>.</p>\n\n<p>To filter the search for current vacancies, use the “Country/Territory” field on the left of the page and select the country you wish to search.</p>\n\n<p>The British Government is an inclusive and diversity-friendly employer. We value difference, promote equality and challenge discrimination, enhancing our organisational capability.</p>\n\n<p>We welcome and encourage applications from people of all backgrounds. We do not discriminate on the basis of disability, race, colour, ethnicity, gender, religion, sexual orientation, age, veteran status or other category protected by law. We promote family-friendly flexible working opportunities, where operational and security needs allow.</p>\n\n<p>Staff recruited locally are subject to Terms and Conditions of Service according to local employment law.</p>\n</div>"
+  }
+}
