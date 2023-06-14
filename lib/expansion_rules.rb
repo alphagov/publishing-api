@@ -113,6 +113,7 @@ module_function
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = %i[content_id title schema_name locale analytics_identifier].freeze
   WORLDWIDE_OFFICE_FIELDS = (DEFAULT_FIELDS + details_fields(:access_and_opening_times)).freeze
+  WORLDWIDE_ORGANISATION_FIELDS = (DEFAULT_FIELDS_AND_DESCRIPTION + details_fields(:world_location_names)).freeze
 
   CUSTOM_EXPANSION_FIELDS_FOR_PEOPLE = (
     %i[
@@ -208,7 +209,7 @@ module_function
       { document_type: :worldwide_office,
         fields: WORLDWIDE_OFFICE_FIELDS },
       { document_type: :worldwide_organisation,
-        fields: DEFAULT_FIELDS_AND_DESCRIPTION },
+        fields: WORLDWIDE_ORGANISATION_FIELDS },
       { document_type: :government,
         fields: GOVERNMENT_FIELDS },
       { document_type: :coronavirus_landing_page,

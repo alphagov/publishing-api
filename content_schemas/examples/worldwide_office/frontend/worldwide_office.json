@@ -148,6 +148,18 @@
             }
           ]
         },
+        "details": {
+          "world_location_names": [
+            {
+              "content_id": "5e9f1506-7706-11e4-a3cb-005056011aef",
+              "name": "Philippines with translation"
+            },
+            {
+              "content_id": "5e9f33e4-7706-11e4-a3cb-005056011aef",
+              "name": "Palau with translation"
+            }
+          ]
+        },
         "api_url": "https://www.integration.publishing.service.gov.uk/api/content/world/organisations/british-embassy-manila",
         "web_url": "https://www.integration.publishing.service.gov.uk/world/organisations/british-embassy-manila"
       }
