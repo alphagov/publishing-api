@@ -33,8 +33,5 @@
     root_taxon: {
       description: "Set to the root taxon (homepage) if this is a level one taxon.",
     },
-    legacy_taxons: {
-      description: "Prior taxons (such as mainstream_browse_page, topic, policy_area, policy) before the single site-wide Topic Taxonomy was introduced",
-    },
   },
 }
