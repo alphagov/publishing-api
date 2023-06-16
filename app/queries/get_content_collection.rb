@@ -46,10 +46,10 @@ module Queries
     )
 
     def editions
-      scope = Edition.all
+      scope = Edition.with_document
       scope = scope.where(document_type: document_types) if document_types.any?
       scope = scope.where(publishing_app:) if publishing_app
-      scope = scope.with_document.where("documents.locale": locale) unless locale == "all"
+      scope = scope.where("documents.locale": locale) unless locale == "all"
       scope = Link.filter_editions(scope, link_filters) if link_filters.present?
       scope
     end

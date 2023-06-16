@@ -19,11 +19,16 @@ RSpec.describe Queries::GetContentCollection do
         document_type: "mainstream_browse_page",
         schema_name: "mainstream_browse_page",
       )
-      create(
+      draft_d = create(
         :draft_edition,
         base_path: "/d",
         document_type: "another_type",
         schema_name: "another_type",
+      )
+      create(
+        :link_set,
+        content_id: draft_d.content_id,
+        links_hash: { organisations: %w[af07d5a5-df63-4ddc-9383-6a666845ebe9] },
       )
     end
 
@@ -34,6 +39,15 @@ RSpec.describe Queries::GetContentCollection do
         hash_including("base_path" => "/a"),
         hash_including("base_path" => "/b"),
         hash_including("base_path" => "/c"),
+        hash_including("base_path" => "/d"),
+      ])
+    end
+
+    it "returns editions for an organisation for all locales" do
+      expect(Queries::GetContentCollection.new(
+        fields: %w[base_path],
+        filters: { locale: "all", links: { organisations: "af07d5a5-df63-4ddc-9383-6a666845ebe9" } },
+      ).call).to match_array([
         hash_including("base_path" => "/d"),
       ])
     end
