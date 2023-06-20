@@ -97,10 +97,6 @@
           "description": "DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
-        "legacy_taxons": {
-          "description": "Prior taxons (such as mainstream_browse_page, topic, policy_area, policy) before the single site-wide Topic Taxonomy was introduced",
-          "$ref": "#/definitions/frontend_links_with_base_path"
-        },
         "level_one_taxons": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -217,10 +213,6 @@
         },
         "lead_organisations": {
           "description": "DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "legacy_taxons": {
-          "description": "Prior taxons (such as mainstream_browse_page, topic, policy_area, policy) before the single site-wide Topic Taxonomy was introduced",
           "$ref": "#/definitions/guid_list"
         },
         "mainstream_browse_pages": {

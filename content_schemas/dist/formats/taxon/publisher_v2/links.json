@@ -18,10 +18,6 @@
           "description": "DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.",
           "$ref": "#/definitions/guid_list"
         },
-        "legacy_taxons": {
-          "description": "Prior taxons (such as mainstream_browse_page, topic, policy_area, policy) before the single site-wide Topic Taxonomy was introduced",
-          "$ref": "#/definitions/guid_list"
-        },
         "mainstream_browse_pages": {
           "description": "Powers the /browse section of the site. These are known as sections in some legacy apps.",
           "$ref": "#/definitions/guid_list"
