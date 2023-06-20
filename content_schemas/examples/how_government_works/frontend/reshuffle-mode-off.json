@@ -17,7 +17,31 @@
     "reshuffle_in_progress": false
   },
   "document_type": "how_government_works",
-  "links": {},
+  "links": {
+    "current_prime_minister": [
+      {
+        "content_id": "361b04ed-731a-4f55-82c0-14cdf129afac",
+        "title": "The Rt Hon Rishi Sunak MP",
+        "locale": "en",
+        "api_path": "/api/content/government/people/rishi-sunak",
+        "base_path": "/government/people/rishi-sunak",
+        "document_type": "person",
+        "public_updated_at": "2022-10-27T10:43:34Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3339/s465_Rishi_profile.jpg",
+            "alt_text": "The Rt Hon Rishi Sunak MP"
+          },
+          "privy_counsellor": true
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/people/rishi-sunak",
+        "web_url": "https://www.gov.uk/government/people/rishi-sunak"
+      }
+    ]
+  },
   "locale": "en",
   "public_updated_at": "2023-03-06T11:01:01+00:00",
   "rendering_app": "whitehall-frontend",
