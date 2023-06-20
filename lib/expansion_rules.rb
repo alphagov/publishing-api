@@ -18,7 +18,6 @@ module_function
   MULTI_LEVEL_LINK_PATHS = [
     [:associated_taxons.recurring],
     [:child_taxons, :associated_taxons.recurring],
-    [:child_taxons.recurring, :legacy_taxons],
     [:child_taxons.recurring],
     [:parent.recurring],
     [:parent_taxons.recurring],
@@ -65,7 +64,6 @@ module_function
     root_taxon: :level_one_taxons,
     pages_part_of_step_nav: :part_of_step_navs,
     pages_related_to_step_nav: :related_to_step_navs,
-    legacy_taxons: :topic_taxonomy_taxons,
     pages_secondary_to_step_nav: :secondary_to_step_navs,
     person: :role_appointments,
     role: :role_appointments,
