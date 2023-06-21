@@ -273,6 +273,31 @@
       "properties": {
         "change_history": {
           "$ref": "#/definitions/change_history"
+        },
+        "promotion_slots": {
+          "type": "object",
+          "required": [
+            "url",
+            "title",
+            "text",
+            "image_src"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "image_src": {
+              "type": "string",
+              "format": "uri"
+            },
+            "text": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          }
         }
       }
     },

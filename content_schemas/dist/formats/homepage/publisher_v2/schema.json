@@ -169,7 +169,33 @@
     },
     "details": {
       "type": "object",
-      "properties": {}
+      "properties": {
+        "promotion_slots": {
+          "type": "object",
+          "required": [
+            "url",
+            "title",
+            "text",
+            "image_src"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "image_src": {
+              "type": "string",
+              "format": "uri"
+            },
+            "text": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          }
+        }
+      }
     },
     "first_published_at": {
       "description": "The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
