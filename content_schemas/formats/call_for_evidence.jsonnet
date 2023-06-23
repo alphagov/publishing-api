@@ -85,23 +85,6 @@
             },
           },
         },
-        public_feedback_publication_date: {
-          type: "string",
-          format: "date-time",
-        },
-        public_feedback_detail: {
-          type: "string",
-        },
-        public_feedback_documents: {
-          "$ref": "#/definitions/attachments_with_thumbnails",
-        },
-        public_feedback_attachments: {
-          type: "array",
-          uniqueItems: true,
-          items: {
-            type: "string",
-          },
-        },
         final_outcome_publication_date: {
           type: "string",
           format: "date-time",
