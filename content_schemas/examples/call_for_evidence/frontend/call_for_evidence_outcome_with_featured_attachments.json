@@ -1,8 +1,8 @@
 {
   "analytics_identifier": null,
-  "base_path": "/government/consultations/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
+  "base_path": "/government/calls-for-evidence/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
   "content_id": "67e7930a-9e13-4a70-a5be-fc18aa8fa6f5",
-  "document_type": "consultation_outcome",
+  "document_type": "call_for_evidence_outcome",
   "first_published_at": "2016-04-20T10:44:19.000+00:00",
   "locale": "en",
   "phase": "live",
@@ -11,7 +11,7 @@
   "publishing_scheduled_at": null,
   "rendering_app": "government-frontend",
   "scheduled_publishing_delay_seconds": null,
-  "schema_name": "consultation",
+  "schema_name": "call_for_evidence",
   "title": "Setting the grade standards of new GCSEs in England: 2017 & 2018",
   "updated_at": "2020-03-25T13:12:13.989Z",
   "withdrawn_notice": {
@@ -528,11 +528,6 @@
         "alternative_url": ""
       }
     },
-    "public_feedback_detail": "<div class=\"govspeak\"><p>The majority of respondents agreed or strongly agreed with our proposals, which were:</p>\n\n<ol>\n  <li>That the first award of new GCSEs will be based primarily on statistical predictions, with examiner judgement playing a secondary role. A modified approach based on a wider range of information and with less reliance on statistics will be used where appropriate.</li>\n  <li>To the award of new GCSEs in the second and subsequent years: to carry forward the grade standard established in the first award.</li>\n  <li>To adopt the same approach to the first award of grades 1 to 7 in all new GCSEs as that which we have confirmed will be adopted for new GCSEs in English language, English literature and maths.</li>\n  <li>To adopt the ‘tailored approach’ to awarding grade 9 in subjects to be awarded from summer 2018.</li>\n  <li>To also adopt the ‘tailored approach’ to awarding grade 9 in English language, English literature and maths from summer 2017.</li>\n</ol>\n\n<p>Just under half of the respondents (49%) agreed or strongly agreed with our proposal to base the award of grade 9 in the second and subsequent years on the standard set in the first award. 30% disagreed with this proposal. The remaining 21% neither agreed nor disagreed.</p>\n</div>",
-    "public_feedback_attachments": [
-      "Grading-consultation-analysis-of-responses.pdf"
-    ],
-    "public_feedback_publication_date": "2016-09-07T00:00:00+00:00",
     "first_public_at": "2016-04-22T12:00:00.000+01:00",
     "political": false,
     "government": {
