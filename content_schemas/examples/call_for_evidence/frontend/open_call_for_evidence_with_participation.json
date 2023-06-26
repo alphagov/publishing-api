@@ -1,0 +1,94 @@
+{
+  "content_id": "4e06a81d-72b8-4f02-99af-d244098e7802",
+  "base_path": "/government/calls-for-evidence/post-office-network",
+  "description": "We are seeking views on the accessibility of post offices, the services available, and the role of communities in the future of the network.",
+  "public_updated_at": "2016-11-08T11:00:00+00:00",
+  "title": "Post Office network call for evidence",
+  "updated_at": "2016-11-08T12:52:46.734Z",
+  "schema_name": "call_for_evidence",
+  "document_type": "open_call_for_evidence",
+  "locale": "en",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>Government provides funding to maintain a national network of post office branches that is accessible to everyone. We want you to tell us what you expect from the post office network.</p>\n\n<p>Your responses will be used to help determine the funding provided to the post office after the existing agreement with Post Office Limited ends in 2018.</p>\n\n<p>We are not proposing any changes to the network through this call for evidence.</p>\n</div>",
+    "first_public_at": "2016-11-08T11:00:00+00:00",
+    "opening_date": "2016-11-04T10:00:00+01:00",
+    "closing_date": "2216-12-21T23:45:00+00:00",
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_1800272\">\n<div class=\"attachment-thumb\">\n<a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/566186/beis-16-36-post-office-network-consultation.pdf\"><img alt=\"\" src=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/566186/thumbnail_beis-16-36-post-office-network-consultation.pdf.png\" /></a>\n</div>\n<div class=\"attachment-details\">\n<h2 class=\"title\"><a aria-describedby=\"attachment-1800272-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/566186/beis-16-36-post-office-network-consultation.pdf\">2016 Post Office Network consultation</a></h2>\n<p class=\"metadata\">\n<span class=\"references\">\nRef: <span class=\"unique_reference\">BEIS/16/36</span>\n</span>\n<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">1.02MB</span>, <span class=\"page-length\">17 pages</span>\n</p>\n\n\n<div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1800272-accessibility-help\">\n<h2>This file may not be suitable for users of assistive technology.\n<a class=\"toggler\" href=\"#attachment-1800272-accessibility-request\" data-controls=\"attachment-1800272-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n</h2>\n<p id=\"attachment-1800272-accessibility-request\" class=\"js-hidden\">\nIf you use assistive technology (eg a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%202016%20Post%20Office%20Network%20consultation%0A%20%20Original%20format%3A%20pdf%0A%20%20Unique%20reference%3A%20BEIS%2F16%2F36%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%272016%20Post%20Office%20Network%20consultation%27%20in%20an%20alternative%20format\"></a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n</p>\n</div>\n</div>\n</section>"
+    ],
+    "change_history": [
+
+    ],
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "topics": [
+
+      ],
+      "policies": [
+
+      ]
+    },
+    "ways_to_respond": {
+      "link_url": "https://beisgovuk.citizenspace.com/ukgi/post-office-network-consultation",
+      "email": "po.consultation@ukgi.gov.uk",
+      "postal_address": "2016 Post Office Network Consultation\nDepartment for Business, Energy and Industrial Strategy\n1 Victoria Street\nLondon\nSW1H 0ET",
+      "attachment_url": "https://www.gov.uk/government/uploads/system/uploads/consultation_response_form_data/file/533/beis-16-36rf-post-office-network-consultation-response-form.docx"
+    },
+    "government": {
+      "title": "2015 Conservative government",
+      "slug": "2015-conservative-government",
+      "current": true
+    },
+    "emphasised_organisations": [
+      "ebd15ade-73b2-4eaf-b1c3-43034a42eb37"
+    ],
+    "political": true
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "d4fbc1b9-d47d-4386-af04-ac909f868f92",
+        "title": "2015 Conservative government",
+        "locale": "en",
+        "api_path": "/api/content/government/2015-conservative-government",
+        "base_path": "/government/2015-conservative-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2015-05-08T00:00:00+00:00",
+          "ended_on": null,
+          "current": true
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2015-conservative-government",
+        "web_url": "https://www.gov.uk/government/2015-conservative-government"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "ebd15ade-73b2-4eaf-b1c3-43034a42eb37",
+        "title": "Department for Education",
+        "api_path": "/api/content/government/organisations/department-for-education",
+        "base_path": "/government/organisations/department-for-education",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-education",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-education",
+        "locale": "en",
+        "document_type": "organisation",
+        "analytics_identifier": "D25"
+      },
+      {
+        "content_id": "2bde479a-97f2-42b5-986a-287a623c2a1c",
+        "title": "Department for Business, Energy & Industrial Strategy",
+        "api_path": "/api/content/government/organisations/department-for-business-energy-and-industrial-strategy",
+        "base_path": "/government/organisations/department-for-business-energy-and-industrial-strategy",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-business-energy-and-industrial-strategy",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-business-energy-and-industrial-strategy",
+        "locale": "en",
+        "document_type": "organisation",
+        "analytics_identifier": "D1198"
+      }
+    ]
+  }
+}
