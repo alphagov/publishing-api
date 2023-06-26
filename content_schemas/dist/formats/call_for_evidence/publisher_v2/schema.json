@@ -317,23 +317,6 @@
         "political": {
           "$ref": "#/definitions/political"
         },
-        "public_feedback_attachments": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "uniqueItems": true
-        },
-        "public_feedback_detail": {
-          "type": "string"
-        },
-        "public_feedback_documents": {
-          "$ref": "#/definitions/attachments_with_thumbnails"
-        },
-        "public_feedback_publication_date": {
-          "type": "string",
-          "format": "date-time"
-        },
         "tags": {
           "$ref": "#/definitions/tags"
         },
