@@ -85,17 +85,17 @@
             },
           },
         },
-        final_outcome_publication_date: {
+        outcome_publication_date: {
           type: "string",
           format: "date-time",
         },
-        final_outcome_detail: {
+        outcome_detail: {
           type: "string",
         },
-        final_outcome_documents: {
+        outcome_documents: {
           "$ref": "#/definitions/attachments_with_thumbnails",
         },
-        final_outcome_attachments: {
+        outcome_attachments: {
           type: "array",
           uniqueItems: true,
           items: {
