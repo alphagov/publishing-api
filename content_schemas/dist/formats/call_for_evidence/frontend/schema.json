@@ -353,23 +353,6 @@
           },
           "uniqueItems": true
         },
-        "final_outcome_attachments": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "uniqueItems": true
-        },
-        "final_outcome_detail": {
-          "type": "string"
-        },
-        "final_outcome_documents": {
-          "$ref": "#/definitions/attachments_with_thumbnails"
-        },
-        "final_outcome_publication_date": {
-          "type": "string",
-          "format": "date-time"
-        },
         "first_public_at": {
           "$ref": "#/definitions/first_public_at"
         },
@@ -386,6 +369,23 @@
           "$ref": "#/definitions/national_applicability"
         },
         "opening_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "outcome_attachments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "outcome_detail": {
+          "type": "string"
+        },
+        "outcome_documents": {
+          "$ref": "#/definitions/attachments_with_thumbnails"
+        },
+        "outcome_publication_date": {
           "type": "string",
           "format": "date-time"
         },
