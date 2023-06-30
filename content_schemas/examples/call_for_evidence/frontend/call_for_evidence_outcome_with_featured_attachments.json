@@ -35,16 +35,16 @@
               "content_id": "67e7930a-9e13-4a70-a5be-fc18aa8fa6f5",
               "title": "Setting the grade standards of new GCSEs in England: 2017 & 2018",
               "locale": "en",
-              "api_path": "/api/content/government/consultations/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
-              "base_path": "/government/consultations/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
-              "document_type": "consultation_outcome",
+              "api_path": "/api/content/government/calls-for-evidence/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
+              "base_path": "/government/calls-for-evidence/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
+              "document_type": "call_for_evidence_outcome",
               "public_updated_at": "2016-09-07T11:00:28Z",
-              "schema_name": "consultation",
+              "schema_name": "call_for_evidence",
               "withdrawn": false,
               "links": {
               },
-              "api_url": "https://www.gov.uk/api/content/government/consultations/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
-              "web_url": "https://www.gov.uk/government/consultations/setting-the-grade-standards-of-new-gcses-in-england-2017-2018"
+              "api_url": "https://www.gov.uk/api/content/government/calls-for-evidence/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
+              "web_url": "https://www.gov.uk/government/calls-for-evidence/setting-the-grade-standards-of-new-gcses-in-england-2017-2018"
             }
           ]
         },
@@ -467,15 +467,15 @@
       {
         "title": "Setting the grade standards of new GCSEs in England: 2017 & 2018",
         "public_updated_at": "2016-09-07T11:00:28Z",
-        "document_type": "consultation_outcome",
-        "schema_name": "consultation",
-        "base_path": "/government/consultations/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
-        "api_path": "/api/content/government/consultations/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
+        "document_type": "call_for_evidence_outcome",
+        "schema_name": "call_for_evidence",
+        "base_path": "/government/calls-for-evidence/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
+        "api_path": "/api/content/government/calls-for-evidence/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
         "withdrawn": false,
         "content_id": "67e7930a-9e13-4a70-a5be-fc18aa8fa6f5",
         "locale": "en",
-        "api_url": "https://www.gov.uk/api/content/government/consultations/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
-        "web_url": "https://www.gov.uk/government/consultations/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
+        "api_url": "https://www.gov.uk/api/content/government/calls-for-evidence/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
+        "web_url": "https://www.gov.uk/government/calls-for-evidence/setting-the-grade-standards-of-new-gcses-in-england-2017-2018",
         "links": {
         }
       }
@@ -483,7 +483,7 @@
   },
   "description": "Proposals on grade standards for GCSEs being awarded from 2018, and grades 8 and 9 in maths, English language and English literature from 2017.",
   "details": {
-    "body": "<div class=\"govspeak\"><p>We are seeking views on our proposals for setting grade standards for new GCSEs. This consultation follows on from our earlier consultation on <a rel=\"external\" href=\"http://webarchive.nationalarchives.gov.uk/20141110161323/http:/comment.ofqual.gov.uk/setting-the-grade-standards-of-new-gcses-april-2014/\" class=\"govuk-link\">‘Setting the grade standards of new GCSEs in England’</a>.</p>\n\n<p>In September 2014 we announced our decisions about the awarding of new GCSEs in English language, English literature and mathematics which will be first awarded in summer 2017.</p>\n\n<p>We are now consulting on the approach to be taken in all other subjects. We are also consulting on a change to our previous decisions for English language, English literature and mathematics, about how grades 8 and 9 are set.</p>\n\n<p>Our proposals are designed to protect students taking the new qualifications, particularly in the first year when teachers will be less familiar with the new content and how it is assessed. We want to minimise unexpected or unfair outcomes for students in the transition to the new GCSEs.</p>\n</div>",
+    "body": "<div class=\"govspeak\"><p>We are seeking views on our proposals for setting grade standards for new GCSEs. This call for evidence follows on from our earlier call for evidence on <a rel=\"external\" href=\"http://webarchive.nationalarchives.gov.uk/20141110161323/http:/comment.ofqual.gov.uk/setting-the-grade-standards-of-new-gcses-april-2014/\" class=\"govuk-link\">‘Setting the grade standards of new GCSEs in England’</a>.</p>\n\n<p>In September 2014 we announced our decisions about the awarding of new GCSEs in English language, English literature and mathematics which will be first awarded in summer 2017.</p>\n\n<p>We are now consulting on the approach to be taken in all other subjects. We are also consulting on a change to our previous decisions for English language, English literature and mathematics, about how grades 8 and 9 are set.</p>\n\n<p>Our proposals are designed to protect students taking the new qualifications, particularly in the first year when teachers will be less familiar with the new content and how it is assessed. We want to minimise unexpected or unfair outcomes for students in the transition to the new GCSEs.</p>\n</div>",
     "closing_date": "2016-06-17T23:45:00.000+01:00",
     "emphasised_organisations": [
       "83f6e93f-bb2c-46ab-9b02-394f972b7030"
@@ -600,16 +600,16 @@
       },
       {
         "attachment_type": "file",
-        "id": "Grading-consultation-analysis-of-responses.pdf",
-        "title": "Analysis of responses to our consultation on setting the grade standards of new GCSEs in England – part 2",
-        "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/551112/Grading-consultation-analysis-of-responses.pdf",
+        "id": "Grading-call-for-evidence-analysis-of-responses.pdf",
+        "title": "Analysis of responses to our call for evidence on setting the grade standards of new GCSEs in England – part 2",
+        "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/551112/Grading-call-for-evidence-analysis-of-responses.pdf",
         "unnumbered_command_paper": false,
         "unnumbered_hoc_paper": false,
         "accessible": false,
         "alternative_format_contact_email": "publications@ofqual.gov.uk",
         "content_type": "application/pdf",
         "file_size": 175698,
-        "filename": "Grading-consultation-analysis-of-responses.pdf",
+        "filename": "Grading-call-for-evidence-analysis-of-responses.pdf",
         "number_of_pages": 24
       }
     ]
