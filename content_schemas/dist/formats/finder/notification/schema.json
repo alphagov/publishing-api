@@ -438,6 +438,9 @@
         "generic_description": {
           "type": "boolean"
         },
+        "label_text": {
+          "type": "string"
+        },
         "logo_path": {
           "type": "string"
         },

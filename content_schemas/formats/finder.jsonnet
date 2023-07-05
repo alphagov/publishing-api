@@ -58,6 +58,9 @@
         format_name: {
           type: "string",
         },
+        label_text: {
+          type: "string",
+        },
         show_summaries: {
           "$ref": "#/definitions/finder_show_summaries",
         },
