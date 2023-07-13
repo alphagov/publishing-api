@@ -20,12 +20,33 @@
           "items": {
             "type": "object",
             "required": [
+              "active",
+              "content_id",
               "name",
               "slug",
-              "active"
+              "updated_at"
             ],
             "additionalProperties": false,
             "properties": {
+              "active": {
+                "description": "Whether the location is currently active",
+                "type": "boolean",
+              },
+              "analytics_identifier": {
+                "description": "The analytics identifier for the international delegation",
+                "type": "string"
+              },
+              "content_id": {
+                "description": "The content ID for the international delegation",
+                "$ref": "#/definitions/guid",
+              },
+              "iso2": {
+                "description": "The two-letter code for the international delegation in ISO2 format",
+                "type": [
+                  "string",
+                  "null",
+                ]
+              },
               "name": {
                 "description": "The name of the international delegation",
                 "type": "string"
@@ -34,9 +55,10 @@
                 "description": "The slug of the international delegation",
                 "type": "string",
               },
-              "active": {
-                "description": "Whether the location is currently active",
-                "type": "boolean",
+              "updated_at": {
+                "description": "The timestamp for the last update to the international delegation",
+                type: "string",
+                format: "date-time",
               }
             }
           },
@@ -46,12 +68,33 @@
           "items": {
             "type": "object",
             "required": [
+              "active",
+              "content_id",
               "name",
               "slug",
-              "active"
+              "updated_at"
             ],
             "additionalProperties": false,
             "properties": {
+              "active": {
+                "description": "Whether the location is currently active",
+                "type": "boolean",
+              },
+              "analytics_identifier": {
+                "description": "The analytics identifier for the world location",
+                "type": "string"
+              },
+              "content_id": {
+                "description": "The content ID for the world location",
+                "$ref": "#/definitions/guid",
+              },
+              "iso2": {
+                "description": "The two-letter code for the world location in ISO2 format",
+                "type": [
+                  "string",
+                  "null",
+                ]
+              },
               "name": {
                 "description": "The name of the world location",
                 "type": "string"
@@ -60,9 +103,10 @@
                 "description": "The slug of the world location",
                 "type": "string",
               },
-              "active": {
-                "description": "Whether the location is currently active",
-                "type": "boolean",
+              "updated_at": {
+                "description": "The timestamp for the last update to the world location",
+                type: "string",
+                format: "date-time",
               }
             }
           },
