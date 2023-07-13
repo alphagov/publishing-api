@@ -25,7 +25,7 @@ class RemoveYourEdition < ActiveRecord::Migration
   def up
     editions = Edition.where(id: 123)
 
-    Helpers::DeleteContent.destroy_supporting_objects(editions)
+    Helpers::DeleteContent.destroy_edition_supporting_objects(editions)
 
     editions.destroy_all
   end
