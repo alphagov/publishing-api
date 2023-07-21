@@ -520,14 +520,16 @@
         enum: [
           "ca98-and-civil-cartels",
           "competition-disqualification",
+          "consumer-enforcement",
           "criminal-cartels",
           "information-and-advice-to-government",
           "markets",
           "mergers",
-          "consumer-enforcement",
+          "oim-project",
           "regulatory-references-and-appeals",
           "review-of-orders-and-undertakings",
-          "state-aid",
+          "sau-referral",
+          "state-aid"
         ],
       },
       case_state: {
