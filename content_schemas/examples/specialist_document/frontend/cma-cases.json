@@ -274,6 +274,10 @@
                   "value": "motor-industry"
                 },
                 {
+                  "label": "Not applicable",
+                  "value": "not-applicable"
+                },
+                {
                   "label": "Oil and gas refining and petrochemicals",
                   "value": "oil-and-gas-refining-and-petrochemicals"
                 },
