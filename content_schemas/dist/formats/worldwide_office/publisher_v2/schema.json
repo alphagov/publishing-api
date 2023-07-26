@@ -354,6 +354,37 @@
             "string",
             "null"
           ]
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "description": "The name of the service provided by this Worldwide Office.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "The type of service provided by this Worldwide Office.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "uniqueItems": true
+        },
+        "type": {
+          "description": "The type of Worldwide Office.",
+          "type": [
+            "string",
+            "null"
+          ]
         }
       }
     },
