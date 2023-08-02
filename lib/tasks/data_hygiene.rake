@@ -38,25 +38,6 @@ namespace :data_hygiene do
     end
   end
 
-  desc "Removes invalid about page drafts from world organisations that can prevent editing"
-  task remove_invalid_worldorg_drafts: :environment do
-    about_pages = Edition
-                    .where(document_type: "about", state: "draft")
-                    .select { |edition| edition.base_path =~ /\A\/world\/organisations\/[^\/]+\z/ }
-                    .map { |edition| [edition.document.content_id, edition.document.locale] }
-
-    puts "Found #{about_pages.size} invalid draft Worldwide Organisation editions to remove"
-    about_pages.each do |content_id, locale|
-      puts "Removing draft edition #{content_id}"
-      Commands::V2::DiscardDraft.call(
-        {
-          content_id:,
-          locale:,
-        },
-      )
-    end
-  end
-
   desc "Bulk update the organisations associated with documents."
   task :bulk_update_organisation, %i[csv_filename] => :environment do |_, args|
     DataHygiene::BulkOrganisationUpdater.call(args[:csv_filename])
