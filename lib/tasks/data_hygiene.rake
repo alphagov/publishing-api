@@ -40,20 +40,14 @@ namespace :data_hygiene do
 
   desc "Removes invalid about page drafts from world organisations that can prevent editing"
   task remove_invalid_worldorg_drafts: :environment do
-    about_pages = Edition
-                    .where(document_type: "about", state: "draft")
-                    .select { |edition| edition.base_path =~ /\A\/world\/organisations\/[^\/]+\z/ }
-                    .map { |edition| [edition.document.content_id, edition.document.locale] }
+    Edition.where("base_path ~ ?", "^\/world\/organisations").find_each(batch_size: 1000) do |worldwide_editions|
+      about_page_regex = /^\/world\/organisations.*(\/about|\/about\.[a-z0-9-]*)$/
 
-    puts "Found #{about_pages.size} invalid draft Worldwide Organisation editions to remove"
-    about_pages.each do |content_id, locale|
-      puts "Removing draft edition #{content_id}"
-      Commands::V2::DiscardDraft.call(
-        {
-          content_id:,
-          locale:,
-        },
-      )
+      about_cips = worldwide_editions.select { |edition| edition.base_path.match?(about_page_regex) }
+
+      Helpers::DeleteContent.destroy_edition_supporting_objects(about_cips)
+
+      about_cips.destroy_all
     end
   end
 
