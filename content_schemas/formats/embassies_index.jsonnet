@@ -1,4 +1,5 @@
 (import "shared/default_format.jsonnet") + {
+  document_type: "embassies_index",
   definitions: {
     local_offices: {
       type: "object",

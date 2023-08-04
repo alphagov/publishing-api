@@ -1,4 +1,5 @@
 (import "shared/default_format.jsonnet") + {
+  document_type: "world_location_news",
   definitions: (import "shared/definitions/_whitehall.jsonnet") + {
     details: {
       type: "object",

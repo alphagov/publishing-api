@@ -1,4 +1,5 @@
 (import "shared/default_format.jsonnet") + {
+  document_type: "worldwide_office",
   definitions: (import "shared/definitions/_whitehall.jsonnet") + {
     details: {
       type: "object",
