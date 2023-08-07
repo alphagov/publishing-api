@@ -90,7 +90,7 @@ Key fields that are set internally by the Publishing API are:
 - `user_facing_version` - an integer that stores which iteration of a document
   an edition is.
 - `content_store` - indicates whether an edition is intended for draft, live or
-  no content store.
+  no content store (for [substituted](#substitution) or superseded editions).
 
 Documents that have an edition with a "live" `content_store` value will have
 the corresponding edition presented on the live content store.
