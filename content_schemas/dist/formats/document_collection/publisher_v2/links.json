@@ -77,6 +77,11 @@
           "description": "New A/B test suggestions for related items. Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms included in this A/B test.",
           "$ref": "#/definitions/guid_list"
         },
+        "taxonomy_topic_email_override": {
+          "description": "The taxonomy topic that email subscriptions for this document collection should go to - only for document collections converted from specialist topics",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
         "taxons": {
           "description": "Prototype-stage taxonomy label for this content item",
           "$ref": "#/definitions/guid_list"

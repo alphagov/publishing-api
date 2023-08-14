@@ -80,5 +80,9 @@
     related_mainstream_content: "",
     documents: "",
     topical_events: "The topical events that are part of this document collection.",
+    taxonomy_topic_email_override: {
+        description: "The taxonomy topic that email subscriptions for this document collection should go to - only for document collections converted from specialist topics",
+        maxItems: 1
+    },
   },
 }
