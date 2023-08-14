@@ -25,4 +25,5 @@
   edition_links: (import "shared/base_edition_links.jsonnet") + {
     featured_policies: "Featured policies primarily for use with Whitehall organisations",
   },
+  rendering_app: "optional",
 }

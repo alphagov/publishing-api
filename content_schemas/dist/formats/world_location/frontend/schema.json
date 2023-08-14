@@ -208,7 +208,7 @@
       ]
     },
     "rendering_app": {
-      "$ref": "#/definitions/rendering_app"
+      "$ref": "#/definitions/rendering_app_optional"
     },
     "scheduled_publishing_delay_seconds": {
       "anyOf": [
@@ -638,6 +638,16 @@
         "tariff",
         "whitehall-admin",
         "whitehall-frontend"
+      ]
+    },
+    "rendering_app_optional": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/rendering_app"
+        },
+        {
+          "type": "null"
+        }
       ]
     },
     "scheduled_publishing_delay_seconds": {
