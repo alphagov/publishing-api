@@ -5,7 +5,6 @@
     "details",
     "document_type",
     "publishing_app",
-    "rendering_app",
     "schema_name",
     "title"
   ],
@@ -100,7 +99,7 @@
       "items": {}
     },
     "rendering_app": {
-      "$ref": "#/definitions/rendering_app"
+      "$ref": "#/definitions/rendering_app_optional"
     },
     "routes": {
       "$ref": "#/definitions/routes_optional"
@@ -383,6 +382,16 @@
         "tariff",
         "whitehall-admin",
         "whitehall-frontend"
+      ]
+    },
+    "rendering_app_optional": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/rendering_app"
+        },
+        {
+          "type": "null"
+        }
       ]
     },
     "routes_optional": {
