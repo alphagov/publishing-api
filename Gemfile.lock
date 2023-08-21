@@ -689,7 +689,7 @@ GEM
     term-ansicolor (1.7.1)
       tins (~> 1.0)
     thor (1.2.2)
-    timecop (0.9.6)
+    timecop (0.9.8)
     timeout (0.4.0)
     tins (1.32.1)
       sync
