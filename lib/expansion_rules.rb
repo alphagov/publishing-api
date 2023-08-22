@@ -52,8 +52,10 @@ module_function
     %i[historical_accounts person],
     %i[main_office contact],
     %i[home_page_offices contact],
-    %i[worldwide_organisation sponsoring_organisations],
-    %i[worldwide_organisation world_locations],
+    %i[primary_role person],
+    %i[primary_role role],
+    %i[secondary_role person],
+    %i[office_staff_roles person],
   ].freeze
 
   REVERSE_LINKS = {
