@@ -285,6 +285,10 @@
           "description": "People currently appointed to office staff roles in this Worldwide Organisation",
           "$ref": "#/definitions/frontend_links"
         },
+        "office_staff_roles": {
+          "description": "The office staff roles for this Worldwide Organisation",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "ordered_related_items": {
           "description": "Related items, can be any page on GOV.UK. Mostly used for mainstream content to power the sidebar. Ordering of the links is determined by the editor in Content Tagger.",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -323,6 +327,10 @@
           "$ref": "#/definitions/frontend_links_with_base_path",
           "maxItems": 1
         },
+        "primary_role": {
+          "description": "The primary role for this Worldwide Organisation",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "primary_role_person": {
           "description": "The person currently appointed to a primary role in this Worldwide Organisation",
           "$ref": "#/definitions/frontend_links"
@@ -334,6 +342,10 @@
         "role_appointments": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links"
+        },
+        "secondary_role": {
+          "description": "The secondary role for this Worldwide Organisation",
+          "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "secondary_role_person": {
           "description": "The person currently appointed to a secondary role in this Worldwide Organisation",
