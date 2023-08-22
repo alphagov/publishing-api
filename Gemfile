@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "7.0.7"
+gem "rails", "7.0.7.1"
 
 gem "aws-sdk-s3"
 gem "bootsnap", require: false
