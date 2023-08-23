@@ -346,6 +346,17 @@
             ]
           }
         },
+        "assurance_technique_approach": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "technical",
+              "procedural",
+              "educational"
+            ]
+          }
+        },
         "bulk_published": {
           "type": "boolean"
         },

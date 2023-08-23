@@ -277,6 +277,17 @@
           ],
         },
       },
+      assurance_technique_approach: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "technical",
+            "procedural",
+            "educational"
+          ],
+        },
+      },
     },
   }, 
   animal_disease_case_metadata: {
