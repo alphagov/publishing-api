@@ -76,6 +76,10 @@
           "description": "The person currently appointed to a primary role in this Worldwide Organisation",
           "$ref": "#/definitions/guid_list"
         },
+        "roles": {
+          "description": "All roles associated with this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
         "secondary_role_person": {
           "description": "The person currently appointed to a secondary role in this Worldwide Organisation",
           "$ref": "#/definitions/guid_list"

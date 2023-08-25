@@ -335,6 +335,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links"
         },
+        "roles": {
+          "description": "All roles associated with this Worldwide Organisation",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "secondary_role_person": {
           "description": "The person currently appointed to a secondary role in this Worldwide Organisation",
           "$ref": "#/definitions/frontend_links"
