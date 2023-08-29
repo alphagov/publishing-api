@@ -1,4 +1,5 @@
 (import "shared/default_format.jsonnet") + {
+  document_type: "historic_appointments",
   definitions: (import "shared/definitions/_whitehall.jsonnet") + {
     details: {
       type: "object",
