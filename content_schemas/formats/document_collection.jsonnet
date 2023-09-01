@@ -69,6 +69,10 @@
   },
   edition_links: (import "shared/whitehall_edition_links.jsonnet") + {
     documents: "",
+    taxonomy_topic_email_override: {
+        description: "The taxonomy topic that email subscriptions for this document collection should go to - only for document collections converted from specialist topics",
+        maxItems: 1
+    },
   },
   links: (import "shared/base_links.jsonnet") + {
     government: {
