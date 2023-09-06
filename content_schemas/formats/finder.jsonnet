@@ -49,6 +49,9 @@
         filter: {
           "$ref": "#/definitions/finder_filter",
         },
+        open_filter_on_load: {
+          type: "boolean",
+        },
         reject: {
           "$ref": "#/definitions/finder_reject_filter",
         },
