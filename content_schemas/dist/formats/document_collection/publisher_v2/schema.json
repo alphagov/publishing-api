@@ -89,11 +89,6 @@
         "related_policies": {
           "$ref": "#/definitions/guid_list"
         },
-        "taxonomy_topic_email_override": {
-          "description": "The taxonomy topic that email subscriptions for this document collection should go to - only for document collections converted from specialist topics",
-          "$ref": "#/definitions/guid_list",
-          "maxItems": 1
-        },
         "topical_events": {
           "$ref": "#/definitions/guid_list"
         },
