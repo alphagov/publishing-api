@@ -65,7 +65,7 @@
           "maxItems": 1
         },
         "suggested_ordered_related_items": {
-          "description": "New A/B test suggestions for related items. Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms included in this A/B test.",
+          "description": "Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms.",
           "$ref": "#/definitions/guid_list"
         },
         "taxons": {
