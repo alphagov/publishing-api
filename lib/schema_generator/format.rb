@@ -123,18 +123,10 @@ module SchemaGenerator
     end
 
     def schema_name_definition
-      if schema_name == "placeholder"
-        {
-          "type" => "string",
-          "pattern" => "^(placeholder|placeholder_.+)$",
-          "description" => "Should be of the form 'placeholder_my_format_name'. 'placeholder' is allowed for backwards compatibility.",
-        }
-      else
-        {
-          "enum" => [schema_name],
-          "type" => "string",
-        }
-      end
+      {
+        "enum" => [schema_name],
+        "type" => "string",
+      }
     end
 
     def publisher_required

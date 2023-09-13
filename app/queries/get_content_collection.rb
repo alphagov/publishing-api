@@ -11,7 +11,7 @@ module Queries
       :states,
     )
 
-    def initialize(fields:, document_types: [], filters: {}, pagination: Pagination.new, search_query: "", search_in: nil)
+    def initialize(fields:, document_types: @document_types, filters: {}, pagination: Pagination.new, search_query: "", search_in: nil)
       self.document_types = Array(document_types)
       self.fields = (fields || default_fields) + %w[total]
       self.publishing_app = filters[:publishing_app]
@@ -47,15 +47,11 @@ module Queries
 
     def editions
       scope = Edition.with_document
-      scope = scope.where(document_type: document_types) if document_types.any?
+      scope = scope.where(document_type: @document_types) if @document_types.any?
       scope = scope.where(publishing_app:) if publishing_app
       scope = scope.where("documents.locale": locale) unless locale == "all"
       scope = Link.filter_editions(scope, link_filters) if link_filters.present?
       scope
-    end
-
-    def document_types
-      @document_types.flat_map { |d| [d, "placeholder_#{d}"] }
     end
 
     def validate_fields!

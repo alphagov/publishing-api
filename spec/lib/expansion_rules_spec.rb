@@ -71,8 +71,6 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:mainstream_browse_page)).to eq(default_fields_and_description) }
     specify { expect(rules.expansion_fields(:need)).to eq(need_fields) }
     specify { expect(rules.expansion_fields(:organisation)).to eq(organisation_fields) }
-    specify { expect(rules.expansion_fields(:placeholder_organisation)).to eq(organisation_fields) }
-    specify { expect(rules.expansion_fields(:placeholder_topical_event)).to eq(default_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :people)).to eq(default_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :person)).to eq(person_fields) }
     specify { expect(rules.expansion_fields(:role_appointment)).to eq(role_appointment_fields) }

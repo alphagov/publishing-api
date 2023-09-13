@@ -74,18 +74,12 @@ RSpec.describe Queries::GetContentCollection do
     end
   end
 
-  it "returns the editions of the given format, and placeholder_format" do
+  it "returns the editions of the given format" do
     create(
       :draft_edition,
       base_path: "/a",
       document_type: "topic",
       schema_name: "topic",
-    )
-    create(
-      :draft_edition,
-      base_path: "/b",
-      document_type: "placeholder_topic",
-      schema_name: "placeholder_topic",
     )
 
     expect(Queries::GetContentCollection.new(
@@ -93,7 +87,6 @@ RSpec.describe Queries::GetContentCollection do
       fields: %w[base_path publication_state],
     ).call).to match_array([
       hash_including("base_path" => "/a", "publication_state" => "draft"),
-      hash_including("base_path" => "/b", "publication_state" => "draft"),
     ])
   end
 
@@ -401,8 +394,8 @@ RSpec.describe Queries::GetContentCollection do
         :draft_edition,
         base_path: "/b",
         details: { baz: :bat },
-        document_type: "placeholder_topic",
-        schema_name: "placeholder_topic",
+        document_type: "topic",
+        schema_name: "topic",
         publishing_app: "publisher",
       )
     end
