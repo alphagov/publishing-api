@@ -80,7 +80,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:07:57Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Cabinet Office",
         "withdrawn": false,
         "details": {
@@ -103,7 +103,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2015-03-09T20:00:54Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Prime Minister's Office, 10 Downing Street",
         "withdrawn": false,
         "details": {
@@ -126,7 +126,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2015-05-11T16:17:58Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Deputy Prime Minister's Office",
         "withdrawn": false,
         "details": {
@@ -147,10 +147,10 @@
         "api_path": "/api/content/government/topics/government-efficiency-transparency-and-accountability",
         "base_path": "/government/topics/government-efficiency-transparency-and-accountability",
         "content_id": "0a12a282-10eb-4c83-9db4-16540ae5ab01",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:06Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Government efficiency, transparency and accountability",
         "withdrawn": false,
         "links": {
@@ -168,7 +168,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:07:57Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Cabinet Office",
         "withdrawn": false,
         "details": {

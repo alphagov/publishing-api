@@ -44,7 +44,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2017-12-12T21:20:49Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Driver and Vehicle Standards Agency",
         "withdrawn": false,
         "details": {
@@ -86,7 +86,7 @@
         "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2013-07-22T09:04:54Z",
-        "schema_name": "placeholder",
+        "schema_name": "policy_area",
         "title": "Transport",
         "withdrawn": false,
         "links": {
@@ -104,7 +104,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2017-12-12T21:20:49Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Driver and Vehicle Standards Agency",
         "withdrawn": false,
         "details": {

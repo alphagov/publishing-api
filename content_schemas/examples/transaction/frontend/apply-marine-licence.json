@@ -168,7 +168,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2017-02-15T12:04:27Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Marine Management Organisation",
         "withdrawn": false,
         "details": {

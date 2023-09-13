@@ -80,7 +80,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:07:59Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Ministry of Defence",
         "withdrawn": false,
         "details": {
@@ -103,7 +103,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2015-03-18T16:01:40Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Military Aviation Authority",
         "withdrawn": false,
         "details": {
@@ -127,10 +127,10 @@
         "api_path": "/api/content/government/topics/defence-and-armed-forces",
         "base_path": "/government/topics/defence-and-armed-forces",
         "content_id": "b360d7b0-664d-4030-93f9-ee8bff36ab53",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:07Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Defence and armed forces",
         "withdrawn": false,
         "links": {
@@ -148,7 +148,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:07:59Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Ministry of Defence",
         "withdrawn": false,
         "details": {

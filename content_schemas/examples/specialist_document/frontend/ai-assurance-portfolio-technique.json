@@ -98,7 +98,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2015-03-10T16:23:14Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Centre for Data Ethics and Innovation",
         "withdrawn": false,
         "details": {
@@ -121,7 +121,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2015-03-10T16:23:14Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department for Science, Innovation and Technology",
         "withdrawn": false,
         "details": {

@@ -80,7 +80,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2017-07-04T14:35:36Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Ofsted",
         "withdrawn": false,
         "details": {
@@ -104,10 +104,10 @@
         "api_path": "/api/content/government/topics/social-care",
         "base_path": "/government/topics/social-care",
         "content_id": "a90d4fac-5656-4745-9c16-08542f42c3ac",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:08Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Social care",
         "withdrawn": false,
         "links": {
@@ -125,7 +125,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2017-07-04T14:35:36Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Ofsted",
         "withdrawn": false,
         "details": {

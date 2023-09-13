@@ -44,7 +44,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:08:01Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department for Education",
         "withdrawn": false,
         "details": {
@@ -65,10 +65,10 @@
         "api_path": "/api/content/government/topics/children-and-young-people",
         "base_path": "/government/topics/children-and-young-people",
         "content_id": "89a2270a-8c81-4336-b68c-3e4fb5ac319c",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:08Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Children and young people",
         "withdrawn": false,
         "links": {
@@ -86,7 +86,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:08:01Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department for Education",
         "withdrawn": false,
         "details": {

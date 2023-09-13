@@ -113,7 +113,7 @@
         "api_url": "https://www.gov.uk/api/content/government/publications/car-and-light-van-driver-competence-framework",
         "web_url": "https://www.gov.uk/government/publications/car-and-light-van-driver-competence-framework",
         "locale": "en",
-        "schema_name": "placeholder_publication",
+        "schema_name": "publication",
         "document_type": "guidance",
         "analytics_identifier": null
       },
@@ -127,7 +127,7 @@
         "api_url": "https://www.gov.uk/api/content/government/publications/competence-framework-for-moped-and-motorcycle-riders",
         "web_url": "https://www.gov.uk/government/publications/competence-framework-for-moped-and-motorcycle-riders",
         "locale": "en",
-        "schema_name": "placeholder_publication",
+        "schema_name": "publication",
         "document_type": "guidance",
         "analytics_identifier": null
       },
@@ -141,7 +141,7 @@
         "api_url": "https://www.gov.uk/api/content/government/publications/car-and-small-van-driving-syllabus",
         "web_url": "https://www.gov.uk/government/publications/car-and-small-van-driving-syllabus",
         "locale": "en",
-        "schema_name": "placeholder_publication",
+        "schema_name": "publication",
         "document_type": "guidance",
         "analytics_identifier": null
       },
@@ -155,7 +155,7 @@
         "api_url": "https://www.gov.uk/api/content/government/publications/national-standard-for-developed-driving-competence",
         "web_url": "https://www.gov.uk/government/publications/national-standard-for-developed-driving-competence",
         "locale": "en",
-        "schema_name": "placeholder_publication",
+        "schema_name": "publication",
         "document_type": "guidance",
         "analytics_identifier": null
       },
@@ -169,7 +169,7 @@
         "api_url": "https://www.gov.uk/api/content/government/publications/national-standard-for-driver-and-rider-training",
         "web_url": "https://www.gov.uk/government/publications/national-standard-for-driver-and-rider-training",
         "locale": "en",
-        "schema_name": "placeholder_publication",
+        "schema_name": "publication",
         "document_type": "guidance",
         "analytics_identifier": null
       },
@@ -183,7 +183,7 @@
         "api_url": "https://www.gov.uk/api/content/government/publications/national-standard-for-driving-buses-and-coaches",
         "web_url": "https://www.gov.uk/government/publications/national-standard-for-driving-buses-and-coaches",
         "locale": "en",
-        "schema_name": "placeholder_publication",
+        "schema_name": "publication",
         "document_type": "guidance",
         "analytics_identifier": null
       },
@@ -197,7 +197,7 @@
         "api_url": "https://www.gov.uk/api/content/government/publications/national-standard-for-driving-lorries",
         "web_url": "https://www.gov.uk/government/publications/national-standard-for-driving-lorries",
         "locale": "en",
-        "schema_name": "placeholder_publication",
+        "schema_name": "publication",
         "document_type": "guidance",
         "analytics_identifier": null
       },
@@ -211,7 +211,7 @@
         "api_url": "https://www.gov.uk/api/content/government/publications/national-standard-for-riding-mopeds-and-motorcycles",
         "web_url": "https://www.gov.uk/government/publications/national-standard-for-riding-mopeds-and-motorcycles",
         "locale": "en",
-        "schema_name": "placeholder_publication",
+        "schema_name": "publication",
         "document_type": "guidance",
         "analytics_identifier": null
       },
@@ -225,7 +225,7 @@
         "api_url": "https://www.gov.uk/api/content/government/publications/national-standard-for-driving-cars-and-light-vans",
         "web_url": "https://www.gov.uk/government/publications/national-standard-for-driving-cars-and-light-vans",
         "locale": "en",
-        "schema_name": "placeholder_publication",
+        "schema_name": "publication",
         "document_type": "guidance",
         "analytics_identifier": null
       }

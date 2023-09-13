@@ -127,12 +127,12 @@
             "formatted_title": "Charity Commission"
           }
         },
-        "document_type": "placeholder_organisation",
+        "document_type": "organisation",
         "links": {
         },
         "locale": "en",
         "public_updated_at": "2014-10-15T14:35:31.000+00:00",
-        "schema_name": "placeholder_organisation",
+        "schema_name": "organisation",
         "title": "The Charity Commission",
         "web_url": "https://www.gov.uk/government/organisations/charity-commission"
       }

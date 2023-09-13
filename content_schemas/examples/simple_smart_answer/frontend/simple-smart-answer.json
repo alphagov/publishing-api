@@ -211,7 +211,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2016-11-18T12:50:04Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Driver and Vehicle Standards Agency",
         "withdrawn": false,
         "details": {

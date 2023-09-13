@@ -312,10 +312,10 @@
         "base_path": "/government/organisations/animal-health-and-veterinary-laboratories-agency",
         "content_id": "e0a272d7-82da-495a-a8c5-cc3787817271",
         "description": null,
-        "document_type": "placeholder_organisation",
+        "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2014-10-15T14:35:26Z",
-        "schema_name": "placeholder_organisation",
+        "schema_name": "organisation",
         "title": "Animal Health and Veterinary Laboratories Agency",
         "withdrawn": false,
         "details": {
@@ -339,7 +339,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2016-12-09T12:38:41Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department for Environment, Food & Rural Affairs",
         "withdrawn": false,
         "details": {
@@ -363,7 +363,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2016-03-22T14:43:46Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Foreign & Commonwealth Office",
         "withdrawn": false,
         "details": {

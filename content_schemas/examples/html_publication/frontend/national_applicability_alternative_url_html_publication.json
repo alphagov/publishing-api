@@ -51,7 +51,7 @@
     "parent": [
       {
         "content_id": "8b19c238-54e3-4e27-b0d7-60f8e2a677c9",
-        "schema_name": "placeholder_publication",
+        "schema_name": "publication",
         "document_type": "notice",
         "title": "TR4 8EE, Mr Derek Mears: environmental permit application advertisement",
         "api_path": "/api/content/government/publications/tr4-8ee-mr-derek-mears-environmental-permit-application-advertisement",

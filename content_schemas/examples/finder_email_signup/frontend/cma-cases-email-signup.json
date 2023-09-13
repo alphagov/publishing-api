@@ -42,8 +42,8 @@
         "web_url": "https://www.gov.uk/government/organisations/competition-and-markets-authority",
         "locale": "en",
         "public_updated_at": "2015-03-10T16:23:14.000+00:00",
-        "schema_name": "placeholder_organisation",
-        "document_type": "placeholder_organisation",
+        "schema_name": "organisation",
+        "document_type": "organisation",
         "analytics_identifier": "D550",
         "links": {
         },

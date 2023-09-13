@@ -62,7 +62,7 @@ expansion has occurred.
       "document_type": "organisation",
       "locale": "en",
       "public_updated_at": "2015-06-03T13:12:51Z",
-      "schema_name": "placeholder",
+      "schema_name": "organisation",
       "title": "Department for Transport",
       "details": {
         "brand": "department-for-transport",
@@ -82,7 +82,7 @@ expansion has occurred.
       "document_type": "welsh_language_scheme",
       "locale": "en",
       "public_updated_at": "2013-06-21T13:22:34Z",
-      "schema_name": "placeholder_corporate_information_page",
+      "schema_name": "corporate_information_page",
       "title": "Welsh language scheme",
       "links": {}
     }, {
@@ -94,7 +94,7 @@ expansion has occurred.
       "document_type": "welsh_language_scheme",
       "locale": "cy",
       "public_updated_at": "2013-06-21T13:22:34Z",
-      "schema_name": "placeholder_corporate_information_page",
+      "schema_name": "corporate_information_page",
       "title": "Cynllun iaith Gymraeg",
       "links": {}
     }]

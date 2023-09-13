@@ -98,10 +98,10 @@
         "base_path": "/government/organisations/hm-passport-office",
         "content_id": "3a96a1e0-21e3-4aae-8e84-f90860ed3dbf",
         "description": null,
-        "document_type": "placeholder_organisation",
+        "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2014-10-15T14:35:28Z",
-        "schema_name": "placeholder_organisation",
+        "schema_name": "organisation",
         "title": "HM Passport Office",
         "withdrawn": false,
         "details": {
@@ -125,7 +125,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2015-06-03T13:12:46Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Home Office",
         "withdrawn": false,
         "details": {

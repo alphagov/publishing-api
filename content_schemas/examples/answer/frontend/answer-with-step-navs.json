@@ -267,7 +267,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2015-05-13T10:09:06Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "HM Revenue & Customs",
         "withdrawn": false,
         "details": {
