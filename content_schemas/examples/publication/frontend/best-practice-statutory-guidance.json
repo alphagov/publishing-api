@@ -80,7 +80,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:08:01Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department for Education",
         "withdrawn": false,
         "details": {
@@ -103,7 +103,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2017-03-31T23:54:26Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Education Funding Agency",
         "withdrawn": false,
         "details": {
@@ -124,10 +124,10 @@
         "api_path": "/api/content/government/topics/schools",
         "base_path": "/government/topics/schools",
         "content_id": "88d627cb-0ae5-4fc9-b5ac-bb7eb6fddf72",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:08Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Schools",
         "withdrawn": false,
         "links": {
@@ -145,7 +145,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:08:01Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department for Education",
         "withdrawn": false,
         "details": {

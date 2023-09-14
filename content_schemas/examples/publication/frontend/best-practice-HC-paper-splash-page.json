@@ -111,7 +111,7 @@
         "document_type": "person",
         "locale": "en",
         "public_updated_at": "2017-06-09T16:12:14Z",
-        "schema_name": "placeholder",
+        "schema_name": "person",
         "title": "The Rt Hon Philip Hammond MP",
         "withdrawn": false,
         "links": {
@@ -129,7 +129,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:07:57Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "HM Treasury",
         "withdrawn": false,
         "details": {
@@ -153,7 +153,7 @@
         "document_type": "person",
         "locale": "en",
         "public_updated_at": "2017-06-09T16:12:14Z",
-        "schema_name": "placeholder",
+        "schema_name": "person",
         "title": "The Rt Hon Philip Hammond MP",
         "withdrawn": false,
         "links": {
@@ -167,10 +167,10 @@
         "api_path": "/api/content/government/topics/government-spending",
         "base_path": "/government/topics/government-spending",
         "content_id": "c75939ac-59b4-4a00-ad23-107d6cecf95b",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:09Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Government spending",
         "withdrawn": false,
         "links": {
@@ -182,10 +182,10 @@
         "api_path": "/api/content/government/topics/tax-and-revenue",
         "base_path": "/government/topics/tax-and-revenue",
         "content_id": "8034be95-4ac2-4fff-93c5-e7514ed9504a",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:07Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Tax and revenue",
         "withdrawn": false,
         "links": {
@@ -197,10 +197,10 @@
         "api_path": "/api/content/government/topics/uk-economy",
         "base_path": "/government/topics/uk-economy",
         "content_id": "f10df7ae-e3a6-4f9c-b764-541f62c8e6cf",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:06Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "UK economy",
         "withdrawn": false,
         "links": {
@@ -218,7 +218,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:07:57Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "HM Treasury",
         "withdrawn": false,
         "details": {
@@ -242,7 +242,7 @@
         "document_type": "ministerial_role",
         "locale": "en",
         "public_updated_at": "2013-04-24T14:21:55Z",
-        "schema_name": "placeholder",
+        "schema_name": "ministerial_role",
         "title": "Chancellor of the Exchequer",
         "withdrawn": false,
         "links": {
@@ -259,7 +259,7 @@
         "document_type": "topical_event",
         "locale": "en",
         "public_updated_at": "2017-03-09T14:17:03Z",
-        "schema_name": "placeholder",
+        "schema_name": "topical_event",
         "title": "Spring Budget 2017",
         "withdrawn": false,
         "details": {

@@ -18,17 +18,13 @@ module Queries
     attr_reader :document_type
 
     def latest_updated_at(document_type)
-      non_placeholder = Edition.where(document_type:)
-        .maximum("updated_at")
-      placeholder = Edition.where(document_type: "placeholder_#{document_type}")
-        .maximum("updated_at")
-      [non_placeholder, placeholder].compact.max
+      Edition.where(document_type:).maximum("updated_at")
     end
 
     def linkables_query(document_type)
       Edition.with_document
         .where(
-          document_type: [document_type, "placeholder_#{document_type}"],
+          document_type:,
           state: %w[published draft],
           "documents.locale": "en",
         )

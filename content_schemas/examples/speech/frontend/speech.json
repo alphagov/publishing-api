@@ -90,10 +90,10 @@
         "api_path": "/api/content/government/topics/energy",
         "base_path": "/government/topics/energy",
         "content_id": "c637a660-4903-404b-87cc-d50101822916",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:06Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Energy",
         "withdrawn": false,
         "links": {
@@ -110,7 +110,7 @@
         "document_type": "person",
         "locale": "en",
         "public_updated_at": "2017-06-11T18:07:35Z",
-        "schema_name": "placeholder",
+        "schema_name": "person",
         "title": "The Rt Hon Andrea Leadsom MP",
         "withdrawn": false,
         "links": {

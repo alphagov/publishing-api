@@ -13,7 +13,7 @@
     "parent": [
       {
         "content_id": "8b19c238-54e3-4e27-b0d7-60f8e2a677c9",
-        "schema_name": "placeholder_publication",
+        "schema_name": "publication",
         "document_type": "promotional",
         "title": "لٍم تعتبر المملكة المتحدة الوجهة الأمثل لتؤسس الشركات الأجنبية أعمالها فيها",
         "api_path": "/api/content/government/publications/why-overseas-companies-should-set-up-in-the-uk.ar",

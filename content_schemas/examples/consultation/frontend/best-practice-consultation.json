@@ -44,7 +44,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2016-08-01T15:38:37Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department for Business, Innovation & Skills",
         "withdrawn": false,
         "details": {
@@ -65,10 +65,10 @@
         "api_path": "/api/content/government/topics/consumer-rights-and-issues",
         "base_path": "/government/topics/consumer-rights-and-issues",
         "content_id": "9d7b90e5-625c-4203-a62a-be9be43d35f3",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:05Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Consumer rights and issues",
         "withdrawn": false,
         "links": {
@@ -86,7 +86,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2016-08-01T15:38:37Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department for Business, Innovation & Skills",
         "withdrawn": false,
         "details": {

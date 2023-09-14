@@ -13,7 +13,7 @@
     "parent": [
       {
         "content_id": "8b19c238-54e3-4e27-b0d7-60f8e2a677c9",
-        "schema_name": "placeholder_publication",
+        "schema_name": "publication",
         "document_type": "policy_paper",
         "title": "Summer Budget 2015",
         "api_path": "/api/content/government/publications/summer-budget-2015",

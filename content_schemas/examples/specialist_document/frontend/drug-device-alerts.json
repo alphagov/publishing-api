@@ -151,7 +151,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2015-06-29T14:33:29Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Medicines and Healthcare products Regulatory Agency",
         "withdrawn": false,
         "details": {

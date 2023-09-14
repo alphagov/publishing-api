@@ -264,7 +264,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2016-03-22T14:43:46Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Foreign & Commonwealth Office",
         "withdrawn": false,
         "details": {

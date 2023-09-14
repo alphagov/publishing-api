@@ -262,7 +262,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2016-12-20T14:44:50Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department for Transport",
         "withdrawn": false,
         "details": {

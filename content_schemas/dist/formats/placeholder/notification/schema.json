@@ -172,7 +172,6 @@
         "personal_information_charter",
         "petitions_and_campaigns",
         "place",
-        "placeholder",
         "policy_paper",
         "press_release",
         "procurement",
@@ -483,9 +482,10 @@
       "$ref": "#/definitions/routes"
     },
     "schema_name": {
-      "description": "Should be of the form 'placeholder_my_format_name'. 'placeholder' is allowed for backwards compatibility.",
       "type": "string",
-      "pattern": "^(placeholder|placeholder_.+)$"
+      "enum": [
+        "placeholder"
+      ]
     },
     "search_user_need_document_supertype": {
       "description": "Document supertype grouping core and government documents",

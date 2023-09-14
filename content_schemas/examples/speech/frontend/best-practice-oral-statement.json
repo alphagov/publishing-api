@@ -44,7 +44,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:07:58Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Home Office",
         "withdrawn": false,
         "details": {
@@ -68,7 +68,7 @@
         "document_type": "person",
         "locale": "en",
         "public_updated_at": "2017-06-09T16:13:13Z",
-        "schema_name": "placeholder",
+        "schema_name": "person",
         "title": "The Rt Hon Theresa May MP",
         "withdrawn": false,
         "links": {
@@ -82,10 +82,10 @@
         "api_path": "/api/content/government/topics/crime-and-policing",
         "base_path": "/government/topics/crime-and-policing",
         "content_id": "fbfe60f4-f329-4264-810b-f2a0bd9da243",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:08Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Crime and policing",
         "withdrawn": false,
         "links": {
@@ -103,7 +103,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:07:58Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Home Office",
         "withdrawn": false,
         "details": {
@@ -127,7 +127,7 @@
         "document_type": "ministerial_role",
         "locale": "en",
         "public_updated_at": "2013-11-11T16:36:01Z",
-        "schema_name": "placeholder",
+        "schema_name": "ministerial_role",
         "title": "Secretary of State for the Home Department",
         "withdrawn": false,
         "links": {
@@ -144,7 +144,7 @@
         "document_type": "person",
         "locale": "en",
         "public_updated_at": "2017-06-09T16:13:13Z",
-        "schema_name": "placeholder",
+        "schema_name": "person",
         "title": "The Rt Hon Theresa May MP",
         "withdrawn": false,
         "links": {

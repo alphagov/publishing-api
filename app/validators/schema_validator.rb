@@ -13,8 +13,6 @@ class SchemaValidator
   end
 
   def valid?
-    return true if schema_name_exception?
-
     @errors += JSON::Validator.fully_validate(
       schema,
       payload,
@@ -53,10 +51,6 @@ private
 
   def schema_name
     @schema_name || payload[:schema_name]
-  end
-
-  def schema_name_exception?
-    schema_name.to_s.match(/placeholder_/)
   end
 
   def missing_schema_message

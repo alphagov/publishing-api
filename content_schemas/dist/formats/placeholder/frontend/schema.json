@@ -148,7 +148,6 @@
         "personal_information_charter",
         "petitions_and_campaigns",
         "place",
-        "placeholder",
         "policy_paper",
         "press_release",
         "procurement",
@@ -399,9 +398,10 @@
       ]
     },
     "schema_name": {
-      "description": "Should be of the form 'placeholder_my_format_name'. 'placeholder' is allowed for backwards compatibility.",
       "type": "string",
-      "pattern": "^(placeholder|placeholder_.+)$"
+      "enum": [
+        "placeholder"
+      ]
     },
     "title": {
       "$ref": "#/definitions/title"

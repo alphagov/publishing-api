@@ -74,7 +74,7 @@
         "api_url": "https://www.gov.uk/api/content/government/publications/national-standard-for-developed-driving-competence",
         "web_url": "https://www.gov.uk/government/publications/national-standard-for-developed-driving-competence",
         "locale": "en",
-        "schema_name": "placeholder_publication",
+        "schema_name": "publication",
         "document_type": "guidance",
         "analytics_identifier": null
       }

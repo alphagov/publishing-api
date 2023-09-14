@@ -90,7 +90,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2015-03-10T16:23:14Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Competition and Markets Authority",
         "withdrawn": false,
         "details": {

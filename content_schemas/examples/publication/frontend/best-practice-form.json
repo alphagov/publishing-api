@@ -60,7 +60,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2014-10-15T14:36:48Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "UK Visas and Immigration",
         "withdrawn": false,
         "details": {
@@ -81,10 +81,10 @@
         "api_path": "/api/content/government/topics/borders-and-immigration",
         "base_path": "/government/topics/borders-and-immigration",
         "content_id": "40c81f52-e1e0-474f-8df6-cd4de9218bac",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:07Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Borders and immigration",
         "withdrawn": false,
         "links": {
@@ -102,7 +102,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2014-10-15T14:36:48Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "UK Visas and Immigration",
         "withdrawn": false,
         "details": {

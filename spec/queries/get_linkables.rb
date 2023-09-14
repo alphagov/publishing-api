@@ -68,24 +68,6 @@ RSpec.describe Queries::GetLinkables do
       end
     end
 
-    context "when there is a an edition with a placeholder of the document_type" do
-      let!(:editions) do
-        [
-          create(:live_edition, document_type: "contact"),
-          create(:live_edition, document_type: "placeholder_contact"),
-        ]
-      end
-      let(:edition_content_ids) { editions.map { |e| e.document.content_id } }
-
-      it "returns both linkables" do
-        expect(linkables.length).to be(2)
-      end
-
-      it "returns the editions" do
-        expect(linkables.map(&:content_id)).to match_array(edition_content_ids)
-      end
-    end
-
     context "when there is a an edition with a different document_type" do
       before do
         create(:live_edition, document_type: "different")

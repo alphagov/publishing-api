@@ -115,7 +115,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2016-07-06T07:11:26Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "The Charity Commission",
         "withdrawn": false,
         "details": {
@@ -139,10 +139,10 @@
         "api_path": "/api/content/government/topics/community-and-society",
         "base_path": "/government/topics/community-and-society",
         "content_id": "27c0084e-6549-4042-b0f6-986e0f24cadf",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:06Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Community and society",
         "withdrawn": false,
         "links": {
@@ -160,7 +160,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2016-07-06T07:11:26Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "The Charity Commission",
         "withdrawn": false,
         "details": {

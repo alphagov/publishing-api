@@ -44,7 +44,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2016-08-01T15:38:37Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department for Business, Innovation & Skills",
         "withdrawn": false,
         "details": {
@@ -68,7 +68,7 @@
         "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2013-07-22T16:15:27Z",
-        "schema_name": "placeholder",
+        "schema_name": "policy_area",
         "title": "Business and enterprise",
         "withdrawn": false,
         "links": {
@@ -80,10 +80,10 @@
         "api_path": "/api/content/government/topics/employment",
         "base_path": "/government/topics/employment",
         "content_id": "88f76819-ccbe-4bcd-90b8-9e7d38f2f7b4",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:05Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Employment",
         "withdrawn": false,
         "links": {
@@ -101,7 +101,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2016-08-01T15:38:37Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department for Business, Innovation & Skills",
         "withdrawn": false,
         "details": {

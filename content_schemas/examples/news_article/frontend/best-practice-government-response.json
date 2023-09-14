@@ -44,7 +44,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:08:01Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department for Education",
         "withdrawn": false,
         "details": {
@@ -67,7 +67,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T10:08:02Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department for Environment, Food & Rural Affairs",
         "withdrawn": false,
         "details": {
@@ -90,7 +90,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T14:42:42Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department of Health and Social Care",
         "withdrawn": false,
         "details": {
@@ -111,10 +111,10 @@
         "api_path": "/api/content/government/topics/national-health-service",
         "base_path": "/government/topics/national-health-service",
         "content_id": "7aa4e8aa-0466-414c-bfa8-36e4f3c9fdf9",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:07Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "National Health Service",
         "withdrawn": false,
         "links": {
@@ -126,10 +126,10 @@
         "api_path": "/api/content/government/topics/public-health",
         "base_path": "/government/topics/public-health",
         "content_id": "26d3fe8e-5ed5-4430-99e9-af78d44cddd2",
-        "document_type": "placeholder_policy_area",
+        "document_type": "policy_area",
         "locale": "en",
         "public_updated_at": "2016-02-04T11:25:07Z",
-        "schema_name": "placeholder_policy_area",
+        "schema_name": "policy_area",
         "title": "Public health",
         "withdrawn": false,
         "links": {
@@ -147,7 +147,7 @@
         "document_type": "organisation",
         "locale": "en",
         "public_updated_at": "2018-01-09T14:42:42Z",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "title": "Department of Health and Social Care",
         "withdrawn": false,
         "details": {

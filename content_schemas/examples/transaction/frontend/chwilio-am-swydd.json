@@ -44,7 +44,7 @@
         },
         "withdrawn": false,
         "title": "Adran Gwaith a Phensiynau",
-        "schema_name": "placeholder",
+        "schema_name": "organisation",
         "analytics_identifier": "D10",
         "api_path": "/api/content/government/organisations/department-for-work-pensions.cy",
         "base_path": "/government/organisations/department-for-work-pensions.cy",
