@@ -27,7 +27,7 @@ RSpec.describe "Message queue publishing" do
   def ensure_message_queue_payload_validates_against_notification_schema
     expect(PublishingAPI.service(:queue_publisher)).to have_received(:send_message) do |payload|
       errors = JSON::Validator.fully_validate(
-        GovukSchemas::Schema.find(notification_schema: "placeholder"),
+        GovukSchemas::Schema.find(notification_schema: "generic"),
         payload,
         errors_as_objects: true,
       )
