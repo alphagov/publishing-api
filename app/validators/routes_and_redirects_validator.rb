@@ -1,5 +1,6 @@
 class RoutesAndRedirectsValidator < ActiveModel::Validator
   EXTERNAL_HOST_ALLOW_LIST = %w[
+    .caa.co.uk
     .gov.uk
     .judiciary.uk
     .nationalhighways.co.uk
@@ -198,7 +199,7 @@ private
         return
       end
 
-      errors.add(:redirects, "external redirects only accepted within the gov.uk, judiciary.uk, nhs.uk or ukri.org domains") unless
+      errors.add(:redirects, "external redirects only accepted for the domains #{EXTERNAL_HOST_ALLOW_LIST.to_sentence}") unless
         government_domain?(uri.host)
 
       errors.add(:redirects, "internal redirect should not be specified with full url") if
