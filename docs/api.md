@@ -30,7 +30,6 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`DELETE /paths/:base_path`](#delete-pathsbase_path)
 - [`PUT /publish-intent(/*base_path)`](#put-publish-intentbase_path)
 - [`DELETE /publish-intent(/*base_path)`](#delete-publish-intentbase_path)
-- [`GET /debug/:content_id`](#get-debugcontent_id)
 
 ### Optimistic locking (`previous_version`)
 
@@ -755,32 +754,6 @@ normal.
 
 - The `PublishingIntent` for the passed in base_path is removed from the
   content-store.
-
-## `GET /debug/:content_id`
-
-Displays debug information for `content_id`.
-
-### Path parameters:
-
-- [`content_id`](model.md#content_id)
-  - Identifies the document to debug.
-
-### Usage:
-
-```
-  ssh publishing-api-1.integration -CNL 8888:127.0.0.1:3093
-```
-
-And then open http://localhost:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
-
-Alternatively add the following host to your hosts file:
-
-```
-  127.0.0.1 publishing-api.integration.publishing.service.gov.uk
-```
-
-And then open
-http://publishing-api.integration.publishing.service.gov.uk:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
 
 [govuk-content-schemas-repo]: https://github.com/alphagov/govuk-content-schemas
 [optimistic-locking]: #optimistic-locking-previous_version
