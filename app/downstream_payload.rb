@@ -61,14 +61,14 @@ private
   end
 
   def content_store_presenter
-    return redirect_presenter if edition.document_type == "redirect"
-    return content_presenter unless unpublished?
-
-    case unpublishing.type
-    when "redirect" then redirect_presenter
-    when "gone" then gone_presenter
-    else content_presenter
+    if unpublishing
+      return redirect_presenter if unpublishing.type == "redirect"
+      return gone_presenter if unpublishing.type == "gone"
     end
+
+    return redirect_presenter if edition.document_type == "redirect"
+
+    content_presenter
   end
 
   def message_queue_presenter
