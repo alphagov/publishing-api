@@ -157,6 +157,22 @@ RSpec.describe DownstreamPayload do
         end
       end
 
+      context "redirect type with unpublishing type of gone" do
+        let(:edition) do
+          create_edition(:redirect_edition, unpublishing: create(
+            :unpublishing,
+            type: "gone",
+          ))
+        end
+
+        it "returns a gone payload" do
+          expect(downstream_payload.content_store_payload).to include(
+            document_type: "gone",
+            base_path: edition.base_path,
+          )
+        end
+      end
+
       context "gone type" do
         let(:edition) { create_edition(:gone_unpublished_edition) }
 
