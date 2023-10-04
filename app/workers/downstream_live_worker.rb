@@ -8,7 +8,8 @@ class DownstreamLiveWorker
   sidekiq_options queue: HIGH_QUEUE,
                   lock: :until_executing,
                   lock_args_method: :uniq_args,
-                  on_conflict: :log
+                  on_conflict: :log,
+                  lock_ttl: 1.day
 
   def self.uniq_args(args)
     [
