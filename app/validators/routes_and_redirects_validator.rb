@@ -3,6 +3,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
     .caa.co.uk
     .gov.uk
     .judiciary.uk
+    .moneyhelper.org.uk
     .nationalhighways.co.uk
     .nhs.uk
     .police.uk
