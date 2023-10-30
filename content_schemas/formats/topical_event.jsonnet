@@ -14,13 +14,13 @@
         },
         image: {
           properties: {
-           url: {
-             type: "string",
-             format: "uri",
-           },
-           alt_text: {
-             type: "string",
-           },
+            url: {
+              type: "string",
+              format: "uri",
+            },
+            alt_text: {
+              type: "string",
+            },
           },
         },
         start_date: {
