@@ -13,15 +13,7 @@
           type: "string",
         },
         image: {
-          properties: {
-            url: {
-              type: "string",
-              format: "uri",
-            },
-            alt_text: {
-              type: "string",
-            },
-          },
+          "$ref": "#/definitions/image",
         },
         start_date: {
           type: "string",
