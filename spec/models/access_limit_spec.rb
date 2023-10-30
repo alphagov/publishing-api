@@ -30,8 +30,8 @@ RSpec.describe AccessLimit do
       it { is_expected.to be_valid }
     end
 
-    context "where users has an array with an integer" do
-      let(:organisations) { [123] }
+    context "where users has an array with an invalid UUID" do
+      let(:organisations) { %w[123] }
       it { is_expected.to be_invalid }
     end
   end

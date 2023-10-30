@@ -14,7 +14,7 @@ gem "govuk_app_config"
 gem "govuk_document_types"
 gem "govuk_schemas"
 gem "govuk_sidekiq"
-gem "jsonnet", "~>0.4.0" #  0.5 (current latest) does not currently compile on our CI machines
+gem "jsonnet"
 gem "json-schema", require: false
 gem "oj"
 gem "pg"
