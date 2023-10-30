@@ -185,15 +185,7 @@
           "format": "date-time"
         },
         "image": {
-          "properties": {
-            "alt_text": {
-              "type": "string"
-            },
-            "url": {
-              "type": "string",
-              "format": "uri"
-            }
-          }
+          "$ref": "#/definitions/image"
         },
         "ordered_featured_documents": {
           "description": "A set of featured documents to display for the Topical Event.",
@@ -323,6 +315,11 @@
         },
         "high_resolution_url": {
           "description": "URL to a high resolution version of the image, for use by third parties such as Twitter, Facebook or Slack. Used by the machine readable metadata component. Don't use this on user-facing web pages, as it might be very large.",
+          "type": "string",
+          "format": "uri"
+        },
+        "medium_resolution_url": {
+          "description": "URL to a medium resolution version of the image, for use by devices that have high pixel density such as iphone.",
           "type": "string",
           "format": "uri"
         },
