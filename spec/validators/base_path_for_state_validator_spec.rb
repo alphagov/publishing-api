@@ -63,6 +63,19 @@ RSpec.describe BasePathForStateValidator do
             expect(edition.errors[:base]).to eq([expected_error])
           end
         end
+
+        context "when there is a live item at the base path" do
+          let(:conflict_state_name) { "published" }
+          let(:expected_error) do
+            "base path=#{conflict_base_path} conflicts with content_id=" \
+              "#{conflict_content_id} and locale=#{conflict_locale}"
+          end
+          before { validate }
+
+          it "adds the error to edition attribute" do
+            expect(edition.errors[:base]).to eq([expected_error])
+          end
+        end
       end
 
       %w[published unpublished].each do |name|
