@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   include GDS::SSO::User
 
-  serialize :permissions, Array
+  serialize :permissions, type: Array
 
   def set_app_name!
     if app_name.blank? && email.present?
