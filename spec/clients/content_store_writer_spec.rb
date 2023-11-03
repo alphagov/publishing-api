@@ -1,6 +1,6 @@
 require "support/webmock"
 require "json"
-require_relative "../../app/clients/content_store_writer"
+require_relative "../../lib/content_store_writer"
 
 RSpec.describe ContentStoreWriter do
   let(:content_store_host) { "http://content-store.example.com" }
