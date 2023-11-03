@@ -12,7 +12,6 @@ require "action_controller/railtie"
 # require "action_text/engine"
 require "action_view/railtie"
 # require "action_cable/engine"
-# require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -23,6 +22,11 @@ module PublishingAPI
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w[])
 
     # Configuration for the application, engines, and railties goes here.
     #
