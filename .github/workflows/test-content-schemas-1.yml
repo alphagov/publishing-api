@@ -107,7 +107,7 @@ jobs:
 
   test-hmrc-manuals-api:
     name: Test HMRC Manuals API
-    uses: alphagov/hmrc-manuals-api/.github/workflows/minitest.yml@main
+    uses: alphagov/hmrc-manuals-api/.github/workflows/rspec.yml@main
     with:
       ref: 'main'
       publishingApiRef: ${{ github.ref }}
