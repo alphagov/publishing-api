@@ -22,7 +22,7 @@ node {
         govuk.setEnvar("GIT_COMMIT_HASH", govuk.getFullCommitHash())
         checkGeneratedSchemasAreUpToDate(govuk);
         checkSchemaDependentProjects();
-        govuk.setEnvar("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
+        govuk.setEnvar("PACT_BROKER_BASE_URL", "https://govuk-pact-broker-6991351eca05.herokuapp.com")
         govuk.setEnvar("PACT_CONSUMER_VERSION", "branch-${env.BRANCH_NAME}");
         publishPublishingApiPactTests();
         runContentStorePactTests(govuk);
