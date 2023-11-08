@@ -5,6 +5,17 @@ require File.expand_path("config/application", __dir__)
 
 begin
   require "pact/tasks"
+  require "pact_broker/client/tasks"
+
+  PactBroker::Client::PublicationTask.new do |task|
+    task.consumer_version = ENV.fetch("PACT_CONSUMER_VERSION")
+    task.pact_broker_base_url = ENV.fetch("PACT_BROKER_BASE_URL")
+    task.pact_broker_basic_auth = {
+      username: ENV.fetch("PACT_BROKER_USERNAME"),
+      password: ENV.fetch("PACT_BROKER_PASSWORD"),
+    }
+    task.pattern = ENV["PACT_PATTERN"] if ENV["PACT_PATTERN"]
+  end
 rescue LoadError
   # Pact isn't available in all environments
 end
