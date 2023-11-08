@@ -92,7 +92,7 @@ jobs:
     needs: test-ruby
     uses: alphagov/content-store/.github/workflows/verify-pact.yml@main
     with:
-      ref: deployed-to-production
+      ref: main
       pact_artifact: pacts
 
   publish-pacts:
