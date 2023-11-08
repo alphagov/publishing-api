@@ -95,11 +95,41 @@ jobs:
       ref: deployed-to-production
       pact_artifact: pacts
 
+  publish-pacts:
+    needs:
+      - test-ruby
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - uses: actions/download-artifact@v3
+        with:
+          name: pacts
+          path: tmp/pacts
+      - run: bundle exec rake pact:publish
+        env:
+          PACT_CONSUMER_VERSION: branch-${{ github.ref_name }}
+          PACT_BROKER_BASE_URL: https://pact-broker.cloudapps.digital
+          PACT_BROKER_USERNAME: ${{ secrets.GOVUK_PACT_BROKER_USERNAME }}
+          PACT_BROKER_PASSWORD: ${{ secrets.GOVUK_PACT_BROKER_PASSWORD }}
+          PACT_PATTERN: tmp/pacts/*.json
+      - run: bundle exec rake pact:publish
+        env:
+          PACT_CONSUMER_VERSION: branch-${{ github.ref_name }}
+          PACT_BROKER_BASE_URL: https://govuk-pact-broker-6991351eca05.herokuapp.com
+          PACT_BROKER_USERNAME: ${{ secrets.GOVUK_PACT_BROKER_USERNAME }}
+          PACT_BROKER_PASSWORD: ${{ secrets.GOVUK_PACT_BROKER_PASSWORD }}
+          PACT_PATTERN: tmp/pacts/*.json
+
   delete-pact-artifact:
     name: Delete Pact artifact
     needs:
       - test-ruby
       - run-content-store-pact-tests
+      - publish-pacts
     # Run whenever test-ruby is a success regardless of run-content-store-pact-tests outcome
     if: ${{ needs.test-ruby.result == 'success' && always() }}
     runs-on: ubuntu-latest
