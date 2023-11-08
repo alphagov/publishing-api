@@ -112,13 +112,6 @@ jobs:
       - run: bundle exec rake pact:publish
         env:
           PACT_CONSUMER_VERSION: branch-${{ github.ref_name }}
-          PACT_BROKER_BASE_URL: https://pact-broker.cloudapps.digital
-          PACT_BROKER_USERNAME: ${{ secrets.GOVUK_PACT_BROKER_USERNAME }}
-          PACT_BROKER_PASSWORD: ${{ secrets.GOVUK_PACT_BROKER_PASSWORD }}
-          PACT_PATTERN: tmp/pacts/*.json
-      - run: bundle exec rake pact:publish
-        env:
-          PACT_CONSUMER_VERSION: branch-${{ github.ref_name }}
           PACT_BROKER_BASE_URL: https://govuk-pact-broker-6991351eca05.herokuapp.com
           PACT_BROKER_USERNAME: ${{ secrets.GOVUK_PACT_BROKER_USERNAME }}
           PACT_BROKER_PASSWORD: ${{ secrets.GOVUK_PACT_BROKER_PASSWORD }}
