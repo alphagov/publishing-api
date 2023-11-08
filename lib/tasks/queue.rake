@@ -1,5 +1,3 @@
-MAX_IMPORT_QUEUE_SIZE = 1000
-
 namespace :queue do
   desc "Watch the queue, and print messages on the console"
   task watcher: :environment do
@@ -30,27 +28,17 @@ namespace :queue do
     end
   end
 
-  desc "Add published editions to the message queue by document type"
+  desc "Add live editions to the message queue by document type"
   task :requeue_document_type, [] => :environment do |_, args|
     document_types = args.extras
+    raise "expecting document_type" if document_types.blank?
 
-    raise(StandardError, "expecting document_type") if document_types.blank?
-
-    version = Event.maximum(:id)
-
-    # Restrict scope to stuff that's live (published or withdrawn)
-    scope = Edition
-      .with_document
-      .where(document_type: document_types)
-      .where(content_store: :live)
-      .select(:id)
-
-    scope.find_each do |edition|
-      RequeueContent.perform_async(edition.id, version)
-    end
+    RequeueContentByScope.new(
+      Edition.live.where(document_type: document_types),
+    ).call
   end
 
-  desc "Add all published editions to the message queue with a specified routing key"
+  desc "Add all live editions to the message queue with a specified routing key"
   # This is similar to `represent_downstream:all` except it does not
   # affect the live and draft content stores, and the routing key can
   # be customised to target a particular app that feeds off the
@@ -60,36 +48,19 @@ namespace :queue do
   #   rake queue:requeue_all_the_things[bulk.data-warehouse]
   #
   task :requeue_all_the_things, [:action] => :environment do |_, args|
-    action = args.action
+    RequeueContentByScope.new(Edition.live, action: args.action).call
+  end
 
-    raise(StandardError, "expecting action") if action.blank?
-
-    if /major/.match?(action)
-      raise(StandardError, "resending major updates is a bad idea: it will spam everyone with email alerts")
-    end
-
-    version = Event.maximum(:id)
-
-    # Restrict scope to stuff that's live (published or withdrawn)
-    scope = Edition
-      .with_document
-      .where(content_store: :live)
-      .select(:id)
-
-    queue = Sidekiq::Queue.new("import")
-
-    scope.find_each.with_index do |edition, i|
-      warn "Queueing edition #{i}"
-
-      # We don't want to swamp the queue with messages if the consumer isn't
-      # keeping up. So if the queue gets over a certain size, pause this job.
-      while queue.size > MAX_IMPORT_QUEUE_SIZE
-        warn "Queue size has exceeded #{MAX_IMPORT_QUEUE_SIZE}, waiting for messages to be processed before continuing."
-        sleep 5
-      end
-
-      RequeueContent.perform_async(edition.id, version, action)
-    end
+  # This is similar to requeue_all_the_things, but it only requeues published documents
+  #
+  # This is suitable for e.g. initial import of data into a new downstream app that doesn't care
+  # about content that is no longer visible to users.
+  desc "Requeue all published editions with a specific routing key"
+  task :requeue_all_the_published_things, [:action] => :environment do |_, args|
+    RequeueContentByScope.new(
+      Edition.live.where(state: "published"),
+      action: args.action,
+    ).call
   end
 
   desc "Preview of the message published onto rabbit MQ"
