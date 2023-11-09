@@ -92,7 +92,7 @@ jobs:
     needs: test-ruby
     uses: alphagov/content-store/.github/workflows/verify-pact.yml@main
     with:
-      ref: deployed-to-production
+      ref: main
       pact_artifact: pacts
 
   publish-pacts:
@@ -109,13 +109,6 @@ jobs:
         with:
           name: pacts
           path: tmp/pacts
-      - run: bundle exec rake pact:publish
-        env:
-          PACT_CONSUMER_VERSION: branch-${{ github.ref_name }}
-          PACT_BROKER_BASE_URL: https://pact-broker.cloudapps.digital
-          PACT_BROKER_USERNAME: ${{ secrets.GOVUK_PACT_BROKER_USERNAME }}
-          PACT_BROKER_PASSWORD: ${{ secrets.GOVUK_PACT_BROKER_PASSWORD }}
-          PACT_PATTERN: tmp/pacts/*.json
       - run: bundle exec rake pact:publish
         env:
           PACT_CONSUMER_VERSION: branch-${{ github.ref_name }}
