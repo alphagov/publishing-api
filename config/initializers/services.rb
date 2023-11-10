@@ -1,4 +1,4 @@
-require "clients/content_store_writer"
+require "content_store_writer"
 require "queue_publisher"
 require "sidekiq_logger_middleware"
 
