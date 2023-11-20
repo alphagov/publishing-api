@@ -407,6 +407,10 @@
                 {
                   "label": "Bias Audit",
                   "value": "bias-audit"
+                },
+                {
+                  "label": "Assurance Warrantee",
+                  "value": "assurance-warrantee"
                 }
               ]
             }
