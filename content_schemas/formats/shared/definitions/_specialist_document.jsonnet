@@ -273,7 +273,8 @@
             "impact-assessment",
             "impact-evaluation",
             "conformity-assessment",
-            "bias-audit"
+            "bias-audit",
+            "assurance-warranty"
           ],
         },
       },
