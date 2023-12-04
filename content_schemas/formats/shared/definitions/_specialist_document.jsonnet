@@ -2975,6 +2975,9 @@
         enum: [
           "met",
           "not-met",
+          "red",
+          "amber",
+          "green"
         ],
       },
       stage: {
