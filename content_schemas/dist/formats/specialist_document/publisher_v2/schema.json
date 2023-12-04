@@ -3157,7 +3157,10 @@
           "type": "string",
           "enum": [
             "met",
-            "not-met"
+            "not-met",
+            "red",
+            "amber",
+            "green"
           ]
         },
         "service_provider": {
