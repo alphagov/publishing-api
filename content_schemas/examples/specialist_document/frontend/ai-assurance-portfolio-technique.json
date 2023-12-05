@@ -409,8 +409,8 @@
                   "value": "bias-audit"
                 },
                 {
-                  "label": "Assurance Warrantee",
-                  "value": "assurance-warrantee"
+                  "label": "Assurance Warranty",
+                  "value": "assurance-warranty"
                 }
               ]
             }
