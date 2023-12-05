@@ -2,7 +2,14 @@ module Commands
   class DeletePublishIntent < BaseCommand
     def call
       if downstream
-        PublishingAPI.service(:live_content_store).delete_publish_intent(base_path)
+        enqueue = ENV.fetch("ENQUEUE_PUBLISH_INTENTS", false)
+        if enqueue == "true"
+          DeletePublishIntentWorker.perform_async(
+            "base_path" => base_path,
+          )
+        else
+          PublishingAPI.service(:live_content_store).delete_publish_intent(base_path)
+        end
       end
 
       Success.new({})
