@@ -5,7 +5,15 @@ module Commands
 
       if downstream
         payload = publish_intent
-        Adapters::ContentStore.put_publish_intent(base_path, payload)
+        enqueue = ENV.fetch("ENQUEUE_PUBLISH_INTENTS", false)
+        if enqueue == "true"
+          PutPublishIntentWorker.perform_async(
+            "base_path" => base_path,
+            "payload" => payload.to_json,
+          )
+        else
+          Adapters::ContentStore.put_publish_intent(base_path, payload)
+        end
       end
 
       Success.new(payload)
