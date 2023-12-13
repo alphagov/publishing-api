@@ -2132,6 +2132,10 @@
                   "value": "beech-j"
                 },
                 {
+                  "label": "Brewer, M",
+                  "value": "brewer-m"
+                },
+                {
                   "label": "Broderick, M",
                   "value": "broderick-m"
                 },
@@ -2150,6 +2154,10 @@
                 {
                   "label": "Burton, F",
                   "value": "burton-f"
+                },
+                {
+                  "label": "Butler, J",
+                  "value": "butler-j"
                 },
                 {
                   "label": "Caldwell, M",
@@ -2400,6 +2408,10 @@
                   "value": "skinner-j"
                 },
                 {
+                  "label": "Smith, J",
+                  "value": "smith-j"
+                },
+                {
                   "label": "Smith, R",
                   "value": "smith-r"
                 },
@@ -2410,6 +2422,10 @@
                 {
                   "label": "Stockman, O",
                   "value": "stockman-o"
+                },
+                {
+                  "label": "Stout, H",
+                  "value": "stout-h"
                 },
                 {
                   "label": "Thomas, J",
