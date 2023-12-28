@@ -62,7 +62,7 @@ task :validate_uniqueness_of_frontend_example_base_paths, [:files] => :environme
   if duplicates.any?
     warn "\n#{duplicates.count} duplicate(s) found:"
 
-    duplicates.each do |_, group|
+    duplicates.each_value do |group|
       group.each { |filename| warn "  #{filename}" }
     end
     abort
