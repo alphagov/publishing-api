@@ -117,8 +117,8 @@ module Commands
         if payload[:access_limited].present?
           AccessLimit.find_or_create_by!(edition:).tap do |access_limit|
             access_limit.update!(
-              users: (payload[:access_limited][:users] || []),
-              organisations: (payload[:access_limited][:organisations] || []),
+              users: payload[:access_limited][:users] || [],
+              organisations: payload[:access_limited][:organisations] || [],
             )
           end
         else
