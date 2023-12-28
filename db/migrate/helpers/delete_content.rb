@@ -3,7 +3,7 @@ module Helpers
     def self.destroy_documents_with_links(content_ids)
       content_ids = Array(content_ids)
 
-      Document.where(content_id: content_ids).each do |document|
+      Document.where(content_id: content_ids).find_each do |document|
         destroy_edition_supporting_objects(document.editions)
         document.editions.destroy_all
         document.destroy!
