@@ -101,6 +101,10 @@
           ]
         },
         "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "British Embassy<br/>Manila"
+          },
           "world_location_names": [
             {
               "content_id": "5e9f1506-7706-11e4-a3cb-005056011aef",
