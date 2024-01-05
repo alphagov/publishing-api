@@ -18,5 +18,6 @@
   original_primary_publishing_organisation: "The organisation that published the original version of the page. Corresponds to the first of the 'Lead organisations' in Whitehall for the first edition, and is empty for all other publishing applications.",
   lead_organisations: "DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.",
   suggested_ordered_related_items: "Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms.",
-  finder: "Powers links from content back to finders the content is surfaced on"
+  finder: "Powers links from content back to finders the content is surfaced on",
+  ab_tests: "AB tests this content item is enrolled in"
 }
