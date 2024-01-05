@@ -1,0 +1,332 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "required": [
+    "description",
+    "details",
+    "document_type",
+    "publishing_app",
+    "schema_name",
+    "title"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "access_limited": {
+      "$ref": "#/definitions/access_limited"
+    },
+    "analytics_identifier": {
+      "$ref": "#/definitions/analytics_identifier"
+    },
+    "auth_bypass_ids": {
+      "description": "A list of ids that will allow access to this item for non-authenticated users",
+      "$ref": "#/definitions/guid_list"
+    },
+    "base_path": {
+      "type": "null"
+    },
+    "bulk_publishing": {
+      "type": "boolean"
+    },
+    "change_note": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "description": {
+      "$ref": "#/definitions/description"
+    },
+    "details": {
+      "$ref": "#/definitions/details"
+    },
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "ab_test"
+      ]
+    },
+    "first_published_at": {
+      "$ref": "#/definitions/first_published_at"
+    },
+    "last_edited_at": {
+      "description": "Last time when the content received a major or minor update.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {}
+    },
+    "locale": {
+      "$ref": "#/definitions/locale"
+    },
+    "need_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "phase": {
+      "description": "The service design phase of this content item - https://www.gov.uk/service-manual/phases",
+      "type": "string",
+      "enum": [
+        "alpha",
+        "beta",
+        "live"
+      ]
+    },
+    "previous_version": {
+      "type": "string"
+    },
+    "public_updated_at": {
+      "$ref": "#/definitions/public_updated_at"
+    },
+    "publishing_app": {
+      "$ref": "#/definitions/publishing_app_name"
+    },
+    "redirects": {
+      "type": "array",
+      "additionalItems": false,
+      "items": {}
+    },
+    "rendering_app": {
+      "type": "null"
+    },
+    "routes": {
+      "type": "array",
+      "additionalItems": false,
+      "items": {}
+    },
+    "schema_name": {
+      "type": "string",
+      "enum": [
+        "ab_test"
+      ]
+    },
+    "title": {
+      "$ref": "#/definitions/title"
+    },
+    "update_type": {
+      "$ref": "#/definitions/update_type"
+    }
+  },
+  "definitions": {
+    "description": {
+      "type": "string"
+    },
+    "access_limited": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "auth_bypass_ids": {
+          "description": "Deprecated: auth_bypass_ids should be sent as a separate field",
+          "$ref": "#/definitions/guid_list"
+        },
+        "organisations": {
+          "description": "A list of organisation content ids permitted access to this item",
+          "$ref": "#/definitions/guid_list"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "analytics_identifier": {
+      "description": "A short identifier we send to Google Analytics for multi-valued fields. This means we avoid the truncated values we would get if we sent the path or slug of eg organisations.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "details": {
+      "type": "object",
+      "required": [
+        "name",
+        "placeholder",
+        "dimension",
+        "variants",
+        "default_variant"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "default_variant": {
+          "description": "The name of the default variant to use (usually Z)",
+          "type": "string",
+          "pattern": "^[A-Z]$"
+        },
+        "dimension": {
+          "description": "The google analytics dimension to use for the AB test",
+          "type": "number"
+        },
+        "name": {
+          "description": "The name of the AB test in UpperCamelCase",
+          "type": "string",
+          "pattern": "^[A-Z][a-zA-Z]+$"
+        },
+        "placeholder": {
+          "description": "The string to replace in linked content items, for example {{ab_test_example}}",
+          "type": "string",
+          "pattern": "^\\{\\{[a-z_]+\\}\\}$"
+        },
+        "variants": {
+          "description": "The HTML content to replace the placeholder with in each variant (usually A, B, Z)",
+          "type": "object",
+          "patternProperties": {
+            "^[A-Z]$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "first_published_at": {
+      "description": "The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "guid": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
+    },
+    "guid_list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/guid"
+      },
+      "uniqueItems": true
+    },
+    "locale": {
+      "type": "string",
+      "enum": [
+        "ar",
+        "az",
+        "be",
+        "bg",
+        "bn",
+        "cs",
+        "cy",
+        "da",
+        "de",
+        "dr",
+        "el",
+        "en",
+        "es",
+        "es-419",
+        "et",
+        "fa",
+        "fi",
+        "fr",
+        "gd",
+        "gu",
+        "he",
+        "hi",
+        "hr",
+        "hu",
+        "hy",
+        "id",
+        "is",
+        "it",
+        "ja",
+        "ka",
+        "kk",
+        "ko",
+        "lt",
+        "lv",
+        "ms",
+        "mt",
+        "ne",
+        "nl",
+        "no",
+        "pa",
+        "pa-pk",
+        "pl",
+        "ps",
+        "pt",
+        "ro",
+        "ru",
+        "si",
+        "sk",
+        "sl",
+        "so",
+        "sq",
+        "sr",
+        "sv",
+        "sw",
+        "ta",
+        "th",
+        "tk",
+        "tr",
+        "uk",
+        "ur",
+        "uz",
+        "vi",
+        "yi",
+        "zh",
+        "zh-hk",
+        "zh-tw"
+      ]
+    },
+    "public_updated_at": {
+      "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "publishing_app_name": {
+      "description": "The application that published this item.",
+      "type": "string",
+      "enum": [
+        "account-api",
+        "calculators",
+        "calendars",
+        "collections-publisher",
+        "contacts",
+        "content-publisher",
+        "content-tagger",
+        "email-alert-frontend",
+        "external-link-tracker",
+        "feedback",
+        "frontend",
+        "government-frontend",
+        "hmrc-manuals-api",
+        "info-frontend",
+        "licencefinder",
+        "local-links-manager",
+        "manuals-publisher",
+        "maslow",
+        "performanceplatform-big-screen-view",
+        "publisher",
+        "rummager",
+        "search-admin",
+        "search-api",
+        "service-manual-publisher",
+        "share-sale-publisher",
+        "short-url-manager",
+        "smartanswers",
+        "special-route-publisher",
+        "specialist-publisher",
+        "static",
+        "tariff",
+        "travel-advice-publisher",
+        "whitehall"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "update_type": {
+      "enum": [
+        "major",
+        "minor",
+        "republish"
+      ]
+    }
+  }
+}

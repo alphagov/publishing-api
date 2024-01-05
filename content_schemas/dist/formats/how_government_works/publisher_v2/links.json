@@ -10,6 +10,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "ab_tests": {
+          "description": "AB tests this content item is enrolled in",
+          "$ref": "#/definitions/guid_list"
+        },
         "current_prime_minister": {
           "description": "Link to the person page for the current prime minister",
           "$ref": "#/definitions/guid_list"

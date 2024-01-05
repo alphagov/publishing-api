@@ -10,6 +10,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "ab_tests": {
+          "description": "AB tests this content item is enrolled in",
+          "$ref": "#/definitions/guid_list"
+        },
         "active_top_level_browse_page": {
           "description": "The top-level browse page which is active",
           "$ref": "#/definitions/guid_list",

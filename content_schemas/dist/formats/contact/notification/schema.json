@@ -69,6 +69,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "ab_tests": {
+          "description": "AB tests this content item is enrolled in",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "available_translations": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -197,6 +201,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "ab_tests": {
+          "description": "AB tests this content item is enrolled in",
+          "$ref": "#/definitions/guid_list"
+        },
         "finder": {
           "description": "Powers links from content back to finders the content is surfaced on",
           "$ref": "#/definitions/guid_list"

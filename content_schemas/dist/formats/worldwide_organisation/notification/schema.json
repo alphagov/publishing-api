@@ -69,6 +69,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "ab_tests": {
+          "description": "AB tests this content item is enrolled in",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "available_translations": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -227,6 +231,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "ab_tests": {
+          "description": "AB tests this content item is enrolled in",
+          "$ref": "#/definitions/guid_list"
+        },
         "corporate_information_pages": {
           "description": "Corporate information pages for this Worldwide Organisation",
           "$ref": "#/definitions/guid_list"

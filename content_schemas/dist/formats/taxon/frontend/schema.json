@@ -51,6 +51,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "ab_tests": {
+          "description": "AB tests this content item is enrolled in",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "associated_taxons": {
           "description": "A list of associated taxons whose children should be included as children of this taxon",
           "$ref": "#/definitions/frontend_links_with_base_path"
