@@ -2,6 +2,7 @@
   document_type: [
     "aaib_report",
     "ai_assurance_portfolio_technique",
+    "algorithmic_transparency_record",
     "animal_disease_case",
     "asylum_support_decision",
     "business_finance_support_scheme",
