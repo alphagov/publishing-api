@@ -52,7 +52,7 @@ jobs:
       TEST_DATABASE_URL: postgresql://postgres@localhost/test-db
       RAILS_ENV: test
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: alphagov/publishing-api
           ref: ${{ inputs.ref }}
