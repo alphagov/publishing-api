@@ -73,7 +73,7 @@ jobs:
 
       # We upload the generated pact tests so they can be used in a later action
       - name: Create and upload pact test artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pacts
           path: spec/pacts/*.json
