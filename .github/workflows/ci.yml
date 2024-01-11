@@ -144,7 +144,7 @@ jobs:
     steps:
       # As of Jan 2023, GitHub doesn't provide a delete artifact equivalent to
       # their upload / download ones
-      - uses: geekyeggo/delete-artifact@v2
+      - uses: geekyeggo/delete-artifact@v4
         with:
           name: pacts
 
