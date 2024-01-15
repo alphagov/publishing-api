@@ -38,6 +38,10 @@ Rails.application.routes.draw do
 
       get "/links/changes", to: "link_changes#index"
     end
+
+    namespace :content_store, path: "/content-store" do
+      get "/:content_store(/*base_path)", to: "content_items#show"
+    end
   end
 
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }

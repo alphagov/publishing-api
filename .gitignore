@@ -14,6 +14,7 @@
 /coverage
 /spec/reports
 spec/examples.txt
+.byebug_history
 
 # Ignore the generated pact
 spec/pacts/publishing_api-content_store.json
