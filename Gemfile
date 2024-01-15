@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "rails", "7.1.2"
 
 gem "aws-sdk-s3"
+gem "bootsnap", require: false
 gem "bunny"
 gem "dalli"
 gem "fuzzy_match"
@@ -13,6 +14,7 @@ gem "govuk_app_config"
 gem "govuk_document_types"
 gem "govuk_schemas"
 gem "govuk_sidekiq"
+gem "jsonnet"
 gem "json-schema", require: false
 gem "oj"
 gem "pg"

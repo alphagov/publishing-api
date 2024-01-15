@@ -244,6 +244,8 @@ GEM
     json (2.7.1)
     json-schema (4.1.1)
       addressable (>= 2.8)
+    jsonnet (0.5.3)
+      mini_portile2 (>= 2.2.0)
     jwt (2.7.1)
     kramdown (2.4.0)
       rexml
@@ -271,6 +273,7 @@ GEM
     mini_mime (1.1.5)
     mini_portile2 (2.8.5)
     minitest (5.20.0)
+    msgpack (1.7.2)
     multi_xml (0.6.0)
     mutex_m (0.2.0)
     net-http (0.4.1)
@@ -768,6 +771,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk-s3
+  bootsnap
   bunny
   byebug
   climate_control
@@ -784,6 +788,7 @@ DEPENDENCIES
   govuk_sidekiq
   govuk_test
   json-schema
+  jsonnet
   listen
   oj
   pact
