@@ -9,6 +9,9 @@
         "$ref": "#/definitions/ai_assurance_portfolio_technique_metadata",
       },
       {
+        "$ref": "#/definitions/algorithmic_transparency_record_metadata",
+      },
+      {
         "$ref": "#/definitions/animal_disease_case_metadata",
       },
       {
@@ -287,7 +290,123 @@
         },
       },
     },
-  }, 
+  },
+  algorithmic_transparency_record_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      algorithmic_transparency_record_organisation: {
+        type: "string",
+        enum: [
+          "cabinet-office",
+          "ministry-of-justice",
+          "information-commissioners-office",
+          "department-for-health-and-social-care",
+          "food-standards-agency",
+          "hampshire-and-thames-valley-police",
+          "west-midlands-police",
+          "department-for-science-innovation-and-technology",
+          "department-for-education",
+        ],
+      },
+      algorithmic_transparency_record_organisation_type: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "ministerial-department",
+            "non-ministerial-department",
+            "agency-or-public-body",
+            "local-authority",
+            "devolved-administration",
+            "high-profile-group",
+            "public-corporation",
+          ],
+        },
+      },
+      algorithmic_transparency_record_function: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "general-public-services",
+            "defence",
+            "public-order-and-safety",
+            "economic-affairs",
+            "environmental-protection",
+            "housing-and-community-amenities",
+            "health",
+            "recreation-culture-and-religion",
+            "education",
+            "social-protection",
+            "regulation",
+          ],
+        },
+      },
+      algorithmic_transparency_record_capability: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "computer-vision",
+            "computer-audition",
+            "computer-linguistics",
+            "robotics",
+            "forecasting",
+            "discovery",
+            "planning",
+            "creation",
+            "analysis",
+            "management",
+            "other",
+          ],
+        },
+      },
+      algorithmic_transparency_record_task: {
+        type: "string",
+      },
+      algorithmic_transparency_record_phase: {
+        type: "string",
+        enum: [
+          "pre-deployment",
+          "beta-pilot",
+          "production",
+          "retired",
+        ],
+      },
+      algorithmic_transparency_record_region: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "northern-ireland",
+            "scotland",
+            "wales",
+            "england",
+            "london",
+            "north-east",
+            "north-west",
+            "yorkshire-and-the-humber",
+            "east-midlands",
+            "west-midlands",
+            "south-east",
+            "east-of-england",
+            "south-west"
+          ],
+        },
+      },
+      algorithmic_transparency_record_date_published: {
+        type: "string",
+        pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+      },
+      algorithmic_transparency_record_atrs_version: {
+        type: "string",
+      },
+      algorithmic_transparency_record_other_tags: {
+        type: "string",
+      },
+    },
+  },
   animal_disease_case_metadata: {
     type: "object",
     additionalProperties: false,
