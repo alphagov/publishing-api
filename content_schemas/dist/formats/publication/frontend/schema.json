@@ -170,7 +170,7 @@
         },
         "roles": {
           "description": "Government roles that are associated with this document, typically the role part of a role association",
-          "$ref": "#/definitions/frontend_links_with_base_path"
+          "$ref": "#/definitions/frontend_links"
         },
         "secondary_to_step_navs": {
           "description": "Link type automatically added by Publishing API",

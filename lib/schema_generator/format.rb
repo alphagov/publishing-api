@@ -261,6 +261,7 @@ module SchemaGenerator
       ALLOWED_KEYS = %w[description required minItems maxItems].freeze
       LINKS_WITHOUT_BASE_PATHS = %w[
         contact
+        contacts
         facets
         home_page_offices
         main_office
@@ -283,6 +284,8 @@ module SchemaGenerator
         ordered_special_representatives
         ordered_traffic_commissioners
         primary_role_person
+        role_appointments
+        roles
         secondary_role_person
         world_locations
         worldwide_organisation
