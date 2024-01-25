@@ -1,0 +1,979 @@
+  Unpublishing Load (2.7ms)  SELECT "unpublishings".* FROM "unpublishings" WHERE "unpublishings"."edition_id" = $1 LIMIT $2  [["edition_id", 10290560], ["LIMIT", 1]]
+
+  ChangeNote Pluck (151.0ms)  SELECT "change_notes"."note", "change_notes"."public_timestamp" FROM "change_notes" INNER JOIN "editions" ON "editions"."id" = "change_notes"."edition_id" WHERE "editions"."document_id" = $1 AND (user_facing_version <= 12359) AND "change_notes"."public_timestamp" IS NOT NULL ORDER BY "change_notes"."public_timestamp" ASC  [["document_id", 1034319]]
+
+  Link Pluck (18.5ms)  SELECT "links"."link_type", "links"."target_content_id",
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = links.target_content_id
+
+          AND ((links.link_type = 'associated_taxons' AND nested_links.link_type IN ('associated_taxons')) OR (links.link_type = 'parent' AND nested_links.link_type IN ('parent')) OR (links.link_type = 'parent_taxons' AND nested_links.link_type IN ('parent_taxons', 'root_taxon')) OR (links.link_type = 'taxons' AND nested_links.link_type IN ('root_taxon', 'parent_taxons')) OR (links.link_type = 'ordered_related_items' AND nested_links.link_type IN ('mainstream_browse_pages')) OR (links.link_type = 'ordered_related_items_overrides' AND nested_links.link_type IN ('taxons')) OR (links.link_type = 'ordered_ministerial_departments' AND nested_links.link_type IN ('ordered_ministers', 'ordered_roles')) OR (links.link_type = 'historical_accounts' AND nested_links.link_type IN ('person')) OR (links.link_type = 'main_office' AND nested_links.link_type IN ('contact')) OR (links.link_type = 'home_page_offices' AND nested_links.link_type IN ('contact')) OR (links.link_type = 'worldwide_organisation' AND nested_links.link_type IN ('sponsoring_organisations', 'world_locations')))
+
+          LIMIT 1
+        )
+      ,
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_links.target_content_id = links.target_content_id
+
+          AND ((links.link_type = 'ordered_also_attends_cabinet' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'ordered_assistant_whips' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'ordered_baronesses_and_lords_in_waiting_whips' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'ordered_board_members' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'ordered_cabinet_ministers' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'ordered_chief_professional_officers' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'ordered_house_lords_whips' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'ordered_house_of_commons_whips' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'ordered_junior_lords_of_the_treasury_whips' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'ordered_military_personnel' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'ordered_ministers' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'office_staff' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'primary_role_person' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'secondary_role_person' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'ordered_special_representatives' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'ordered_traffic_commissioners' AND nested_links.link_type IN ('person', 'role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "f9fcf3fe-2751-4dca-97ca-becaeceb4b26"]]
+
+  Link Pluck (163.1ms)  SELECT "links"."link_type", "link_sets"."content_id",
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'parent_taxons' AND nested_links.link_type IN ('associated_taxons')) OR (links.link_type = 'person' AND nested_links.link_type IN ('person', 'role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('person', 'role')))
+
+          LIMIT 1
+        )
+      ,
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_links.target_content_id = link_sets.content_id
+
+          AND ((links.link_type = 'parent_taxons' AND nested_links.link_type IN ('parent_taxons')) OR (links.link_type = 'ministerial' AND nested_links.link_type IN ('person', 'role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "f9fcf3fe-2751-4dca-97ca-becaeceb4b26"], ["link_type", "parent"], ["link_type", "documents"], ["link_type", "working_groups"], ["link_type", "parent_taxons"], ["link_type", "root_taxon"], ["link_type", "pages_part_of_step_nav"], ["link_type", "pages_related_to_step_nav"], ["link_type", "pages_secondary_to_step_nav"], ["link_type", "person"], ["link_type", "role"], ["link_type", "ministerial"]]
+
+  Link Pluck (1.5ms)  SELECT "links"."link_type", "links"."target_content_id", "documents"."locale", "editions"."id" FROM "links" LEFT OUTER JOIN "editions" ON "editions"."id" = "links"."edition_id" LEFT OUTER JOIN "documents" ON "documents"."id" = "editions"."document_id" WHERE "documents"."content_id" = $1 AND "documents"."locale" = $2 AND "editions"."content_store" = $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "f9fcf3fe-2751-4dca-97ca-becaeceb4b26"], ["locale", "en"], ["content_store", "live"]]
+
+  Link Pluck (12.1ms)  SELECT "links"."link_type", "documents"."content_id", "documents"."locale", "editions"."id" FROM "links" LEFT OUTER JOIN "editions" ON "editions"."id" = "links"."edition_id" LEFT OUTER JOIN "documents" ON "documents"."id" = "editions"."document_id" WHERE "links"."target_content_id" = $1 AND "documents"."locale" = $2 AND "links"."link_type" IN ($3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) AND "editions"."content_store" = $14 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "f9fcf3fe-2751-4dca-97ca-becaeceb4b26"], ["locale", "en"], ["link_type", "parent"], ["link_type", "documents"], ["link_type", "working_groups"], ["link_type", "parent_taxons"], ["link_type", "root_taxon"], ["link_type", "pages_part_of_step_nav"], ["link_type", "pages_related_to_step_nav"], ["link_type", "pages_secondary_to_step_nav"], ["link_type", "person"], ["link_type", "role"], ["link_type", "ministerial"], ["content_store", "live"]]
+
+  Link Pluck (4.1ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "853312af-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "a3b94223-c77e-495f-b52b-700553ac3686"], ["link_type", "role"], ["target_content_id", "853312af-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "974aeeb8-5492-4956-abaa-05c59f51bce2"], ["link_type", "role"], ["target_content_id", "853312af-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "f9509aef-3f60-482b-9763-88d684ee4b78"], ["link_type", "role"], ["target_content_id", "853312af-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (0.9ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "c4da512b-2968-4ad5-ab88-22aa0667e3dd"], ["link_type", "role"], ["target_content_id", "853312af-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "382703b3-8791-4216-93cd-d6cb2f78e03a"], ["link_type", "role"], ["target_content_id", "853312af-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (5.5ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "853949f2-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "f0f39bba-6411-41fe-b8f2-4866c16b4a1e"], ["link_type", "role"], ["target_content_id", "853949f2-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (2.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "b6138cb3-8913-42a1-b995-b518605999ce"], ["link_type", "role"], ["target_content_id", "853949f2-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "a43eb253-b53f-40cd-b36f-3f4727dd88ef"], ["link_type", "role"], ["target_content_id", "853949f2-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "f3478c6d-4125-405d-b1fd-cde4a5169d6d"], ["link_type", "role"], ["target_content_id", "853949f2-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "402e8ddd-7432-493d-9570-d76f68041044"], ["link_type", "role"], ["target_content_id", "853949f2-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "6d9fb203-627c-4836-8f9b-163e1013d7a7"], ["link_type", "role"], ["target_content_id", "853949f2-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "7d45ed5e-f73f-48e0-b56f-d66f05cfcaca"], ["link_type", "role"], ["target_content_id", "853949f2-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "7f5a97d7-4d6a-494a-b437-8f7d88544f00"], ["link_type", "role"], ["target_content_id", "853949f2-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (6.6ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "8532fa5c-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "841df807-e558-4f87-8f34-c334dbb9f97d"], ["link_type", "role"], ["target_content_id", "8532fa5c-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "726e0670-e8c2-44b5-9497-43cb89c7fa1b"], ["link_type", "role"], ["target_content_id", "8532fa5c-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "aa602ad8-2657-4431-ada7-d6a2c1c072cd"], ["link_type", "role"], ["target_content_id", "8532fa5c-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "0dba634e-b303-408a-acae-f4f24eff2a5a"], ["link_type", "role"], ["target_content_id", "8532fa5c-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "04dd2985-7fc6-4cec-9278-aeb84416a073"], ["link_type", "role"], ["target_content_id", "8532fa5c-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "5e90bafa-3d4a-4f69-847e-405f15b1500f"], ["link_type", "role"], ["target_content_id", "8532fa5c-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "fd800955-040e-490b-9aa7-d4c646083d57"], ["link_type", "role"], ["target_content_id", "8532fa5c-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "bff81be0-3003-432e-8be1-0f2ff8e17199"], ["link_type", "role"], ["target_content_id", "8532fa5c-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (2.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "69471956-bf28-48b0-b4d0-f0046c04619d"], ["link_type", "role"], ["target_content_id", "8532fa5c-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (7.2ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "8534d377-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "8085bea0-bf00-4d5e-a424-4cd9189f33f8"], ["link_type", "role"], ["target_content_id", "8534d377-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (0.9ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "be588862-4743-4a6a-95bb-32f382c4aabe"], ["link_type", "role"], ["target_content_id", "8534d377-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "be036051-71f9-4266-a857-6740707a7670"], ["link_type", "role"], ["target_content_id", "8534d377-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.5ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "450fe9df-8f6b-4fc7-928e-dfcbe6cedc4b"], ["link_type", "role"], ["target_content_id", "8534d377-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "ce911b55-9bb6-44e3-a8f4-f918bb7fee8a"], ["link_type", "role"], ["target_content_id", "8534d377-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "ba1374d3-9a97-41ad-a508-2b40255b5190"], ["link_type", "role"], ["target_content_id", "8534d377-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "ef4a1545-8b05-4346-8757-8bcbb4570d1c"], ["link_type", "role"], ["target_content_id", "8534d377-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "cae572d0-e85c-4d19-acbe-24b69e0d3bf3"], ["link_type", "role"], ["target_content_id", "8534d377-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (3.2ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "c1bde29c-f2d9-4128-8c93-8c813a461c22"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "65faeb43-61eb-4bd3-9545-47bcd0ffca9b"], ["link_type", "role"], ["target_content_id", "c1bde29c-f2d9-4128-8c93-8c813a461c22"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "c98a3d4f-954a-453b-bfc7-51c51d958b0c"], ["link_type", "role"], ["target_content_id", "c1bde29c-f2d9-4128-8c93-8c813a461c22"]]
+
+  Link Pluck (1.9ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "f41af711-6313-4a39-9672-dbdb8927b66a"], ["link_type", "role"], ["target_content_id", "c1bde29c-f2d9-4128-8c93-8c813a461c22"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "6e733996-65b6-47b8-9687-70062e3716bc"], ["link_type", "role"], ["target_content_id", "c1bde29c-f2d9-4128-8c93-8c813a461c22"]]
+
+  Link Pluck (2.2ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "726eedb2-59ef-48e3-8813-b437975051a4"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "8f13349f-028f-4270-aa69-dc251a9ee384"], ["link_type", "role"], ["target_content_id", "726eedb2-59ef-48e3-8813-b437975051a4"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "82ea0cec-0744-415a-a5d0-ae8685e0c7dd"], ["link_type", "role"], ["target_content_id", "726eedb2-59ef-48e3-8813-b437975051a4"]]
+
+  Link Pluck (2.4ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "81671ad3-c697-45df-95c6-96064bd61f63"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "eed3417e-9550-4a2f-9464-f0d51e4644aa"], ["link_type", "role"], ["target_content_id", "81671ad3-c697-45df-95c6-96064bd61f63"]]
+
+  Link Pluck (0.9ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "1eb463fa-653d-4e51-afd7-2ea270a60cd7"], ["link_type", "role"], ["target_content_id", "81671ad3-c697-45df-95c6-96064bd61f63"]]
+
+  Link Pluck (3.5ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "6d181038-ef17-483a-961c-b2afb77f3d15"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "476031d4-fcf0-45cf-abdb-5f540b86aa19"], ["link_type", "role"], ["target_content_id", "6d181038-ef17-483a-961c-b2afb77f3d15"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "b9c0efc1-ae94-4651-8997-76b705e05322"], ["link_type", "role"], ["target_content_id", "6d181038-ef17-483a-961c-b2afb77f3d15"]]
+
+  Link Pluck (2.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "cceed04f-5f51-4537-9428-aad4de756c4e"], ["link_type", "role"], ["target_content_id", "6d181038-ef17-483a-961c-b2afb77f3d15"]]
+
+  Link Pluck (2.8ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "ac8ba8a8-6f89-42c9-9226-8c1cf3a9b9b2"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "356bba05-c32b-44f9-92a3-3f070b720305"], ["link_type", "role"], ["target_content_id", "ac8ba8a8-6f89-42c9-9226-8c1cf3a9b9b2"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "ab638c51-652d-4a3c-a9f0-3d06ea84b251"], ["link_type", "role"], ["target_content_id", "ac8ba8a8-6f89-42c9-9226-8c1cf3a9b9b2"]]
+
+  Link Pluck (4.0ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "85395276-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "a11ff7ca-30f2-48d7-b741-d2d84cee7e8b"], ["link_type", "role"], ["target_content_id", "85395276-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.6ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "c0bc84b8-cbc1-418f-9e35-5e8b6da93a94"], ["link_type", "role"], ["target_content_id", "85395276-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "30c74578-b42a-4c29-bfd4-a9ad2090c2ee"], ["link_type", "role"], ["target_content_id", "85395276-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.8ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "caf47013-fbc0-479b-a608-ddfb05cf894c"], ["link_type", "role"], ["target_content_id", "85395276-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.6ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "eda711c5-b683-4773-9657-9ac1353eed75"], ["link_type", "role"], ["target_content_id", "85395276-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (5.0ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "88d15416-f010-40ba-97a8-bb8075055d62"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "68cc22ad-277e-4ce5-a21d-113a0929c2b3"], ["link_type", "role"], ["target_content_id", "88d15416-f010-40ba-97a8-bb8075055d62"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "7403f942-9d16-4e62-827c-da7285258794"], ["link_type", "role"], ["target_content_id", "88d15416-f010-40ba-97a8-bb8075055d62"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "8fd4c054-d43c-498e-992e-e0329e7e5b00"], ["link_type", "role"], ["target_content_id", "88d15416-f010-40ba-97a8-bb8075055d62"]]
+
+  Link Pluck (2.9ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "f977973e-8659-4420-9fe4-3b6894f4d9af"], ["link_type", "role"], ["target_content_id", "88d15416-f010-40ba-97a8-bb8075055d62"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "dcedbd0f-51e3-4d71-99a7-f7ba63b06df6"], ["link_type", "role"], ["target_content_id", "88d15416-f010-40ba-97a8-bb8075055d62"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "b97497f9-0cd1-4ef5-b6ca-542926dab996"], ["link_type", "role"], ["target_content_id", "88d15416-f010-40ba-97a8-bb8075055d62"]]
+
+  Link Pluck (1.9ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "9b23b388-7267-469e-9954-f3044f17467a"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "62e8c603-2f33-4acb-85d3-934924ff6080"], ["link_type", "role"], ["target_content_id", "9b23b388-7267-469e-9954-f3044f17467a"]]
+
+  Link Pluck (1.9ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "f5ac05cd-bb37-4f5f-9d6f-acae7a4cc56b"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "b7090ede-9776-481b-ad7b-7e69dfee3f1d"], ["link_type", "role"], ["target_content_id", "f5ac05cd-bb37-4f5f-9d6f-acae7a4cc56b"]]
+
+  Link Pluck (2.1ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "388d5ecd-0367-48a8-ac3b-f6c2e0ae34e7"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.6ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "fa6c1a75-89ee-4ce4-9da5-4725f6fb7d7d"], ["link_type", "role"], ["target_content_id", "388d5ecd-0367-48a8-ac3b-f6c2e0ae34e7"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "760dfcba-169e-4c76-bc29-ba942bc93631"], ["link_type", "role"], ["target_content_id", "388d5ecd-0367-48a8-ac3b-f6c2e0ae34e7"]]
+
+  Link Pluck (3.0ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "1416c82d-a5be-45fb-8ab5-a39282e1dfdd"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "80b33844-d7a3-4f77-93df-c3bee0314975"], ["link_type", "role"], ["target_content_id", "1416c82d-a5be-45fb-8ab5-a39282e1dfdd"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "b4aa877e-e441-43c8-bcdd-a35cb86ccbd3"], ["link_type", "role"], ["target_content_id", "1416c82d-a5be-45fb-8ab5-a39282e1dfdd"]]
+
+  Link Pluck (1.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "0430caf6-a931-4185-91d4-fb4635ddd7fb"], ["link_type", "role"], ["target_content_id", "1416c82d-a5be-45fb-8ab5-a39282e1dfdd"]]
+
+  Link Pluck (2.4ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "5ae31600-3e1c-490b-8f53-c3736b3ddfa0"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "8c423931-98ce-40c4-9135-c0596a8c336b"], ["link_type", "role"], ["target_content_id", "5ae31600-3e1c-490b-8f53-c3736b3ddfa0"]]
+
+  Link Pluck (2.4ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "f71fad2a-1841-4ed1-af31-0629cb98d16c"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.6ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "a27e8606-7b0d-44d3-8889-54d296560b11"], ["link_type", "role"], ["target_content_id", "f71fad2a-1841-4ed1-af31-0629cb98d16c"]]
+
+  Link Pluck (6.1ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "8529186b-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "614abfd2-a26b-4df9-af6c-179e0fe1d99d"], ["link_type", "role"], ["target_content_id", "8529186b-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.7ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "dcf9f5df-ec5f-49bc-89be-7bedbc43b302"], ["link_type", "role"], ["target_content_id", "8529186b-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "1fb99aad-aceb-4642-a97b-1f6ffa572276"], ["link_type", "role"], ["target_content_id", "8529186b-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "6498faa8-977a-4a51-91d6-01f1df1235ed"], ["link_type", "role"], ["target_content_id", "8529186b-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "fe8cf398-1a78-41b4-9487-eb2ae72046fa"], ["link_type", "role"], ["target_content_id", "8529186b-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "64998b8f-e4b8-4e8a-9264-ea6f0eb76b5e"], ["link_type", "role"], ["target_content_id", "8529186b-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (12.4ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "27f88997-46c1-49e0-b9da-0db1799ac275"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "d87851d1-3a1e-42e8-abeb-44cc1c813030"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "a14eb92f-5659-40bf-a9f0-93ab808dcf90"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "e51a616f-a2f5-4f3d-9d9e-dcf0599befd7"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (2.5ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "882ca453-7fd0-4c24-9983-d4083e78c25f"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "5810f749-df6e-43f1-901f-1e63b09e1150"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "5ad682c5-32a9-499c-b035-22eebdf93f00"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "e5196a5e-15bd-4457-8800-ea5eb51a4235"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "cd159d1f-b823-4b9c-905f-373ae90fa2bc"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (3.7ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "14441366-9065-40b5-b094-f4e08c17906f"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.6ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "5024b993-37a7-40d4-99d6-11d55ec19d2e"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "87ed9d1d-e6e0-4ac2-9618-a9fe97eaad89"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (3.9ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "852926ea-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.8ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "38c5c824-b1de-4735-94d8-79527514bac9"], ["link_type", "role"], ["target_content_id", "852926ea-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "0b0c618d-b885-41b0-9aaa-5c38c85155dc"], ["link_type", "role"], ["target_content_id", "852926ea-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.9ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "beb8f0e3-fabf-4472-b69f-7d5665e91012"], ["link_type", "role"], ["target_content_id", "852926ea-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.6ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "5a7e469f-f155-47c6-9948-330037d94000"], ["link_type", "role"], ["target_content_id", "852926ea-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (11.1ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.8ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "4204b42d-cd44-4a69-b62c-fd17a6df50ac"], ["link_type", "role"], ["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"]]
+
+  Link Pluck (1.9ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "da6679e2-baf1-4039-9563-07029dfbd176"], ["link_type", "role"], ["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "4c03778c-7803-465f-bf28-33b18dd7a204"], ["link_type", "role"], ["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"]]
+
+  Link Pluck (1.5ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "a2d4167a-30cf-4a77-ba04-93a5937dcb90"], ["link_type", "role"], ["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "120f6e40-7f45-4aca-b63c-dc2d2531c8b4"], ["link_type", "role"], ["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"]]
+
+  Link Pluck (1.5ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "93390b1b-88c1-4952-b3a7-7fe87934e61f"], ["link_type", "role"], ["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"]]
+
+  Link Pluck (1.6ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "7693098d-b75d-42be-a843-b56f3802a16e"], ["link_type", "role"], ["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"]]
+
+  Link Pluck (1.6ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "4e00da26-fde8-440b-8210-876606f7711c"], ["link_type", "role"], ["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "0a583883-3bd7-4ae0-9173-3f003276ed6d"], ["link_type", "role"], ["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"]]
+
+  Link Pluck (1.8ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "a2250bc8-a39a-4329-afc3-6d614a281078"], ["link_type", "role"], ["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"]]
+
+  Link Pluck (2.5ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "08895a02-d72f-4723-9f8a-4c0703c157d3"], ["link_type", "role"], ["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "bac5dde6-ef1e-4873-91d4-4c3a8c56d133"], ["link_type", "role"], ["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "a32ab1a9-fa86-4459-8814-6cedd81c3132"], ["link_type", "role"], ["target_content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"]]
+
+  Link Pluck (10.3ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "de88d8f2-4d56-425c-92ae-29dbac75e9a0"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "d73f1c73-8589-47ca-bdb2-2e6e4cafd8a4"], ["link_type", "role"], ["target_content_id", "de88d8f2-4d56-425c-92ae-29dbac75e9a0"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "a858ad94-c9e8-4ca9-89cc-5e90d57f0dd2"], ["link_type", "role"], ["target_content_id", "de88d8f2-4d56-425c-92ae-29dbac75e9a0"]]
+
+  Link Pluck (1.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "e386aa1a-4c37-4b2c-937c-840ae8d7a712"], ["link_type", "role"], ["target_content_id", "de88d8f2-4d56-425c-92ae-29dbac75e9a0"]]
+
+  Link Pluck (2.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "034100cd-be30-49ca-bb13-e1be3deba7be"], ["link_type", "role"], ["target_content_id", "de88d8f2-4d56-425c-92ae-29dbac75e9a0"]]
+
+  Link Pluck (1.6ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "c75883f9-56eb-45cd-94e1-798e87f255f5"], ["link_type", "role"], ["target_content_id", "de88d8f2-4d56-425c-92ae-29dbac75e9a0"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "1922cc4e-e59e-4c79-85c7-353b5a3b1914"], ["link_type", "role"], ["target_content_id", "de88d8f2-4d56-425c-92ae-29dbac75e9a0"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "fa1cbab4-c1d8-458a-9d4b-378e537dde8f"], ["link_type", "role"], ["target_content_id", "de88d8f2-4d56-425c-92ae-29dbac75e9a0"]]
+
+  Link Pluck (2.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "78c96d73-058b-4fdb-830a-9149c1281734"], ["link_type", "role"], ["target_content_id", "de88d8f2-4d56-425c-92ae-29dbac75e9a0"]]
+
+  Link Pluck (7.7ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "442d2f05-c413-4628-b454-7341006615be"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "ed76f1cd-e4d7-4624-9373-37d49f814dd8"], ["link_type", "role"], ["target_content_id", "442d2f05-c413-4628-b454-7341006615be"]]
+
+  Link Pluck (3.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "c6f86461-c204-40b6-983b-23cf5690ac60"], ["link_type", "role"], ["target_content_id", "442d2f05-c413-4628-b454-7341006615be"]]
+
+  Link Pluck (1.7ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "f9d6c4e0-0105-43a1-8d2b-cccc2f1e8975"], ["link_type", "role"], ["target_content_id", "442d2f05-c413-4628-b454-7341006615be"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "277469ce-09ac-4641-ad6d-740a6f0a0218"], ["link_type", "role"], ["target_content_id", "442d2f05-c413-4628-b454-7341006615be"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "ae581cf1-89b0-4e8e-a778-c08d7c09715b"], ["link_type", "role"], ["target_content_id", "442d2f05-c413-4628-b454-7341006615be"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "3e74790e-e303-4e3f-9ca4-526c28a4cca0"], ["link_type", "role"], ["target_content_id", "442d2f05-c413-4628-b454-7341006615be"]]
+
+  Link Pluck (2.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "492bd36c-1e95-48b4-9194-e00ca374cb23"], ["link_type", "role"], ["target_content_id", "442d2f05-c413-4628-b454-7341006615be"]]
+
+  Link Pluck (4.8ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "852932ea-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (2.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "3a4c91c7-9935-4119-9183-40fc4e641f5c"], ["link_type", "role"], ["target_content_id", "852932ea-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "7f95e063-2deb-4501-96a2-efeeb30eb9cc"], ["link_type", "role"], ["target_content_id", "852932ea-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.9ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "310586e8-6ef3-4ed7-9bfd-a7d230aa5dcc"], ["link_type", "role"], ["target_content_id", "852932ea-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "13b39b15-fdc7-4c1e-9be3-9b4e5e56836c"], ["link_type", "role"], ["target_content_id", "852932ea-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "3e73e6ce-0e03-493e-abf1-b5e3af8a0fb7"], ["link_type", "role"], ["target_content_id", "852932ea-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (11.8ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.9ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "27f88997-46c1-49e0-b9da-0db1799ac275"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.8ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "d87851d1-3a1e-42e8-abeb-44cc1c813030"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.9ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "a14eb92f-5659-40bf-a9f0-93ab808dcf90"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "e51a616f-a2f5-4f3d-9d9e-dcf0599befd7"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "882ca453-7fd0-4c24-9983-d4083e78c25f"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "5810f749-df6e-43f1-901f-1e63b09e1150"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.9ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "5ad682c5-32a9-499c-b035-22eebdf93f00"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "e5196a5e-15bd-4457-8800-ea5eb51a4235"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "cd159d1f-b823-4b9c-905f-373ae90fa2bc"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "14441366-9065-40b5-b094-f4e08c17906f"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (2.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "5024b993-37a7-40d4-99d6-11d55ec19d2e"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "87ed9d1d-e6e0-4ac2-9618-a9fe97eaad89"], ["link_type", "role"], ["target_content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (5.9ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "852925f7-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (2.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "e1fc9ea4-e5e8-48db-8646-3b07e57737fc"], ["link_type", "role"], ["target_content_id", "852925f7-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "e8d5c5c2-0736-4123-8308-3ee5b8622176"], ["link_type", "role"], ["target_content_id", "852925f7-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "1864bd33-609a-480c-aeaa-e064f2551460"], ["link_type", "role"], ["target_content_id", "852925f7-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "ee367b87-987a-4170-a1dc-53ac66f6824c"], ["link_type", "role"], ["target_content_id", "852925f7-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.7ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "b1f1ed7b-9af5-4fbe-87e6-ceba9a4eeeab"], ["link_type", "role"], ["target_content_id", "852925f7-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (2.0ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "f5db7000-65fd-492e-8376-b6c6ef53afc0"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "58ee6e1f-1420-408b-8538-abf0a59bcf1a"], ["link_type", "role"], ["target_content_id", "f5db7000-65fd-492e-8376-b6c6ef53afc0"]]
+
+  Link Pluck (2.1ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "87d7851d-4e64-40b7-ad47-7ebe909b643d"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "ecdf1ed2-80c9-44c9-934d-296abbf9a645"], ["link_type", "role"], ["target_content_id", "87d7851d-4e64-40b7-ad47-7ebe909b643d"]]
+
+  Link Pluck (4.1ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "852c2fb7-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "b23e29f8-e562-47e6-abea-4330062d65b9"], ["link_type", "role"], ["target_content_id", "852c2fb7-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.5ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "05b5ea22-25a3-4aa7-9daa-2d39fde0a34e"], ["link_type", "role"], ["target_content_id", "852c2fb7-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (2.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "ee4d0329-f9b0-4ba9-b102-914c5a44d5cb"], ["link_type", "role"], ["target_content_id", "852c2fb7-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "5d1111ee-58a1-4f2c-af20-a3c8808614c1"], ["link_type", "role"], ["target_content_id", "852c2fb7-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (5.3ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "852e8135-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "eb1205a8-dd53-4303-968c-8e7654542244"], ["link_type", "role"], ["target_content_id", "852e8135-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "77a3a900-d5e9-4689-8d34-7454037f8cf0"], ["link_type", "role"], ["target_content_id", "852e8135-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.5ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "040c70eb-7c5d-493f-b4c2-9937be0db5e6"], ["link_type", "role"], ["target_content_id", "852e8135-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "f89f8951-1940-4292-ba33-eedeb7d20b62"], ["link_type", "role"], ["target_content_id", "852e8135-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (3.0ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "8529375a-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "46f7ecdb-2219-4009-8a64-ada0dde4b321"], ["link_type", "role"], ["target_content_id", "8529375a-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "3280a711-4b65-4e20-a071-3cad42ea08f7"], ["link_type", "role"], ["target_content_id", "8529375a-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (5.0ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "8534bf0b-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.7ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "fa2bcef2-6d78-4847-a357-6051b899ef51"], ["link_type", "role"], ["target_content_id", "8534bf0b-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "91c6628e-e1a0-47e1-96eb-e5ff17013484"], ["link_type", "role"], ["target_content_id", "8534bf0b-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "1f2358bb-cb12-4992-8456-160553d7ecc0"], ["link_type", "role"], ["target_content_id", "8534bf0b-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "b9d34ddf-08cc-41e9-80bc-0e13ec67547f"], ["link_type", "role"], ["target_content_id", "8534bf0b-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (2.3ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "53ca0cb5-48a0-4d59-8f04-e96e4043307f"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.4ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "dea7197c-0a11-4ee5-8f09-0e2e2c7d45e6"], ["link_type", "role"], ["target_content_id", "53ca0cb5-48a0-4d59-8f04-e96e4043307f"]]
+
+  Link Pluck (7.9ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "852ec050-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "cda9d68d-c63b-498f-994c-f753f4bcfdb4"], ["link_type", "role"], ["target_content_id", "852ec050-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.5ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "c8f9481d-d4e2-4f3a-a585-2ae93286cb22"], ["link_type", "role"], ["target_content_id", "852ec050-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "0aedc236-ca29-4769-8d96-8d33a8df7bd8"], ["link_type", "role"], ["target_content_id", "852ec050-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.7ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "8cda5f0a-1307-4626-acb1-9d0a33e0fb37"], ["link_type", "role"], ["target_content_id", "852ec050-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.6ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "713674b5-94a7-47c4-935d-e60b3eb13004"], ["link_type", "role"], ["target_content_id", "852ec050-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (2.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "1d4ba90a-e240-4c70-a77b-13c2d48efd9d"], ["link_type", "role"], ["target_content_id", "852ec050-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "6d69d8af-ce10-46fb-94de-4f66a5e78733"], ["link_type", "role"], ["target_content_id", "852ec050-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (2.2ms)  SELECT "links"."link_type", "link_sets"."content_id",
+
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "3a575cf0-57bc-4b78-85c9-7d4051d4f5d5"], ["link_type", "person"], ["link_type", "role"]]
+  Link Pluck (2.0ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "3bba1c6a-1f3a-4c3d-8563-b1347c48cbae"], ["link_type", "role"], ["target_content_id", "3a575cf0-57bc-4b78-85c9-7d4051d4f5d5"]]
+
+  Link Pluck (4.2ms)  SELECT "links"."link_type", "link_sets"."content_id",
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "4be481d3-5c9c-402e-92a0-c7eb47d411e7"], ["link_type", "person"], ["link_type", "role"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "781af3d7-e65e-4c81-8335-da908ff22a4e"], ["link_type", "role"], ["target_content_id", "4be481d3-5c9c-402e-92a0-c7eb47d411e7"]]
+
+  Link Pluck (2.1ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "b018a99e-857b-4e1c-97a5-58dbf40efc1f"], ["link_type", "role"], ["target_content_id", "4be481d3-5c9c-402e-92a0-c7eb47d411e7"]]
+
+  Link Pluck (1.9ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "1ee2a4ba-c283-47a8-85d3-160209300a25"], ["link_type", "role"], ["target_content_id", "4be481d3-5c9c-402e-92a0-c7eb47d411e7"]]
+
+  Link Pluck (3.2ms)  SELECT "links"."link_type", "link_sets"."content_id",
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "6800ab94-e501-47e5-a0df-76df85df8d7c"], ["link_type", "person"], ["link_type", "role"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "e066024f-c505-4493-8c66-56a8c3694718"], ["link_type", "role"], ["target_content_id", "6800ab94-e501-47e5-a0df-76df85df8d7c"]]
+
+  Link Pluck (1.2ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "167f9360-d243-488c-b153-28396fbcd281"], ["link_type", "role"], ["target_content_id", "6800ab94-e501-47e5-a0df-76df85df8d7c"]]
+
+  Link Pluck (3.6ms)  SELECT "links"."link_type", "link_sets"."content_id",
+        EXISTS(
+          SELECT nested_links.id
+          FROM links AS nested_links
+          INNER JOIN link_sets AS nested_link_sets
+          ON nested_link_sets.id = nested_links.link_set_id
+          WHERE
+          nested_link_sets.content_id = link_sets.content_id
+
+          AND ((links.link_type = 'person' AND nested_links.link_type IN ('role')) OR (links.link_type = 'role' AND nested_links.link_type IN ('role')))
+
+          LIMIT 1
+        )
+       FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "links"."target_content_id" = $1 AND "links"."link_type" IN ($2, $3) AND 1=1 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["target_content_id", "8534df99-c0f1-11e4-8223-005056011aef"], ["link_type", "person"], ["link_type", "role"]]
+
+  Link Pluck (1.7ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "6cf71a2a-9f30-46b9-a90f-0530c85a2c0c"], ["link_type", "role"], ["target_content_id", "8534df99-c0f1-11e4-8223-005056011aef"]]
+
+  Link Pluck (1.3ms)  SELECT "links"."link_type", "links"."target_content_id" FROM "links" INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id" WHERE "link_sets"."content_id" = $1 AND "links"."link_type" = $2 AND "links"."target_content_id" != $3 ORDER BY "links"."link_type" ASC, "links"."position" ASC  [["content_id", "c950a0f0-7017-4428-ae07-7f6cb666f392"], ["link_type", "role"], ["target_content_id", "8534df99-c0f1-11e4-8223-005056011aef"]]
+
+  Edition Pluck (123.3ms)  SELECT DISTINCT ON (documents.content_id) documents.content_id, editions.id FROM "editions" INNER JOIN "documents" ON "documents"."id" = "editions"."document_id" LEFT OUTER JOIN "unpublishings" ON "unpublishings"."edition_id" = "editions"."id" WHERE "documents"."content_id" IN ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $50, $51, $52, $53, $54, $55, $56, $57, $58, $59, $60, $61, $62, $63, $64, $65, $66, $67, $68, $69, $70, $71, $72, $73, $74, $75, $76, $77, $78, $79, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89, $90, $91, $92, $93, $94, $95, $96, $97, $98, $99, $100, $101, $102, $103, $104, $105, $106, $107, $108, $109, $110, $111, $112, $113, $114, $115, $116, $117, $118, $119, $120, $121, $122, $123, $124, $125, $126, $127, $128, $129, $130, $131, $132, $133, $134, $135, $136, $137, $138, $139, $140, $141, $142, $143, $144, $145, $146, $147, $148, $149, $150, $151, $152, $153, $154, $155, $156, $157, $158, $159, $160, $161, $162, $163, $164, $165, $166, $167, $168, $169, $170, $171, $172, $173, $174, $175, $176, $177, $178, $179, $180, $181, $182, $183, $184, $185, $186, $187, $188, $189, $190, $191, $192, $193, $194, $195, $196, $197, $198, $199, $200, $201, $202, $203, $204, $205, $206, $207, $208, $209, $210, $211, $212, $213, $214, $215, $216, $217, $218, $219, $220, $221, $222, $223, $224, $225, $226, $227, $228, $229, $230, $231, $232, $233, $234, $235, $236, $237, $238, $239, $240, $241, $242, $243, $244, $245, $246, $247, $248, $249, $250, $251, $252, $253, $254, $255, $256, $257, $258, $259, $260, $261, $262, $263, $264, $265, $266, $267, $268, $269, $270, $271, $272, $273, $274, $275, $276, $277, $278, $279, $280, $281, $282, $283, $284, $285, $286, $287, $288, $289, $290, $291, $292, $293, $294, $295, $296, $297, $298, $299, $300, $301, $302, $303, $304, $305, $306, $307, $308, $309, $310, $311, $312, $313, $314, $315, $316, $317, $318, $319, $320, $321, $322, $323, $324, $325, $326, $327, $328, $329, $330, $331, $332, $333, $334, $335, $336, $337, $338, $339, $340, $341, $342, $343, $344, $345, $346, $347, $348, $349, $350, $351, $352, $353, $354, $355, $356, $357, $358, $359, $360, $361, $362, $363, $364, $365, $366, $367, $368, $369, $370, $371, $372, $373, $374, $375, $376, $377, $378, $379, $380, $381, $382, $383, $384, $385, $386, $387, $388, $389, $390, $391, $392, $393, $394, $395, $396, $397, $398, $399, $400, $401, $402, $403, $404, $405, $406, $407, $408, $409, $410, $411, $412, $413, $414, $415, $416, $417, $418, $419, $420, $421, $422, $423, $424, $425, $426, $427, $428, $429, $430, $431, $432, $433, $434, $435, $436, $437, $438, $439, $440, $441, $442, $443, $444, $445, $446, $447, $448, $449, $450, $451, $452, $453, $454, $455, $456, $457, $458, $459, $460, $461, $462, $463, $464, $465, $466, $467, $468, $469, $470, $471, $472, $473, $474, $475, $476, $477, $478, $479, $480, $481, $482, $483, $484, $485, $486, $487, $488, $489, $490, $491, $492, $493, $494, $495, $496, $497, $498, $499, $500, $501, $502, $503, $504, $505, $506, $507, $508, $509, $510, $511, $512, $513, $514, $515, $516, $517, $518, $519, $520, $521, $522, $523, $524, $525, $526, $527, $528, $529, $530, $531, $532, $533, $534, $535, $536, $537, $538, $539, $540, $541, $542, $543, $544, $545, $546, $547, $548, $549, $550, $551, $552, $553, $554, $555, $556, $557, $558, $559, $560, $561, $562, $563, $564, $565, $566, $567, $568, $569, $570, $571, $572, $573, $574, $575, $576, $577, $578, $579, $580, $581, $582, $583, $584, $585, $586, $587, $588, $589, $590, $591, $592, $593, $594, $595, $596, $597, $598, $599, $600, $601, $602, $603, $604, $605, $606, $607, $608, $609, $610, $611, $612, $613, $614, $615, $616, $617, $618, $619, $620, $621, $622, $623, $624, $625, $626, $627, $628, $629, $630, $631, $632, $633, $634, $635, $636, $637, $638, $639, $640, $641, $642, $643, $644, $645, $646, $647, $648, $649, $650, $651, $652, $653, $654, $655, $656, $657, $658, $659, $660, $661, $662, $663, $664, $665, $666, $667, $668, $669, $670, $671, $672, $673, $674, $675, $676, $677, $678, $679, $680, $681, $682, $683, $684, $685, $686, $687, $688, $689, $690, $691, $692, $693, $694, $695, $696, $697, $698, $699, $700, $701, $702, $703, $704, $705, $706, $707, $708, $709, $710, $711, $712, $713, $714, $715, $716, $717, $718, $719, $720, $721, $722, $723, $724, $725, $726, $727, $728, $729, $730, $731, $732, $733, $734, $735, $736, $737, $738, $739, $740, $741, $742, $743, $744, $745, $746, $747, $748, $749, $750, $751, $752, $753, $754, $755, $756, $757, $758, $759, $760, $761, $762, $763, $764, $765, $766, $767, $768, $769, $770, $771, $772, $773, $774, $775, $776, $777, $778, $779, $780, $781, $782, $783, $784, $785, $786, $787, $788, $789, $790, $791, $792, $793, $794, $795, $796, $797, $798, $799, $800, $801, $802, $803, $804, $805, $806, $807, $808, $809, $810, $811, $812, $813, $814, $815, $816, $817, $818, $819, $820, $821, $822, $823, $824, $825, $826, $827, $828, $829, $830, $831, $832, $833, $834, $835, $836, $837, $838, $839, $840, $841, $842, $843) AND ("editions"."state" IN ('published') OR "editions"."state" = 'unpublished' AND "unpublishings"."type" = 'withdrawal') AND "documents"."locale" = $844 AND "editions"."document_type" NOT IN ($845, $846) ORDER BY documents.content_id ASC, CASE "editions"."state" WHEN 'published' THEN 0 WHEN 'unpublished' THEN 1 ELSE 2 END, CASE "documents"."locale" WHEN 'en' THEN 0 ELSE 1 END  [["content_id", "853312af-c0f1-11e4-8223-005056011aef"], ["content_id", "a3b94223-c77e-495f-b52b-700553ac3686"], ["content_id", "fdc043ef-621e-4fdd-b2a3-103a196c1b5d"], ["content_id", "974aeeb8-5492-4956-abaa-05c59f51bce2"], ["content_id", "8464e2f4-c0f1-11e4-8223-005056011aef"], ["content_id", "f9509aef-3f60-482b-9763-88d684ee4b78"], ["content_id", "8464d06c-c0f1-11e4-8223-005056011aef"], ["content_id", "c4da512b-2968-4ad5-ab88-22aa0667e3dd"], ["content_id", "84614b98-c0f1-11e4-8223-005056011aef"], ["content_id", "382703b3-8791-4216-93cd-d6cb2f78e03a"], ["content_id", "8464e490-c0f1-11e4-8223-005056011aef"], ["content_id", "853949f2-c0f1-11e4-8223-005056011aef"], ["content_id", "f0f39bba-6411-41fe-b8f2-4866c16b4a1e"], ["content_id", "eef76390-9d5c-411f-b1c2-0fbe3e6e49f1"], ["content_id", "b6138cb3-8913-42a1-b995-b518605999ce"], ["content_id", "84614547-c0f1-11e4-8223-005056011aef"], ["content_id", "a43eb253-b53f-40cd-b36f-3f4727dd88ef"], ["content_id", "84613da5-c0f1-11e4-8223-005056011aef"], ["content_id", "f3478c6d-4125-405d-b1fd-cde4a5169d6d"], ["content_id", "402e8ddd-7432-493d-9570-d76f68041044"], ["content_id", "688013e5-8cfe-46c9-bba2-c6c39bbc89ba"], ["content_id", "6d9fb203-627c-4836-8f9b-163e1013d7a7"], ["content_id", "d325291b-6e26-4d58-85a2-2ba0b1183d2d"], ["content_id", "7d45ed5e-f73f-48e0-b56f-d66f05cfcaca"], ["content_id", "74dc9bf6-0da8-47e7-82dc-b9ffddbd3ed9"], ["content_id", "7f5a97d7-4d6a-494a-b437-8f7d88544f00"], ["content_id", "304aaddc-a58a-474f-aa65-132789a6df67"], ["content_id", "8532fa5c-c0f1-11e4-8223-005056011aef"], ["content_id", "841df807-e558-4f87-8f34-c334dbb9f97d"], ["content_id", "8464c8e6-c0f1-11e4-8223-005056011aef"], ["content_id", "726e0670-e8c2-44b5-9497-43cb89c7fa1b"], ["content_id", "f393dd96-436b-410b-bb92-273e4a065c64"], ["content_id", "aa602ad8-2657-4431-ada7-d6a2c1c072cd"], ["content_id", "b5d3bad7-a2a1-446c-b639-38980687615f"], ["content_id", "0dba634e-b303-408a-acae-f4f24eff2a5a"], ["content_id", "8461b9e4-c0f1-11e4-8223-005056011aef"], ["content_id", "04dd2985-7fc6-4cec-9278-aeb84416a073"], ["content_id", "5e90bafa-3d4a-4f69-847e-405f15b1500f"], ["content_id", "0c58f0f5-33f9-4414-acc3-07559b119f39"], ["content_id", "fd800955-040e-490b-9aa7-d4c646083d57"], ["content_id", "bff81be0-3003-432e-8be1-0f2ff8e17199"], ["content_id", "e59d174f-1fd0-47bb-abf9-bbed064aabae"], ["content_id", "69471956-bf28-48b0-b4d0-f0046c04619d"], ["content_id", "4a642687-1607-441d-8c10-8d65910e22ab"], ["content_id", "8534d377-c0f1-11e4-8223-005056011aef"], ["content_id", "8085bea0-bf00-4d5e-a424-4cd9189f33f8"], ["content_id", "8467e903-c0f1-11e4-8223-005056011aef"], ["content_id", "be588862-4743-4a6a-95bb-32f382c4aabe"], ["content_id", "d541b80b-d6ca-4069-80b8-f6267cdde965"], ["content_id", "be036051-71f9-4266-a857-6740707a7670"], ["content_id", "8464f570-c0f1-11e4-8223-005056011aef"], ["content_id", "450fe9df-8f6b-4fc7-928e-dfcbe6cedc4b"], ["content_id", "21c886a4-abc7-4626-81c3-f54e701e9ea2"], ["content_id", "ce911b55-9bb6-44e3-a8f4-f918bb7fee8a"], ["content_id", "964fac08-67c0-4841-9f78-3b719065bee5"], ["content_id", "ba1374d3-9a97-41ad-a508-2b40255b5190"], ["content_id", "fc54d237-6f45-4c3b-9b05-298a0069d0cf"], ["content_id", "ef4a1545-8b05-4346-8757-8bcbb4570d1c"], ["content_id", "31bcc3bd-1393-40d2-bab9-ad6a6a68e258"], ["content_id", "cae572d0-e85c-4d19-acbe-24b69e0d3bf3"], ["content_id", "1861bb23-891b-4957-9a3d-b0b077645535"], ["content_id", "c1bde29c-f2d9-4128-8c93-8c813a461c22"], ["content_id", "65faeb43-61eb-4bd3-9545-47bcd0ffca9b"], ["content_id", "c98a3d4f-954a-453b-bfc7-51c51d958b0c"], ["content_id", "f41af711-6313-4a39-9672-dbdb8927b66a"], ["content_id", "2bbc18ac-d6ea-4030-ba2a-8a899fcab26c"], ["content_id", "6e733996-65b6-47b8-9687-70062e3716bc"], ["content_id", "eb1a198d-cb30-414b-bba6-24133696fc9b"], ["content_id", "726eedb2-59ef-48e3-8813-b437975051a4"], ["content_id", "8f13349f-028f-4270-aa69-dc251a9ee384"], ["content_id", "2d10cca5-4533-463d-b83e-76a64baffdc6"], ["content_id", "82ea0cec-0744-415a-a5d0-ae8685e0c7dd"], ["content_id", "4fa765e8-d903-4c66-b41e-f5b152e51adc"], ["content_id", "81671ad3-c697-45df-95c6-96064bd61f63"], ["content_id", "eed3417e-9550-4a2f-9464-f0d51e4644aa"], ["content_id", "1eb463fa-653d-4e51-afd7-2ea270a60cd7"], ["content_id", "a859c8e3-44ec-4148-b12e-96aa414ce105"], ["content_id", "6d181038-ef17-483a-961c-b2afb77f3d15"], ["content_id", "476031d4-fcf0-45cf-abdb-5f540b86aa19"], ["content_id", "8464e347-c0f1-11e4-8223-005056011aef"], ["content_id", "b9c0efc1-ae94-4651-8997-76b705e05322"], ["content_id", "0b1f98a7-6768-4c56-97c5-847429afc444"], ["content_id", "cceed04f-5f51-4537-9428-aad4de756c4e"], ["content_id", "d0209871-e12c-4547-b004-675317b373a2"], ["content_id", "ac8ba8a8-6f89-42c9-9226-8c1cf3a9b9b2"], ["content_id", "356bba05-c32b-44f9-92a3-3f070b720305"], ["content_id", "643d855f-011e-41bf-a35d-2ffe8c80886b"], ["content_id", "ab638c51-652d-4a3c-a9f0-3d06ea84b251"], ["content_id", "d1589f1c-d4ed-413f-9b5d-a94d898e79e9"], ["content_id", "85395276-c0f1-11e4-8223-005056011aef"], ["content_id", "a11ff7ca-30f2-48d7-b741-d2d84cee7e8b"], ["content_id", "846a5310-c0f1-11e4-8223-005056011aef"], ["content_id", "c0bc84b8-cbc1-418f-9e35-5e8b6da93a94"], ["content_id", "8461cdc0-c0f1-11e4-8223-005056011aef"], ["content_id", "30c74578-b42a-4c29-bfd4-a9ad2090c2ee"], ["content_id", "caf47013-fbc0-479b-a608-ddfb05cf894c"], ["content_id", "0f9f0703-3297-49fe-8b9b-42e57808c151"], ["content_id", "eda711c5-b683-4773-9657-9ac1353eed75"], ["content_id", "bca0d511-71e7-44bf-81b2-1839a0110e05"], ["content_id", "88d15416-f010-40ba-97a8-bb8075055d62"], ["content_id", "68cc22ad-277e-4ce5-a21d-113a0929c2b3"], ["content_id", "8464d66b-c0f1-11e4-8223-005056011aef"], ["content_id", "7403f942-9d16-4e62-827c-da7285258794"], ["content_id", "4eec85c2-1c16-42cc-af63-0b7d757d5db4"], ["content_id", "8fd4c054-d43c-498e-992e-e0329e7e5b00"], ["content_id", "a3cfd3dd-cc24-485d-bb04-5b9abe84376a"], ["content_id", "f977973e-8659-4420-9fe4-3b6894f4d9af"], ["content_id", "4a5ec7da-ad52-4f5f-8b18-7a13fb567bb7"], ["content_id", "dcedbd0f-51e3-4d71-99a7-f7ba63b06df6"], ["content_id", "b97497f9-0cd1-4ef5-b6ca-542926dab996"], ["content_id", "5682725c-30e1-462d-b638-78e241757a3e"], ["content_id", "9b23b388-7267-469e-9954-f3044f17467a"], ["content_id", "62e8c603-2f33-4acb-85d3-934924ff6080"], ["content_id", "57aa7ee3-9b01-4dbb-90bd-1d6082658719"], ["content_id", "f5ac05cd-bb37-4f5f-9d6f-acae7a4cc56b"], ["content_id", "b7090ede-9776-481b-ad7b-7e69dfee3f1d"], ["content_id", "04d95a11-81e7-4fc0-ad28-52432b816d60"], ["content_id", "388d5ecd-0367-48a8-ac3b-f6c2e0ae34e7"], ["content_id", "fa6c1a75-89ee-4ce4-9da5-4725f6fb7d7d"], ["content_id", "8472bee5-c0f1-11e4-8223-005056011aef"], ["content_id", "760dfcba-169e-4c76-bc29-ba942bc93631"], ["content_id", "f38d83fa-25d3-4e8b-818e-a54eed37da37"], ["content_id", "1416c82d-a5be-45fb-8ab5-a39282e1dfdd"], ["content_id", "80b33844-d7a3-4f77-93df-c3bee0314975"], ["content_id", "91f775b3-d8a5-44f4-a74c-276ae1b88f3d"], ["content_id", "b4aa877e-e441-43c8-bcdd-a35cb86ccbd3"], ["content_id", "57de1f7a-9946-4b5b-8e31-a92f718b3b02"], ["content_id", "0430caf6-a931-4185-91d4-fb4635ddd7fb"], ["content_id", "4e5aca93-8522-4fa4-8b95-4c62f4cfc1d6"], ["content_id", "5ae31600-3e1c-490b-8f53-c3736b3ddfa0"], ["content_id", "8c423931-98ce-40c4-9135-c0596a8c336b"], ["content_id", "e9e2bcd4-48be-45da-89ef-c65afe1f6534"], ["content_id", "f71fad2a-1841-4ed1-af31-0629cb98d16c"], ["content_id", "a27e8606-7b0d-44d3-8889-54d296560b11"], ["content_id", "bbf53eba-2cd0-4a8b-a6d0-0d41668fdce1"], ["content_id", "a787a14d-3bdd-44fc-820a-f821efd74f81"], ["content_id", "37d2c134-1285-4907-a366-611617cfe44c"], ["content_id", "e6f0d3e8-33c5-4639-a093-19b76a8714a1"], ["content_id", "c3704b95-a9b8-4dcc-84f4-5af987813d18"], ["content_id", "9d2fc568-068a-45ec-9ee1-ba65abb4a4e9"], ["content_id", "143c2558-4495-477c-b433-7e357273fc48"], ["content_id", "dbae9ee3-b1da-4fda-8dd6-8f2c568c9b1d"], ["content_id", "aaa6186d-9753-4532-b500-6ab745045231"], ["content_id", "154e05f5-4d77-4d92-89e8-ee0ad1064ac4"], ["content_id", "576ef8b8-7d03-402a-a849-8da28ca72151"], ["content_id", "446eeab8-addd-4311-91a8-f6b75e5baac3"], ["content_id", "e474d31e-d466-4221-acdd-d8d4833e6043"], ["content_id", "0fd1fd4f-5779-4cf4-ac37-6fe1a91ad15c"], ["content_id", "de8f0cdc-e708-4174-a8f1-e044c229c042"], ["content_id", "03fed764-ad9d-44d3-8171-97a6c0d5dbdf"], ["content_id", "12fa02e2-c116-4132-bbfa-8091f59b9097"], ["content_id", "2b38dec6-b182-4eeb-a4b3-166496e81140"], ["content_id", "348ccb01-7495-487a-b904-a42feb197d14"], ["content_id", "adfcaccf-e513-4d9a-b1e6-dc96c54d8531"], ["content_id", "bff9c3ab-ffde-49b7-bf9e-0d7b7234fb2b"], ["content_id", "6c3ed6e0-2709-4933-be08-9b7ae1fd3e05"], ["content_id", "dda0d4a8-ffda-4cda-96d3-5e548cb38f23"], ["content_id", "27d599e3-3916-4099-925f-fbe0c5828833"], ["content_id", "da2eb076-15ec-4e1a-b5f4-b5409292a31e"], ["content_id", "8529186b-c0f1-11e4-8223-005056011aef"], ["content_id", "614abfd2-a26b-4df9-af6c-179e0fe1d99d"], ["content_id", "845e5811-c0f1-11e4-8223-005056011aef"], ["content_id", "dcf9f5df-ec5f-49bc-89be-7bedbc43b302"], ["content_id", "846a7351-c0f1-11e4-8223-005056011aef"], ["content_id", "1fb99aad-aceb-4642-a97b-1f6ffa572276"], ["content_id", "846a754c-c0f1-11e4-8223-005056011aef"], ["content_id", "6498faa8-977a-4a51-91d6-01f1df1235ed"], ["content_id", "cfa1946f-f46b-44ec-807c-760489b9ee7b"], ["content_id", "fe8cf398-1a78-41b4-9487-eb2ae72046fa"], ["content_id", "8464d480-c0f1-11e4-8223-005056011aef"], ["content_id", "64998b8f-e4b8-4e8a-9264-ea6f0eb76b5e"], ["content_id", "6cdc189e-191e-4cab-bcc1-350478e77c78"], ["content_id", "1c5c37de-cbda-40ec-a543-d6925eb8965d"], ["content_id", "852e8a1e-c0f1-11e4-8223-005056011aef"], ["content_id", "27f88997-46c1-49e0-b9da-0db1799ac275"], ["content_id", "b0ffa431-3449-4da2-a59b-9096db0aefe0"], ["content_id", "d87851d1-3a1e-42e8-abeb-44cc1c813030"], ["content_id", "84619770-c0f1-11e4-8223-005056011aef"], ["content_id", "a14eb92f-5659-40bf-a9f0-93ab808dcf90"], ["content_id", "845e6e2b-c0f1-11e4-8223-005056011aef"], ["content_id", "e51a616f-a2f5-4f3d-9d9e-dcf0599befd7"], ["content_id", "bce2f4f8-c2e4-4176-b92d-f8df936badb5"], ["content_id", "882ca453-7fd0-4c24-9983-d4083e78c25f"], ["content_id", "8aa1bc04-b6f0-4198-9c05-06c1355a0e9a"], ["content_id", "5810f749-df6e-43f1-901f-1e63b09e1150"], ["content_id", "84754dd5-c0f1-11e4-8223-005056011aef"], ["content_id", "5ad682c5-32a9-499c-b035-22eebdf93f00"], ["content_id", "3a52a5cc-a9b2-40e4-941b-1d17e8509ce6"], ["content_id", "e5196a5e-15bd-4457-8800-ea5eb51a4235"], ["content_id", "8475629b-c0f1-11e4-8223-005056011aef"], ["content_id", "cd159d1f-b823-4b9c-905f-373ae90fa2bc"], ["content_id", "ea48f97c-3231-4b3a-a136-785b6d29ed6c"], ["content_id", "14441366-9065-40b5-b094-f4e08c17906f"], ["content_id", "e6ea8f7f-8010-4b31-938b-b0787f4ef3f1"], ["content_id", "5024b993-37a7-40d4-99d6-11d55ec19d2e"], ["content_id", "591f654a-c8b3-46e2-8a30-e12874c74a7b"], ["content_id", "87ed9d1d-e6e0-4ac2-9618-a9fe97eaad89"], ["content_id", "d114f9ee-8721-46d2-8cda-06af93ac0be5"], ["content_id", "852926ea-c0f1-11e4-8223-005056011aef"], ["content_id", "38c5c824-b1de-4735-94d8-79527514bac9"], ["content_id", "845e6a56-c0f1-11e4-8223-005056011aef"], ["content_id", "0b0c618d-b885-41b0-9aaa-5c38c85155dc"], ["content_id", "845e64ec-c0f1-11e4-8223-005056011aef"], ["content_id", "beb8f0e3-fabf-4472-b69f-7d5665e91012"], ["content_id", "c5c4d405-4dff-42f9-9c07-7559931f63a7"], ["content_id", "5a7e469f-f155-47c6-9948-330037d94000"], ["content_id", "07a4da7f-399b-485c-8a00-275be43b8460"], ["content_id", "b81b821b-e382-4b9b-8606-3b7f64d2d402"], ["content_id", "4204b42d-cd44-4a69-b62c-fd17a6df50ac"], ["content_id", "c0cf28f6-1fd2-4831-8bf4-744db757fc47"], ["content_id", "da6679e2-baf1-4039-9563-07029dfbd176"], ["content_id", "4c03778c-7803-465f-bf28-33b18dd7a204"], ["content_id", "97e92228-6984-4566-b3f6-c32fa2249f1c"], ["content_id", "a2d4167a-30cf-4a77-ba04-93a5937dcb90"], ["content_id", "845e6f03-c0f1-11e4-8223-005056011aef"], ["content_id", "120f6e40-7f45-4aca-b63c-dc2d2531c8b4"], ["content_id", "59a763b6-dc78-4b43-b2cc-44b80aeb5389"], ["content_id", "93390b1b-88c1-4952-b3a7-7fe87934e61f"], ["content_id", "b6ce1230-883c-4369-bfc8-48db0908c788"], ["content_id", "7693098d-b75d-42be-a843-b56f3802a16e"], ["content_id", "dd5121d4-2c01-4114-b685-dd35cb7545b8"], ["content_id", "4e00da26-fde8-440b-8210-876606f7711c"], ["content_id", "2dc8314c-67ef-4fab-913d-1305a0024e56"], ["content_id", "0a583883-3bd7-4ae0-9173-3f003276ed6d"], ["content_id", "f58a0db9-4c7f-45f3-85ec-e6128cf4bcde"], ["content_id", "a2250bc8-a39a-4329-afc3-6d614a281078"], ["content_id", "08895a02-d72f-4723-9f8a-4c0703c157d3"], ["content_id", "30371bc0-0c68-4146-b5a1-2ba89b15516c"], ["content_id", "bac5dde6-ef1e-4873-91d4-4c3a8c56d133"], ["content_id", "845e6453-c0f1-11e4-8223-005056011aef"], ["content_id", "a32ab1a9-fa86-4459-8814-6cedd81c3132"], ["content_id", "e9fe869f-f445-467f-8df9-8c7693b3e827"], ["content_id", "de88d8f2-4d56-425c-92ae-29dbac75e9a0"], ["content_id", "d73f1c73-8589-47ca-bdb2-2e6e4cafd8a4"], ["content_id", "da9f167c-82d5-4e5f-aa66-9666aa672661"], ["content_id", "a858ad94-c9e8-4ca9-89cc-5e90d57f0dd2"], ["content_id", "a05d5a56-9e6f-431d-a58c-bec639eaf564"], ["content_id", "e386aa1a-4c37-4b2c-937c-840ae8d7a712"], ["content_id", "d6693d07-dda2-43d8-acc7-1649de9e2885"], ["content_id", "034100cd-be30-49ca-bb13-e1be3deba7be"], ["content_id", "477c4089-db3a-4de0-934d-148025ff4659"], ["content_id", "c75883f9-56eb-45cd-94e1-798e87f255f5"], ["content_id", "ad56095f-ca75-41d6-ae5c-3178714e36e5"], ["content_id", "1922cc4e-e59e-4c79-85c7-353b5a3b1914"], ["content_id", "b741fbe5-2966-4f1f-8b46-15f575526d7b"], ["content_id", "fa1cbab4-c1d8-458a-9d4b-378e537dde8f"], ["content_id", "78c96d73-058b-4fdb-830a-9149c1281734"], ["content_id", "dbf9bc96-7fac-43f4-b206-4352807f38dd"], ["content_id", "442d2f05-c413-4628-b454-7341006615be"], ["content_id", "ed76f1cd-e4d7-4624-9373-37d49f814dd8"], ["content_id", "71aea4ab-2717-4961-8317-ebc9e0fe6b5a"], ["content_id", "c6f86461-c204-40b6-983b-23cf5690ac60"], ["content_id", "87657ac9-b409-4d8d-9536-d2eba818a147"], ["content_id", "f9d6c4e0-0105-43a1-8d2b-cccc2f1e8975"], ["content_id", "9c5e562b-c57b-4471-85e5-397cc48b86ce"], ["content_id", "277469ce-09ac-4641-ad6d-740a6f0a0218"], ["content_id", "77edffe8-bfdd-42c0-9c7a-fefff4217304"], ["content_id", "ae581cf1-89b0-4e8e-a778-c08d7c09715b"], ["content_id", "68dbc354-8cbf-46ea-b2fe-8cf61a525d44"], ["content_id", "3e74790e-e303-4e3f-9ca4-526c28a4cca0"], ["content_id", "e4a2c949-c942-4061-8bae-de169758aef6"], ["content_id", "492bd36c-1e95-48b4-9194-e00ca374cb23"], ["content_id", "8932d097-9f68-4de7-8a03-4b9e8678dfd8"], ["content_id", "852932ea-c0f1-11e4-8223-005056011aef"], ["content_id", "3a4c91c7-9935-4119-9183-40fc4e641f5c"], ["content_id", "a9f86cb3-3c75-4264-a3c9-95e009b96723"], ["content_id", "7f95e063-2deb-4501-96a2-efeeb30eb9cc"], ["content_id", "845e7734-c0f1-11e4-8223-005056011aef"], ["content_id", "310586e8-6ef3-4ed7-9bfd-a7d230aa5dcc"], ["content_id", "cd7fccc3-e95d-4666-9fde-781d4fe069a8"], ["content_id", "13b39b15-fdc7-4c1e-9be3-9b4e5e56836c"], ["content_id", "5131e88d-b89a-4202-8a67-61aa528937fe"], ["content_id", "3e73e6ce-0e03-493e-abf1-b5e3af8a0fb7"], ["content_id", "d2e4396c-b991-433c-8040-fa258f7ed693"], ["content_id", "728b8666-98d1-4e43-aa11-5aa9492af8a5"], ["content_id", "3586a6b1-7a7c-4a25-a6c2-a20b42ace14a"], ["content_id", "846172aa-c0f1-11e4-8223-005056011aef"], ["content_id", "8461b10a-c0f1-11e4-8223-005056011aef"], ["content_id", "84617a33-c0f1-11e4-8223-005056011aef"], ["content_id", "846172fb-c0f1-11e4-8223-005056011aef"], ["content_id", "933b23bc-a3bf-40f1-bc92-bab88e067abc"], ["content_id", "917fd5d1-e241-4e43-a981-5afdb8d61893"], ["content_id", "9aea837a-7227-49f7-abc1-82a0538d207e"], ["content_id", "8467d97a-c0f1-11e4-8223-005056011aef"], ["content_id", "8467dc76-c0f1-11e4-8223-005056011aef"], ["content_id", "8467d9c8-c0f1-11e4-8223-005056011aef"], ["content_id", "8467ae0c-c0f1-11e4-8223-005056011aef"], ["content_id", "d83d3822-be6a-486d-9a8e-5128fee7bee2"], ["content_id", "8464c77d-c0f1-11e4-8223-005056011aef"], ["content_id", "610752fe-9df5-4751-936f-bb79affb00fe"], ["content_id", "8464c93a-c0f1-11e4-8223-005056011aef"], ["content_id", "8467af06-c0f1-11e4-8223-005056011aef"], ["content_id", "8467b004-c0f1-11e4-8223-005056011aef"], ["content_id", "847816b4-c0f1-11e4-8223-005056011aef"], ["content_id", "847837a5-c0f1-11e4-8223-005056011aef"], ["content_id", "8467aeb1-c0f1-11e4-8223-005056011aef"], ["content_id", "8467ae5f-c0f1-11e4-8223-005056011aef"], ["content_id", "c024edfd-8ca4-48e7-9d41-66e443cac96f"], ["content_id", "846a98f4-c0f1-11e4-8223-005056011aef"], ["content_id", "8464c382-c0f1-11e4-8223-005056011aef"], ["content_id", "8467ac6a-c0f1-11e4-8223-005056011aef"], ["content_id", "7595e9c6-dd5a-4316-824c-ab755d0f7904"], ["content_id", "8467abc1-c0f1-11e4-8223-005056011aef"], ["content_id", "8467e5fe-c0f1-11e4-8223-005056011aef"], ["content_id", "8467b14a-c0f1-11e4-8223-005056011aef"], ["content_id", "8467ab6b-c0f1-11e4-8223-005056011aef"], ["content_id", "8467ab13-c0f1-11e4-8223-005056011aef"], ["content_id", "8467aa66-c0f1-11e4-8223-005056011aef"], ["content_id", "8467a7c4-c0f1-11e4-8223-005056011aef"], ["content_id", "8467cf86-c0f1-11e4-8223-005056011aef"], ["content_id", "8467a909-c0f1-11e4-8223-005056011aef"], ["content_id", "8464c68b-c0f1-11e4-8223-005056011aef"], ["content_id", "7e4d4208-81c9-4dd8-90b3-cf04afa72deb"], ["content_id", "8464e923-c0f1-11e4-8223-005056011aef"], ["content_id", "be246e9c-b6aa-49a6-aa50-af452d9b75af"], ["content_id", "846daa9e-c0f1-11e4-8223-005056011aef"], ["content_id", "daa05212-8a59-4ff3-906d-c357af1f3262"], ["content_id", "94309e8b-57a2-4e5b-b35d-ae55dbf34aca"], ["content_id", "8467a9ad-c0f1-11e4-8223-005056011aef"], ["content_id", "846a4c60-c0f1-11e4-8223-005056011aef"], ["content_id", "8464f470-c0f1-11e4-8223-005056011aef"], ["content_id", "8464f362-c0f1-11e4-8223-005056011aef"], ["content_id", "ab08f095-548e-4426-b05d-b021cab81cf9"], ["content_id", "846db4d7-c0f1-11e4-8223-005056011aef"], ["content_id", "d1eae95a-7bde-4f65-9b86-7e9cd6927cd1"], ["content_id", "8464ef91-c0f1-11e4-8223-005056011aef"], ["content_id", "c939af24-671f-4e6f-aa9f-a182aa6ef557"], ["content_id", "8472ca4c-c0f1-11e4-8223-005056011aef"], ["content_id", "59a41a29-ff89-4681-90d2-6e441e89fec1"], ["content_id", "8461d619-c0f1-11e4-8223-005056011aef"], ["content_id", "8461d599-c0f1-11e4-8223-005056011aef"], ["content_id", "8464ee39-c0f1-11e4-8223-005056011aef"], ["content_id", "28824df7-cd86-4602-a2e5-8b1989983345"], ["content_id", "8467d91c-c0f1-11e4-8223-005056011aef"], ["content_id", "afec06ae-2a6c-4bd7-adf7-cf7dbb1fce2e"], ["content_id", "8464e2a4-c0f1-11e4-8223-005056011aef"], ["content_id", "8464e853-c0f1-11e4-8223-005056011aef"], ["content_id", "967933ce-385e-4af6-abd8-029f8f88f0ef"], ["content_id", "8464f0d1-c0f1-11e4-8223-005056011aef"], ["content_id", "1dd30ef9-699f-42bc-a835-04633ed81abe"], ["content_id", "8461c054-c0f1-11e4-8223-005056011aef"], ["content_id", "8467ca06-c0f1-11e4-8223-005056011aef"], ["content_id", "5f0f1bcf-da46-4663-ba66-c6f2e27da651"], ["content_id", "8464a96f-c0f1-11e4-8223-005056011aef"], ["content_id", "8461c858-c0f1-11e4-8223-005056011aef"], ["content_id", "8467af5c-c0f1-11e4-8223-005056011aef"], ["content_id", "8464d3d9-c0f1-11e4-8223-005056011aef"], ["content_id", "ed239d39-cb36-4aa7-95fa-a32377591add"], ["content_id", "846da754-c0f1-11e4-8223-005056011aef"], ["content_id", "8467bb0e-c0f1-11e4-8223-005056011aef"], ["content_id", "846db8c4-c0f1-11e4-8223-005056011aef"], ["content_id", "8464afab-c0f1-11e4-8223-005056011aef"], ["content_id", "0d0a746c-fe68-4524-96dc-a3c09eed1efb"], ["content_id", "846a6c7c-c0f1-11e4-8223-005056011aef"], ["content_id", "846a6c2a-c0f1-11e4-8223-005056011aef"], ["content_id", "846a6bd5-c0f1-11e4-8223-005056011aef"], ["content_id", "8464affd-c0f1-11e4-8223-005056011aef"], ["content_id", "8467e180-c0f1-11e4-8223-005056011aef"], ["content_id", "8467e07b-c0f1-11e4-8223-005056011aef"], ["content_id", "d97e6a5c-c1ab-437d-8134-98e3b64f3685"], ["content_id", "8467e00a-c0f1-11e4-8223-005056011aef"], ["content_id", "8467e4f5-c0f1-11e4-8223-005056011aef"], ["content_id", "8467a5f6-c0f1-11e4-8223-005056011aef"], ["content_id", "846dcb09-c0f1-11e4-8223-005056011aef"], ["content_id", "9066fb8d-4a60-442b-8b3f-6f6c10936714"], ["content_id", "7b78ef67-a01e-44a7-813d-fa8864ed5038"], ["content_id", "e4d2b990-41f6-488f-b24e-ba38a03b2d63"], ["content_id", "8467becc-c0f1-11e4-8223-005056011aef"], ["content_id", "8461c0fc-c0f1-11e4-8223-005056011aef"], ["content_id", "8467aabd-c0f1-11e4-8223-005056011aef"], ["content_id", "0ab9689b-3961-4a16-8c88-dc930740710c"], ["content_id", "847811fe-c0f1-11e4-8223-005056011aef"], ["content_id", "8464ab7b-c0f1-11e4-8223-005056011aef"], ["content_id", "8464ab22-c0f1-11e4-8223-005056011aef"], ["content_id", "d9b31b58-0d2c-4d1a-8180-757b13c20f53"], ["content_id", "8464cde9-c0f1-11e4-8223-005056011aef"], ["content_id", "84783bd3-c0f1-11e4-8223-005056011aef"], ["content_id", "3280f064-0e8e-4b6f-93a9-eb2c3950d9e0"], ["content_id", "8467b19c-c0f1-11e4-8223-005056011aef"], ["content_id", "8467b1ee-c0f1-11e4-8223-005056011aef"], ["content_id", "8467b240-c0f1-11e4-8223-005056011aef"], ["content_id", "8467b2e3-c0f1-11e4-8223-005056011aef"], ["content_id", "8467b68d-c0f1-11e4-8223-005056011aef"], ["content_id", "8467b334-c0f1-11e4-8223-005056011aef"], ["content_id", "912fecf0-9409-469b-bc34-18fd60557112"], ["content_id", "5f80d06b-df5d-4dc4-880b-29c173b45391"], ["content_id", "875fd6b2-8574-4053-999c-ada182f1ff14"], ["content_id", "ca9b68a4-21a3-43f9-a526-e55d20a95490"], ["content_id", "8467b563-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b8f2-c0f1-11e4-8223-005056011aef"], ["content_id", "846a45d9-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b2cd-c0f1-11e4-8223-005056011aef"], ["content_id", "8467b4e6-c0f1-11e4-8223-005056011aef"], ["content_id", "8467b3d8-c0f1-11e4-8223-005056011aef"], ["content_id", "ae25dc64-0707-4391-a50a-3d02f7d76239"], ["content_id", "4665bbc3-46dc-49f4-8c83-6403eb371173"], ["content_id", "8467b055-c0f1-11e4-8223-005056011aef"], ["content_id", "8467a846-c0f1-11e4-8223-005056011aef"], ["content_id", "37f60c35-6810-4d32-8ef6-8394ac25bf94"], ["content_id", "8464b89d-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b37d-c0f1-11e4-8223-005056011aef"], ["content_id", "5d55f633-178d-4d9c-b4c3-df48d281e78c"], ["content_id", "8467cab1-c0f1-11e4-8223-005056011aef"], ["content_id", "8464ca7a-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b0a5-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b056-c0f1-11e4-8223-005056011aef"], ["content_id", "8464accc-c0f1-11e4-8223-005056011aef"], ["content_id", "8464ac78-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b19b-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b14b-c0f1-11e4-8223-005056011aef"], ["content_id", "21338081-5159-4211-8500-260dc0756ddc"], ["content_id", "8461d0c6-c0f1-11e4-8223-005056011aef"], ["content_id", "8461ce07-c0f1-11e4-8223-005056011aef"], ["content_id", "846a53bd-c0f1-11e4-8223-005056011aef"], ["content_id", "0bc85f5b-6b24-4339-be80-e834f3a12460"], ["content_id", "846a59ef-c0f1-11e4-8223-005056011aef"], ["content_id", "8467b28f-c0f1-11e4-8223-005056011aef"], ["content_id", "367c45cc-09ee-41d0-9b56-04dcce56e157"], ["content_id", "8464c00f-c0f1-11e4-8223-005056011aef"], ["content_id", "8464d6bb-c0f1-11e4-8223-005056011aef"], ["content_id", "8470691c-c0f1-11e4-8223-005056011aef"], ["content_id", "750f8ce0-9d61-4d3f-914a-cb6cbd6341a1"], ["content_id", "846da17b-c0f1-11e4-8223-005056011aef"], ["content_id", "846a4b63-c0f1-11e4-8223-005056011aef"], ["content_id", "f30cfecb-ca92-4788-a172-3794d6652392"], ["content_id", "846a4fa9-c0f1-11e4-8223-005056011aef"], ["content_id", "8475631f-c0f1-11e4-8223-005056011aef"], ["content_id", "846a4f03-c0f1-11e4-8223-005056011aef"], ["content_id", "846a6082-c0f1-11e4-8223-005056011aef"], ["content_id", "846a4f56-c0f1-11e4-8223-005056011aef"], ["content_id", "8467f277-c0f1-11e4-8223-005056011aef"], ["content_id", "91a5d34d-def9-430b-9e44-8dc8bcd37b51"], ["content_id", "8477aefa-c0f1-11e4-8223-005056011aef"], ["content_id", "846dbaad-c0f1-11e4-8223-005056011aef"], ["content_id", "8461d24d-c0f1-11e4-8223-005056011aef"], ["content_id", "8464df1d-c0f1-11e4-8223-005056011aef"], ["content_id", "846a4a6a-c0f1-11e4-8223-005056011aef"], ["content_id", "8467dcce-c0f1-11e4-8223-005056011aef"], ["content_id", "8464d4d0-c0f1-11e4-8223-005056011aef"], ["content_id", "8464f958-c0f1-11e4-8223-005056011aef"], ["content_id", "8464cd99-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b6cb-c0f1-11e4-8223-005056011aef"], ["content_id", "8461d8fa-c0f1-11e4-8223-005056011aef"], ["content_id", "8aa7a3d1-4eaa-4a2d-a7bf-9846d940fa9b"], ["content_id", "846a4e0c-c0f1-11e4-8223-005056011aef"], ["content_id", "8464cac9-c0f1-11e4-8223-005056011aef"], ["content_id", "f4e33849-68e0-4491-95ed-a00e1fd23f56"], ["content_id", "8464e1eb-c0f1-11e4-8223-005056011aef"], ["content_id", "84650340-c0f1-11e4-8223-005056011aef"], ["content_id", "8467be2a-c0f1-11e4-8223-005056011aef"], ["content_id", "8461ce51-c0f1-11e4-8223-005056011aef"], ["content_id", "8464dfe0-c0f1-11e4-8223-005056011aef"], ["content_id", "8464ce89-c0f1-11e4-8223-005056011aef"], ["content_id", "846a4cb7-c0f1-11e4-8223-005056011aef"], ["content_id", "84650a64-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b773-c0f1-11e4-8223-005056011aef"], ["content_id", "263ec4f4-6f01-4384-a4cb-96d3e09c77e1"], ["content_id", "8464de61-c0f1-11e4-8223-005056011aef"], ["content_id", "8464cf2a-c0f1-11e4-8223-005056011aef"], ["content_id", "8464cbba-c0f1-11e4-8223-005056011aef"], ["content_id", "8464f648-c0f1-11e4-8223-005056011aef"], ["content_id", "8464bec8-c0f1-11e4-8223-005056011aef"], ["content_id", "8467bc8b-c0f1-11e4-8223-005056011aef"], ["content_id", "8464d5c0-c0f1-11e4-8223-005056011aef"], ["content_id", "962c16cf-0c3c-4beb-88b9-31f6cee57793"], ["content_id", "8464ccfe-c0f1-11e4-8223-005056011aef"], ["content_id", "b9e4605a-5cd8-4691-90a3-521cefe20f52"], ["content_id", "8464e246-c0f1-11e4-8223-005056011aef"], ["content_id", "86844ace-b8a4-41ec-b494-58fa66b0ceb1"], ["content_id", "846a4db4-c0f1-11e4-8223-005056011aef"], ["content_id", "8464d42a-c0f1-11e4-8223-005056011aef"], ["content_id", "8464d25c-c0f1-11e4-8223-005056011aef"], ["content_id", "c62dfcef-8944-4f87-991b-45f830d3c5a1"], ["content_id", "bf6faa9c-9f26-4b71-8d65-fb7ec03d16b0"], ["content_id", "5e573d45-76f7-4ae2-ab91-acde84c369a3"], ["content_id", "b1afe5f1-0939-4aff-971b-c5924c9e9a25"], ["content_id", "cab7e733-dbb9-40af-87b7-9b477d7bcb3d"], ["content_id", "8464b7f5-c0f1-11e4-8223-005056011aef"], ["content_id", "3dedae95-6ee7-43bd-8a43-99428469b5ff"], ["content_id", "8464d1b9-c0f1-11e4-8223-005056011aef"], ["content_id", "73106c32-1a35-4ec2-b641-dc8d480a3e73"], ["content_id", "a23926ba-2743-4981-beba-1a111bb37a9e"], ["content_id", "8464c86b-c0f1-11e4-8223-005056011aef"], ["content_id", "770226b3-7418-4aba-9dc2-1611a26034a6"], ["content_id", "8461e2eb-c0f1-11e4-8223-005056011aef"], ["content_id", "846a7762-c0f1-11e4-8223-005056011aef"], ["content_id", "4b5fcce2-29b4-4537-b40d-fca0559b006f"], ["content_id", "db324085-f944-47b1-a3c2-064550c43b75"], ["content_id", "84783463-c0f1-11e4-8223-005056011aef"], ["content_id", "846a4a16-c0f1-11e4-8223-005056011aef"], ["content_id", "f94d27df-63b0-4345-a3f6-16281eada760"], ["content_id", "3e359546-aaff-48c6-b7f1-41a3bca19a2c"], ["content_id", "8472d3e8-c0f1-11e4-8223-005056011aef"], ["content_id", "64a5b622-eec3-43ba-be2f-536009a4e5b4"], ["content_id", "a329bbd2-a93b-4bbf-ab8d-1cbbc016acab"], ["content_id", "8464bc8d-c0f1-11e4-8223-005056011aef"], ["content_id", "8461c1ab-c0f1-11e4-8223-005056011aef"], ["content_id", "846a559e-c0f1-11e4-8223-005056011aef"], ["content_id", "8467ce6c-c0f1-11e4-8223-005056011aef"], ["content_id", "8467ac14-c0f1-11e4-8223-005056011aef"], ["content_id", "8467acbb-c0f1-11e4-8223-005056011aef"], ["content_id", "8467b798-c0f1-11e4-8223-005056011aef"], ["content_id", "8464dd93-c0f1-11e4-8223-005056011aef"], ["content_id", "d315101b-0fe8-470c-a3ef-7fcaff714514"], ["content_id", "8467d7f0-c0f1-11e4-8223-005056011aef"], ["content_id", "8464adbf-c0f1-11e4-8223-005056011aef"], ["content_id", "8467bc0d-c0f1-11e4-8223-005056011aef"], ["content_id", "4bea26e1-c4f3-4c23-8ed1-8a7d22183ef5"], ["content_id", "946b909c-75ac-4136-9250-32fc48de1070"], ["content_id", "8477fe8a-c0f1-11e4-8223-005056011aef"], ["content_id", "3ca2794b-9db0-45a7-b57b-41b07508dc33"], ["content_id", "34c6bc6b-ea5c-4ce3-87b1-37e4982c08f7"], ["content_id", "15f6c16a-bd19-4364-a759-839da76d67f0"], ["content_id", "a95d3aa6-d8a6-4bea-bd6f-b9c8d27b6c57"], ["content_id", "8461ddb3-c0f1-11e4-8223-005056011aef"], ["content_id", "caa2fe49-1383-4d43-ac6e-5582b71dd065"], ["content_id", "846a770f-c0f1-11e4-8223-005056011aef"], ["content_id", "8467aa0e-c0f1-11e4-8223-005056011aef"], ["content_id", "8467dd1e-c0f1-11e4-8223-005056011aef"], ["content_id", "846506f7-c0f1-11e4-8223-005056011aef"], ["content_id", "8467ad10-c0f1-11e4-8223-005056011aef"], ["content_id", "8464cc5d-c0f1-11e4-8223-005056011aef"], ["content_id", "84752dce-c0f1-11e4-8223-005056011aef"], ["content_id", "8464ac25-c0f1-11e4-8223-005056011aef"], ["content_id", "8464aabe-c0f1-11e4-8223-005056011aef"], ["content_id", "2959bfd2-6486-4c29-90c7-65cc3fed0a99"], ["content_id", "c0c9b095-83ff-4de7-ae4f-302a25442ee8"], ["content_id", "5cce8236-5314-4322-9e5c-947a7504ea58"], ["content_id", "846ddc44-c0f1-11e4-8223-005056011aef"], ["content_id", "29235654-a96e-431a-b5d1-e01f66d3d71a"], ["content_id", "9c9d8bd6-e03a-4b7e-bfee-e5ea47362c67"], ["content_id", "31088206-2581-463d-9978-361574504ada"], ["content_id", "72b2779b-c6b6-424a-9601-b98d084e744d"], ["content_id", "08b3ca26-3617-440d-b046-6c145bc34510"], ["content_id", "66210cb6-a877-4696-b175-05f434a6fc94"], ["content_id", "64ecec19-212e-4eb7-b56f-ac9bd58e0940"], ["content_id", "e4ef7aac-cd69-4d2c-835c-199ad9b30eed"], ["content_id", "84706ef4-c0f1-11e4-8223-005056011aef"], ["content_id", "c4d9ed6c-1aa4-4d09-8173-6b83f9224b21"], ["content_id", "c8909fc5-9bde-4ea7-9bc8-a455956a1da6"], ["content_id", "3840fcf6-f256-4270-8265-07dc23af0119"], ["content_id", "ec8a8ab8-512f-4221-83af-b2088fac359d"], ["content_id", "87f4b816-68c0-4e7b-9dd3-0e5d866e41b5"], ["content_id", "8464cb6a-c0f1-11e4-8223-005056011aef"], ["content_id", "5c293d73-ff72-4294-976f-0f3075ef0cf1"], ["content_id", "4cd2bd77-a177-4d37-aba2-93fd8b52dd4c"], ["content_id", "8464f8cd-c0f1-11e4-8223-005056011aef"], ["content_id", "a2d8b860-06b9-4776-8147-bbbd2b1086c3"], ["content_id", "7fdfe963-8c6f-42b6-bb40-b22bc80fcd1b"], ["content_id", "8464d521-c0f1-11e4-8223-005056011aef"], ["content_id", "846dbe28-c0f1-11e4-8223-005056011aef"], ["content_id", "8464e3ed-c0f1-11e4-8223-005056011aef"], ["content_id", "b361c300-8624-43ca-bff3-405113f43be9"], ["content_id", "8c8eab36-d8df-492d-bd0c-cbac64145cf8"], ["content_id", "846a4480-c0f1-11e4-8223-005056011aef"], ["content_id", "cf61ccd2-7018-4219-818f-482d7b6609d8"], ["content_id", "8464d75a-c0f1-11e4-8223-005056011aef"], ["content_id", "8464d7aa-c0f1-11e4-8223-005056011aef"], ["content_id", "8461c9d1-c0f1-11e4-8223-005056011aef"], ["content_id", "8464e191-c0f1-11e4-8223-005056011aef"], ["content_id", "8467c911-c0f1-11e4-8223-005056011aef"], ["content_id", "97dc4bdf-e917-4efb-9b0b-02a991197f7e"], ["content_id", "8467c7ca-c0f1-11e4-8223-005056011aef"], ["content_id", "8467c962-c0f1-11e4-8223-005056011aef"], ["content_id", "40cbb4da-c488-4f21-a5d4-a3c83f2ba3b7"], ["content_id", "8464db4a-c0f1-11e4-8223-005056011aef"], ["content_id", "8464e09b-c0f1-11e4-8223-005056011aef"], ["content_id", "8464e440-c0f1-11e4-8223-005056011aef"], ["content_id", "8464d2bc-c0f1-11e4-8223-005056011aef"], ["content_id", "8464d107-c0f1-11e4-8223-005056011aef"], ["content_id", "846a6e14-c0f1-11e4-8223-005056011aef"], ["content_id", "23dab9a8-ab68-4a52-adfe-20e604c4a57e"], ["content_id", "7e02fdea-f204-4c4a-80bd-26791590412d"], ["content_id", "8464d377-c0f1-11e4-8223-005056011aef"], ["content_id", "8464d310-c0f1-11e4-8223-005056011aef"], ["content_id", "846da6a8-c0f1-11e4-8223-005056011aef"], ["content_id", "8464cfca-c0f1-11e4-8223-005056011aef"], ["content_id", "8464c9db-c0f1-11e4-8223-005056011aef"], ["content_id", "8464d571-c0f1-11e4-8223-005056011aef"], ["content_id", "846a514b-c0f1-11e4-8223-005056011aef"], ["content_id", "ae4d2dce-9176-4838-b79b-acb122445e82"], ["content_id", "9340bb00-ac4b-47c0-bfb7-efb2a590cde2"], ["content_id", "7af2ddc7-99b4-4bfb-8dc2-2d6f4b9b6927"], ["content_id", "8464bc2a-c0f1-11e4-8223-005056011aef"], ["content_id", "5d374ee2-6c46-4ab8-b6ad-7dc4c260ff2f"], ["content_id", "e0c631da-2f3b-407d-bce8-3bef2d6d97c3"], ["content_id", "965c5e45-662e-4147-a3e9-fea00a663593"], ["content_id", "8464c98c-c0f1-11e4-8223-005056011aef"], ["content_id", "8467c03c-c0f1-11e4-8223-005056011aef"], ["content_id", "8464cd4e-c0f1-11e4-8223-005056011aef"], ["content_id", "8464bae7-c0f1-11e4-8223-005056011aef"], ["content_id", "8464cb1c-c0f1-11e4-8223-005056011aef"], ["content_id", "aa10c133-087c-4402-a186-4c4c9880fe43"], ["content_id", "8464d01d-c0f1-11e4-8223-005056011aef"], ["content_id", "8464bb9b-c0f1-11e4-8223-005056011aef"], ["content_id", "3b4fd89f-6629-4b3e-9d9b-6bcfe29a54c5"], ["content_id", "8464cc0d-c0f1-11e4-8223-005056011aef"], ["content_id", "bd7e8e9e-c8e4-4abb-915c-926a3d176c3a"], ["content_id", "b5f9b5f8-9341-4a95-bb5b-12b683569bc5"], ["content_id", "8e7a0896-7053-40b6-bd13-6db0f5a6643c"], ["content_id", "846de14d-c0f1-11e4-8223-005056011aef"], ["content_id", "981dfe12-f23d-4137-96e2-45c94cceba9b"], ["content_id", "3b3c1612-5f2a-4081-ae63-8534268332bc"], ["content_id", "25459d9a-2eca-43da-ad8d-cb99c3811d07"], ["content_id", "846a801d-c0f1-11e4-8223-005056011aef"], ["content_id", "8464ce36-c0f1-11e4-8223-005056011aef"], ["content_id", "8464d70d-c0f1-11e4-8223-005056011aef"], ["content_id", "8464dad4-c0f1-11e4-8223-005056011aef"], ["content_id", "95b34c7b-da60-42e0-8f14-4440e59d9b1b"], ["content_id", "c3675b1a-ddcc-4eb3-9ea6-530e106ab6f2"], ["content_id", "8464ca28-c0f1-11e4-8223-005056011aef"], ["content_id", "8464d618-c0f1-11e4-8223-005056011aef"], ["content_id", "8464c706-c0f1-11e4-8223-005056011aef"], ["content_id", "75e59c6c-2778-4d3c-840b-bae3fc16f9f1"], ["content_id", "593fc2bd-d214-4fd7-8449-9df3e3fc0758"], ["content_id", "9fb1299f-69c8-4bf2-a5ca-4ac9911ba608"], ["content_id", "846a4d0b-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b533-c0f1-11e4-8223-005056011aef"], ["content_id", "8464af5a-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b5a7-c0f1-11e4-8223-005056011aef"], ["content_id", "8461c0a6-c0f1-11e4-8223-005056011aef"], ["content_id", "8461dbb7-c0f1-11e4-8223-005056011aef"], ["content_id", "8461c38b-c0f1-11e4-8223-005056011aef"], ["content_id", "8461c8b6-c0f1-11e4-8223-005056011aef"], ["content_id", "8461c436-c0f1-11e4-8223-005056011aef"], ["content_id", "8461c15b-c0f1-11e4-8223-005056011aef"], ["content_id", "8461c900-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b211-c0f1-11e4-8223-005056011aef"], ["content_id", "8464ad6d-c0f1-11e4-8223-005056011aef"], ["content_id", "8461dfa8-c0f1-11e4-8223-005056011aef"], ["content_id", "8464abd0-c0f1-11e4-8223-005056011aef"], ["content_id", "8464aa60-c0f1-11e4-8223-005056011aef"], ["content_id", "8464ad1c-c0f1-11e4-8223-005056011aef"], ["content_id", "846db5ea-c0f1-11e4-8223-005056011aef"], ["content_id", "8464bd35-c0f1-11e4-8223-005056011aef"], ["content_id", "8467ad63-c0f1-11e4-8223-005056011aef"], ["content_id", "8467adba-c0f1-11e4-8223-005056011aef"], ["content_id", "8464ae60-c0f1-11e4-8223-005056011aef"], ["content_id", "8464ae10-c0f1-11e4-8223-005056011aef"], ["content_id", "8464aeb8-c0f1-11e4-8223-005056011aef"], ["content_id", "8467bd85-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b64f-c0f1-11e4-8223-005056011aef"], ["content_id", "8464c7f4-c0f1-11e4-8223-005056011aef"], ["content_id", "8467d07b-c0f1-11e4-8223-005056011aef"], ["content_id", "d0dff9fa-4ae3-4bfc-ac1e-15cdb04e9795"], ["content_id", "8461d811-c0f1-11e4-8223-005056011aef"], ["content_id", "87c20bbb-6da3-4ee1-bbdf-ea143881760d"], ["content_id", "8461c002-c0f1-11e4-8223-005056011aef"], ["content_id", "8461d2d9-c0f1-11e4-8223-005056011aef"], ["content_id", "8467c08c-c0f1-11e4-8223-005056011aef"], ["content_id", "f72fc2f3-4e0c-4189-ae0e-82e445be2dbf"], ["content_id", "8467b715-c0f1-11e4-8223-005056011aef"], ["content_id", "8464c099-c0f1-11e4-8223-005056011aef"], ["content_id", "8464b84d-c0f1-11e4-8223-005056011aef"], ["content_id", "8467d3c2-c0f1-11e4-8223-005056011aef"], ["content_id", "8467f479-c0f1-11e4-8223-005056011aef"], ["content_id", "8467bb8c-c0f1-11e4-8223-005056011aef"], ["content_id", "8467e6ec-c0f1-11e4-8223-005056011aef"], ["content_id", "8467dd6c-c0f1-11e4-8223-005056011aef"], ["content_id", "8467c0e1-c0f1-11e4-8223-005056011aef"], ["content_id", "8464af07-c0f1-11e4-8223-005056011aef"], ["content_id", "8467be7d-c0f1-11e4-8223-005056011aef"], ["content_id", "8464ccaf-c0f1-11e4-8223-005056011aef"], ["content_id", "05c79ddb-ef35-43d2-818a-e7418377c069"], ["content_id", "76e2c546-0d9c-4d66-ab90-66d750691e1c"], ["content_id", "8467c81d-c0f1-11e4-8223-005056011aef"], ["content_id", "8467bce2-c0f1-11e4-8223-005056011aef"], ["content_id", "8467d414-c0f1-11e4-8223-005056011aef"], ["content_id", "8467d84c-c0f1-11e4-8223-005056011aef"], ["content_id", "8464fc7c-c0f1-11e4-8223-005056011aef"], ["content_id", "4b9fc4fb-4df1-451c-a27e-0d7a43f85450"], ["content_id", "26ffc8fa-f17c-4371-b0ad-4b9558cf8275"], ["content_id", "0acb595a-60c9-41eb-a2fb-5f240371d68a"], ["content_id", "846a4e5f-c0f1-11e4-8223-005056011aef"], ["content_id", "8467bdd8-c0f1-11e4-8223-005056011aef"], ["content_id", "8464cf79-c0f1-11e4-8223-005056011aef"], ["content_id", "8467bd34-c0f1-11e4-8223-005056011aef"], ["content_id", "8464fbfc-c0f1-11e4-8223-005056011aef"], ["content_id", "846a4eb1-c0f1-11e4-8223-005056011aef"], ["content_id", "846a5469-c0f1-11e4-8223-005056011aef"], ["content_id", "846a4ffa-c0f1-11e4-8223-005056011aef"], ["content_id", "1769d9ad-50c0-4338-b7fc-0ff746724767"], ["content_id", "9e60e122-7b1c-4355-8b2e-90acaf8fcf02"], ["content_id", "664ad040-39eb-4cc2-abbe-a870230abb26"], ["content_id", "6f01fcc9-c206-4fcd-a37d-37ec0e8d4fe3"], ["content_id", "2216ce63-4ffc-4eff-b078-3d53b726929b"], ["content_id", "6e14f021-419b-464e-a254-08060261a3f9"], ["content_id", "9e07bc88-c928-4bc9-b3c7-4aa9d7b69139"], ["content_id", "6821b999-602e-423d-ad32-c1eb92586458"], ["content_id", "cb1101fb-af05-4542-bba6-9eee805f7831"], ["content_id", "2c079b48-415d-4baf-a3d9-9ada587e5a4f"], ["content_id", "6d5c45a2-fceb-465c-b8b0-0b5f9da28264"], ["content_id", "f9e166c2-76f6-4839-9254-06321a6f0ad2"], ["content_id", "67d860ae-3dd5-40ed-b0af-59b9510e223a"], ["content_id", "67856d45-9e07-45eb-87e2-29e5b5c605ac"], ["content_id", "1bd349eb-12ad-4c0b-a3af-3e692dfd5197"], ["content_id", "a55202bd-28a7-43a5-8cd6-2b908a07a098"], ["content_id", "5e0d1472-1f93-488f-8872-56c086770609"], ["content_id", "3f5b2782-f223-404a-afd4-1959592414ff"], ["content_id", "b38c1cfb-8842-4268-b357-bcb720ba769b"], ["content_id", "642125f6-c562-41f8-8517-74231746bdcc"], ["content_id", "7e32f59a-96f2-409a-9a3a-fe62d9983274"], ["content_id", "134767e4-5022-4b7c-848b-d8c236ddcfa0"], ["content_id", "9534a3ea-3c9f-47d1-9f71-9261bcac95ec"], ["content_id", "abe6793f-885a-46a8-a153-c44c17704c34"], ["content_id", "6b66d01d-780a-4c52-8920-bfa063af9d48"], ["content_id", "af939661-6452-4ab4-8b23-485677fab1e4"], ["content_id", "51b6ee89-7fdc-4c9c-aa6f-308202b3a001"], ["content_id", "bfc4b602-48cd-4a08-bcd8-b4ae3f30a795"], ["content_id", "d91745ae-a4e5-4be4-8baf-c1d4047b6129"], ["content_id", "0cd661bf-88a7-432d-af48-a49499395e0f"], ["content_id", "01e8771a-c44f-42b9-9dda-11db57e1c5ac"], ["content_id", "235de309-ab1c-4f38-9f93-6ff2eecdc61e"], ["content_id", "89f11dda-6080-462a-81d3-05a8225c70e2"], ["content_id", "ceafea42-6ffc-4ac1-b632-2a0e72e13b85"], ["content_id", "a2ca42ce-7349-4959-8bfb-6616726fbfb0"], ["content_id", "d87a4186-8bf0-4fe3-a9d5-add31994ed68"], ["content_id", "d4161c71-7302-4971-9e13-3bdf8b7275f0"], ["content_id", "8464cedb-c0f1-11e4-8223-005056011aef"], ["content_id", "846a551a-c0f1-11e4-8223-005056011aef"], ["content_id", "92f96fbd-d5db-4936-8d15-0a21d11b9be9"], ["content_id", "a28e35f0-390e-40b4-99cc-dafb9dab5eef"], ["content_id", "f6a85004-d0c1-43da-8092-25d71aa1f961"], ["content_id", "77681cde-6696-4863-bcd5-5bc6ffccbf30"], ["content_id", "6041adfb-07c2-4f92-94c6-6511b11bcdb5"], ["content_id", "f6679300-b226-4cbb-9de4-3b9f4378f5e9"], ["content_id", "871a9d80-d9ec-4219-bccb-28afa271bd9e"], ["content_id", "30b2047b-dcab-4648-861c-c4d2cced2756"], ["content_id", "65c8e100-9740-4120-aab7-b2bf144aa711"], ["content_id", "4813db44-640f-4a73-bf93-3d12804de9ab"], ["content_id", "4aa319ac-8c1a-4a2c-9b50-6f920a7b3055"], ["content_id", "98a6d604-37fb-4419-a9ac-d2c51f5c9a37"], ["content_id", "57e14516-dcb2-456f-98d5-89f2d7a11642"], ["content_id", "ee8ff3a4-b0de-4232-9810-d17ae6f08f3e"], ["content_id", "116bf884-68fa-48cc-aab4-a4829f2c7ff1"], ["content_id", "9489cc30-64e6-4c68-bce5-b0ef4c4fdcf6"], ["content_id", "eb257f9d-5ce3-492d-a1ff-c8cfa901a83c"], ["content_id", "7859feeb-d650-4029-82d5-6d9cd1b8006b"], ["content_id", "ac2281ed-bb47-4d78-a0ce-c55301d702e8"], ["content_id", "89278e4b-39b6-4473-a396-b5811ba251c5"], ["content_id", "2c524e12-74db-4c99-adb8-1364b3c26235"], ["content_id", "88e51ddd-bc8a-49ca-bf28-20af4210757b"], ["content_id", "b4548e37-7b5a-48b2-9e6e-47e2fc5c9647"], ["content_id", "984412f7-d106-40de-afdf-922f1799f6c0"], ["content_id", "9589350c-9960-4b43-8f08-23d14e46388f"], ["content_id", "651b3d85-69e1-44f5-b98b-1936fd7c8867"], ["content_id", "1bb2d922-43e9-4069-bf4e-2ba04d5555c8"], ["content_id", "d10f959b-e206-4cf4-b753-8fe42c19b128"], ["content_id", "b75cbca9-8805-4da4-b516-91d5913fd9b1"], ["content_id", "ec5b3559-5974-4a65-b80f-4aadcee04291"], ["content_id", "a326aced-fe1b-42e3-a021-0e42a3e7d4bf"], ["content_id", "37035831-4c55-4e8d-be07-fc4eb52e7ce1"], ["content_id", "58eda11a-7a3e-4398-9644-9aa45cfb15ee"], ["content_id", "46e6ac6d-1ee5-4363-9c08-a72b62f58ce6"], ["content_id", "ec03fef4-8775-4f67-8b8a-b1a9a164a172"], ["content_id", "ac4bbe9e-3571-4b9d-8a60-c00a2ebf37e8"], ["content_id", "f0039ec2-505e-4e95-bd56-b96660683745"], ["content_id", "0949f209-afba-4314-a00c-62b43700875d"], ["content_id", "1978f757-5d6a-44b4-b160-b2615dfd80e1"], ["content_id", "aa2fa21e-dd25-492c-8357-9d221f01fb3f"], ["content_id", "6c2cfb1b-fba1-4f98-8fad-9b2686f2a65a"], ["content_id", "4cb4a7fa-7aa3-4fdb-af3b-dcdd9fd5175d"], ["content_id", "71d5d0fe-847c-418e-bb48-ca8e76b519a4"], ["content_id", "a6b4a015-ef17-4141-a220-43966f77cab5"], ["content_id", "faf6eda7-f9ab-4839-a134-4a33db408ee1"], ["content_id", "4337bb79-4b08-404d-8926-8194b741f652"], ["content_id", "774fdcb6-984d-40b4-8d97-52a0a461bb52"], ["content_id", "a99de3c6-6e1b-4a4d-a983-8f58e5313ba0"], ["content_id", "1261ad96-cfb3-4d70-aaa8-880ab855928b"], ["content_id", "d34ef010-69c2-44a2-be78-1a1220be8614"], ["content_id", "6ddc7e87-618c-42d7-a0dd-b9fad38f2a65"], ["content_id", "8bb9a852-160f-480d-a233-52ce7f75f547"], ["content_id", "c9cf844a-7e9e-4558-bde8-d1cecca836a0"], ["content_id", "83a047d8-3b9c-4a77-9996-3e6277373a31"], ["content_id", "1942cd91-1d8c-431a-bb15-8b8942a93132"], ["content_id", "8bf421b2-cd5b-4153-812f-77b2dd7b0c8f"], ["content_id", "3d827205-9f86-4a4a-adb8-9a841e128665"], ["content_id", "852925f7-c0f1-11e4-8223-005056011aef"], ["content_id", "e1fc9ea4-e5e8-48db-8646-3b07e57737fc"], ["content_id", "84781d66-c0f1-11e4-8223-005056011aef"], ["content_id", "e8d5c5c2-0736-4123-8308-3ee5b8622176"], ["content_id", "845e6403-c0f1-11e4-8223-005056011aef"], ["content_id", "1864bd33-609a-480c-aeaa-e064f2551460"], ["content_id", "84756530-c0f1-11e4-8223-005056011aef"], ["content_id", "ee367b87-987a-4170-a1dc-53ac66f6824c"], ["content_id", "b1f1ed7b-9af5-4fbe-87e6-ceba9a4eeeab"], ["content_id", "605e1ca1-1f42-4136-b320-c0da34d068d4"], ["content_id", "f5db7000-65fd-492e-8376-b6c6ef53afc0"], ["content_id", "58ee6e1f-1420-408b-8538-abf0a59bcf1a"], ["content_id", "87d7851d-4e64-40b7-ad47-7ebe909b643d"], ["content_id", "ecdf1ed2-80c9-44c9-934d-296abbf9a645"], ["content_id", "852c2fb7-c0f1-11e4-8223-005056011aef"], ["content_id", "b23e29f8-e562-47e6-abea-4330062d65b9"], ["content_id", "845e7a99-c0f1-11e4-8223-005056011aef"], ["content_id", "05b5ea22-25a3-4aa7-9daa-2d39fde0a34e"], ["content_id", "846de19c-c0f1-11e4-8223-005056011aef"], ["content_id", "ee4d0329-f9b0-4ba9-b102-914c5a44d5cb"], ["content_id", "84706a0b-c0f1-11e4-8223-005056011aef"], ["content_id", "5d1111ee-58a1-4f2c-af20-a3c8808614c1"], ["content_id", "852e8135-c0f1-11e4-8223-005056011aef"], ["content_id", "eb1205a8-dd53-4303-968c-8e7654542244"], ["content_id", "846195cc-c0f1-11e4-8223-005056011aef"], ["content_id", "77a3a900-d5e9-4689-8d34-7454037f8cf0"], ["content_id", "846153d4-c0f1-11e4-8223-005056011aef"], ["content_id", "040c70eb-7c5d-493f-b4c2-9937be0db5e6"], ["content_id", "846152dd-c0f1-11e4-8223-005056011aef"], ["content_id", "f89f8951-1940-4292-ba33-eedeb7d20b62"], ["content_id", "8529375a-c0f1-11e4-8223-005056011aef"], ["content_id", "46f7ecdb-2219-4009-8a64-ada0dde4b321"], ["content_id", "845e7cd4-c0f1-11e4-8223-005056011aef"], ["content_id", "3280a711-4b65-4e20-a071-3cad42ea08f7"], ["content_id", "8534bf0b-c0f1-11e4-8223-005056011aef"], ["content_id", "fa2bcef2-6d78-4847-a357-6051b899ef51"], ["content_id", "8467c300-c0f1-11e4-8223-005056011aef"], ["content_id", "91c6628e-e1a0-47e1-96eb-e5ff17013484"], ["content_id", "1f2358bb-cb12-4992-8456-160553d7ecc0"], ["content_id", "b9d34ddf-08cc-41e9-80bc-0e13ec67547f"], ["content_id", "53ca0cb5-48a0-4d59-8f04-e96e4043307f"], ["content_id", "dea7197c-0a11-4ee5-8f09-0e2e2c7d45e6"], ["content_id", "852ec050-c0f1-11e4-8223-005056011aef"], ["content_id", "cda9d68d-c63b-498f-994c-f753f4bcfdb4"], ["content_id", "c8f9481d-d4e2-4f3a-a585-2ae93286cb22"], ["content_id", "84706e4d-c0f1-11e4-8223-005056011aef"], ["content_id", "0aedc236-ca29-4769-8d96-8d33a8df7bd8"], ["content_id", "8cda5f0a-1307-4626-acb1-9d0a33e0fb37"], ["content_id", "713674b5-94a7-47c4-935d-e60b3eb13004"], ["content_id", "8464e398-c0f1-11e4-8223-005056011aef"], ["content_id", "1d4ba90a-e240-4c70-a77b-13c2d48efd9d"], ["content_id", "84751b5d-c0f1-11e4-8223-005056011aef"], ["content_id", "6d69d8af-ce10-46fb-94de-4f66a5e78733"], ["content_id", "3a575cf0-57bc-4b78-85c9-7d4051d4f5d5"], ["content_id", "3bba1c6a-1f3a-4c3d-8563-b1347c48cbae"], ["content_id", "4be481d3-5c9c-402e-92a0-c7eb47d411e7"], ["content_id", "781af3d7-e65e-4c81-8335-da908ff22a4e"], ["content_id", "8467c8c0-c0f1-11e4-8223-005056011aef"], ["content_id", "b018a99e-857b-4e1c-97a5-58dbf40efc1f"], ["content_id", "1ee2a4ba-c283-47a8-85d3-160209300a25"], ["content_id", "6800ab94-e501-47e5-a0df-76df85df8d7c"], ["content_id", "e066024f-c505-4493-8c66-56a8c3694718"], ["content_id", "167f9360-d243-488c-b153-28396fbcd281"], ["content_id", "8534df99-c0f1-11e4-8223-005056011aef"], ["content_id", "6cf71a2a-9f30-46b9-a90f-0530c85a2c0c"], ["content_id", "c950a0f0-7017-4428-ae07-7f6cb666f392"], ["locale", "en"], ["document_type", "redirect"], ["document_type", "gone"]]
+
+  Edition Pluck (30.3ms)  SELECT "content_id", "editions"."title", "locale", "editions"."analytics_identifier", "editions"."base_path", "editions"."document_type", "editions"."public_updated_at", "editions"."schema_name", "editions"."details", "editions"."id", "editions"."state", "editions"."phase", "editions"."description", "editions"."auth_bypass_ids", "unpublishings"."type" FROM "editions" LEFT OUTER JOIN unpublishings
+
+ON unpublishings.edition_id = editions.id
+AND editions.state = 'unpublished' INNER JOIN "documents" ON "documents"."id" = "editions"."document_id" WHERE "editions"."id" IN ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $50, $51, $52, $53, $54, $55, $56, $57, $58, $59, $60, $61, $62, $63, $64, $65, $66, $67, $68, $69, $70, $71, $72, $73, $74, $75, $76, $77, $78, $79, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89, $90, $91, $92, $93, $94, $95, $96, $97, $98, $99, $100, $101, $102, $103, $104, $105, $106, $107, $108, $109, $110, $111, $112, $113, $114, $115, $116, $117, $118, $119, $120, $121, $122, $123, $124, $125, $126, $127, $128, $129, $130, $131, $132, $133, $134, $135, $136, $137, $138, $139, $140, $141, $142, $143, $144, $145, $146, $147, $148, $149, $150, $151, $152, $153, $154, $155, $156, $157, $158, $159, $160, $161, $162, $163, $164, $165, $166, $167, $168, $169, $170, $171, $172, $173, $174, $175, $176, $177, $178, $179, $180, $181, $182, $183, $184, $185, $186, $187, $188, $189, $190, $191, $192, $193, $194, $195, $196, $197, $198, $199, $200, $201, $202, $203, $204, $205, $206, $207, $208, $209, $210, $211, $212, $213, $214, $215, $216, $217, $218, $219, $220, $221, $222, $223, $224, $225, $226, $227, $228, $229, $230, $231, $232, $233, $234, $235, $236, $237, $238, $239, $240, $241, $242, $243, $244, $245, $246, $247, $248, $249, $250, $251, $252, $253, $254, $255, $256, $257, $258, $259, $260, $261, $262, $263, $264, $265, $266, $267, $268, $269, $270, $271, $272, $273, $274, $275, $276, $277, $278, $279, $280, $281, $282, $283, $284, $285, $286, $287, $288, $289, $290, $291, $292, $293, $294, $295, $296, $297, $298, $299, $300, $301, $302, $303, $304, $305, $306, $307, $308, $309, $310, $311, $312, $313, $314, $315, $316, $317, $318, $319, $320, $321, $322, $323, $324, $325, $326, $327, $328, $329, $330, $331, $332, $333, $334, $335, $336, $337, $338, $339, $340, $341, $342, $343, $344, $345, $346, $347, $348, $349, $350, $351, $352, $353, $354, $355, $356, $357, $358, $359, $360, $361, $362, $363, $364, $365, $366, $367, $368, $369, $370, $371, $372, $373, $374, $375, $376, $377, $378, $379, $380, $381, $382, $383, $384, $385, $386, $387, $388, $389, $390, $391, $392, $393, $394, $395, $396, $397, $398, $399, $400, $401, $402, $403, $404, $405, $406, $407, $408, $409, $410, $411, $412, $413, $414, $415, $416, $417, $418, $419, $420, $421, $422, $423, $424, $425, $426, $427, $428, $429, $430, $431, $432, $433, $434, $435, $436, $437, $438, $439, $440, $441, $442, $443, $444, $445, $446, $447, $448, $449, $450, $451, $452, $453, $454, $455, $456, $457, $458, $459, $460, $461, $462, $463, $464, $465, $466, $467, $468, $469, $470, $471, $472, $473, $474, $475, $476, $477, $478, $479, $480, $481, $482, $483, $484, $485, $486, $487, $488, $489, $490, $491, $492, $493, $494, $495, $496, $497, $498, $499, $500, $501, $502, $503, $504, $505, $506, $507, $508, $509, $510, $511, $512, $513, $514, $515, $516, $517, $518, $519, $520, $521, $522, $523, $524, $525, $526, $527, $528, $529, $530, $531, $532, $533, $534, $535, $536, $537, $538, $539, $540, $541, $542, $543, $544, $545, $546, $547, $548, $549, $550, $551, $552, $553, $554, $555, $556, $557, $558, $559, $560, $561, $562, $563, $564, $565, $566, $567, $568, $569, $570, $571, $572, $573, $574, $575, $576, $577, $578, $579, $580, $581, $582, $583, $584, $585, $586, $587, $588, $589, $590, $591, $592, $593, $594, $595, $596, $597, $598, $599, $600, $601, $602, $603, $604, $605, $606, $607, $608, $609, $610, $611, $612, $613, $614, $615, $616, $617, $618, $619, $620, $621, $622, $623, $624, $625, $626, $627, $628, $629, $630, $631, $632, $633, $634, $635, $636, $637, $638, $639, $640, $641, $642, $643, $644, $645, $646, $647, $648, $649, $650, $651, $652, $653, $654, $655, $656, $657, $658, $659, $660, $661, $662, $663, $664, $665, $666, $667, $668, $669, $670, $671, $672, $673, $674, $675, $676, $677, $678, $679, $680, $681, $682, $683, $684, $685, $686, $687, $688, $689, $690, $691, $692, $693, $694, $695, $696, $697, $698, $699, $700, $701, $702, $703, $704, $705, $706, $707, $708, $709, $710, $711, $712, $713, $714, $715, $716, $717, $718, $719, $720, $721, $722, $723, $724, $725, $726, $727, $728, $729, $730, $731, $732, $733, $734, $735, $736, $737, $738, $739, $740, $741, $742, $743, $744, $745, $746, $747, $748, $749, $750, $751, $752, $753, $754, $755, $756, $757, $758, $759, $760, $761, $762, $763, $764, $765, $766, $767, $768, $769, $770, $771, $772, $773, $774, $775, $776, $777, $778, $779, $780, $781, $782, $783, $784, $785, $786, $787, $788, $789, $790, $791, $792, $793, $794, $795, $796, $797, $798, $799, $800, $801, $802, $803, $804, $805, $806, $807, $808, $809, $810, $811, $812, $813, $814, $815, $816, $817)  [["id", 8707477], ["id", 7807028], ["id", 9476712], ["id", 4057421], ["id", 8613321], ["id", 8707275], ["id", 4055845], ["id", 8707023], ["id", 8707921], ["id", 8202235], ["id", 8706089], ["id", 8707995], ["id", 8304081], ["id", 8706223], ["id", 8705851], ["id", 4056343], ["id", 4054716], ["id", 8707218], ["id", 8707051], ["id", 8707470], ["id", 8705960], ["id", 4057981], ["id", 8706408], ["id", 9500353], ["id", 8707678], ["id", 4089128], ["id", 8708126], ["id", 8619849], ["id", 8707399], ["id", 10249497], ["id", 10279304], ["id", 8763990], ["id", 8228603], ["id", 10246710], ["id", 8706395], ["id", 8154036], ["id", 8705612], ["id", 9306588], ["id", 4056306], ["id", 8304110], ["id", 9306596], ["id", 8707992], ["id", 8707816], ["id", 10157119], ["id", 10251480], ["id", 6677468], ["id", 8706066], ["id", 9004025], ["id", 7763820], ["id", 6657687], ["id", 4055575], ["id", 8706508], ["id", 8707176], ["id", 8707244], ["id", 8707479], ["id", 8705887], ["id", 8707220], ["id", 9486818], ["id", 8705855], ["id", 9482552], ["id", 8706292], ["id", 8740164], ["id", 8706242], ["id", 7126935], ["id", 8707202], ["id", 8707068], ["id", 8707735], ["id", 8706157], ["id", 8706946], ["id", 8706013], ["id", 9006347], ["id", 8707587], ["id", 7267757], ["id", 8290241], ["id", 8706098], ["id", 8707786], ["id", 6791193], ["id", 8706806], ["id", 5344379], ["id", 8707073], ["id", 5344497], ["id", 8707217], ["id", 8705949], ["id", 8707896], ["id", 8763911], ["id", 8706108], ["id", 5226012], ["id", 9475124], ["id", 10273945], ["id", 4054883], ["id", 8706647], ["id", 10278890], ["id", 8706422], ["id", 8706267], ["id", 4059191], ["id", 8706382], ["id", 10157106], ["id", 8705778], ["id", 8706386], ["id", 10249437], ["id", 8304126], ["id", 8707375], ["id", 4976712], ["id", 8705843], ["id", 8708109], ["id", 10277186], ["id", 8764800], ["id", 8706945], ["id", 8705798], ["id", 4054768], ["id", 5344488], ["id", 8706955], ["id", 8753743], ["id", 8229875], ["id", 8707759], ["id", 10162115], ["id", 9490676], ["id", 8706442], ["id", 8706951], ["id", 10278737], ["id", 8706661], ["id", 8708096], ["id", 9487053], ["id", 6757174], ["id", 8707249], ["id", 8706155], ["id", 10246276], ["id", 8304352], ["id", 8708071], ["id", 8707433], ["id", 10280429], ["id", 9306603], ["id", 8763923], ["id", 8707204], ["id", 8708181], ["id", 9003524], ["id", 4058050], ["id", 8707903], ["id", 5940877], ["id", 10243750], ["id", 8707239], ["id", 8706243], ["id", 8706506], ["id", 4058732], ["id", 10279302], ["id", 8707141], ["id", 8706389], ["id", 5981797], ["id", 8705714], ["id", 8707229], ["id", 8707374], ["id", 8706818], ["id", 8706100], ["id", 8706836], ["id", 8707529], ["id", 8707494], ["id", 8706980], ["id", 4054700], ["id", 7335104], ["id", 8707391], ["id", 8707172], ["id", 10245630], ["id", 9564911], ["id", 10203799], ["id", 8707775], ["id", 8707616], ["id", 5344472], ["id", 8706137], ["id", 8707241], ["id", 8707351], ["id", 8707346], ["id", 10279111], ["id", 8707252], ["id", 8706499], ["id", 4056880], ["id", 8705659], ["id", 9533705], ["id", 8707415], ["id", 8706190], ["id", 5344397], ["id", 10245631], ["id", 4055398], ["id", 10277204], ["id", 8707313], ["id", 6785125], ["id", 8201909], ["id", 8708202], ["id", 8706156], ["id", 7200246], ["id", 8706136], ["id", 6532456], ["id", 8706618], ["id", 8708093], ["id", 4057308], ["id", 10279061], ["id", 8707216], ["id", 8706087], ["id", 8705812], ["id", 6638305], ["id", 9004022], ["id", 8705777], ["id", 8706230], ["id", 8707225], ["id", 6798797], ["id", 8707059], ["id", 8706186], ["id", 9548154], ["id", 8707524], ["id", 4055597], ["id", 8708041], ["id", 4058881], ["id", 8707728], ["id", 8204502], ["id", 8705783], ["id", 8706452], ["id", 8990185], ["id", 8705954], ["id", 8707410], ["id", 8706227], ["id", 8990203], ["id", 4054755], ["id", 9482595], ["id", 4055378], ["id", 10279898], ["id", 10226724], ["id", 9511863], ["id", 4055175], ["id", 8703858], ["id", 8703873], ["id", 8703877], ["id", 8703862], ["id", 8703896], ["id", 8703895], ["id", 8703900], ["id", 8703917], ["id", 8703921], ["id", 8703931], ["id", 8703964], ["id", 8703981], ["id", 8704001], ["id", 8704016], ["id", 8704017], ["id", 8704082], ["id", 8704083], ["id", 9462341], ["id", 8704104], ["id", 8704108], ["id", 8708533], ["id", 8704196], ["id", 8704224], ["id", 8704210], ["id", 8704228], ["id", 8704211], ["id", 8704212], ["id", 8704213], ["id", 8773161], ["id", 8704230], ["id", 8704231], ["id", 8704223], ["id", 8704221], ["id", 8704226], ["id", 8704237], ["id", 10203835], ["id", 8704232], ["id", 8704240], ["id", 8704233], ["id", 8704241], ["id", 8704234], ["id", 8704238], ["id", 8704243], ["id", 8704248], ["id", 8704246], ["id", 8704250], ["id", 8704249], ["id", 8704251], ["id", 8704253], ["id", 8704247], ["id", 8704254], ["id", 8704255], ["id", 8704259], ["id", 8704258], ["id", 8704262], ["id", 8704261], ["id", 8704266], ["id", 8704263], ["id", 8704268], ["id", 8704271], ["id", 8704260], ["id", 8704270], ["id", 8704272], ["id", 8704273], ["id", 8704267], ["id", 8704269], ["id", 10208858], ["id", 8704274], ["id", 8904730], ["id", 8704284], ["id", 9515285], ["id", 8735342], ["id", 8704283], ["id", 8704285], ["id", 8704286], ["id", 8740205], ["id", 8704299], ["id", 8704300], ["id", 8704303], ["id", 9317404], ["id", 9537457], ["id", 8704294], ["id", 8704295], ["id", 8704304], ["id", 10287838], ["id", 8704306], ["id", 8704319], ["id", 10286431], ["id", 8704320], ["id", 8704323], ["id", 8704311], ["id", 8704328], ["id", 8704333], ["id", 10171918], ["id", 8704322], ["id", 8789694], ["id", 9483299], ["id", 8704325], ["id", 8704329], ["id", 8704330], ["id", 8704331], ["id", 8704334], ["id", 9321472], ["id", 8704335], ["id", 8704336], ["id", 8704342], ["id", 8704348], ["id", 8704349], ["id", 8704337], ["id", 9489450], ["id", 8914281], ["id", 8704350], ["id", 9491397], ["id", 8732717], ["id", 8704344], ["id", 8704345], ["id", 8704347], ["id", 8704362], ["id", 8704364], ["id", 10158743], ["id", 8740216], ["id", 9523368], ["id", 8704374], ["id", 8704354], ["id", 8704373], ["id", 8704357], ["id", 8704379], ["id", 8704358], ["id", 8704360], ["id", 8704361], ["id", 9497995], ["id", 8704378], ["id", 8704365], ["id", 8704383], ["id", 8704366], ["id", 9524636], ["id", 8704368], ["id", 9524828], ["id", 8704370], ["id", 8704372], ["id", 8704377], ["id", 8704380], ["id", 10187251], ["id", 8704382], ["id", 8704397], ["id", 8901836], ["id", 8704386], ["id", 8704387], ["id", 8904505], ["id", 8704388], ["id", 8704389], ["id", 8704390], ["id", 8704391], ["id", 8704393], ["id", 9475063], ["id", 8704395], ["id", 8704394], ["id", 8704405], ["id", 8704399], ["id", 8704409], ["id", 8999028], ["id", 8704403], ["id", 8704421], ["id", 8704428], ["id", 8704408], ["id", 8704407], ["id", 8704427], ["id", 8704411], ["id", 8704412], ["id", 8704432], ["id", 8704431], ["id", 9483333], ["id", 8704416], ["id", 8704439], ["id", 8704420], ["id", 8704425], ["id", 8704429], ["id", 8704430], ["id", 8704445], ["id", 8704434], ["id", 8704447], ["id", 8704436], ["id", 8704448], ["id", 8704442], ["id", 8704440], ["id", 8704454], ["id", 8704444], ["id", 8704457], ["id", 8704460], ["id", 8704459], ["id", 8704462], ["id", 8999014], ["id", 8704451], ["id", 8704453], ["id", 8704456], ["id", 8704466], ["id", 8704472], ["id", 8704476], ["id", 8704478], ["id", 8704464], ["id", 8704482], ["id", 8704465], ["id", 8704468], ["id", 8704469], ["id", 8704471], ["id", 8704470], ["id", 10157097], ["id", 8704474], ["id", 8704475], ["id", 8985285], ["id", 8704481], ["id", 8704490], ["id", 8704499], ["id", 8704491], ["id", 9511883], ["id", 8704492], ["id", 8704494], ["id", 8704495], ["id", 9511903], ["id", 8704506], ["id", 8704496], ["id", 8704497], ["id", 8704498], ["id", 10185948], ["id", 8704502], ["id", 8704504], ["id", 8905386], ["id", 8998952], ["id", 8704527], ["id", 9502408], ["id", 9538539], ["id", 8704531], ["id", 8704535], ["id", 8704539], ["id", 8704544], ["id", 8991157], ["id", 8704573], ["id", 8740210], ["id", 8704572], ["id", 8704578], ["id", 8704562], ["id", 8704581], ["id", 8704563], ["id", 8704583], ["id", 8704584], ["id", 8704566], ["id", 9489538], ["id", 8704567], ["id", 8704569], ["id", 8704574], ["id", 8704576], ["id", 8704577], ["id", 8704598], ["id", 8704596], ["id", 8704585], ["id", 8704586], ["id", 8903574], ["id", 8704606], ["id", 8704625], ["id", 8704611], ["id", 8704629], ["id", 8704618], ["id", 8777701], ["id", 8704634], ["id", 8704621], ["id", 8704626], ["id", 8704627], ["id", 8704636], ["id", 8704637], ["id", 10229191], ["id", 8704631], ["id", 8704635], ["id", 8704639], ["id", 8704650], ["id", 8704643], ["id", 8704654], ["id", 8729251], ["id", 8704644], ["id", 8704668], ["id", 8704664], ["id", 8704714], ["id", 8704715], ["id", 8704697], ["id", 8704702], ["id", 8704726], ["id", 8704728], ["id", 8980788], ["id", 8704721], ["id", 8704731], ["id", 8704754], ["id", 8704744], ["id", 8704761], ["id", 8704779], ["id", 8704773], ["id", 9475051], ["id", 8924063], ["id", 8704804], ["id", 8704819], ["id", 8704823], ["id", 8704858], ["id", 8704869], ["id", 8704877], ["id", 8704878], ["id", 8923883], ["id", 8704975], ["id", 8704985], ["id", 8704987], ["id", 8705107], ["id", 8705137], ["id", 9508180], ["id", 9475071], ["id", 8705237], ["id", 8705307], ["id", 8705341], ["id", 8705324], ["id", 8705344], ["id", 8705382], ["id", 8705471], ["id", 8705494], ["id", 8705507], ["id", 8705505], ["id", 9504074], ["id", 8705542], ["id", 8705555], ["id", 10250133], ["id", 10256205], ["id", 10256213], ["id", 10258672], ["id", 10259945], ["id", 10263862], ["id", 10265125], ["id", 10266150], ["id", 10267282], ["id", 10268879], ["id", 10268940], ["id", 10269021], ["id", 10269061], ["id", 10269075], ["id", 10270486], ["id", 10270512], ["id", 8705988], ["id", 8707576], ["id", 8706850], ["id", 8706701], ["id", 8741264], ["id", 10279944], ["id", 8304272], ["id", 8705769], ["id", 4056759], ["id", 10273842], ["id", 8707747], ["id", 8707737], ["id", 8706971], ["id", 8706261], ["id", 8705644], ["id", 8706959], ["id", 8708221], ["id", 10199422], ["id", 5516901], ["id", 8706176], ["id", 4057105], ["id", 8705899], ["id", 6706948], ["id", 7200406], ["id", 8706827], ["id", 8706007], ["id", 8706941], ["id", 8706076], ["id", 6657526], ["id", 8707224], ["id", 8707513], ["id", 8707034], ["id", 8705770], ["id", 8705780], ["id", 8706429], ["id", 8707685], ["id", 8707407], ["id", 8707752], ["id", 8707222], ["id", 8706509], ["id", 8757674], ["id", 8706600], ["id", 8706325], ["id", 4055235], ["id", 8706275], ["id", 8705623], ["id", 8707231], ["id", 9559245], ["id", 8707649], ["id", 8706651], ["id", 10280016], ["id", 8706687], ["id", 8706304], ["id", 8763917], ["id", 10245867], ["id", 8707237], ["id", 8706313], ["id", 8708059], ["id", 4055747], ["id", 4056238], ["id", 8202275], ["id", 8706310], ["id", 5523822], ["id", 8707515], ["id", 9475079], ["id", 4289446], ["id", 8706450], ["id", 8707881], ["id", 8706096], ["id", 5344456], ["id", 8707487], ["id", 4058100], ["id", 8707372], ["id", 8708100], ["id", 10290682], ["id", 9004157], ["id", 8705556], ["id", 8708131], ["id", 8705627], ["id", 8707192], ["id", 8708103], ["id", 4057806], ["id", 8763913], ["id", 8706416], ["id", 5344501], ["id", 8707429], ["id", 8707736], ["id", 8707917], ["id", 10279238], ["id", 8707397], ["id", 9001892], ["id", 8705773], ["id", 8705788], ["id", 6765019], ["id", 8707416], ["id", 8706811], ["id", 7763520], ["id", 8706448], ["id", 6678561], ["id", 4054906], ["id", 8705784], ["id", 8707389], ["id", 8707749], ["id", 8613309], ["id", 8706208], ["id", 8707219], ["id", 4055738], ["id", 7013308], ["id", 8708599], ["id", 8707869], ["id", 10278974], ["id", 9306601], ["id", 7200356], ["id", 8705914], ["id", 8283063], ["id", 8707242], ["id", 8707753], ["id", 8705642], ["id", 8705782], ["id", 6689617], ["id", 8705864], ["id", 4057705], ["id", 8304050], ["id", 8707195], ["id", 8707423], ["id", 5344786], ["id", 8706339], ["id", 5348312], ["id", 8706238], ["id", 10275645], ["id", 8706239], ["id", 8763912], ["id", 8705857], ["id", 4151025], ["id", 9494807], ["id", 8741051], ["id", 4058837], ["id", 7807021], ["id", 8706193], ["id", 4055905], ["id", 8706306], ["id", 8207869], ["id", 4071267], ["id", 8989281], ["id", 10210101], ["id", 8707032], ["id", 8705776], ["id", 9306586], ["id", 8233084], ["id", 8707267], ["id", 7200346], ["id", 8706051], ["id", 4055103], ["id", 7284314], ["id", 9475077], ["id", 8706634], ["id", 9004704], ["id", 9306623], ["id", 8706296], ["id", 8707842], ["id", 8707994], ["id", 8707203], ["id", 8706298], ["id", 10283264], ["id", 8706792], ["id", 8707215], ["id", 8708124], ["id", 8707510], ["id", 8706167], ["id", 8707677], ["id", 6399198], ["id", 9478070], ["id", 4054994], ["id", 8707512], ["id", 8901813], ["id", 8706888], ["id", 8705764], ["id", 8344807], ["id", 5347435], ["id", 8705664], ["id", 8705785], ["id", 8706092], ["id", 8763906], ["id", 8707838], ["id", 9305769], ["id", 4055574], ["id", 8707268], ["id", 8131240], ["id", 10278976], ["id", 9001884], ["id", 10199418], ["id", 6890547], ["id", 8705716], ["id", 4959011], ["id", 8287937], ["id", 10208011], ["id", 9494804], ["id", 8705727], ["id", 8706269], ["id", 5349581], ["id", 4056747], ["id", 9533720], ["id", 8707236], ["id", 9497865], ["id", 4054713], ["id", 8707247], ["id", 8708022], ["id", 8707932], ["id", 4054986], ["id", 8707743], ["id", 8707693], ["id", 8707889], ["id", 8707877], ["id", 8706521], ["id", 7041468], ["id", 8706683], ["id", 4058630], ["id", 8611308], ["id", 4056983], ["id", 4055894], ["id", 8706312], ["id", 9004019], ["id", 8706384], ["id", 9305735], ["id", 8708007], ["id", 5344571], ["id", 8705580], ["id", 4058445], ["id", 8707607], ["id", 8705980], ["id", 7200248], ["id", 8706894], ["id", 8708083], ["id", 10279934], ["id", 10279368], ["id", 8706879], ["id", 8707517], ["id", 10279305], ["id", 8706254], ["id", 6907960], ["id", 8707011], ["id", 4055909], ["id", 8542655], ["id", 4058820], ["id", 8707316], ["id", 4055328], ["id", 6798760], ["id", 8708107], ["id", 8542167], ["id", 8707221]]
+  Edition Pluck (2.2ms)  SELECT "editions"."id", "locale", "editions"."state" FROM "editions" INNER JOIN "documents" ON "documents"."id" = "editions"."document_id" LEFT OUTER JOIN "unpublishings" ON "unpublishings"."edition_id" = "editions"."id" WHERE "documents"."content_id" = $1 AND "editions"."state" IN ($2, $3) AND (
+            editions.state != 'unpublished' OR unpublishings.type = 'withdrawal'
+          )  [["content_id", "f9fcf3fe-2751-4dca-97ca-becaeceb4b26"], ["state", "published"], ["state", "unpublished"]]
+  AccessLimit Load (0.7ms)  SELECT "access_limits".* FROM "access_limits" WHERE "access_limits"."edition_id" = $1 LIMIT $2  [["edition_id", 10290560], ["LIMIT", 1]]
+=> nil

@@ -6,7 +6,7 @@ default: &default
 
 development:
   <<: *default
-  database: publishing_api_development
+  database: publishing-api
   url: <%= ENV["DATABASE_URL"]%>
 
 test:

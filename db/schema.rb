@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_19_172139) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_22_102151) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,6 +94,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_19_172139) do
     t.index ["id", "content_store"], name: "index_editions_on_id_and_content_store"
     t.index ["publishing_app"], name: "index_editions_on_publishing_app"
     t.index ["state", "base_path"], name: "index_editions_on_state_and_base_path"
+    t.index ["state"], name: "index_editions_on_state"
     t.index ["updated_at", "id"], name: "index_editions_on_updated_at_and_id"
     t.index ["updated_at"], name: "index_editions_on_updated_at"
   end
@@ -130,6 +131,26 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_19_172139) do
     t.index ["created_at"], name: "index_link_changes_on_created_at", order: :desc
   end
 
+  create_table "link_expansion_reverse_rules", force: :cascade do |t|
+    t.text "name"
+    t.text "link_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "link_expansion_rule_relationships", force: :cascade do |t|
+    t.bigint "link_expansion_rule_id"
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "link_expansion_rules", force: :cascade do |t|
+    t.text "link_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "link_sets", id: :serial, force: :cascade do |t|
     t.uuid "content_id"
     t.datetime "created_at", precision: nil
@@ -160,6 +181,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_19_172139) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.index ["base_path"], name: "index_path_reservations_on_base_path", unique: true
+  end
+
+  create_table "tmp_hyperlinks", id: false, force: :cascade do |t|
+    t.text "base_path"
+    t.text "url"
+    t.text "scheme"
+    t.text "domain"
+    t.text "path"
   end
 
   create_table "unpublishings", id: :serial, force: :cascade do |t|
