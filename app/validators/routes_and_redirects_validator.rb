@@ -147,7 +147,7 @@ private
       errors.add(:redirects, "path cannot equal the destination") if path == destination
       return unless errors.empty?
 
-      errors.add(:redirects, "destination invalid") if invalid_destination?(destination)
+      errors.add(:redirects, "destination invalid (#{destination})") if invalid_destination?(destination)
       return unless errors.empty?
 
       if internal?(destination)
@@ -188,7 +188,7 @@ private
     end
 
     def validate_internal_redirect(destination)
-      errors.add(:redirects, "internal redirects cannot end with /") if
+      errors.add(:redirects, "destination invalid (#{destination}), internal redirects cannot end with /") if
         destination != "/" && (destination.end_with? "/")
     end
 
@@ -196,17 +196,17 @@ private
       uri = URI.parse(destination)
 
       if uri.host.nil?
-        errors.add(:redirects, "missing host for external redirect")
+        errors.add(:redirects, "missing host for external redirect (#{destination})")
         return
       end
 
-      errors.add(:redirects, "external redirects only accepted for the domains #{EXTERNAL_HOST_ALLOW_LIST.to_sentence}") unless
+      errors.add(:redirects, "external redirects only accepted for the domains #{EXTERNAL_HOST_ALLOW_LIST.to_sentence} (#{destination})") unless
         government_domain?(uri.host)
 
-      errors.add(:redirects, "internal redirect should not be specified with full url") if
+      errors.add(:redirects, "internal redirect should not be specified with full url (#{destination})") if
         %w[gov.uk www.gov.uk].include? uri.host
 
-      errors.add(:redirects, "external redirects must use https") unless uri.scheme == "https"
+      errors.add(:redirects, "external redirects must use https (#{destination})") unless uri.scheme == "https"
 
       uri.host.split(".").each { |subdomain| validate_subdomain(subdomain) }
     end
