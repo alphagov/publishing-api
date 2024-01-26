@@ -57,6 +57,9 @@
         "$ref": "#/definitions/flood_and_coastal_erosion_risk_management_research_report",
       },
       {
+        "$ref": "#/definitions/farming_grant_option_metadata",
+      },
+      {
         "$ref": "#/definitions/maib_report_metadata",
       },
       {
@@ -2074,6 +2077,102 @@
       },
       licence_transaction_licence_identifier: {
         type: "string",
+      },
+    },
+  },
+  farming_grant_option_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      open_or_closed: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "open",
+            "closed",
+          ]
+        }
+      },
+      areas_of_interest: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "access-and-engagement",
+            "air-quality",
+            "biodiversity",
+            "boundaries",
+            "crops",
+            "flood-risk",
+            "forestry",
+            "historic-environment",
+            "livestock-management",
+            "peat",
+            "pollinators-and-wildlife",
+            "precision-farming",
+            "slurry-management",
+            "soil",
+            "trees-non-woodland",
+            "vegetation-control",
+            "water",
+          ]
+        }
+      },
+      land_types: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "arable-land",
+            "coast",
+            "grassland",
+            "lowland-heath",
+            "moorland-and-upland",
+            "organic-land",
+            "priority-habitats",
+            "waterbodies",
+            "wetland",
+            "woodland",
+          ]
+        }
+      },
+      funding_types: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "option",
+            "item",
+            "action",
+          ]
+        }
+      },
+      grant_schemes: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "combined-offer",
+            "countryside-stewardship",
+            "farming-equipment-and-technology-fund",
+            "slurry-infrastructure-grant",
+            "sustainable-farming-incentive",
+          ]
+        }
+      },
+      payment_types: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "capital",
+            "revenue",
+          ]
+        },
       },
     },
   },
