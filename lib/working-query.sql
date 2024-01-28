@@ -8,13 +8,13 @@ explain analyze with
       where rels.parent_id is null
     )
     -- Forward Link Set Links
-      select '0 forward link set links' as subquery, target_content_id, links.link_type
+      select 'forward link set links' as subquery, target_content_id, links.link_type
       from links
       join link_sets on links.link_set_id = link_sets.id
       where link_sets.content_id = :content_id
     union
     -- Forward Edition Links
-      select '0 forward edition links' as subquery, links.target_content_id, links.link_type
+      select 'forward edition links' as subquery, links.target_content_id, links.link_type
       from links
       join editions on links.edition_id = editions.id
       join documents on editions.document_id = documents.id
@@ -23,14 +23,14 @@ explain analyze with
       and editions.content_store = :content_store
     union
     -- Reverse Link Set Links
-      select '0 reverse link set links' as subquery, link_sets.content_id, links.link_type
+      select 'reverse link set links' as subquery, link_sets.content_id, links.link_type
       from links
       join link_sets on links.link_set_id = link_sets.id
       join reverse_link_types on links.link_type = reverse_link_types.link_type
       where links.target_content_id = :content_id
     union
     -- Reverse Edition Links
-      select '0 reverse edition links' as subquery, documents.content_id, links.link_type
+      select 'reverse edition links' as subquery, documents.content_id, links.link_type
       from links
       join editions on editions.id = links.edition_id
       join documents on editions.document_id = documents.id
@@ -55,24 +55,42 @@ explain analyze with
     )
     -- Forward Link Set Links
     -- TODO path as a separate column
-      select '1 forward link set links' as subquery, target_content_id, links.link_type
+      select 'forward link set links' as subquery, target_content_id, links.link_type
       from link_types
       join links on links.link_type = link_types.link_type
       join link_sets on links.link_set_id = link_sets.id
         and link_sets.content_id = link_types.content_id
     union
-      select '1 reverse link set links' as subquery, link_sets.content_id, links.link_type
+    -- Forward Edition Links
+      select 'forward edition links' as subquery, links.target_content_id, links.link_type
+      from link_types
+      join documents on documents.content_id = link_types.content_id
+      join editions on documents.id = editions.document_id
+      join links on editions.id = links.edition_id and links.link_type = link_types.link_type
+      where documents.locale = :locale and editions.content_store = :content_store
+    union
+    -- Reverse Link Set Links
+      select 'reverse link set links' as subquery, link_sets.content_id, links.link_type
       from reverse_link_types
       join links on links.link_type = reverse_link_types.link_type
         and links.target_content_id = reverse_link_types.content_id
       join link_sets on links.link_set_id = link_sets.id
+    union
+    -- Reverse Edition Links
+    select 'reverse edition links' as subquery, :content_id::uuid, 'TODO'
+    from reverse_link_types
+    join links on links.link_type = reverse_link_types.link_type
+      and links.target_content_id = reverse_link_types.content_id
+    join editions on links.edition_id = editions.id
+    join documents on editions.document_id = documents.id
+    where documents.locale = :locale and editions.content_store = :content_store
     -- Debugging
     -- union
     -- select 'debug link types: ' || link_expansion_rule_id, content_id, link_type from link_types
     -- union
     -- select 'debug reverse link types: ' || reverse_link_name, content_id, link_type from reverse_link_types
 )
-select * from root_links_by_link_type
-union
-select * from child_links_by_link_type
-order by subquery;
+select 0 as depth, subquery, content_id, link_type from root_links_by_link_type
+union all
+select 1 as depth, subquery, content_id, link_type from child_links_by_link_type
+order by depth desc;
