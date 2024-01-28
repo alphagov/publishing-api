@@ -136,6 +136,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_102151) do
     t.text "link_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["link_type"], name: "index_reverse_lers_on_link_type"
+    t.index ["name"], name: "index_reverse_lers_on_name"
   end
 
   create_table "link_expansion_rule_relationships", force: :cascade do |t|
@@ -143,12 +145,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_102151) do
     t.bigint "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["link_expansion_rule_id", "parent_id"], name: "index_lerrs_on_lers_id_and_parent_id"
   end
 
   create_table "link_expansion_rules", force: :cascade do |t|
     t.text "link_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["link_type"], name: "index_lers_on_link_type"
   end
 
   create_table "link_sets", id: :serial, force: :cascade do |t|
