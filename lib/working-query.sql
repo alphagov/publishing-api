@@ -70,14 +70,14 @@ explain analyze with
       where documents.locale = :locale and editions.content_store = :content_store
     union
     -- Reverse Link Set Links
-      select 'reverse link set links' as subquery, link_sets.content_id, links.link_type
+      select 'reverse link set links' as subquery, link_sets.content_id, reverse_link_name
       from reverse_link_types
       join links on links.link_type = reverse_link_types.link_type
         and links.target_content_id = reverse_link_types.content_id
       join link_sets on links.link_set_id = link_sets.id
     union
     -- Reverse Edition Links
-    select 'reverse edition links' as subquery, :content_id::uuid, 'TODO'
+    select 'reverse edition links' as subquery, documents.content_id, reverse_link_name
     from reverse_link_types
     join links on links.link_type = reverse_link_types.link_type
       and links.target_content_id = reverse_link_types.content_id
@@ -94,3 +94,20 @@ select 0 as depth, subquery, content_id, link_type from root_links_by_link_type
 union all
 select 1 as depth, subquery, content_id, link_type from child_links_by_link_type
 order by depth desc;
+
+
+-- How to find a link expansion rule by path?
+with recursive
+path(path) as (select array['role_appointments', 'role']),
+link_types(link_type, path) as (
+  select distinct children.link_type, path.path[2:] from link_expansion_rules ler
+  join path on ler.link_type = path.path[1]
+  join link_expansion_rule_relationships rels on ler.id = rels.parent_id
+  join link_expansion_rules children on children.id = rels.link_expansion_rule_id
+  union
+  select children.link_type, link_types.path[2:] from link_expansion_rules ler
+  join link_types on ler.link_type = link_types.link_type and ler.link_type = link_types.path[1]
+  join link_expansion_rule_relationships rels on ler.id = rels.parent_id
+  join link_expansion_rules children on children.id = rels.link_expansion_rule_id
+)
+select link_type from link_types where cardinality(link_types.path) = 0
