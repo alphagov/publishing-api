@@ -59,8 +59,52 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "contacts": {
+          "description": "The contacts linked to offices of this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
+        "corporate_information_pages": {
+          "description": "Corporate information pages for this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
+        "home_page_offices": {
+          "description": "The offices, other than the main office, to be shown on the home page of this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
+        "main_office": {
+          "description": "The main office for this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
+        "office_staff": {
+          "description": "People currently appointed to office staff roles in this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
         "policy_areas": {
           "description": "A largely deprecated tag currently only used to power email alerts.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "primary_role_person": {
+          "description": "The person currently appointed to a primary role in this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
+        "role_appointments": {
+          "description": "Role appointments associated with people from this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
+        "roles": {
+          "description": "All roles associated with this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
+        "secondary_role_person": {
+          "description": "The person currently appointed to a secondary role in this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
+        "sponsoring_organisations": {
+          "description": "Sponsoring organisations for this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
+        },
+        "world_locations": {
+          "description": "World Locations associated with this Worldwide Organisation",
           "$ref": "#/definitions/guid_list"
         }
       }
@@ -209,6 +253,25 @@
             }
           }
         },
+        "office_contact_associations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "office_content_id",
+              "contact_content_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "contact_content_id": {
+                "$ref": "#/definitions/guid"
+              },
+              "office_content_id": {
+                "$ref": "#/definitions/guid"
+              }
+            }
+          }
+        },
         "ordered_corporate_information_pages": {
           "description": "A set of links to corporate information pages to display for the worldwide organisation.",
           "type": "array",
@@ -225,6 +288,41 @@
               },
               "title": {
                 "type": "string"
+              }
+            }
+          }
+        },
+        "people_role_associations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "person_content_id",
+              "role_appointments"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "person_content_id": {
+                "$ref": "#/definitions/guid"
+              },
+              "role_appointments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "role_appointment_content_id",
+                    "role_content_id"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "role_appointment_content_id": {
+                      "$ref": "#/definitions/guid"
+                    },
+                    "role_content_id": {
+                      "$ref": "#/definitions/guid"
+                    }
+                  }
+                }
               }
             }
           }
