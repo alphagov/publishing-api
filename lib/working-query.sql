@@ -84,7 +84,7 @@ explain analyze with recursive
       and documents.locale = :locale
       and editions.content_store = :content_store
   ),
-  child_links_by_link_type(note, content_id, link_type, content_id_path, link_type_path, is_cycle) as (
+  child_links_by_link_type(depth, note, content_id, link_type, content_id_path, link_type_path, is_cycle) as (
     with recursive next_link_types(content_id, original_link_type, next_link_type, link_type_path) as (
         select
           root_links_by_link_type.content_id,
@@ -113,10 +113,11 @@ explain analyze with recursive
         join link_expansion_reverse_rules on link_expansion_reverse_rules.name = next_link_types.next_link_type
         where cardinality(link_type_path) = 0
       ),
-      base_case(note, content_id, link_type, content_id_path, link_type_path, is_cycle) as
+      base_case(depth, note, content_id, link_type, content_id_path, link_type_path, is_cycle) as
     (
     -- Forward Link Set Links
     select
+      1 as depth,
       'forward link set links' as note,
       links.target_content_id,
       next_link_types.next_link_type,
@@ -133,6 +134,7 @@ explain analyze with recursive
   union
   -- Forward Edition Links
     select
+      1 as depth,
       'forward edition links' as note,
       links.target_content_id,
       next_link_types.next_link_type,
@@ -150,6 +152,7 @@ explain analyze with recursive
   union
     -- Reverse Link Set Links
       select
+        1 as depth,
         'reverse link set links' as note,
         link_sets.content_id,
         next_reverse_link_types.next_link_name,
@@ -166,6 +169,7 @@ explain analyze with recursive
     union
       -- Reverse Edition Links
       select
+        1 as depth,
         'reverse edition links' as note,
         documents.content_id,
         next_reverse_link_types.next_link_name,
@@ -182,18 +186,86 @@ explain analyze with recursive
       join documents on editions.document_id = documents.id
       where documents.locale = :locale and editions.content_store = :content_store
     )
-    select note, content_id, link_type, content_id_path, link_type_path, is_cycle
+    select depth, note, content_id, link_type, content_id_path, link_type_path, is_cycle
     from base_case
     union
     (
       with recursive_links_by_link_type as (
-        select note, content_id, link_type, content_id_path, link_type_path, is_cycle from child_links_by_link_type
+        select depth, note, content_id, link_type, content_id_path, link_type_path, is_cycle from child_links_by_link_type
       )
-      -- TODO replay the base case with root_link_types replaced with recursive_links_by_link_type
-      select note, content_id, link_type, content_id_path, link_type_path, is_cycle from recursive_links_by_link_type
+      -- Forward Link Set Links
+      select
+        recursive_links_by_link_type.depth + 1,
+        'forward link set links' as note,
+        links.target_content_id,
+        next_link_types.next_link_type,
+        recursive_links_by_link_type.content_id_path || links.target_content_id,
+        recursive_links_by_link_type.link_type_path || next_link_types.next_link_type,
+        links.target_content_id = ANY(recursive_links_by_link_type.content_id_path)
+      from recursive_links_by_link_type
+      join next_link_types
+        on next_link_types.content_id = recursive_links_by_link_type.content_id
+        and next_link_types.original_link_type = recursive_links_by_link_type.link_type
+      join links on links.link_type = next_link_types.next_link_type
+      join link_sets on links.link_set_id = link_sets.id
+        and link_sets.content_id = next_link_types.content_id
+    union
+    -- Forward Edition Links
+      select
+        recursive_links_by_link_type.depth + 1,
+        'forward edition links' as note,
+        links.target_content_id,
+        next_link_types.next_link_type,
+        recursive_links_by_link_type.content_id_path || links.target_content_id,
+        recursive_links_by_link_type.link_type_path || next_link_types.next_link_type,
+        links.target_content_id = ANY(recursive_links_by_link_type.content_id_path)
+      from recursive_links_by_link_type
+      join next_link_types
+        on next_link_types.content_id = recursive_links_by_link_type.content_id
+        and next_link_types.original_link_type = recursive_links_by_link_type.link_type
+      join documents on documents.content_id = next_link_types.content_id
+      join editions on documents.id = editions.document_id
+      join links on editions.id = links.edition_id and links.link_type = next_link_types.next_link_type
+      where documents.locale = :locale and editions.content_store = :content_store
+    union
+      -- Reverse Link Set Links
+        select
+          recursive_links_by_link_type.depth + 1,
+          'reverse link set links' as note,
+          link_sets.content_id,
+          next_reverse_link_types.next_link_name,
+          recursive_links_by_link_type.content_id_path || link_sets.content_id,
+          recursive_links_by_link_type.link_type_path || next_reverse_link_types.next_link_name,
+          link_sets.content_id = ANY(recursive_links_by_link_type.content_id_path)
+        from recursive_links_by_link_type
+        join next_reverse_link_types
+          on next_reverse_link_types.content_id = recursive_links_by_link_type.content_id
+          and next_reverse_link_types.original_link_type = recursive_links_by_link_type.link_type
+        join links on links.link_type = next_reverse_link_types.next_link_type
+          and links.target_content_id = next_reverse_link_types.content_id
+        join link_sets on links.link_set_id = link_sets.id
+      union
+        -- Reverse Edition Links
+        select
+          recursive_links_by_link_type.depth + 1,
+          'reverse edition links' as note,
+          documents.content_id,
+          next_reverse_link_types.next_link_name,
+          recursive_links_by_link_type.content_id_path || documents.content_id,
+          recursive_links_by_link_type.link_type_path || next_reverse_link_types.next_link_name,
+          documents.content_id = ANY(recursive_links_by_link_type.content_id_path)
+        from recursive_links_by_link_type
+        join next_reverse_link_types
+          on next_reverse_link_types.content_id = recursive_links_by_link_type.content_id
+          and next_reverse_link_types.original_link_type = recursive_links_by_link_type.link_type
+        join links on links.link_type = next_reverse_link_types.next_link_type
+          and links.target_content_id = next_reverse_link_types.content_id
+        join editions on links.edition_id = editions.id
+        join documents on editions.document_id = documents.id
+        where documents.locale = :locale and editions.content_store = :content_store
     )
 )
 select 0 as depth, note, link_type_path, content_id, content_id_path, is_cycle from root_links_by_link_type
 union
-select 1 as depth, note, link_type_path, content_id, content_id_path, is_cycle from child_links_by_link_type
+select depth, note, link_type_path, content_id, content_id_path, is_cycle from child_links_by_link_type
 order by depth desc;
