@@ -20,7 +20,7 @@ with recursive
   )
   select link_type from next_link_types where cardinality(next_link_types.path) = 0;
 
-explain analyze with
+explain analyze with recursive
   root_links_by_link_type(note, content_id, link_type, content_id_path, link_type_path, is_cycle) as
   (
     with reverse_link_types(link_type, reverse_link_name) AS (
@@ -112,32 +112,9 @@ explain analyze with
         from next_link_types
         join link_expansion_reverse_rules on link_expansion_reverse_rules.name = next_link_types.next_link_type
         where cardinality(link_type_path) = 0
-      )
-  --  select
-  --    'debug: next_link_types',
-  --    root_links_by_link_type.content_id,
-  --    next_link_type,
-  --    root_links_by_link_type.content_id_path || root_links_by_link_type.content_id, -- TODO
-  --    root_links_by_link_type.link_type_path || next_link_type,
-  --    root_links_by_link_type.content_id = ANY(root_links_by_link_type.content_id_path) -- TODO
-  --  from root_links_by_link_type
-  --  join next_link_types
-  --    on next_link_types.content_id = root_links_by_link_type.content_id
-  --    and next_link_types.original_link_type = root_links_by_link_type.link_type
-  --    and cardinality(next_link_types.link_type_path) = 0
-  --union
-  --  select
-  --    'debug: reverse_next_link_types',
-  --    root_links_by_link_type.content_id,
-  --    next_link_type,
-  --    root_links_by_link_type.content_id_path || root_links_by_link_type.content_id, -- TODO
-  --    root_links_by_link_type.link_type_path || next_link_type,
-  --    root_links_by_link_type.content_id = ANY(root_links_by_link_type.content_id_path) -- TODO
-  --  from root_links_by_link_type
-  --  join next_reverse_link_types
-  --    on next_reverse_link_types.content_id = root_links_by_link_type.content_id
-  --    and next_reverse_link_types.original_link_type = root_links_by_link_type.link_type
-  --union
+      ),
+      base_case(note, content_id, link_type, content_id_path, link_type_path, is_cycle) as
+    (
     -- Forward Link Set Links
     select
       'forward link set links' as note,
@@ -204,8 +181,19 @@ explain analyze with
       join editions on links.edition_id = editions.id
       join documents on editions.document_id = documents.id
       where documents.locale = :locale and editions.content_store = :content_store
+    )
+    select note, content_id, link_type, content_id_path, link_type_path, is_cycle
+    from base_case
+    union
+    (
+      with recursive_links_by_link_type as (
+        select note, content_id, link_type, content_id_path, link_type_path, is_cycle from child_links_by_link_type
+      )
+      -- TODO replay the base case with root_link_types replaced with recursive_links_by_link_type
+      select note, content_id, link_type, content_id_path, link_type_path, is_cycle from recursive_links_by_link_type
+    )
 )
 select 0 as depth, note, link_type_path, content_id, content_id_path, is_cycle from root_links_by_link_type
-union all
+union
 select 1 as depth, note, link_type_path, content_id, content_id_path, is_cycle from child_links_by_link_type
 order by depth desc;
