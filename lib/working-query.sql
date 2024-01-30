@@ -113,6 +113,32 @@ explain analyze with
         join link_expansion_reverse_rules on link_expansion_reverse_rules.name = next_link_types.next_link_type
         where cardinality(link_type_path) = 0
       )
+  --  select
+  --    'debug: next_link_types',
+  --    root_links_by_link_type.content_id,
+  --    next_link_type,
+  --    root_links_by_link_type.content_id_path || root_links_by_link_type.content_id, -- TODO
+  --    root_links_by_link_type.link_type_path || next_link_type,
+  --    root_links_by_link_type.content_id = ANY(root_links_by_link_type.content_id_path) -- TODO
+  --  from root_links_by_link_type
+  --  join next_link_types
+  --    on next_link_types.content_id = root_links_by_link_type.content_id
+  --    and next_link_types.original_link_type = root_links_by_link_type.link_type
+  --    and cardinality(next_link_types.link_type_path) = 0
+  --union
+  --  select
+  --    'debug: reverse_next_link_types',
+  --    root_links_by_link_type.content_id,
+  --    next_link_type,
+  --    root_links_by_link_type.content_id_path || root_links_by_link_type.content_id, -- TODO
+  --    root_links_by_link_type.link_type_path || next_link_type,
+  --    root_links_by_link_type.content_id = ANY(root_links_by_link_type.content_id_path) -- TODO
+  --  from root_links_by_link_type
+  --  join next_reverse_link_types
+  --    on next_reverse_link_types.content_id = root_links_by_link_type.content_id
+  --    and next_reverse_link_types.original_link_type = root_links_by_link_type.link_type
+  --union
+    -- Forward Link Set Links
     select
       'debug: next_link_types',
       root_links_by_link_type.content_id,
