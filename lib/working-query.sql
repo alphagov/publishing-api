@@ -103,11 +103,12 @@ explain analyze with
         join lers on lers.parent_link_type = next_link_types.next_link_type
         and lers.parent_link_type = next_link_types.link_type_path[1]
       ),
-      next_reverse_link_types(content_id, original_link_type, next_link_type) as (
+      next_reverse_link_types(content_id, original_link_type, next_link_type, next_link_name) as (
         select
           next_link_types.content_id,
           next_link_types.original_link_type,
-          link_expansion_reverse_rules.link_type
+          link_expansion_reverse_rules.link_type,
+          link_expansion_reverse_rules.name
         from next_link_types
         join link_expansion_reverse_rules on link_expansion_reverse_rules.name = next_link_types.next_link_type
         where cardinality(link_type_path) = 0
@@ -136,15 +137,22 @@ explain analyze with
     join next_reverse_link_types
       on next_reverse_link_types.content_id = root_links_by_link_type.content_id
       and next_reverse_link_types.original_link_type = root_links_by_link_type.link_type
-    -- reverse_link_types(content_id, link_type, reverse_link_name, link_expansion_rule_id) as (
-    --   -- TODO
-    -- )
-    -- -- Forward Link Set Links
-    --   select 'forward link set links' as note, array[target_content_id], array[links.link_type]
-    --   from link_types
-    --   join links on links.link_type = link_types.link_type
-    --   join link_sets on links.link_set_id = link_sets.id
-    --     and link_sets.content_id = link_types.content_id
+  union
+    -- Forward Link Set Links
+    select
+      'forward link set links' as note,
+      links.target_content_id,
+      next_link_types.next_link_type,
+      root_links_by_link_type.content_id_path || links.target_content_id,
+      root_links_by_link_type.link_type_path || next_link_types.next_link_type,
+      links.target_content_id = ANY(root_links_by_link_type.content_id_path)
+    from root_links_by_link_type
+    join next_link_types
+      on next_link_types.content_id = root_links_by_link_type.content_id
+      and next_link_types.original_link_type = root_links_by_link_type.link_type
+    join links on links.link_type = next_link_types.next_link_type
+    join link_sets on links.link_set_id = link_sets.id
+      and link_sets.content_id = next_link_types.content_id
     -- union
     -- -- Forward Edition Links
     --   select 'forward edition links' as note, array[links.target_content_id], array[links.link_type]
@@ -175,7 +183,7 @@ explain analyze with
     -- -- union
     -- -- select 'debug reverse link types: ' || reverse_link_name, content_id, link_type from reverse_link_types
 )
-select 0 as depth, note, content_id_path, link_type_path, is_cycle from root_links_by_link_type
+select 0 as depth, note, content_id_path, link_type, link_type_path, is_cycle from root_links_by_link_type
 union all
-select 1 as depth, note, content_id_path, link_type_path, is_cycle from child_links_by_link_type
+select 1 as depth, note, content_id_path, link_type, link_type_path, is_cycle from child_links_by_link_type
 order by depth desc;
