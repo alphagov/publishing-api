@@ -170,13 +170,22 @@ explain analyze with
     join editions on documents.id = editions.document_id
     join links on editions.id = links.edition_id and links.link_type = next_link_types.next_link_type
     where documents.locale = :locale and editions.content_store = :content_store
-    -- union
-    -- -- Reverse Link Set Links
-    --   select 'reverse link set links' as note, array[link_sets.content_id], array[reverse_link_name]
-    --   from reverse_link_types
-    --   join links on links.link_type = reverse_link_types.link_type
-    --     and links.target_content_id = reverse_link_types.content_id
-    --   join link_sets on links.link_set_id = link_sets.id
+  union
+    -- Reverse Link Set Links
+      select
+        'reverse link set links' as note,
+        link_sets.content_id,
+        next_reverse_link_types.next_link_name,
+        root_links_by_link_type.content_id_path || link_sets.content_id,
+        root_links_by_link_type.link_type_path || next_reverse_link_types.next_link_name,
+        link_sets.content_id = ANY(root_links_by_link_type.content_id_path)
+      from root_links_by_link_type
+      join next_reverse_link_types
+        on next_reverse_link_types.content_id = root_links_by_link_type.content_id
+        and next_reverse_link_types.original_link_type = root_links_by_link_type.link_type
+      join links on links.link_type = next_reverse_link_types.next_link_type
+        and links.target_content_id = next_reverse_link_types.content_id
+      join link_sets on links.link_set_id = link_sets.id
     -- union
     -- -- Reverse Edition Links
     -- select 'reverse edition links' as note, array[documents.content_id], array[reverse_link_name]
