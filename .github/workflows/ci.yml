@@ -131,20 +131,3 @@ jobs:
           PACT_BROKER_USERNAME: ${{ secrets.GOVUK_PACT_BROKER_USERNAME }}
           PACT_BROKER_PASSWORD: ${{ secrets.GOVUK_PACT_BROKER_PASSWORD }}
           PACT_PATTERN: tmp/pacts/*.json
-
-  delete-pact-artifact:
-    name: Delete Pact artifact
-    needs:
-      - test-ruby
-      - run-content-store-pact-tests
-      - publish-pacts
-    # Run whenever test-ruby is a success regardless of run-content-store-pact-tests outcome
-    if: ${{ needs.test-ruby.result == 'success' && always() }}
-    runs-on: ubuntu-latest
-    steps:
-      # As of Jan 2023, GitHub doesn't provide a delete artifact equivalent to
-      # their upload / download ones
-      - uses: geekyeggo/delete-artifact@v4
-        with:
-          name: pacts
-          token: ${{ secrets.GOVUK_CI_GITHUB_API_TOKEN }}
