@@ -186,22 +186,26 @@ explain analyze with
       join links on links.link_type = next_reverse_link_types.next_link_type
         and links.target_content_id = next_reverse_link_types.content_id
       join link_sets on links.link_set_id = link_sets.id
-    -- union
-    -- -- Reverse Edition Links
-    -- select 'reverse edition links' as note, array[documents.content_id], array[reverse_link_name]
-    -- from reverse_link_types
-    -- join links on links.link_type = reverse_link_types.link_type
-    --   and links.target_content_id = reverse_link_types.content_id
-    -- join editions on links.edition_id = editions.id
-    -- join documents on editions.document_id = documents.id
-    -- where documents.locale = :locale and editions.content_store = :content_store
-    -- -- Debugging
-    -- -- union
-    -- -- select 'debug link types: ' || link_expansion_rule_id, content_id, link_type from link_types
-    -- -- union
-    -- -- select 'debug reverse link types: ' || reverse_link_name, content_id, link_type from reverse_link_types
+    union
+      -- Reverse Edition Links
+      select
+        'reverse edition links' as note,
+        documents.content_id,
+        next_reverse_link_types.next_link_name,
+        root_links_by_link_type.content_id_path || documents.content_id,
+        root_links_by_link_type.link_type_path || next_reverse_link_types.next_link_name,
+        documents.content_id = ANY(root_links_by_link_type.content_id_path)
+      from root_links_by_link_type
+      join next_reverse_link_types
+        on next_reverse_link_types.content_id = root_links_by_link_type.content_id
+        and next_reverse_link_types.original_link_type = root_links_by_link_type.link_type
+      join links on links.link_type = next_reverse_link_types.next_link_type
+        and links.target_content_id = next_reverse_link_types.content_id
+      join editions on links.edition_id = editions.id
+      join documents on editions.document_id = documents.id
+      where documents.locale = :locale and editions.content_store = :content_store
 )
-select 0 as depth, note, link_type_path, content_id_path, is_cycle from root_links_by_link_type
+select 0 as depth, note, link_type_path, content_id, content_id_path, is_cycle from root_links_by_link_type
 union all
-select 1 as depth, note, link_type_path, content_id_path, is_cycle from child_links_by_link_type
+select 1 as depth, note, link_type_path, content_id, content_id_path, is_cycle from child_links_by_link_type
 order by depth desc;
