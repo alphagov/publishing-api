@@ -10,24 +10,12 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "corporate_information_pages": {
-          "description": "Corporate information pages for this Worldwide Organisation",
-          "$ref": "#/definitions/guid_list"
-        },
         "finder": {
           "description": "Powers links from content back to finders the content is surfaced on",
           "$ref": "#/definitions/guid_list"
         },
-        "home_page_offices": {
-          "description": "The offices, other than the main office, to be shown on the home page of this Worldwide Organisation",
-          "$ref": "#/definitions/guid_list"
-        },
         "lead_organisations": {
           "description": "DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "main_office": {
-          "description": "The main office for this Worldwide Organisation",
           "$ref": "#/definitions/guid_list"
         },
         "mainstream_browse_pages": {
@@ -36,10 +24,6 @@
         },
         "meets_user_needs": {
           "description": "The user needs this piece of content meets.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "office_staff": {
-          "description": "People currently appointed to office staff roles in this Worldwide Organisation",
           "$ref": "#/definitions/guid_list"
         },
         "ordered_related_items": {
@@ -72,22 +56,6 @@
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
         },
-        "primary_role_person": {
-          "description": "The person currently appointed to a primary role in this Worldwide Organisation",
-          "$ref": "#/definitions/guid_list"
-        },
-        "roles": {
-          "description": "All roles associated with this Worldwide Organisation",
-          "$ref": "#/definitions/guid_list"
-        },
-        "secondary_role_person": {
-          "description": "The person currently appointed to a secondary role in this Worldwide Organisation",
-          "$ref": "#/definitions/guid_list"
-        },
-        "sponsoring_organisations": {
-          "description": "Sponsoring organisations for this Worldwide Organisation",
-          "$ref": "#/definitions/guid_list"
-        },
         "suggested_ordered_related_items": {
           "description": "Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms.",
           "$ref": "#/definitions/guid_list"
@@ -98,10 +66,6 @@
         },
         "topics": {
           "description": "Powers the /topic section of the site. These are known as specialist sectors in some legacy apps.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "world_locations": {
-          "description": "World Locations associated with this Worldwide Organisation",
           "$ref": "#/definitions/guid_list"
         }
       }
