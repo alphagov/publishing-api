@@ -9,6 +9,27 @@
           "$ref": "#/definitions/body",
         },
         logo: (import "shared/definitions/_organisation_logo.jsonnet"),
+        parts: {
+          type: "array",
+          items: {
+            type: "object",
+            additionalProperties: false,
+            properties: {
+              slug: {
+                type: "string",
+              },
+              title: {
+                type: "string",
+              },
+              summary: {
+                type: "string",
+              },
+              body: {
+                type: "string",
+              },
+            },
+          },
+        },
         office_contact_associations: {
           type: "array",
           items: {

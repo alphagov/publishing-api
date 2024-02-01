@@ -409,6 +409,27 @@
             }
           }
         },
+        "parts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "body": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
+        },
         "people_role_associations": {
           "type": "array",
           "items": {
