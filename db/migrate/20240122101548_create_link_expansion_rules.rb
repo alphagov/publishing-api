@@ -1,19 +1,23 @@
 class CreateLinkExpansionRules < ActiveRecord::Migration[7.1]
   def change
-    create_table :link_expansion_rules do |t|
+    create_table :expansion_rules do |t|
+      t.text :name
+      t.timestamps
+    end
+
+    create_table :expansion_rule_steps do |t|
       t.text :link_type
       t.timestamps
-      t.index %w[link_type], name: "index_lers_on_link_type"
     end
 
-    create_table :link_expansion_rule_relationships do |t|
-      t.bigint :link_expansion_rule_id
-      t.bigint :parent_id
+    create_table :expansion_rule_step_relationships do |t|
+      t.belongs_to :expansion_rule, foreign_key: true
+      t.references :parent_step, foreign_key: { to_table: :expansion_rule_steps }
+      t.references :child_step, foreign_key: { to_table: :expansion_rule_steps }
       t.timestamps
-      t.index %w[link_expansion_rule_id parent_id], name: "index_lerrs_on_lers_id_and_parent_id"
     end
 
-    create_table :link_expansion_reverse_rules do |t|
+    create_table :expansion_reverse_rules do |t|
       t.text :name
       t.text :link_type
       t.timestamps

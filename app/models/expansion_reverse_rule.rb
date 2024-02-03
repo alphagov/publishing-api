@@ -1,0 +1,2 @@
+class ExpansionReverseRule < ApplicationRecord
+end

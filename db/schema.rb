@@ -120,6 +120,38 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_102151) do
     t.index ["content_id", "locale", "with_drafts"], name: "expanded_links_content_id_locale_with_drafts_index", unique: true
   end
 
+  create_table "expansion_reverse_rules", force: :cascade do |t|
+    t.text "name"
+    t.text "link_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["link_type"], name: "index_reverse_lers_on_link_type"
+    t.index ["name"], name: "index_reverse_lers_on_name"
+  end
+
+  create_table "expansion_rule_step_relationships", force: :cascade do |t|
+    t.bigint "expansion_rule_id"
+    t.bigint "parent_step_id"
+    t.bigint "child_step_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_step_id"], name: "index_expansion_rule_step_relationships_on_child_step_id"
+    t.index ["expansion_rule_id"], name: "index_expansion_rule_step_relationships_on_expansion_rule_id"
+    t.index ["parent_step_id"], name: "index_expansion_rule_step_relationships_on_parent_step_id"
+  end
+
+  create_table "expansion_rule_steps", force: :cascade do |t|
+    t.text "link_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "expansion_rules", force: :cascade do |t|
+    t.text "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "link_changes", force: :cascade do |t|
     t.uuid "source_content_id", null: false
     t.uuid "target_content_id", null: false
@@ -129,30 +161,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_102151) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["created_at"], name: "index_link_changes_on_created_at", order: :desc
-  end
-
-  create_table "link_expansion_reverse_rules", force: :cascade do |t|
-    t.text "name"
-    t.text "link_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["link_type"], name: "index_reverse_lers_on_link_type"
-    t.index ["name"], name: "index_reverse_lers_on_name"
-  end
-
-  create_table "link_expansion_rule_relationships", force: :cascade do |t|
-    t.bigint "link_expansion_rule_id"
-    t.bigint "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["link_expansion_rule_id", "parent_id"], name: "index_lerrs_on_lers_id_and_parent_id"
-  end
-
-  create_table "link_expansion_rules", force: :cascade do |t|
-    t.text "link_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["link_type"], name: "index_lers_on_link_type"
   end
 
   create_table "link_sets", id: :serial, force: :cascade do |t|
@@ -224,6 +232,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_102151) do
 
   add_foreign_key "change_notes", "editions"
   add_foreign_key "editions", "documents"
+  add_foreign_key "expansion_rule_step_relationships", "expansion_rule_steps", column: "child_step_id"
+  add_foreign_key "expansion_rule_step_relationships", "expansion_rule_steps", column: "parent_step_id"
+  add_foreign_key "expansion_rule_step_relationships", "expansion_rules"
   add_foreign_key "link_changes", "actions", on_delete: :cascade
   add_foreign_key "links", "editions", on_delete: :cascade
   add_foreign_key "links", "link_sets"

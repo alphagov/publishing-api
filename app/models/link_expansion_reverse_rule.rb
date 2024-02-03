@@ -1,2 +1,0 @@
-class LinkExpansionReverseRule < ApplicationRecord
-end
