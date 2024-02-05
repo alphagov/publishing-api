@@ -12,21 +12,21 @@ end
 def forward_link_set_links(content_id)
   Link
     .joins(:link_set)
-    .select(:link_type, "links.target_content_id")
-    .where("link_sets.content_id": content_id)
+    .select("link_type", "links.target_content_id")
+    .where(link_sets: { content_id: content_id })
 end
 
 def reverse_link_set_links(content_id)
   Link
     .joins("INNER JOIN expansion_reverse_rules ON expansion_reverse_rules.link_type = links.link_type")
     .joins(:link_set)
-    .select(:link_type, "link_sets.content_id")
-    .where("link_sets.target_content_id": content_id)
-  # TODO allowed link types
+    .select("link_type", "link_sets.content_id")
+    .where(link_sets: { target_content_id: content_id })
 end
 
 def forward_edition_links(content_id)
-  Link.left_joins(edition: :document)
+  Link
+    .left_joins(edition: :document)
     .select(:link_type, "links.target_content_id")
     .where(
       documents: { content_id: },
@@ -38,16 +38,17 @@ def forward_edition_links(content_id)
 end
 
 def reverse_edition_links(content_id)
-  Link.left_joins(edition: :document)
-      .select(:link_type, "documents.content_id")
-      .where(
-        links: { target_content_id: content_id },
-        editions: {
-          content_store: "live",
-          locale: "en",
-        },
-  )
-  # TODO allowed link types
+  Link
+    .joins("INNER JOIN expansion_reverse_rules ON expansion_reverse_rules.link_type = links.link_type")
+    .left_joins(edition: :document)
+    .select(:link_type, "documents.content_id")
+    .where(
+      links: { target_content_id: content_id },
+      editions: {
+        content_store: "live",
+        locale: "en",
+      },
+    )
 end
 
 namespace :recursive_cte do
@@ -73,14 +74,33 @@ namespace :recursive_cte do
     puts result
   end
 
+  desc "Working Arel version of the recursive CTE to calculate link expansions"
   task my_links_query: :environment do
     content_id = "1234"
 
-    puts union(
-      forward_link_set_links(content_id),
-      reverse_link_set_links(content_id),
-      forward_edition_links(content_id),
-      reverse_edition_links(content_id),
-    ).to_sql
+    child_links_by_link_type = Arel::Table.new(:child_links_by_link_type)
+    puts child_links_by_link_type
+      .project(Arel.star)
+      .with(
+        Arel::Nodes::Cte.new(
+          Arel.sql("root_links_by_link_type(link_type, content_id)"),
+          union(
+            forward_link_set_links(content_id),
+            reverse_link_set_links(content_id),
+            forward_edition_links(content_id),
+            reverse_edition_links(content_id),
+          ),
+        ),
+        Arel::Nodes::Cte.new(
+          Arel.sql("child_links_by_link_type(link_type, content_id)"),
+          # TODO: adapt these for child level links
+          union(
+            forward_link_set_links(content_id),
+            reverse_link_set_links(content_id),
+            forward_edition_links(content_id),
+            reverse_edition_links(content_id),
+          ),
+        ),
+      ).to_sql
   end
 end
