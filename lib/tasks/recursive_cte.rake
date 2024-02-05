@@ -9,6 +9,10 @@ def union(*args)
   end
 end
 
+def cte(name, definition)
+  Arel::Nodes::Cte.new(Arel.sql(name), definition)
+end
+
 def forward_link_set_links(content_id)
   Link
     .joins(:link_set)
@@ -27,7 +31,7 @@ end
 def forward_edition_links(content_id)
   Link
     .left_joins(edition: :document)
-    .select(:link_type, "links.target_content_id")
+    .select("link_type", "links.target_content_id")
     .where(
       documents: { content_id: },
       editions: {
@@ -41,7 +45,7 @@ def reverse_edition_links(content_id)
   Link
     .joins("INNER JOIN expansion_reverse_rules ON expansion_reverse_rules.link_type = links.link_type")
     .left_joins(edition: :document)
-    .select(:link_type, "documents.content_id")
+    .select("link_type", "documents.content_id")
     .where(
       links: { target_content_id: content_id },
       editions: {
@@ -49,6 +53,46 @@ def reverse_edition_links(content_id)
         locale: "en",
       },
     )
+end
+
+def root_links_by_link_type_query(content_id)
+  union(
+    forward_link_set_links(content_id),
+    reverse_link_set_links(content_id),
+    forward_edition_links(content_id),
+    reverse_edition_links(content_id),
+  )
+end
+
+def child_links_by_link_type_query(content_id)
+  # TODO: adapt these for child level links
+  # We'll need to make this quite a bit more complex...
+  #
+  # Firstly we'll need a new recursive CTE -
+  # the base case is the second level of depth,
+  # the recursive case is the third level and deeper.
+  # In the base case, we need to refer to the links
+  # we found in root_links_by_link_type, in the recursive
+  # case we need to refer to the links we found in child_links_by_link_type
+  #
+  # Postgres only allows us to refer to a the recursive reference once,
+  # so we'll either need to wrap child_link_by_link_type in its own CTE,
+  # or be clever with the other CTEs we need so it's only called once.
+  #
+  # The other thing we need to do here is create a mechanism for filtering
+  # the allowed link types for each content_id at each level. This involves
+  # recursively walking through the link_types path we've taken so far, and
+  # finding the possible link types for the level we're at. This can probably happen first.
+  #
+  # A correct implementation of just the first and second levels of depth
+  # would be a good next step.
+  union(
+    forward_link_set_links(content_id),
+    reverse_link_set_links(content_id),
+    # NOTE: edition links only supported at the root level currently
+    # forward_edition_links(content_id),
+    # reverse_edition_links(content_id),
+  )
 end
 
 namespace :recursive_cte do
@@ -80,26 +124,15 @@ namespace :recursive_cte do
 
     child_links_by_link_type = Arel::Table.new(:child_links_by_link_type)
     puts child_links_by_link_type
-      .project(Arel.star)
+      .project("link_type", "content_type")
       .with(
-        Arel::Nodes::Cte.new(
-          Arel.sql("root_links_by_link_type(link_type, content_id)"),
-          union(
-            forward_link_set_links(content_id),
-            reverse_link_set_links(content_id),
-            forward_edition_links(content_id),
-            reverse_edition_links(content_id),
-          ),
+        cte(
+          "root_links_by_link_type(link_type, content_id)",
+          root_links_by_link_type_query(content_id),
         ),
-        Arel::Nodes::Cte.new(
-          Arel.sql("child_links_by_link_type(link_type, content_id)"),
-          # TODO: adapt these for child level links
-          union(
-            forward_link_set_links(content_id),
-            reverse_link_set_links(content_id),
-            forward_edition_links(content_id),
-            reverse_edition_links(content_id),
-          ),
+        cte(
+          "child_links_by_link_type(link_type, content_id)",
+          child_links_by_link_type_query(content_id),
         ),
       ).to_sql
   end
