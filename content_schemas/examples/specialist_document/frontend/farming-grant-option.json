@@ -1,0 +1,393 @@
+{
+  "content_id": "7cdc95ae-0e85-455f-b749-77d226157591",
+  "locale": "en",
+  "base_path": "/farming-grant-options/example-farming-grant-option",
+  "title": "Example farming grant option",
+  "description": "The GOV.UK Data Labs team piloted the standard for their Related Links tool; a recommendation engine built to aid navigation of GOV.UK.",
+  "details": {
+    "body": "Related Links is a recommendation engine built to aid navigation of GOV.UK by providing relevant onward journeys from a content page.\n\nThe tool uses an algorithm called node2vec to train a model on the last three weeks of user movement data (web analytics data). Three weeks of data was used as our experience with user movement data on the site indicated it was sufficient to capture medium and long term trends while ignoring short-lived spikes in user behaviour. The model is used to predict related links for every page. These new related links are published to GOV.UK.\n\nThe tool is used to help users find useful information and content, aiding navigation.\n\nGOV.UK has approximately 600,000 pieces of content. Previously, related links were created manually, with only approximately 2,000 pieces of content having related links. The tool expanded that to nearly the entirety of the GOV.UK content.",
+    "attachments": [],
+    "metadata": {
+      "open_or_closed": ["open"],
+      "areas_of_interest": ["air-quality"],
+      "land_types": ["arable-land"],
+      "funding_types": ["option"],
+      "grant_schemes": ["countryside-stewardship"],
+      "payment_types": ["capital"]
+    },
+    "max_cache_time": 10,
+    "change_history": [
+      {
+        "note": "First published.",
+        "public_timestamp": "2015-07-10T13:09:46+00:00"
+      }
+    ],
+    "headers": [
+      {
+        "text": "Statutory timetable",
+        "level": 2,
+        "id": "statutory-timetable"
+      },
+      {
+        "text": "Phase 1",
+        "level": 2,
+        "id": "phase-1",
+        "headers": [
+          {
+            "text": "Invitation to comment: closes 24 July 2015",
+            "level": 3,
+            "id": "invitation-to-comment-closes-24-july-2015"
+          },
+          {
+            "text": "Launch of CMA merger inquiry",
+            "level": 3,
+            "id": "launch-of-cma-merger-inquiry"
+          },
+          {
+            "text": "Contact",
+            "level": 3,
+            "id": "contact"
+          }
+        ]
+      }
+    ]
+  },
+  "public_updated_at": "2015-07-10T13:09:46+00:00",
+  "schema_name": "specialist_document",
+  "document_type": "farming_grant_option",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "OT1280",
+        "api_path": "/api/content/government/organisations/centre-for-data-ethics-and-innovation",
+        "base_path": "/government/organisations/centre-for-data-ethics-and-innovation",
+        "content_id": "1405edcb-943d-42d2-8ec8-c51cd58335a5",
+        "description": "The CDEI is a government expert body enabling the trustworthy use of data and AI. CDEI is part of the Department for Science, Innovation and Technology.",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-03-10T16:23:14Z",
+        "schema_name": "organisation",
+        "title": "Centre for Data Ethics and Innovation",
+        "withdrawn": false,
+        "details": {
+          "brand": "cabinet-office",
+          "logo": {
+            "formatted_title": "Centre for<br/>Data Ethics<br/>and Innovation",
+            "crest": null
+          }
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/organisations/centre-for-data-ethics-and-innovation",
+        "web_url": "https://www.gov.uk/government/organisations/centre-for-data-ethics-and-innovation"
+      },
+      {
+        "analytics_identifier": "D1381",
+        "api_path": "/api/content/government/organisations/department-for-science-innovation-and-technology",
+        "base_path": "/government/organisations/department-for-science-innovation-and-technology",
+        "content_id": "c352c234-8083-47ec-8a4b-0edd45c31263",
+        "description": "Driving innovation that will deliver improved public services, create new better-paid jobs and grow the economy. DSIT is a ministerial department, supported by 14 agencies and public bodies.",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-03-10T16:23:14Z",
+        "schema_name": "organisation",
+        "title": "Department for Science, Innovation and Technology",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-science-innovation-and-technology",
+          "logo": {
+            "formatted_title": "Department for<br/>Science, Innovation<br/>& Technology",
+            "crest": null
+          }
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-science-innovation-and-technology",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology"
+      },
+      {
+        "analytics_identifier": "OT1329",
+        "api_path": "/api/content/government/organisations/central-digital-and-data-office",
+        "base_path": "/government/organisations/central-digital-and-data-office",
+        "content_id": "2fb482e7-3c4d-496f-887d-f8a55a15e89a",
+        "description": "The Central Digital and Data Office is part of the Cabinet Office. We lead the Government Digital and Data function for government. CDDO is part of the Cabinet Office .",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-03-10T16:23:14Z",
+        "schema_name": "organisation",
+        "title": "Central Digital and Data Office",
+        "withdrawn": false,
+        "details": {
+          "brand": "cabinet-office",
+          "logo": {
+            "formatted_title": "Central Digital <br/>&amp; Data Office",
+            "crest": "single-identity"
+          }
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/government/organisations/central-digital-and-data-office",
+        "web_url": "https://www.gov.uk/government/organisations/central-digital-and-data-office"
+      }
+    ],
+    "finder": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/farming-grant-options",
+        "base_path": "/farming-grant-options",
+        "content_id": "23ad50d7-916c-456b-b3de-4b27739d5be1",
+        "description": "Find out about grant options, items and actions in the Farming and Countryside Programme. This is for land or farms in England.",
+        "document_type": "finder",
+        "locale": "en",
+        "public_updated_at": "2017-03-15T14:44:21Z",
+        "schema_name": "finder",
+        "title": "Farming grant options finder",
+        "withdrawn": false,
+        "details": {
+          "facets": [
+            {
+              "key": "open_or_closed",
+              "name": "Open or closed",
+              "type": "text",
+              "preposition": "which are",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Open",
+                  "value": "open"
+                },
+                {
+                  "label": "Closed",
+                  "value": "closed"
+                }
+              ]
+            },
+            {
+              "key": "areas_of_interest",
+              "name": "Areas of interest",
+              "short_name": "Areas of interest",
+              "type": "text",
+              "preposition": "with",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Access and engagement",
+                  "value": "access-and-engagement"
+                },
+                {
+                  "label": "Air quality",
+                  "value": "air-quality"
+                },
+                {
+                  "label": "Biodiversity",
+                  "value": "biodiversity"
+                },
+                {
+                  "label": "Boundaries",
+                  "value": "boundaries"
+                },
+                {
+                  "label": "Crops",
+                  "value": "crops"
+                },
+                {
+                  "label": "Flood risk",
+                  "value": "flood-risk"
+                },
+                {
+                  "label": "Forestry",
+                  "value": "forestry"
+                },
+                {
+                  "label": "Historic environment",
+                  "value": "historic-environment"
+                },
+                {
+                  "label": "Livestock management",
+                  "value": "livestock-management"
+                },
+                {
+                  "label": "Peat",
+                  "value": "peat"
+                },
+                {
+                  "label": "Pollinators and wildlife",
+                  "value": "pollinators-and-wildlife"
+                },
+                {
+                  "label": "Precision farming",
+                  "value": "precision-farming"
+                },
+                {
+                  "label": "Slurry management",
+                  "value": "slurry-management"
+                },
+                {
+                  "label": "Soil",
+                  "value": "soil"
+                },
+                {
+                  "label": "Trees (non-woodland)",
+                  "value": "trees-non-woodland"
+                },
+                {
+                  "label": "Vegetation control",
+                  "value": "vegetation-control"
+                },
+                {
+                  "label": "Water",
+                  "value": "water"
+                }
+              ]
+            },
+            {
+              "key": "land_types",
+              "name": "Land types",
+              "short_name": "Land types",
+              "type": "text",
+              "preposition": "for",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Arable land",
+                  "value": "arable-land"
+                },
+                {
+                  "label": "Coast",
+                  "value": "coast"
+                },
+                {
+                  "label": "Grassland",
+                  "value": "grassland"
+                },
+                {
+                  "label": "Lowland heath",
+                  "value": "lowland-heath"
+                },
+                {
+                  "label": "Moorland and upland",
+                  "value": "moorland-and-upland"
+                },
+                {
+                  "label": "Organic land",
+                  "value": "organic-land"
+                },
+                {
+                  "label": "Priority habitats",
+                  "value": "priority-habitats"
+                },
+                {
+                  "label": "Waterbodies",
+                  "value": "waterbodies"
+                },
+                {
+                  "label": "Wetland",
+                  "value": "wetland"
+                },
+                {
+                  "label": "Woodland",
+                  "value": "woodland"
+                }
+              ]
+            },
+            {
+              "key": "funding_types",
+              "name": "Funding types",
+              "short_name": "Funding types",
+              "type": "text",
+              "preposition": "is",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Option",
+                  "value": "option"
+                },
+                {
+                  "label": "Item",
+                  "value": "item"
+                },
+                {
+                  "label": "Action",
+                  "value": "action"
+                }
+              ]
+            },
+            {
+              "key": "grant_schemes",
+              "name": "Grant schemes",
+              "short_name": "Grant schemes",
+              "type": "text",
+              "preposition": "part of",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Combined Offer",
+                  "value": "combined-offer"
+                },
+                {
+                  "label": "Countryside Stewardship",
+                  "value": "countryside-stewardship"
+                },
+                {
+                  "label": "Farming Equipment and Technology Fund",
+                  "value": "farming-equipment-and-technology-fund"
+                },
+                {
+                  "label": "Slurry Infrastructure grant",
+                  "value": "slurry-infrastructure-grant"
+                },
+                {
+                  "label": "Sustainable Farming Incentive",
+                  "value": "sustainable-farming-incentive"
+                }
+              ]
+            },
+            {
+              "key": "payment_types",
+              "name": "Payment types",
+              "short_name": "Payment types",
+              "type": "text",
+              "preposition": "payment type",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Capital",
+                  "value": "capital"
+                },
+                {
+                  "label": "Revenue",
+                  "value": "revenue"
+                }
+              ]
+            }
+          ]
+        },
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/algorithmic-transparency-records",
+        "web_url": "https://www.gov.uk/algorithmic-transparency-records"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "content_id": "77fefe76-b7fb-4a8c-b90b-e1e3516c0af7",
+        "description": "The GOV.UK Data Labs team piloted the standard for their Related Links tool; a recommendation engine built to aid navigation of GOV.UK.",
+        "document_type": "algorithmic_transparency_record",
+        "public_updated_at": "2015-10-01T11:00:38Z",
+        "schema_name": "specialist_document",
+        "title": "GOV.UK Data Labs (Cabinet Office): Related Links",
+        "base_path": "/algorithmic-transparency-records/govuk-data-labs-cabinet-office-related-links",
+        "locale": "en",
+        "api_path": "/api/content/algorithmic-transparency-records/govuk-data-labs-cabinet-office-related-links",
+        "withdrawn": false,
+        "api_url": "https://www.gov.uk/api/content/algorithmic-transparency-records/govuk-data-labs-cabinet-office-related-links",
+        "web_url": "https://www.gov.uk/algorithmic-transparency-records/govuk-data-labs-cabinet-office-related-links",
+        "links": {}
+      }
+    ]
+  },
+  "updated_at": "2017-06-30T15:44:11.073Z"
+}
