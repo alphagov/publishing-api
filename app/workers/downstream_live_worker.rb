@@ -41,6 +41,10 @@ class DownstreamLiveWorker
 
     if %w[published unpublished].include?(edition.state)
       event_type = message_queue_event_type || edition.update_type
+      Rails.logger.info(
+        "DownstreamLiveWorker#perform:" \
+        "Broadcasting #{content_id}@#{payload_version} to message queue as type #{event_type}",
+      )
       DownstreamService.broadcast_to_message_queue(payload, event_type)
     end
 
