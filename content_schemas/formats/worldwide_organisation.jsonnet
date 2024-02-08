@@ -9,6 +9,9 @@
           "$ref": "#/definitions/body",
         },
         logo: (import "shared/definitions/_organisation_logo.jsonnet"),
+        default_news_image: {
+          "$ref": "#/definitions/image",
+        },
         office_contact_associations: {
           type: "array",
           items: {
