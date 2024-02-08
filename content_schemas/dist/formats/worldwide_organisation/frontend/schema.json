@@ -338,6 +338,9 @@
         "change_history": {
           "$ref": "#/definitions/change_history"
         },
+        "default_news_image": {
+          "$ref": "#/definitions/image"
+        },
         "logo": {
           "description": "The organisation's logo, including the logo image and formatted name.",
           "type": "object",

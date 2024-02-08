@@ -17,6 +17,10 @@
       "crest": "single-identity",
       "formatted_title": "British Deputy High Commission<br/>Hyderabad"
     },
+    "default_news_image": {
+      "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/548/s300_fcdo-main-building.jpg",
+      "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/548/s960_fcdo-main-building.jpg"
+    },
     "office_contact_associations": [
       {
         "office_content_id": "58c83be0-6264-4cb0-a652-126d57e8c0b7",
