@@ -1,0 +1,2 @@
+class PublishIntent < ApplicationRecord
+end
