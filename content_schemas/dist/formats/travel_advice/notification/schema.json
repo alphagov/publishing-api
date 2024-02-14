@@ -818,6 +818,9 @@
             "type": "string",
             "format": "uri"
           },
+          "summary": {
+            "type": "string"
+          },
           "title": {
             "type": "string"
           }
