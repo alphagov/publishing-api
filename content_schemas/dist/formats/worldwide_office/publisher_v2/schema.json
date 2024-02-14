@@ -177,6 +177,9 @@
             "null"
           ]
         },
+        "contact_content_id": {
+          "$ref": "#/definitions/guid"
+        },
         "services": {
           "type": "array",
           "items": {
@@ -200,6 +203,13 @@
             }
           },
           "uniqueItems": true
+        },
+        "slug": {
+          "type": "string",
+          "format": "uri"
+        },
+        "title": {
+          "type": "string"
         },
         "type": {
           "description": "The type of Worldwide Office.",

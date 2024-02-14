@@ -476,6 +476,63 @@
         "default_news_image": {
           "$ref": "#/definitions/image"
         },
+        "home_page_office_parts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "access_and_opening_times": {
+                "description": "The access and opening times for this Worldwide Office.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "contact_content_id": {
+                "$ref": "#/definitions/guid"
+              },
+              "services": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "title": {
+                      "description": "The name of the service provided by this Worldwide Office.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "type": {
+                      "description": "The type of service provided by this Worldwide Office.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                },
+                "uniqueItems": true
+              },
+              "slug": {
+                "type": "string",
+                "format": "uri"
+              },
+              "title": {
+                "type": "string"
+              },
+              "type": {
+                "description": "The type of Worldwide Office.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
         "logo": {
           "description": "The organisation's logo, including the logo image and formatted name.",
           "type": "object",
@@ -505,6 +562,63 @@
             },
             "image": {
               "$ref": "#/definitions/image"
+            }
+          }
+        },
+        "main_office_parts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "access_and_opening_times": {
+                "description": "The access and opening times for this Worldwide Office.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "contact_content_id": {
+                "$ref": "#/definitions/guid"
+              },
+              "services": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "title": {
+                      "description": "The name of the service provided by this Worldwide Office.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "type": {
+                      "description": "The type of service provided by this Worldwide Office.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                },
+                "uniqueItems": true
+              },
+              "slug": {
+                "type": "string",
+                "format": "uri"
+              },
+              "title": {
+                "type": "string"
+              },
+              "type": {
+                "description": "The type of Worldwide Office.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
             }
           }
         },

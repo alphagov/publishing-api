@@ -21,6 +21,48 @@
       "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/548/s300_fcdo-main-building.jpg",
       "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/548/s960_fcdo-main-building.jpg"
     },
+    "home_page_office_parts": [
+      {
+        "access_and_opening_times": "Our opening times",
+        "contact_content_id": "53df7197-901c-48fc-b9b4-ed649903f1f0",
+        "services": [
+          {
+            "title": "Business Funding",
+            "type": "Business Funds"
+          },
+          {
+            "title": "Business Advice",
+            "type": "Business Advisory"
+          }
+        ],
+        "slug": "office/uk-trade-investment-duesseldorf",
+        "title": "Department for Business and Trade Dusseldorf",
+        "type": "Department for Business and Trade Office"
+      },
+      {
+        "access_and_opening_times": "Our opening times",
+        "contact_content_id": "d7196415-647c-4b81-8e9f-8436c53e45f0",
+        "services": [],
+        "slug": "office/uk-trade-investment-munich",
+        "title": "Department for Business and Trade Munich",
+        "type": "Department for Business and Trade Office"
+      }
+    ],
+    "main_office_parts": [
+      {
+        "access_and_opening_times": "Our opening times",
+        "contact_content_id": "410c4c3b-5c1c-4617-b603-4356bedcc85e",
+        "services": [
+          {
+            "title": "Emergency Travel Documents service",
+            "type": "Assistance Services"
+          }
+        ],
+        "slug": "office/british-embassy",
+        "title": "British Embassy",
+        "type": "Embassy"
+      }
+    ],
     "office_contact_associations": [
       {
         "office_content_id": "58c83be0-6264-4cb0-a652-126d57e8c0b7",
