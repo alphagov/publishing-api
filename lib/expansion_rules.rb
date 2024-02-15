@@ -111,7 +111,7 @@ module_function
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = %i[content_id title schema_name locale analytics_identifier].freeze
   WORLDWIDE_OFFICE_FIELDS = (DEFAULT_FIELDS + details_fields(:access_and_opening_times)).freeze
-  WORLDWIDE_ORGANISATION_FIELDS = (DEFAULT_FIELDS_AND_DESCRIPTION + details_fields(:logo, :world_location_names)).freeze
+  WORLDWIDE_ORGANISATION_FIELDS = (DEFAULT_FIELDS_AND_DESCRIPTION + details_fields(:logo, :world_location_names, :default_news_image)).freeze
 
   CUSTOM_EXPANSION_FIELDS_FOR_PEOPLE = (
     %i[

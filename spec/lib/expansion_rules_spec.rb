@@ -58,7 +58,7 @@ RSpec.describe ExpansionRules do
     let(:travel_advice_fields) { default_fields + [%i[details country], %i[details change_description]] }
     let(:world_location_fields) { %i[content_id title schema_name locale analytics_identifier] }
     let(:worldwide_office_fields) { default_fields + [%i[details access_and_opening_times]] }
-    let(:worldwide_organisation_fields) { default_fields_and_description + [%i[details logo]] + [%i[details world_location_names]] }
+    let(:worldwide_organisation_fields) { default_fields_and_description + [%i[details logo]] + [%i[details world_location_names]] + [%i[details default_news_image]] }
 
     specify { expect(rules.expansion_fields(:redirect)).to eq([]) }
     specify { expect(rules.expansion_fields(:gone)).to eq([]) }
