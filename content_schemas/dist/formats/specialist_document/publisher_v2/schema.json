@@ -1649,17 +1649,6 @@
         "bulk_published": {
           "type": "boolean"
         },
-        "funding_types": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "option",
-              "item",
-              "action"
-            ]
-          }
-        },
         "grant_schemes": {
           "type": "array",
           "items": {
@@ -1688,16 +1677,6 @@
               "waterbodies",
               "wetland",
               "woodland"
-            ]
-          }
-        },
-        "open_or_closed": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "open",
-              "closed"
             ]
           }
         },
