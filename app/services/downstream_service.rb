@@ -19,7 +19,7 @@ module DownstreamService
       raise DownstreamInvalidStateError, message
     end
     if downstream_payload.state != "draft" && draft_at_base_path?(downstream_payload.base_path)
-      message = "Can't send #{downstream_payload.state} item to draft content store, as there is a draft occupying the same base path"
+      message = "Can't send #{downstream_payload.state} item to draft content store, as there is a draft occupying the same base path (#{downstream_payload.base_path})"
       raise DownstreamDraftExistsError, message
     end
 

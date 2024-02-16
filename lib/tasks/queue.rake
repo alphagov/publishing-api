@@ -3,7 +3,8 @@ namespace :queue do
   task watcher: :environment do
     config = Rails.application.config_for("rabbitmq").symbolize_keys
 
-    conn = Bunny.new(config)
+    # conn = Bunny.new(config)
+    conn = Bunny.new(ENV["RABBITMQ_URL"])
     conn.start
 
     ch = conn.create_channel

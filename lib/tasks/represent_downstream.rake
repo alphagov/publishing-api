@@ -51,9 +51,18 @@ namespace :represent_downstream do
     content_ids = args.extras
     queue = DownstreamQueue::HIGH_QUEUE
 
-    content_ids.uniq.each_slice(1000).each do |batch|
+    max = content_ids.length
+    start = 0
+
+    if content_ids.length == 1 && content_ids.first.is_a?(Array)
+      content_ids = content_ids.first
+    end
+
+    content_ids.uniq.each_slice(100) do |batch|
+      puts "#{Time.now.iso8601} representing #{start} - #{start + batch[0].size}"
       Commands::V2::RepresentDownstream.new.call(batch, queue:)
       sleep 5
+      start = start + batch.size
     end
   end
 
