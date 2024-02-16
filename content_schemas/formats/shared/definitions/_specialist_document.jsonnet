@@ -2087,16 +2087,6 @@
       bulk_published: {
         type: "boolean",
       },
-      open_or_closed: {
-        type: "array",
-        items: {
-          type: "string",
-          enum: [
-            "open",
-            "closed",
-          ]
-        }
-      },
       areas_of_interest: {
         type: "array",
         items: {
@@ -2137,17 +2127,6 @@
             "waterbodies",
             "wetland",
             "woodland",
-          ]
-        }
-      },
-      funding_types: {
-        type: "array",
-        items: {
-          type: "string",
-          enum: [
-            "option",
-            "item",
-            "action",
           ]
         }
       },

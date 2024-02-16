@@ -8,10 +8,8 @@
     "body": "Related Links is a recommendation engine built to aid navigation of GOV.UK by providing relevant onward journeys from a content page.\n\nThe tool uses an algorithm called node2vec to train a model on the last three weeks of user movement data (web analytics data). Three weeks of data was used as our experience with user movement data on the site indicated it was sufficient to capture medium and long term trends while ignoring short-lived spikes in user behaviour. The model is used to predict related links for every page. These new related links are published to GOV.UK.\n\nThe tool is used to help users find useful information and content, aiding navigation.\n\nGOV.UK has approximately 600,000 pieces of content. Previously, related links were created manually, with only approximately 2,000 pieces of content having related links. The tool expanded that to nearly the entirety of the GOV.UK content.",
     "attachments": [],
     "metadata": {
-      "open_or_closed": ["open"],
       "areas_of_interest": ["air-quality"],
       "land_types": ["arable-land"],
-      "funding_types": ["option"],
       "grant_schemes": ["countryside-stewardship"],
       "payment_types": ["capital"]
     },
@@ -143,24 +141,6 @@
         "details": {
           "facets": [
             {
-              "key": "open_or_closed",
-              "name": "Open or closed",
-              "type": "text",
-              "preposition": "which are",
-              "display_as_result_metadata": true,
-              "filterable": true,
-              "allowed_values": [
-                {
-                  "label": "Open",
-                  "value": "open"
-                },
-                {
-                  "label": "Closed",
-                  "value": "closed"
-                }
-              ]
-            },
-            {
               "key": "areas_of_interest",
               "name": "Areas of interest",
               "short_name": "Areas of interest",
@@ -287,29 +267,6 @@
                 {
                   "label": "Woodland",
                   "value": "woodland"
-                }
-              ]
-            },
-            {
-              "key": "funding_types",
-              "name": "Funding types",
-              "short_name": "Funding types",
-              "type": "text",
-              "preposition": "is",
-              "display_as_result_metadata": true,
-              "filterable": true,
-              "allowed_values": [
-                {
-                  "label": "Option",
-                  "value": "option"
-                },
-                {
-                  "label": "Item",
-                  "value": "item"
-                },
-                {
-                  "label": "Action",
-                  "value": "action"
                 }
               ]
             },
