@@ -29,6 +29,9 @@ class FastLinkExpansion
   end
 
   def links_with_content
+    # TODO - alias the results from root_links and level_1_links so they're consistent
+    # and can be joined with reverse links and edition links
+
     root_links = Link.joins(:link_set).where(link_sets: { content_id: })
     root_linked_editions = linked_editions(root_links)
     level_1_condition = link_type_condition(root_linked_editions)
@@ -62,7 +65,12 @@ private
       .where(state: "draft") # TODO - more states
       .where(documents: { locale: "en" }) # TODO - more locales
       .where.not(document_type: Edition::NON_RENDERABLE_FORMATS)
-      .pluck(:id, :base_path, "documents.content_id", "level_links.link_type")
+      .pluck(
+        :id,
+        :base_path,
+        "documents.content_id",
+        "level_links.link_type",
+      )
       .map { |row| LinkExpansionResult.new(*row) }
   end
 
@@ -70,15 +78,12 @@ private
     links_table = Link.arel_table
     link_sets_table = LinkSet.arel_table
 
-    content_ids_by_link_type = linked_editions.group_by(&:link_type)
-      .transform_values { |g| g.map(&:content_id).uniq }
-
-    condition = nil
     # TODO - need to remove the link types that don't match the expansion rules
-    content_ids_by_link_type.each do |link_type, content_ids|
-      term = links_table[:link_type].eq(link_type).and(link_sets_table[:content_id].in(content_ids))
-      condition = condition.nil? ? term : condition.or(term)
-    end
-    condition
+    linked_editions.group_by(&:link_type)
+      .map { |link_type, links|
+        links_table[:link_type].eq(link_type).and(
+          link_sets_table[:content_id].in(links.map(&:content_id).uniq),
+        )
+      }.reduce(:or)
   end
 end
