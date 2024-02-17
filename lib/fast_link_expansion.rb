@@ -1,4 +1,4 @@
-LinkExpansionResult = Data.define(:edition_id, :base_path, :content_id, :link_type) do
+LinkExpansionResult = Data.define(:edition_id, :base_path, :content_id, :link_type, :content_id_path, :link_type_path) do
   def to_h
     {
       edition_id:,
@@ -34,8 +34,29 @@ class FastLinkExpansion
 
     root_links = Link.joins(:link_set).where(link_sets: { content_id: })
     root_linked_editions = linked_editions(root_links)
+
     level_1_condition = link_type_condition(root_linked_editions)
     level_1_links = Link.joins(:link_set).where(level_1_condition)
+    # TODO - the problem here is that it's not possible to work out
+    # which content_id / link_type was the parent - because it's just
+    # one giant condition.
+    # Maybe instead of a where((link_type = 'a' and content_id in (b,c,d)) or ... number)
+    # we actually need to do a join table thing, where we could refer back to the parent
+    # ...
+    # ...
+    # in which case, would it actually be easier to go back to the full on SQL version?
+    # ...
+    # I was hoping that we'd be able to do this as a first step...
+    # Maybe something like:
+    # WITH prev(link_type, content_id, link_type_path, content_id_path) as (
+    #   VALUES ('parent', 'blah', link_type_path, content_id_path), ('document', 'blah', link_type_path, content_id_path)
+    # )
+    # SELECT *
+    # FROM links
+    # JOIN prev on links.link_type = prev.link_type AND documents.content_id = prev.content_id
+    # ...
+    # would work?
+    # In a sense, this is kinda similar to what postgres is likely to do anyway when it optimises our giant where clause
     level_1_linked_editions = linked_editions(level_1_links)
 
     # TODO - knit the level 1 links into the links: [] arrays in the root links
@@ -70,6 +91,8 @@ private
         :base_path,
         "documents.content_id",
         "level_links.link_type",
+        Arel.sql('ARRAY["documents"."content_id"]'), # TODO this needs to include more stuff
+        Arel.sql('ARRAY["level_links"."link_type"]'), # TODO this needs to include more stuff
       )
       .map { |row| LinkExpansionResult.new(*row) }
   end
