@@ -74,16 +74,21 @@ private
       .map { |row| LinkExpansionResult.new(*row) }
   end
 
+  # TODO factor this out and unit test it
   def link_type_condition(linked_editions)
-    links_table = Link.arel_table
-    link_sets_table = LinkSet.arel_table
+    link_type_col = Link.arel_table[:link_type]
+    content_id_col = LinkSet.arel_table[:content_id]
 
-    # TODO - need to remove the link types that don't match the expansion rules
-    linked_editions.group_by(&:link_type)
-      .map { |link_type, links|
-        links_table[:link_type].eq(link_type).and(
-          link_sets_table[:content_id].in(links.map(&:content_id).uniq),
-        )
-      }.reduce(:or)
+    # TODO
+    # For each link_type_path, we need to join it with the link expansion rules
+    # to work out what the possible child link types for this path are.
+    # It's these possible child link types that we need to use in this condition,
+    # not the link types we're using right now.
+
+    linked_editions
+      .group_by(&:link_type)
+      .transform_values { |links| links.map(&:content_id).uniq }
+      .map { |link_type, content_ids| link_type_col.eq(link_type).and(content_id_col.in(content_ids)) }
+      .reduce(:or)
   end
 end
