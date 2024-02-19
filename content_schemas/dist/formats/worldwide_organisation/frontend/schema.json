@@ -528,6 +528,9 @@
               "content_id": {
                 "$ref": "#/definitions/guid"
               },
+              "path": {
+                "type": "string"
+              },
               "title": {
                 "type": "string"
               }

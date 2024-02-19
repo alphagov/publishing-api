@@ -58,6 +58,9 @@
               title: {
                 type: "string",
               },
+              path: {
+                type: "string",
+              },
             },
           },
           description: "A set of links to corporate information pages to display for the worldwide organisation.",
