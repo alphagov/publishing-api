@@ -103,7 +103,10 @@ private
     def below_base_path?(path, base_path)
       return true if path =~ %r{^#{base_path}\.[\w-]+\z}
 
-      /^#{base_path}/.match?(path)
+      suffix = /\.([\w-]+\z)$/.match(base_path).to_a&.first || ""
+      base_path_without_suffix = base_path.gsub(suffix, "")
+
+      /^#{base_path_without_suffix}.*#{suffix}/.match?(path)
     end
 
     def segments(path)
