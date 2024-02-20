@@ -10,6 +10,39 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       expect(subject.errors[:routes]).to eq(["path must be below the base path"])
     end
 
+    it "is valid when a route has a document type suffix" do
+      edition.routes = [
+        { path: subject.base_path, type: "exact" },
+        { path: "#{subject.base_path}.atom", type: "exact" },
+      ]
+
+      expect(subject).to be_valid
+    end
+
+    describe "with nested translated routes" do
+      let(:edition) { build(:edition, base_path: "/vat-rates.fr") }
+
+      it "is valid when a translated route is below the base path" do
+        edition.routes = [
+          { path: "/vat-rates.fr", type: "exact" },
+          { path: "/vat-rates/path/document.fr", type: "exact" },
+        ]
+
+        expect(subject).to be_valid
+      end
+
+      it "is invalid when a translated route is below the base path but has the wrong translation" do
+        edition.routes = [
+          { path: "/vat-rates.fr", type: "exact" },
+          { path: "/vat-rates/path/document.fr", type: "exact" },
+          { path: "/vat-rates/path/document.es", type: "exact" },
+        ]
+
+        expect(subject).to be_invalid
+        expect(subject.errors[:routes]).to eq(["path must be below the base path"])
+      end
+    end
+
     it "must have unique paths" do
       edition.routes = [
         { path: subject.base_path, type: "exact" },
