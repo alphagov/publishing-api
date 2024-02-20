@@ -10,6 +10,15 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       expect(subject.errors[:routes]).to eq(["path must be below the base path"])
     end
 
+    it "is valid when a route has a document type suffix" do
+      edition.routes = [
+        { path: subject.base_path, type: "exact" },
+        { path: "#{subject.base_path}.atom", type: "exact" },
+      ]
+
+      expect(subject).to be_valid
+    end
+
     it "must have unique paths" do
       edition.routes = [
         { path: subject.base_path, type: "exact" },
