@@ -2087,16 +2087,6 @@
       bulk_published: {
         type: "boolean",
       },
-      open_or_closed: {
-        type: "array",
-        items: {
-          type: "string",
-          enum: [
-            "open",
-            "closed",
-          ]
-        }
-      },
       areas_of_interest: {
         type: "array",
         items: {
@@ -2140,26 +2130,12 @@
           ]
         }
       },
-      funding_types: {
-        type: "array",
-        items: {
-          type: "string",
-          enum: [
-            "option",
-            "item",
-            "action",
-          ]
-        }
-      },
       grant_schemes: {
         type: "array",
         items: {
           type: "string",
           enum: [
-            "combined-offer",
             "countryside-stewardship",
-            "farming-equipment-and-technology-fund",
-            "slurry-infrastructure-grant",
             "sustainable-farming-incentive",
           ]
         }
