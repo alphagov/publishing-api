@@ -280,20 +280,8 @@
               "filterable": true,
               "allowed_values": [
                 {
-                  "label": "Combined Offer",
-                  "value": "combined-offer"
-                },
-                {
                   "label": "Countryside Stewardship",
                   "value": "countryside-stewardship"
-                },
-                {
-                  "label": "Farming Equipment and Technology Fund",
-                  "value": "farming-equipment-and-technology-fund"
-                },
-                {
-                  "label": "Slurry Infrastructure grant",
-                  "value": "slurry-infrastructure-grant"
                 },
                 {
                   "label": "Sustainable Farming Incentive",

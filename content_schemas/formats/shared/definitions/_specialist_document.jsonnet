@@ -2135,10 +2135,7 @@
         items: {
           type: "string",
           enum: [
-            "combined-offer",
             "countryside-stewardship",
-            "farming-equipment-and-technology-fund",
-            "slurry-infrastructure-grant",
             "sustainable-farming-incentive",
           ]
         }
