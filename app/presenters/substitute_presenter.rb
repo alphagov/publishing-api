@@ -17,8 +17,8 @@ class Presenters::SubstitutePresenter
 
   def for_message_queue(payload_version)
     {
-      document_type: "vanish",
-      schema_name: "vanish",
+      document_type: "substitute",
+      schema_name: "substitute",
       base_path: @base_path,
       locale: @locale,
       publishing_app: @publishing_app,
