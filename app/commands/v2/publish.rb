@@ -177,6 +177,9 @@ module Commands
         # This enables changing the locale of some content where a
         # published edition for the previous locale still exists.
         published_edition_for_different_locale.substitute
+
+        payload = DownstreamPayload.new(published_edition_for_different_locale, Event.maximum_id)
+        DownstreamService.update_live_content_store(payload)
       end
 
       def set_timestamps
