@@ -20,6 +20,7 @@ gem "oj"
 gem "pg"
 gem "plek"
 gem "sentry-sidekiq"
+gem "sequel", git: "https://github.com/jeremyevans/sequel"
 gem "sidekiq-unique-jobs"
 gem "whenever", require: false
 gem "with_advisory_lock"
