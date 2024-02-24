@@ -26,37 +26,52 @@ class FastLinkExpansion
   end
 
   def links_with_content
+    root_content_id_uuid = Sequel.cast(content_id, "uuid")
     # Supply a list of parents as a CTE
     # This will produce SQL like:
-    #     WITH "previous_links" AS (VALUES ('cafebabe-cafe-babe-face-cafebabeface'::uuid))
+    #     WITH "parents" AS (VALUES ('cafebabe-cafe-babe-face-cafebabeface'::uuid)),
+    #          "parents_reverse" AS (VALUES ('person', 'cafebabe...'), ...)
     #     SELECT * from "links"
     # For the root case we pass the root content_id as the only value - it's a special case because
     # all link types are valid at the root level.
     #
     # For subsequent levels of depth, we pass the content_ids of all the children, along with the allowed link types
     # for the next level of depth from there.
-    previous_links_ds = DB[:links].with(
-      Sequel.lit("previous_links(content_id)"),
-      DB.values([[Sequel.cast(content_id, "uuid")]]),
+    # TODO - add paths to these, and everywhere they're used
+    parents_ds = DB[:links].with(
+      Sequel.lit("parents(content_id)"),
+      DB.values([[root_content_id_uuid]]),
+    ).with(
+      Sequel.lit("parents_reverse(link_type, content_id)"),
+      DB.values(ExpansionRules.reverse_links.map { |link| [link.to_s, root_content_id_uuid] }),
     )
 
-    root_links_ds = link_set_links(previous_links_ds, root_level: true)
-      .union(reverse_link_set_links(root_level: true), from_self: false)
+    root_links_ds = link_set_links(parents_ds, root_level: true)
+      .union(reverse_link_set_links, from_self: false)
       .union(edition_links(root_level: true), from_self: false)
-      .union(reverse_edition_links(root_level: true), from_self: false)
+      .union(reverse_edition_links, from_self: false)
 
     root_links = root_links_ds.pluck(:link_type, :content_id)
-    next_links = root_links.flat_map { |link_type, content_id|
-      allowed_link_types = @multi_level_links.allowed_link_types([link_type.to_sym])
+    next_direct_links = root_links.flat_map { |link_type, content_id|
+      allowed_link_types = allowed_direct_link_types([link_type.to_sym])
+      allowed_link_types.map { [_1.to_s, content_id] }
+    }.uniq
+    next_reverse_links = root_links.flat_map { |link_type, content_id|
+      allowed_link_types = allowed_reverse_link_types([link_type.to_sym])
       allowed_link_types.map { [_1.to_s, content_id] }
     }.uniq
 
-    previous_links_ds = DB[:links]
+    parents_ds = DB[:links]
       .with(
-        Sequel.lit("previous_links(link_type, content_id)"),
-        DB.values(next_links.map { |link_type, content_id| [link_type, Sequel.cast(content_id, "uuid")] }),
+        Sequel.lit("parents(link_type, content_id)"),
+        DB.values(next_direct_links.map { |link_type, content_id| [link_type, Sequel.cast(content_id, "uuid")] }),
       )
-    level_1_links_ds = link_set_links(previous_links_ds)
+      .with(
+        Sequel.lit("parents_reverse(link_type, content_id)"),
+        DB.values(next_reverse_links.map { |link_type, content_id| [link_type, Sequel.cast(content_id, "uuid")] }),
+      )
+
+    level_1_links_ds = link_set_links(parents_ds)
       .union(reverse_link_set_links, from_self: false)
       .union(edition_links, from_self: false)
       .union(reverse_edition_links, from_self: false)
@@ -78,25 +93,33 @@ private
     edition ? edition.content_id : options.fetch(:content_id)
   end
 
+  def allowed_direct_link_types(link_types_path)
+    @multi_level_links.allowed_link_types(link_types_path).reject do |link_type|
+      ExpansionRules.is_reverse_link_type?(link_type)
+    end
+  end
+
+  def allowed_reverse_link_types(link_types_path)
+    @multi_level_links.allowed_link_types(link_types_path).select do |link_type|
+      ExpansionRules.is_reverse_link_type?(link_type)
+    end
+  end
+
   def link_set_links(dataset = DB[:links], root_level: false)
     ds = dataset
       .join(:link_sets, id: :link_set_id)
-      .join(:previous_links, content_id: Sequel[:link_sets][:content_id])
+      .join(:parents, content_id: Sequel[:link_sets][:content_id])
 
-    ds = ds.where(Sequel[:previous_links][:link_type] => Sequel[:links][:link_type]) unless root_level
+    ds = ds.where(Sequel[:parents][:link_type] => Sequel[:links][:link_type]) unless root_level
 
     ds.select(Sequel[:links][:link_type], Sequel[:target_content_id].as(:content_id))
   end
 
-  def reverse_link_set_links(root_level: false)
-    ds = DB[:links]
+  def reverse_link_set_links()
+    DB[:links]
       .join(:link_sets, id: :link_set_id)
-      .join(:previous_links, content_id: Sequel[:links][:target_content_id])
-
-    # TODO - does this need to be different for reverse links?
-    ds = ds.where(Sequel[:previous_links][:link_type] => Sequel[:links][:link_type]) unless root_level
-
-    ds.where(Sequel[:links][:link_type] => ExpansionRules.reverse_links.map(&:to_s))
+      .join(:parents_reverse, content_id: Sequel[:links][:target_content_id], link_type: Sequel[:links][:link_type])
+      .where(Sequel[:links][:link_type] => ExpansionRules.reverse_links.map(&:to_s))
       .select(Sequel[:links][:link_type], Sequel[:link_sets][:content_id])
   end
 
@@ -104,9 +127,9 @@ private
     ds = DB[:links]
       .join(:editions, id: :edition_id)
       .join(:documents, id: :document_id)
-      .join(:previous_links, content_id: Sequel[:documents][:content_id])
+      .join(:parents, content_id: Sequel[:documents][:content_id])
 
-    ds = ds.where(Sequel[:previous_links][:link_type] => Sequel[:links][:link_type]) unless root_level
+    ds = ds.where(Sequel[:parents][:link_type] => Sequel[:links][:link_type]) unless root_level
 
     ds.where(
       Sequel[:documents][:locale] => "en", # TODO more locales
@@ -114,19 +137,16 @@ private
     ).select(Sequel[:links][:link_type], Sequel[:target_content_id].as(:content_id))
   end
 
-  def reverse_edition_links(root_level: false)
-    ds = DB[:links]
+  def reverse_edition_links
+    DB[:links]
       .join(:editions, id: :edition_id)
       .join(:documents, id: :document_id)
-      .join(:previous_links, content_id: Sequel[:links][:target_content_id])
-
-    # TODO - does this need to be different for reverse links?
-    ds = ds.where(Sequel[:previous_links][:link_type] => Sequel[:links][:link_type]) unless root_level
-
-    ds.where(
-      Sequel[:documents][:locale] => "en", # TODO more locales
-      Sequel[:editions][:content_store] => "live", # TODO more content stores
-      Sequel[:links][:link_type] => ExpansionRules.reverse_links.map(&:to_s),
-    ).select(Sequel[:links][:link_type], Sequel[:documents][:content_id])
+      .join(:parents_reverse, content_id: Sequel[:links][:target_content_id], link_type: Sequel[:links][:link_type])
+      .where(
+        Sequel[:documents][:locale] => "en", # TODO more locales
+        Sequel[:editions][:content_store] => "live", # TODO more content stores
+        Sequel[:links][:link_type] => ExpansionRules.reverse_links.map(&:to_s),
+      )
+      .select(Sequel[:links][:link_type], Sequel[:documents][:content_id])
   end
 end
