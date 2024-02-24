@@ -117,37 +117,53 @@ private
     dataset
       .join(:link_sets, id: :link_set_id)
       .join(:previous_links, content_id: Sequel[:link_sets][:content_id])
-      .select(:link_type, :target_content_id)
+      .where(Sequel.or([
+        [Sequel[:previous_links][:link_type], nil],
+        [Sequel[:previous_links][:link_type], Sequel[:links][:link_type]],
+      ]))
+      .select(Sequel[:links][:link_type], :target_content_id)
   end
 
   def reverse_link_set_links
     DB[:links]
       .join(:link_sets, id: :link_set_id)
-      .join(:previous_links, content_id: :target_content_id)
+      .join(:previous_links, content_id: Sequel[:links][:target_content_id])
+      .where(Sequel.or([
+        [Sequel[:previous_links][:link_type], nil],
+        [Sequel[:previous_links][:link_type], Sequel[:links][:link_type]],
+      ]))
       .where(Sequel[:links][:link_type] => ExpansionRules.reverse_links.map(&:to_s))
-      .select(:link_type, :content_id)
+      .select(Sequel[:links][:link_type], Sequel[:link_sets][:content_id])
   end
 
   def edition_links
     DB[:links]
       .join(:editions, id: :edition_id)
       .join(:documents, id: :document_id)
+      .join(:previous_links, content_id: Sequel[:documents][:content_id])
+      .where(Sequel.or([
+        [Sequel[:previous_links][:link_type], nil],
+        [Sequel[:previous_links][:link_type], Sequel[:links][:link_type]],
+      ]))
       .where(
-        Sequel[:documents][:content_id] => Sequel[:previous_links][:content_id],
         Sequel[:documents][:locale] => "en", # TODO more locales
         Sequel[:editions][:content_store] => "live", # TODO more content stores
-      ).select(:link_type, :target_content_id)
+      ).select(Sequel[:links][:link_type], :target_content_id)
   end
 
   def reverse_edition_links
     DB[:links]
       .join(:editions, id: :edition_id)
       .join(:documents, id: :document_id)
+      .join(:previous_links, content_id: Sequel[:links][:target_content_id])
+      .where(Sequel.or([
+        [Sequel[:previous_links][:link_type], nil],
+        [Sequel[:previous_links][:link_type], Sequel[:links][:link_type]],
+      ]))
       .where(
-        Sequel[:links][:target_content_id] => Sequel[:previous_links][:content_id],
         Sequel[:documents][:locale] => "en", # TODO more locales
         Sequel[:editions][:content_store] => "live", # TODO more content stores
         Sequel[:links][:link_type] => ExpansionRules.reverse_links.map(&:to_s),
-      ).select(:link_type, :content_id)
+      ).select(Sequel[:links][:link_type], Sequel[:documents][:content_id])
   end
 end
