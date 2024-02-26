@@ -43,7 +43,11 @@ class FastLinkExpansion
     # TODO - add paths to these, and everywhere they're used
     parents_ds = DB[:links].with(
       Sequel.lit("parents(content_id, link_type_path, content_id_path)"),
-      DB.values([[root_content_id_uuid, Sequel.pg_array([], "text"), Sequel.pg_array([], "uuid")]]),
+      DB.values([[
+        root_content_id_uuid,
+        Sequel.pg_array([], "text"),
+        Sequel.pg_array([], "uuid"),
+      ]]),
     ).with(
       Sequel.lit("parents_reverse(link_type, content_id, link_type_path, content_id_path)"),
       DB.values(ExpansionRules.reverse_links.map do |link|
@@ -62,39 +66,48 @@ class FastLinkExpansion
       .union(reverse_edition_links, from_self: false)
 
     root_links = root_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path)
-    next_direct_links = root_links.flat_map { |link_type, content_id|
+    next_direct_links = root_links.flat_map { |link_type, content_id, link_type_path, content_id_path|
       allowed_link_types = allowed_direct_link_types([link_type.to_sym])
-      allowed_link_types.map { [_1.to_s, content_id] }
+      allowed_link_types.map { [_1.to_s, content_id, link_type_path, content_id_path] }
     }.uniq
-    next_reverse_links = root_links.flat_map { |link_type, content_id|
+    next_reverse_links = root_links.flat_map { |link_type, content_id, link_type_path, content_id_path|
       allowed_link_types = allowed_reverse_link_types([link_type.to_sym])
-      allowed_link_types.map { [_1.to_s, content_id] }
+      allowed_link_types.map { [_1.to_s, content_id, link_type_path, content_id_path] }
     }.uniq
 
     parents_ds = DB[:links]
       .with(
-        Sequel.lit("parents(link_type, content_id)"),
-        DB.values(next_direct_links.map { |link_type, content_id| [link_type, Sequel.cast(content_id, "uuid")] }),
+        Sequel.lit("parents(link_type, content_id, link_type_path, content_id_path)"),
+        DB.values(next_direct_links.map do |link_type, content_id, link_type_path, content_id_path|
+          [
+            link_type,
+            Sequel.cast(content_id, "uuid"),
+            link_type_path,
+            content_id_path,
+          ]
+        end),
       )
       .with(
-        Sequel.lit("parents_reverse(link_type, content_id)"),
-        DB.values(next_reverse_links.map { |link_type, content_id| [link_type, Sequel.cast(content_id, "uuid")] }),
+        Sequel.lit("parents_reverse(link_type, content_id, link_type_path, content_id_path)"),
+        DB.values(next_reverse_links.map do |link_type, content_id, link_type_path, content_id_path|
+          [
+            link_type,
+            Sequel.cast(content_id, "uuid"),
+            link_type_path,
+            content_id_path,
+          ]
+        end),
       )
 
     level_1_links_ds = link_set_links(parents_ds)
       .union(reverse_link_set_links, from_self: false)
-      .union(edition_links, from_self: false)
-      .union(reverse_edition_links)
-      .select(
-        :link_type,
-        :content_id,
-        Sequel[:link_type_path].pg_array.push(:link_type),
-        Sequel[:content_id_path].pg_array.push(:content_id),
-      )
+      # .union(edition_links, from_self: false)
+      # .union(reverse_edition_links)
 
-    level_1_links = level_1_links_ds.pluck(:link_type, :content_id)
+    level_1_links = level_1_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path)
 
     # TODO - draw the rest of the owl
+    level_1_links
   end
 
 private
