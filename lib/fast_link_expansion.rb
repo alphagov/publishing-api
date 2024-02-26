@@ -6,7 +6,10 @@
 
 # TODO - use sequel-rails to configure this properly
 # TODO - how to integrate this with FactoryBot??
+
+Sequel.extension :pg_array, :pg_array_ops
 DB = Sequel.connect(Rails.configuration.database_configuration[Rails.env])
+DB.extension :pg_array
 
 class FastLinkExpansion
   def self.by_edition(edition, with_drafts: false)
@@ -39,11 +42,18 @@ class FastLinkExpansion
     # for the next level of depth from there.
     # TODO - add paths to these, and everywhere they're used
     parents_ds = DB[:links].with(
-      Sequel.lit("parents(content_id)"),
-      DB.values([[root_content_id_uuid]]),
+      Sequel.lit("parents(content_id, link_type_path, content_id_path)"),
+      DB.values([[root_content_id_uuid, Sequel.pg_array([], "text"), Sequel.pg_array([], "uuid")]]),
     ).with(
-      Sequel.lit("parents_reverse(link_type, content_id)"),
-      DB.values(ExpansionRules.reverse_links.map { |link| [link.to_s, root_content_id_uuid] }),
+      Sequel.lit("parents_reverse(link_type, content_id, link_type_path, content_id_path)"),
+      DB.values(ExpansionRules.reverse_links.map do |link|
+        [
+          link.to_s,
+          root_content_id_uuid,
+          Sequel.pg_array([], "text"),
+          Sequel.pg_array([], "uuid"),
+        ]
+      end),
     )
 
     root_links_ds = link_set_links(parents_ds, root_level: true)
@@ -51,7 +61,7 @@ class FastLinkExpansion
       .union(edition_links(root_level: true), from_self: false)
       .union(reverse_edition_links, from_self: false)
 
-    root_links = root_links_ds.pluck(:link_type, :content_id)
+    root_links = root_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path)
     next_direct_links = root_links.flat_map { |link_type, content_id|
       allowed_link_types = allowed_direct_link_types([link_type.to_sym])
       allowed_link_types.map { [_1.to_s, content_id] }
@@ -74,7 +84,13 @@ class FastLinkExpansion
     level_1_links_ds = link_set_links(parents_ds)
       .union(reverse_link_set_links, from_self: false)
       .union(edition_links, from_self: false)
-      .union(reverse_edition_links, from_self: false)
+      .union(reverse_edition_links)
+      .select(
+        :link_type,
+        :content_id,
+        Sequel[:link_type_path].pg_array.push(:link_type),
+        Sequel[:content_id_path].pg_array.push(:content_id),
+      )
 
     level_1_links = level_1_links_ds.pluck(:link_type, :content_id)
 
@@ -112,15 +128,25 @@ private
 
     ds = ds.where(Sequel[:parents][:link_type] => Sequel[:links][:link_type]) unless root_level
 
-    ds.select(Sequel[:links][:link_type], Sequel[:target_content_id].as(:content_id))
+    ds.select(
+      Sequel[:links][:link_type],
+      Sequel[:target_content_id].as(:content_id),
+      Sequel[:link_type_path].pg_array.push(Sequel[:links][:link_type]).as(:link_type_path),
+      Sequel[:content_id_path].pg_array.push(Sequel[:target_content_id]).as(:content_id_path),
+    )
   end
 
-  def reverse_link_set_links()
+  def reverse_link_set_links
     DB[:links]
       .join(:link_sets, id: :link_set_id)
       .join(:parents_reverse, content_id: Sequel[:links][:target_content_id], link_type: Sequel[:links][:link_type])
       .where(Sequel[:links][:link_type] => ExpansionRules.reverse_links.map(&:to_s))
-      .select(Sequel[:links][:link_type], Sequel[:link_sets][:content_id])
+      .select(
+        Sequel[:links][:link_type],
+        Sequel[:link_sets][:content_id],
+        Sequel[:link_type_path].pg_array.push(Sequel[:links][:link_type]).as(:link_type_path),
+        Sequel[:content_id_path].pg_array.push(Sequel[:link_sets][:content_id]).as(:content_id_path),
+      )
   end
 
   def edition_links(root_level: false)
@@ -134,7 +160,12 @@ private
     ds.where(
       Sequel[:documents][:locale] => "en", # TODO more locales
       Sequel[:editions][:content_store] => "live", # TODO more content stores
-    ).select(Sequel[:links][:link_type], Sequel[:target_content_id].as(:content_id))
+    ).select(
+      Sequel[:links][:link_type],
+      Sequel[:target_content_id].as(:content_id),
+      Sequel[:link_type_path].pg_array.push(Sequel[:links][:link_type]).as(:link_type_path),
+      Sequel[:content_id_path].pg_array.push(Sequel[:target_content_id]).as(:content_id_path),
+    )
   end
 
   def reverse_edition_links
@@ -147,6 +178,11 @@ private
         Sequel[:editions][:content_store] => "live", # TODO more content stores
         Sequel[:links][:link_type] => ExpansionRules.reverse_links.map(&:to_s),
       )
-      .select(Sequel[:links][:link_type], Sequel[:documents][:content_id])
+      .select(
+        Sequel[:links][:link_type],
+        Sequel[:documents][:content_id],
+        Sequel[:link_type_path].pg_array.push(Sequel[:links][:link_type]).as(:link_type_path),
+        Sequel[:content_id_path].pg_array.push(Sequel[:documents][:content_id]).as(:content_id_path),
+      )
   end
 end
