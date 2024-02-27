@@ -101,13 +101,15 @@ class FastLinkExpansion
 
     level_1_links_ds = link_set_links(parents_ds)
       .union(reverse_link_set_links, from_self: false)
-      # .union(edition_links, from_self: false)
-      # .union(reverse_edition_links)
+    # Note: edition links are only supported at the root level currently
+    # .union(edition_links, from_self: false)
+    # .union(reverse_edition_links)
 
     level_1_links = level_1_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path)
 
-    # TODO - draw the rest of the owl
+    puts level_1_links
     level_1_links
+    # TODO - draw the rest of the owl
   end
 
 private
