@@ -382,6 +382,7 @@
         items: {
           type: "string",
           enum: [
+            "uk",
             "northern-ireland",
             "scotland",
             "wales",

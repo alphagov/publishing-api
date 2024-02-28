@@ -384,6 +384,10 @@
               "filterable": true,
               "allowed_values": [
                 {
+                  "label": "UK",
+                  "value": "uk"
+                },
+                {
                   "label": "Northern Ireland",
                   "value": "northern-ireland"
                 },
