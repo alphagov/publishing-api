@@ -40,7 +40,6 @@ class FastLinkExpansion
     #
     # For subsequent levels of depth, we pass the content_ids of all the children, along with the allowed link types
     # for the next level of depth from there.
-    # TODO - add paths to these, and everywhere they're used
     parents_ds = DB[:links].with(
       Sequel.lit("parents(content_id, link_type_path, content_id_path)"),
       DB.values([[
@@ -65,12 +64,14 @@ class FastLinkExpansion
       .union(edition_links(root_level: true), from_self: false)
       .union(reverse_edition_links, from_self: false)
 
-    root_links = root_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path)
-    next_direct_links = root_links.flat_map { |link_type, content_id, link_type_path, content_id_path|
-      allowed_link_types = allowed_direct_link_types([link_type.to_sym])
-      allowed_link_types.map { [_1.to_s, content_id, link_type_path, content_id_path] }
-    }.uniq
-    next_reverse_links = root_links.flat_map { |link_type, content_id, link_type_path, content_id_path|
+    root_links = root_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path, :is_cycle)
+    root_links_without_cycles = root_links
+      .reject { |_link_type, _content_id, _link_type_path, _content_id_path, is_cycle| is_cycle }
+    next_direct_links = root_links_without_cycles.flat_map { |link_type, content_id, link_type_path, content_id_path|
+        allowed_link_types = allowed_direct_link_types([link_type.to_sym])
+        allowed_link_types.map { [_1.to_s, content_id, link_type_path, content_id_path] }
+      }.uniq
+    next_reverse_links = root_links_without_cycles.flat_map { |link_type, content_id, link_type_path, content_id_path|
       allowed_link_types = allowed_reverse_link_types([link_type.to_sym])
       allowed_link_types.map { [_1.to_s, content_id, link_type_path, content_id_path] }
     }.uniq
@@ -105,7 +106,8 @@ class FastLinkExpansion
     # .union(edition_links, from_self: false)
     # .union(reverse_edition_links)
 
-    level_1_links = level_1_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path)
+    level_1_links = level_1_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path, :is_cycle)
+    # TODO reject cycles, loop
 
     puts level_1_links
     level_1_links
@@ -147,7 +149,8 @@ private
       Sequel[:links][:link_type],
       Sequel[:target_content_id].as(:content_id),
       Sequel[:link_type_path].pg_array.push(Sequel[:links][:link_type]).as(:link_type_path),
-      Sequel[:content_id_path].pg_array.push(Sequel[:target_content_id]).as(:content_id_path),
+      Sequel[:parents][:content_id_path].pg_array.push(Sequel[:target_content_id]).as(:content_id_path),
+      Sequel.as({ Sequel[:target_content_id] => Sequel[:parents][:content_id_path].pg_array.any }, :is_cycle),
     )
   end
 
@@ -160,7 +163,8 @@ private
         Sequel[:links][:link_type],
         Sequel[:link_sets][:content_id],
         Sequel[:link_type_path].pg_array.push(Sequel[:links][:link_type]).as(:link_type_path),
-        Sequel[:content_id_path].pg_array.push(Sequel[:link_sets][:content_id]).as(:content_id_path),
+        Sequel[:parents_reverse][:content_id_path].pg_array.push(Sequel[:link_sets][:content_id]).as(:content_id_path),
+        Sequel.as({ Sequel[:link_sets][:content_id] => Sequel[:parents_reverse][:content_id_path].pg_array.any }, :is_cycle),
       )
   end
 
@@ -179,7 +183,8 @@ private
       Sequel[:links][:link_type],
       Sequel[:target_content_id].as(:content_id),
       Sequel[:link_type_path].pg_array.push(Sequel[:links][:link_type]).as(:link_type_path),
-      Sequel[:content_id_path].pg_array.push(Sequel[:target_content_id]).as(:content_id_path),
+      Sequel[:parents][:content_id_path].pg_array.push(Sequel[:target_content_id]).as(:content_id_path),
+      Sequel.as({ Sequel[:target_content_id] => Sequel[:parents][:content_id_path].pg_array.any }, :is_cycle),
     )
   end
 
@@ -197,7 +202,8 @@ private
         Sequel[:links][:link_type],
         Sequel[:documents][:content_id],
         Sequel[:link_type_path].pg_array.push(Sequel[:links][:link_type]).as(:link_type_path),
-        Sequel[:content_id_path].pg_array.push(Sequel[:documents][:content_id]).as(:content_id_path),
+        Sequel[:parents_reverse][:content_id_path].pg_array.push(Sequel[:documents][:content_id]).as(:content_id_path),
+        Sequel.as({ Sequel[:documents][:content_id] => Sequel[:parents_reverse][:content_id_path].pg_array.any }, :is_cycle),
       )
   end
 end
