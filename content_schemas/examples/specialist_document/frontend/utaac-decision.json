@@ -1779,16 +1779,156 @@
                   "value": "revisions-supersessions-and-reviews-supersession-incapacity"
                 },
                 {
+                  "label": "Safeguarding vulnerable groups - Adequacy",
+                  "value": "safeguarding-vulnerable-groups-adequacy"
+                },
+                {
                   "label": "Safeguarding vulnerable groups - Adults’ barred list",
                   "value": "safeguarding-vulnerable-groups-adults-barred-list"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Appealable decisions",
+                  "value": "safeguarding-vulnerable-groups-appealable-decisions"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Appropriateness",
+                  "value": "safeguarding-vulnerable-groups-appropriateness"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Child - meaning",
+                  "value": "safeguarding-vulnerable-groups-child-meaning"
                 },
                 {
                   "label": "Safeguarding vulnerable groups - Children’s barred list",
                   "value": "safeguarding-vulnerable-groups-children-s-barred-list"
                 },
                 {
+                  "label": "Safeguarding vulnerable groups - Convictions/cautions",
+                  "value": "safeguarding-vulnerable-groups-convictions/cautions"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - DBS procedure - other",
+                  "value": "safeguarding-vulnerable-groups-dbs-procedure-other"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Disposal",
+                  "value": "safeguarding-vulnerable-groups-disposal"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - 'Fairness of DBS decision-making' or something similar",
+                  "value": "safeguarding-vulnerable-groups-fairness-of-dbs-decision-making"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Finding of fact",
+                  "value": "safeguarding-vulnerable-groups-finding-of-fact"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Grounds of appeal",
+                  "value": "safeguarding-vulnerable-groups-grounds-of-appeal"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Harm – meaning",
+                  "value": "safeguarding-vulnerable-groups-harm–meaning"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Investigation by DBS",
+                  "value": "safeguarding-vulnerable-groups-investigation-by-dbs"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Irrationality",
+                  "value": "safeguarding-vulnerable-groups-irrationality"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Knowledge attributable to DBS",
+                  "value": "safeguarding-vulnerable-groups-knowledge-attributable-to-dbs"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Materiality",
+                  "value": "safeguarding-vulnerable-groups-materiality"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Mistake on point of law",
+                  "value": "safeguarding-vulnerable-groups-mistake-on-point-of-law"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - New evidence before the UT",
+                  "value": "safeguarding-vulnerable-groups-new-evidence-before-the-ut"
+                },
+                {
                   "label": "Safeguarding vulnerable groups - other lists",
                   "value": "safeguarding-vulnerable-groups-other-lists"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Paragraph 17",
+                  "value": "safeguarding-vulnerable-groups-paragraph-17"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Paragraph 18",
+                  "value": "safeguarding-vulnerable-groups-paragraph-18"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Paragraph 18A",
+                  "value": "safeguarding-vulnerable-groups-paragraph-18-a"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Perversity",
+                  "value": "safeguarding-vulnerable-groups-perversity"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Previous decision not to bar - relevance",
+                  "value": "safeguarding-vulnerable-groups-previous-decision-not-to-bar - relevance"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Proportionality",
+                  "value": "safeguarding-vulnerable-groups-proportionality"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Reading across between conduct towards child and adult",
+                  "value": "safeguarding-vulnerable-groups-reading-across-between-conduct-towards-child-and-adult"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Reasoning",
+                  "value": "safeguarding-vulnerable-groups-reasoning"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Regulated activity",
+                  "value": "safeguarding-vulnerable-groups-regulated-activity"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Relevance of conduct in personal life",
+                  "value": "safeguarding-vulnerable-groups-relevance-of-conduct-in-personal-life"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Relevance of conduct outside regulated activity",
+                  "value": "safeguarding-vulnerable-groups-relevance-of-conduct-outside-regulated-activity"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Relevance of decision by professional regulator",
+                  "value": "safeguarding-vulnerable-groups-relevance-of-decision-by-professional-regulator"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Removal from list",
+                  "value": "safeguarding-vulnerable-groups-removal-from-list"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Respect for DBS fact-finding",
+                  "value": "safeguarding-vulnerable-groups-respect-for-dbs-fact-finding"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Respect for limits of jurisdiction",
+                  "value": "safeguarding-vulnerable-groups-respect-for-limits-of-jurisdiction"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Reviews",
+                  "value": "safeguarding-vulnerable-groups-reviews"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Whether DBS should have waited for decision by professional regulator",
+                  "value": "safeguarding-vulnerable-groups-whether-dbs-should-have-waited-for-decision-by-professional-regulator"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Whether to stay to await review by DBS",
+                  "value": "safeguarding-vulnerable-groups-whether-to-stay-to-await-review-by-dbs"
                 },
                 {
                   "label": "Special educational needs - description of special educational needs",
@@ -2148,6 +2288,14 @@
                   "value": "brunner-k"
                 },
                 {
+                  "label": "Buckley, S",
+                  "value": "buckley-s"
+                },
+                {
+                  "label": "Buley, T",
+                  "value": "buley-t"
+                },
+                {
                   "label": "Burns, D",
                   "value": "burns-d"
                 },
@@ -2180,12 +2328,28 @@
                   "value": "charles-w"
                 },
                 {
+                  "label": "Church, TH",
+                  "value": "church-th"
+                },
+                {
                   "label": "Citron, Z",
                   "value": "citron-z"
                 },
                 {
+                  "label": "Clough, J",
+                  "value": "clough-j"
+                },
+                {
                   "label": "Cole, G",
                   "value": "cole-g"
+                },
+                {
+                  "label": "Davies, S",
+                  "value": "davies-s"
+                },
+                {
+                  "label": "Dunlop, L",
+                  "value": "dunlop-l"
                 },
                 {
                   "label": "Farbey, J",
@@ -2196,8 +2360,16 @@
                   "value": "fellner-c"
                 },
                 {
+                  "label": "Fitzpatrick, E",
+                  "value": "fitzpatrick-e"
+                },
+                {
                   "label": "Fordham, M",
                   "value": "fordham-m"
+                },
+                {
+                  "label": "Freer, A",
+                  "value": "freer-a"
                 },
                 {
                   "label": "Gamble, A",
@@ -2220,8 +2392,16 @@
                   "value": "grey-e"
                 },
                 {
+                  "label": "Gullick, M",
+                  "value": "gullick-m"
+                },
+                {
                   "label": "Hallett, V",
                   "value": "hallett-v"
+                },
+                {
+                  "label": "Hansen, W",
+                  "value": "hansen-w"
                 },
                 {
                   "label": "Harris, M",
@@ -2252,6 +2432,10 @@
                   "value": "hinchliffe-m"
                 },
                 {
+                  "label": "Hocking, S",
+                  "value": "hocking-s"
+                },
+                {
                   "label": "Hoolahan, A",
                   "value": "hoolahan-a"
                 },
@@ -2270,6 +2454,14 @@
                 {
                   "label": "Johnson, M",
                   "value": "johnson-m"
+                },
+                {
+                  "label": "Johnston, S",
+                  "value": "johnston-s"
+                },
+                {
+                  "label": "Jones, R",
+                  "value": "jones-r"
                 },
                 {
                   "label": "Jupp, E",
@@ -2340,12 +2532,24 @@
                   "value": "mitchell-jg"
                 },
                 {
+                  "label": "Monk, F",
+                  "value": "monk-f"
+                },
+                {
                   "label": "Morcom, J",
                   "value": "morcom-j"
                 },
                 {
                   "label": "Mullan, K",
                   "value": "mullan-k"
+                },
+                {
+                  "label": "Najib, S",
+                  "value": "najib-s"
+                },
+                {
+                  "label": "Oliver, S",
+                  "value": "oliver-s"
                 },
                 {
                   "label": "Ovey, E",
@@ -2372,6 +2576,10 @@
                   "value": "perez-r"
                 },
                 {
+                  "label": "Poole, AI",
+                  "value": "poole-ai"
+                },
+                {
                   "label": "Powell, J",
                   "value": "powell-j"
                 },
@@ -2380,8 +2588,16 @@
                   "value": "poynter-r"
                 },
                 {
+                  "label": "Price, L",
+                  "value": "price-l"
+                },
+                {
                   "label": "Ramsay, A",
                   "value": "ramsay-a"
+                },
+                {
+                  "label": "Ramshaw, P",
+                  "value": "ramshaw-p"
                 },
                 {
                   "label": "Reith, D",
@@ -2390,6 +2606,10 @@
                 {
                   "label": "Rice, D",
                   "value": "rice-d"
+                },
+                {
+                  "label": "Robinson, H",
+                  "value": "robinson-h"
                 },
                 {
                   "label": "Rowland, M",
@@ -2402,6 +2622,14 @@
                 {
                   "label": "Sanders, R",
                   "value": "sanders-r"
+                },
+                {
+                  "label": "Scolding, F",
+                  "value": "scolding-f"
+                },
+                {
+                  "label": "Sims, A",
+                  "value": "sims-a"
                 },
                 {
                   "label": "Skinner, J",
@@ -2434,6 +2662,10 @@
                 {
                   "label": "Three Judge Panel",
                   "value": "three-judge-panel"
+                },
+                {
+                  "label": "Tudur, M",
+                  "value": "tudur-m"
                 },
                 {
                   "label": "Turnbull, C",
@@ -2470,6 +2702,10 @@
                 {
                   "label": "Williams, D",
                   "value": "williams-d"
+                },
+                {
+                  "label": "Williams, H",
+                  "value": "williams-h"
                 },
                 {
                   "label": "Wright, S",
