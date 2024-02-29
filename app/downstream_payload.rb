@@ -60,6 +60,10 @@ private
     Presenters::VanishPresenter.from_edition(edition)
   end
 
+  def substitute_presenter
+    Presenters::SubstitutePresenter.from_edition(edition)
+  end
+
   def content_store_presenter
     if unpublishing
       return redirect_presenter if unpublishing.type == "redirect"
@@ -79,7 +83,10 @@ private
     when "redirect" then redirect_presenter
     when "gone" then gone_presenter
     when "vanish" then vanish_presenter
-    else content_presenter
+    when "substitute" then substitute_presenter
+    else
+      logger.warn("Unexpected unpublishing type #{unpublishing.type}")
+      content_presenter
     end
   end
 end
