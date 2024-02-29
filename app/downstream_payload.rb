@@ -79,7 +79,10 @@ private
     when "redirect" then redirect_presenter
     when "gone" then gone_presenter
     when "vanish" then vanish_presenter
-    else content_presenter
+    when "substitute" then vanish_presenter
+    else
+      logger.warn("Unexpected unpublishing type #{unpublishing.type}")
+      content_presenter
     end
   end
 end
