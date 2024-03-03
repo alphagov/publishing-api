@@ -121,7 +121,7 @@ private
     ).with(
       Sequel.lit("parents_reverse(link_type, content_id, link_type_path, content_id_path)"),
       # TODO - use links_to_values for this?
-      DB.values(ExpansionRules.reverse_links.map do |link|
+      DB.values(ExpansionRules.reverse_to_direct_link_types(ExpansionRules.reverse_links).map do |link|
         [
           link.to_s,
           root_content_id_uuid,
