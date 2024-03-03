@@ -29,89 +29,48 @@ class FastLinkExpansion
   end
 
   def links_with_content
-    root_content_id_uuid = Sequel.cast(content_id, "uuid")
-    # Supply a list of parents as a CTE
-    # This will produce SQL like:
-    #     WITH "parents" AS (VALUES ('cafebabe-cafe-babe-face-cafebabeface'::uuid)),
-    #          "parents_reverse" AS (VALUES ('person', 'cafebabe...'), ...)
-    #     SELECT * from "links"
-    # For the root case we pass the root content_id as the only value - it's a special case because
-    # all link types are valid at the root level.
-    #
-    # For subsequent levels of depth, we pass the content_ids of all the children, along with the allowed link types
-    # for the next level of depth from there.
-    parents_ds = DB[:links].with(
-      Sequel.lit("parents(content_id, link_type_path, content_id_path)"),
-      DB.values([[
-        root_content_id_uuid,
-        Sequel.pg_array([], "text"),
-        Sequel.pg_array([], "uuid"),
-      ]]),
-    ).with(
-      Sequel.lit("parents_reverse(link_type, content_id, link_type_path, content_id_path)"),
-      DB.values(ExpansionRules.reverse_links.map do |link|
-        [
-          link.to_s,
-          root_content_id_uuid,
-          Sequel.pg_array([], "text"),
-          Sequel.pg_array([], "uuid"),
-        ]
-      end),
-    )
-
-    root_links_ds = link_set_links(parents_ds, root_level: true)
+    initial_parents_ds = initial_parents
+    root_links_ds = link_set_links(initial_parents_ds, root_level: true)
       .union(reverse_link_set_links, from_self: false)
       .union(edition_links(root_level: true), from_self: false)
       .union(reverse_edition_links, from_self: false)
 
     root_links = root_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path, :is_cycle)
-    root_links_without_cycles = root_links
-      .reject { |_link_type, _content_id, _link_type_path, _content_id_path, is_cycle| is_cycle }
-    next_direct_links = root_links_without_cycles.flat_map { |link_type, content_id, link_type_path, content_id_path|
-        allowed_link_types = allowed_direct_link_types([link_type.to_sym])
-        allowed_link_types.map { [_1.to_s, content_id, link_type_path, content_id_path] }
-      }.uniq
-    next_reverse_links = root_links_without_cycles.flat_map { |link_type, content_id, link_type_path, content_id_path|
-      allowed_link_types = allowed_reverse_link_types([link_type.to_sym])
-      allowed_link_types.map { [_1.to_s, content_id, link_type_path, content_id_path] }
-    }.uniq
+    parents_ds = next_parents(root_links)
 
-    parents_ds = DB[:links]
-      .with(
-        Sequel.lit("parents(link_type, content_id, link_type_path, content_id_path)"),
-        DB.values(next_direct_links.map do |link_type, content_id, link_type_path, content_id_path|
-          [
-            link_type,
-            Sequel.cast(content_id, "uuid"),
-            link_type_path,
-            content_id_path,
-          ]
-        end),
-      )
-      .with(
-        Sequel.lit("parents_reverse(link_type, content_id, link_type_path, content_id_path)"),
-        DB.values(next_reverse_links.map do |link_type, content_id, link_type_path, content_id_path|
-          [
-            link_type,
-            Sequel.cast(content_id, "uuid"),
-            link_type_path,
-            content_id_path,
-          ]
-        end),
-      )
-
+    # Note: edition links are only supported at the root level currently
     level_1_links_ds = link_set_links(parents_ds)
       .union(reverse_link_set_links, from_self: false)
-    # Note: edition links are only supported at the root level currently
-    # .union(edition_links, from_self: false)
-    # .union(reverse_edition_links)
-
     level_1_links = level_1_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path, :is_cycle)
-    # TODO reject cycles, loop
 
-    puts level_1_links
-    level_1_links
+    parents_ds = next_parents(level_1_links)
+    level_2_links_ds = link_set_links(parents_ds)
+      .union(reverse_link_set_links, from_self: false)
+    level_2_links = level_2_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path, :is_cycle)
+
+    parents_ds = next_parents(level_2_links)
+    level_3_links_ds = link_set_links(parents_ds)
+                         .union(reverse_link_set_links, from_self: false)
+    # TODO - why is this coming back empty?
+    level_3_links = level_3_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path, :is_cycle)
+
+    parents_ds = next_parents(level_3_links)
+    level_4_links_ds = link_set_links(parents_ds)
+                         .union(reverse_link_set_links, from_self: false)
+    level_4_links = level_4_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path, :is_cycle)
+
+    parents_ds = next_parents(level_4_links)
+    level_5_links_ds = link_set_links(parents_ds)
+                         .union(reverse_link_set_links, from_self: false)
+    level_5_links = level_5_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path, :is_cycle)
+
+    parents_ds = next_parents(level_5_links)
+    level_6_links_ds = link_set_links(parents_ds)
+                         .union(reverse_link_set_links, from_self: false)
+    level_6_links = level_6_links_ds.pluck(:link_type, :content_id, :link_type_path, :content_id_path, :is_cycle)
+
     # TODO - draw the rest of the owl
+    nil
   end
 
 private
@@ -133,11 +92,91 @@ private
   end
 
   def allowed_reverse_link_types(link_types_path)
-    @multi_level_links.allowed_link_types(link_types_path).select do |link_type|
+    link_types = @multi_level_links.allowed_link_types(link_types_path).select do |link_type|
       ExpansionRules.is_reverse_link_type?(link_type)
+    end
+    ExpansionRules.reverse_to_direct_link_types(link_types)
+  end
+
+  # Supply a list of parents as a CTE
+  # This will produce SQL like:
+  #     WITH "parents" AS (VALUES ('cafebabe-cafe-babe-face-cafebabeface'::uuid)),
+  #          "parents_reverse" AS (VALUES ('person', 'cafebabe...'), ...)
+  #     SELECT * from "links"
+  # For the root case we pass the root content_id as the only value - it's a special case because
+  # all link types are valid at the root level.
+  #
+  # For subsequent levels of depth, we pass the content_ids of all the children, along with the allowed link types
+  # for the next level of depth from there.
+  def initial_parents
+    root_content_id_uuid = Sequel.cast(content_id, "uuid")
+    DB[:links].with(
+      Sequel.lit("parents(content_id, link_type_path, content_id_path)"),
+      # TODO - use links_to_values for this?
+      DB.values([[
+        root_content_id_uuid,
+        Sequel.pg_array([], "text"),
+        Sequel.pg_array([], "uuid"),
+      ]]),
+    ).with(
+      Sequel.lit("parents_reverse(link_type, content_id, link_type_path, content_id_path)"),
+      # TODO - use links_to_values for this?
+      DB.values(ExpansionRules.reverse_links.map do |link|
+        [
+          link.to_s,
+          root_content_id_uuid,
+          Sequel.pg_array([], "text"),
+          Sequel.pg_array([], "uuid"),
+        ]
+      end),
+    )
+  end
+
+  def next_parents(previous_links)
+    previous_links_without_cycles = previous_links
+      .reject { |_link_type, _content_id, _link_type_path, _content_id_path, is_cycle| is_cycle }
+    next_direct_links = previous_links_without_cycles.flat_map { |link_type, content_id, link_type_path, content_id_path|
+      allowed_link_types = allowed_direct_link_types([link_type.to_sym])
+      allowed_link_types.map { [_1.to_s, content_id, link_type_path, content_id_path] }
+    }.uniq
+    next_reverse_links = previous_links_without_cycles.flat_map { |link_type, content_id, link_type_path, content_id_path|
+      allowed_link_types = allowed_reverse_link_types([link_type.to_sym])
+      allowed_link_types.map { [_1.to_s, content_id, link_type_path, content_id_path] }
+    }.uniq
+
+    DB[:links]
+      .with(
+        Sequel.lit("parents(link_type, content_id, link_type_path, content_id_path)"),
+        links_to_values(next_direct_links),
+      )
+      .with(
+        Sequel.lit("parents_reverse(link_type, content_id, link_type_path, content_id_path)"),
+        links_to_values(next_reverse_links),
+      )
+  end
+
+  def links_to_values(links)
+    if links.empty?
+      # Return a dataset which will return the empty set
+      DB.dataset.select(
+        nil,
+        Sequel.cast(nil, "uuid"),
+        Sequel.cast(nil, "text[]"),
+        Sequel.cast(nil, "uuid[]"),
+      ).where(false)
+    else
+      DB.values(links.map do |link_type, content_id, link_type_path, content_id_path|
+        [
+          link_type,
+          Sequel.cast(content_id, "uuid"),
+          link_type_path,
+          content_id_path,
+        ]
+      end)
     end
   end
 
+  # TODO - check for cycles
   def link_set_links(dataset = DB[:links], root_level: false)
     ds = dataset
       .join(:link_sets, id: :link_set_id)
@@ -158,7 +197,6 @@ private
     DB[:links]
       .join(:link_sets, id: :link_set_id)
       .join(:parents_reverse, content_id: Sequel[:links][:target_content_id], link_type: Sequel[:links][:link_type])
-      .where(Sequel[:links][:link_type] => ExpansionRules.reverse_links.map(&:to_s))
       .select(
         Sequel[:links][:link_type],
         Sequel[:link_sets][:content_id],
@@ -196,7 +234,6 @@ private
       .where(
         Sequel[:documents][:locale] => "en", # TODO more locales
         Sequel[:editions][:content_store] => "live", # TODO more content stores
-        Sequel[:links][:link_type] => ExpansionRules.reverse_links.map(&:to_s),
       )
       .select(
         Sequel[:links][:link_type],
