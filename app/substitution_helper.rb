@@ -30,6 +30,8 @@ module SubstitutionHelper
         discard_draft(blocking_edition, downstream, nested, callbacks)
       else
         blocking_edition.substitute
+        payload = DownstreamPayload.new(blocking_edition, Event.maximum_id)
+        DownstreamService.broadcast_to_message_queue(payload, "unpublish") # TODO is this the right event_type? Probably yes.
       end
     end
   end

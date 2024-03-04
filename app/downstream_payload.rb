@@ -76,6 +76,8 @@ private
   end
 
   def message_queue_presenter
+    # NOTE there's a possible annoying problem here - and edition with document_type redirect will never send
+    # a gone / vanish / substitute message to the queue.
     return redirect_presenter if edition.document_type == "redirect"
     return content_presenter unless unpublished?
 

@@ -35,6 +35,7 @@ RSpec.describe Commands::V2::Publish do
 
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
+      # TODO stub request(s?) to message queue as well?
 
       allow(DependencyResolutionWorker).to receive(:perform_async)
     end
@@ -308,6 +309,7 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "unpublishes the edition which is in the way" do
+        # NOTE: this is possibly a good test for things going on message queues
         described_class.call(payload)
 
         updated_other_edition = Edition.find(other_edition.id)
