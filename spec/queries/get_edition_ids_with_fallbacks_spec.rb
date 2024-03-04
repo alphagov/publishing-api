@@ -1,10 +1,12 @@
 RSpec.describe Queries::GetEditionIdsWithFallbacks do
   describe ".call" do
+    let(:content_stores) { %w[live draft] }
     let(:state_fallback_order) { %w[published] }
     let(:locale_fallback_order) { %w[en] }
     let(:content_ids) { [] }
     let(:options) do
       {
+        content_stores:,
         state_fallback_order:,
         locale_fallback_order:,
       }

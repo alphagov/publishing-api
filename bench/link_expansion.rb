@@ -14,8 +14,9 @@ StackProf.run(mode: :wall, raw: true, out: "tmp/link_expansion_ministers_index.d
   time = Benchmark.realtime do
     Queries::GetEditionIdsWithFallbacks.call(
       content_ids,
+      content_stores: %w[live draft],
       locale_fallback_order: ["en"],
-      state_fallback_order: %i[published withdrawn],
+      state_fallback_order: %i[draft published withdrawn],
     )
   end
   puts time

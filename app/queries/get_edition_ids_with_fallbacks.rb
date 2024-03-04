@@ -1,12 +1,13 @@
 module Queries
   class GetEditionIdsWithFallbacks
-    def self.call(content_ids, state_fallback_order:, locale_fallback_order: Edition::DEFAULT_LOCALE)
+    def self.call(content_ids, content_stores:, state_fallback_order:, locale_fallback_order: Edition::DEFAULT_LOCALE)
       state_fallback_order = Array.wrap(state_fallback_order).map(&:to_s)
       locale_fallback_order = Array.wrap(locale_fallback_order).map(&:to_s)
 
       Edition.with_document.left_outer_joins(:unpublishing)
         .where(documents: { content_id: content_ids })
         .where(where_state(state_fallback_order))
+        .where(content_store: content_stores)
         .where(documents: { locale: locale_fallback_order })
         .where.not(document_type: Edition::NON_RENDERABLE_FORMATS)
         .order("documents.content_id ASC")
