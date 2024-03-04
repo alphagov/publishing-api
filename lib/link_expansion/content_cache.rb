@@ -45,6 +45,7 @@ private
 
     edition_ids = Queries::GetEditionIdsWithFallbacks.call(
       content_ids,
+      content_stores:,
       locale_fallback_order:,
       state_fallback_order:,
     )
@@ -65,5 +66,9 @@ private
 
   def state_fallback_order
     with_drafts ? %i[draft published withdrawn] : %i[published withdrawn]
+  end
+
+  def content_stores
+    with_drafts ? %i[live draft] : %i[live]
   end
 end
