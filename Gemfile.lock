@@ -542,7 +542,7 @@ GEM
       ast (~> 2.4.1)
       racc
     parslet (2.0.0)
-    pg (1.5.5)
+    pg (1.5.6)
     plek (5.0.0)
     prometheus_exporter (2.1.0)
       webrick
