@@ -177,6 +177,7 @@ module Commands
         # This enables changing the locale of some content where a
         # published edition for the previous locale still exists.
         published_edition_for_different_locale.substitute
+        SubstitutionHelper.substitute_message(published_edition_for_different_locale)
       end
 
       def set_timestamps
