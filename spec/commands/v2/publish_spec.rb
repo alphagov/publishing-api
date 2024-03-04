@@ -308,6 +308,15 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "unpublishes the edition which is in the way" do
+        expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message).with(
+          hash_including(content_id: other_edition.content_id),
+          hash_including(event_type: "unpublish"),
+        )
+        expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message).with(
+          hash_including(content_id: draft_item.content_id),
+          hash_including(event_type: "major"),
+        )
+
         described_class.call(payload)
 
         updated_other_edition = Edition.find(other_edition.id)
