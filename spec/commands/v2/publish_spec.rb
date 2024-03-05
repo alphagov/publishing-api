@@ -38,6 +38,7 @@ RSpec.describe Commands::V2::Publish do
       # TODO stub request(s?) to message queue as well?
 
       allow(DependencyResolutionWorker).to receive(:perform_async)
+      allow(DownstreamService).to receive(:broadcast_to_message_queue)
     end
 
     around do |example|
@@ -313,7 +314,9 @@ RSpec.describe Commands::V2::Publish do
         described_class.call(payload)
 
         updated_other_edition = Edition.find(other_edition.id)
+        # debugger
 
+        expect(DownstreamService).to receive(:broadcast_to_message_queue).with(payload, "unpublish")
         expect(updated_other_edition.state).to eq("unpublished")
         expect(updated_other_edition.document.locale).to eq(draft_locale)
         expect(updated_other_edition.base_path).to eq(base_path)

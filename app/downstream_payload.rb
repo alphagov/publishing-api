@@ -80,6 +80,7 @@ private
     # a gone / vanish / substitute message to the queue.
     return redirect_presenter if edition.document_type == "redirect"
     return content_presenter unless unpublished?
+    debugger
 
     case unpublishing.type
     when "redirect" then redirect_presenter
