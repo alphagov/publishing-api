@@ -14,20 +14,6 @@ on:
       - "!content_schemas/README.md"
 
 jobs:
-  test-info-frontend:
-    name: Test Info Frontend
-    uses: alphagov/info-frontend/.github/workflows/rspec.yml@main
-    with:
-      ref: 'main'
-      publishingApiRef: ${{ github.ref }}
-
-  test-licence-finder:
-    name: Test Licence Finder
-    uses: alphagov/licence-finder/.github/workflows/rspec.yml@main
-    with:
-      ref: 'main'
-      publishingApiRef: ${{ github.ref }}
-
   test-manuals-publisher:
     name: Test Manuals Publisher
     uses: alphagov/manuals-publisher/.github/workflows/rspec.yml@main

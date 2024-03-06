@@ -15,7 +15,6 @@
       "frontend",
       "government-frontend",
       "info-frontend",
-      "licencefinder",
       "performanceplatform-big-screen-view",
       "rummager",
       "search-api",
