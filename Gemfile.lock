@@ -224,6 +224,8 @@ GEM
       capybara (>= 3.36)
       puma
       selenium-webdriver (>= 4.0)
+    graphql (2.2.12)
+      base64
     hashdiff (1.1.0)
     hashie (5.0.0)
     htmlentities (4.3.4)
@@ -797,6 +799,7 @@ DEPENDENCIES
   govuk_schemas
   govuk_sidekiq
   govuk_test
+  graphql (~> 2.2)
   json-schema
   jsonnet
   listen
@@ -818,4 +821,4 @@ DEPENDENCIES
   with_advisory_lock
 
 BUNDLED WITH
-   2.3.17
+   2.5.3

@@ -1,5 +1,6 @@
 # Having a long routes file is not a style violation
 Rails.application.routes.draw do
+  post "/graphql", to: "graphql#execute"
   def content_id_constraint(request)
     UuidValidator.valid?(request.params[:content_id])
   end
