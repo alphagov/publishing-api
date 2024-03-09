@@ -21,11 +21,14 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
+    field :person, Types::PersonType, extras: %i[lookahead], description: "Get a person" do
+      argument :content_id, String
+    end
+
+    def person(content_id:, lookahead:)
+      edition = Queries::GetEditionForContentStore.relation(content_id, "en")
+      # TODO could do some plucking based on the lookahead here for efficiency
+      edition.first
     end
   end
 end
