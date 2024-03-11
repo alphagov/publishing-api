@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Types
-  class PersonType < Types::BaseObject
+  class PersonType < Types::EditionType
     description "A person"
     field :full_name, String
     field :roles, [RoleType]
@@ -19,8 +19,8 @@ module Types
 
       # Select only the current role appointments
       role_appointment_content_ids = role_appointment_content_ids.filter do |content_id|
-        edition = Queries::GetEditionForContentStore.call(content_id, "en")
-        edition.state == 'published' && edition.details.dig(:current)
+        edition = Queries::GetEditionForContentStore.relation(content_id, "en").where(state: "published").first
+        edition.present? && edition.details.dig(:current)
       end
 
       # Find the roles that these role appointments link to

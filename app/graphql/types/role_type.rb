@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Types
-  class RoleType < Types::BaseObject
+  class RoleType < Types::EditionType
     description "A role"
     field :people, [PersonType]
     field :body, String
@@ -9,10 +9,6 @@ module Types
 
     def people
       raise "TODO"
-    end
-
-    def title
-      object.title
     end
 
     def body

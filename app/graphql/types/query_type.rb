@@ -21,14 +21,27 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    field :person, Types::PersonType, extras: %i[lookahead], description: "Get a person" do
-      argument :content_id, String
+    field :edition, Types::EditionType, description: "Get an edition" do
+      argument :content_id, String, required: false
+      argument :base_path, String, required: false
+      validates required: { one_of: [:content_id, :base_path] }
     end
 
-    def person(content_id:, lookahead:)
-      edition = Queries::GetEditionForContentStore.relation(content_id, "en")
-      # TODO could do some plucking based on the lookahead here for efficiency
-      edition.first
+    def edition(content_id: nil, base_path: nil)
+      if content_id.present?
+        Queries::GetEditionForContentStore.call(content_id, "en")
+      elsif base_path.present?
+        Queries::GetEditionForBasePath.call(base_path, "en")
+      else
+        raise "Must have either content ID or base path"
+      end
     end
+
+    field :person, Types::PersonType, description: "Get a person" do
+      argument :content_id, String, required: false
+      argument :base_path, String, required: false
+      validates required: { one_of: [:content_id, :base_path] }
+    end
+    alias_method :person, :edition
   end
 end
