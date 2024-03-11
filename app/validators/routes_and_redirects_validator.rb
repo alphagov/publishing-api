@@ -1,13 +1,13 @@
 class RoutesAndRedirectsValidator < ActiveModel::Validator
   EXTERNAL_HOST_ALLOW_LIST = %w[
-    .caa.co.uk
-    .gov.uk
-    .judiciary.uk
-    .moneyhelper.org.uk
-    .nationalhighways.co.uk
-    .nhs.uk
-    .police.uk
-    .ukri.org
+    caa.co.uk
+    gov.uk
+    judiciary.uk
+    moneyhelper.org.uk
+    nationalhighways.co.uk
+    nhs.uk
+    police.uk
+    ukri.org
   ].freeze
 
   def validate(record, base_path: nil)
@@ -176,7 +176,10 @@ private
     end
 
     def government_domain?(host)
-      host.end_with?(*EXTERNAL_HOST_ALLOW_LIST)
+      return true if EXTERNAL_HOST_ALLOW_LIST.include?(host)
+
+      host_allow_list_for_subdomains = EXTERNAL_HOST_ALLOW_LIST.map { |allowed_host| ".#{allowed_host}" }
+      host.end_with?(*host_allow_list_for_subdomains)
     end
 
     def invalid_destination?(destination)

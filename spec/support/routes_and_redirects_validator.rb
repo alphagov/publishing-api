@@ -226,6 +226,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
           http://new-vat-rates.campaignjservicepgov.uk/path/to/your/new/vat-rates
           https://fakesite.net/.new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates
           ftp://new-vat-rates.campaign.gov.uk/
+          https://evilgov.uk/
         ].each do |destination|
           edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: }]
 
@@ -244,6 +245,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
           https://etl.beis.gov.uk/
           https://www.nhs.uk/
           https://www.ukri.org/
+          https://nationalhighways.co.uk/
           https://www.nationalhighways.co.uk/
           https://www.police.uk/
         ].each do |destination|
