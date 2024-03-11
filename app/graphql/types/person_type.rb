@@ -5,9 +5,29 @@ module Types
     description "A person"
     field :full_name, String
     field :roles, [RoleType]
+    field :body, String
+    field :image_url, String
+    field :image_alt_text, String
+    field :privy_counsellor, Boolean
 
     def full_name
       object.details[:full_name]
+    end
+
+    def body
+      object.details.dig(:body, 0, :content)
+    end
+
+    def image_url
+      object.details.dig(:image, :url)
+    end
+
+    def image_alt_text
+      object.details.dig(:image, :alt_text)
+    end
+
+    def privy_counsellor
+      object.details.fetch(:privy_counsellor, false)
     end
 
     def roles

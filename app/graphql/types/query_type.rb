@@ -43,5 +43,12 @@ module Types
       validates required: { one_of: [:content_id, :base_path] }
     end
     alias_method :person, :edition
+
+    field :ministers_index, Types::MinistersIndexType do
+      argument :content_id, String, required: false
+      argument :base_path, String, required: false
+      validates required: { one_of: [:content_id, :base_path] }
+    end
+    alias_method :ministers_index, :edition
   end
 end

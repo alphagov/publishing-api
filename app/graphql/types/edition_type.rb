@@ -3,6 +3,7 @@
 module Types
   class EditionType < Types::BaseObject
     description "An edition"
+    field :content_id, String
     field :full_name, String
     field :title, String
     field :public_updated_at, String
