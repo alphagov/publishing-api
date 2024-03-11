@@ -146,25 +146,14 @@
     "ordered_corporate_information_pages": [
       {
         "title": "Complaints procedure",
-        "content_id": "e6329651-2b52-43a3-9830-8ca18919eaeb",
-        "path": "about/complaints-procedure"
+        "content_id": "e6329651-2b52-43a3-9830-8ca18919eaeb"
+      },
+      {
+        "title": "Our Personal information charter explains how we treat your personal information.",
+        "content_id": "5f5560f5-7631-11e4-a3cb-005056011aef"
       }
     ],
     "secondary_corporate_information_pages": "Our <a class=\"govuk-link\" href=\"/world/organisations/british-deputy-high-commission-hyderabad/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
-    "page_parts": [
-      {
-        "body": "<h2 id=\"public-holidays\">Public holidays</h2> <p>Our offices will be closed for the following public holidays in 2013:</p> <table> <thead> <tr> <th scope=\"col\">Date</th> <th scope=\"col\">Offices</th> </tr> </thead> <tbody> <tr> <td>Tuesday 1 January</td> <td>New Year’s Day</td> </tr> <tr> <td>Monday 14 January</td> <td>Makar Sankranti</td> </tr> <tr> <td>Wednesday 27 March</td> <td>Holi</td> </tr> <tr> <td>Friday 29 March</td> <td>Good Friday</td> </tr> <tr> <td>Monday 1 April</td> <td>Easter Monday</td> </tr> <tr> <td>Thursday 11 April</td> <td>Ugadi (Telugu New Year)</td> </tr> <tr> <td>Friday 24 May</td> <td>Queen’s Birthday Privilege Holiday</td> </tr> <tr> <td>Thursday 15 August</td> <td>Independence Day</td> </tr> <tr> <td>Monday 9 September</td> <td>Ganesh Chaturthi</td> </tr> <tr> <td>Wednesday 2 October</td> <td>Gandhi Jayanti</td> </tr> <tr> <td>Wednesday 16 October</td> <td>Id-ul-Zuha/Bakrid</td> </tr> <tr> <td>Monday 4 November</td> <td>Diwali Balipratipada (Hindu New Year</td> </tr> <tr> <td>Wednesday 25 December</td> <td>Christmas</td> </tr> <tr> <td>Thursday 26 December</td> <td>Boxing Day</td> </tr> <tr> <td>Friday 27 December</td> <td>Christmas Privilege Holiday</td> </tr> </tbody> </table> <p>Holidays that fall on Saturdays & Sundays have been excluded from this list.</p> ",
-        "slug": "about/personal-information-charter",
-        "summary": "Public holidays information about the British Deputy High Commission Hyderabad.",
-        "title": "Personal information charter"
-      },
-      {
-        "body": "<h2 id=\"complaints-feedback-and-suggestions-on-consular-services\">Complaints, feedback and suggestions on consular services</h2> <p>If you have any complaints, feedback or suggestions about the consular service provided, please send details of your complaint using our <a rel=\"external\" href=\"https://www.contact-embassy.service.gov.uk/?country=United%20Kingdom&post=Feedback%20team\">online feedback form</a>, or in writing to:</p> <div class=\"address\"><div class=\"adr org fn\"><p> <br>Customer Interaction Team <br> Consular Directorate <br> Room WH4.36 <br> Foreign, Commonwealth & Development Office <br> King Charles Street <br> London <br> SW1A 2AH <br> <br> </p></div></div> <h2 id=\"customer-research\">Customer research</h2> <p>We also work with partner research agencies to conduct customer satisfaction research on our services. If you have sought consular assistance overseas and have provided your contact details to us, we may ask you to take part in our customer satisfaction research. Find out more about <a href=\"https://www.gov.uk/government/organisations/foreign-commonwealth-office/about/complaints-procedure#our-feedback-programme-and-research\">our feedback programme and research</a>.</p> <h3 id=\"we-are-not-able-to-respond-to-any-queries-or-complaints-about-uk-visas-or-british-passports\">We are not able to respond to any queries or complaints about UK visas or British passports.</h3> <h2 id=\"passports\">Passports</h2> <p>If your complaint is about British passports, contact <a href=\"https://www.gov.uk/government/organisations/hm-passport-office/about/complaints-procedure\">HM Passport Office</a>.</p> <h2 id=\"visas\">Visas</h2> <p>If your complaint is about UK visas, contact <a href=\"https://www.gov.uk/government/organisations/uk-visas-and-immigration/about/complaints-procedure\">UK Visas and Immigration</a>.</p> <p>Or if you have a query or feedback on UK visa services provided in India, please visit the <a href=\"https://www.gov.uk/government/organisations/uk-visas-and-immigration\">UK visas website</a>.</p> <h2 id=\"report-immigration-or-border-crimes\">Report immigration or border crimes</h2> <p>If you wish to report someone who is working illegally, has no right to be in the UK or is involved in immigration crime or smuggling activity, visit <a rel=\"external\" href=\"https://www.amsallegations.homeoffice.gov.uk/default.aspx/RenderForm/?F.Name=Lf62UB7cz4C\">this page</a>.</p> <p>Allegations made by email, post, or other means will not be processed.</p> \"\n",
-        "slug": "about/complaints-procedure",
-        "summary": "The Foreign, Commonwealth & Development Office is committed to providing a high-quality service to everyone we deal with. We welcome your views on the services that the Embassy provides, as they will help us to identify what we do well and what we could do better.",
-        "title": "Complaints procedure"
-      }
-    ],
     "world_location_names": [
       {
         "content_id": "5e9f047a-7706-11e4-a3cb-005056011aef",
