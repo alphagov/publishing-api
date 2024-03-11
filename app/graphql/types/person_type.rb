@@ -32,21 +32,26 @@ module Types
 
     def roles
       # Find the role appointments that link to this person
-      role_appointment_content_ids = Queries::Links.to(
-        object.content_id,
-        allowed_link_types: %i[person],
-      )[:person].map{ _1[:content_id] }
+      role_appointment_content_ids = dataloader.with(Sources::LinkSetLinksToSource, %i[person])
+                                               .load(object.content_id)
+                                               .map do |link|
+                                                  link.link_set.content_id
+                                                end
 
       # Select only the current role appointments
-      role_appointment_content_ids = role_appointment_content_ids.filter do |content_id|
-        edition = Queries::GetEditionForContentStore.relation(content_id, "en").where(state: "published").first
+      role_appointment_editions = dataloader.with(Sources::EditionSource).load_all(role_appointment_content_ids)
+      role_appointment_content_ids = role_appointment_editions.filter do |edition|
         edition.present? && edition.details.dig(:current)
-      end
+      end.map(&:content_id)
 
       # Find the roles that these role appointments link to
-      role_content_ids = role_appointment_content_ids.flat_map do |content_id|
-        Queries::Links.from(content_id, allowed_link_types: %i[role])[:role].map{ _1[:content_id] }
-      end
+      role_content_ids = dataloader.with(Sources::LinkSetLinksFromSource, %i[role])
+                                   .load_all(role_appointment_content_ids)
+                                   .flat_map do |links|
+                                     links.map do |link|
+                                       link.target_content_id
+                                     end
+                                   end
 
       # Get the latest edition for each role
       dataloader.with(Sources::EditionSource).load_all(role_content_ids)

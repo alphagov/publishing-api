@@ -39,16 +39,7 @@ module Types
     end
 
     def link_set_links_from(link_types: nil)
-      query = Link
-        .joins(:link_set)
-        .where(link_sets: {content_id: object.content_id})
-
-      if link_types.present?
-        query = query.where(link_type: link_types)
-      end
-
-      query
-        .order(link_type: :asc, position: :asc)
+      dataloader.with(Sources::LinkSetLinksFromSource, link_types).load(object.content_id)
     end
   end
 end
