@@ -49,9 +49,7 @@ module Types
       end
 
       # Get the latest edition for each role
-      role_content_ids.map do |content_id|
-        Queries::GetEditionForContentStore.call(content_id, "en")
-      end
+      dataloader.with(Sources::EditionSource).load_all(role_content_ids)
     end
   end
 end

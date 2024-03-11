@@ -29,7 +29,7 @@ module Types
 
     def edition(content_id: nil, base_path: nil)
       if content_id.present?
-        Queries::GetEditionForContentStore.call(content_id, "en")
+        dataloader.with(Sources::EditionSource).load(content_id)
       elsif base_path.present?
         Queries::GetEditionForBasePath.call(base_path, "en")
       else

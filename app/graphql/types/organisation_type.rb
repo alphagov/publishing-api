@@ -6,9 +6,10 @@ module Types
     field :ministers, [PersonType]
 
     def ministers
-      link_set_links_from(link_types: %w[ordered_ministers]).map do |link|
-        Queries::GetEditionForContentStore.call(link[:target_content_id], "en")
+      content_ids = link_set_links_from(link_types: %w[ordered_ministers]).map do |link|
+        link[:target_content_id]
       end
+      dataloader.with(Sources::EditionSource).load_all(content_ids)
     end
   end
 end
