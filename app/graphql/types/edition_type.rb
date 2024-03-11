@@ -29,11 +29,25 @@ module Types
     field :publishing_api_first_published_at, String
     field :publishing_api_last_edited_at, String
     field :details, String
+    field :link_set_links_from, [LinkType] do
+      argument :link_types, [String], required: false
+    end
 
     def details
       object.details.deep_stringify_keys
     end
 
-    # TODO - would be nice to have top level links here maybe?
+    def link_set_links_from(link_types: nil)
+      query = Link
+        .joins(:link_set)
+        .where(link_sets: {content_id: object.content_id})
+
+      if link_types.present?
+        query = query.where(link_type: link_types)
+      end
+
+      query
+        .order(link_type: :asc, position: :asc)
+    end
   end
 end
