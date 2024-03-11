@@ -29,7 +29,7 @@ module Types
     field :published_at, String
     field :publishing_api_first_published_at, String
     field :publishing_api_last_edited_at, String
-    field :details, String
+    field :details, GenericDetailsType
     field :link_set_links_from, [LinkType] do
       argument :link_types, [String], required: false
     end

@@ -3,16 +3,5 @@
 module Types
   class RoleType < Types::EditionType
     description "A role"
-    field :people, [PersonType]
-    field :body, String
-    field :title, String
-
-    def people
-      raise "TODO"
-    end
-
-    def body
-      object.details.dig(:body, 0, :content)
-    end
   end
 end
