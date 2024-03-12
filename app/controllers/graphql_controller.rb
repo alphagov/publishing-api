@@ -9,7 +9,7 @@ class GraphqlController < ApplicationController
   # protect_from_forgery with: :null_session
 
   def execute
-    StackProf.run(mode: :wall, raw: true, out: 'tmp/stackprof-cpu-graphql.dump') do
+    # StackProf.run(mode: :wall, raw: true, out: 'tmp/stackprof-cpu-graphql.dump') do
       variables = prepare_variables(params[:variables])
       query = params[:query]
       operation_name = params[:operationName]
@@ -19,7 +19,7 @@ class GraphqlController < ApplicationController
       }
       result = PublishingApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
       render json: result
-    end
+    # end
   rescue StandardError => e
     raise e unless Rails.env.development?
     handle_error_in_development(e)
