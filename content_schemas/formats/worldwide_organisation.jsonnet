@@ -12,14 +12,6 @@
         default_news_image: {
           "$ref": "#/definitions/image",
         },
-        "home_page_office_parts": {
-          "type": "array",
-          "items": (import "shared/definitions/_worldwide_office.jsonnet"),
-        },
-        "main_office_parts": {
-          "type": "array",
-          "items": (import "shared/definitions/_worldwide_office.jsonnet"),
-        },
         office_contact_associations: {
           type: "array",
           items: {
