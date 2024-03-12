@@ -17,9 +17,6 @@
           type: "string",
           format: "uri",
         },
-        summary: {
-          type: "string",
-        },
         body: {
           "$ref": "#/definitions/body_html_and_govspeak",
         },

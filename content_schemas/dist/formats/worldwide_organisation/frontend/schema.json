@@ -297,14 +297,6 @@
       "description": "The main content provided as HTML rendered from govspeak",
       "type": "string"
     },
-    "body_html_and_govspeak": {
-      "description": "The main content provided as HTML with the govspeak markdown it's rendered from",
-      "anyOf": [
-        {
-          "type": "string"
-        }
-      ]
-    },
     "change_history": {
       "type": "array",
       "items": {
@@ -528,17 +520,11 @@
               "content_id": {
                 "$ref": "#/definitions/guid"
               },
-              "path": {
-                "type": "string"
-              },
               "title": {
                 "type": "string"
               }
             }
           }
-        },
-        "page_parts": {
-          "$ref": "#/definitions/parts"
         },
         "people_role_associations": {
           "type": "array",
@@ -899,33 +885,6 @@
         "zh-hk",
         "zh-tw"
       ]
-    },
-    "parts": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "title",
-          "slug",
-          "body"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "body": {
-            "$ref": "#/definitions/body_html_and_govspeak"
-          },
-          "slug": {
-            "type": "string",
-            "format": "uri"
-          },
-          "summary": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          }
-        }
-      }
     },
     "public_updated_at": {
       "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",

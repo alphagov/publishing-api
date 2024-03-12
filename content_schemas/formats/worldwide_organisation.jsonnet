@@ -20,9 +20,6 @@
           "type": "array",
           "items": (import "shared/definitions/_worldwide_office.jsonnet"),
         },
-        page_parts: {
-          "$ref": "#/definitions/parts",
-        },
         office_contact_associations: {
           type: "array",
           items: {
@@ -56,9 +53,6 @@
                 "$ref": "#/definitions/guid",
               },
               title: {
-                type: "string",
-              },
-              path: {
                 type: "string",
               },
             },
