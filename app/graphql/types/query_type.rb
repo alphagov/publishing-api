@@ -44,6 +44,13 @@ module Types
     end
     alias_method :person, :edition
 
+    field :guide, Types::GuideType, description: "Get a guide" do
+      argument :content_id, String, required: false
+      argument :base_path, String, required: false
+      validates required: { one_of: [:content_id, :base_path] }
+    end
+    alias_method :guide, :edition
+
     field :ministers_index, Types::MinistersIndexType do
       argument :content_id, String, required: false
       argument :base_path, String, required: false
