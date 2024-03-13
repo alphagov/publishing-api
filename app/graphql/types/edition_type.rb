@@ -33,7 +33,15 @@ module Types
       argument :link_types, [String], required: false
       argument :first, Integer, required: false
     end
+    field :edition_links_from, [LinkType] do
+      argument :link_types, [String], required: false
+      argument :first, Integer, required: false
+    end
     field :link_set_links_to, [LinkType] do
+      argument :link_types, [String], required: false
+      argument :first, Integer, required: false
+    end
+    field :edition_links_to, [LinkType] do
       argument :link_types, [String], required: false
       argument :first, Integer, required: false
     end
@@ -42,13 +50,30 @@ module Types
       object.details.deep_stringify_keys
     end
 
+    # TODO all of these links methods should jump straight to Editions, instead of returning LinkType objects
     def link_set_links_from(link_types: nil, first: nil)
       result = dataloader.with(Sources::LinkSetLinksFromSource, link_types).load(object.content_id)
       first.present? ? result.take(first) : result
     end
 
+    # TODO untested
+    def edition_links_from(link_types: nil, first: nil)
+      result = dataloader.with(Sources::EditionLinksFromSource, link_types).load(object.content_id)
+      first.present? ? result.take(first) : result
+    end
+
+    # TODO - this should probably have a default value for link_types
+    #        set to the reverse link types set
     def link_set_links_to(link_types: nil, first: nil)
       result = dataloader.with(Sources::LinkSetLinksToSource, link_types).load(object.content_id)
+      first.present? ? result.take(first) : result
+    end
+
+    # TODO - this should probably have a default value for link_types
+    #        set to the reverse link types set
+    # TODO untested
+    def edition_links_to(link_types: nil, first: nil)
+      result = dataloader.with(Sources::EditionLinksToSource, link_types).load(object.content_id)
       first.present? ? result.take(first) : result
     end
   end
