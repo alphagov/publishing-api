@@ -90,18 +90,6 @@
         "locale": "en",
         "document_type": "document_collection"
       }
-    ],
-    "topics": [
-      {
-        "content_id": "ce0487a3-72a9-4348-acd8-0d5b41a5a724",
-        "title": "Nuclear regulation",
-        "api_path": "/api/content/topic/environmental-management/nuclear-regulation",
-        "base_path": "/topic/environmental-management/nuclear-regulation",
-        "api_url": "https://www.gov.uk/api/content/topic/environmental-management/nuclear-regulation",
-        "web_url": "https://www.gov.uk/topic/environmental-management/nuclear-regulation",
-        "locale": "en",
-        "document_type": "topic"
-      }
     ]
   }
 }

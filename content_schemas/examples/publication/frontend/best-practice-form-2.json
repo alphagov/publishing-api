@@ -138,24 +138,6 @@
         "web_url": "https://www.gov.uk/government/policies/road-safety"
       }
     ],
-    "topics": [
-      {
-        "api_path": "/api/content/topic/driving-motorcyle-instructors/motorycle-instructors",
-        "base_path": "/topic/driving-motorcyle-instructors/motorycle-instructors",
-        "content_id": "bf2a913f-89d2-45bd-8078-0d4c9b664437",
-        "description": "List of information about Motorcycle instructors.",
-        "document_type": "topic",
-        "locale": "en",
-        "public_updated_at": "2017-10-07T22:09:12Z",
-        "schema_name": "topic",
-        "title": "Motorcycle instructors",
-        "withdrawn": false,
-        "links": {
-        },
-        "api_url": "https://www.gov.uk/api/content/topic/driving-motorcyle-instructors/motorycle-instructors",
-        "web_url": "https://www.gov.uk/topic/driving-motorcyle-instructors/motorycle-instructors"
-      }
-    ],
     "available_translations": [
       {
         "title": "Apply to be a certified motorcycle instructor",

@@ -317,24 +317,6 @@
         "web_url": "https://www.gov.uk/education/local-authority-schools-funding"
       }
     ],
-    "topics": [
-      {
-        "api_path": "/api/content/topic/schools-colleges-childrens-services/school-college-funding-finance",
-        "base_path": "/topic/schools-colleges-childrens-services/school-college-funding-finance",
-        "content_id": "91a00dfb-bef5-4c90-ae08-5feeb4f8ba40",
-        "description": "List of information about School and college funding and finance.",
-        "document_type": "topic",
-        "locale": "en",
-        "public_updated_at": "2016-12-15T16:11:15Z",
-        "schema_name": "topic",
-        "title": "School and college funding and finance",
-        "withdrawn": false,
-        "links": {
-        },
-        "api_url": "https://www.gov.uk/api/content/topic/schools-colleges-childrens-services/school-college-funding-finance",
-        "web_url": "https://www.gov.uk/topic/schools-colleges-childrens-services/school-college-funding-finance"
-      }
-    ],
     "available_translations": [
       {
         "title": "Schemes for financing schools",

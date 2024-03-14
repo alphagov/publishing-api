@@ -860,25 +860,6 @@
         "web_url": "http://www.dev.gov.uk/education/school-curriculum"
       }
     ],
-    "topics": [
-      {
-        "analytics_identifier": null,
-        "api_path": "/api/content/topic/schools-colleges-childrens-services/curriculum-qualifications",
-        "base_path": "/topic/schools-colleges-childrens-services/curriculum-qualifications",
-        "content_id": "28e39d16-c279-46c6-a7cd-b0a807686928",
-        "description": "List of information about Curriculum and qualifications.",
-        "document_type": "topic",
-        "locale": "en",
-        "public_updated_at": "2016-12-15T16:08:00Z",
-        "schema_name": "topic",
-        "title": "Curriculum and qualifications",
-        "withdrawn": false,
-        "links": {
-        },
-        "api_url": "http://www.dev.gov.uk/api/content/topic/schools-colleges-childrens-services/curriculum-qualifications",
-        "web_url": "http://www.dev.gov.uk/topic/schools-colleges-childrens-services/curriculum-qualifications"
-      }
-    ],
     "available_translations": [
       {
         "title": "The national curriculum",
