@@ -185,9 +185,6 @@
         },
         "topical_events": {
           "$ref": "#/definitions/frontend_links_with_base_path"
-        },
-        "topics": {
-          "$ref": "#/definitions/frontend_links_with_base_path"
         }
       }
     },
@@ -273,9 +270,6 @@
           "$ref": "#/definitions/guid_list"
         },
         "topical_events": {
-          "$ref": "#/definitions/guid_list"
-        },
-        "topics": {
           "$ref": "#/definitions/guid_list"
         }
       }

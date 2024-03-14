@@ -84,10 +84,6 @@
           "description": "The topical events this content item relates to.",
           "$ref": "#/definitions/guid_list"
         },
-        "topics": {
-          "description": "Powers the /topic section of the site. These are known as specialist sectors in some legacy apps.",
-          "$ref": "#/definitions/guid_list"
-        },
         "world_locations": {
           "description": "The world locations this content item is about.",
           "$ref": "#/definitions/guid_list"

@@ -167,9 +167,6 @@
         },
         "topical_events": {
           "$ref": "#/definitions/frontend_links_with_base_path"
-        },
-        "topics": {
-          "$ref": "#/definitions/frontend_links_with_base_path"
         }
       }
     },
