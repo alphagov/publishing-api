@@ -138,24 +138,6 @@
         "web_url": "https://www.gov.uk/government/organisations/uk-visas-and-immigration"
       }
     ],
-    "topics": [
-      {
-        "api_path": "/api/content/topic/immigration-operational-guidance/sponsorship",
-        "base_path": "/topic/immigration-operational-guidance/sponsorship",
-        "content_id": "72f7b519-bd58-422a-8eee-b3f0c63aaeeb",
-        "description": "List of information about Sponsorship.",
-        "document_type": "topic",
-        "locale": "en",
-        "public_updated_at": "2015-08-11T14:45:09Z",
-        "schema_name": "topic",
-        "title": "Sponsorship",
-        "withdrawn": false,
-        "links": {
-        },
-        "api_url": "https://www.gov.uk/api/content/topic/immigration-operational-guidance/sponsorship",
-        "web_url": "https://www.gov.uk/topic/immigration-operational-guidance/sponsorship"
-      }
-    ],
     "available_translations": [
       {
         "title": "Apply for a Tier 4 sponsor licence",

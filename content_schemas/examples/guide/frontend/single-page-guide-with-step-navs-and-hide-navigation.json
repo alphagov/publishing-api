@@ -1385,24 +1385,6 @@
         "web_url": "https://www.gov.uk/transport/car-driving-tests"
       }
     ],
-    "topics": [
-      {
-        "api_path": "/api/content/topic/driving-tests-and-learning-to-drive/car",
-        "base_path": "/topic/driving-tests-and-learning-to-drive/car",
-        "content_id": "d28083b0-7176-4279-bbb8-9ac62e8f0757",
-        "description": "Services and information for car driving tests and learning to drive a car.",
-        "document_type": "topic",
-        "locale": "en",
-        "public_updated_at": "2018-04-06T14:11:32Z",
-        "schema_name": "topic",
-        "title": "Cars",
-        "withdrawn": false,
-        "links": {
-        },
-        "api_url": "https://www.gov.uk/api/content/topic/driving-tests-and-learning-to-drive/car",
-        "web_url": "https://www.gov.uk/topic/driving-tests-and-learning-to-drive/car"
-      }
-    ],
     "available_translations": [
       {
         "title": "Driving test: cars",

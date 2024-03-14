@@ -174,24 +174,6 @@
         "web_url": "https://www.gov.uk/government/policies/road-safety"
       }
     ],
-    "topics": [
-      {
-        "api_path": "/api/content/topic/driving-motorcyle-instructors/improving-training-skills",
-        "base_path": "/topic/driving-motorcyle-instructors/improving-training-skills",
-        "content_id": "13c0788e-ed54-4b91-ac96-bac7f795c390",
-        "description": "List of information about Improving your training skills.",
-        "document_type": "topic",
-        "locale": "en",
-        "public_updated_at": "2017-02-24T16:33:23Z",
-        "schema_name": "topic",
-        "title": "Improving your training skills",
-        "withdrawn": false,
-        "links": {
-        },
-        "api_url": "https://www.gov.uk/api/content/topic/driving-motorcyle-instructors/improving-training-skills",
-        "web_url": "https://www.gov.uk/topic/driving-motorcyle-instructors/improving-training-skills"
-      }
-    ],
     "available_translations": [
       {
         "title": "Learning to drive a car syllabus",
