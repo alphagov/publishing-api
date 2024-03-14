@@ -184,10 +184,6 @@
           "description": "Prototype-stage taxonomy label for this content item",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
-        "topic_taxonomy_taxons": {
-          "description": "Link type automatically added by Publishing API",
-          "$ref": "#/definitions/frontend_links_with_base_path"
-        },
         "topical_events": {
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
