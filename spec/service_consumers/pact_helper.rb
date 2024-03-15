@@ -225,8 +225,8 @@ Pact.provider_states_for "GDS API Adapters" do
       create(
         :draft_edition,
         document: en_doc,
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         public_updated_at: "2015-01-03",
         user_facing_version: 1,
       )
@@ -234,8 +234,8 @@ Pact.provider_states_for "GDS API Adapters" do
       create(
         :draft_edition,
         document: fr_doc,
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         public_updated_at: "2015-01-02",
         user_facing_version: 1,
       )
@@ -243,8 +243,8 @@ Pact.provider_states_for "GDS API Adapters" do
       create(
         :draft_edition,
         document: ar_doc,
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         public_updated_at: "2015-01-01",
         user_facing_version: 1,
       )
@@ -258,8 +258,8 @@ Pact.provider_states_for "GDS API Adapters" do
       create(
         :superseded_edition,
         document:,
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         public_updated_at: "2015-01-03",
         user_facing_version: 1,
       )
@@ -267,8 +267,8 @@ Pact.provider_states_for "GDS API Adapters" do
       create(
         :live_edition,
         document:,
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         public_updated_at: "2015-01-03",
         user_facing_version: 2,
       )
@@ -311,7 +311,7 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
-  provider_state "there are four content items with document_type 'topic'" do
+  provider_state "there are four content items with document_type 'taxon'" do
     set_up do
       (1..4).each do |index|
         create(
@@ -319,14 +319,14 @@ Pact.provider_states_for "GDS API Adapters" do
           title: "title_#{index}",
           document: create(:document),
           base_path: "/path_#{index}",
-          document_type: "topic",
+          document_type: "taxon",
           public_updated_at: Time.zone.local(2018, 12 - index, 1, 12, 0, 0),
         )
       end
     end
   end
 
-  provider_state "there is content with document_type 'topic'" do
+  provider_state "there is content with document_type 'taxon'" do
     set_up do
       document_a = create(
         :document,
@@ -338,8 +338,8 @@ Pact.provider_states_for "GDS API Adapters" do
         title: "Content Item A",
         document: document_a,
         base_path: "/a-base-path",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         public_updated_at: "2015-01-02",
         details: {
           internal_name: "an internal name",
@@ -357,8 +357,8 @@ Pact.provider_states_for "GDS API Adapters" do
         document: document_b,
         base_path: "/another-base-path",
         public_updated_at: "2015-01-01",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
       )
     end
   end
@@ -415,7 +415,7 @@ Pact.provider_states_for "GDS API Adapters" do
       end
     end
   end
-  provider_state "there is content with document_type 'topic' for multiple publishing apps" do
+  provider_state "there is content with document_type 'taxon' for multiple publishing apps" do
     set_up do
       document_a = create(:document)
       document_b = create(:document)
@@ -426,8 +426,8 @@ Pact.provider_states_for "GDS API Adapters" do
         document: document_a,
         title: "Content Item A",
         base_path: "/a-base-path",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
       )
 
       create(
@@ -435,8 +435,8 @@ Pact.provider_states_for "GDS API Adapters" do
         document: document_b,
         title: "Content Item B",
         base_path: "/another-base-path",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
       )
 
       create(
@@ -444,14 +444,14 @@ Pact.provider_states_for "GDS API Adapters" do
         document: document_c,
         title: "Content Item C",
         base_path: "/yet-another-base-path",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         publishing_app: "whitehall",
       )
     end
   end
 
-  provider_state "there are two documents with a 'topic' link to another document" do
+  provider_state "there are two documents with a 'taxon' link to another document" do
     set_up do
       content_id1 = "6cb2cf8c-670f-4de3-97d5-6ad9114581c7"
       content_id2 = "08dfd5c3-d935-4e81-88fd-cfe65b78893d"
@@ -492,8 +492,8 @@ Pact.provider_states_for "GDS API Adapters" do
       link_set1 = create(:link_set, content_id: content_id3)
       link_set2 = create(:link_set, content_id: content_id2)
 
-      create(:link, link_set: link_set1, link_type: "topic", target_content_id: content_id1)
-      create(:link, link_set: link_set2, link_type: "topic", target_content_id: content_id1)
+      create(:link, link_set: link_set1, link_type: "taxon", target_content_id: content_id1)
+      create(:link, link_set: link_set2, link_type: "taxon", target_content_id: content_id1)
     end
   end
 
@@ -504,8 +504,8 @@ Pact.provider_states_for "GDS API Adapters" do
       create(
         :draft_edition,
         document:,
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         details: { foo: :bar },
       )
     end
