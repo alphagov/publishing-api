@@ -18,8 +18,8 @@ RSpec.describe V2::ContentItemsController do
       :draft_edition,
       document: document_en,
       base_path: "/content.en",
-      document_type: "topic",
-      schema_name: "topic",
+      document_type: "taxon",
+      schema_name: "taxon",
       user_facing_version: 2,
     )
   end
@@ -31,8 +31,8 @@ RSpec.describe V2::ContentItemsController do
         :draft_edition,
         document: document_ar,
         base_path: "/content.ar",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         user_facing_version: 2,
       )
       @en_live_content = create(
@@ -40,15 +40,15 @@ RSpec.describe V2::ContentItemsController do
         document: document_en,
         base_path: "/content.en",
         document_type: "guide",
-        schema_name: "topic",
+        schema_name: "taxon",
         user_facing_version: 1,
       )
       @ar_live_content = create(
         :live_edition,
         document: document_ar,
         base_path: "/content.ar",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         user_facing_version: 1,
       )
     end
@@ -58,8 +58,8 @@ RSpec.describe V2::ContentItemsController do
         create(
           :superseded_edition,
           base_path: "/foo",
-          document_type: "topic",
-          schema_name: "topic",
+          document_type: "taxon",
+          schema_name: "taxon",
           title: "zip",
           user_facing_version: 1,
         )
@@ -69,8 +69,8 @@ RSpec.describe V2::ContentItemsController do
           :live_edition,
           base_path: "/foo",
           document: previous_live_version.document,
-          document_type: "topic",
-          schema_name: "topic",
+          document_type: "taxon",
+          schema_name: "taxon",
           title: "bar",
           description: "stuff",
           user_facing_version: 2,
@@ -179,7 +179,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "with pagination params" do
       before do
-        get :index, params: { content_format: "topic", fields: %w[content_id], start: "0", page_size: "20" }
+        get :index, params: { content_format: "taxon", fields: %w[content_id], start: "0", page_size: "20" }
       end
 
       it "is successful" do
@@ -193,7 +193,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "without pagination params" do
       before do
-        get :index, params: { content_format: "topic", fields: %w[content_id] }
+        get :index, params: { content_format: "taxon", fields: %w[content_id] }
       end
       it "is successful" do
         expect(response.status).to eq(200)
@@ -349,7 +349,7 @@ RSpec.describe V2::ContentItemsController do
         link_set = create(:link_set, content_id:)
         create(:link, link_set:, target_content_id: org_content_id)
 
-        get :index, params: { content_format: "topic", fields: %w[content_id], link_organisations: org_content_id.to_s }
+        get :index, params: { content_format: "taxon", fields: %w[content_id], link_organisations: org_content_id.to_s }
       end
 
       it "is successful" do
@@ -384,7 +384,7 @@ RSpec.describe V2::ContentItemsController do
           :draft_edition,
           document: document_ar,
           base_path: "/content.ar",
-          schema_name: "topic",
+          schema_name: "taxon",
           user_facing_version: 2,
         )
 

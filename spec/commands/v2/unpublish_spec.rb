@@ -402,7 +402,7 @@ RSpec.describe Commands::V2::Unpublish do
           :draft_edition,
           document:,
           user_facing_version: 2,
-          links_hash: { topics: [link_b] },
+          links_hash: { taxons: [link_b] },
         )
       end
 
@@ -410,7 +410,7 @@ RSpec.describe Commands::V2::Unpublish do
         create(
           :live_edition,
           document:,
-          links_hash: { topics: [link_a] },
+          links_hash: { taxons: [link_a] },
         )
       end
 

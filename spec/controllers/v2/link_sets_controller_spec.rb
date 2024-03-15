@@ -42,14 +42,14 @@ RSpec.describe V2::LinkSetsController do
   describe "get_linked" do
     context "called without providing fields parameter" do
       it "is unsuccessful" do
-        get :get_linked, params: { content_id:, link_type: "topic" }
+        get :get_linked, params: { content_id:, link_type: "taxon" }
         expect(response.status).to eq(422)
       end
     end
 
     context "called with empty fields parameter" do
       it "is unsuccessful" do
-        get :get_linked, params: { content_id:, link_type: "topic", fields: [] }
+        get :get_linked, params: { content_id:, link_type: "taxon", fields: [] }
 
         expect(response.status).to eq(422)
       end
@@ -67,7 +67,7 @@ RSpec.describe V2::LinkSetsController do
 
     context "for an existing edition" do
       before do
-        get :get_linked, params: { content_id:, link_type: "topic", fields: %w[content_id] }
+        get :get_linked, params: { content_id:, link_type: "taxon", fields: %w[content_id] }
       end
 
       it "is successful" do
@@ -77,7 +77,7 @@ RSpec.describe V2::LinkSetsController do
 
     context "for a non-existing edition" do
       before do
-        get :get_linked, params: { content_id: SecureRandom.uuid, link_type: "topic", fields: %w[content_id] }
+        get :get_linked, params: { content_id: SecureRandom.uuid, link_type: "taxon", fields: %w[content_id] }
       end
 
       it "is unsuccessful" do

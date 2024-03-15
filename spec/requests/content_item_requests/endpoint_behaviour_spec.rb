@@ -1,11 +1,11 @@
 RSpec.describe "Endpoint behaviour", type: :request do
   context "GET /v2/content" do
-    let(:request_path) { "/v2/content?document_type=topic&fields[]=title&fields[]=description" }
+    let(:request_path) { "/v2/content?document_type=taxon&fields[]=title&fields[]=description" }
     let(:request_body) { "" }
     let(:request_method) { :get }
 
     it "responds with 200" do
-      get "/v2/content?document_type=topic&fields[]=title&fields[]=description"
+      get "/v2/content?document_type=taxon&fields[]=title&fields[]=description"
       expect(response.status).to eq(200)
     end
   end

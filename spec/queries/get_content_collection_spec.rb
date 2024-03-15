@@ -4,14 +4,14 @@ RSpec.describe Queries::GetContentCollection do
       create(
         :draft_edition,
         base_path: "/a",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
       )
       create(
         :draft_edition,
         base_path: "/b",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
       )
       create(
         :draft_edition,
@@ -54,7 +54,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns the editions matching the type" do
       expect(Queries::GetContentCollection.new(
-        document_types: "topic",
+        document_types: "taxon",
         fields: %w[base_path locale publication_state],
       ).call).to match_array([
         hash_including("base_path" => "/a", "publication_state" => "draft", "locale" => "en"),
@@ -64,7 +64,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns the editions matching all types when given an array" do
       expect(Queries::GetContentCollection.new(
-        document_types: %w[topic mainstream_browse_page],
+        document_types: %w[taxon mainstream_browse_page],
         fields: %w[base_path locale publication_state],
       ).call).to match_array([
         hash_including("base_path" => "/a", "publication_state" => "draft", "locale" => "en"),
@@ -78,12 +78,12 @@ RSpec.describe Queries::GetContentCollection do
     create(
       :draft_edition,
       base_path: "/a",
-      document_type: "topic",
-      schema_name: "topic",
+      document_type: "taxon",
+      schema_name: "taxon",
     )
 
     expect(Queries::GetContentCollection.new(
-      document_types: "topic",
+      document_types: "taxon",
       fields: %w[base_path publication_state],
     ).call).to match_array([
       hash_including("base_path" => "/a", "publication_state" => "draft"),
@@ -94,18 +94,18 @@ RSpec.describe Queries::GetContentCollection do
     create(
       :draft_edition,
       base_path: "/draft",
-      document_type: "topic",
-      schema_name: "topic",
+      document_type: "taxon",
+      schema_name: "taxon",
     )
     create(
       :live_edition,
       base_path: "/live",
-      document_type: "topic",
-      schema_name: "topic",
+      document_type: "taxon",
+      schema_name: "taxon",
     )
 
     expect(Queries::GetContentCollection.new(
-      document_types: "topic",
+      document_types: "taxon",
       fields: %w[base_path publication_state],
     ).call).to match_array([
       hash_including("base_path" => "/draft", "publication_state" => "draft"),
@@ -117,13 +117,13 @@ RSpec.describe Queries::GetContentCollection do
     it "can include information about the unpublishing" do
       edition = create(
         :unpublished_edition,
-        document_type: "topic",
+        document_type: "taxon",
       )
       unpublishing = Unpublishing.find_by(edition:)
 
       expect(
         Queries::GetContentCollection.new(
-          document_types: "topic",
+          document_types: "taxon",
           fields: %w[base_path publication_state unpublishing],
         ).call,
       ).to match_array(
@@ -144,7 +144,7 @@ RSpec.describe Queries::GetContentCollection do
   context "when there's no items for the format" do
     it "returns an empty array" do
       expect(Queries::GetContentCollection.new(
-        document_types: "topic",
+        document_types: "taxon",
         fields: %w[base_path],
       ).call.to_a).to eq([])
     end
@@ -154,7 +154,7 @@ RSpec.describe Queries::GetContentCollection do
     it "raises an error" do
       expect {
         Queries::GetContentCollection.new(
-          document_types: "topic",
+          document_types: "taxon",
           fields: %w[not_existing],
         ).call
       }.to raise_error(CommandError)
@@ -166,29 +166,29 @@ RSpec.describe Queries::GetContentCollection do
       create(
         :draft_edition,
         base_path: "/a",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         publishing_app: "publisher",
       )
       create(
         :draft_edition,
         base_path: "/b",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         publishing_app: "publisher",
       )
       create(
         :draft_edition,
         base_path: "/c",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         publishing_app: "whitehall",
       )
     end
 
     it "returns items corresponding to the publishing_app parameter if present" do
       expect(Queries::GetContentCollection.new(
-        document_types: "topic",
+        document_types: "taxon",
         fields: %w[publishing_app publication_state],
         filters: { publishing_app: "publisher" },
       ).call).to match_array([
@@ -199,7 +199,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns items for all apps if publishing_app is not present" do
       expect(Queries::GetContentCollection.new(
-        document_types: "topic",
+        document_types: "taxon",
         fields: %w[publishing_app publication_state],
       ).call).to match_array([
         hash_including("publishing_app" => "publisher", "publication_state" => "draft"),
@@ -215,35 +215,35 @@ RSpec.describe Queries::GetContentCollection do
         :draft_edition,
         document: create(:document, locale: "en"),
         base_path: "/content.en",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
       )
       create(
         :draft_edition,
         document: create(:document, locale: "ar"),
         base_path: "/content.ar",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
       )
       create(
         :live_edition,
         document: create(:document, locale: "en"),
         base_path: "/content.en",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
       )
       create(
         :live_edition,
         document: create(:document, locale: "ar"),
         base_path: "/content.ar",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
       )
     end
 
     it "returns the editions filtered by 'en' locale by default" do
       expect(Queries::GetContentCollection.new(
-        document_types: "topic",
+        document_types: "taxon",
         fields: %w[base_path publication_state],
       ).call).to match_array([
         hash_including("base_path" => "/content.en", "publication_state" => "draft"),
@@ -253,7 +253,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns the editions filtered by locale parameter" do
       expect(Queries::GetContentCollection.new(
-        document_types: "topic",
+        document_types: "taxon",
         fields: %w[base_path publication_state],
         filters: { locale: "ar" },
       ).call).to match_array([
@@ -264,7 +264,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns all editions if the locale parameter is 'all'" do
       expect(Queries::GetContentCollection.new(
-        document_types: "topic",
+        document_types: "taxon",
         fields: %w[base_path publication_state],
         filters: { locale: "all" },
       ).call).to match_array([
@@ -386,22 +386,22 @@ RSpec.describe Queries::GetContentCollection do
         :draft_edition,
         base_path: "/z",
         details: { foo: :bar },
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         publishing_app: "publisher",
       )
       create(
         :draft_edition,
         base_path: "/b",
         details: { baz: :bat },
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         publishing_app: "publisher",
       )
     end
     it "returns the details hash" do
       expect(Queries::GetContentCollection.new(
-        document_types: "topic",
+        document_types: "taxon",
         fields: %w[details publication_state],
         filters: { publishing_app: "publisher" },
       ).call).to match_array([
@@ -416,19 +416,19 @@ RSpec.describe Queries::GetContentCollection do
       create(
         :live_edition,
         base_path: "/bar/foo",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         title: "Baz",
         details: {
           body: "A page about windows.",
-          internal_name: "newtopic",
+          internal_name: "newtaxon",
         },
       )
       create(
         :live_edition,
         base_path: "/baz",
-        document_type: "topic",
-        schema_name: "topic",
+        document_type: "taxon",
+        schema_name: "taxon",
         title: "zip",
         description: "foo",
         details: {
@@ -442,7 +442,7 @@ RSpec.describe Queries::GetContentCollection do
 
     subject do
       Queries::GetContentCollection.new(
-        document_types: "topic",
+        document_types: "taxon",
         fields: %w[base_path],
         search_query:,
         search_in:,
@@ -474,7 +474,7 @@ RSpec.describe Queries::GetContentCollection do
 
       context "with multiple nested fields" do
         let(:search_in) { ["details.body", "details.internal_name"] }
-        let(:search_query) { "newtopic" }
+        let(:search_query) { "newtaxon" }
         it "finds the edition" do
           expect(subject.call.map(&:to_hash)).to eq([{ "base_path" => "/bar/foo" }])
         end
@@ -542,8 +542,8 @@ RSpec.describe Queries::GetContentCollection do
           create(
             :draft_edition,
             base_path:,
-            document_type: "topic",
-            schema_name: "topic",
+            document_type: "taxon",
+            schema_name: "taxon",
             public_updated_at:,
           )
         end
@@ -553,8 +553,8 @@ RSpec.describe Queries::GetContentCollection do
           create(
             :live_edition,
             base_path:,
-            document_type: "topic",
-            schema_name: "topic",
+            document_type: "taxon",
+            schema_name: "taxon",
             public_updated_at:,
           )
         end
@@ -562,7 +562,7 @@ RSpec.describe Queries::GetContentCollection do
 
       it "limits the results returned" do
         editions = Queries::GetContentCollection.new(
-          document_types: "topic",
+          document_types: "taxon",
           fields: %w[publishing_app],
           pagination: Pagination.new(offset: 0, per_page: 3),
         ).call
@@ -572,7 +572,7 @@ RSpec.describe Queries::GetContentCollection do
 
       it "fetches results from a specified index" do
         editions = Queries::GetContentCollection.new(
-          document_types: "topic",
+          document_types: "taxon",
           fields: %w[base_path],
           pagination: Pagination.new(offset: 1, per_page: 2),
         ).call
@@ -582,7 +582,7 @@ RSpec.describe Queries::GetContentCollection do
 
       it "when per_page is higher than results we only receive remaining editions" do
         editions = Queries::GetContentCollection.new(
-          document_types: "topic",
+          document_types: "taxon",
           fields: %w[base_path],
           pagination: Pagination.new(offset: 3, per_page: 8),
         ).call.to_a
@@ -593,7 +593,7 @@ RSpec.describe Queries::GetContentCollection do
 
       it "returns all items when no pagination params are specified" do
         editions = Queries::GetContentCollection.new(
-          document_types: "topic",
+          document_types: "taxon",
           fields: %w[publishing_app],
         ).call
 
@@ -633,11 +633,11 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "#total" do
     it "returns the number of editions" do
-      create(:edition, base_path: "/a", schema_name: "topic", document_type: "topic")
-      create(:edition, base_path: "/b", schema_name: "topic", document_type: "topic")
+      create(:edition, base_path: "/a", schema_name: "taxon", document_type: "taxon")
+      create(:edition, base_path: "/b", schema_name: "taxon", document_type: "taxon")
 
       expect(Queries::GetContentCollection.new(
-        document_types: "topic",
+        document_types: "taxon",
         fields: %w[base_path locale publication_state],
       ).total).to eq(2)
     end
@@ -649,28 +649,28 @@ RSpec.describe Queries::GetContentCollection do
         create(
           :live_edition,
           document:,
-          document_type: "topic",
-          schema_name: "topic",
+          document_type: "taxon",
+          schema_name: "taxon",
           user_facing_version: 1,
         )
 
         create(
           :draft_edition,
           document:,
-          document_type: "topic",
-          schema_name: "topic",
+          document_type: "taxon",
+          schema_name: "taxon",
           user_facing_version: 2,
         )
       end
 
       it "returns the latest item only" do
         expect(Queries::GetContentCollection.new(
-          document_types: "topic",
+          document_types: "taxon",
           fields: %w[base_path locale publication_state],
         ).total).to eq(1)
 
         expect(Queries::GetContentCollection.new(
-          document_types: "topic",
+          document_types: "taxon",
           fields: %w[base_path locale publication_state],
         ).call.first["publication_state"]).to eq("draft")
       end
