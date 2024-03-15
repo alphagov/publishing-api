@@ -77,6 +77,63 @@
         "locale": "en"
       }
     ],
+    "taxons": [{
+      "content_id": "0bb6e269-4c6d-432d-96b6-f2b343a7603c",
+      "title": "Charities, volunteering and honours",
+      "locale": "en",
+      "api_path": "/api/content/society-and-culture/charities-honours",
+      "base_path": "/society-and-culture/charities-honours",
+      "document_type": "taxon",
+      "public_updated_at": "2018-08-22T13:12:16Z",
+      "schema_name": "taxon",
+      "withdrawn": false,
+      "details": {
+        "internal_name": "Charities, volunteering and honours [M]",
+        "notes_for_editors": "",
+        "visible_to_departmental_editors": false
+      },
+      "phase": "live",
+      "links": {
+        "parent_taxons": [{
+          "content_id": "e2ca2f1a-0ff3-43ce-b813-16645ff27904",
+          "title": "Society and culture",
+          "locale": "en",
+          "api_path": "/api/content/society-and-culture",
+          "base_path": "/society-and-culture",
+          "document_type": "taxon",
+          "public_updated_at": "2018-09-16T20:31:27Z",
+          "schema_name": "taxon",
+          "withdrawn": false,
+          "description": "",
+          "details": {
+            "internal_name": "Society and culture",
+            "notes_for_editors": "",
+            "visible_to_departmental_editors": true
+          },
+          "phase": "live",
+          "links": {
+            "root_taxon": [{
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "title": "GOV.UK homepage",
+              "locale": "en",
+              "api_path": "/api/content/",
+              "base_path": "/",
+              "document_type": "homepage",
+              "public_updated_at": "2019-06-21T11:52:37Z",
+              "schema_name": "homepage",
+              "withdrawn": false,
+              "links": {},
+              "api_url": "https://www.gov.uk/api/content/",
+              "web_url": "https://www.gov.uk/"
+            }]
+          },
+          "api_url": "https://www.gov.uk/api/content/society-and-culture",
+          "web_url": "https://www.gov.uk/society-and-culture"
+        }]
+      },
+      "api_url": "https://www.gov.uk/api/content/society-and-culture/charities-honours",
+      "web_url": "https://www.gov.uk/society-and-culture/charities-honours"
+    }],
     "topics": [
       {
         "content_id": "4dfaf37e-33ea-4f56-9d06-24cebd0f6995",
