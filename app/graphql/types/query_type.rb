@@ -21,6 +21,24 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
+    # Collections of editions
+    field :editions, Types::EditionType.connection_type, description: "Collection of editions" do
+      argument :document_type, String, required: false
+    end
+
+    def editions(document_type: nil)
+      query = Edition.joins(:document)
+                     .where(state: 'published', document: { locale: 'en' })
+
+      query = query.where(document_type:) if document_type.present?
+
+      Connections::EditionsConnection.new(
+        query
+      )
+    end
+
+    # Individual editions
+
     field :edition, Types::EditionType, description: "Get an edition" do
       argument :content_id, String, required: false
       argument :base_path, String, required: false
