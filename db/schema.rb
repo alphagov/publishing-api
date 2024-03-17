@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_20_153403) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_17_105012) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,6 +94,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_20_153403) do
     t.index ["id", "content_store"], name: "index_editions_on_id_and_content_store"
     t.index ["publishing_app"], name: "index_editions_on_publishing_app"
     t.index ["state", "base_path"], name: "index_editions_on_state_and_base_path"
+    t.index ["state", "document_type", "id"], name: "index_editions_on_state_and_document_type_and_id", unique: true, order: { id: :desc }, where: "((state)::text <> 'superseded'::text)"
     t.index ["updated_at", "id"], name: "index_editions_on_updated_at_and_id"
     t.index ["updated_at"], name: "index_editions_on_updated_at"
   end
