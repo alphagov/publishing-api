@@ -26,6 +26,14 @@ module Types
       argument :document_type, String, required: false
     end
 
+    field :governments, Types::GovernmentType.connection_type, description: "Collection of governments"
+
+    def governments
+      # TODO - might be nice to put a custom ordering in here - with governments we probably don't want the most
+      #     recently updated, we probably want them by start date / end date
+      editions(document_type: "government")
+    end
+
     def editions(document_type: nil)
       query = Edition.joins(:document)
                      .where(state: 'published', document: { locale: 'en' })
@@ -60,7 +68,14 @@ module Types
       argument :base_path, String, required: false
       validates required: { one_of: [:content_id, :base_path] }
     end
-    alias_method :person, :edition
+
+    alias_method :organisation, :edition
+    field :organisation, Types::OrganisationType, description: "Get a organisation" do
+      argument :content_id, String, required: false
+      argument :base_path, String, required: false
+      validates required: { one_of: [:content_id, :base_path] }
+    end
+    alias_method :organisation, :edition
 
     field :guide, Types::GuideType, description: "Get a guide" do
       argument :content_id, String, required: false
