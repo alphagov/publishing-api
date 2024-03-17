@@ -3,6 +3,7 @@ class Document < ApplicationRecord
 
   belongs_to :owning_document, class_name: "Document", optional: true
   has_many :editions
+  has_many :links, primary_key: "content_id", foreign_key: "target_content_id"
   has_one :draft, -> { where(content_store: "draft") }, class_name: "Edition"
   has_one :live, -> { where(content_store: "live") }, class_name: "Edition"
 
