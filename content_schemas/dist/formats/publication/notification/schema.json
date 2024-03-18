@@ -1123,12 +1123,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "additional_topics": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "browse_pages": {
           "type": "array",
           "items": {
@@ -1136,18 +1130,6 @@
           }
         },
         "policies": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "primary_topic": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "topics": {
           "type": "array",
           "items": {
             "type": "string"
