@@ -46,6 +46,14 @@
       },
     },
   },
+  edition_links: (import "shared/base_edition_links.jsonnet") + {
+    contact: "Contact details for this Worldwide Office",
+    parent: {
+      description: "The parent content item.",
+      maxItems: 1,
+    },
+    worldwide_organisation: "The Worldwide Organisation that this Worldwide Office belongs to",
+  },
   links: (import "shared/base_links.jsonnet") + {
     contact: "Contact details for this Worldwide Office",
     worldwide_organisation: "The Worldwide Organisation that this Worldwide Office belongs to",

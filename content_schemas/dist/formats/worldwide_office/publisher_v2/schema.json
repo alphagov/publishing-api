@@ -59,8 +59,21 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "contact": {
+          "description": "Contact details for this Worldwide Office",
+          "$ref": "#/definitions/guid_list"
+        },
+        "parent": {
+          "description": "The parent content item.",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
         "policy_areas": {
           "description": "A largely deprecated tag currently only used to power email alerts.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "worldwide_organisation": {
+          "description": "The Worldwide Organisation that this Worldwide Office belongs to",
           "$ref": "#/definitions/guid_list"
         }
       }
