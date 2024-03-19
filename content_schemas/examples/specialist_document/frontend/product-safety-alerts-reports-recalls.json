@@ -318,6 +318,10 @@
                   "value": "marking-product-with-appropriate-warnings-on-risks"
                 },
                 {
+                  "label": "Modification programme",
+                  "value": "modification-programme"
+                },
+                {
                   "label": "Recall of the product from end users",
                   "value": "recall-of-product-from-end-users"
                 },
