@@ -126,5 +126,6 @@
     world_locations: "World Locations associated with this Worldwide Organisation",
     role_appointments: "Role appointments associated with people from this Worldwide Organisation",
     roles: "All roles associated with this Worldwide Organisation",
+    world_news_stories: "All world news stories associated with this Worldwide Organisation"
   },
 }

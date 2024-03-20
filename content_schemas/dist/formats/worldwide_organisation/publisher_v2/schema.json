@@ -106,6 +106,10 @@
         "world_locations": {
           "description": "World Locations associated with this Worldwide Organisation",
           "$ref": "#/definitions/guid_list"
+        },
+        "world_news_stories": {
+          "description": "All world news stories associated with this Worldwide Organisation",
+          "$ref": "#/definitions/guid_list"
         }
       }
     },
