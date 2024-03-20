@@ -1,0 +1,472 @@
+"""
+An edition
+"""
+type Edition {
+  analyticsIdentifier: String
+  basePath: String
+  contentId: String
+  contentStore: String
+  createdAt: String
+  description: String
+  details: GenericDetails
+  documentId: Int
+  documentType: String
+  editionLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  editionLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  firstPublishedAt: String
+  lastEditedAt: String
+  linkSetLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  linkSetLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  majorPublishedAt: String
+  phase: String
+  publicUpdatedAt: String
+  publishedAt: String
+  publishingApiFirstPublishedAt: String
+  publishingApiLastEditedAt: String
+  publishingApp: String
+  publishingRequestId: String
+  renderingApp: String
+  schemaName: String
+  state: String
+  title: String
+  updateType: String
+  updatedAt: String
+  userFacingVersion: Int
+}
+
+"""
+The connection type for Edition.
+"""
+type EditionConnection {
+  """
+  A list of edges.
+  """
+  edges: [EditionEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [Edition]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type EditionEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: Edition
+}
+
+"""
+Edition details - fields can vary depending on the schema. Specific schemas should have more specific details types.
+"""
+type GenericDetails {
+  bodyGovspeak: String
+  bodyHtml: String
+  dig(path: [String!]!): String
+  keys: [String!]
+}
+
+"""
+A government
+"""
+type Government {
+  analyticsIdentifier: String
+  basePath: String
+  contentId: String
+  contentStore: String
+  createdAt: String
+  current: Boolean
+  description: String
+  details: GenericDetails
+  documentId: Int
+  documentType: String
+  editionLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  editionLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  endedOn: String
+  firstPublishedAt: String
+  lastEditedAt: String
+  linkSetLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  linkSetLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  majorPublishedAt: String
+  phase: String
+  publicUpdatedAt: String
+  publishedAt: String
+  publishingApiFirstPublishedAt: String
+  publishingApiLastEditedAt: String
+  publishingApp: String
+  publishingRequestId: String
+  renderingApp: String
+  schemaName: String
+  startedOn: String
+  state: String
+  title: String
+  updateType: String
+  updatedAt: String
+  userFacingVersion: Int
+}
+
+"""
+The connection type for Government.
+"""
+type GovernmentConnection {
+  """
+  A list of edges.
+  """
+  edges: [GovernmentEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [Government]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type GovernmentEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: Government
+}
+
+"""
+A guide
+"""
+type Guide {
+  analyticsIdentifier: String
+  basePath: String
+  contentId: String
+  contentStore: String
+  createdAt: String
+  description: String
+  details: GenericDetails
+  documentId: Int
+  documentType: String
+  editionLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  editionLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  firstPublishedAt: String
+  lastEditedAt: String
+  linkSetLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  linkSetLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  mainstreamBrowsePages: [Edition!]
+  majorPublishedAt: String
+  parts(slug: String): [Part!]
+  phase: String
+  publicUpdatedAt: String
+  publishedAt: String
+  publishingApiFirstPublishedAt: String
+  publishingApiLastEditedAt: String
+  publishingApp: String
+  publishingRequestId: String
+  relatedItems(first: Int!): [Edition!]
+  renderingApp: String
+  schemaName: String
+  state: String
+  title: String
+  updateType: String
+  updatedAt: String
+  userFacingVersion: Int
+}
+
+"""
+A link
+"""
+type Link {
+  linkType: String
+  sourceContentId: String
+  sourceEdition: Edition
+  targetContentId: String
+  targetEdition: Edition
+}
+
+"""
+Ministers index page
+"""
+type MinistersIndex {
+  alsoAttendsCabinet: [Person!]
+  analyticsIdentifier: String
+  assistantWhips: [Person!]
+  baronessesAndLordsInWaitingWhips: [Person!]
+  basePath: String
+  cabinetMinisters: [Person!]
+  contentId: String
+  contentStore: String
+  createdAt: String
+  description: String
+  details: GenericDetails
+  documentId: Int
+  documentType: String
+  editionLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  editionLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  firstPublishedAt: String
+  houseOfCommonsWhips: [Person!]
+  houseOfLordsWhips: [Person!]
+  juniorLordsOfTheTreasuryWhips: [Person!]
+  lastEditedAt: String
+  linkSetLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  linkSetLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  majorPublishedAt: String
+  ministerialDepartments: [Organisation!]
+  phase: String
+  publicUpdatedAt: String
+  publishedAt: String
+  publishingApiFirstPublishedAt: String
+  publishingApiLastEditedAt: String
+  publishingApp: String
+  publishingRequestId: String
+  renderingApp: String
+  schemaName: String
+  state: String
+  title: String
+  updateType: String
+  updatedAt: String
+  userFacingVersion: Int
+}
+
+"""
+An organisation
+"""
+type Organisation {
+  analyticsIdentifier: String
+  basePath: String
+  contentId: String
+  contentStore: String
+  createdAt: String
+  description: String
+  details: GenericDetails
+  documentId: Int
+  documentType: String
+  editionLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  editionLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  firstPublishedAt: String
+  lastEditedAt: String
+  linkSetLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  linkSetLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  majorPublishedAt: String
+  ministers: [Person!]
+  phase: String
+  publicUpdatedAt: String
+  publishedAt: String
+  publishingApiFirstPublishedAt: String
+  publishingApiLastEditedAt: String
+  publishingApp: String
+  publishingRequestId: String
+  renderingApp: String
+  schemaName: String
+  state: String
+  title: String
+  updateType: String
+  updatedAt: String
+  userFacingVersion: Int
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+}
+
+"""
+A part
+"""
+type Part {
+  bodyGovspeak: String
+  bodyHtml: String
+  slug: String
+  title: String
+}
+
+"""
+A person
+"""
+type Person {
+  analyticsIdentifier: String
+  basePath: String
+  body: String
+  contentId: String
+  contentStore: String
+  createdAt: String
+  description: String
+  details: GenericDetails
+  documentId: Int
+  documentType: String
+  editionLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  editionLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  firstPublishedAt: String
+  fullName: String
+  imageAltText: String
+  imageUrl: String
+  lastEditedAt: String
+  linkSetLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  linkSetLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  majorPublishedAt: String
+  phase: String
+  privyCounsellor: Boolean
+  publicUpdatedAt: String
+  publishedAt: String
+  publishingApiFirstPublishedAt: String
+  publishingApiLastEditedAt: String
+  publishingApp: String
+  publishingRequestId: String
+  renderingApp: String
+  roles: [Role!]
+  schemaName: String
+  state: String
+  title: String
+  updateType: String
+  updatedAt: String
+  userFacingVersion: Int
+}
+
+type Query {
+  """
+  Get an edition
+  """
+  edition(basePath: String, contentId: String): Edition
+
+  """
+  Collection of editions
+  """
+  editions(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    documentType: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): EditionConnection
+
+  """
+  Collection of governments
+  """
+  governments(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): GovernmentConnection
+
+  """
+  Get a guide
+  """
+  guide(basePath: String, contentId: String): Guide
+  ministersIndex(basePath: String, contentId: String): MinistersIndex
+
+  """
+  Get a organisation
+  """
+  organisation(basePath: String, contentId: String): Organisation
+
+  """
+  Get a person
+  """
+  person(basePath: String, contentId: String): Person
+}
+
+"""
+A role
+"""
+type Role {
+  analyticsIdentifier: String
+  basePath: String
+  contentId: String
+  contentStore: String
+  createdAt: String
+  description: String
+  details: GenericDetails
+  documentId: Int
+  documentType: String
+  editionLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  editionLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  firstPublishedAt: String
+  lastEditedAt: String
+  linkSetLinksFrom(first: Int, linkTypes: [String!]): [Link!]
+  linkSetLinksTo(first: Int, linkTypes: [String!]): [Link!]
+  majorPublishedAt: String
+  phase: String
+  publicUpdatedAt: String
+  publishedAt: String
+  publishingApiFirstPublishedAt: String
+  publishingApiLastEditedAt: String
+  publishingApp: String
+  publishingRequestId: String
+  renderingApp: String
+  schemaName: String
+  state: String
+  title: String
+  updateType: String
+  updatedAt: String
+  userFacingVersion: Int
+}
