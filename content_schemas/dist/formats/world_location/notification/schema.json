@@ -416,6 +416,10 @@
         "external_related_links": {
           "$ref": "#/definitions/external_related_links"
         },
+        "search_id": {
+          "description": "A human-readable identifier used for filtering within Finder Frontend.",
+          "type": "string"
+        },
         "tags": {
           "$ref": "#/definitions/tags"
         }

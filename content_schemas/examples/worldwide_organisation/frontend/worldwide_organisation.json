@@ -550,6 +550,7 @@
       {
         "content_id": "5e9f047a-7706-11e4-a3cb-005056011aef",
         "title": "India",
+        "search_id": "india",
         "schema_name": "world_location",
         "locale": "en",
         "analytics_identifier": "WL61",
@@ -558,6 +559,7 @@
       {
         "content_id": "5e9f047a-7706-11e4-a3cb-005056011aee",
         "title": "Another location",
+        "search_id": "another-location",
         "schema_name": "world_location",
         "locale": "en",
         "analytics_identifier": "WLexample",

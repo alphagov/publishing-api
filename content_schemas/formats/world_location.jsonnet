@@ -16,6 +16,10 @@
         external_related_links: {
           "$ref": "#/definitions/external_related_links",
         },
+        search_id: {
+           type: "string",
+           description: "A human-readable identifier used for filtering within Finder Frontend.",
+        },
         tags: {
           "$ref": "#/definitions/tags",
         },
