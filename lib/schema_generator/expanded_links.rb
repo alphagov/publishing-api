@@ -35,11 +35,6 @@ module SchemaGenerator
       # to by the `pages_related_to_step_nav` link type
       "related_to_step_navs" => "frontend_links_with_base_path",
 
-      # Taxons that have been created by merging old 'legacy' taxons will have
-      # a reverse link to determine where the replacement Topic Taxonomy taxon
-      # now resides
-      "topic_taxonomy_taxons" => "frontend_links_with_base_path",
-
       # Step by steps that a content items may be a part of but is not essential
       # to completing it.
       "secondary_to_step_navs" => "frontend_links_with_base_path",
