@@ -29,7 +29,7 @@ module SchemaGenerator
     end
 
     def unpublishing_format?
-      %w[gone redirect vanish].include?(format.schema_name)
+      %w[gone redirect vanish substitute].include?(format.schema_name)
     end
 
     def properties

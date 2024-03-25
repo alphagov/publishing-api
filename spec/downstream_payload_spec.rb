@@ -205,6 +205,15 @@ RSpec.describe DownstreamPayload do
       end
     end
 
+    context "a substitute edition" do
+      let(:edition) { create_edition(:substitute_unpublished_edition, update_type: "major") }
+
+      it "uses the substitute presenter" do
+        expect_any_instance_of(Presenters::SubstitutePresenter).to receive(:for_message_queue).with(payload_version)
+        downstream_payload.message_queue_payload
+      end
+    end
+
     context "a vanish edition" do
       let(:edition) { create_edition(:vanish_unpublished_edition, update_type: "major") }
 
