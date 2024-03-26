@@ -313,6 +313,18 @@
               "properties": {
                 "category": {
                   "enum": [
+                    "bring_id_to_vote"
+                  ]
+                }
+              }
+            },
+            {
+              "required": [
+                "url"
+              ],
+              "properties": {
+                "category": {
+                  "enum": [
                     "organ_donor"
                   ]
                 }
@@ -349,7 +361,8 @@
                 "mot_reminder",
                 "organ_donor",
                 "register_to_vote",
-                "electric_vehicle"
+                "electric_vehicle",
+                "bring_id_to_vote"
               ]
             },
             "opt_in_url": {
