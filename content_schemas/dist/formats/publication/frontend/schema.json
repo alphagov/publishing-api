@@ -187,9 +187,6 @@
         "topical_events": {
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
-        "topics": {
-          "$ref": "#/definitions/frontend_links_with_base_path"
-        },
         "world_locations": {
           "$ref": "#/definitions/frontend_links"
         }

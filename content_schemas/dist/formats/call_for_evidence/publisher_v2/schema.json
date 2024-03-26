@@ -99,9 +99,6 @@
         },
         "topical_events": {
           "$ref": "#/definitions/guid_list"
-        },
-        "topics": {
-          "$ref": "#/definitions/guid_list"
         }
       }
     },
