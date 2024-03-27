@@ -417,25 +417,6 @@
         "web_url": "http://www.dev.gov.uk/browse/visas-immigration/arriving-in-the-uk"
       }
     ],
-    "topics": [
-      {
-        "analytics_identifier": null,
-        "api_path": "/api/content/topic/animal-welfare/pets",
-        "base_path": "/topic/animal-welfare/pets",
-        "content_id": "3e275a11-0fae-425b-a7a1-fe434594693f",
-        "description": "List of information about pets.",
-        "document_type": "topic",
-        "locale": "en",
-        "public_updated_at": "2015-08-11T15:03:41Z",
-        "schema_name": "topic",
-        "title": "Pets",
-        "withdrawn": false,
-        "links": {
-        },
-        "api_url": "http://www.dev.gov.uk/api/content/topic/animal-welfare/pets",
-        "web_url": "http://www.dev.gov.uk/topic/animal-welfare/pets"
-      }
-    ],
     "available_translations": [
       {
         "title": "Bringing your pet dog, cat or ferret to the UK",

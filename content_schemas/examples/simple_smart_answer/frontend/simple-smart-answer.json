@@ -265,25 +265,6 @@
         "web_url": "http://www.dev.gov.uk/browse/driving/teaching-people-to-drive"
       }
     ],
-    "topics": [
-      {
-        "analytics_identifier": null,
-        "api_path": "/api/content/topic/driving-motorcyle-instructors/approved-driving-instructors",
-        "base_path": "/topic/driving-motorcyle-instructors/approved-driving-instructors",
-        "content_id": "bb85c76f-b660-4426-a1c3-37313a2cea81",
-        "description": "Services and information for approved driving instructors (ADIs), including qualifying and managing your registration.",
-        "document_type": "topic",
-        "locale": "en",
-        "public_updated_at": "2016-09-30T15:13:23Z",
-        "schema_name": "topic",
-        "title": "Approved driving instructors (ADIs)",
-        "withdrawn": false,
-        "links": {
-        },
-        "api_url": "http://www.dev.gov.uk/api/content/topic/driving-motorcyle-instructors/approved-driving-instructors",
-        "web_url": "http://www.dev.gov.uk/topic/driving-motorcyle-instructors/approved-driving-instructors"
-      }
-    ],
     "available_translations": [
       {
         "title": "Become a driving instructor",

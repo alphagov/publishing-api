@@ -134,23 +134,6 @@
       "api_url": "https://www.gov.uk/api/content/society-and-culture/charities-honours",
       "web_url": "https://www.gov.uk/society-and-culture/charities-honours"
     }],
-    "topics": [
-      {
-        "content_id": "4dfaf37e-33ea-4f56-9d06-24cebd0f6995",
-        "title": "Content and publishing",
-        "locale": "en",
-        "api_path": "/api/content/topic/government-digital-guidance/content-publishing",
-        "base_path": "/topic/government-digital-guidance/content-publishing",
-        "document_type": "topic",
-        "public_updated_at": "2017-05-19T13:59:21Z",
-        "schema_name": "topic",
-        "withdrawn": false,
-        "links": {
-        },
-        "api_url": "https://www.gov.uk/api/content/topic/government-digital-guidance/content-publishing",
-        "web_url": "https://www.gov.uk/topic/government-digital-guidance/content-publishing"
-      }
-    ],
     "organisations": [
       {
         "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",

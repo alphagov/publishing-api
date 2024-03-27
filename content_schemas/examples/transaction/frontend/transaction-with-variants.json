@@ -37,25 +37,6 @@
         "api_path": "/api/content/council-tax-bands-2"
       }
     ],
-    "topics": [
-      {
-        "web_url": "http://www.dev.gov.uk/topic/local-government/council-tax",
-        "api_url": "http://www.dev.gov.uk/api/content/topic/local-government/council-tax",
-        "links": {
-        },
-        "withdrawn": false,
-        "title": "Council Tax",
-        "schema_name": "topic",
-        "analytics_identifier": null,
-        "api_path": "/api/content/topic/local-government/council-tax",
-        "base_path": "/topic/local-government/council-tax",
-        "content_id": "7eca7540-a65f-453e-b92f-df21b406d829",
-        "description": "List of information about Council Tax.",
-        "document_type": "topic",
-        "locale": "en",
-        "public_updated_at": "2017-01-26T10:26:48Z"
-      }
-    ],
     "parent": [
       {
         "web_url": "http://www.dev.gov.uk/browse/housing-local-services/council-tax",

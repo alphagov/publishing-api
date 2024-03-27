@@ -85,18 +85,6 @@
         "web_url": "https://www.gov.uk/government/world/topic/higher-education",
         "locale": "en"
       }
-    ],
-    "topics": [
-      {
-        "content_id": "d8ceea35-f206-459c-ad31-4793218111ec",
-        "title": "Higher education administration",
-        "base_path": "/topic/higher-education/administration",
-        "api_path": "/api/content/topic/higher-education/administration",
-        "api_url": "https://www.gov.uk/api/content/topic/higher-education/administration",
-        "web_url": "https://www.gov.uk/topic/higher-education/administration",
-        "locale": "en",
-        "document_type": "topic"
-      }
     ]
   }
 }

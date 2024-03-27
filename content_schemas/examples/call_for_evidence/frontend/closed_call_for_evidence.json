@@ -69,17 +69,6 @@
         "document_type": "organisation",
         "analytics_identifier": "D1198"
       }
-    ],
-    "topics": [
-      {
-        "content_id": "62e08e6f-9161-42c6-b9dd-0cf8fcab2c69",
-        "title": "Climate change and energy",
-        "api_path": "/api/content/environment/climate-change-energy",
-        "base_path": "/environment/climate-change-energy",
-        "api_url": "https://www.gov.uk/api/content/environment/climate-change-energy",
-        "web_url": "https://www.gov.uk/environment/climate-change-energy",
-        "locale": "en"
-      }
     ]
   }
 }

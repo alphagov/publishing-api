@@ -117,28 +117,6 @@
           ]
         }
       }
-    ],
-    "topics": [
-      {
-        "content_id": "6e1d83bc-d37a-447c-bdac-31be4b441417",
-        "title": "PAYE",
-        "base_path": "/topic/business-tax/paye",
-        "api_path": "/api/content/topic/business-tax/paye",
-        "api_url": "https://www.gov.uk/api/content/topic/business-tax/paye",
-        "web_url": "https://www.gov.uk/topic/business-tax/paye",
-        "locale": "en",
-        "document_type": "topic"
-      },
-      {
-        "content_id": "a481832e-5f10-4d3b-8131-a064b36730ae",
-        "title": "Business tax",
-        "base_path": "/topic/business-tax",
-        "api_path": "/api/content/topic/business-tax",
-        "api_url": "https://www.gov.uk/api/content/topic/business-tax",
-        "web_url": "https://www.gov.uk/topic/business-tax",
-        "locale": "en",
-        "document_type": "topic"
-      }
     ]
   }
 }

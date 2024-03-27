@@ -182,36 +182,6 @@
         "title": "Prepare a charity trustees' annual report",
         "web_url": "https://www.gov.uk/guidance/prepare-a-charity-trustees-annual-report"
       }
-    ],
-    "topics": [
-      {
-        "analytics_identifier": null,
-        "api_path": "/api/content/topic/running-charity/money-accounts",
-        "api_url": "https://www.gov.uk/api/content/topic/running-charity/money-accounts",
-        "base_path": "/topic/running-charity/money-accounts",
-        "content_id": "6db5a402-5916-4820-89a6-a19c6c9e085e",
-        "description": "List of information about Charity money, tax and accounts.",
-        "document_type": "topic",
-        "locale": "en",
-        "public_updated_at": "2015-08-11T15:10:00.000+00:00",
-        "schema_name": "topic",
-        "title": "Charity money, tax and accounts",
-        "web_url": "https://www.gov.uk/topic/running-charity/money-accounts"
-      },
-      {
-        "analytics_identifier": null,
-        "api_path": "/api/content/topic/running-charity/managing-charity",
-        "api_url": "https://www.gov.uk/api/content/topic/running-charity/managing-charity",
-        "base_path": "/topic/running-charity/managing-charity",
-        "content_id": "cf2ab891-5bd9-4788-8254-f9444423719c",
-        "description": "List of information about Managing your charity.",
-        "document_type": "topic",
-        "locale": "en",
-        "public_updated_at": "2016-03-21T13:12:32.000+00:00",
-        "schema_name": "topic",
-        "title": "Managing your charity",
-        "web_url": "https://www.gov.uk/topic/running-charity/managing-charity"
-      }
     ]
   },
   "locale": "en",

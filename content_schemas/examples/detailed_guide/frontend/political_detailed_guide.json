@@ -102,28 +102,6 @@
         "locale": "en",
         "document_type": "detailed_guide"
       }
-    ],
-    "topics": [
-      {
-        "content_id": "0d59f5e7-a230-4bac-b02c-624a59a34dab",
-        "title": "Low carbon energy",
-        "api_path": "/api/content/topic/climate-change-energy/low-carbon-energy",
-        "base_path": "/topic/climate-change-energy/low-carbon-energy",
-        "api_url": "https://www.gov.uk/api/content/topic/climate-change-energy/low-carbon-energy",
-        "web_url": "https://www.gov.uk/topic/climate-change-energy/low-carbon-energy",
-        "locale": "en",
-        "document_type": "topic"
-      },
-      {
-        "content_id": "57c6699d-ceda-4168-9d23-3fed774ca776",
-        "title": "Climate change and energy",
-        "api_path": "/api/content/topic/climate-change-energy",
-        "base_path": "/topic/climate-change-energy",
-        "api_url": "https://www.gov.uk/api/content/topic/climate-change-energy",
-        "web_url": "https://www.gov.uk/topic/climate-change-energy",
-        "locale": "en",
-        "document_type": "topic"
-      }
     ]
   }
 }
