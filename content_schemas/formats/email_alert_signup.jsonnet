@@ -37,7 +37,6 @@
         email_alert_type: {
           type: "string",
           enum: [
-            "topics",
             "policies",
             "countries",
           ],
