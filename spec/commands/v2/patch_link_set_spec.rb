@@ -1,15 +1,15 @@
 RSpec.describe Commands::V2::PatchLinkSet do
   let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
   let(:content_id) { SecureRandom.uuid }
-  let(:topics) { 3.times.map { SecureRandom.uuid } }
-  let(:topics_shuffled) { topics.shuffle }
+  let(:taxons) { 3.times.map { SecureRandom.uuid } }
+  let(:taxons_shuffled) { taxons.shuffle }
   let(:parent) { [SecureRandom.uuid] }
 
   let(:payload) do
     {
       content_id:,
       links: {
-        topics: topics * 2, # test deduplication
+        taxons: taxons * 2, # test deduplication
         parent:,
       },
     }
@@ -20,7 +20,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     {
       content_id:,
       links: {
-        topics: topics_shuffled * 2, # test deduplication
+        taxons: taxons_shuffled * 2, # test deduplication
         parent:,
       },
     }
@@ -51,8 +51,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(link_set.content_id).to eq(content_id)
 
       links = link_set.links
-      expect(links.map(&:link_type)).to eq(%w[parent topics topics topics])
-      expect(links.map(&:target_content_id)).to eq(parent + topics)
+      expect(links.map(&:link_type)).to eq(%w[parent taxons taxons taxons])
+      expect(links.map(&:target_content_id)).to eq(parent + taxons)
     end
 
     it "doesn't reject an empty links hash, but doesn't delete links either" do
@@ -89,7 +89,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
         content_id:,
         version: 1,
         links: {
-          topics:,
+          taxons:,
           parent:,
         },
       )
@@ -103,8 +103,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(link_set.content_id).to eq(content_id)
 
       links = link_set.links
-      expect(links.map(&:link_type)).to eq(%w[parent topics topics topics])
-      expect(links.map(&:target_content_id)).to eq(parent + topics_shuffled)
+      expect(links.map(&:link_type)).to eq(%w[parent taxons taxons taxons])
+      expect(links.map(&:target_content_id)).to eq(parent + taxons_shuffled)
     end
   end
 
@@ -119,13 +119,13 @@ RSpec.describe Commands::V2::PatchLinkSet do
         links: [
           create(
             :link,
-            link_type: "topics",
-            target_content_id: topics.first,
+            link_type: "taxons",
+            target_content_id: taxons.first,
           ),
           create(
             :link,
-            link_type: "topics",
-            target_content_id: topics.second,
+            link_type: "taxons",
+            target_content_id: taxons.second,
           ),
           create(
             :link,
@@ -154,8 +154,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
       link_set = LinkSet.last
       links = link_set.links
 
-      topics_links = links.where(link_type: "topics")
-      expect(topics_links.map(&:target_content_id)).to eq(topics)
+      taxons_links = links.where(link_type: "taxons")
+      expect(taxons_links.map(&:target_content_id)).to eq(taxons)
     end
 
     it "does not affect links for groups that do not appear in the payload" do
@@ -184,7 +184,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
         content_id:,
         version: 2,
         links: {
-          topics:,
+          taxons:,
           parent:,
           related:,
         },
@@ -408,14 +408,14 @@ RSpec.describe Commands::V2::PatchLinkSet do
     let(:content_id) { edition.document.content_id }
 
     let(:payload) do
-      { content_id:, links: { topics: [link_b] } }
+      { content_id:, links: { taxons: [link_b] } }
     end
 
     before do
       create(
         :link_set,
         content_id:,
-        links_hash: { topics: [link_a] },
+        links_hash: { taxons: [link_a] },
       )
     end
 

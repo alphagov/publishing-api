@@ -529,7 +529,7 @@ RSpec.describe Commands::V2::Publish do
         create(
           :live_edition,
           document:,
-          links_hash: { topics: [link_a] },
+          links_hash: { taxons: [link_a] },
         )
       end
 
@@ -537,7 +537,7 @@ RSpec.describe Commands::V2::Publish do
         create(
           :draft_edition,
           document:,
-          links_hash: { topics: [link_b] },
+          links_hash: { taxons: [link_b] },
           user_facing_version: 2,
         )
       end
