@@ -177,6 +177,8 @@ module Commands
         # This enables changing the locale of some content where a
         # published edition for the previous locale still exists.
         published_edition_for_different_locale.substitute
+        payload = DownstreamPayload.new(published_edition_for_different_locale, Event.maximum_id)
+        DownstreamService.broadcast_to_message_queue(payload, "unpublish") # TODO is this the right event_type? Probably yes.
       end
 
       def set_timestamps

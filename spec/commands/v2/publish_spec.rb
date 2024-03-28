@@ -35,6 +35,7 @@ RSpec.describe Commands::V2::Publish do
 
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
+      # TODO stub request(s?) to message queue as well?
 
       allow(DependencyResolutionWorker).to receive(:perform_async)
     end
@@ -308,9 +309,22 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "unpublishes the edition which is in the way" do
+        # We allow a message on the queue for the edition being published:
+        allow(DownstreamService).to receive(:broadcast_to_message_queue).with(anything, "major")
+
+        # And we expect a message on the queue for the edition which is in the way
+        expect(DownstreamService).to receive(:broadcast_to_message_queue)
+          .with(instance_of(DownstreamPayload), "unpublish")
+
+        # TODO test this at a lower level - what we actually care about is that this:
+        #     PublishingAPI.service(:queue_publisher).send_message(payload, event_type:)
+        #     gets called with the right payload
+
+        # NOTE: this is possibly a good test for things going on message queues
         described_class.call(payload)
 
         updated_other_edition = Edition.find(other_edition.id)
+        # debugger
 
         expect(updated_other_edition.state).to eq("unpublished")
         expect(updated_other_edition.document.locale).to eq(draft_locale)
