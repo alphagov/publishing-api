@@ -35,24 +35,6 @@
           type: "string",
         },
       },
-      topics: {
-        type: "array",
-        items: {
-          type: "string",
-        },
-      },
-      primary_topic: {
-        type: "array",
-        items: {
-          type: "string",
-        },
-      },
-      additional_topics: {
-        type: "array",
-        items: {
-          type: "string",
-        },
-      },
       policies: {
         type: "array",
         items: {
