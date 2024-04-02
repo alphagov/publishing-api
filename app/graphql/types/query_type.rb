@@ -90,5 +90,12 @@ module Types
       validates required: { one_of: [:content_id, :base_path] }
     end
     alias_method :ministers_index, :edition
+
+    field :topical_event, Types::TopicalEventType do
+      argument :content_id, String, required: false
+      argument :base_path, String, required: false
+      validates required: { one_of: [:content_id, :base_path] }
+    end
+    alias_method :topical_event, :edition
   end
 end
