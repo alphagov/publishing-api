@@ -29,8 +29,7 @@ module SubstitutionHelper
       if state == "draft"
         discard_draft(blocking_edition, downstream, nested, callbacks)
       else
-        blocking_edition.substitute
-        substitute_message(blocking_edition)
+        substitute_edition(blocking_edition)
       end
     end
   end
@@ -55,8 +54,7 @@ module SubstitutionHelper
     if state == "published"
       # This enables changing the locale of some content where a
       # published edition for the previous locale still exists.
-      edition_for_different_locale.substitute
-      substitute_message(edition_for_different_locale)
+      substitute_edition(edition_for_different_locale)
     elsif state == "draft"
       # This enables changing the locale of some content where a
       # draft for the previous locale still exists.
@@ -68,7 +66,8 @@ module SubstitutionHelper
 
 private
 
-  def substitute_message(edition)
+  def substitute_edition(edition)
+    edition.substitute
     payload = DownstreamPayload.new(edition, Event.maximum_id)
     DownstreamService.broadcast_to_message_queue(payload, "unpublish")
   end
