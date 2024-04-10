@@ -309,7 +309,7 @@ RSpec.describe Commands::V2::Publish do
 
       it "unpublishes the edition which is in the way" do
         expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message).with(
-          hash_including(content_id: other_edition.content_id),
+          hash_including(content_id: other_edition.content_id, document_type: "substitute"),
           hash_including(event_type: "unpublish"),
         )
         expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message).with(
