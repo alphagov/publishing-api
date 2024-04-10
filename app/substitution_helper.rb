@@ -60,15 +60,7 @@ module SubstitutionHelper
     elsif state == "draft"
       # This enables changing the locale of some content where a
       # draft for the previous locale still exists.
-      Commands::V2::DiscardDraft.call(
-        {
-          content_id: edition_for_different_locale.document.content_id,
-          locale: edition_for_different_locale.document.locale,
-        },
-        downstream:,
-        callbacks:,
-        nested: true,
-      )
+      discard_draft(edition_for_different_locale, downstream, true, callbacks)
     else
       raise "Unexpected state #{state}"
     end
