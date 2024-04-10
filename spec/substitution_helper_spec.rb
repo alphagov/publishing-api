@@ -20,7 +20,7 @@ RSpec.describe SubstitutionHelper do
 
   context "given a base_path" do
     before do
-      subject.clear!(
+      subject.clear_items_of_same_locale_and_base_path!(
         new_item_document_type: new_document_type,
         new_item_content_id: new_content_id,
         base_path: existing_base_path,
@@ -188,7 +188,7 @@ RSpec.describe SubstitutionHelper do
   context "when base_path is nil" do
     it "raises an exception" do
       expect {
-        subject.clear!(
+        subject.clear_items_of_same_locale_and_base_path!(
           new_item_document_type: "government",
           new_item_content_id: SecureRandom.uuid,
           base_path: nil,

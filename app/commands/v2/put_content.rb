@@ -158,7 +158,7 @@ module Commands
       def clear_draft_items_of_same_locale_and_base_path
         return unless payload[:base_path]
 
-        SubstitutionHelper.clear!(
+        SubstitutionHelper.clear_items_of_same_locale_and_base_path!(
           new_item_document_type: payload[:document_type],
           new_item_content_id: document.content_id,
           state: "draft",

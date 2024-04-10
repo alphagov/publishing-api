@@ -11,7 +11,7 @@ module SubstitutionHelper
 
   SUBSTITUTABLE_UNPUBLISHING_TYPES = %w[gone redirect vanish].freeze
 
-  def clear!(
+  def clear_items_of_same_locale_and_base_path!(
     new_item_document_type:,
     new_item_content_id:,
     base_path:,
