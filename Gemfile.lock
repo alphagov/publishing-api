@@ -242,7 +242,7 @@ GEM
       reline (>= 0.4.2)
     jmespath (1.6.2)
     json (2.7.1)
-    json-schema (4.1.1)
+    json-schema (4.3.0)
       addressable (>= 2.8)
     jsonnet (0.5.3)
       mini_portile2 (>= 2.2.0)
