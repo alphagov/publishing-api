@@ -54,6 +54,7 @@ module SubstitutionHelper
     if state == "published"
       # This enables changing the locale of some content where a
       # published edition for the previous locale still exists.
+      # TODO: is it a problem that this doesn't take into account can_substitute_document_type? or can_substitute_unpublishing_type?
       substitute_edition(edition_for_different_locale)
     elsif state == "draft"
       # This enables changing the locale of some content where a
