@@ -158,26 +158,14 @@ module Commands
       end
 
       def clear_published_item_of_different_locale_but_matching_base_path
-        return unless edition.base_path
-
-        published_edition_for_different_locale = Edition.with_document.where(
-          documents: {
-            content_id: document.content_id,
-          },
-          state: :published,
+        SubstitutionHelper.clear_item_of_different_locale_but_matching_base_path!(
           base_path: edition.base_path,
-        ).where.not(
-          documents: {
-            locale: document.locale,
-          },
-        ).first
-
-        return unless published_edition_for_different_locale
-
-        # This enables changing the locale of some content where a
-        # published edition for the previous locale still exists.
-        published_edition_for_different_locale.substitute
-        SubstitutionHelper.substitute_message(published_edition_for_different_locale)
+          content_id: document.content_id,
+          state: "published",
+          locale: document.locale,
+          downstream:,
+          callbacks:,
+        )
       end
 
       def set_timestamps

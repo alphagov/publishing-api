@@ -35,12 +35,51 @@ module SubstitutionHelper
     end
   end
 
+  def clear_item_of_different_locale_but_matching_base_path!(
+    base_path:,
+    content_id:,
+    locale:,
+    state:,
+    downstream: true,
+    callbacks: []
+  )
+    return unless base_path
+
+    edition_for_different_locale = Edition.with_document
+      .where(documents: { content_id: }, state:, base_path:)
+      .where.not(documents: { locale: })
+      .first
+
+    return unless edition_for_different_locale
+
+    if state == "published"
+      # This enables changing the locale of some content where a
+      # published edition for the previous locale still exists.
+      edition_for_different_locale.substitute
+      substitute_message(edition_for_different_locale)
+    elsif state == "draft"
+      # This enables changing the locale of some content where a
+      # draft for the previous locale still exists.
+      Commands::V2::DiscardDraft.call(
+        {
+          content_id: edition_for_different_locale.document.content_id,
+          locale: edition_for_different_locale.document.locale,
+        },
+        downstream:,
+        callbacks:,
+        nested: true,
+      )
+    else
+      raise "Unexpected state #{state}"
+    end
+  end
+
+private
+
   def substitute_message(edition)
     payload = DownstreamPayload.new(edition, Event.maximum_id)
     DownstreamService.broadcast_to_message_queue(payload, "unpublish")
   end
-
-private
 
   def discard_draft(blocking_edition, downstream, nested, callbacks)
     Commands::V2::DiscardDraft.call(

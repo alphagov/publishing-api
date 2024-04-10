@@ -171,32 +171,13 @@ module Commands
       end
 
       def clear_draft_item_of_different_locale_but_matching_base_path
-        return unless payload[:base_path]
-
-        draft_edition_for_different_locale = Edition.with_document.where(
-          documents: {
-            content_id: document.content_id,
-          },
-          state: :draft,
+        SubstitutionHelper.clear_item_of_different_locale_but_matching_base_path!(
           base_path: payload[:base_path],
-        ).where.not(
-          documents: {
-            locale: document.locale,
-          },
-        ).first
-
-        return unless draft_edition_for_different_locale
-
-        # This enables changing the locale of some content where a
-        # draft for the previous locale still exists.
-        Commands::V2::DiscardDraft.call(
-          {
-            content_id: draft_edition_for_different_locale.document.content_id,
-            locale: draft_edition_for_different_locale.document.locale,
-          },
+          content_id: document.content_id,
+          locale: document.locale,
+          state: :draft,
           downstream:,
           callbacks:,
-          nested: true,
         )
       end
 
