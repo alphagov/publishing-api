@@ -30,8 +30,14 @@ module SubstitutionHelper
         discard_draft(blocking_edition, downstream, nested, callbacks)
       else
         blocking_edition.substitute
+        substitute_message(blocking_edition)
       end
     end
+  end
+
+  def substitute_message(edition)
+    payload = DownstreamPayload.new(edition, Event.maximum_id)
+    DownstreamService.broadcast_to_message_queue(payload, "unpublish")
   end
 
 private
