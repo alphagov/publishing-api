@@ -7,7 +7,6 @@
     "asylum_support_decision",
     "business_finance_support_scheme",
     "cma_case",
-    "uk_market_conformity_assessment_body",
     "countryside_stewardship_grant",
     "drcf_digital_markets_research",
     "drug_safety_update",
