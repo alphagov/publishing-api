@@ -45,6 +45,9 @@
       ],
       "ai_assurance_technique": [
        "bias-audit"
+      ],
+      "focus_sector": [
+        "financial-services"
       ]
     },
     "max_cache_time": 10,
@@ -411,6 +414,20 @@
                 {
                   "label": "Assurance Warranty",
                   "value": "assurance-warranty"
+                }
+              ]
+            },
+            {
+              "key": "focus_sector",
+              "name": "Focus Sector",
+              "type": "text",
+              "preposition": "Focus Sector",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Financial services",
+                  "value": "financial-services"
                 }
               ]
             }
