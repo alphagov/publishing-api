@@ -14,4 +14,11 @@
   links: (import "shared/base_links.jsonnet") + {
     worldwide_organisation: "The Worldwide Organisation that this Worldwide Corporate Information Page belongs to",
   },
+  edition_links: (import "shared/base_edition_links.jsonnet") + {
+    worldwide_organisation: "The Worldwide Organisation that this Worldwide Corporate Information Page belongs to",
+    parent: {
+      description: "The parent content item.",
+      maxItems: 1,
+    },
+  },
 }
