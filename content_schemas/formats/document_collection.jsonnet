@@ -61,17 +61,14 @@
         brexit_no_deal_notice: {
           "$ref": "#/definitions/brexit_no_deal_notice",
         },
-        mapped_specialist_topic_content_id: {
-          type: "string",
-        }
       },
     },
   },
   edition_links: (import "shared/whitehall_edition_links.jsonnet") + {
     documents: "",
     taxonomy_topic_email_override: {
-        description: "The taxonomy topic that email subscriptions for this document collection should go to - only for document collections converted from specialist topics",
-        maxItems: 1
+      description: "The taxonomy topic that email subscriptions for this document collection should go to - only for document collections converted from specialist topics",
+      maxItems: 1,
     },
   },
   links: (import "shared/base_links.jsonnet") + {
@@ -85,8 +82,8 @@
     documents: "",
     topical_events: "The topical events that are part of this document collection.",
     taxonomy_topic_email_override: {
-        description: "The taxonomy topic that email subscriptions for this document collection should go to - only for document collections converted from specialist topics",
-        maxItems: 1
+      description: "The taxonomy topic that email subscriptions for this document collection should go to - only for document collections converted from specialist topics",
+      maxItems: 1,
     },
   },
 }
