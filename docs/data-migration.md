@@ -53,4 +53,4 @@ should make sure that the migration will do the right thing if it gets run
 again. This could happen if it happens to fail the first time, but since it
 will not be running in a transaction, the data won't be rolled back.
 
-[rake-tasks]: lib/tasks/represent_downstream.rake
+[rake-tasks]: ../lib/tasks/represent_downstream.rake
