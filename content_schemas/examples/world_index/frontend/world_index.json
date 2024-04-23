@@ -1539,6 +1539,15 @@
       },
       {
         "active": true,
+        "analytics_identifier": "WL186",
+        "content_id": "5e9f30c8-7706-11e4-a3cb-005056011aef",
+        "iso2": "FS",
+        "name": "Federated States of Micronesia",
+        "slug": "federated-states-of-micronesia",
+        "updated_at": "2017-08-15T15:42:10.000+01:00"
+      },
+      {
+        "active": true,
         "analytics_identifier": "WL177",
         "content_id": "5e9f2e16-7706-11e4-a3cb-005056011aef",
         "iso2": "GD",
@@ -1617,15 +1626,6 @@
         "name": "Marshall Islands",
         "slug": "marshall-islands",
         "updated_at": "2017-08-15T15:42:09.000+01:00"
-      },
-      {
-        "active": true,
-        "analytics_identifier": "WL186",
-        "content_id": "5e9f30c8-7706-11e4-a3cb-005056011aef",
-        "iso2": "FS",
-        "name": "Federated States of Micronesia",
-        "slug": "federated-states-of-micronesia",
-        "updated_at": "2017-08-15T15:42:10.000+01:00"
       },
       {
         "active": true,
