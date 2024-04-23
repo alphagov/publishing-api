@@ -82,6 +82,7 @@ private
       when "gone" then gone_presenter
       when "vanish" then vanish_presenter
       when "substitute" then substitute_presenter
+      when "withdrawal" then content_presenter
       else
         logger.warn("Unexpected unpublishing type #{unpublishing.type}")
         content_presenter
