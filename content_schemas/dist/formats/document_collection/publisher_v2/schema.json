@@ -299,9 +299,6 @@
         "government": {
           "$ref": "#/definitions/government"
         },
-        "mapped_specialist_topic_content_id": {
-          "type": "string"
-        },
         "political": {
           "$ref": "#/definitions/political"
         },
