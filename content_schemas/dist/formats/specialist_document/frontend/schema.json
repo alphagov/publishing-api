@@ -1708,51 +1708,47 @@
           "items": {
             "type": "string",
             "enum": [
-              "access-and-engagement",
+              "agroforestry",
               "air-quality",
-              "biodiversity",
               "boundaries",
               "crops",
+              "equipment-and-machinery",
               "flood-risk",
               "forestry",
+              "hedgerows",
               "historic-environment",
+              "horticulture",
+              "land-features-and-archaeological-features",
               "livestock-management",
+              "nutrient-manure-and-slurry-management",
+              "organic",
               "peat",
               "pollinators-and-wildlife",
               "precision-farming",
-              "slurry-management",
+              "public-access-and-education",
               "soil",
-              "trees-non-woodland",
+              "trees",
               "vegetation-control",
-              "water"
+              "water-availability-and-storage",
+              "water-quality"
             ]
           }
         },
         "bulk_published": {
           "type": "boolean"
         },
-        "grant_schemes": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "countryside-stewardship",
-              "sustainable-farming-incentive"
-            ]
-          }
-        },
         "land_types": {
           "type": "array",
           "items": {
             "type": "string",
             "enum": [
-              "arable-land",
-              "coast",
+              "arable",
+              "coastal",
               "grassland",
               "lowland-heath",
               "moorland-and-upland",
-              "organic-land",
               "priority-habitats",
+              "scrub",
               "waterbodies",
               "wetland",
               "woodland"
