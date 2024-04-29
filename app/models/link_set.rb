@@ -2,6 +2,7 @@ class LinkSet < ApplicationRecord
   include FindOrCreateLocked
 
   has_many :links, -> { order(link_type: :asc, position: :asc) }, dependent: :destroy
+  has_one :document, foreign_key: :content_id
 
   # We could define the `==` method on `Link` to perform this check but that
   # breaks the strict definition of a model instance being a representation of
