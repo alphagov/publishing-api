@@ -1,4 +1,49 @@
 RSpec.describe "CSV report rake tasks" do
+  describe "csv_report:word_usages" do
+    let(:task) { Rake::Task["csv_report:word_usages"] }
+    before { task.reenable }
+
+    it "outputs a CSV of editions which include words in the word list" do
+      e1 = create(
+        :live_edition,
+        details: { some_field: "Yes, we have no BANANA." },
+        base_path: "/8QqkrIDeTeA",
+        title: "No bananas",
+        publishing_app: "fruit_publisher",
+        document_type: "fruit",
+      )
+      e2 = create(
+        :live_edition,
+        details: { some_field: "Ring ring ring ring banana phone!" },
+        base_path: "/shorts/-n77rSzMUX8",
+        title: "Banana phone",
+        publishing_app: "fruit_publisher",
+        document_type: "fruit",
+      )
+      e3 = create(
+        :live_edition,
+        details: { some_field: "There's a fruit man on our street, his name is Mr. Peach" },
+        base_path: "/dQw4w9WgXcQ",
+        title: "Mr. Peach",
+        publishing_app: "whitehall",
+        document_type: "person",
+      )
+      # ... and a few editions which won't match:
+      create(:live_edition)
+      create(:live_edition)
+      create(:live_edition)
+      create(:live_edition)
+      create(:live_edition)
+
+      expect { task.invoke("banana", "peach") }.to output(<<~CSV).to_stdout
+        base_path,title,content_id,locale,publishing_app,document_type,words
+        /8QqkrIDeTeA,No bananas,#{e1.content_id},#{e1.locale},fruit_publisher,fruit,banana
+        /shorts/-n77rSzMUX8,Banana phone,#{e2.content_id},#{e2.locale},fruit_publisher,fruit,banana
+        /dQw4w9WgXcQ,Mr. Peach,#{e3.content_id},#{e3.locale},whitehall,person,peach
+      CSV
+    end
+  end
+
   describe "csv_report:publishings_by_date_range" do
     let(:task) { Rake::Task["csv_report:publishings_by_date_range"] }
     before { task.reenable }
