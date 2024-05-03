@@ -51,6 +51,20 @@ namespace :queue do
     RequeueContentByScope.new(Edition.live, action: args.action).call
   end
 
+  # This is similar to requeue_all_the_things, but it enqueues the most relevant edition for all
+  # content that has at one point been published.
+  #
+  # This is suitable for downstream apps that need to know about all content past and present,
+  # not just that which is currently visible to users, for example to be able to delete content
+  # downstream that has been unpublished upstream.
+  desc "Add all published and unpublished editions to the message queue with a specified routing key"
+  task :requeue_all_the_ever_published_things, [:action] => :environment do |_, args|
+    RequeueContentByScope.new(
+      Edition.where(state: %w[published unpublished]),
+      action: args.action,
+    ).call
+  end
+
   # This is similar to requeue_all_the_things, but it only requeues published documents
   #
   # This is suitable for e.g. initial import of data into a new downstream app that doesn't care
