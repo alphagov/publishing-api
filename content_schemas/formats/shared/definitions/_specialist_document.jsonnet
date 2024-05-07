@@ -1799,23 +1799,29 @@
         items: {
           type: "string",
           enum: [
-            "access-and-engagement",
-            "air-quality",
-            "biodiversity",
-            "boundaries",
-            "crops",
-            "flood-risk",
-            "forestry",
-            "historic-environment",
-            "livestock-management",
-            "peat",
-            "pollinators-and-wildlife",
-            "precision-farming",
-            "slurry-management",
-            "soil",
-            "trees-non-woodland",
-            "vegetation-control",
-            "water",
+             "agroforestry",
+             "air-quality",
+             "boundaries",
+             "crops",
+             "equipment-and-machinery",
+             "flood-risk",
+             "forestry",
+             "hedgerows",
+             "historic-environment",
+             "horticulture",
+             "land-features-and-archaeological-features",
+             "livestock-management",
+             "nutrient-manure-and-slurry-management",
+             "organic",
+             "peat",
+             "pollinators-and-wildlife",
+             "precision-farming",
+             "public-access-and-education",
+             "soil",
+             "trees",
+             "vegetation-control",
+             "water-availability-and-storage",
+             "water-quality",
           ]
         }
       },
@@ -1824,26 +1830,16 @@
         items: {
           type: "string",
           enum: [
-            "arable-land",
-            "coast",
+            "arable",
+            "coastal",
             "grassland",
             "lowland-heath",
             "moorland-and-upland",
-            "organic-land",
             "priority-habitats",
+            "scrub",
             "waterbodies",
             "wetland",
             "woodland",
-          ]
-        }
-      },
-      grant_schemes: {
-        type: "array",
-        items: {
-          type: "string",
-          enum: [
-            "countryside-stewardship",
-            "sustainable-farming-incentive",
           ]
         }
       },

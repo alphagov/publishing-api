@@ -1,16 +1,15 @@
 {
   "content_id": "7cdc95ae-0e85-455f-b749-77d226157591",
   "locale": "en",
-  "base_path": "/farming-grant-options/example-farming-grant-option",
-  "title": "Example farming grant option",
+  "base_path": "/find-funding-for-land-or-farms/example-farming-grant",
+  "title": "Example farming grant",
   "description": "The GOV.UK Data Labs team piloted the standard for their Related Links tool; a recommendation engine built to aid navigation of GOV.UK.",
   "details": {
     "body": "Related Links is a recommendation engine built to aid navigation of GOV.UK by providing relevant onward journeys from a content page.\n\nThe tool uses an algorithm called node2vec to train a model on the last three weeks of user movement data (web analytics data). Three weeks of data was used as our experience with user movement data on the site indicated it was sufficient to capture medium and long term trends while ignoring short-lived spikes in user behaviour. The model is used to predict related links for every page. These new related links are published to GOV.UK.\n\nThe tool is used to help users find useful information and content, aiding navigation.\n\nGOV.UK has approximately 600,000 pieces of content. Previously, related links were created manually, with only approximately 2,000 pieces of content having related links. The tool expanded that to nearly the entirety of the GOV.UK content.",
     "attachments": [],
     "metadata": {
       "areas_of_interest": ["air-quality"],
-      "land_types": ["arable-land"],
-      "grant_schemes": ["countryside-stewardship"],
+      "land_types": ["grassland"],
       "payment_types": ["capital"]
     },
     "max_cache_time": 10,
@@ -128,8 +127,8 @@
     "finder": [
       {
         "analytics_identifier": null,
-        "api_path": "/api/content/farming-grant-options",
-        "base_path": "/farming-grant-options",
+        "api_path": "/api/content/find-funding-for-land-or-farms",
+        "base_path": "/find-funding-for-land-or-farms",
         "content_id": "23ad50d7-916c-456b-b3de-4b27739d5be1",
         "description": "Find out about grant options, items and actions in the Farming and Countryside Programme. This is for land or farms in England.",
         "document_type": "finder",
@@ -150,16 +149,12 @@
               "filterable": true,
               "allowed_values": [
                 {
-                  "label": "Access and engagement",
-                  "value": "access-and-engagement"
+                  "label": "Agroforestry",
+                  "value": "agroforestry"
                 },
                 {
                   "label": "Air quality",
                   "value": "air-quality"
-                },
-                {
-                  "label": "Biodiversity",
-                  "value": "biodiversity"
                 },
                 {
                   "label": "Boundaries",
@@ -170,6 +165,10 @@
                   "value": "crops"
                 },
                 {
+                  "label": "Equipment and machinery",
+                  "value": "equipment-and-machinery"
+                },
+                {
                   "label": "Flood risk",
                   "value": "flood-risk"
                 },
@@ -178,12 +177,33 @@
                   "value": "forestry"
                 },
                 {
+                  "label": "Hedgerows",
+                  "value": "hedgerows"
+                },
+
+                {
                   "label": "Historic environment",
                   "value": "historic-environment"
                 },
                 {
+                  "label": "Horticulture",
+                  "value": "horticulture"
+                },
+                {
+                  "label": "Land features and archaeological features",
+                  "value": "land-features-and-archaeological-features"
+                },
+                {
                   "label": "Livestock management",
                   "value": "livestock-management"
+                },
+                {
+                  "label": "Nutrient, manure and slurry management",
+                  "value": "nutrient-manure-and-slurry-management"
+                },
+                {
+                  "label": "Organic",
+                  "value": "organic"
                 },
                 {
                   "label": "Peat",
@@ -198,24 +218,28 @@
                   "value": "precision-farming"
                 },
                 {
-                  "label": "Slurry management",
-                  "value": "slurry-management"
+                  "label": "Public access and education",
+                  "value": "public-access-and-education"
                 },
                 {
                   "label": "Soil",
                   "value": "soil"
                 },
                 {
-                  "label": "Trees (non-woodland)",
-                  "value": "trees-non-woodland"
+                  "label": "Trees",
+                  "value": "trees"
                 },
                 {
                   "label": "Vegetation control",
                   "value": "vegetation-control"
                 },
                 {
-                  "label": "Water",
-                  "value": "water"
+                  "label": "Water availability and storage",
+                  "value": "water-availability-and-storage"
+                },
+                {
+                  "label": "Water quality",
+                  "value": "water-quality"
                 }
               ]
             },
@@ -229,12 +253,12 @@
               "filterable": true,
               "allowed_values": [
                 {
-                  "label": "Arable land",
-                  "value": "arable-land"
+                  "label": "Arable",
+                  "value": "arable"
                 },
                 {
-                  "label": "Coast",
-                  "value": "coast"
+                  "label": "Coastal",
+                  "value": "coastal"
                 },
                 {
                   "label": "Grassland",
@@ -249,12 +273,12 @@
                   "value": "moorland-and-upland"
                 },
                 {
-                  "label": "Organic land",
-                  "value": "organic-land"
-                },
-                {
                   "label": "Priority habitats",
                   "value": "priority-habitats"
+                },
+                {
+                  "label": "Scrub",
+                  "value": "scrub"
                 },
                 {
                   "label": "Waterbodies",
@@ -267,25 +291,6 @@
                 {
                   "label": "Woodland",
                   "value": "woodland"
-                }
-              ]
-            },
-            {
-              "key": "grant_schemes",
-              "name": "Grant schemes",
-              "short_name": "Grant schemes",
-              "type": "text",
-              "preposition": "part of",
-              "display_as_result_metadata": true,
-              "filterable": true,
-              "allowed_values": [
-                {
-                  "label": "Countryside Stewardship",
-                  "value": "countryside-stewardship"
-                },
-                {
-                  "label": "Sustainable Farming Incentive",
-                  "value": "sustainable-farming-incentive"
                 }
               ]
             },
