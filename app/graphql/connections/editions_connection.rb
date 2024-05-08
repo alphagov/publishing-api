@@ -33,7 +33,6 @@ module Connections
       if after.present?
         query = items.where("editions.id <= ?", decode(after))
       end
-      query = query.order(id: :desc)
 
       f = first || 10
       to_grab = after.present? ? f + 2 : f + 1

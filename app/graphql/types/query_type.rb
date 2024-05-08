@@ -5,22 +5,35 @@ module Types
     # Collections of editions
 
     field :editions, Types::EditionType.connection_type, description: "Collection of editions" do
-      argument :document_type, String, required: false
+      argument :content_purpose_supergroup, String, required: false
+      argument :document_types, [String], required: false
+      argument :order_by, String, required: false
     end
 
     field :governments, Types::GovernmentType.connection_type, description: "Collection of governments"
 
     def governments
-      # TODO - might be nice to put a custom ordering in here - with governments we probably don't want the most
-      #     recently updated, we probably want them by start date / end date
-      editions(document_type: "government")
+      editions(document_types: %w[government], order_by: Arel.sql("details->>'started_on' desc"))
     end
 
-    def editions(document_type: nil)
+    def editions(content_purpose_supergroup: nil, document_types: nil, order_by: nil)
+      if content_purpose_supergroup.present?
+        supergroup_document_types = GovukDocumentTypes.supergroup_document_types(content_purpose_supergroup)
+        document_types = supergroup_document_types if supergroup_document_types.present?
+      end
+
       query = Edition.joins(:document)
                      .where(state: 'published', document: { locale: 'en' })
 
-      query = query.where(document_type:) if document_type.present?
+      query = query.where(document_type: document_types) if document_types.present?
+
+      query = if order_by == "popularity"
+                query.order("random()") # TODO
+              elsif order_by.present?
+                query.order(order_by)
+              else
+                query.order(id: :desc)
+              end
 
       Connections::EditionsConnection.new(
         query
