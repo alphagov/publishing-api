@@ -1332,7 +1332,7 @@
         "details": {
           "logo": {
             "formatted_title": "Prime Minister&#39;s Office, 10 Downing Street",
-            "crest": "eo"
+            "crest": "no10"
           },
           "brand": "cabinet-office",
           "default_news_image": {
@@ -1373,7 +1373,7 @@
     "brand": "cabinet-office",
     "logo": {
       "formatted_title": "Prime Minister&#39;s Office, 10 Downing Street",
-      "crest": "eo"
+      "crest": "no10"
     },
     "foi_exempt": false,
     "ordered_corporate_information_pages": [
