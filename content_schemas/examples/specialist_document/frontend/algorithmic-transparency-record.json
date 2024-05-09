@@ -65,29 +65,6 @@
   "links": {
     "organisations": [
       {
-        "analytics_identifier": "OT1280",
-        "api_path": "/api/content/government/organisations/centre-for-data-ethics-and-innovation",
-        "base_path": "/government/organisations/centre-for-data-ethics-and-innovation",
-        "content_id": "1405edcb-943d-42d2-8ec8-c51cd58335a5",
-        "description": "The CDEI is a government expert body enabling the trustworthy use of data and AI. CDEI is part of the Department for Science, Innovation and Technology.",
-        "document_type": "organisation",
-        "locale": "en",
-        "public_updated_at": "2015-03-10T16:23:14Z",
-        "schema_name": "organisation",
-        "title": "Centre for Data Ethics and Innovation",
-        "withdrawn": false,
-        "details": {
-          "brand": "cabinet-office",
-          "logo": {
-            "formatted_title": "Centre for<br/>Data Ethics<br/>and Innovation",
-            "crest": null
-          }
-        },
-        "links": {},
-        "api_url": "https://www.gov.uk/api/content/government/organisations/centre-for-data-ethics-and-innovation",
-        "web_url": "https://www.gov.uk/government/organisations/centre-for-data-ethics-and-innovation"
-      },
-      {
         "analytics_identifier": "D1381",
         "api_path": "/api/content/government/organisations/department-for-science-innovation-and-technology",
         "base_path": "/government/organisations/department-for-science-innovation-and-technology",
