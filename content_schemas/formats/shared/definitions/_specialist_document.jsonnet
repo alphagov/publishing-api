@@ -316,6 +316,7 @@
           "west-midlands-police",
           "department-for-science-innovation-and-technology",
           "department-for-education",
+          "greater-cambridge-partnership"
         ],
       },
       algorithmic_transparency_record_organisation_type: {

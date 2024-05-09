@@ -169,6 +169,10 @@
                 {
                   "label": "Department for Education",
                   "value": "department-for-education"
+                },
+                {
+                  "label": "Greater Cambridge Partnership",
+                  "value": "greater-cambridge-partnership"
                 }
               ]
             },
