@@ -51,7 +51,7 @@
   },
   "public_updated_at": "2015-07-10T13:09:46+00:00",
   "schema_name": "specialist_document",
-  "document_type": "farming_grant_option",
+  "document_type": "farming_grant",
   "links": {
     "organisations": [
       {
@@ -112,7 +112,7 @@
         "locale": "en",
         "public_updated_at": "2017-03-15T14:44:21Z",
         "schema_name": "finder",
-        "title": "Farming grant options finder",
+        "title": "Find funding for land or farms",
         "withdrawn": false,
         "details": {
           "facets": [

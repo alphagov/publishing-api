@@ -54,7 +54,7 @@
         "$ref": "#/definitions/flood_and_coastal_erosion_risk_management_research_report",
       },
       {
-        "$ref": "#/definitions/farming_grant_option_metadata",
+        "$ref": "#/definitions/farming_grant_metadata",
       },
       {
         "$ref": "#/definitions/maib_report_metadata",
@@ -1788,7 +1788,7 @@
       },
     },
   },
-  farming_grant_option_metadata: {
+  farming_grant_metadata: {
     type: "object",
     additionalProperties: false,
     properties: {
