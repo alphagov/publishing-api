@@ -1,6 +1,6 @@
 desc "Remove draft specialist finder docs by type"
 task :remove_draft_specialist_finder_docs, [:document_type] => :environment do |_, args|
-  # document_type example: "farming_grant_option"
+  # document_type example: "farming_grant"
   raise "Missing parameter: document_type" unless args.document_type
 
   results = Queries::GetContentCollection.new(fields: %w[content_id], document_types: args.document_type).call
