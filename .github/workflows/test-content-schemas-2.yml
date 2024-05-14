@@ -65,9 +65,9 @@ jobs:
 
   test-specialist-publisher:
     name: Test Specialist Publisher
-    uses: alphagov/specialist-publisher/.github/workflows/rspec.yml@rename-farming-grant-options-finder
+    uses: alphagov/specialist-publisher/.github/workflows/rspec.yml@main
     with:
-      ref: 'rename-farming-grant-options-finder'
+      ref: 'main'
       publishingApiRef: ${{ github.ref }}
 
   test-travel-advice-publisher:
