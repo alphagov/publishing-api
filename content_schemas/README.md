@@ -2,7 +2,7 @@
 
 This directory contains [JSON Schema](http://json-schema.org/) files and examples of the content that uses them on GOV.UK.
 
-The actual JSON schema files live in `dist` and are generated from [Jsonnet templates](https://jsonnet.org) in `source`. Using templates makes it easier to duplicate common blocks across multiple schemas e.g. format and URL fields. **Do not edit files in `dist` manually**, as they will be overwritten.
+The actual JSON schema files live in `content_schemas/dist/formats` and are generated from [Jsonnet templates](https://jsonnet.org) in `content_schemas/formats`. Using templates makes it easier to duplicate common blocks across multiple schemas e.g. format and URL fields. **Do not edit files in `dist` manually**, as they will be overwritten.
 
 ## Nomenclature
 
