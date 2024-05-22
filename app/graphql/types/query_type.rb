@@ -63,8 +63,15 @@ module Types
       argument :base_path, String, required: false
       validates required: { one_of: [:content_id, :base_path] }
     end
+    alias_method :person, :edition
 
-    alias_method :organisation, :edition
+    field :transaction, Types::TransactionType, description: "Get a transaction" do
+      argument :content_id, String, required: false
+      argument :base_path, String, required: false
+      validates required: { one_of: [:content_id, :base_path] }
+    end
+    alias_method :transaction, :edition
+
     field :organisation, Types::OrganisationType, description: "Get a organisation" do
       argument :content_id, String, required: false
       argument :base_path, String, required: false
