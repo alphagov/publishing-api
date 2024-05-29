@@ -3,6 +3,8 @@ class Link < ApplicationRecord
 
   belongs_to :link_set, optional: true
   belongs_to :edition, optional: true
+  has_one :source_document, class_name: "Document", through: :link_set, source: :document
+  has_one :target_document, class_name: "Document", primary_key: :target_content_id, foreign_key: :content_id
 
   validates :target_content_id, presence: true, uuid: true
   validate :link_type_is_valid
