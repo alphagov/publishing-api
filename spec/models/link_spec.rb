@@ -104,7 +104,7 @@ RSpec.describe Link do
     it "modifies a scope to filter linked editions" do
       expect(scope).to receive(:joins).with(anything).and_return(scope)
       expect(scope).to receive(:where)
-        .with("links.link_type": "organisations", "links.target_content_id": "12345")
+        .with(links: { link_type: "organisations", target_content_id: "12345" })
 
       described_class.filter_editions(scope, "organisations" => "12345")
     end

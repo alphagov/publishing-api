@@ -3,6 +3,8 @@ class Link < ApplicationRecord
 
   belongs_to :link_set, optional: true
   belongs_to :edition, optional: true
+  has_one :source_document, class_name: "Document", through: :link_set, source: :document
+  has_one :target_document, class_name: "Document", primary_key: :target_content_id, foreign_key: :content_id
 
   validates :target_content_id, presence: true, uuid: true
   validate :link_type_is_valid
@@ -15,18 +17,11 @@ class Link < ApplicationRecord
       #       called we should make this an error and only support a single filter.
       logger.warn("filter_editions called with multiple filters. These will be ANDed together in a way that probably isn't what we want. Filters were: #{filters.inspect}")
     end
-    join_sql = <<-SQL.strip_heredoc
-      INNER JOIN link_sets ON link_sets.content_id = documents.content_id
-      INNER JOIN links ON links.link_set_id = link_sets.id
-    SQL
 
-    scope = scope.joins(join_sql)
+    scope = scope.joins(document: :link_set_links)
 
     filters.each do |link_type, target_content_id|
-      scope = scope.where(
-        "links.link_type": link_type,
-        "links.target_content_id": target_content_id,
-      )
+      scope = scope.where(links: { link_type:, target_content_id: })
     end
 
     scope

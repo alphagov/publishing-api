@@ -3,6 +3,8 @@ class Document < ApplicationRecord
 
   belongs_to :owning_document, class_name: "Document", optional: true
   has_many :editions
+  has_one :link_set, primary_key: "content_id", foreign_key: "content_id", inverse_of: :document
+  has_many :link_set_links, class_name: "Link", through: :link_set, source: :links
   has_one :draft, -> { where(content_store: "draft") }, class_name: "Edition"
   has_one :live, -> { where(content_store: "live") }, class_name: "Edition"
 
