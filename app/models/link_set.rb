@@ -1,6 +1,7 @@
 class LinkSet < ApplicationRecord
   include FindOrCreateLocked
 
+  belongs_to :document, foreign_key: "content_id", primary_key: "content_id", inverse_of: :link_set, optional: true
   has_many :links, -> { order(link_type: :asc, position: :asc) }, dependent: :destroy
 
   # We could define the `==` method on `Link` to perform this check but that
