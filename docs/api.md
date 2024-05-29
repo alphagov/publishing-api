@@ -381,8 +381,7 @@ and a state has been specified, the draft is returned.
     e.g. `link_organisations=056a9ff6-2ed1-4942-9f06-92df03da741d`
     will restrict the documents returned to those that have a link
     with type `organisations` to the document with specified content
-    id. Query parameters matching this form can be specified multiple
-    times.
+    id.
 - `locale` *(optional, default "en")*
   - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
   - Used to restrict documents to a given locale.

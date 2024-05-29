@@ -9,6 +9,12 @@ class Link < ApplicationRecord
   validate :association_presence
 
   def self.filter_editions(scope, filters)
+    if filters.size > 1
+      # TODO: richard.towers - temporary warning to check whether this method is ever
+      #       called with multiple filters. The code looks wrong, so if it's not being
+      #       called we should make this an error and only support a single filter.
+      logger.warn("filter_editions called with multiple filters. These will be ANDed together in a way that probably isn't what we want. Filters were: #{filters.inspect}")
+    end
     join_sql = <<-SQL.strip_heredoc
       INNER JOIN link_sets ON link_sets.content_id = documents.content_id
       INNER JOIN links ON links.link_set_id = link_sets.id
