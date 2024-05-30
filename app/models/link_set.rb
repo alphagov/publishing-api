@@ -1,7 +1,9 @@
 class LinkSet < ApplicationRecord
   include FindOrCreateLocked
 
-  belongs_to :document, foreign_key: "content_id", primary_key: "content_id", inverse_of: :link_set, optional: true
+  # NOTE: link sets can have more than one document, because there
+  # can be multiple documents with the same content_id and different locales
+  has_many :documents, foreign_key: "content_id", primary_key: "content_id", inverse_of: :link_set
   has_many :links, -> { order(link_type: :asc, position: :asc) }, dependent: :destroy
 
   # We could define the `==` method on `Link` to perform this check but that
