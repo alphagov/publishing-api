@@ -2,12 +2,9 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "required": [
-    "base_path",
     "details",
     "document_type",
     "publishing_app",
-    "rendering_app",
-    "routes",
     "schema_name",
     "title"
   ],
@@ -24,7 +21,7 @@
       "$ref": "#/definitions/guid_list"
     },
     "base_path": {
-      "$ref": "#/definitions/absolute_path"
+      "$ref": "#/definitions/absolute_path_optional"
     },
     "bulk_publishing": {
       "type": "boolean"
@@ -44,185 +41,7 @@
     "document_type": {
       "type": "string",
       "enum": [
-        "aaib_report",
-        "about",
-        "about_our_services",
-        "accessible_documents_policy",
-        "access_and_opening",
-        "ai_assurance_portfolio_technique",
-        "algorithmic_transparency_record",
-        "ambassador_role",
-        "animal_disease_case",
-        "answer",
-        "asylum_support_decision",
-        "authored_article",
-        "board_member_role",
-        "business_finance_support_scheme",
-        "calendar",
-        "call_for_evidence",
-        "call_for_evidence_outcome",
-        "case_study",
-        "chief_professional_officer_role",
-        "chief_scientific_officer_role",
-        "chief_scientific_advisor_role",
-        "closed_call_for_evidence",
-        "closed_consultation",
-        "cma_case",
-        "complaints_procedure",
-        "completed_transaction",
-        "consultation",
-        "consultation_outcome",
-        "contact",
-        "coronavirus_landing_page",
-        "corporate_report",
-        "correspondence",
-        "countryside_stewardship_grant",
-        "decision",
-        "deputy_head_of_mission_role",
-        "detailed_guide",
-        "document_collection",
-        "drcf_digital_markets_research",
-        "drug_safety_update",
-        "email_alert_signup",
-        "embassies_index",
-        "employment_appeal_tribunal_decision",
-        "employment_tribunal_decision",
-        "equality_and_diversity",
-        "esi_fund",
-        "export_health_certificate",
-        "external_content",
-        "facet",
-        "farming_grant",
-        "fatality_notice",
-        "field_of_operation",
-        "fields_of_operation",
-        "finder",
-        "finder_email_signup",
-        "flood_and_coastal_erosion_risk_management_research_report",
-        "foi_release",
-        "form",
-        "get_involved",
-        "gone",
-        "government",
-        "government_response",
-        "governor_role",
-        "guidance",
-        "guide",
-        "help_page",
-        "high_commissioner_role",
-        "historic_appointment",
-        "historic_appointments",
-        "history",
-        "hmrc_manual",
-        "hmrc_manual_section",
-        "homepage",
-        "how_government_works",
-        "html_publication",
-        "impact_assessment",
-        "independent_report",
-        "international_development_fund",
-        "international_treaty",
-        "licence",
-        "license_finder",
-        "licence_transaction",
-        "link_collection",
-        "local_transaction",
-        "maib_report",
-        "mainstream_browse_page",
-        "marine_equipment_approved_recommendation",
-        "manual",
-        "manual_section",
-        "map",
-        "marine_notice",
-        "media_enquiries",
-        "medical_safety_alert",
-        "membership",
-        "military_role",
-        "ministerial_role",
-        "ministers_index",
-        "modern_slavery_statement",
-        "national",
-        "national_statistics",
-        "national_statistics_announcement",
-        "need",
-        "news_story",
-        "notice",
-        "official",
-        "official_statistics",
-        "official_statistics_announcement",
-        "open_call_for_evidence",
-        "open_consultation",
-        "oral_statement",
-        "organisation",
-        "our_energy_use",
-        "our_governance",
-        "person",
-        "personal_information_charter",
-        "petitions_and_campaigns",
-        "place",
-        "policy_paper",
-        "press_release",
-        "procurement",
-        "product_safety_alert_report_recall",
-        "promotional",
-        "protected_food_drink_name",
-        "publication_scheme",
-        "raib_report",
-        "recruitment",
-        "redirect",
-        "regulation",
-        "research",
-        "research_for_development_output",
-        "residential_property_tribunal_decision",
-        "role_appointment",
-        "search",
-        "service_manual_guide",
-        "service_manual_homepage",
-        "service_manual_service_standard",
-        "service_manual_service_toolkit",
-        "service_manual_topic",
-        "service_sign_in",
-        "service_standard_report",
-        "services_and_information",
-        "simple_smart_answer",
-        "smart_answer",
-        "social_media_use",
-        "special_representative_role",
-        "special_route",
-        "speech",
-        "staff_update",
-        "standard",
-        "statistical_data_set",
-        "statistics",
-        "statistics_announcement",
-        "statutory_guidance",
-        "statutory_instrument",
-        "step_by_step_nav",
-        "substitute",
-        "take_part",
-        "tax_tribunal_decision",
-        "taxon",
-        "terms_of_reference",
-        "topical_event",
-        "topical_event_about_page",
-        "traffic_commissioner_regulatory_decision",
-        "traffic_commissioner_role",
-        "transaction",
-        "transparency",
-        "travel_advice",
-        "travel_advice_index",
-        "utaac_decision",
-        "vanish",
-        "welsh_language_scheme",
-        "working_group",
-        "world_index",
-        "world_location",
-        "world_location_news",
-        "world_news_story",
-        "worldwide_office_staff_role",
-        "worldwide_office",
-        "worldwide_organisation",
-        "written_statement"
+        "link_collection"
       ]
     },
     "first_published_at": {
@@ -271,20 +90,18 @@
       "$ref": "#/definitions/publishing_app_name"
     },
     "redirects": {
-      "type": "array",
-      "additionalItems": false,
-      "items": {}
+      "$ref": "#/definitions/redirects_optional"
     },
     "rendering_app": {
-      "$ref": "#/definitions/rendering_app"
+      "$ref": "#/definitions/rendering_app_optional"
     },
     "routes": {
-      "$ref": "#/definitions/routes"
+      "$ref": "#/definitions/routes_optional"
     },
     "schema_name": {
       "type": "string",
       "enum": [
-        "generic"
+        "link_collection"
       ]
     },
     "title": {
@@ -302,6 +119,16 @@
       "description": "A path only. Query string and/or fragment are not allowed.",
       "type": "string",
       "pattern": "^/(([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})+(/([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})*)*)?$"
+    },
+    "absolute_path_optional": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/absolute_path"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "access_limited": {
       "type": "object",
@@ -347,7 +174,27 @@
     "details": {
       "type": "object",
       "additionalProperties": false,
-      "properties": {}
+      "properties": {
+        "link_items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "url"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
     },
     "first_published_at": {
       "description": "The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
@@ -478,6 +325,43 @@
         "whitehall"
       ]
     },
+    "redirect_route": {
+      "type": "object",
+      "required": [
+        "path",
+        "type",
+        "destination"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "destination": {
+          "type": "string",
+          "format": "uri"
+        },
+        "path": {
+          "$ref": "#/definitions/absolute_path"
+        },
+        "segments_mode": {
+          "description": "For prefix redirects, preserve or ignore the rest of the fullpath. For exact, preserve or ignore the querystring.",
+          "enum": [
+            "preserve",
+            "ignore"
+          ]
+        },
+        "type": {
+          "enum": [
+            "prefix",
+            "exact"
+          ]
+        }
+      }
+    },
+    "redirects_optional": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/redirect_route"
+      }
+    },
     "rendering_app": {
       "description": "The application that renders this item.",
       "type": "string",
@@ -505,31 +389,21 @@
         "whitehall-frontend"
       ]
     },
-    "route": {
-      "type": "object",
-      "required": [
-        "path",
-        "type"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "path": {
-          "type": "string"
+    "rendering_app_optional": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/rendering_app"
         },
-        "type": {
-          "enum": [
-            "prefix",
-            "exact"
-          ]
+        {
+          "type": "null"
         }
-      }
+      ]
     },
-    "routes": {
+    "routes_optional": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/route"
-      },
-      "minItems": 1
+        "ref": "#/definitions/route"
+      }
     },
     "title": {
       "type": "string"

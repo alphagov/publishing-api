@@ -9,11 +9,28 @@
     "links": {
       "type": "object",
       "additionalProperties": false,
-      "properties": {}
+      "properties": {
+        "popular_links": {
+          "description": "Collection of links to be used to display popular links on homepage",
+          "$ref": "#/definitions/guid_list"
+        }
+      }
     },
     "previous_version": {
       "type": "string"
     }
   },
-  "definitions": {}
+  "definitions": {
+    "guid": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
+    },
+    "guid_list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/guid"
+      },
+      "uniqueItems": true
+    }
+  }
 }

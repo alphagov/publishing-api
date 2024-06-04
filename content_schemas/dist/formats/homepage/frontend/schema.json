@@ -88,6 +88,10 @@
           "description": "A largely deprecated tag currently only used to power email alerts.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "popular_links": {
+          "description": "Collection of links to be used to display popular links on homepage",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "related_to_step_navs": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"

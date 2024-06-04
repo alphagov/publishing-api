@@ -112,6 +112,7 @@ module_function
   WORLD_LOCATION_FIELDS = %i[content_id title schema_name locale analytics_identifier].freeze
   WORLDWIDE_OFFICE_FIELDS = (DEFAULT_FIELDS + details_fields(:access_and_opening_times)).freeze
   WORLDWIDE_ORGANISATION_FIELDS = (DEFAULT_FIELDS_AND_DESCRIPTION + details_fields(:logo, :world_location_names, :default_news_image)).freeze
+  LINK_COLLECTION_FIELDS = (DEFAULT_FIELDS + details_fields(:link_items)).freeze
 
   CUSTOM_EXPANSION_FIELDS_FOR_PEOPLE = (
     %i[
@@ -210,6 +211,8 @@ module_function
         fields: DEFAULT_FIELDS_AND_DESCRIPTION },
       { document_type: :ministerial_role,
         fields: MINISTERIAL_ROLE_FIELDS },
+      { document_type: :link_collection,
+        fields: LINK_COLLECTION_FIELDS },
     ] +
     CUSTOM_EXPANSION_FIELDS_FOR_ROLES +
     CUSTOM_EXPANSION_FIELDS_FOR_PEOPLE

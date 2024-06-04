@@ -6,5 +6,7 @@
       properties: {},
     },
   },
-  links: {},
+  links: {
+    popular_links: "Collection of links to be used to display popular links on homepage"
+  },
 }
