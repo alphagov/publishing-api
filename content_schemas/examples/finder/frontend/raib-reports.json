@@ -80,7 +80,7 @@
       "document_type": "raib_report"
     },
     "format_name": "Rail Accident Investigation Branch report",
-    "show_summaries": false
+    "show_summaries": true
   },
   "links": {
     "email_alert_signup": [
