@@ -217,6 +217,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
           https://new-vat-rates.campaign.gov.uk/
           https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates
           https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates?q=123&&a=23344
+          https://www.independent-inquiry.uk/
           https://www.judiciary.uk/
           https://etl.beis.gov.uk/
           https://www.nhs.uk/
