@@ -63,13 +63,7 @@ Rails.application.configure do
 
   if GovukSchemas::Schema.all.empty?
     raise <<-MESSAGE
-      No schemas found
-      The Publishing API service requires that the
-      govuk-content-schemas are available. These are accessed through
-      the GovukSchemas gem, which defaults to looking for the
-      govuk-content-schemas repository at ../govuk-content-schemas and
-      can be configured through the GOVUK_CONTENT_SCHEMAS_PATH
-      environment variable.
+      No schemas found by govuk_schemas gem.
     MESSAGE
   end
 

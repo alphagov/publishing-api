@@ -1,8 +1,7 @@
 # Publishing API's API
 
 This is the primary interface from publishing apps to the publishing pipeline.
-Applications PUT items as JSON conforming to a schema specified in
-[govuk-content-schemas][govuk-content-schemas-repo].
+Applications PUT items as JSON conforming to a schema specified in the `content_schemas` directory.
 
 Content locations are arbitrated internally by the Publishing API, the content
 is then forwarded to the live and draft content stores, and placed on the
@@ -68,8 +67,7 @@ Used to create or update a draft edition of a document. It will restrict
 creation if there is different document with a draft edition using the same
 `base_path`. Uses [optimistic-locking][optimistic-locking].
 
-The request must conform to the schema defined in govuk-content-schemas if it
-does not a 422 response will be returned.
+The request must conform to the schema. If it does not, a 422 response will be returned.
 
 If the request is successful, this endpoint will respond with the
 presented edition and [warnings](#warnings).
@@ -146,8 +144,7 @@ presented edition and [warnings](#warnings).
   - Required for a `document_type` that is not "redirect".
   - An array of route values.
 - `schema_name` *(required)*
-  - The name of the [GOV.UK content schema][govuk-content-schemas-repo]
-    that the request body will be validated against.
+  - The name of the schema that the request body will be validated against.
 - `title` *(conditionally required)*
   - Required for a `document_type` that is not "redirect" or "gone".
 - `update_type` *(optional)*
@@ -754,10 +751,9 @@ normal.
 - The `PublishingIntent` for the passed in base_path is removed from the
   content-store.
 
-[govuk-content-schemas-repo]: https://github.com/alphagov/govuk-content-schemas
 [optimistic-locking]: #optimistic-locking-previous_version
 [put-content-pact]: https://govuk-pact-broker-6991351eca05.herokuapp.com/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_from_the_Whitehall_application_to_create_a_content_item_at_/test-item_given_/test-item_has_been_reserved_by_the_Publisher_application
-[routes-content-schema]: https://github.com/alphagov/govuk-content-schemas/blob/master/formats/shared/definitions/routes_redirects.jsonnet
+[routes-content-schema]: https://github.com/alphagov/publishing-api/blob/main/content_schemas/formats/shared/definitions/routes_redirects.jsonnet
 [put-intent-pact]: https://govuk-pact-broker-6991351eca05.herokuapp.com/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_create_a_publish_intent_given_no_content_exists
 [delete-intent-pact]: https://govuk-pact-broker-6991351eca05.herokuapp.com/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_delete_a_publish_intent_given_no_content_exists
 [iso-8601]: https://en.wikipedia.org/wiki/ISO_8601
