@@ -312,8 +312,7 @@ By default links contain the following fields:
   allowed by the schema
 - `locale` - The language this document is written in
 - `public_updated_at` - The date/time that this document  was last changed
-- `schema_name` - The [GOV.UK content schema][govuk-content-schema] that this
-  edition conforms to
+- `schema_name` - The schema (in `content_schemas`) that this edition conforms to
 - `title` - The title of the edition
 - `links` - Any [recursive links](#recursive-links) that are presented with a
   link representation of an edition
@@ -391,7 +390,6 @@ information.
 [content-store]: https://github.com/alphagov/content-store
 [downstream-draft-worker]: ../app/workers/downstream_draft_worker.rb
 [downstream-live-worker]: ../app/workers/downstream_live_worker.rb
-[govuk-content-schema]: https://github.com/alphagov/govuk-content-schemas
 [link-expansion]: ../lib/link_expansion.rb
 [link-expansion-rules]: ../lib/expansion_rules/link_expansion.rb
 [link-graph]: ../app/models/link_graph.rb

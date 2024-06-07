@@ -70,8 +70,7 @@ module_function
     ministerial: :ministers,
   }.freeze
 
-  # These fields are required by the frontend_links definition in the
-  # govuk-content-schemas
+  # These fields are required by the frontend_links definition
   MANDATORY_FIELDS = %i[
     content_id
     title

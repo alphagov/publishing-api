@@ -98,7 +98,7 @@ the primary identifier for content in the Publishing API and content store.
 The convention is to use `SecureRandom.uuid` to generate a valid content_id.
 
 Details of how the payload should be constructed including required fields can
-be found in [govuk-content-schemas][govuk-content-schemas] where each format is
+be found in the content_schemas folder where each format is
 defined for both publishing and frontend applications. For example the payload
 for a [case study][case-study-schema] would need to provide `body` and
 `first_public_at` attributes along with other mandatory attributes such as
@@ -255,8 +255,7 @@ Is there anything wrong with the documentation? If so:
 
 [gds-sso-integration]: https://github.com/alphagov/gds-sso#integration-with-a-rails-3-app
 [publishing-api-gds-api-adapters]: https://github.com/alphagov/gds-api-adapters/blob/master/lib/gds_api/publishing_api_v2.rb
-[case-study-schema]: https://github.com/alphagov/govuk-content-schemas/blob/master/dist/formats/case_study/publisher_v2/schema.json
-[govuk-content-schemas]: https://github.com/alphagov/govuk-content-schemas
+[case-study-schema]: https://github.com/alphagov/publishing-api/blob/main/content_schemas/dist/formats/case_study/publisher_v2/schema.json
 [govuk-puppet]: https://github.com/alphagov/govuk-puppet
 [govuk-puppet-token-example]: https://github.com/alphagov/govuk-puppet/pull/6978
 [govuk-secrets]: https://github.com/alphagov/govuk-secrets

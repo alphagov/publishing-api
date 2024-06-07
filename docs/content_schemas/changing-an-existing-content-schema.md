@@ -32,8 +32,7 @@ For example, imagine that you need to add a new optional field to the details ha
   1. revalidate all example files to check if they are still valid after this change. This will pass, because the new field is optional
 1. [Optional step] you could add an additional example to illustrate how your new field should be used. You can add a new file in [examples/case_study/frontend](/examples/case_study/frontend)
 1. create a new branch and commit and push your changes.
-   This will run a branch build of govuk-content-schemas.
-   This includes running the contract tests for each application which relies on the schemas.
+   This will run the contract tests for each application which relies on the schemas.
    You'll get immediate feedback about whether publishing applications generate content items compatible with the new schema.
 1. once the tests pass, someone will merge your pull request and the new schemas will be available to use
 1. Deploy your changes (see [`docs/deployment.md`](deployment.md) for details).
