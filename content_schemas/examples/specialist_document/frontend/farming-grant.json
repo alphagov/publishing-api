@@ -242,6 +242,10 @@
                   "value": "grassland"
                 },
                 {
+                  "label": "Farmyard",
+                  "value": "farmyard"
+                },
+                {
                   "label": "Lowland heath",
                   "value": "lowland-heath"
                 },

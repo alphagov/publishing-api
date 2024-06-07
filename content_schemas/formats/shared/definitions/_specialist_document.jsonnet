@@ -1834,6 +1834,7 @@
             "arable",
             "coastal",
             "grassland",
+            "farmyard",
             "lowland-heath",
             "moorland-and-upland",
             "priority-habitats",
