@@ -167,6 +167,10 @@
                   "value": "horticulture"
                 },
                 {
+                  "label": "Integrated pest management",
+                  "value": "integrated-pest-management"
+                },
+                {
                   "label": "Land features and archaeological features",
                   "value": "land-features-and-archaeological-features"
                 },

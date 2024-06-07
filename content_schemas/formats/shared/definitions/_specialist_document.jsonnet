@@ -1810,6 +1810,7 @@
              "hedgerows",
              "historic-environment",
              "horticulture",
+             "integrated-pest-management",
              "land-features-and-archaeological-features",
              "livestock-management",
              "nutrient-manure-and-slurry-management",
