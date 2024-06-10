@@ -248,25 +248,20 @@ The rules for recursive link types are defined in
 
 ## Edition state and links
 
-Whether an item is linked to depends on whether an edition of a document
-being linked to exists in a particular [state](model.md#state). The states that
-are applicable are determined by the state of the content item that link
-expansion is performed for.
+Whether a link is included during link expansion depends on which [state](model.md#state) the linked item is in.
 
 ### Edition has a state of `published` or `unpublished`
 
-Links are included when an edition exists in a `published` state. Editions
-that are in an `unpublished` state with type `withdrawn` are linked to
-depending on their `link_type`. Editions that are `unpublished` and are not of
-type `withdrawn` are not linked.
+Links are included when the linked edition exists in a `published` state. Editions
+that are in an `unpublished` state with type `withdrawn` may be linked to
+depending on their `link_type`. Editions that are `unpublished` but not `withdrawn` are not linked.
 
-The `link_types` that define whether a withdrawn edition is linked are defined
+The `link_types` that define whether a withdrawn edition is linked to are defined
 in [LinkExpansion][link-expansion].
 
 ### Edition has a state of `draft`
 
-Draft editions follow the same rules as those for `published` or `unpublished`
-however draft items are also included for all link types.
+Links to draft editions are only included if the item which is having its links expanded is also in the draft state.
 
 ## Link presentation
 
@@ -323,7 +318,7 @@ A link that you expect to appear might not be appearing for one of the following
 reasons:
 
 - The item to be linked to might not be available in a
-  [linkable state](#which-states-are-linked);
+  [linkable state](#edition-state-and-links);
 - If it is a link set link, there could be [`Edition`](model.md#edition) 
   links that are defined with the same `link_type` which means the edition
   links will take precedence.
