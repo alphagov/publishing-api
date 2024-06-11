@@ -110,7 +110,7 @@ endpoint. They are associated with a single edition of a document.
 In cases when there are edition links and link set links which have the same
 `link_type`, the edition links will take precedence during link expansion.
 
-Edition links should be the default approach to link creation, because link set links have the disadvantage of applying to all editions and locales of a document, which is generally not what is required in most use cases. However, edition links have a substantial limitation, which is that recursive link expansion is not applied to them. If a document needs to access data from documents more than one link away, then link set links must be used.
+Edition links should be the default approach to link creation, because link set links have the disadvantage of applying to all editions and locales of a document, which is generally not what is required in most use cases. However, edition links have a substantial limitation, which is that [recursive link expansion](#recursive-links) is not applied to them. If a document needs to access data from documents more than one link away, then link set links must be used.
 
 There was an attempt to allow recursive expansion of edition links, but we weren't able to complete it. See <https://github.com/alphagov/publishing-api/pull/2605>.
 
