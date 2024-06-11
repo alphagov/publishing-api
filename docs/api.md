@@ -24,6 +24,8 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`GET /v2/links/changes`](#get-v2linkschanges)
 - [`GET /v2/editions`](#get-v2editions)
 - [`POST /v2/links/by-content-id`](#post-v2linksby-content-id)
+- [`GET /v2/schemas`](#get-v2schemas)
+- [`GET /v2/schemas/:schema_name`](#get-v2schemasschema_name)
 - [`POST /lookup-by-base-path`](#post-lookup-by-base-path)
 - [`PUT /paths/:base_path`](#put-pathsbase_path)
 - [`DELETE /paths/:base_path`](#delete-pathsbase_path)
@@ -630,6 +632,15 @@ mapping of `content_id` to `links` hash.
 
 - `content_ids[]` *(required)*
   - An array of `content_id`s to query by. This can be no longer than 1000 ids, or the API will return a 413 error.
+
+## `GET /v2/schemas`
+
+Lists all the schemas used by Publishing API. Returns an a mapping of a schema
+name to its JSON schema.
+
+## `GET /v2/schemas/:schema_name`
+
+Gets a schema by its name. Returns the relevant JSON schema if found, 404 if not.
 
 ## `POST /lookup-by-base-path`
 
