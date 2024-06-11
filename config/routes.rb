@@ -36,6 +36,8 @@ Rails.application.routes.draw do
       get "/linkables", to: "content_items#linkables"
 
       get "/links/changes", to: "link_changes#index"
+
+      resources :schemas, only: %i[index show]
     end
   end
 
