@@ -4,6 +4,8 @@ module Commands
       def call
         PutContentValidator.new(payload, self).validate
 
+        update_draft_items_of_different_locale_but_matching_content_id
+
         remove_previous_path_reservations
         reserve_current_path
         clear_draft_items_of_same_locale_and_base_path
@@ -198,6 +200,29 @@ module Commands
           callbacks:,
           nested: true,
         )
+      end
+
+      def update_draft_items_of_different_locale_but_matching_content_id
+        return unless payload[:base_path]
+        return if Document.where(content_id: payload[:content_id], locale: payload[:locale]).any?
+
+        draft_editions_for_different_locale = Document
+          .where(content_id: payload[:content_id])
+          .where
+          .not(locale: payload[:locale])
+          .map(&:draft)
+          .compact
+
+        after_transaction_commit do
+          draft_editions_for_different_locale.each do |edition|
+            DownstreamDraftWorker.perform_async_in_queue(
+              bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE,
+              "content_id" => edition.content_id,
+              "locale" => edition.locale,
+              "source_command" => "put_content",
+            )
+          end
+        end
       end
 
       def bulk_publishing?

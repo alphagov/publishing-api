@@ -338,7 +338,7 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "when a draft does exist with a different locale" do
+    context "when a draft does exist with a different locale but same base path" do
       let(:en_document) { create(:document, content_id:) }
       let!(:en_edition) do
         create(:draft_edition, base_path:, document: en_document)
@@ -383,6 +383,92 @@ RSpec.describe Commands::V2::PutContent do
       it "should not send an alert to GovukError" do
         expect(GovukError).to_not receive(:notify)
           .with(anything, level: "warning", extra: a_hash_including(content_id:))
+
+        described_class.call(payload)
+      end
+    end
+
+    context "when creating a new translation and a draft exists with a different locale and different base path" do
+      let(:cy_document) { create(:document, content_id:, locale: "cy") }
+      let!(:cy_edition) do
+        create(:draft_edition, base_path: "#{base_path}.cy", document: cy_document)
+      end
+
+      it "sends all draft translations downstream" do
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with(anything, a_hash_including("content_id" => content_id, "locale" => "en"))
+
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with(anything, a_hash_including("content_id" => content_id, "locale" => "cy"))
+
+        described_class.call(payload)
+      end
+
+      it "does not send the other translation downstream if there is no base path" do
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with(anything, a_hash_including("content_id" => content_id, "locale" => "cy"))
+          .never
+
+        payload = {
+          content_id:,
+          update_type: "major",
+          title: "Some Title",
+          publishing_app:,
+          rendering_app: "frontend",
+          document_type: "contact",
+          schema_name: "contact",
+          locale:,
+          redirects: [],
+          phase: "beta",
+          change_note:,
+          details: {},
+        }
+
+        described_class.call(payload)
+      end
+    end
+
+    context "when updating a translation and a draft exists with a different locale and different base path" do
+      let(:en_document) { create(:document, content_id:, locale: "en") }
+      let!(:en_edition) do
+        create(:draft_edition, base_path:, document: en_document)
+      end
+
+      let(:cy_document) { create(:document, content_id:, locale: "cy") }
+      let!(:cy_edition) do
+        create(:draft_edition, base_path: "#{base_path}.cy", document: cy_document)
+      end
+
+      it "sends only sends the updated translation downstream" do
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with(anything, a_hash_including("content_id" => content_id, "locale" => "en"))
+
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with(anything, a_hash_including("content_id" => content_id, "locale" => "cy"))
+          .never
+
+        described_class.call(payload)
+      end
+
+      it "does not send the other translation downstream if there is no base path" do
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with(anything, a_hash_including("content_id" => content_id, "locale" => "cy"))
+          .never
+
+        payload = {
+          content_id:,
+          update_type: "major",
+          title: "Some Title",
+          publishing_app:,
+          rendering_app: "frontend",
+          document_type: "contact",
+          schema_name: "contact",
+          locale:,
+          redirects: [],
+          phase: "beta",
+          change_note:,
+          details: {},
+        }
 
         described_class.call(payload)
       end
