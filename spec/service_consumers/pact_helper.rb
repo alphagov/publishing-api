@@ -101,6 +101,15 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
+  provider_state "there is not a schema for an email_address" do
+    set_up do
+      allow(GovukSchemas::Schema)
+        .to receive(:find)
+        .with(publisher_schema: "email_address")
+        .and_raise(Errno::ENOENT)
+    end
+  end
+
   provider_state "no content exists" do
     set_up do
       stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('content-store'))}/content"))
