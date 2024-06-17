@@ -56,6 +56,32 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
+  provider_state "there are publisher schemas" do
+    set_up do
+      schemas = {
+        "/govuk/publishing-api/content_schemas/dist/formats/email_address/publisher_v2/schema.json": {
+          type: "object",
+          required: %w[a],
+          properties: {
+            email_address: { "some" => "schema" },
+          },
+        },
+        "/govuk/publishing-api/content_schemas/dist/formats/tax_license/publisher_v2/schema.json": {
+          type: "object",
+          required: %w[a],
+          properties: {
+            tax_license: { "another" => "schema" },
+          },
+        },
+      }
+
+      allow(GovukSchemas::Schema)
+        .to receive(:all)
+        .with(schema_type: "publisher")
+        .and_return(schemas)
+    end
+  end
+
   provider_state "no content exists" do
     set_up do
       stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('content-store'))}/content"))
