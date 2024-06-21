@@ -22,33 +22,47 @@ class DownstreamLiveWorker
   end
 
   def perform(args = {})
+    Rails.logger.info("DownstreamLiveWorker#perform: 1")
     assign_attributes(args.symbolize_keys)
 
+    Rails.logger.info("DownstreamLiveWorker#perform: 2")
+
     unless edition
+      Rails.logger.info("DownstreamLiveWorker#perform: 3")
       raise AbortWorkerError, "A downstreamable edition was not found for content_id: #{content_id} and locale: #{locale}"
     end
 
+    Rails.logger.info("DownstreamLiveWorker#perform: 4")
     unless dependency_resolution_source_content_id.nil?
+      Rails.logger.info("DownstreamLiveWorker#perform: 5")
       DownstreamService.set_govuk_dependency_resolution_source_content_id_header(
         dependency_resolution_source_content_id,
       )
+      Rails.logger.info("DownstreamLiveWorker#perform: 6")
     end
 
     payload = DownstreamPayload.new(edition, payload_version, draft: false)
+    Rails.logger.info("DownstreamLiveWorker#perform: 7")
 
     update_expanded_links(payload)
+    Rails.logger.info("DownstreamLiveWorker#perform: 8")
     DownstreamService.update_live_content_store(payload) if edition.base_path
+    Rails.logger.info("DownstreamLiveWorker#perform: 9")
 
     if %w[published unpublished].include?(edition.state)
+      Rails.logger.info("DownstreamLiveWorker#perform: 10")
       event_type = message_queue_event_type || edition.update_type
       Rails.logger.info(
         "DownstreamLiveWorker#perform:" \
         "Broadcasting #{content_id}@#{payload_version} to message queue as type #{event_type}",
       )
       DownstreamService.broadcast_to_message_queue(payload, event_type)
+      Rails.logger.info("DownstreamLiveWorker#perform: 11")
     end
 
+    Rails.logger.info("DownstreamLiveWorker#perform: 12")
     enqueue_dependencies if update_dependencies
+    Rails.logger.info("DownstreamLiveWorker#perform: 13")
   rescue AbortWorkerError => e
     notify_airbrake(e, args)
   end
