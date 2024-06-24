@@ -1,0 +1,11 @@
+{
+  "locale": "en",
+  "schema_name": "content_block_email_address",
+  "document_type": "content_block_email_address",
+  "title": "Government Digital Service - General contact",
+  "description": "General contact email address for Government Digital Service",
+  "details": {
+    "email_address": "foo@example.com"
+  },
+  "publishing_app": "whitehall"
+}
