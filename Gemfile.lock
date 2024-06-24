@@ -75,8 +75,8 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
-    addressable (2.8.6)
-      public_suffix (>= 2.0.2, < 6.0)
+    addressable (2.8.7)
+      public_suffix (>= 2.0.2, < 7.0)
     amq-protocol (2.3.2)
     ast (2.4.2)
     awesome_print (1.9.2)
@@ -150,6 +150,8 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
+    faker (3.4.1)
+      i18n (>= 1.8.11, < 2)
     faraday (2.9.0)
       faraday-net_http (>= 2.0, < 3.2)
     faraday-net_http (3.1.0)
@@ -215,7 +217,8 @@ GEM
       rouge
       sprockets (>= 3)
       sprockets-rails
-    govuk_schemas (5.0.2)
+    govuk_schemas (5.0.4)
+      faker (~> 3.4.1)
       json-schema (>= 2.8, < 4.4)
     govuk_sidekiq (8.0.1)
       gds-api-adapters (>= 19.1.0)
@@ -569,7 +572,7 @@ GEM
       webrick
     psych (5.1.2)
       stringio
-    public_suffix (5.0.5)
+    public_suffix (6.0.0)
     puma (6.4.2)
       nio4r (~> 2.0)
     racc (1.8.0)
