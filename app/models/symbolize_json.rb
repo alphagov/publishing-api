@@ -20,7 +20,7 @@ module SymbolizeJSON
         new_hash[k.to_sym] = symbolize(v)
       end
     when ActiveSupport::TimeWithZone
-      value.iso8601
+      value.utc.iso8601
     else
       value
     end

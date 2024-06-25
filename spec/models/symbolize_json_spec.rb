@@ -10,6 +10,15 @@ RSpec.describe SymbolizeJSON do
     expect(subject.public_updated_at).to eq(Date.new(2000, 1, 1))
   end
 
+  it "emits times in different timezones as UTC" do
+    subject.public_updated_at = Time.utc(2000, 1, 1).in_time_zone("Eastern Time (US & Canada)")
+
+    subject.save!
+    subject.reload
+
+    expect(subject.public_updated_at).to eq(Time.utc(2000, 1, 1))
+  end
+
   context "json columns" do
     it "symbolizes hashes" do
       subject.details = { "foo" => "bar" }
@@ -55,5 +64,6 @@ RSpec.describe SymbolizeJSON do
       subject.reload
       expect(subject.details).to eq(nil)
     end
+
   end
 end
