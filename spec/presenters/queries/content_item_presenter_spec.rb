@@ -91,7 +91,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
               "type" => unpublishing.type,
               "explanation" => unpublishing.explanation,
               "alternative_path" => unpublishing.alternative_path,
-              "unpublished_at" => unpublishing.unpublished_at.rfc3339,
+              "unpublished_at" => unpublishing.unpublished_at.utc.rfc3339,
             ),
           )
       end
