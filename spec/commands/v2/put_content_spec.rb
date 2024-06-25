@@ -172,7 +172,7 @@ RSpec.describe Commands::V2::PutContent do
 
           edition = Edition.last
 
-          expect(edition.last_edited_at.utc.iso8601).to eq(Time.now.utc.iso8601)
+          expect(edition.last_edited_at.utc.iso8601).to eq(Time.zone.now.utc.iso8601)
         end
       end
 
@@ -233,7 +233,7 @@ RSpec.describe Commands::V2::PutContent do
         Timecop.freeze do
           described_class.call(payload)
 
-          expect(edition.reload.last_edited_at.utc.iso8601).to eq(Time.now.utc.iso8601)
+          expect(edition.reload.last_edited_at.utc.iso8601).to eq(Time.zone.now.utc.iso8601)
         end
       end
 

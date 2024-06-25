@@ -29,7 +29,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         content_item: a_hash_including(
           withdrawn_notice: {
             explanation: "Test withdrawal",
-            withdrawn_at: Time.now.utc.iso8601,
+            withdrawn_at: Time.zone.now.utc.iso8601,
           },
         ),
       }
@@ -107,7 +107,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
           base_path:,
           locale: edition.locale,
           publishing_app: edition.publishing_app,
-          public_updated_at: Time.now.utc.iso8601,
+          public_updated_at: Time.zone.now.utc.iso8601,
           first_published_at: edition.first_published_at.utc.iso8601,
           redirects: [
             {
