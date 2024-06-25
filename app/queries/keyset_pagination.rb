@@ -98,7 +98,9 @@ module Queries
     def key_for_record(record)
       key_fields.map do |k|
         value = record[k]
-        next value.iso8601(6) if value.respond_to?(:iso8601)
+        if value.is_a?(Time) || value.is_a?(Date)
+          next value.utc.iso8601(6)
+        end
 
         value.to_s
       end
