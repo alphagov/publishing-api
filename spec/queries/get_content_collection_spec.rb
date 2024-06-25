@@ -604,10 +604,10 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "result order" do
     before do
-      create(:edition, base_path: "/c4", title: "D", public_updated_at: "2014-06-14")
-      create(:edition, base_path: "/c1", title: "A", public_updated_at: "2014-06-13")
-      create(:edition, base_path: "/c3", title: "C", public_updated_at: "2014-06-17")
-      create(:edition, base_path: "/c2", title: "B", public_updated_at: "2014-06-15")
+      create(:edition, base_path: "/c4", title: "D", public_updated_at: Time.utc(2014, 06, 14))
+      create(:edition, base_path: "/c1", title: "A", public_updated_at: Time.utc(2014, 06, 13))
+      create(:edition, base_path: "/c3", title: "C", public_updated_at: Time.utc(2014, 06, 17))
+      create(:edition, base_path: "/c2", title: "B", public_updated_at: Time.utc(2014, 06, 15))
     end
 
     it "returns editions in default order" do
