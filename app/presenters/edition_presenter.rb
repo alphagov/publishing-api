@@ -141,7 +141,7 @@ module Presenters
       unpublishing = edition.unpublishing
 
       if unpublishing && unpublishing.withdrawal?
-        withdrawn_at = (unpublishing.unpublished_at || unpublishing.created_at).iso8601
+        withdrawn_at = (unpublishing.unpublished_at || unpublishing.created_at).utc.iso8601
         {
           withdrawn_notice: {
             explanation: unpublishing.explanation,
