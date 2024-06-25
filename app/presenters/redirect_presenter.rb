@@ -76,6 +76,6 @@ private
       public_updated_at:,
       first_published_at:,
     }.compact
-     .transform_values(&:iso8601)
+     .transform_values { |v| v.utc.iso8601 }
   end
 end

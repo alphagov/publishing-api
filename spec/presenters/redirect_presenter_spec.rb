@@ -18,7 +18,7 @@ RSpec.describe Presenters::RedirectPresenter do
       end
 
       it "includes the public updated at" do
-        expect(subject[:public_updated_at]).to eq(edition.unpublishing.created_at.iso8601)
+        expect(subject[:public_updated_at]).to eq(edition.unpublishing.created_at.utc.iso8601)
       end
     end
 
@@ -34,11 +34,11 @@ RSpec.describe Presenters::RedirectPresenter do
       end
 
       it "includes the first published at" do
-        expect(subject[:first_published_at]).to eq(edition.first_published_at.iso8601)
+        expect(subject[:first_published_at]).to eq(edition.first_published_at.utc.iso8601)
       end
 
       it "includes the public updated at" do
-        expect(subject[:public_updated_at]).to eq(edition.public_updated_at.iso8601)
+        expect(subject[:public_updated_at]).to eq(edition.public_updated_at.utc.iso8601)
       end
     end
   end
