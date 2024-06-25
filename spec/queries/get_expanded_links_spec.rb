@@ -44,7 +44,7 @@ RSpec.describe Queries::GetExpandedLinks do
 
       it "returns the data from expanded links" do
         expect(result).to match(
-          generated: updated_at.iso8601,
+          generated: updated_at.utc.iso8601,
           expanded_links: expanded_links.as_json,
         )
       end

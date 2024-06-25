@@ -30,7 +30,7 @@ RSpec.describe ChangeNote do
           expect { subject }.to change { ChangeNote.count }.by(1)
           result = ChangeNote.last
           expect(result.note).to eq "Excellent"
-          expect(result.public_timestamp.iso8601).to eq Time.zone.now.iso8601
+          expect(result.public_timestamp.utc.iso8601).to eq Time.zone.now.utc.iso8601
         end
       end
 

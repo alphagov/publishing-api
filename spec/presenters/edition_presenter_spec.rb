@@ -203,7 +203,7 @@ RSpec.describe Presenters::EditionPresenter do
               expected.merge(
                 withdrawn_notice: {
                   explanation: unpublishing.explanation,
-                  withdrawn_at: unpublishing.unpublished_at.iso8601,
+                  withdrawn_at: unpublishing.unpublished_at.utc.iso8601,
                 },
               ),
             ),

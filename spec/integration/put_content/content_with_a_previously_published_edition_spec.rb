@@ -79,8 +79,8 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
       put "/v2/content/#{content_id}", params: payload.to_json
 
       edition = Edition.last
-      expect(edition.major_published_at.iso8601)
-        .to eq(major_published_at.iso8601)
+      expect(edition.major_published_at.utc.iso8601)
+        .to eq(major_published_at.utc.iso8601)
     end
   end
 

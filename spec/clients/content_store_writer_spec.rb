@@ -18,7 +18,7 @@ RSpec.describe ContentStoreWriter do
 
   let(:publish_intent) do
     {
-      publish_time: Time.zone.now.iso8601,
+      publish_time: Time.now.utc.iso8601,
       publishing_app: "whitehall",
       rendering_app: "whitehall-frontend",
       routes: [

@@ -156,13 +156,13 @@ RSpec.describe Commands::V2::PutContent do
     context "when the draft does not exist" do
       context "with a provided last_edited_at" do
         it "stores the provided timestamp" do
-          last_edited_at = 1.year.ago
+          last_edited_at = 1.year.ago.utc
 
           described_class.call(payload.merge(last_edited_at: last_edited_at.iso8601))
 
           edition = Edition.last
 
-          expect(edition.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
+          expect(edition.last_edited_at.utc.iso8601).to eq(last_edited_at.iso8601)
         end
       end
 
@@ -172,7 +172,7 @@ RSpec.describe Commands::V2::PutContent do
 
           edition = Edition.last
 
-          expect(edition.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
+          expect(edition.last_edited_at.utc.iso8601).to eq(Time.now.utc.iso8601)
         end
       end
 
@@ -214,7 +214,7 @@ RSpec.describe Commands::V2::PutContent do
         %w[minor major republish].each do |update_type|
           context "with update_type of #{update_type}" do
             it "stores the provided timestamp" do
-              last_edited_at = 1.year.ago
+              last_edited_at = 1.year.ago.utc
 
               described_class.call(
                 payload.merge(
@@ -223,7 +223,7 @@ RSpec.describe Commands::V2::PutContent do
                 ),
               )
 
-              expect(edition.reload.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
+              expect(edition.reload.last_edited_at.utc.iso8601).to eq(last_edited_at.iso8601)
             end
           end
         end
@@ -233,7 +233,7 @@ RSpec.describe Commands::V2::PutContent do
         Timecop.freeze do
           described_class.call(payload)
 
-          expect(edition.reload.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
+          expect(edition.reload.last_edited_at.utc.iso8601).to eq(Time.now.utc.iso8601)
         end
       end
 
