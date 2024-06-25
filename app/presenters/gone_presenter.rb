@@ -46,7 +46,7 @@ private
       base_path:,
       locale:,
       publishing_app:,
-      public_updated_at: public_updated_at&.iso8601,
+      public_updated_at: public_updated_at&.utc&.iso8601,
       details: {
         explanation:,
         alternative_path:,

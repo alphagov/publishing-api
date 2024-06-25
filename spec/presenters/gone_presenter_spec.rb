@@ -11,6 +11,15 @@ RSpec.describe Presenters::GonePresenter do
       expect(subject).to be_valid_against_notification_schema("gone")
     end
 
+    context "with unpublished_at set" do
+      let(:unpublishing) { create(:unpublishing, unpublished_at: Time.utc(2000, 1, 1)) }
+      let(:edition) { unpublishing.edition }
+
+      it "presents public_updated_at as the unpublishings unpublished_at time in UTC" do
+        expect(subject[:public_updated_at]).to eql(unpublishing.unpublished_at.utc.iso8601)
+      end
+    end
+
     context "with a nil base_path" do
       let(:edition) { create(:gone_unpublished_edition, base_path: nil) }
 
