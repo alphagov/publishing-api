@@ -458,6 +458,9 @@
         "image": {
           "$ref": "#/definitions/image"
         },
+        "political": {
+          "$ref": "#/definitions/political"
+        },
         "tags": {
           "$ref": "#/definitions/tags"
         }
@@ -751,6 +754,10 @@
     "payload_version": {
       "description": "Counter to indicate when the payload was generated",
       "type": "integer"
+    },
+    "political": {
+      "description": "If the content is considered political in nature, reflecting views of the government it was published under.",
+      "type": "boolean"
     },
     "public_updated_at": {
       "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",

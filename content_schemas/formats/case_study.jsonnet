@@ -20,6 +20,9 @@
             "case_study",
           ],
         },
+        political: {
+          "$ref": "#/definitions/political",
+        },
         first_public_at: {
           "$ref": "#/definitions/first_public_at",
         },
