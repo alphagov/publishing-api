@@ -41,20 +41,22 @@ namespace :csv_report do
 
     csv << %w[published_at base_path content_id locale title document_type update_type first_publishing]
 
-    query = Edition.joins(:document)
-                   .where(published_at: from_time...until_time)
-                   .where.not(update_type: :republish)
-                   .order(published_at: :asc)
-                   .pluck(:published_at,
-                          :base_path,
-                          "documents.content_id",
-                          "documents.locale",
-                          :title,
-                          :document_type,
-                          :update_type,
-                          Arel.sql("(user_facing_version = 1)"))
+    Time.use_zone("UTC") do
+      query = Edition.joins(:document)
+                     .where(published_at: from_time...until_time)
+                     .where.not(update_type: :republish)
+                     .order(published_at: :asc)
+                     .pluck(:published_at,
+                            :base_path,
+                            "documents.content_id",
+                            "documents.locale",
+                            :title,
+                            :document_type,
+                            :update_type,
+                            Arel.sql("(user_facing_version = 1)"))
 
-    query.each { |row| csv << row }
+      query.each { |row| csv << row }
+    end
   end
 
   desc "Prints a CSV of all editions that were unpublished between the from and until timestamp"
@@ -68,18 +70,20 @@ namespace :csv_report do
 
     csv << %w[unpublished_at base_path content_id locale title document_type unpublishing_type]
 
-    query = Unpublishing.joins({ edition: :document })
-                        .where(created_at: from_time...until_time)
-                        .where.not(type: "substitute")
-                        .order(created_at: :asc)
-                        .pluck(:created_at,
-                               "editions.base_path",
-                               "documents.content_id",
-                               "documents.locale",
-                               "editions.title",
-                               "editions.document_type",
-                               :type)
+    Time.use_zone("UTC") do
+      query = Unpublishing.joins({ edition: :document })
+                          .where(created_at: from_time...until_time)
+                          .where.not(type: "substitute")
+                          .order(created_at: :asc)
+                          .pluck(:created_at,
+                                 "editions.base_path",
+                                 "documents.content_id",
+                                 "documents.locale",
+                                 "editions.title",
+                                 "editions.document_type",
+                                 :type)
 
-    query.each { |row| csv << row }
+      query.each { |row| csv << row }
+    end
   end
 end
