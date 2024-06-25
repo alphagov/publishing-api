@@ -64,6 +64,5 @@ RSpec.describe SymbolizeJSON do
       subject.reload
       expect(subject.details).to eq(nil)
     end
-
   end
 end
