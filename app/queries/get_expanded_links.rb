@@ -59,7 +59,7 @@ module Queries
 
     def response(expanded_links, generated_date, version = nil)
       response = {
-        generated: generated_date.iso8601,
+        generated: generated_date.utc.iso8601,
         expanded_links:,
       }
       response[:version] = version if version
