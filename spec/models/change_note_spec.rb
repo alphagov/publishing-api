@@ -45,7 +45,7 @@ RSpec.describe ChangeNote do
 
       context "payload contains public_updated_at" do
         it "sets the change note public_timestamp to public_updated_at time" do
-          time = Time.zone.yesterday
+          time = Time.now.utc.yesterday
           payload[:public_updated_at] = time
           described_class.create_from_edition(payload, edition)
 
