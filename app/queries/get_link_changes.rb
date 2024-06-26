@@ -23,7 +23,7 @@ module Queries
       end
 
       {
-        link_changes: results,
+        link_changes: SymbolizeJSON.symbolize(results),
       }
     end
 

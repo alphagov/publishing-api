@@ -1,7 +1,7 @@
 RSpec.describe Queries::GetLinkChanges do
   describe "#as_hash" do
     it "returns the link changes with the correct data" do
-      create(:link_change, link_type: "taxons")
+      link_change = create(:link_change, link_type: "taxons")
 
       result = Queries::GetLinkChanges.new(link_types: "taxons").as_hash
 
@@ -10,6 +10,7 @@ RSpec.describe Queries::GetLinkChanges do
       expect(change.keys).to match_array(
         %i[source target link_type change user_uid created_at],
       )
+      expect(change[:created_at]).to eql(link_change.created_at.utc.iso8601)
     end
 
     it "expands the source and target" do
