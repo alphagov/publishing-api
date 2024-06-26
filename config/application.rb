@@ -119,5 +119,13 @@ module PublishingAPI
     )
 
     config.debug_exception_response_format = :api
+
+    # Even though most GOV.UK apps use the London time_zone, publishing-api almost always wants to
+    # present times in UTC, so we set that as the default time_zone
+    initializer "publishing_api.configure_timezone",
+                after: "govuk_app_config.configure_timezone",
+                before: "active_support.initialize_time_zone" do
+      config.time_zone = "UTC"
+    end
   end
 end
