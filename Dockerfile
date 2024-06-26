@@ -1,4 +1,5 @@
-ARG ruby_version=3.3
+# TODO: unpin obsolete base image once https://github.com/alphagov/govuk-ruby-images/issues/96 is resolved
+ARG ruby_version=3.3.1
 ARG base_image=ghcr.io/alphagov/govuk-ruby-base:$ruby_version
 ARG builder_image=ghcr.io/alphagov/govuk-ruby-builder:$ruby_version
 
