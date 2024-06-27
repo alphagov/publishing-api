@@ -1,0 +1,24 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/ministers",
+  "content_id": "324e4708-2285-40a0-b3aa-cb13af14ec5f",
+  "document_type": "ministers_index",
+  "first_published_at": "2016-11-14T16:28:54+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": null,
+  "publishing_app": "whitehall",
+  "publishing_request_id": null,
+  "publishing_scheduled_at": null,
+  "rendering_app": "collections",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "ministers_index",
+  "title": "Ministers",
+  "updated_at": "2024-06-26T17:58:05+01:00",
+  "withdrawn_notice": {},
+  "description": "Read biographies and responsibilities",
+  "details": {
+    "body": "Read biographies and responsibilities"
+  },
+  "links": {}
+}
