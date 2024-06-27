@@ -37,6 +37,7 @@ class Edition < ApplicationRecord
 
   NON_RENDERABLE_FORMATS = %w[redirect gone].freeze
   NO_RENDERING_APP_FORMATS = %w[contact external_content role_appointment].freeze
+  CONTENT_BLOCK_PREFIX = "content_block".freeze
 
   belongs_to :document
   has_one :unpublishing
@@ -246,6 +247,10 @@ private
   end
 
   def requires_rendering_app?
-    renderable_content? && NO_RENDERING_APP_FORMATS.exclude?(document_type)
+    !is_content_block? && renderable_content? && NO_RENDERING_APP_FORMATS.exclude?(document_type)
+  end
+
+  def is_content_block?
+    document_type.start_with?(CONTENT_BLOCK_PREFIX)
   end
 end
