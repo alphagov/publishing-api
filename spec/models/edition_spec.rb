@@ -107,6 +107,17 @@ RSpec.describe Edition do
       end
     end
 
+    context "when the edition is a content block" do
+      GovukSchemas::Schema.schema_names.select { |schema| schema.start_with?(Edition::CONTENT_BLOCK_PREFIX) }.each do |document_type|
+        subject { build(:edition, document_type:) }
+
+        it "does not require a rendering_app" do
+          subject.rendering_app = nil
+          expect(subject).to be_valid
+        end
+      end
+    end
+
     context "when the edition is optionally 'renderable'" do
       subject { build(:edition, document_type: "contact") }
 
