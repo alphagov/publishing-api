@@ -5,21 +5,42 @@ class ContentEmbedService
   UUID_REGEX = /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/
   EMBED_REGEX = /({{embed:(#{SUPPORTED_DOCUMENT_TYPES.join('|')}):#{UUID_REGEX}}})/
 
+  class EmbeddedEdition
+    attr_reader :embed_code
+
+    def initialize(embed_code:, document_type:, content_id:)
+      @embed_code = embed_code
+      @document_type = document_type
+      @content_id = content_id
+    end
+
+    def edition
+      @edition ||= Edition.with_document.find_by(
+        state: "published",
+        content_store: "live",
+        document_type: @document_type,
+        documents: { content_id: @content_id },
+      )
+    end
+  end
+
   def initialize(body)
     @body = body
   end
 
+  def embedded_editions
+    @embedded_editions ||= @body.scan(EMBED_REGEX).map do |match|
+      EmbeddedEdition.new(
+        embed_code: match[0],
+        document_type: match[1],
+        content_id: match[2],
+      )
+    end
+  end
+
   def render
-    match_data = @body.scan(EMBED_REGEX)
-
-    match_data.each do |match|
-      embed_code = match[0]
-      document_type = match[1]
-      content_id = match[2]
-
-      edition = find_edition(document_type, content_id)
-      # TODO: Link Edition to document
-      replace_embed_code_with_content(embed_code, edition)
+    embedded_editions.each do |embedded_edition|
+      replace_embed_code_with_content(embedded_edition.embed_code, embedded_edition.edition)
     end
 
     @body
