@@ -6,7 +6,7 @@ class ContentEmbedService
   EMBED_REGEX = /({{embed:(#{SUPPORTED_DOCUMENT_TYPES.join('|')}):#{UUID_REGEX}}})/
 
   class EmbeddedEdition
-    attr_reader :embed_code
+    attr_reader :embed_code, :document_type, :content_id
 
     def initialize(embed_code:, document_type:, content_id:)
       @embed_code = embed_code
@@ -35,6 +35,12 @@ class ContentEmbedService
         document_type: match[1],
         content_id: match[2],
       )
+    end
+  end
+
+  def fetch_links
+    embedded_editions.group_by(&:document_type).transform_values do |items|
+      items.map(&:content_id)
     end
   end
 

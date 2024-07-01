@@ -87,15 +87,22 @@ module Commands
       end
 
       def create_links(edition)
-        return if payload[:links].nil?
+        links = (payload[:links] || {}).merge(fetch_embedded_content(edition))
+        return if links.empty?
 
-        payload[:links].each do |link_type, target_link_ids|
+        links.each do |link_type, target_link_ids|
           edition.links.create!(
             target_link_ids.map.with_index do |target_link_id, i|
               { link_type:, target_content_id: target_link_id, position: i }
             end,
           )
         end
+      end
+
+      def fetch_embedded_content(edition)
+        return {} if edition[:details]["body"].nil?
+
+        ContentEmbedService.new(edition[:details]["body"]).fetch_links
       end
 
       def create_redirect

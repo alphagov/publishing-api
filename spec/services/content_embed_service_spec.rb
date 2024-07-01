@@ -28,6 +28,24 @@ RSpec.describe ContentEmbedService do
     end
   end
 
+  describe ".fetch_links" do
+    it "returns an empty hash where there are no embeds" do
+      body = "Hello world!"
+
+      links = ContentEmbedService.new(body).fetch_links
+
+      expect(links).to eq({})
+    end
+
+    it "marshals embedded editions into links" do
+      body = "{{embed:contact:#{contacts[0].document.content_id}}} {{embed:contact:#{contacts[1].document.content_id}}}"
+
+      links = ContentEmbedService.new(body).fetch_links
+
+      expect(links).to eq({ "contact" => [contacts[0].document.content_id, contacts[1].document.content_id] })
+    end
+  end
+
   describe ".render" do
     it "renders a contact" do
       body = <<-DOC
