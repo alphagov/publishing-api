@@ -13,12 +13,26 @@ module Presenters
       @details ||=
         begin
           updated = recursively_transform_govspeak(content_item_details)
+          updated[:body] = render_embedded_content(updated[:body]) if updated[:body].present?
           updated[:change_history] = change_history if change_history.present?
           updated
         end
     end
 
   private
+
+    def render_embedded_content(body)
+      if body.is_a?(Array)
+        body.map do |content|
+          {
+            content_type: content[:content_type],
+            content: ContentEmbedService.new(content[:content]).render,
+          }
+        end
+      else
+        ContentEmbedService.new(body).render
+      end
+    end
 
     def govspeak_content?(value)
       wrapped = Array.wrap(value)
