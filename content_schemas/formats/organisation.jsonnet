@@ -28,6 +28,10 @@
         change_note: {
           "$ref": "#/definitions/change_note",
         },
+        custom_contextual_banner: {
+          description: "Displays a banner on live organisations (e.g. during a reshuffle) or overrides the default banner displayed on closed organisations.",
+          type: "string",
+        },
         brand: {
           type: [
             "string",
