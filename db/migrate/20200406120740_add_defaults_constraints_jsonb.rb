@@ -6,7 +6,7 @@ class AddDefaultsConstraintsJsonb < ActiveRecord::Migration[5.2]
       t.change_default :temp_organisations, from: nil, to: []
     end
 
-    change_column_null :access_limits, :temp_users, false
+    change_column_null :access_limits, :temp_users, false # rubocop:disable Rails/BulkChangeTable
     change_column_null :access_limits, :temp_organisations, false
 
     change_table :editions, bulk: true do |t|
@@ -17,7 +17,7 @@ class AddDefaultsConstraintsJsonb < ActiveRecord::Migration[5.2]
 
     change_column_default(:events, :temp_payload, from: nil, to: {})
 
-    change_column_default(:expanded_links, :temp_expanded_links, from: nil, to: {})
+    change_column_default(:expanded_links, :temp_expanded_links, from: nil, to: {}) # rubocop:disable Rails/BulkChangeTable
     change_column_null :expanded_links, :temp_expanded_links, false, {}
   end
 end
