@@ -5241,6 +5241,92 @@
         },
         "api_url": "https://www.gov.uk/api/content/government/organisations/uk-export-finance",
         "web_url": "https://www.gov.uk/government/organisations/uk-export-finance"
+      },
+      {
+        "content_id": "93f52ac4-7eb5-47bf-acfe-c11d1c8e8d76",
+        "title": "Office of the Advocate General for Scotland",
+        "locale": "en",
+        "analytics_identifier": "D20",
+        "api_path": "/api/content/government/organisations/office-of-the-advocate-general-for-scotland",
+        "base_path": "/government/organisations/office-of-the-advocate-general-for-scotland",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "api_url": "https://www.gov.uk/api/content/government/organisations/office-of-the-advocate-general-for-scotland",
+        "web_url": "https://www.gov.uk/government/organisations/office-of-the-advocate-general-for-scotland",
+        "details": {
+          "acronym": "OAG",
+          "brand": "office-of-the-advocate-general-for-scotland",
+          "default_news_image": {
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/media/648b0a09103ca6000c039f55/s960_s465_Lord_Stewart.jpg",
+            "url": "https://assets.publishing.service.gov.uk/media/648b0a095f7bb7000c7fab36/s300_s465_Lord_Stewart.jpg"
+          },
+          "logo": {
+            "crest": "so",
+            "formatted_title": "Office of the\u003Cbr/\u003EAdvocate General\u003Cbr/\u003Efor Scotland"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "links": {
+          "ordered_roles": [
+            {
+              "api_path": "/api/content/government/ministers/hm-advocate-general-for-scotland",
+              "api_url": "https://www.gov.uk/api/content/government/ministers/hm-advocate-general-for-scotland",
+              "base_path": "/government/ministers/hm-advocate-general-for-scotland",
+              "content_id": "845e8426-c0f1-11e4-8223-005056011aef",
+              "details": {
+                "body": "\u003Ch3 id=\"advocate-general-for-scotland\"\u003EAdvocate General for Scotland\u003C/h3\u003E\n\u003Cp\u003EThe Advocate General for Scotland is one of the Law Officers of the Crown, who advise the government on Scots law.\u003C/p\u003E\n\n\u003Cp\u003EResponsibilities include:\u003C/p\u003E\n\n\u003Cul\u003E\n  \u003Cli\u003EOversight of Schedule 6 to the Scotland Act 1998 relating to ‘devolution issues’ raised before\ncourts or tribunals in Scotland\u003C/li\u003E\n  \u003Cli\u003EThe Advocate General can choose to intervene, on behalf of the UK government, in\nproceedings in which devolution issues have been raised if he so decides\u003C/li\u003E\n  \u003Cli\u003EThe Office of the Advocate General considers all Scottish Parliament Bills as they progress, in\nconsultation with interested UK government departments, to assess their legislative\ncompetency. Under section 33 of the Scotland Act, the Advocate General has the power to\nrefer Scottish Parliament Bills to the Supreme Court for decisions on their legislative\ncompetence\u003C/li\u003E\n\u003C/ul\u003E\n\n",
+                "role_payment_type": null,
+                "seniority": 9,
+                "whip_organisation": {
+                }
+              },
+              "document_type": "ministerial_role",
+              "links": {
+              },
+              "locale": "en",
+              "public_updated_at": "2022-09-28T15:39:10Z",
+              "schema_name": "role",
+              "title": "HM Advocate General for Scotland ",
+              "web_url": "https://www.gov.uk/government/ministers/hm-advocate-general-for-scotland",
+              "withdrawn": false
+            },
+            {
+              "content_id": "8461c3df-c0f1-11e4-8223-005056011aef",
+              "details": {
+                "body": "\u003Cp\u003EThe Legal Secretary is responsible for supporting the Advocate General in his various roles, including in his capacity as one of the UK Government’s Law Officers, as a UK Government Minister, and as the UK Government’s representative in the House of Lords. The Legal Secretary also leads a legal team in the Legal Secretariat to the Advocate General, leads the Advocate General’s Private Office team, and undertakes responsibilities as a member of the Office of the Advocate General’s Senior Leadership Team.\u003C/p\u003E\n",
+                "role_payment_type": null
+              },
+              "document_type": "board_member_role",
+              "links": {
+              },
+              "locale": "en",
+              "public_updated_at": "2021-07-06T16:12:20Z",
+              "schema_name": "role",
+              "title": "Legal Secretary to the Advocate General",
+              "withdrawn": false
+            },
+            {
+              "content_id": "8461ca79-c0f1-11e4-8223-005056011aef",
+              "details": {
+                "body": "\u003Cp\u003EThe Head of HMRC Division is responsible for managing the team that provides legal advice to, and representation in litigation for, Her Majesty’s Revenue and Customs in Scotland.\u003C/p\u003E\n",
+                "role_payment_type": null
+              },
+              "document_type": "board_member_role",
+              "links": {
+              },
+              "locale": "en",
+              "public_updated_at": "2013-03-01T14:47:36Z",
+              "schema_name": "role",
+              "title": "Head of HMRC Division",
+              "withdrawn": false
+            }
+          ]
+        }
       }
     ],
     "suggested_ordered_related_items": [
