@@ -1,3 +1,4 @@
+# TODO - this might want to be split into two classes - one for finding embeds, one for actually replacing them
 class ContentEmbedService
   include ApplicationHelper
 
@@ -25,6 +26,7 @@ class ContentEmbedService
   end
 
   def initialize(body)
+    # TODO - this class should support things other than body
     @body = body
   end
 
@@ -54,6 +56,7 @@ class ContentEmbedService
 
 private
 
+  # TODO - this method isn't called anywhere
   def find_edition(document_type, content_id)
     Edition.with_document.find_by(
       state: "published",
