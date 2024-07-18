@@ -1,0 +1,15 @@
+{
+  "locale": "en",
+  "schema_name": "content_block_postal_address",
+  "document_type": "content_block_postal_address",
+  "title": "Government Digital Service - Head office",
+  "description": "The head office for Government Digital Service",
+  "details": {
+    "line_1": "1 Westminster Road",
+    "line_2": "Flat A",
+    "town_or_city": "London",
+    "county": "Greater London",
+    "postcode": "W1A 2BC"
+  },
+  "publishing_app": "whitehall"
+}
