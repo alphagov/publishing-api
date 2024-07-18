@@ -1,0 +1,13 @@
+{
+  "locale": "en",
+  "schema_name": "content_block_tax_rate",
+  "document_type": "content_block_tax_rate",
+  "title": "Personal Allowance income tax rate",
+  "description": "The tax rate on the Personal Allowance",
+  "details": {
+    "band": "Personal Allowance",
+    "income": "Up to £12,570",
+    "rate": "20"
+  },
+  "publishing_app": "whitehall"
+}
