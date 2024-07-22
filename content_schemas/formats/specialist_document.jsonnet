@@ -18,6 +18,7 @@
     "flood_and_coastal_erosion_risk_management_research_report",
     "international_development_fund",
     "licence_transaction",
+    "life_saving_maritime_appliance_service_station",
     "maib_report",
     "marine_equipment_approved_recommendation",
     "marine_notice",

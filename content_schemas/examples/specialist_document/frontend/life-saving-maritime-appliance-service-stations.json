@@ -1,0 +1,429 @@
+{
+  "content_id": "49f47764-2b1b-4b0d-9164-4aa6b42a8b63",
+  "base_path": "/service-life-saving-maritime-appliances/example-document",
+  "title": "Example document",
+  "description": "This is the summary of example document",
+  "schema_name": "specialist_document",
+  "document_type": "life_saving_maritime_appliance_service_station",
+  "publishing_app": "specialist-publisher",
+  "rendering_app": "government-frontend",
+  "locale": "en",
+  "phase": "live",
+  "links": {
+    "organisations": [
+      {
+        "content_id": "23a24aa8-1711-42b6-bf6b-47af0f230295",
+        "title": "Maritime and Coastguard Agency",
+        "locale": "en",
+        "analytics_identifier": "EA78",
+        "api_path": "/api/content/government/organisations/maritime-and-coastguard-agency",
+        "base_path": "/government/organisations/maritime-and-coastguard-agency",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Maritime \u0026amp;\u003cbr/\u003eCoastguard \u003cbr/\u003eAgency"
+          },
+          "brand": "department-for-transport",
+          "default_news_image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/563/s300_coastguard-coordination-centre.jpg",
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/563/s960_coastguard-coordination-centre.jpg"
+          },
+          "organisation_govuk_status": {
+            "url": null,
+            "status": "live",
+            "updated_at": null
+          }
+        },
+        "links": {},
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/maritime-and-coastguard-agency",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/maritime-and-coastguard-agency"
+      },
+      {
+        "analytics_identifier": "EA1079",
+        "api_path": "/api/content/government/organisations/animal-and-plant-health-agency",
+        "base_path": "/government/organisations/animal-and-plant-health-agency",
+        "content_id": "4ad67f14-6f9c-4fa4-80ab-687b6d81ea6f",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2022-08-04T08:51:52.000+00:00",
+        "schema_name": "organisation",
+        "title": "Animal and Plant Health Agency",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-environment-food-rural-affairs",
+          "logo": {
+            "formatted_title": "Animal &amp;<br/>Plant Health<br/>Agency",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/animal-and-plant-health-agency",
+        "web_url": "https://www.gov.uk/government/organisations/animal-and-plant-health-agency"
+      }
+    ],
+    "finder": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/service-life-saving-maritime-appliances",
+        "base_path": "/service-life-saving-maritime-appliances",
+        "content_id": "6e374e86-bbe2-40c9-9144-ba3035e69b30",
+        "description": "Find Maritime and Coastguard Agency-approved service stations for your inflatable life-saving equipment.",
+        "document_type": "finder",
+        "locale": "en",
+        "public_updated_at": "2017-03-15T14:44:21Z",
+        "schema_name": "finder",
+        "title": "Find a service station for your inflatable life-saving appliances",
+        "withdrawn": false,
+        "details": {
+          "facets": [
+            {
+              "key": "life_saving_maritime_appliance_service_station_regions",
+              "name": "Regions in the UK",
+              "short_name": "region",
+              "type": "text",
+              "preposition": "in region",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {"label": "East Anglia", "value": "east-anglia"},
+                {"label": "East Midlands", "value": "east-midlands"},
+                {"label": "North east England", "value": "north-east-england"},
+                {"label": "North west England", "value": "north-west-england"},
+                {"label": "South east England (including London)", "value": "south-east-england"},
+                {"label": "South west England", "value": "south-west-england"},
+                {"label": "West Midlands", "value": "west-midlands"},
+                {"label": "Yorkshire and The Humber", "value": "yorkshire-and-the-humber"},
+                {"label": "Scotland", "value": "scotland"},
+                {"label": "Wales", "value": "wales"}
+              ]
+            },
+            {
+              "key": "life_saving_maritime_appliance_type",
+              "name": "Appliance type",
+              "type": "text",
+              "preposition": "appliance",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {"label": "Lifejackets", "value": "lifejackets"},
+                {"label": "Liferafts", "value": "liferafts"},
+                {"label": "Marine evacuation system (MES)", "value": "marine-evacuation-system"},
+                {"label": "Inflated rescue boats", "value": "inflated-rescue-boats"}
+              ]
+            },
+            {
+              "key": "life_saving_maritime_appliance_manufacturer",
+              "name": "Appliance manufacturer",
+              "type": "text",
+              "preposition": "manufactured by",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Autoflug",
+                  "value": "autoflug"
+                },
+                {
+                  "label": "Arimar",
+                  "value": "arimar"
+                },
+                {
+                  "label": "Ausmar",
+                  "value": "ausmar"
+                },
+                {
+                  "label": "Avon",
+                  "value": "avon"
+                },
+                {
+                  "label": "Baltic",
+                  "value": "baltic"
+                },
+                {
+                  "label": "Beaufort",
+                  "value": "beaufort"
+                },
+                {
+                  "label": "Beaufort Canada",
+                  "value": "beaufort-canada"
+                },
+                {
+                  "label": "Besto Seafit",
+                  "value": "besto-seafit"
+                },
+                {
+                  "label": "Bombard Liferafts",
+                  "value": "bombard-liferafts"
+                },
+                {
+                  "label": "Callegari",
+                  "value": "callegari"
+                },
+                {
+                  "label": "Crewsaver",
+                  "value": "crewsaver"
+                },
+                {
+                  "label": "CSM Liferafts (Shanghai Star)",
+                  "value": "csm-liferafts-shanghai-star"
+                },
+                {
+                  "label": "Delta Lifejackets",
+                  "value": "delta-lifejackets"
+                },
+                {
+                  "label": "Delta RIBs",
+                  "value": "delta-ribs"
+                },
+                {
+                  "label": "DSB",
+                  "value": "dsb"
+                },
+                {
+                  "label": "Duarry",
+                  "value": "duarry"
+                },
+                {
+                  "label": "Eurovinil",
+                  "value": "eurovinil"
+                },
+                {
+                  "label": "Fujikura MES",
+                  "value": "fujikura-mes"
+                },
+                {
+                  "label": "Halmatic RIBs",
+                  "value": "halmatic-ribs"
+                },
+                {
+                  "label": "Hansen Protection - UK",
+                  "value": "hansen-protection-uk"
+                },
+                {
+                  "label": "Harding Watercraft RIBs",
+                  "value": "harding-watercraft-ribs"
+                },
+                {
+                  "label": "International Safety Group",
+                  "value": "international-safety-group"
+                },
+                {
+                  "label": "ISP Challenger",
+                  "value": "isp-challenger"
+                },
+                {
+                  "label": "Jiangsu Haining",
+                  "value": "jiangsu-haining"
+                },
+                {
+                  "label": "K2 Lifejackets",
+                  "value": "k2-lifejackets"
+                },
+                {
+                  "label": "KI-Elements Lifejackets",
+                  "value": "ki-elements-lifejackets"
+                },
+                {
+                  "label": "Lalizas",
+                  "value": "lalizas"
+                },
+                {
+                  "label": "Lifeguard",
+                  "value": "lifeguard"
+                },
+                {
+                  "label": "Liferaft Systems Australia",
+                  "value": "liferaft-systems-australia"
+                },
+                {
+                  "label": "Marin Ark 1",
+                  "value": "marin-ark-1"
+                },
+                {
+                  "label": "Marin Ark 2",
+                  "value": "marin-ark-2"
+                },
+                {
+                  "label": "Maritime Partner Craft",
+                  "value": "maritime-partner-craft"
+                },
+                {
+                  "label": "Matchau Marine",
+                  "value": "matchau-marine"
+                },
+                {
+                  "label": "Mulder and Rijke",
+                  "value": "mulder-and-rijke"
+                },
+                {
+                  "label": "Mullion",
+                  "value": "mullion"
+                },
+                {
+                  "label": "Narwhal",
+                  "value": "narwhal"
+                },
+                {
+                  "label": "Ningbo Zhenhua",
+                  "value": "ningbo-zhenhua"
+                },
+                {
+                  "label": "Ningbo Haifeng",
+                  "value": "ningbo-haifeng"
+                },
+                {
+                  "label": "Ningbo Neptune",
+                  "value": "ningbo-neptune"
+                },
+                {
+                  "label": "Norsafe Boats",
+                  "value": "norsafe-boats"
+                },
+                {
+                  "label": "Ocean Safety (own brand)",
+                  "value": "ocean-safety-own-brand"
+                },
+                {
+                  "label": "Ocean Safety (Remploy brand)",
+                  "value": "ocean safety-remploy-brand"
+                },
+                {
+                  "label": "Ocean Safety Liferafts",
+                  "value": "ocean-safety-liferafts"
+                },
+                {
+                  "label": "Parmaris",
+                  "value": "parmaris"
+                },
+                {
+                  "label": "Plastimo Lifejackets",
+                  "value": "plastimo-lifejackets"
+                },
+                {
+                  "label": "Revere",
+                  "value": "revere"
+                },
+                {
+                  "label": "RFD",
+                  "value": "rfd"
+                },
+                {
+                  "label": "RFD-Toyo",
+                  "value": "rfd-toyo"
+                },
+                {
+                  "label": "RTK Lifejackets",
+                  "value": "rtk-lifejackets"
+                },
+                {
+                  "label": "Sea Safe Liferafts",
+                  "value": "sea-safe-liferafts"
+                },
+                {
+                  "label": "Seago",
+                  "value": "seago"
+                },
+                {
+                  "label": "Seapro Lifejackets",
+                  "value": "seapro-lifejackets"
+                },
+                {
+                  "label": "Seatec",
+                  "value": "seatec"
+                },
+                {
+                  "label": "Selantic",
+                  "value": "selantic"
+                },
+                {
+                  "label": "Shanghai Cunhong",
+                  "value": "shanghai-cunhong"
+                },
+                {
+                  "label": "Shanghai Haian",
+                  "value": "shanghai-haian"
+                },
+                {
+                  "label": "Shanghai Huaxiong",
+                  "value": "shanghai-huaxiong"
+                },
+                {
+                  "label": "Shanghai Youlong",
+                  "value": "shanghai-youlong"
+                },
+                {
+                  "label": "SMRT",
+                  "value": "smrt"
+                },
+                {
+                  "label": "Spinlock",
+                  "value": "spinlock"
+                },
+                {
+                  "label": "Survitec - DBC",
+                  "value": "survitec-dbc"
+                },
+                {
+                  "label": "Unitor",
+                  "value": "unitor"
+                },
+                {
+                  "label": "Uzemik",
+                  "value": "uzemik"
+                },
+                {
+                  "label": "Viking",
+                  "value": "viking"
+                },
+                {
+                  "label": "Wintec Baltic",
+                  "value": "wintec-baltic"
+                },
+                {
+                  "label": "Wintec ISP",
+                  "value": "wintec-isp"
+                },
+                {
+                  "label": "Yantai Huayang",
+                  "value": "yantai-huayang"
+                },
+                {
+                  "label": "Zodiac",
+                  "value": "zodiac"
+                }
+              ]
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/marine-equipment-approved-recommendations/",
+        "web_url": "https://www.gov.uk/marine-equipment-approved-recommendations/"
+      }
+    ]
+  },
+  "public_updated_at": "2015-07-10T13:09:46+00:00",
+  "updated_at": "2017-06-30T15:44:11.073Z",
+  "details": {
+    "body": "UK approved service stations for International Convention for the Safety of Life at Sea (SOLAS)-standard inflatable life-saving appliances (LSAs).\n",
+    "metadata": {
+      "life_saving_maritime_appliance_service_station_regions": [
+        "north-east-england",
+        "west-midlands"
+      ],
+      "life_saving_maritime_appliance_type": [
+        "lifejackets",
+        "liferafts"
+      ],
+      "life_saving_maritime_appliance_manufacturer": [
+        "beaufort",
+        "besto-seafit"
+      ]
+    },
+    "max_cache_time": 10,
+    "temporary_update_type": false
+  }
+}
