@@ -76,7 +76,8 @@
         "statutory_instrument",
         "tax_tribunal_decision",
         "traffic_commissioner_regulatory_decision",
-        "utaac_decision"
+        "utaac_decision",
+        "veterans_support_organisation"
       ]
     },
     "first_published_at": {
@@ -658,6 +659,9 @@
         },
         {
           "$ref": "#/definitions/utaac_decision_metadata"
+        },
+        {
+          "$ref": "#/definitions/veterans_support_organisation_metadata"
         }
       ]
     },
@@ -3736,6 +3740,151 @@
           "type": "array",
           "items": {
             "type": "string"
+          }
+        }
+      }
+    },
+    "veterans_support_organisation_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bulk_published": {
+          "type": "boolean"
+        },
+        "veterans_support_organisation_community_and_social": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "drop-in-centres",
+              "leisure-activities",
+              "volunteering-opportunities"
+            ]
+          }
+        },
+        "veterans_support_organisation_employment_education_and_training": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "transition-support",
+              "career-advice-and-support-for-jobseekers",
+              "starting-a-business",
+              "apprenticeships",
+              "education-and-other-training"
+            ]
+          }
+        },
+        "veterans_support_organisation_families_and_children": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "support-for-spouses-and-families",
+              "childcare-and-custody",
+              "support-with-relationships",
+              "domestic-abuse"
+            ]
+          }
+        },
+        "veterans_support_organisation_finance": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "pensions",
+              "compensation",
+              "benefits",
+              "financial-help",
+              "debt-advice",
+              "funeral-costs"
+            ]
+          }
+        },
+        "veterans_support_organisation_health_and_social_care": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "mental-health",
+              "physical-health",
+              "social-care"
+            ]
+          }
+        },
+        "veterans_support_organisation_housing": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "homelessness-crisis-accommodation",
+              "supported-housing",
+              "care-homes",
+              "renting-a-home",
+              "buying-a-home"
+            ]
+          }
+        },
+        "veterans_support_organisation_legal_and_justice": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "general-legal-advice",
+              "support-for-those-in-the-justice-system"
+            ]
+          }
+        },
+        "veterans_support_organisation_region_england": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "north-east-and-yorkshire",
+              "north-west",
+              "midlands",
+              "east-of-england",
+              "london",
+              "south-west",
+              "south-east"
+            ]
+          }
+        },
+        "veterans_support_organisation_region_northern_ireland": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "north-coleraine-area",
+              "south-portadown-area",
+              "east-holywood-area",
+              "west-enniskillen-area"
+            ]
+          }
+        },
+        "veterans_support_organisation_region_scotland": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "the-southern-uplands",
+              "the-central-lowlands",
+              "grampian-mountains",
+              "northern-highlands-hebrides-and-the-northern-isles"
+            ]
+          }
+        },
+        "veterans_support_organisation_region_wales": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "mid-and-west-wales",
+              "north-wales",
+              "south-wales-central",
+              "south-wales-east",
+              "south-wales-west"
+            ]
           }
         }
       }

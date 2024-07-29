@@ -33,6 +33,7 @@
     "tax_tribunal_decision",
     "traffic_commissioner_regulatory_decision",
     "utaac_decision",
+    "veterans_support_organisation",
   ],
   definitions: (import "shared/definitions/_specialist_document.jsonnet") + {
     details: {
