@@ -289,6 +289,7 @@ module SchemaGenerator
         secondary_role_person
         world_locations
         worldwide_organisation
+        popular_links
       ].freeze
 
       attr_reader :links
