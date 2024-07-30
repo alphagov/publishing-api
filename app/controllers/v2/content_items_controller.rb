@@ -21,6 +21,10 @@ module V2
       ).call
     end
 
+    def linked_items
+      render json: Queries::GetContentByEditionLink.call(path_params[:content_id])
+    end
+
     def show
       render json: Queries::GetContent.call(
         path_params[:content_id],

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       scope constraints: method(:content_id_constraint) do
         put "/content/:content_id", to: "content_items#put_content"
         get "/content/:content_id", to: "content_items#show"
+        get "/content/:content_id/linked-items", to: "content_items#linked_items"
         post "/content/:content_id/publish", to: "content_items#publish"
         post "/content/:content_id/republish", to: "content_items#republish"
         post "/content/:content_id/unpublish", to: "content_items#unpublish"

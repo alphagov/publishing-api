@@ -7,6 +7,9 @@ class Document < ApplicationRecord
   has_many :link_set_links, class_name: "Link", through: :link_set, source: :links
   has_one :draft, -> { where(content_store: "draft") }, class_name: "Edition"
   has_one :live, -> { where(content_store: "live") }, class_name: "Edition"
+  # has_one :publishing_organisation, -> { where(links: { link_type: "primary_publishing_organisation" }) }, through: :link_set
+  # has_one :primary_publishing_organisation_link, -> { where(link_type: "primary_publishing_organisation") }, through: :link_set, source: :links
+  # has_one :primary_publishing_organisation, through: :primary_publishing_organisation_link, source: :edition
 
   # Due to the scenario of unpublished type substitute we need a scope that
   # can access published / unpublished which isn't tied to live content store
