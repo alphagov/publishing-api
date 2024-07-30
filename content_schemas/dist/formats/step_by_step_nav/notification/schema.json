@@ -85,6 +85,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "embed": {
+          "description": "Content that will be embedded within the document, using embed tags.",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "level_one_taxons": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -145,6 +149,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "embed": {
+          "description": "Content that will be embedded within the document, using embed tags.",
+          "$ref": "#/definitions/guid_list"
+        },
         "pages_part_of_step_nav": {
           "description": "A list of content that should be navigable via this step by step journey",
           "$ref": "#/definitions/guid_list"

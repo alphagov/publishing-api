@@ -63,6 +63,10 @@
           "description": "A list of associated taxons whose children should be included as children of this taxon",
           "$ref": "#/definitions/guid_list"
         },
+        "embed": {
+          "description": "Content that will be embedded within the document, using embed tags.",
+          "$ref": "#/definitions/guid_list"
+        },
         "parent_taxons": {
           "description": "The list of taxon parents.",
           "$ref": "#/definitions/guid_list"

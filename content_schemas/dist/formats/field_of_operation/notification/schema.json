@@ -85,6 +85,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "embed": {
+          "description": "Content that will be embedded within the document, using embed tags.",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "fatality_notices": {
           "description": "Fatality notices for this field of operation",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -187,6 +191,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "embed": {
+          "description": "Content that will be embedded within the document, using embed tags.",
+          "$ref": "#/definitions/guid_list"
+        },
         "fatality_notices": {
           "description": "Fatality notices for this field of operation",
           "$ref": "#/definitions/guid_list"
