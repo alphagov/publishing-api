@@ -1,7 +1,7 @@
 class ContentEmbedService
   include ApplicationHelper
 
-  SUPPORTED_DOCUMENT_TYPES = %w[contact].freeze
+  SUPPORTED_DOCUMENT_TYPES = %w[contact email_address].freeze
   UUID_REGEX = /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/
   EMBED_REGEX = /({{embed:(#{SUPPORTED_DOCUMENT_TYPES.join('|')}):#{UUID_REGEX}}})/
 
