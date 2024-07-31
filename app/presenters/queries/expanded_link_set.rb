@@ -61,7 +61,7 @@ module Presenters
           end
 
           if hash[:details]
-            hash[:details] = Presenters::DetailsPresenter.new(hash[:details], nil).details
+            hash[:details] = Presenters::DetailsPresenter.new(hash[:details], nil, nil).details
           end
         end
       end
