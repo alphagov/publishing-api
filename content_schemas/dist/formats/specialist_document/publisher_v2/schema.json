@@ -3758,7 +3758,9 @@
             "enum": [
               "drop-in-centres",
               "leisure-activities",
-              "volunteering-opportunities"
+              "volunteering-opportunities",
+              "LGBT-support",
+              "women-veterans-support"
             ]
           }
         },

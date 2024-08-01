@@ -3276,6 +3276,8 @@
             "drop-in-centres",
             "leisure-activities",
             "volunteering-opportunities",
+            "LGBT-support",
+            "women-veterans-support",
           ],
         },
       },

@@ -180,7 +180,9 @@
               "allowed_values": [
                 {"label": "Drop-in centres", "value": "drop-in-centres"},
                 {"label": "Leisure activities", "value": "leisure-activities"},
-                {"label": "Volunteering opportunities", "value": "volunteering-opportunities"}
+                {"label": "Volunteering opportunities", "value": "volunteering-opportunities"},
+                {"label": "LGBT+ support", "value": "LGBT-support"},
+                {"label": "Women veterans support", "value": "women-veterans-support"}
               ]
             },
             {
