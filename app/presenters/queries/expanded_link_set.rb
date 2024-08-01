@@ -61,7 +61,7 @@ module Presenters
           end
 
           if hash[:details]
-            hash[:details] = Presenters::DetailsPresenter.new(hash[:details], nil, nil).details
+            hash[:details] = Presenters::DetailsPresenter.new(hash[:details], nil, content_embed_presenter(hash[:content_id], hash[:locale])).details
           end
         end
       end
@@ -76,6 +76,11 @@ module Presenters
 
       def translations
         available_translations.translations
+      end
+
+      def content_embed_presenter(content_id, locale)
+        edition = Document.find_by(content_id:, locale:).live
+        Presenters::ContentEmbedPresenter.new(edition) if edition
       end
     end
   end
