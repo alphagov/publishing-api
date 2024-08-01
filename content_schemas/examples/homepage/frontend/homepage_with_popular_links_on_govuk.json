@@ -1,0 +1,968 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/",
+  "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+  "description": "",
+  "details": {
+
+  },
+  "document_type": "homepage",
+  "first_published_at": "2016-02-26T11:53:52+00:00",
+  "links": {
+    "available_translations": [
+      {
+        "api_path": "/api/content/",
+        "api_url": "https://www.gov.uk/api/content/",
+        "base_path": "/",
+        "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+        "document_type": "homepage",
+        "links": {
+
+        },
+        "locale": "en",
+        "public_updated_at": "2023-06-28T09:32:34Z",
+        "schema_name": "homepage",
+        "title": "GOV.UK homepage",
+        "web_url": "https://www.gov.uk/",
+        "withdrawn": false
+      }
+    ],
+    "level_one_taxons": [
+      {
+        "api_path": "/api/content/entering-staying-uk",
+        "api_url": "https://www.gov.uk/api/content/entering-staying-uk",
+        "base_path": "/entering-staying-uk",
+        "content_id": "ba3a9702-da22-487f-86c1-8334a730e559",
+        "details": {
+          "internal_name": "Entering and staying in the UK",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-07-11T08:58:32Z",
+        "schema_name": "taxon",
+        "title": "Entering and staying in the UK",
+        "web_url": "https://www.gov.uk/entering-staying-uk",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/going-and-being-abroad",
+        "api_url": "https://www.gov.uk/api/content/going-and-being-abroad",
+        "base_path": "/going-and-being-abroad",
+        "content_id": "9597c30a-605a-4e36-8bc1-47e5cdae41b3",
+        "details": {
+          "internal_name": "Going and being abroad",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-08-22T13:01:16Z",
+        "schema_name": "taxon",
+        "title": "Going and being abroad",
+        "web_url": "https://www.gov.uk/going-and-being-abroad",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/education",
+        "api_url": "https://www.gov.uk/api/content/education",
+        "base_path": "/education",
+        "content_id": "c58fdadd-7743-46d6-9629-90bb3ccc4ef0",
+        "description": "Schools and academies, further and higher education, apprenticeships and other skills training, student funding, early years.",
+        "details": {
+          "internal_name": "Education, training and skills",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-06-07T15:19:07Z",
+        "schema_name": "taxon",
+        "title": "Education, training and skills",
+        "web_url": "https://www.gov.uk/education",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/childcare-parenting",
+        "api_url": "https://www.gov.uk/api/content/childcare-parenting",
+        "base_path": "/childcare-parenting",
+        "content_id": "206b7f3a-49b5-476f-af0f-fd27e2a68473",
+        "description": "Financial support, finding and providing childcare, pregnancy and birth, adoption and fostering, looked-after children, safeguarding.",
+        "details": {
+          "internal_name": "Parenting, childcare and childrens services",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2017-07-27T13:29:23Z",
+        "schema_name": "taxon",
+        "title": "Parenting, childcare and children's services ",
+        "web_url": "https://www.gov.uk/childcare-parenting",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/corporate-information",
+        "api_url": "https://www.gov.uk/api/content/corporate-information",
+        "base_path": "/corporate-information",
+        "content_id": "a544d48b-1e9e-47fb-b427-7a987c658c14",
+        "details": {
+          "internal_name": "Corporate information",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-08-22T12:57:58Z",
+        "schema_name": "taxon",
+        "title": "Corporate information",
+        "web_url": "https://www.gov.uk/corporate-information",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/transport",
+        "api_url": "https://www.gov.uk/api/content/transport",
+        "base_path": "/transport",
+        "content_id": "a4038b29-b332-4f13-98b1-1c9709e216bc",
+        "description": "Aviation, roads, rail, maritime, driving, freight, public transport, safety, environment and transport accessibility.",
+        "details": {
+          "internal_name": "Transport",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-06-15T14:31:46Z",
+        "schema_name": "taxon",
+        "title": "Transport",
+        "web_url": "https://www.gov.uk/transport",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/environment",
+        "api_url": "https://www.gov.uk/api/content/environment",
+        "base_path": "/environment",
+        "content_id": "3cf97f69-84de-41ae-bc7b-7e2cc238fa58",
+        "description": "",
+        "details": {
+          "internal_name": "Environment",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T13:39:00Z",
+        "schema_name": "taxon",
+        "title": "Environment",
+        "web_url": "https://www.gov.uk/environment",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/welfare",
+        "api_url": "https://www.gov.uk/api/content/welfare",
+        "base_path": "/welfare",
+        "content_id": "dded88e2-f92e-424f-b73e-6ad24a839c51",
+        "description": "",
+        "details": {
+          "internal_name": "Welfare",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:32:41Z",
+        "schema_name": "taxon",
+        "title": "Welfare",
+        "web_url": "https://www.gov.uk/welfare",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/housing-local-and-community",
+        "api_url": "https://www.gov.uk/api/content/housing-local-and-community",
+        "base_path": "/housing-local-and-community",
+        "content_id": "4794066e-e3cc-425e-8cc4-e7ff3edb4c39",
+        "description": "",
+        "details": {
+          "internal_name": "Housing, local and community",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:32:02Z",
+        "schema_name": "taxon",
+        "title": "Housing, local and community",
+        "web_url": "https://www.gov.uk/housing-local-and-community",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/life-circumstances",
+        "api_url": "https://www.gov.uk/api/content/life-circumstances",
+        "base_path": "/life-circumstances",
+        "content_id": "20086ead-41fc-49cf-8a62-d4e1126f41fc",
+        "description": "",
+        "details": {
+          "internal_name": "Life circumstances",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:33:11Z",
+        "schema_name": "taxon",
+        "title": "Life circumstances",
+        "web_url": "https://www.gov.uk/life-circumstances",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/international",
+        "api_url": "https://www.gov.uk/api/content/international",
+        "base_path": "/international",
+        "content_id": "37d0fa26-abed-4c74-8835-b3b51ae1c8b2",
+        "description": "",
+        "details": {
+          "internal_name": "International",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:30:28Z",
+        "schema_name": "taxon",
+        "title": "International",
+        "web_url": "https://www.gov.uk/international",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/defence-and-armed-forces",
+        "api_url": "https://www.gov.uk/api/content/defence-and-armed-forces",
+        "base_path": "/defence-and-armed-forces",
+        "content_id": "e491505c-77ae-45b2-84be-8c94b94f6a2b",
+        "description": "",
+        "details": {
+          "internal_name": "Defence and armed forces",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:34:16Z",
+        "schema_name": "taxon",
+        "title": "Defence and armed forces",
+        "web_url": "https://www.gov.uk/defence-and-armed-forces",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/crime-justice-and-law",
+        "api_url": "https://www.gov.uk/api/content/crime-justice-and-law",
+        "base_path": "/crime-justice-and-law",
+        "content_id": "ba951b09-5146-43be-87af-44075eac3ae9",
+        "description": "",
+        "details": {
+          "internal_name": "Crime, justice and law",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:34:51Z",
+        "schema_name": "taxon",
+        "title": "Crime, justice and law",
+        "web_url": "https://www.gov.uk/crime-justice-and-law",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/regional-and-local-government",
+        "api_url": "https://www.gov.uk/api/content/regional-and-local-government",
+        "base_path": "/regional-and-local-government",
+        "content_id": "503c5bc7-809a-47b9-83e2-bd0c212dbabb",
+        "description": "",
+        "details": {
+          "internal_name": "Regional and local government",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:30:05Z",
+        "schema_name": "taxon",
+        "title": "Regional and local government",
+        "web_url": "https://www.gov.uk/regional-and-local-government",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/society-and-culture",
+        "api_url": "https://www.gov.uk/api/content/society-and-culture",
+        "base_path": "/society-and-culture",
+        "content_id": "e2ca2f1a-0ff3-43ce-b813-16645ff27904",
+        "description": "",
+        "details": {
+          "internal_name": "Society and culture",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:31:27Z",
+        "schema_name": "taxon",
+        "title": "Society and culture",
+        "web_url": "https://www.gov.uk/society-and-culture",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/all",
+        "api_url": "https://www.gov.uk/api/content/government/all",
+        "base_path": "/government/all",
+        "content_id": "e48ab80a-de80-4e83-bf59-26316856a5f9",
+        "description": "",
+        "details": {
+          "internal_name": "Government",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:29:39Z",
+        "schema_name": "taxon",
+        "title": "Government",
+        "web_url": "https://www.gov.uk/government/all",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/work",
+        "api_url": "https://www.gov.uk/api/content/work",
+        "base_path": "/work",
+        "content_id": "d0f1e5a3-c8f4-4780-8678-994f19104b21",
+        "description": "",
+        "details": {
+          "internal_name": "Work",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:33:40Z",
+        "schema_name": "taxon",
+        "title": "Work",
+        "web_url": "https://www.gov.uk/work",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/money",
+        "api_url": "https://www.gov.uk/api/content/money",
+        "base_path": "/money",
+        "content_id": "6acc9db4-780e-4a46-92b4-1812e3c2c48a",
+        "description": "",
+        "details": {
+          "internal_name": "Money",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:35:25Z",
+        "schema_name": "taxon",
+        "title": "Money",
+        "web_url": "https://www.gov.uk/money",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/business-and-industry",
+        "api_url": "https://www.gov.uk/api/content/business-and-industry",
+        "base_path": "/business-and-industry",
+        "content_id": "495afdb6-47be-4df1-8b38-91c8adb1eefc",
+        "description": "",
+        "details": {
+          "internal_name": "Business and industry",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-03T15:41:02Z",
+        "schema_name": "taxon",
+        "title": "Business and industry",
+        "web_url": "https://www.gov.uk/business-and-industry",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/health-and-social-care",
+        "api_url": "https://www.gov.uk/api/content/health-and-social-care",
+        "base_path": "/health-and-social-care",
+        "content_id": "8124ead8-8ebc-4faf-88ad-dd5cbcc92ba8",
+        "description": "",
+        "details": {
+          "internal_name": "Health and social care",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:30:51Z",
+        "schema_name": "taxon",
+        "title": "Health and social care",
+        "web_url": "https://www.gov.uk/health-and-social-care",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/brexit",
+        "api_url": "https://www.gov.uk/api/content/brexit",
+        "base_path": "/brexit",
+        "content_id": "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
+        "description": "Find out how new Brexit rules apply to things like travel and doing business with Europe.",
+        "details": {
+          "internal_name": "Brexit",
+          "notes_for_editors": "",
+          "url_override": "/government/collections/brexit-guidance",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2022-03-28T13:06:30Z",
+        "schema_name": "taxon",
+        "title": "Brexit",
+        "web_url": "https://www.gov.uk/brexit",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/coronavirus-taxon",
+        "api_url": "https://www.gov.uk/api/content/coronavirus-taxon",
+        "base_path": "/coronavirus-taxon",
+        "content_id": "5b7b9532-a775-4bd2-a3aa-6ce380184b6c",
+        "description": "",
+        "details": {
+          "internal_name": "COVID-19",
+          "notes_for_editors": "",
+          "url_override": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2023-06-05T09:53:55Z",
+        "schema_name": "taxon",
+        "title": "COVID-19",
+        "web_url": "https://www.gov.uk/coronavirus-taxon",
+        "withdrawn": false
+      }
+    ],
+    "popular_links": [
+      {
+        "content_id": "ad7968d0-0339-40b2-80bc-3ea1db8ef1b7",
+        "details": {
+          "link_items": [
+            {
+              "title": "title1",
+              "url": "url1.com"
+            },
+            {
+              "title": "title2",
+              "url": "url2.com"
+            },
+            {
+              "title": "title3",
+              "url": "url3.com"
+            },
+            {
+              "title": "title4",
+              "url": "url4.com"
+            },
+            {
+              "title": "title5",
+              "url": "url5.com"
+            },
+            {
+              "title": "title6",
+              "url": "url6.com"
+            }
+          ]
+        },
+        "document_type": "link_collection",
+        "links": {
+
+        },
+        "locale": "en",
+        "public_updated_at": "2024-07-31T08:40:02Z",
+        "schema_name": "link_collection",
+        "title": "Homepage popular links",
+        "withdrawn": false
+      }
+    ]
+  },
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2023-06-28T10:32:34+01:00",
+  "publishing_app": "special-route-publisher",
+  "publishing_request_id": "21-1687944754.231-10.13.31.76-382",
+  "publishing_scheduled_at": null,
+  "rendering_app": "frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "homepage",
+  "title": "GOV.UK homepage",
+  "updated_at": "2024-07-31T09:40:32+01:00",
+  "withdrawn_notice": {
+
+  }
+}

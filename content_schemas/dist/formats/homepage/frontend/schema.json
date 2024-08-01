@@ -94,7 +94,7 @@
         },
         "popular_links": {
           "description": "Collection of links to be used to display popular links on homepage",
-          "$ref": "#/definitions/frontend_links_with_base_path"
+          "$ref": "#/definitions/frontend_links"
         },
         "related_to_step_navs": {
           "description": "Link type automatically added by Publishing API",
