@@ -89,6 +89,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "embed": {
+          "description": "Content that will be embedded within the document, using embed tags.",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "finder": {
           "description": "Powers links from content back to finders the content is surfaced on",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -193,6 +197,10 @@
       "properties": {
         "content_owners": {
           "description": "References a page of a GDS community responsible for maintaining the guide e.g. Agile delivery community, Design community",
+          "$ref": "#/definitions/guid_list"
+        },
+        "embed": {
+          "description": "Content that will be embedded within the document, using embed tags.",
           "$ref": "#/definitions/guid_list"
         },
         "finder": {

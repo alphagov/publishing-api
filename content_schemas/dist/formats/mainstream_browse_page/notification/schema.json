@@ -90,6 +90,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "embed": {
+          "description": "Content that will be embedded within the document, using embed tags.",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "finder": {
           "description": "Powers links from content back to finders the content is surfaced on",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -203,6 +207,10 @@
           "description": "The top-level browse page which is active",
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
+        },
+        "embed": {
+          "description": "Content that will be embedded within the document, using embed tags.",
+          "$ref": "#/definitions/guid_list"
         },
         "finder": {
           "description": "Powers links from content back to finders the content is surfaced on",

@@ -62,6 +62,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "embed": {
+          "description": "Content that will be embedded within the document, using embed tags.",
+          "$ref": "#/definitions/guid_list"
+        },
         "government": {
           "description": "The government associated with this document",
           "$ref": "#/definitions/guid_list",
