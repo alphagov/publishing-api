@@ -278,12 +278,15 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "filtering by links" do
     let(:someorg_content_id) { SecureRandom.uuid }
+    let(:other_link_content_id) { SecureRandom.uuid }
 
     before do
       otherorg_content_id = SecureRandom.uuid
       draft_1_content_id = SecureRandom.uuid
       draft_2_content_id = SecureRandom.uuid
       live_1_content_id = SecureRandom.uuid
+
+      edition_linked_content_id = SecureRandom.uuid
 
       create(
         :draft_edition,
@@ -304,6 +307,12 @@ RSpec.describe Queries::GetContentCollection do
         base_path: "/baz",
       )
 
+      edition_linked_edition = create(
+        :live_edition,
+        document: create(:document, content_id: edition_linked_content_id),
+        base_path: "/boo",
+      )
+
       link_set1 = create(:link_set, content_id: draft_1_content_id)
       link_set2 = create(:link_set, content_id: draft_2_content_id)
       link_set3 = create(:link_set, content_id: live_1_content_id)
@@ -311,6 +320,12 @@ RSpec.describe Queries::GetContentCollection do
       create(:link, link_set: link_set1, target_content_id: someorg_content_id)
       create(:link, link_set: link_set2, target_content_id: otherorg_content_id)
       create(:link, link_set: link_set3, target_content_id: someorg_content_id)
+
+      create(:link,
+             target_content_id: other_link_content_id,
+             edition_id: edition_linked_edition.id,
+             link_type: "something_else",
+             link_set: nil)
     end
 
     it "filters editions by organisation" do
@@ -322,6 +337,17 @@ RSpec.describe Queries::GetContentCollection do
       expect(result).to match_array([
         hash_including("base_path" => "/foo"),
         hash_including("base_path" => "/baz"),
+      ])
+    end
+
+    it "filters editions by an edition link" do
+      result = Queries::GetContentCollection.new(
+        filters: { links: { something_else: other_link_content_id } },
+        fields: %w[base_path],
+      ).call
+
+      expect(result).to match_array([
+        hash_including("base_path" => "/boo"),
       ])
     end
 
