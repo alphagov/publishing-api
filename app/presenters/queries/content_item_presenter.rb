@@ -148,6 +148,8 @@ module Presenters
           nil
         when :links
           nil
+        when :link_set_links
+          nil
         when :total
           nil
         else
@@ -180,13 +182,24 @@ module Presenters
         (
           SELECT json_agg((links.link_type, links.target_content_id)) AS links
           FROM links
+          LEFT JOIN link_sets on links.link_set_id = link_sets.id
           WHERE links.edition_id = subquery.id
         ) links_subquery
+      SQL
+
+      LINK_SET_LINKS_SQL = <<-SQL.freeze
+        (
+          SELECT json_agg((links.link_type, links.target_content_id)) AS link_set_links
+          FROM links
+          LEFT JOIN link_sets on links.link_set_id = link_sets.id
+          WHERE link_sets.content_id = content_id
+        ) link_set_links_subquery
       SQL
 
       LATERAL_AGGREGATES = {
         state_history: STATE_HISTORY_SQL,
         links: LINKS_SQL,
+        link_set_links: LINK_SET_LINKS_SQL,
       }.freeze
 
       def join_lateral_aggregates(scope)
@@ -230,7 +243,7 @@ module Presenters
       SQL
 
       def parse_results(results)
-        json_columns = %w[details routes redirects state_history unpublishing links]
+        json_columns = %w[details routes redirects state_history unpublishing links link_set_links]
         int_columns = %w[user_facing_version lock_version]
 
         Enumerator.new do |yielder|
@@ -241,6 +254,7 @@ module Presenters
 
             parse_state_history(result)
             parse_links(result, "links")
+            parse_links(result, "link_set_links")
 
             result.slice!(*fields.map(&:to_s))
 
