@@ -33,10 +33,16 @@ namespace :metrics do
     pushgateway_url = ENV["PROMETHEUS_PUSHGATEWAY_URL"]
     if pushgateway_url.present?
       puts "Pushing metrics to prometheus via #{pushgateway_url}"
-      Prometheus::Client::Push.new(
-        job: "publishing-api-metrics",
-        gateway: pushgateway_url,
-      ).add(prometheus_registry)
+      begin
+        Prometheus::Client::Push.new(
+          job: "publishing-api-metrics",
+          gateway: pushgateway_url,
+        ).add(prometheus_registry)
+      rescue StandardError => e
+        puts e.inspect
+        warn e.inspect
+        raise e
+      end
     end
   end
 end
