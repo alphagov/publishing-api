@@ -164,6 +164,10 @@
                   "value": "newcastle-disease"
                 },
                 {
+                  "label":"Peste des petits ruminants",
+                  "value": "peste-des-petits-ruminants"
+                },
+                {
                   "label": "Swine vesicular disease",
                   "value": "swine-vesicular-disease"
                 }
