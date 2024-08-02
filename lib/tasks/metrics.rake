@@ -38,5 +38,8 @@ namespace :metrics do
         gateway: pushgateway_url,
       ).add(prometheus_registry)
     end
+  rescue StandardError => e
+    warn e.inspect
+    raise e
   end
 end
