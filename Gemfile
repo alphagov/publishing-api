@@ -19,6 +19,7 @@ gem "json-schema", require: false
 gem "oj"
 gem "pg"
 gem "plek"
+gem "prometheus-client"
 gem "sentry-sidekiq"
 gem "sidekiq-unique-jobs"
 gem "whenever", require: false
