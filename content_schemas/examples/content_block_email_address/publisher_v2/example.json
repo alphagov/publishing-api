@@ -7,5 +7,10 @@
   "details": {
     "email_address": "foo@example.com"
   },
+  "links": {
+    "primary_publishing_organisation": [
+      "dcc907d6-433c-42df-9ffb-d9c68be5dc4d"
+    ]
+  },
   "publishing_app": "whitehall"
 }
