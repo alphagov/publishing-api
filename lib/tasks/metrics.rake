@@ -22,7 +22,7 @@ namespace :metrics do
       .group(*edition_count_dimensions)
       .count
 
-    edition_counts.each do |dimensions, count|
+    edition_counts.sort.each do |dimensions, count|
       labels = default_labels.merge(edition_count_dimensions.zip(dimensions).to_h)
       editions_in_database_gauge.set(count, labels:)
     end
