@@ -39,7 +39,7 @@ RSpec.describe EmbeddedContentFinderService do
     end
 
     it "finds contact references when body is an array of hashes" do
-      body = [{ content: "{{embed:contact:#{contacts[0].content_id}}} {{embed:contact:#{contacts[1].content_id}}}" }]
+      body = [{ "content" => "{{embed:contact:#{contacts[0].content_id}}} {{embed:contact:#{contacts[1].content_id}}}" }]
 
       links = EmbeddedContentFinderService.new.fetch_linked_content_ids(body, Edition::DEFAULT_LOCALE)
 
