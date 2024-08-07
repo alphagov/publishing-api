@@ -2,17 +2,19 @@ require "govspeak"
 
 module Presenters
   class DetailsPresenter
-    attr_reader :content_item_details, :change_history_presenter
+    attr_reader :content_item_details, :change_history_presenter, :content_embed_presenter
 
-    def initialize(content_item_details, change_history_presenter)
+    def initialize(content_item_details, change_history_presenter, content_embed_presenter)
       @content_item_details = SymbolizeJSON.symbolize(content_item_details)
       @change_history_presenter = change_history_presenter
+      @content_embed_presenter = content_embed_presenter
     end
 
     def details
       @details ||=
         begin
-          updated = recursively_transform_govspeak(content_item_details)
+          updated = content_embed(content_item_details).presence || content_item_details
+          updated = recursively_transform_govspeak(updated)
           updated[:change_history] = change_history if change_history.present?
           updated
         end
@@ -44,6 +46,10 @@ module Presenters
       else
         obj.map { |o| recursively_transform_govspeak(o) }
       end
+    end
+
+    def content_embed(content_item_details)
+      @content_embed ||= content_embed_presenter&.render_embedded_content(content_item_details)
     end
 
     def change_history

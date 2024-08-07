@@ -4,8 +4,12 @@ RSpec.describe Presenters::DetailsPresenter do
       instance_double(Presenters::ChangeHistoryPresenter, change_history: [])
     end
 
+    let(:content_embed_presenter) do
+      instance_double(Presenters::ContentEmbedPresenter, render_embedded_content: nil)
+    end
+
     subject do
-      described_class.new(edition_details, change_history_presenter).details
+      described_class.new(edition_details, change_history_presenter, content_embed_presenter).details
     end
 
     context "when we're passed details without a body" do
@@ -177,6 +181,63 @@ RSpec.describe Presenters::DetailsPresenter do
 
       it "converts from govspeak appropriately" do
         expect(subject).to eq expected_details
+      end
+    end
+
+    context "when we're passed a body with embedded content" do
+      let(:contact) do
+        create(:edition, state: "published", content_store: "live", document_type: "contact", title: "Some contact")
+      end
+      let(:content_embed_presenter) { Presenters::ContentEmbedPresenter.new(edition) }
+      let(:body) { "{{embed:contact:#{contact.document.content_id}}}" }
+
+      context "when the body is not enumerable" do
+        let(:edition) { create(:edition, details: { body: }, links_hash: { embed: [contact.document.content_id] }) }
+        let(:edition_details) { edition.details }
+        let(:expected_details) do
+          {
+            body: contact.title,
+          }
+        end
+
+        it "embeds the contact details" do
+          is_expected.to match(expected_details)
+        end
+      end
+
+      context "when we're passed details with govspeak and HTML" do
+        let(:edition) do
+          create(:edition,
+                 details: { body: [
+                   { content_type: "text/html", content: body },
+                   { content_type: "text/govspeak", content: body },
+                 ] },
+                 links_hash: { embed: [contact.document.content_id] })
+        end
+        let(:edition_details) { edition.details }
+        let(:expected_details) do
+          {
+            body: [
+              { content_type: "text/html", content: contact.title },
+              { content_type: "text/govspeak", content: contact.title },
+            ],
+          }
+        end
+
+        it "embeds the contact details" do
+          is_expected.to match(expected_details)
+        end
+      end
+
+      context "when we're passed an empty array" do
+        let(:edition) do
+          create(:edition, details: { body: [] })
+        end
+        let(:edition_details) { edition.details }
+
+        it "does not change anything in details" do
+          is_expected.to match(edition_details)
+        end
       end
     end
   end
