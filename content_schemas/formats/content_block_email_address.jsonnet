@@ -16,4 +16,10 @@
       },
     },
   },
+  edition_links: {
+    primary_publishing_organisation: {
+       description: "The organisation that published the content block. Corresponds to the Edition's 'Organisation' in Whitehall, and is empty for all other publishing applications.",
+       maxItems: 1,
+    },
+  },
 }
