@@ -7,7 +7,7 @@ class EmbeddedContentFinderService
 
   def fetch_linked_content_ids(body, locale)
     content_references = if body.is_a?(Array)
-                           body.map { |hash| find_content_references(hash[:content]) }.flatten
+                           body.map { |hash| find_content_references(hash["content"]) }.flatten
                          else
                            find_content_references(body)
                          end
