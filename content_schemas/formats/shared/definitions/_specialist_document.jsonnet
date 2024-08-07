@@ -72,6 +72,9 @@
         "$ref": "#/definitions/medical_safety_alert_metadata",
       },
       {
+        "$ref": "#/definitions/mock_spike_finder_document_metadata",
+      },
+      {
         "$ref": "#/definitions/product_safety_alert_report_recall_metadata",
       },
       {
@@ -2166,6 +2169,32 @@
       issued_date: {
         type: "string",
         pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+      },
+    },
+  },
+  mock_spike_finder_document_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      mock_spike_finder_document_facet_one: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: [
+            "facet_one_value_one",
+            "facet_one_value_two"
+          ],
+        },
+      },
+      mock_spike_finder_document_facet_two: {
+        type: "string",
+        enum: [
+          "facet_two_value_one",
+          "facet_two_value_two"
+        ]
       },
     },
   },
