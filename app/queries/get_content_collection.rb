@@ -64,7 +64,7 @@ module Queries
     end
 
     def permitted_fields
-      default_fields + %w[total]
+      default_fields + %w[total link_set_links]
     end
 
     def default_fields
