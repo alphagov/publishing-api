@@ -323,8 +323,9 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
-    oj (3.16.4)
+    oj (3.16.5)
       bigdecimal (>= 3.0)
+      ostruct (>= 0.2)
     omniauth (2.1.2)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
@@ -532,6 +533,7 @@ GEM
       opentelemetry-semantic_conventions
     opentelemetry-semantic_conventions (1.10.1)
       opentelemetry-api (~> 1.0)
+    ostruct (0.6.0)
     pact (1.65.0)
       pact-mock_service (~> 3.0, >= 3.3.1)
       pact-support (~> 1.16, >= 1.16.9)
