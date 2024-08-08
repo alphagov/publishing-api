@@ -443,6 +443,7 @@
             "classical-swine-fever",
             "foot-and-mouth-disease",
             "newcastle-disease",
+            "peste-des-petits-ruminants",
             "swine-vesicular-disease",
           ]
         }
