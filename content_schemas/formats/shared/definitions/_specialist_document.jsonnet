@@ -322,7 +322,18 @@
           "west-midlands-police",
           "department-for-science-innovation-and-technology",
           "department-for-education",
-          "greater-cambridge-partnership"
+          "dorset-council",
+          "department-for-environment-food-and-rural-affairs",
+          "ministry-of-housing-communities-local-government",
+          "department-for-energy-security-and-net-zero",
+          "department-for-transport",
+          "department-for-work-and-pensions",
+          "foreign-commonwealth-development-office",
+          "hm-revenue-customs",
+          "hm-treasury",
+          "home-office",
+          "ministry-of-defence",
+          "nhs-england"
         ],
       },
       algorithmic_transparency_record_organisation_type: {
