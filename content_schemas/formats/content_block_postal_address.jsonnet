@@ -1,8 +1,5 @@
-(import "shared/default_format.jsonnet") + {
+(import "shared/content_block.jsonnet") + {
   document_type: "content_block_postal_address",
-  base_path: "forbidden",
-  routes: "forbidden",
-  rendering_app: "forbidden",
   definitions: {
     details: {
       type: "object",

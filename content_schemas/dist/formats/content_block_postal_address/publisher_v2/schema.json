@@ -63,6 +63,11 @@
         "policy_areas": {
           "description": "A largely deprecated tag currently only used to power email alerts.",
           "$ref": "#/definitions/guid_list"
+        },
+        "primary_publishing_organisation": {
+          "description": "The organisation that published the content block. Corresponds to the Edition's 'Organisation' in Whitehall, and is empty for all other publishing applications.",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
         }
       }
     },
