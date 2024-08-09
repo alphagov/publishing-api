@@ -118,6 +118,14 @@ module PublishingAPI
       events_key_prefix: "events/",
     )
 
+    # This also configures session_options for use below
+    config.session_store :cookie_store, key: "_interslice_session"
+
+    # Required for all session management (regardless of session_store)
+    config.middleware.use ActionDispatch::Cookies
+
+    config.middleware.use config.session_store, config.session_options
+
     config.debug_exception_response_format = :api
 
     # Even though most GOV.UK apps use the London time_zone, publishing-api almost always wants to

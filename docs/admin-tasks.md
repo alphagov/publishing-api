@@ -113,3 +113,16 @@ To see all the editions that were unpublished between two times run:
 ```
 bundle exec rake "csv_report:unpublishings_by_date_range['2020-10-01 10:00', '2020-12-31 10:00']"
 ```
+
+## Viewing the Sidekiq UI
+
+We have access to the Sidekiq UI but because Publishing API doesn't have a
+frontend we have to use port forwarding to see it in our live environments.
+
+To view the UI run:
+
+```
+kubectl -n apps port-forward deployment/publishing-api 8080:8080
+```
+
+and then navigate to localhost:8080/sidekiq

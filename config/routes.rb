@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     UuidValidator.valid?(request.params[:content_id])
   end
 
+  require "sidekiq/web"
+
   scope format: false do
     put "/publish-intent(/*base_path)", to: "publish_intents#create_or_update"
     get "/publish-intent(/*base_path)", to: "publish_intents#show"
@@ -47,9 +49,7 @@ Rails.application.routes.draw do
     GovukHealthcheck::SidekiqRedis,
   )
 
-  if Rails.env.development?
-    require "sidekiq/web"
-    mount Sidekiq::Web => "/sidekiq"
-  end
+  mount Sidekiq::Web => "/sidekiq"
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
