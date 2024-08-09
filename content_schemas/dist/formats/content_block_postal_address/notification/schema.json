@@ -147,7 +147,7 @@
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "primary_publishing_organisation": {
-          "description": "The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.",
+          "description": "The organisation that published the content block. Corresponds to the Edition's 'Organisation' in Whitehall, and is empty for all other publishing applications.",
           "$ref": "#/definitions/frontend_links_with_base_path",
           "maxItems": 1
         },
@@ -233,7 +233,7 @@
           "$ref": "#/definitions/guid_list"
         },
         "primary_publishing_organisation": {
-          "description": "The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.",
+          "description": "The organisation that published the content block. Corresponds to the Edition's 'Organisation' in Whitehall, and is empty for all other publishing applications.",
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
         },
