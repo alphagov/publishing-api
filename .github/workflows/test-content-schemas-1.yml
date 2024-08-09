@@ -93,7 +93,7 @@ jobs:
 
   test-frontend:
     name: Test Frontend
-    uses: alphagov/frontend/.github/workflows/minitest.yml@main
+    uses: alphagov/frontend/.github/workflows/rspec.yml@main
     with:
       ref: 'main'
       publishingApiRef: ${{ github.ref }}
