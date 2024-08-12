@@ -6,10 +6,13 @@ RSpec.describe Presenters::ContentEmbedPresenter do
       :edition,
       document:,
       details: details.deep_stringify_keys,
-      links_hash: {
-        embed: [embedded_content_id],
-      },
+      links_hash:,
     )
+  end
+  let(:links_hash) do
+    {
+      embed: [embedded_content_id],
+    }
   end
   let(:details) { {} }
 
@@ -95,6 +98,36 @@ RSpec.describe Presenters::ContentEmbedPresenter do
             body: "some string with a reference: VALUE",
           })
         end
+      end
+    end
+
+    context "when the document is an email address" do
+      let(:embedded_document) { create(:document) }
+      let(:links_hash) do
+        {
+          embed: [embedded_document.content_id],
+        }
+      end
+
+      before do
+        create(
+          :edition,
+          document: embedded_document,
+          state: "published",
+          content_store: "live",
+          document_type: "content_block_email_address",
+          details: {
+            email_address: "foo@example.com",
+          },
+        )
+      end
+
+      let(:details) { { body: "some string with a reference: {{embed:content_block_email_address:#{embedded_document.content_id}}}" } }
+
+      it "returns an email address" do
+        expect(described_class.new(edition).render_embedded_content(details)).to eq({
+          body: "some string with a reference: foo@example.com",
+        })
       end
     end
   end

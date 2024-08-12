@@ -44,11 +44,21 @@ module Presenters
         embed_code = embedded_content_references_by_content_id[embedded_edition.content_id].embed_code
         content = content.gsub(
           embed_code,
-          embedded_edition.title,
+          get_content_for_edition(embedded_edition),
         )
       end
 
       content
+    end
+
+    # This is a temporary solution to get email address content blocks working
+    # while we agree on a long-term approach that works for everything.
+    def get_content_for_edition(edition)
+      if edition.document_type == "content_block_email_address"
+        edition.details[:email_address]
+      else
+        edition.title
+      end
     end
   end
 end
