@@ -21,6 +21,14 @@ module V2
       ).call
     end
 
+    def embedded
+      results = Queries::GetEmbeddedContent.new(
+        path_params[:content_id],
+      ).call
+
+      render json: results
+    end
+
     def show
       render json: Queries::GetContent.call(
         path_params[:content_id],
