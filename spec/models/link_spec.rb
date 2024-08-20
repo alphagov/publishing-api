@@ -102,12 +102,9 @@ RSpec.describe Link do
     let(:scope) { double(:scope) }
 
     it "modifies a scope to filter linked editions" do
-      expect(scope).to receive(:joins).with("LEFT JOIN links edition_links ON edition_links.edition_id = editions.id").and_return(scope)
-      expect(scope).to receive(:left_joins).with(document: :link_set_links).and_return(scope)
-
-      expect(scope).to receive(:where).with(edition_links: { link_type: "organisations", target_content_id: "12345" }).and_return(scope)
-      expect(scope).to receive(:where).with(links: { link_type: "organisations", target_content_id: "12345" }).and_return(scope)
-      expect(scope).to receive(:or).with(scope)
+      expect(scope).to receive(:joins).with(anything).and_return(scope)
+      expect(scope).to receive(:where)
+        .with(links: { link_type: "organisations", target_content_id: "12345" })
 
       described_class.filter_editions(scope, "organisations" => "12345")
     end

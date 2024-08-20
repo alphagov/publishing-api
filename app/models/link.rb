@@ -21,13 +21,10 @@ class Link < ApplicationRecord
       logger.warn("filter_editions called with multiple filters. These will be ANDed together in a way that probably isn't what we want. Filters were: #{filters.inspect}")
     end
 
-    scope = scope.joins("LEFT JOIN links edition_links ON edition_links.edition_id = editions.id")
-    scope = scope.left_joins(document: :link_set_links)
+    scope = scope.joins(document: :link_set_links)
 
     filters.each do |link_type, target_content_id|
-      scope = scope
-                .where(edition_links: { link_type:, target_content_id: })
-                .or(scope.where(links: { link_type:, target_content_id: }))
+      scope = scope.where(links: { link_type:, target_content_id: })
     end
 
     scope

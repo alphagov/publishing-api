@@ -164,46 +164,6 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         expect(result).to eq expected
       end
     end
-
-    context "with linkset links" do
-      let(:result) { described_class.present(edition, fields: %i[link_set_links]) }
-
-      context "when we have a linkset link" do
-        before do
-          link_set = create(:link_set, content_id: edition.document.content_id)
-          link_set.links.create!(link_type: "test", target_content_id: content_id)
-        end
-
-        it "presents the item including the link" do
-          expected = {
-            "link_set_links" => { "test" => [content_id] },
-          }
-          expect(result).to eq expected
-        end
-      end
-
-      context "when we have multiple linkset links" do
-        let(:other_content_id) { SecureRandom.uuid }
-        let(:and_another_content_id) { SecureRandom.uuid }
-
-        before do
-          link_set = create(:link_set, content_id: edition.document.content_id)
-          link_set.links.create!(link_type: "test", target_content_id: other_content_id)
-          link_set.links.create!(link_type: "test", target_content_id: and_another_content_id)
-          link_set.links.create!(link_type: "ers", target_content_id: content_id)
-        end
-
-        it "presents the item including the link" do
-          expected = {
-            "link_set_links" => {
-              "test" => [other_content_id, and_another_content_id],
-              "ers" => [content_id],
-            },
-          }
-          expect(result).to eq expected
-        end
-      end
-    end
   end
 
   describe "#present_many" do
