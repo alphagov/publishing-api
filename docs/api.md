@@ -366,34 +366,14 @@ and a state has been specified, the draft is returned.
 - `document_type` *(optional)*
   - The type of editions to return.
 - `fields[]` *(optional)*
-  - Accepts an array of: 
-    - analytics_identifier
-    - base_path
-    - content_store
-    - description
-    - details
-    - document_type
-    - first_published_at
-    - last_edited_at
-    - links
-    - link_set_links
-    - major_published_at
-    - phase
-    - public_updated_at
-    - published_at
-    - publishing_api_first_published_at
-    - publishing_api_last_edited_at
-    - publishing_app
-    - redirects
-    - rendering_app
-    - routes
-    - schema_name
-    - state
-    - title
-    - user_facing_version
-    - update_type
-  - Determines which fields will be returned in the response, if omitted all fields (with the exception of 
-  `link_set_links`) will be returned.
+  - Accepts an array of: analytics_identifier, base_path,
+    content_store, description, details, document_type,
+    first_published_at, last_edited_at, major_published_at, phase,
+    public_updated_at, published_at, publishing_api_first_published_at,
+    publishing_api_last_edited_at, publishing_app, redirects, rendering_app,
+    routes, schema_name, state, title, user_facing_version, update_type
+  - Determines which fields will be returned in the response, if omitted all
+    fields will be returned.
 - `link_*` *(optional)*
   - Accepts a content_id.
   - Used to restrict documents to those linking to another document,
