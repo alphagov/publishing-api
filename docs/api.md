@@ -430,8 +430,8 @@ included within the response.
 
 ## `GET /v2/content/:content_id/embedded`
 
-Retrieves a summary list of any live content which has an embedded reference to
-the target `:content_id`.
+Retrieves a summary list of any draft or published content which has an embedded
+reference to the target `:content_id`.
 
 <!-- TODO: Include a link to how Resuable Content works here when we have it -->
 Content can include an embedded reference in its body when

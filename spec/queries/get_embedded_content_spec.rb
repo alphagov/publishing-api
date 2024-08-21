@@ -1,5 +1,22 @@
 RSpec.describe Queries::GetEmbeddedContent do
   describe "#call" do
+    let(:organisation) do
+      create(:live_edition,
+             title: "bar",
+             document_type: "organisation",
+             schema_name: "organisation",
+             base_path: "/government/organisations/bar")
+    end
+
+    let(:content_block) do
+      create(:live_edition,
+             document_type: "content_block_email_address",
+             schema_name: "content_block_email_address",
+             details: {
+               "email_address" => "foo@example.com",
+             })
+    end
+
     it "returns data prepared by the presenter" do
       target_content_id = SecureRandom.uuid
       allow(Document).to receive(:find_by).with(content_id: target_content_id).and_return(anything)
@@ -26,34 +43,6 @@ RSpec.describe Queries::GetEmbeddedContent do
       end
     end
 
-    context "when the target_content_id does not match a live edition" do
-      it "does not include it in the results" do
-        organisation = create(:live_edition,
-                              title: "bar",
-                              document_type: "organisation",
-                              schema_name: "organisation",
-                              base_path: "/government/organisations/bar")
-        content_block = create(:live_edition, document_type: "content_block_email_address",
-                                              schema_name: "content_block_email_address",
-                                              details: {
-                                                "email_address" => "foo@example.com",
-                                              })
-        target_content_id = content_block.content_id
-        _draft_edition = create(:edition, state: "draft",
-                                          details: {
-                                            body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
-                                          },
-                                          links_hash: {
-                                            primary_publishing_organisation: [organisation.content_id],
-                                            content_block_email_address: [content_block.content_id],
-                                          })
-
-        result = described_class.new(target_content_id).call
-
-        expect(result).to eq({ content_id: target_content_id, total: 0, results: [] })
-      end
-    end
-
     context "when the target_content is not embedded in any live editions" do
       it "returns an empty results list" do
         target_content_id = SecureRandom.uuid
@@ -65,32 +54,33 @@ RSpec.describe Queries::GetEmbeddedContent do
       end
     end
 
-    context "when there are live editions that embed the target content" do
+    context "when there are live and draft editions that embed the target content" do
       it "only passes them to the presenter" do
-        organisation = create(:live_edition,
-                              title: "bar",
-                              document_type: "organisation",
-                              schema_name: "organisation",
-                              base_path: "/government/organisations/bar")
-        content_block = create(:live_edition, document_type: "content_block_email_address",
-                                              schema_name: "content_block_email_address",
-                                              details: {
-                                                "email_address" => "foo@example.com",
-                                              })
         target_content_id = content_block.content_id
-        host_editions = create_list(:live_edition, 2,
-                                    details: {
-                                      body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
-                                    },
-                                    links_hash: {
-                                      primary_publishing_organisation: [organisation.content_id],
-                                      content_block_email_address: [target_content_id],
-                                    })
+        published_host_editions = create_list(:live_edition, 2,
+                                              details: {
+                                                body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                                              },
+                                              links_hash: {
+                                                primary_publishing_organisation: [organisation.content_id],
+                                                embed: [target_content_id],
+                                              })
+        draft_host_editions = create_list(:edition, 2,
+                                          details: {
+                                            body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                                          },
+                                          links_hash: {
+                                            primary_publishing_organisation: [organisation.content_id],
+                                            embed: [target_content_id],
+                                          })
+
         _unwanted_edition = create(:live_edition)
+
+        expected_editions = published_host_editions + draft_host_editions
 
         # The edition records we create in test can't be used as they are as assertions.
         # We load new fields into the Edition using the SQL Select.
-        edition_doubles = host_editions.map do |host_edition|
+        edition_doubles = expected_editions.map do |host_edition|
           double("Edition",
                  id: host_edition.id,
                  title: host_edition.title,
@@ -101,7 +91,7 @@ RSpec.describe Queries::GetEmbeddedContent do
                  primary_publishing_organisation_base_path: organisation.base_path)
         end
 
-        expected_editions = edition_doubles.map do |edition_double|
+        expected_edition_doubles = edition_doubles.map do |edition_double|
           have_attributes(
             id: edition_double.id,
             title: edition_double.title,
@@ -116,8 +106,32 @@ RSpec.describe Queries::GetEmbeddedContent do
         presenter_double = double(Presenters::Queries::EmbeddedContentPresenter)
         expect(Presenters::Queries::EmbeddedContentPresenter).to receive(:new) do |_, editions|
           editions.each_with_index do |edition, index|
-            expect(edition).to expected_editions[index]
+            expect(edition).to expected_edition_doubles[index]
           end
+          presenter_double
+        end
+
+        allow(presenter_double).to receive(:present).and_return({}.to_json)
+
+        described_class.new(target_content_id).call
+      end
+    end
+
+    context "when there are superceded editions that embed the target content" do
+      it "does not pass them to the presenter" do
+        target_content_id = content_block.content_id
+        _superseded_host_edition = create(:gone_edition,
+                                          details: {
+                                            body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                                          },
+                                          links_hash: {
+                                            primary_publishing_organisation: [organisation.content_id],
+                                            embed: [content_block.content_id],
+                                          })
+
+        presenter_double = double(Presenters::Queries::EmbeddedContentPresenter)
+        expect(Presenters::Queries::EmbeddedContentPresenter).to receive(:new) do |_, editions|
+          expect(editions).to be_empty
           presenter_double
         end
 

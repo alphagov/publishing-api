@@ -1,9 +1,10 @@
 module Queries
   class GetEmbeddedContent
-    attr_reader :target_content_id
+    attr_reader :target_content_id, :states
 
     def initialize(target_content_id)
       self.target_content_id = target_content_id
+      self.states = %i[draft published]
     end
 
     def call
@@ -21,7 +22,7 @@ module Queries
   private
 
     def host_editions
-      @host_editions ||= Edition.live
+      @host_editions ||= Edition.where(state: states)
         .joins(:links)
         .joins("LEFT JOIN links AS primary_links ON primary_links.edition_id = editions.id AND primary_links.link_type = 'primary_publishing_organisation'")
         .joins("LEFT JOIN documents ON documents.content_id = primary_links.target_content_id")
@@ -34,6 +35,10 @@ module Queries
         )
     end
 
-    attr_writer :target_content_id
+    def embedded_link_type
+      "embed"
+    end
+
+    attr_writer :target_content_id, :states
   end
 end
