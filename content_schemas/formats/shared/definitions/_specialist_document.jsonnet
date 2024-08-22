@@ -2176,25 +2176,14 @@
     type: "object",
     additionalProperties: false,
     properties: {
-      bulk_published: {
-        type: "boolean",
-      },
       mock_spike_finder_document_facet_one: {
         type: "array",
         items: {
           type: "string",
-          enum: [
-            "facet_one_value_one",
-            "facet_one_value_two"
-          ],
         },
       },
       mock_spike_finder_document_facet_two: {
         type: "string",
-        enum: [
-          "facet_two_value_one",
-          "facet_two_value_two"
-        ]
       },
     },
   },
