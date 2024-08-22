@@ -16,6 +16,7 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`POST /v2/content/:content_id/discard-draft`](#post-v2contentcontent_iddiscard-draft)
 - [`GET /v2/content`](#get-v2content)
 - [`GET /v2/content/:content_id`](#get-v2contentcontent_id)
+- [`GET /v2/content/:content_id/embedded`](#get-v2contentcontent_idembedded)
 - [`PATCH /v2/links/:content_id`](#patch-v2linkscontent_id)
 - [`GET /v2/links/:content_id`](#get-v2linkscontent_id)
 - [`GET /v2/expanded-links/:content_id`](#get-v2expanded-linkscontent_id)
@@ -426,6 +427,20 @@ included within the response.
 - `version` *(optional)*
   - Specify a particular edition of this document
   - If omitted the most recent edition.
+
+## `GET /v2/content/:content_id/embedded`
+
+Retrieves a summary list of any draft or published content which has an embedded
+reference to the target `:content_id`.
+
+<!-- TODO: Include a link to how Resuable Content works here when we have it -->
+Content can include an embedded reference in its body when
+it wants to defer to a reusable piece of content, such as an email address.
+
+### Path parameters
+
+- [`content_id`](model.md#content_id)
+  - Identifies the target document for the reusable piece of content
 
 ## `PATCH /v2/links/:content_id`
 
