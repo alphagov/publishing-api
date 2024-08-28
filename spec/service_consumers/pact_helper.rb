@@ -650,4 +650,35 @@ Pact.provider_states_for "GDS API Adapters" do
       create(:live_edition, base_path: "/4", document: document4, updated_at: "2017-04-01T00:00:00Z", published_at: "2017-04-01T00:00:00Z")
     end
   end
+
+  provider_state "a content item exists (content_id: d66d6552-2627-4451-9dbc-cadbbd2005a1) that embeds the reusable content (content_id: bed722e6-db68-43e5-9079-063f623335a7)" do
+    set_up do
+      reusable_document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      reusable_edition = create(:live_edition, document: reusable_document)
+
+      document = create(:document, content_id: "d66d6552-2627-4451-9dbc-cadbbd2005a1")
+      edition_with_embedded_edition = create(:edition_with_embedded_content,
+                                             document:,
+                                             embedded_content_id: reusable_edition.content_id,
+                                             title: "foo",
+                                             base_path: "/foo",
+                                             document_type: "publication")
+
+      organisation_document = create(:document, content_id: "d1e7d343-9844-4246-a469-1fa4640e12ad")
+      primary_publishing_organisation = create(:live_edition,
+                                               document: organisation_document,
+                                               title: "bar",
+                                               document_type: "organisation",
+                                               schema_name: "organisation",
+                                               base_path: "/bar")
+      create(
+        :link,
+        edition: edition_with_embedded_edition,
+        link_type: :primary_publishing_organisation,
+        link_set: nil,
+        position: 0,
+        target_content_id: primary_publishing_organisation.content_id,
+      )
+    end
+  end
 end
