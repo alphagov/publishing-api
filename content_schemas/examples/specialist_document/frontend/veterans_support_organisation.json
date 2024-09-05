@@ -84,7 +84,7 @@
               "short_name": "Health and Social Care",
               "type": "text",
               "preposition": "helps with",
-              "display_as_result_metadata": true,
+              "display_as_result_metadata": false,
               "filterable": true,
               "allowed_values": [
                 {"label": "Mental Health", "value": "mental-health"},
@@ -98,7 +98,7 @@
               "short_name": "Finance",
               "type": "text",
               "preposition": "helps with",
-              "display_as_result_metadata": true,
+              "display_as_result_metadata": false,
               "filterable": true,
               "allowed_values": [
                 {"label": "Pensions", "value": "pensions"},
@@ -115,7 +115,7 @@
               "short_name": "Legal help",
               "type": "text",
               "preposition": "helps with",
-              "display_as_result_metadata": true,
+              "display_as_result_metadata": false,
               "filterable": true,
               "allowed_values": [
                 {"label": "General legal advice", "value": "general-legal-advice"},
@@ -128,7 +128,7 @@
               "short_name": "Employment, education and training",
               "type": "text",
               "preposition": "helps with",
-              "display_as_result_metadata": true,
+              "display_as_result_metadata": false,
               "filterable": true,
               "allowed_values": [
                 {"label": "Transition support", "value": "transition-support"},
@@ -144,7 +144,7 @@
               "short_name": "Housing",
               "type": "text",
               "preposition": "helps with",
-              "display_as_result_metadata": true,
+              "display_as_result_metadata": false,
               "filterable": true,
               "allowed_values": [
                 {"label": "Homelessness, crisis accommodation", "value": "homelessness-crisis-accommodation"},
@@ -160,7 +160,7 @@
               "short_name": "Families and children",
               "type": "text",
               "preposition": "helps with",
-              "display_as_result_metadata": true,
+              "display_as_result_metadata": false,
               "filterable": true,
               "allowed_values": [
                 {"label": "Support for spouses and families", "value": "support-for-spouses-and-families"},
@@ -175,7 +175,7 @@
               "short_name": "Community and social",
               "type": "text",
               "preposition": "helps with",
-              "display_as_result_metadata": true,
+              "display_as_result_metadata": false,
               "filterable": true,
               "allowed_values": [
                 {"label": "Drop-in centres", "value": "drop-in-centres"},
@@ -191,7 +191,7 @@
               "short_name": "England",
               "type": "text",
               "preposition": "location",
-              "display_as_result_metadata": true,
+              "display_as_result_metadata": false,
               "filterable": true,
               "allowed_values": [
                 {"label": "North East and Yorkshire", "value": "north-east-and-yorkshire"},
@@ -209,7 +209,7 @@
               "short_name": "Northern Ireland",
               "type": "text",
               "preposition": "location",
-              "display_as_result_metadata": true,
+              "display_as_result_metadata": false,
               "filterable": true,
               "allowed_values": [
                 {"label": "North (Coleraine Area)", "value": "north-coleraine-area"},
@@ -224,7 +224,7 @@
               "short_name": "Scotland",
               "type": "text",
               "preposition": "location",
-              "display_as_result_metadata": true,
+              "display_as_result_metadata": false,
               "filterable": true,
               "allowed_values": [
                 {"label": "The Southern Uplands", "value": "the-southern-uplands"},
@@ -239,7 +239,7 @@
               "short_name": "Wales",
               "type": "text",
               "preposition": "location",
-              "display_as_result_metadata": true,
+              "display_as_result_metadata": false,
               "filterable": true,
               "allowed_values": [
                 {"label": "Mid and West Wales", "value": "mid-and-west-wales"},
