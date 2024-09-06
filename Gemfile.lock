@@ -568,7 +568,7 @@ GEM
       ast (~> 2.4.1)
       racc
     parslet (2.0.0)
-    pg (1.5.7)
+    pg (1.5.8)
     plek (5.2.0)
     prometheus-client (4.2.3)
       base64
