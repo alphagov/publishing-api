@@ -184,59 +184,61 @@ RSpec.describe Presenters::DetailsPresenter do
       end
     end
 
-    context "when we're passed a body with embedded content" do
-      let(:contact) do
-        create(:edition, state: "published", content_store: "live", document_type: "contact", title: "Some contact")
-      end
-      let(:content_embed_presenter) { Presenters::ContentEmbedPresenter.new(edition) }
-      let(:body) { "{{embed:contact:#{contact.document.content_id}}}" }
+    %w[body].each do |field_name|
+      context "when we're passed a #{field_name} with embedded content" do
+        let(:embeddable_content) do
+          create(:edition, state: "published", content_store: "live", document_type: "contact", title: "Some contact")
+        end
+        let(:content_embed_presenter) { Presenters::ContentEmbedPresenter.new(edition) }
+        let(:field_value) { "{{embed:contact:#{embeddable_content.document.content_id}}}" }
 
-      context "when the body is not enumerable" do
-        let(:edition) { create(:edition, details: { body: }, links_hash: { embed: [contact.document.content_id] }) }
-        let(:edition_details) { edition.details }
-        let(:expected_details) do
-          {
-            body: contact.title,
-          }
+        context "when the #{field_name} is not enumerable" do
+          let(:edition) { create(:edition, details: { field_name => field_value }, links_hash: { embed: [embeddable_content.document.content_id] }) }
+          let(:edition_details) { edition.details }
+          let(:expected_details) do
+            {
+              field_name => embeddable_content.title,
+            }.symbolize_keys
+          end
+
+          it "embeds the contact details" do
+            is_expected.to match(expected_details)
+          end
         end
 
-        it "embeds the contact details" do
-          is_expected.to match(expected_details)
-        end
-      end
+        context "when we're passed details with govspeak and HTML" do
+          let(:edition) do
+            create(:edition,
+                   details: { field_name => [
+                     { content_type: "text/html", content: field_value },
+                     { content_type: "text/govspeak", content: field_value },
+                   ] },
+                   links_hash: { embed: [embeddable_content.document.content_id] })
+          end
+          let(:edition_details) { edition.details }
+          let(:expected_details) do
+            {
+              field_name => [
+                { content_type: "text/html", content: embeddable_content.title },
+                { content_type: "text/govspeak", content: embeddable_content.title },
+              ],
+            }.symbolize_keys
+          end
 
-      context "when we're passed details with govspeak and HTML" do
-        let(:edition) do
-          create(:edition,
-                 details: { body: [
-                   { content_type: "text/html", content: body },
-                   { content_type: "text/govspeak", content: body },
-                 ] },
-                 links_hash: { embed: [contact.document.content_id] })
-        end
-        let(:edition_details) { edition.details }
-        let(:expected_details) do
-          {
-            body: [
-              { content_type: "text/html", content: contact.title },
-              { content_type: "text/govspeak", content: contact.title },
-            ],
-          }
+          it "embeds the contact details" do
+            is_expected.to match(expected_details)
+          end
         end
 
-        it "embeds the contact details" do
-          is_expected.to match(expected_details)
-        end
-      end
+        context "when we're passed an empty array" do
+          let(:edition) do
+            create(:edition, details: { field_name => [] })
+          end
+          let(:edition_details) { edition.details }
 
-      context "when we're passed an empty array" do
-        let(:edition) do
-          create(:edition, details: { body: [] })
-        end
-        let(:edition_details) { edition.details }
-
-        it "does not change anything in details" do
-          is_expected.to match(edition_details)
+          it "does not change anything in details" do
+            is_expected.to match(edition_details)
+          end
         end
       end
     end
