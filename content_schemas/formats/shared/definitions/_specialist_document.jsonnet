@@ -3021,11 +3021,14 @@
         enum: [
           "alpha",
           "alpha-reassessment",
+          "alpha-amber-evidence-review",
           "beta",
           "beta-reassessment",
+          "beta-amber-evidence-review",
           "live",
           "live-reassessment",
           "live-review",
+          "live-amber-evidence-review",
         ],
       },
       service_provider: {
