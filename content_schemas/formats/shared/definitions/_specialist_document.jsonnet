@@ -295,15 +295,6 @@
           ],
         },
       },
-      focus_sector: {
-        type: "array",
-        items: {
-          type: "string",
-          enum: [
-            "financial-services"
-          ]
-        }
-      }
     },
   },
   algorithmic_transparency_record_metadata: {

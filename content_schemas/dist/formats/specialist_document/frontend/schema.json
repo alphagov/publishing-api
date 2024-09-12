@@ -355,15 +355,6 @@
         "bulk_published": {
           "type": "boolean"
         },
-        "focus_sector": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "financial-services"
-            ]
-          }
-        },
         "key_function": {
           "type": "array",
           "items": {
