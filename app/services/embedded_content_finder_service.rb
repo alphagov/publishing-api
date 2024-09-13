@@ -17,8 +17,10 @@ class EmbeddedContentFinderService
     content_references.map(&:content_id)
   end
 
-  def find_content_references(body)
-    body.scan(EMBED_REGEX).map { |match| ContentReference.new(document_type: match[1], content_id: match[2], embed_code: match[0]) }.uniq
+  def find_content_references(value)
+    return [] unless value.is_a?(String)
+
+    value.scan(EMBED_REGEX).map { |match| ContentReference.new(document_type: match[1], content_id: match[2], embed_code: match[0]) }.uniq
   end
 
 private

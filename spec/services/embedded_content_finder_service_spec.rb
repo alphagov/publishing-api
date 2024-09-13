@@ -75,4 +75,10 @@ RSpec.describe EmbeddedContentFinderService do
       expect { EmbeddedContentFinderService.new.fetch_linked_content_ids(body, Edition::DEFAULT_LOCALE) }.to raise_error(CommandError)
     end
   end
+
+  describe ".find_content_references" do
+    it "returns nil if the argument isn't a scannable string" do
+      expect { EmbeddedContentFinderService.new.find_content_references(false).to eq([]) }
+    end
+  end
 end
