@@ -99,9 +99,9 @@ module Commands
       end
 
       def fetch_embedded_content(edition)
-        return [] if edition[:details]["body"].nil?
+        return [] if edition[:details].nil?
 
-        EmbeddedContentFinderService.new.fetch_linked_content_ids(edition[:details]["body"], edition.locale)
+        EmbeddedContentFinderService.new.fetch_linked_content_ids(edition[:details], edition.locale)
       end
 
       def create_redirect

@@ -20,6 +20,30 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     end
   end
 
+  context "when embedded content is in a details field other than body" do
+    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:document) { create(:document, content_id:) }
+
+    let(:payload_for_multiple_field_embeds) do
+      payload.merge!(
+        document_type: "transaction",
+        schema_name: "transaction",
+        details: {
+          downtime_message: "{{embed:contact:#{first_contact.document.content_id}}}",
+        },
+      )
+    end
+
+    it "should create a link" do
+      expect {
+        put "/v2/content/#{content_id}", params: payload_for_multiple_field_embeds.to_json
+      }.to change(Link, :count).by(1)
+
+      expect(Link.find_by(target_content_id: first_contact.content_id)).not_to be_nil
+    end
+  end
+
   context "with embedded content as an array" do
     let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
