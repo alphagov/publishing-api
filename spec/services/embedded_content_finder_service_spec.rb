@@ -23,32 +23,34 @@ RSpec.shared_examples "finds references" do |document_type|
              details: { title: "Some Title" })
     end
 
-    it "finds content references" do
-      body = "{{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}"
+    %w[body].each do |field_name|
+      it "finds content references" do
+        field = "{{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}"
 
-      links = EmbeddedContentFinderService.new.fetch_linked_content_ids(body, Edition::DEFAULT_LOCALE)
+        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(field, Edition::DEFAULT_LOCALE)
 
-      expect(links).to eq([editions[0].content_id, editions[1].content_id])
-    end
+        expect(links).to eq([editions[0].content_id, editions[1].content_id])
+      end
 
-    it "finds content references when body is an array of hashes" do
-      body = [{ "content" => "{{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}" }]
+      it "finds content references when #{field_name} is an array of hashes" do
+        field = [{ "content" => "{{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}" }]
 
-      links = EmbeddedContentFinderService.new.fetch_linked_content_ids(body, Edition::DEFAULT_LOCALE)
+        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(field, Edition::DEFAULT_LOCALE)
 
-      expect(links).to eq([editions[0].content_id, editions[1].content_id])
-    end
+        expect(links).to eq([editions[0].content_id, editions[1].content_id])
+      end
 
-    it "errors when given a content ID that is still draft" do
-      body = "{{embed:#{document_type}:#{draft_edition.content_id}}}"
+      it "errors when given a content ID that is still draft" do
+        field = "{{embed:#{document_type}:#{draft_edition.content_id}}}"
 
-      expect { EmbeddedContentFinderService.new.fetch_linked_content_ids(body, Edition::DEFAULT_LOCALE) }.to raise_error(CommandError)
-    end
+        expect { EmbeddedContentFinderService.new.fetch_linked_content_ids(field, Edition::DEFAULT_LOCALE) }.to raise_error(CommandError)
+      end
 
-    it "errors when given a live content ID that is not available in the current locale" do
-      body = "{{embed:#{document_type}:#{editions[0].content_id}}}"
+      it "errors when given a live content ID that is not available in the current locale" do
+        field = "{{embed:#{document_type}:#{editions[0].content_id}}}"
 
-      expect { EmbeddedContentFinderService.new.fetch_linked_content_ids(body, "foo") }.to raise_error(CommandError)
+        expect { EmbeddedContentFinderService.new.fetch_linked_content_ids(field, "foo") }.to raise_error(CommandError)
+      end
     end
   end
 end
