@@ -5,26 +5,36 @@ module Presenters
     end
 
     def render_embedded_content(details)
-      return details if details[:body].nil?
+      details.each_pair do |field, value|
+        next if value.blank?
 
-      details[:body] = if details[:body].is_a?(Array)
-                         details[:body].map do |content|
-                           {
-                             content_type: content[:content_type],
-                             content: render_embedded_editions(content[:content]),
-                           }
-                         end
-                       else
-                         render_embedded_editions(details[:body])
-                       end
+        details[field] = convert_field(value)
+      end
 
       details
     end
 
   private
 
+    def convert_field(value)
+      case value
+      when Array
+        value.map do |content|
+          convert_field(content)
+        end
+      when Hash
+        value.each do |nested_key, nested_value|
+          value[nested_key] = convert_field(nested_value)
+        end
+      else
+        render_embedded_editions(value)
+      end
+    end
+
     def render_embedded_editions(content)
       embedded_content_references = EmbeddedContentFinderService.new.find_content_references(content)
+      return content if embedded_content_references.empty?
+
       embedded_content_references_by_content_id = embedded_content_references.index_by(&:content_id)
 
       target_content_ids = @edition

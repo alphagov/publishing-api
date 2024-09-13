@@ -57,6 +57,52 @@ RSpec.describe Presenters::ContentEmbedPresenter do
       end
     end
 
+    context "when body is a hash" do
+      let(:details) do
+        { body: { title: "some string with a reference: {{embed:contact:#{embedded_content_id}}}" } }
+      end
+
+      it "returns embedded content references with values from their editions" do
+        expect(described_class.new(edition).render_embedded_content(details)).to eq({
+          body: { title: "some string with a reference: VALUE" },
+        })
+      end
+    end
+
+    context "when body is a multipart document" do
+      let(:details) do
+        {
+          parts: [
+            body: [
+              {
+                content: "some string with a reference: {{embed:contact:#{embedded_content_id}}}",
+                content_type: "text/govspeak",
+              },
+            ],
+            slug: "some-slug",
+            title: "Some title",
+          ],
+        }
+      end
+
+      it "returns embedded content references with values from their editions" do
+        expect(described_class.new(edition).render_embedded_content(details)).to eq(
+          {
+            parts: [
+              body: [
+                {
+                  content: "some string with a reference: VALUE",
+                  content_type: "text/govspeak",
+                },
+              ],
+              slug: "some-slug",
+              title: "Some title",
+            ],
+          },
+        )
+      end
+    end
+
     context "when the embedded content is available in multiple locales" do
       let(:details) { { body: "some string with a reference: {{embed:contact:#{embedded_content_id}}}" } }
 

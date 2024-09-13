@@ -184,7 +184,7 @@ RSpec.describe Presenters::DetailsPresenter do
       end
     end
 
-    %w[body].each do |field_name|
+    %w[body downtime_message more_information].each do |field_name|
       context "when we're passed a #{field_name} with embedded content" do
         let(:embeddable_content) do
           create(:edition, state: "published", content_store: "live", document_type: "contact", title: "Some contact")
