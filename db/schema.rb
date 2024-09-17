@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_20_153403) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_17_133620) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -117,6 +117,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_20_153403) do
     t.datetime "updated_at", precision: nil, null: false
     t.jsonb "expanded_links", default: {}, null: false
     t.index ["content_id", "locale", "with_drafts"], name: "expanded_links_content_id_locale_with_drafts_index", unique: true
+  end
+
+  create_table "friendly_ids", force: :cascade do |t|
+    t.string "friendly_id", null: false
+    t.string "content_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_id"], name: "index_friendly_ids_on_content_id"
+    t.index ["friendly_id"], name: "index_friendly_ids_on_friendly_id"
   end
 
   create_table "link_changes", force: :cascade do |t|
