@@ -18,6 +18,12 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
       expect(Link.find_by(target_content_id: first_contact.content_id)).not_to be_nil
       expect(Link.find_by(target_content_id: second_contact.content_id)).not_to be_nil
     end
+
+    it "should send transformed content to the content store" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      expect_content_store_to_have_received_details_including({ "body" => "#{first_contact.title} #{second_contact.title}" })
+    end
   end
 
   context "when embedded content is in a details field other than body" do
@@ -42,6 +48,111 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
 
       expect(Link.find_by(target_content_id: first_contact.content_id)).not_to be_nil
     end
+
+    it "should send transformed content to the content store" do
+      put "/v2/content/#{content_id}", params: payload_for_multiple_field_embeds.to_json
+
+      expect_content_store_to_have_received_details_including({ "downtime_message" => first_contact.title.to_s })
+    end
+  end
+
+  context "with multipart content" do
+    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:document) { create(:document, content_id:) }
+    let(:details) do
+      {
+        country: {
+          slug: "some-country",
+          name: "Some country",
+        },
+        updated_at: "2015-10-15T11:00:20+01:00",
+        reviewed_at: "2015-10-15T11:00:20+01:00",
+        change_description: "Latest Update - this advice has been reviewed and re-issued without amendment",
+        alert_status: [],
+        email_signup_link: "/foreign-travel-advice/email-signup",
+        parts: [
+          {
+            slug: "part-1",
+            title: "Part 1",
+            body: [
+              {
+                "content_type": "text/govspeak",
+                "content": "{{embed:contact:#{first_contact.document.content_id}}}",
+              },
+              {
+                "content_type": "text/html",
+                "content": "<p>{{embed:contact:#{first_contact.document.content_id}}}</p>",
+              },
+            ],
+          },
+          {
+            slug: "part-2",
+            title: "Part 2",
+            body: [
+              {
+                "content_type": "text/govspeak",
+                "content": "{{embed:contact:#{second_contact.document.content_id}}}",
+              },
+              {
+                "content_type": "text/html",
+                "content": "<p>{{embed:contact:#{second_contact.document.content_id}}}</p>",
+              },
+            ],
+          },
+        ],
+      }
+    end
+
+    before do
+      payload.merge!(document_type: "travel_advice", schema_name: "travel_advice", details:)
+    end
+
+    it "should create links" do
+      expect {
+        put "/v2/content/#{content_id}", params: payload.to_json
+      }.to change(Link, :count).by(2)
+
+      expect(Link.find_by(target_content_id: first_contact.content_id)).not_to be_nil
+      expect(Link.find_by(target_content_id: second_contact.content_id)).not_to be_nil
+    end
+
+    it "should send transformed content to the content store" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      expect_content_store_to_have_received_details_including({
+        "parts" => [
+          {
+            "slug" => "part-1",
+            "title" => "Part 1",
+            "body" => [
+              {
+                "content_type" => "text/govspeak",
+                "content" => first_contact.title,
+              },
+              {
+                "content_type" => "text/html",
+                "content" => "<p>#{first_contact.title}</p>",
+              },
+            ],
+          },
+          {
+            "slug" => "part-2",
+            "title" => "Part 2",
+            "body" => [
+              {
+                "content_type" => "text/govspeak",
+                "content" => second_contact.title,
+              },
+              {
+                "content_type" => "text/html",
+                "content" => "<p>#{second_contact.title}</p>",
+              },
+            ],
+          },
+        ],
+      })
+    end
   end
 
   context "with embedded content as an array" do
@@ -60,6 +171,62 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
 
       expect(Link.find_by(target_content_id: first_contact.content_id)).not_to be_nil
       expect(Link.find_by(target_content_id: second_contact.content_id)).not_to be_nil
+    end
+
+    it "should send transformed content to the content store" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      expect_content_store_to_have_received_details_including({ "body" => array_including({ "content_type" => "text/govspeak", "content" => "#{first_contact.title} #{second_contact.title}" }) })
+    end
+  end
+
+  context "with an embedded email address" do
+    let(:first_email_address) { create(:edition, state: "published", content_store: "live", document_type: "content_block_email_address", details: { email_address: "foo@example.com" }) }
+    let(:second_email_address) { create(:edition, state: "published", content_store: "live", document_type: "content_block_email_address", details: { email_address: "bar@example.com" }) }
+    let(:document) { create(:document, content_id:) }
+
+    before do
+      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:content_block_email_address:#{first_email_address.document.content_id}}} {{embed:content_block_email_address:#{second_email_address.document.content_id}}}" })
+    end
+
+    it "should create links" do
+      expect {
+        put "/v2/content/#{content_id}", params: payload.to_json
+      }.to change(Link, :count).by(2)
+
+      expect(Link.find_by(target_content_id: first_email_address.content_id)).not_to be_nil
+      expect(Link.find_by(target_content_id: second_email_address.content_id)).not_to be_nil
+    end
+
+    it "should send transformed content to the content store" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      expect_content_store_to_have_received_details_including({ "body" => "#{first_email_address.details[:email_address]} #{second_email_address.details[:email_address]}" })
+    end
+  end
+
+  context "with mixed embedded content" do
+    let(:email_address) { create(:edition, state: "published", content_store: "live", document_type: "content_block_email_address", details: { email_address: "foo@example.com" }) }
+    let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:document) { create(:document, content_id:) }
+
+    before do
+      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:content_block_email_address:#{email_address.document.content_id}}} {{embed:contact:#{contact.document.content_id}}}" })
+    end
+
+    it "should create links" do
+      expect {
+        put "/v2/content/#{content_id}", params: payload.to_json
+      }.to change(Link, :count).by(2)
+
+      expect(Link.find_by(target_content_id: contact.content_id)).not_to be_nil
+      expect(Link.find_by(target_content_id: email_address.content_id)).not_to be_nil
+    end
+
+    it "should send transformed content to the content store" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      expect_content_store_to_have_received_details_including({ "body" => "#{email_address.details[:email_address]} #{contact.title}" })
     end
   end
 
@@ -145,5 +312,13 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
       expect(response).to be_unprocessable
       expect(response.body).to match(/Could not find any live editions in locale en for: #{first_fake_content_id}, #{second_fake_content_id}/)
     end
+  end
+
+private
+
+  def expect_content_store_to_have_received_details_including(expected_payload)
+    assert_requested :put,
+                     Plek.find("draft-content-store") + "/content#{base_path}",
+                     body: hash_including({ "details" => hash_including(expected_payload) })
   end
 end
