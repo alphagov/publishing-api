@@ -16,6 +16,23 @@ module Presenters
 
   private
 
+    def embedded_editions
+      @embedded_editions ||= begin
+        target_content_ids = @edition
+         .links
+         .where(link_type: "embed")
+         .pluck(:target_content_id)
+
+        embedded_edition_ids = ::Queries::GetEditionIdsWithFallbacks.call(
+          target_content_ids,
+          locale_fallback_order: [@edition.locale, Edition::DEFAULT_LOCALE].uniq,
+          state_fallback_order: %w[published],
+        )
+
+        Edition.where(id: embedded_edition_ids).index_by(&:content_id)
+      end
+    end
+
     def convert_field(value)
       case value
       when Array
@@ -35,23 +52,9 @@ module Presenters
       embedded_content_references = EmbeddedContentFinderService.new.find_content_references(content)
       return content if embedded_content_references.empty?
 
-      embedded_content_references_by_content_id = embedded_content_references.index_by(&:content_id)
-
-      target_content_ids = @edition
-        .links
-        .where(link_type: "embed")
-        .pluck(:target_content_id)
-
-      embedded_edition_ids = ::Queries::GetEditionIdsWithFallbacks.call(
-        target_content_ids,
-        locale_fallback_order: [@edition.locale, Edition::DEFAULT_LOCALE].uniq,
-        state_fallback_order: %w[published],
-      )
-
-      embedded_editions = Edition.where(id: embedded_edition_ids)
-
-      embedded_editions.each do |embedded_edition|
-        embed_code = embedded_content_references_by_content_id[embedded_edition.content_id].embed_code
+      embedded_content_references.each do |content_reference|
+        embed_code = content_reference.embed_code
+        embedded_edition = embedded_editions[content_reference.content_id]
         content = content.gsub(
           embed_code,
           get_content_for_edition(embedded_edition),

@@ -176,5 +176,41 @@ RSpec.describe Presenters::ContentEmbedPresenter do
         })
       end
     end
+
+    context "when multiple documents are embedded in different parts of the document" do
+      let(:other_embedded_content_id) { SecureRandom.uuid }
+
+      before do
+        embedded_document = create(:document, content_id: other_embedded_content_id)
+        create(
+          :edition,
+          document: embedded_document,
+          state: "published",
+          content_store: "live",
+          document_type: "contact",
+          title: "VALUE2",
+        )
+      end
+
+      let(:links_hash) do
+        {
+          embed: [embedded_content_id, other_embedded_content_id],
+        }
+      end
+
+      let(:details) do
+        {
+          title: "title string with reference: {{embed:contact:#{other_embedded_content_id}}}",
+          body: "some string with a reference: {{embed:contact:#{embedded_content_id}}}",
+        }
+      end
+
+      it "returns embedded content references with values from their editions" do
+        expect(described_class.new(edition).render_embedded_content(details)).to eq({
+          title: "title string with reference: VALUE2",
+          body: "some string with a reference: VALUE",
+        })
+      end
+    end
   end
 end
