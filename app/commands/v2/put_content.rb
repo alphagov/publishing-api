@@ -16,6 +16,7 @@ module Commands
         edition = create_or_update_edition
         set_timestamps(edition)
 
+        create_friendly_id
         update_content_dependencies(edition)
 
         orphaned_links = link_diff_between(
@@ -42,6 +43,15 @@ module Commands
       end
 
     private
+
+      def create_friendly_id
+        return unless payload[:friendly_id]
+
+        existing_friendly_id = FriendlyId.find_by(payload[:friendly_id])
+        raise CommandError.new(code: 422, message: msg) if existing_friendly_id&.content_id != payload[:content_id]
+
+        FriendlyId.create!(friendly_id: payload[:friendly_id], content_id: payload[:content_id]) unless existing_friendly_id
+      end
 
       def link_diff_between(old_links, new_links)
         old_links - new_links
