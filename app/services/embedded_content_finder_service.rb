@@ -5,20 +5,26 @@ class EmbeddedContentFinderService
   UUID_REGEX = /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/
   EMBED_REGEX = /({{embed:(#{SUPPORTED_DOCUMENT_TYPES.join('|')}):#{UUID_REGEX}}})/
 
-  def fetch_linked_content_ids(body, locale)
-    content_references = if body.is_a?(Array)
-                           body.map { |hash| find_content_references(hash["content"]) }.flatten
-                         else
-                           find_content_references(body)
-                         end
-    return [] if content_references.empty?
+  def fetch_linked_content_ids(details, locale)
+    content_references = details.values.map { |value|
+      find_content_references(value)
+    }.flatten.compact.uniq
 
     check_all_references_exist(content_references, locale)
     content_references.map(&:content_id)
   end
 
-  def find_content_references(body)
-    body.scan(EMBED_REGEX).map { |match| ContentReference.new(document_type: match[1], content_id: match[2], embed_code: match[0]) }.uniq
+  def find_content_references(value)
+    case value
+    when Array
+      value.map { |item| find_content_references(item) }.flatten
+    when Hash
+      value.map { |_, v| find_content_references(v) }.flatten
+    when String
+      value.scan(EMBED_REGEX).map { |match| ContentReference.new(document_type: match[1], content_id: match[2], embed_code: match[0]) }.uniq
+    else
+      []
+    end
   end
 
 private

@@ -57,6 +57,52 @@ RSpec.describe Presenters::ContentEmbedPresenter do
       end
     end
 
+    context "when body is a hash" do
+      let(:details) do
+        { body: { title: "some string with a reference: {{embed:contact:#{embedded_content_id}}}" } }
+      end
+
+      it "returns embedded content references with values from their editions" do
+        expect(described_class.new(edition).render_embedded_content(details)).to eq({
+          body: { title: "some string with a reference: VALUE" },
+        })
+      end
+    end
+
+    context "when body is a multipart document" do
+      let(:details) do
+        {
+          parts: [
+            body: [
+              {
+                content: "some string with a reference: {{embed:contact:#{embedded_content_id}}}",
+                content_type: "text/govspeak",
+              },
+            ],
+            slug: "some-slug",
+            title: "Some title",
+          ],
+        }
+      end
+
+      it "returns embedded content references with values from their editions" do
+        expect(described_class.new(edition).render_embedded_content(details)).to eq(
+          {
+            parts: [
+              body: [
+                {
+                  content: "some string with a reference: VALUE",
+                  content_type: "text/govspeak",
+                },
+              ],
+              slug: "some-slug",
+              title: "Some title",
+            ],
+          },
+        )
+      end
+    end
+
     context "when the embedded content is available in multiple locales" do
       let(:details) { { body: "some string with a reference: {{embed:contact:#{embedded_content_id}}}" } }
 
@@ -127,6 +173,42 @@ RSpec.describe Presenters::ContentEmbedPresenter do
       it "returns an email address" do
         expect(described_class.new(edition).render_embedded_content(details)).to eq({
           body: "some string with a reference: foo@example.com",
+        })
+      end
+    end
+
+    context "when multiple documents are embedded in different parts of the document" do
+      let(:other_embedded_content_id) { SecureRandom.uuid }
+
+      before do
+        embedded_document = create(:document, content_id: other_embedded_content_id)
+        create(
+          :edition,
+          document: embedded_document,
+          state: "published",
+          content_store: "live",
+          document_type: "contact",
+          title: "VALUE2",
+        )
+      end
+
+      let(:links_hash) do
+        {
+          embed: [embedded_content_id, other_embedded_content_id],
+        }
+      end
+
+      let(:details) do
+        {
+          title: "title string with reference: {{embed:contact:#{other_embedded_content_id}}}",
+          body: "some string with a reference: {{embed:contact:#{embedded_content_id}}}",
+        }
+      end
+
+      it "returns embedded content references with values from their editions" do
+        expect(described_class.new(edition).render_embedded_content(details)).to eq({
+          title: "title string with reference: VALUE2",
+          body: "some string with a reference: VALUE",
         })
       end
     end

@@ -5,43 +5,56 @@ module Presenters
     end
 
     def render_embedded_content(details)
-      return details if details[:body].nil?
+      details.each_pair do |field, value|
+        next if value.blank?
 
-      details[:body] = if details[:body].is_a?(Array)
-                         details[:body].map do |content|
-                           {
-                             content_type: content[:content_type],
-                             content: render_embedded_editions(content[:content]),
-                           }
-                         end
-                       else
-                         render_embedded_editions(details[:body])
-                       end
+        details[field] = convert_field(value)
+      end
 
       details
     end
 
   private
 
+    def embedded_editions
+      @embedded_editions ||= begin
+        target_content_ids = @edition
+         .links
+         .where(link_type: "embed")
+         .pluck(:target_content_id)
+
+        embedded_edition_ids = ::Queries::GetEditionIdsWithFallbacks.call(
+          target_content_ids,
+          locale_fallback_order: [@edition.locale, Edition::DEFAULT_LOCALE].uniq,
+          state_fallback_order: %w[published],
+        )
+
+        Edition.where(id: embedded_edition_ids).index_by(&:content_id)
+      end
+    end
+
+    def convert_field(value)
+      case value
+      when Array
+        value.map do |content|
+          convert_field(content)
+        end
+      when Hash
+        value.each do |nested_key, nested_value|
+          value[nested_key] = convert_field(nested_value)
+        end
+      else
+        render_embedded_editions(value)
+      end
+    end
+
     def render_embedded_editions(content)
       embedded_content_references = EmbeddedContentFinderService.new.find_content_references(content)
-      embedded_content_references_by_content_id = embedded_content_references.index_by(&:content_id)
+      return content if embedded_content_references.empty?
 
-      target_content_ids = @edition
-        .links
-        .where(link_type: "embed")
-        .pluck(:target_content_id)
-
-      embedded_edition_ids = ::Queries::GetEditionIdsWithFallbacks.call(
-        target_content_ids,
-        locale_fallback_order: [@edition.locale, Edition::DEFAULT_LOCALE].uniq,
-        state_fallback_order: %w[published],
-      )
-
-      embedded_editions = Edition.where(id: embedded_edition_ids)
-
-      embedded_editions.each do |embedded_edition|
-        embed_code = embedded_content_references_by_content_id[embedded_edition.content_id].embed_code
+      embedded_content_references.each do |content_reference|
+        embed_code = content_reference.embed_code
+        embedded_edition = embedded_editions[content_reference.content_id]
         content = content.gsub(
           embed_code,
           get_content_for_edition(embedded_edition),
