@@ -43,6 +43,7 @@ RSpec.describe "Embedded documents" do
   context "when an edition embeds a reference to the content block" do
     it "returns details of the edition and its publishing organisation in the results" do
       host_edition = create(:live_edition,
+                            publishing_app: "whitehall",
                             details: {
                               "body" => "<p>{{embed:email_address:#{content_block.content_id}}}</p>\n",
                             },
@@ -64,6 +65,7 @@ RSpec.describe "Embedded documents" do
           "title" => host_edition.title,
           "base_path" => host_edition.base_path,
           "document_type" => host_edition.document_type,
+          "publishing_app" => host_edition.publishing_app,
           "primary_publishing_organisation" => {
             "content_id" => publishing_organisation.content_id,
             "title" => publishing_organisation.title,

@@ -9,6 +9,7 @@ RSpec.describe Presenters::Queries::EmbeddedContentPresenter do
               title: "foo",
               base_path: "/foo",
               document_type: "publication",
+              publishing_app: "publisher",
               primary_publishing_organisation_content_id: organisation_edition_id,
               primary_publishing_organisation_title: "bar",
               primary_publishing_organisation_base_path: "/bar")]
@@ -25,6 +26,7 @@ RSpec.describe Presenters::Queries::EmbeddedContentPresenter do
             title: "foo",
             base_path: "/foo",
             document_type: "publication",
+            publishing_app: "publisher",
             primary_publishing_organisation: {
               content_id: organisation_edition_id,
               title: "bar",
