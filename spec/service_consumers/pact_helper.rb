@@ -657,12 +657,12 @@ Pact.provider_states_for "GDS API Adapters" do
       reusable_edition = create(:live_edition, document: reusable_document)
 
       document = create(:document, content_id: "d66d6552-2627-4451-9dbc-cadbbd2005a1")
-      edition_with_embedded_edition = create(:edition_with_embedded_content,
-                                             document:,
-                                             embedded_content_id: reusable_edition.content_id,
-                                             title: "foo",
-                                             base_path: "/foo",
-                                             document_type: "publication")
+      live_edition_with_embedded_edition = create(:live_edition_with_embedded_content,
+                                                  document:,
+                                                  embedded_content_id: reusable_edition.content_id,
+                                                  title: "foo",
+                                                  base_path: "/foo",
+                                                  document_type: "publication")
 
       organisation_document = create(:document, content_id: "d1e7d343-9844-4246-a469-1fa4640e12ad")
       primary_publishing_organisation = create(:live_edition,
@@ -673,7 +673,7 @@ Pact.provider_states_for "GDS API Adapters" do
                                                base_path: "/bar")
       create(
         :link,
-        edition: edition_with_embedded_edition,
+        edition: live_edition_with_embedded_edition,
         link_type: :primary_publishing_organisation,
         link_set: nil,
         position: 0,
