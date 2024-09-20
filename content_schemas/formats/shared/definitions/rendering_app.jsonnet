@@ -15,6 +15,7 @@
       "frontend",
       "government-frontend",
       "info-frontend",
+      "licensify",
       "performanceplatform-big-screen-view",
       "rummager",
       "search-api",
