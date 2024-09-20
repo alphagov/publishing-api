@@ -26,6 +26,7 @@ module Presenters
             title: edition.title,
             base_path: edition.base_path,
             document_type: edition.document_type,
+            publishing_app: edition.publishing_app,
             primary_publishing_organisation: {
               content_id: edition.primary_publishing_organisation_content_id,
               title: edition.primary_publishing_organisation_title,

@@ -64,7 +64,8 @@ RSpec.describe Queries::GetEmbeddedContent do
                                               links_hash: {
                                                 primary_publishing_organisation: [organisation.content_id],
                                                 embed: [target_content_id],
-                                              })
+                                              },
+                                              publishing_app: "example-app")
         draft_host_editions = create_list(:edition, 2,
                                           details: {
                                             body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
@@ -72,7 +73,8 @@ RSpec.describe Queries::GetEmbeddedContent do
                                           links_hash: {
                                             primary_publishing_organisation: [organisation.content_id],
                                             embed: [target_content_id],
-                                          })
+                                          },
+                                          publishing_app: "another-app")
 
         _unwanted_edition = create(:live_edition)
 
@@ -86,6 +88,7 @@ RSpec.describe Queries::GetEmbeddedContent do
                  title: host_edition.title,
                  base_path: host_edition.base_path,
                  document_type: host_edition.document_type,
+                 publishing_app: host_edition.publishing_app,
                  primary_publishing_organisation_content_id: organisation.content_id,
                  primary_publishing_organisation_title: organisation.title,
                  primary_publishing_organisation_base_path: organisation.base_path)
@@ -97,6 +100,7 @@ RSpec.describe Queries::GetEmbeddedContent do
             title: edition_double.title,
             base_path: edition_double.base_path,
             document_type: edition_double.document_type,
+            publishing_app: edition_double.publishing_app,
             primary_publishing_organisation_content_id: edition_double.primary_publishing_organisation_content_id,
             primary_publishing_organisation_title: edition_double.primary_publishing_organisation_title,
             primary_publishing_organisation_base_path: edition_double.primary_publishing_organisation_base_path,
