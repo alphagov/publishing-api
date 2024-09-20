@@ -55,7 +55,7 @@ RSpec.describe Queries::GetEmbeddedContent do
     end
 
     context "when there are live and draft editions that embed the target content" do
-      it "only passes them to the presenter" do
+      it "only passes live editions to the presenter" do
         target_content_id = content_block.content_id
         published_host_editions = create_list(:live_edition, 2,
                                               details: {
@@ -66,19 +66,19 @@ RSpec.describe Queries::GetEmbeddedContent do
                                                 embed: [target_content_id],
                                               },
                                               publishing_app: "example-app")
-        draft_host_editions = create_list(:edition, 2,
-                                          details: {
-                                            body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
-                                          },
-                                          links_hash: {
-                                            primary_publishing_organisation: [organisation.content_id],
-                                            embed: [target_content_id],
-                                          },
-                                          publishing_app: "another-app")
+        _draft_host_editions = create_list(:edition, 2,
+                                           details: {
+                                             body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                                           },
+                                           links_hash: {
+                                             primary_publishing_organisation: [organisation.content_id],
+                                             embed: [target_content_id],
+                                           },
+                                           publishing_app: "another-app")
 
         _unwanted_edition = create(:live_edition)
 
-        expected_editions = published_host_editions + draft_host_editions
+        expected_editions = published_host_editions
 
         # The edition records we create in test can't be used as they are as assertions.
         # We load new fields into the Edition using the SQL Select.

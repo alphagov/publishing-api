@@ -95,9 +95,10 @@ FactoryBot.define do
     document_type { "contact" }
   end
 
-  factory :edition_with_embedded_content, parent: :edition do
+  factory :live_edition_with_embedded_content, parent: :edition do
     base_path { "/#{SecureRandom.uuid}" }
     details { { body: "{{embed:#{embedded_content_type}:#{embedded_content_id}" } }
+    state { "published" }
 
     transient do
       embedded_content_id { SecureRandom.uuid }

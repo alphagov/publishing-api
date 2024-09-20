@@ -4,7 +4,7 @@ module Queries
 
     def initialize(target_content_id)
       self.target_content_id = target_content_id
-      self.states = %i[draft published]
+      self.states = %i[published]
     end
 
     def call
