@@ -954,7 +954,7 @@
   "locale": "en",
   "phase": "live",
   "public_updated_at": "2023-06-28T10:32:34+01:00",
-  "publishing_app": "special-route-publisher",
+  "publishing_app": "publishing-api",
   "publishing_request_id": "21-1687944754.231-10.13.31.76-382",
   "publishing_scheduled_at": null,
   "rendering_app": "frontend",
