@@ -1,0 +1,16 @@
+- :content_id: "c1f08359-21f7-49c1-8811-54bf6690b6a3"
+  :base_path: "/account/home"
+  :title: "Account home page"
+  :rendering_app: "frontend"
+
+- :content_id: "e5098fc2-ad79-4c6f-882b-410831c12f60"
+  :base_path: "/account/saved-pages/add"
+  :title: "Save a page"
+  :rendering_app: "frontend"
+
+- :content_id: "cdcad470-21c6-4e19-b644-9e499de1ad12"
+  :base_path: "/media"
+  :title: "Government Uploads"
+  :description: "Handles redirects for /media/:id/:filename path for asset manager"
+  :type: "prefix"
+  :rendering_app: "government-frontend"
