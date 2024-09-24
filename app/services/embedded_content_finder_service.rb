@@ -1,11 +1,11 @@
 class EmbeddedContentFinderService
-  ContentReference = Data.define(:document_type, :content_id, :embed_code)
+  ContentReference = Data.define(:document_type, :friendly_id, :embed_code)
 
   SUPPORTED_DOCUMENT_TYPES = %w[contact content_block_email_address].freeze
   UUID_REGEX = /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/
   EMBED_REGEX = /({{embed:(#{SUPPORTED_DOCUMENT_TYPES.join('|')}):#{UUID_REGEX}}})/
 
-  def fetch_linked_content_ids(body, locale)
+  def fetch_linked_friendly_ids(body, locale)
     content_references = if body.is_a?(Array)
                            body.map { |hash| find_content_references(hash["content"]) }.flatten
                          else
@@ -18,7 +18,7 @@ class EmbeddedContentFinderService
   end
 
   def find_content_references(body)
-    body.scan(EMBED_REGEX).map { |match| ContentReference.new(document_type: match[1], content_id: match[2], embed_code: match[0]) }.uniq
+    body.scan(EMBED_REGEX).map { |match| ContentReference.new(document_type: match[1], friendly_id: match[2], embed_code: match[0]) }.uniq
   end
 
 private
@@ -35,11 +35,14 @@ private
   end
 
   def live_editions(content_references, locale)
+    embedded_content_references = EmbeddedContentReference.where(friendly_id: content_references.map(&:friendly_id))
+    content_ids = embedded_content_references.map(&:content_id)
+
     Edition.with_document.where(
       state: "published",
       content_store: "live",
       document_type: content_references.map(&:document_type),
-      documents: { content_id: content_references.map(&:content_id), locale: },
+      documents: { content_id: content_ids, locale: },
     )
   end
 end

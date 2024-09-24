@@ -1,0 +1,2 @@
+class EmbeddedContentReference < ApplicationRecord
+end
