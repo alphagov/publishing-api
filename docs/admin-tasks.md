@@ -96,6 +96,55 @@ bundle exec rake expanded_links:populate_by_document_type['document-type']
 bundle exec rake expanded_links:truncate
 ```
 
+## Publishing special routes
+
+Special routes are content items that have to be put into publishing-api / content-store so that routes
+can be created for them in router-api's database (this includes things like assets that have to be available
+at route or hardcoded pages). The routes are described in lib/data/special_routes.yaml and lib/data/homepage.yaml
+
+* To publish the homepage special route
+```
+bundle exec rake publish_homepage
+```
+
+* To publish all special routes (except homepage)
+```
+bundle exec rake publish_special_routes
+```
+
+* To publish all special routes for one application
+```
+bundle exec rake publish_special_routes[frontend]
+```
+
+* To publish one route
+```
+bundle exec rake publish_one_special_route[/base-path]
+```
+
+* To unpublish one route so that it will return Gone
+```
+bundle exec rake unpublish_one_special_route[/base-path]
+```
+
+* To unpublish one route so that it will return Redirect
+```
+bundle exec rake unpublish_one_special_route[/base-path,/new-base-path]
+```
+
+### Adding new special routes
+
+Add an entry to /lib/data/special_routes.yaml, for example:
+
+```
+- :content_id: 'c1f08359-21f7-49c1-8811-54bf6690b6a3'
+  :base_path: '/account/home'
+  :title: 'Account home page'
+  :rendering_app: 'frontend'
+```
+
+You can generate a new value for `content_id` by running `SecureRandom.uuid` in a ruby console.
+
 ## Generating CSV reports of publishings and unpublishing by date range
 
 There are two tasks provided which create CSV reports of publishings and
