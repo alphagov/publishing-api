@@ -1,11 +1,19 @@
 RSpec.describe Queries::GetEmbeddedContent do
   describe "#call" do
     let(:organisation) do
-      create(:live_edition,
-             title: "bar",
-             document_type: "organisation",
-             schema_name: "organisation",
-             base_path: "/government/organisations/bar")
+      edition_params = {
+        title: "bar",
+        document: create(:document),
+        document_type: "organisation",
+        schema_name: "organisation",
+        base_path: "/government/organisations/bar",
+      }
+
+      create(:superseded_edition, **edition_params)
+      live_edition = create(:live_edition, **edition_params.merge({ user_facing_version: 2 }))
+      create(:draft_edition, **edition_params.merge({ user_facing_version: 3 }))
+
+      live_edition
     end
 
     let(:content_block) do

@@ -26,7 +26,7 @@ module Queries
         .joins(:links)
         .joins("LEFT JOIN links AS primary_links ON primary_links.edition_id = editions.id AND primary_links.link_type = 'primary_publishing_organisation'")
         .joins("LEFT JOIN documents ON documents.content_id = primary_links.target_content_id")
-        .joins("LEFT JOIN editions AS org_editions ON org_editions.document_id = documents.id")
+        .joins("LEFT JOIN editions AS org_editions ON org_editions.document_id = documents.id AND org_editions.state = 'published'")
         .where(links: { link_type: embedded_link_type, target_content_id: })
         .select(
           "editions.id, editions.title, editions.base_path, editions.document_type, editions.publishing_app",
