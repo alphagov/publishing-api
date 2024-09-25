@@ -245,3 +245,10 @@
   :additional_routes:
     - :base_path: "/when-do-the-clocks-change.json"
       :type: "exact"
+
+- :content_id: "5fc8b4bc-f899-4d4e-ae10-f9beeb172f50"
+  :base_path: "/favicon.ico"
+  :title: "Favicon"
+  :rendering_app: "frontend"
+  :description: "The favicon is the image displayed in locations such as the browser tabs."
+  :override_existing: true
