@@ -30,7 +30,7 @@ RSpec.describe Commands::PutPublishIntent do
       end
 
       it "enqueues a PutPublishIntent job" do
-        expect(PutPublishIntentWorker).to receive(:perform_async)
+        expect(PutPublishIntentJob).to receive(:perform_async)
         described_class.call(payload, downstream: true)
       end
     end

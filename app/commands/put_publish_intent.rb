@@ -7,7 +7,7 @@ module Commands
         payload = publish_intent
         enqueue = ENV.fetch("ENQUEUE_PUBLISH_INTENTS", false)
         if enqueue == "true"
-          PutPublishIntentWorker.perform_async(
+          PutPublishIntentJob.perform_async(
             "base_path" => base_path,
             "payload" => payload.to_json,
           )

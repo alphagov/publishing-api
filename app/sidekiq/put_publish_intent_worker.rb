@@ -1,8 +1,8 @@
 require "sidekiq-unique-jobs"
 
-class PutPublishIntentWorker
+class PutPublishIntentJob
   include DownstreamQueue
-  include Sidekiq::Worker
+  include Sidekiq::Job
   include PerformAsyncInQueue
 
   sidekiq_options queue: HIGH_QUEUE,
@@ -23,3 +23,5 @@ class PutPublishIntentWorker
     notify_airbrake(e, args)
   end
 end
+
+PutPublishIntentWorker = PutPublishIntentJob
