@@ -183,4 +183,76 @@ RSpec.describe DownstreamLiveWorker do
       subject.perform(arguments.merge("content_id" => SecureRandom.uuid))
     end
   end
+
+  describe "when dependency_resolution_source_content_id is provided" do
+    let(:dependent_document) { create(:document) }
+    let(:arguments) do
+      base_arguments.merge(
+        "dependency_resolution_source_content_id" => dependent_edition.document.content_id,
+        "message_queue_event_type" => "links",
+      )
+    end
+
+    EmbeddedContentFinderService::SUPPORTED_DOCUMENT_TYPES.each do |document_type|
+      context "when the dependent content is a #{document_type}" do
+        let(:dependent_edition) { create(:live_edition, title: "something", document_type:, document: dependent_document) }
+
+        it "send a change note the downstream payload" do
+          expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message).with(
+            anything,
+            event_type: "links",
+          )
+
+          expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message).with(
+            a_hash_including(
+              details: a_hash_including(
+                change_history: [
+                  {
+                    note: "#{document_type.titleize} something changed",
+                    public_timestamp: anything,
+                  },
+                ],
+              ),
+            ),
+            event_type: "major",
+          )
+          subject.perform(arguments)
+        end
+
+        it "sends both major and link type event messages to the queue" do
+          expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message).with(
+            anything,
+            event_type: "links",
+          )
+
+          expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message).with(
+            anything,
+            event_type: "major",
+          )
+          subject.perform(arguments)
+        end
+      end
+    end
+
+    context "when the dependent content is not an embedded piece of content" do
+      let(:dependent_edition) { create(:live_edition, document_type: "something_else") }
+
+      it "does not create a change note" do
+        expect { subject.perform(arguments) }.to change(ChangeNote, :count).by(0)
+      end
+
+      it "sends only a link type event message to the queue" do
+        expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message).with(
+          anything,
+          event_type: "links",
+        )
+
+        expect(PublishingAPI.service(:queue_publisher)).to_not receive(:send_message).with(
+          anything,
+          event_type: "major",
+        )
+        subject.perform(arguments)
+      end
+    end
+  end
 end

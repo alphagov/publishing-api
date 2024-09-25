@@ -32,6 +32,8 @@ class DownstreamLiveWorker
       DownstreamService.set_govuk_dependency_resolution_source_content_id_header(
         dependency_resolution_source_content_id,
       )
+
+      create_republication_change_note if triggered_by_embedded_content?
     end
 
     payload = DownstreamPayload.new(edition, payload_version, draft: false)
@@ -40,12 +42,12 @@ class DownstreamLiveWorker
     DownstreamService.update_live_content_store(payload) if edition.base_path
 
     if %w[published unpublished].include?(edition.state)
-      event_type = message_queue_event_type || edition.update_type
-      Rails.logger.info(
-        "DownstreamLiveWorker#perform:" \
-        "Broadcasting #{content_id}@#{payload_version} to message queue as type #{event_type}",
-      )
-      DownstreamService.broadcast_to_message_queue(payload, event_type)
+      event_types = [message_queue_event_type || edition.update_type]
+      event_types.push("major") if triggered_by_embedded_content?
+
+      event_types.each do |event_type|
+        broadcast_to_message_queue(payload, event_type)
+      end
     end
 
     enqueue_dependencies if update_dependencies
@@ -106,5 +108,38 @@ private
       payload_version:,
       expanded_links: downstream_payload.expanded_links,
     )
+  end
+
+  def create_republication_change_note
+    edition.details = edition.details.merge(
+      "change_history" => [{
+        "note" => "#{dependency_resolution_source_content.document_type.titleize} #{dependency_resolution_source_content.title} changed",
+        "public_timestamp" => Time.zone.now,
+      }],
+    )
+  end
+
+  def triggered_by_embedded_content?
+    if dependency_resolution_source_content
+      EmbeddedContentFinderService::SUPPORTED_DOCUMENT_TYPES.include?(dependency_resolution_source_content.document_type)
+    else
+      false
+    end
+  end
+
+  def dependency_resolution_source_content
+    @dependency_resolution_source_content ||= unless dependency_resolution_source_content_id.nil?
+                                                Document.find_by(
+                                                  content_id: dependency_resolution_source_content_id,
+                                                ).live
+                                              end
+  end
+
+  def broadcast_to_message_queue(payload, event_type)
+    Rails.logger.info(
+      "DownstreamLiveWorker#perform:" \
+        "Broadcasting #{content_id}@#{payload_version} to message queue as type #{event_type}",
+    )
+    DownstreamService.broadcast_to_message_queue(payload, event_type)
   end
 end
