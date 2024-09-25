@@ -252,3 +252,10 @@
   :rendering_app: "frontend"
   :description: "The favicon is the image displayed in locations such as the browser tabs."
   :override_existing: true
+
+- :content_id: '2b4e10dd-26eb-4e67-bf0e-1c9f56e60388'
+  :base_path: '/apply-for-a-licence'
+  :type: "prefix"
+  :title: 'Apply for a licence'
+  :rendering_app: 'licensify'
+  :override_existing: true
