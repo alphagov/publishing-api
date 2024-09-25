@@ -1,3 +1,14 @@
+- :content_id: "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a"
+  :base_path: "/"
+  :document_type: "homepage"
+  :title: "GOV.UK homepage"
+  :rendering_app: "frontend"
+  :links:
+    :organisations:
+      - "af07d5a5-df63-4ddc-9383-6a666845ebe9"
+    :primary_publishing_organisation:
+      - "af07d5a5-df63-4ddc-9383-6a666845ebe9"
+
 - :content_id: "c1f08359-21f7-49c1-8811-54bf6690b6a3"
   :base_path: "/account/home"
   :title: "Account home page"

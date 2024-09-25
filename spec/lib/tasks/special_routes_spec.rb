@@ -20,11 +20,12 @@ RSpec.describe "Rake tasks for publishing special routes" do
         Rake::Task["special_routes:publish"].reenable
       end
 
-      it "publishes the special routes" do
+      it "publishes the special routes, except the homepage" do
         Rake::Task["special_routes:publish"].invoke
 
         expect(Document.count).to eq(3)
         expect(Edition.count).to eq(3)
+        expect(Edition.all.collect(&:title)).to eq(["Account home page", "Save a page", "Government Uploads"])
       end
     end
 
@@ -33,13 +34,12 @@ RSpec.describe "Rake tasks for publishing special routes" do
         Rake::Task["special_routes:publish_for_app"].reenable
       end
 
-      it "publishes the special routes for one particular app without publishing others" do
-        Rake::Task["special_routes:publish_for_app"].invoke("government-frontend")
+      it "publishes the special routes for one particular app without publishing others or the homepage" do
+        Rake::Task["special_routes:publish_for_app"].invoke("frontend")
 
-        expect(Document.count).to eq(1)
-        expect(Edition.count).to eq(1)
-        edition = Edition.where(title: "Government Uploads").first
-        expect(edition).not_to be_nil
+        expect(Document.count).to eq(2)
+        expect(Edition.count).to eq(2)
+        expect(Edition.all.collect(&:title)).to eq(["Account home page", "Save a page"])
       end
 
       it "returns a message if there are no routes for that app" do
@@ -106,30 +106,20 @@ RSpec.describe "Rake tasks for publishing special routes" do
         expect(Edition.first.state).to eq("published")
       end
     end
-  end
 
-  context "with homepage data" do
-    before do
-      stub_request(:put, %r{.*content-store.*/content/.*})
-      Rake::Task["special_routes:publish_homepage"].reenable
-    end
+    describe "special_routes:publish_homepage" do
+      before do
+        Rake::Task["special_routes:publish_homepage"].reenable
+      end
 
-    let(:replacement_homepage_file) do
-      YAML.load_file(Rails.root.join("spec/fixtures/homepage.yaml"))
-    end
+      it "publishes the homepage, and nothing else" do
+        Rake::Task["special_routes:publish_homepage"].invoke
 
-    before do
-      original_homepage_path = Rails.root.join("lib/data/homepage.yaml")
-      allow(YAML).to receive(:load_file).with(original_homepage_path).and_return(replacement_homepage_file)
-    end
-
-    it "publishes the special routes" do
-      Rake::Task["special_routes:publish_homepage"].invoke
-
-      expect(Document.count).to eq(1)
-      expect(Edition.count).to eq(1)
-      edition = Edition.where(title: "GOV.UK homepage").first
-      expect(edition).not_to be_nil
+        expect(Document.count).to eq(1)
+        expect(Edition.count).to eq(1)
+        edition = Edition.where(title: "GOV.UK homepage").first
+        expect(edition).not_to be_nil
+      end
     end
   end
 end

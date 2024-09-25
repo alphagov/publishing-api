@@ -96,10 +96,14 @@ class SpecialRoutePublisher
   end
 
   def self.load_special_routes
-    YAML.load_file(Rails.root.join("lib/data/special_routes.yaml"))
+    load_all_special_routes.reject { |r| r.fetch(:document_type, nil) == "homepage" }
   end
 
   def self.load_homepage
-    YAML.load_file(Rails.root.join("lib/data/homepage.yaml"))
+    load_all_special_routes.select { |r| r.fetch(:document_type, nil) == "homepage" }
+  end
+
+  def self.load_all_special_routes
+    YAML.load_file(Rails.root.join("lib/data/special_routes.yaml"))
   end
 end
