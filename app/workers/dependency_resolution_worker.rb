@@ -9,6 +9,8 @@ class DependencyResolutionWorker
 
     send_source_stats
 
+    Rails.logger.info("Found #{dependencies.count} dependencies")
+
     dependencies.each do |(content_id, locale)|
       send_downstream(content_id, locale)
     end
@@ -68,7 +70,7 @@ private
   end
 
   def dependencies
-    Queries::ContentDependencies.new(
+    @dependencies ||= Queries::ContentDependencies.new(
       content_id:,
       locale:,
       content_stores:,

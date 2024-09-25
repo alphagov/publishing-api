@@ -138,7 +138,7 @@ private
   def broadcast_to_message_queue(payload, event_type)
     Rails.logger.info(
       "DownstreamLiveWorker#perform:" \
-        "Broadcasting #{content_id}@#{payload_version} to message queue as type #{event_type}",
+        "Broadcasting `#{edition.title}` #{content_id}@#{payload_version} to message queue as type #{event_type}",
     )
     DownstreamService.broadcast_to_message_queue(payload, event_type)
   end
