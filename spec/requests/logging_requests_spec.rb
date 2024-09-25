@@ -9,8 +9,8 @@ RSpec.describe "Logging requests", type: :request do
         headers: { "HTTP_GOVUK_REQUEST_ID" => govuk_request_id },
       )
       GdsApi::GovukHeaders.clear_headers # Simulate workers running in a separate thread
-      Sidekiq::Worker.drain_all # Run all workers
-      Sidekiq::Worker.clear_all
+      Sidekiq::Job.drain_all # Run all workers
+      Sidekiq::Job.clear_all
     end
 
     expect(WebMock).to have_requested(:put, /draft-content-store.*content/)
@@ -62,8 +62,8 @@ RSpec.describe "Logging requests", type: :request do
         # Simulate workers running in a separate thread
         GdsApi::GovukHeaders.clear_headers
         # Run all workers
-        Sidekiq::Worker.drain_all
-        Sidekiq::Worker.clear_all
+        Sidekiq::Job.drain_all
+        Sidekiq::Job.clear_all
       end
 
       expect(WebMock).to have_requested(:put, /draft-content-store.*content\/b/)
