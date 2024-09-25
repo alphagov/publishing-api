@@ -1,4 +1,4 @@
-RSpec.describe DownstreamLiveWorker do
+RSpec.describe DownstreamLiveJob do
   let(:edition) do
     create(:live_edition, base_path: "/foo")
   end

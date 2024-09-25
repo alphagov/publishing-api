@@ -88,7 +88,7 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     it "does not send to the downstream live worker" do
-      expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
+      expect(DownstreamLiveJob).not_to receive(:perform_async_in_queue)
       described_class.call(payload)
     end
 

@@ -297,7 +297,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "sends to downstream live worker" do
-      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+      expect(DownstreamLiveJob).to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
           a_hash_including(
@@ -312,19 +312,19 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "sends to the downstream live worker without updating dependencies if it hasn't changed" do
-      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+      expect(DownstreamLiveJob).to receive(:perform_async_in_queue)
         .with(anything, a_hash_including("update_dependencies" => true))
 
       described_class.call(payload)
 
-      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+      expect(DownstreamLiveJob).to receive(:perform_async_in_queue)
         .with(anything, a_hash_including("update_dependencies" => false))
 
       described_class.call(payload)
     end
 
     it "sends a low priority request to the downstream live worker for bulk publishing" do
-      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+      expect(DownstreamLiveJob).to receive(:perform_async_in_queue)
         .with(
           "downstream_low",
           a_hash_including("content_id", "locale", "message_queue_event_type" => "links"),
@@ -345,7 +345,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       it "sends the live edition for all locales downstream" do
         %w[en fr].each do |locale|
-          expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+          expect(DownstreamLiveJob).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
               a_hash_including("content_id" => content_id, "locale" => locale),
@@ -363,7 +363,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       end
 
       it "does not send a request to downstream live worker" do
-        expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamLiveJob).not_to receive(:perform_async_in_queue)
         described_class.call(payload, downstream: false)
       end
     end
@@ -387,7 +387,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "sends to downstream live worker" do
-      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+      expect(DownstreamLiveJob).to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
           a_hash_including(
@@ -420,7 +420,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "sends link_a downstream as an orphaned content_id when replaced by link_b" do
-      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+      expect(DownstreamLiveJob).to receive(:perform_async_in_queue)
         .with("downstream_high", a_hash_including("orphaned_content_ids" => [link_a]))
 
       described_class.call(payload)

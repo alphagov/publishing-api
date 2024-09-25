@@ -63,8 +63,8 @@ module Commands
           )
         end
 
-        DownstreamLiveWorker.perform_async_in_queue(
-          DownstreamLiveWorker::HIGH_QUEUE,
+        DownstreamLiveJob.perform_async_in_queue(
+          DownstreamLiveJob::HIGH_QUEUE,
           "content_id" => content_id,
           "locale" => locale,
           "message_queue_event_type" => "republish",

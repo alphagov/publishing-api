@@ -228,14 +228,14 @@ module Commands
       def send_downstream
         return unless downstream
 
-        queue = update_type == "republish" ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
+        queue = update_type == "republish" ? DownstreamLiveJob::LOW_QUEUE : DownstreamLiveJob::HIGH_QUEUE
 
         DownstreamDraftJob.perform_async_in_queue(
           queue,
           worker_params,
         )
 
-        DownstreamLiveWorker.perform_async_in_queue(
+        DownstreamLiveJob.perform_async_in_queue(
           queue,
           live_worker_params,
         )

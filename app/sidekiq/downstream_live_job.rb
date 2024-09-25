@@ -1,8 +1,8 @@
 require "sidekiq-unique-jobs"
 
-class DownstreamLiveWorker
+class DownstreamLiveJob
   include DownstreamQueue
-  include Sidekiq::Worker
+  include Sidekiq::Job
   include PerformAsyncInQueue
 
   sidekiq_options queue: HIGH_QUEUE,
@@ -42,7 +42,7 @@ class DownstreamLiveWorker
     if %w[published unpublished].include?(edition.state)
       event_type = message_queue_event_type || edition.update_type
       Rails.logger.info(
-        "DownstreamLiveWorker#perform:" \
+        "DownstreamLiveJob#perform:" \
         "Broadcasting #{content_id}@#{payload_version} to message queue as type #{event_type}",
       )
       DownstreamService.broadcast_to_message_queue(payload, event_type)
@@ -108,3 +108,5 @@ private
     )
   end
 end
+
+DownstreamLiveWorker = DownstreamLiveJob

@@ -74,7 +74,7 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
   end
 
   it "sends an unpublishing to the live content store" do
-    expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+    expect(DownstreamLiveJob).to receive(:perform_async_in_queue)
       .with(
         "downstream_high",
         a_hash_including("content_id" => content_id),

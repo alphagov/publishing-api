@@ -96,8 +96,8 @@ private
   def downstream_live(dependent_content_id, locale)
     return if draft?
 
-    DownstreamLiveWorker.perform_async_in_queue(
-      DownstreamLiveWorker::LOW_QUEUE,
+    DownstreamLiveJob.perform_async_in_queue(
+      DownstreamLiveJob::LOW_QUEUE,
       "content_id" => dependent_content_id,
       "locale" => locale,
       "message_queue_event_type" => "links",

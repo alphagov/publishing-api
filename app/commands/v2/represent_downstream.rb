@@ -43,7 +43,7 @@ module Commands
         }
 
         EventLogger.log_command(self.class, event_payload) do |_event|
-          DownstreamLiveWorker.perform_async_in_queue(
+          DownstreamLiveJob.perform_async_in_queue(
             queue,
             "content_id" => content_id,
             "locale" => locale,

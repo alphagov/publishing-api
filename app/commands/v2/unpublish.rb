@@ -128,8 +128,8 @@ module Commands
           "source_command" => "unpublish",
         )
 
-        DownstreamLiveWorker.perform_async_in_queue(
-          DownstreamLiveWorker::HIGH_QUEUE,
+        DownstreamLiveJob.perform_async_in_queue(
+          DownstreamLiveJob::HIGH_QUEUE,
           "content_id" => document.content_id,
           "locale" => document.locale,
           "update_dependencies" => true,

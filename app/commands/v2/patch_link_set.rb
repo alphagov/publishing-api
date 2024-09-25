@@ -105,8 +105,8 @@ module Commands
       end
 
       def downstream_live(content_id, locale, orphaned_content_ids, update_dependencies)
-        queue = bulk_publishing? ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
-        DownstreamLiveWorker.perform_async_in_queue(
+        queue = bulk_publishing? ? DownstreamLiveJob::LOW_QUEUE : DownstreamLiveJob::HIGH_QUEUE
+        DownstreamLiveJob.perform_async_in_queue(
           queue,
           "content_id" => content_id,
           "locale" => locale,
