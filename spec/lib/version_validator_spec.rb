@@ -1,4 +1,4 @@
-RSpec.describe Tasks::VersionValidator do
+RSpec.describe VersionValidator do
   let(:content_id) { SecureRandom.uuid }
   let(:document) { create(:document, content_id:) }
 

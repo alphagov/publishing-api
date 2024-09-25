@@ -1,4 +1,4 @@
-RSpec.describe Tasks::SpecialRoutePublisher do
+RSpec.describe SpecialRoutePublisher do
   let(:content_id) { "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a" }
 
   before do
