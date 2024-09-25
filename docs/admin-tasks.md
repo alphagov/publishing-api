@@ -100,36 +100,36 @@ bundle exec rake expanded_links:truncate
 
 Special routes are content items that have to be put into publishing-api / content-store so that routes
 can be created for them in router-api's database (this includes things like assets that have to be available
-at route or hardcoded pages). The routes are described in lib/data/special_routes.yaml and lib/data/homepage.yaml
+at route or hardcoded pages). The routes are described in lib/data/special_routes.yaml
 
 * To publish the homepage special route
 ```
-bundle exec rake publish_homepage
+bundle exec rake special_routes:publish_homepage
 ```
 
 * To publish all special routes (except homepage)
 ```
-bundle exec rake publish_special_routes
+bundle exec rake special_routes:publish
 ```
 
 * To publish all special routes for one application
 ```
-bundle exec rake publish_special_routes[frontend]
+bundle exec rake special_routes:publish_for_app[frontend]
 ```
 
 * To publish one route
 ```
-bundle exec rake publish_one_special_route[/base-path]
+bundle exec rake special_routes:publish_one_route[/base-path]
 ```
 
 * To unpublish one route so that it will return Gone
 ```
-bundle exec rake unpublish_one_special_route[/base-path]
+bundle exec rake special_routes:unpublish_one_route[/base-path]
 ```
 
 * To unpublish one route so that it will return Redirect
 ```
-bundle exec rake unpublish_one_special_route[/base-path,/new-base-path]
+bundle exec rake special_routes:unpublish_one_route[/base-path,/new-base-path]
 ```
 
 ### Adding new special routes
