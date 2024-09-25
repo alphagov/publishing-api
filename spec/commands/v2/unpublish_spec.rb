@@ -173,7 +173,7 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "sends an unpublishing downstream" do
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
             a_hash_including("content_id" => content_id, "locale" => locale, "source_command" => "unpublish"),
@@ -424,7 +424,7 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "excludes orphaned content ids downstream draft as they were handled in put content" do
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with("downstream_high", hash_excluding("orphaned_content_ids"))
       end
     end
@@ -517,7 +517,7 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "sends an unpublishing to the draft content store" do
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
             a_hash_including("content_id" => content_id),
@@ -527,7 +527,7 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "sends an unpublishing to the draft content store" do
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
             a_hash_including("content_id" => content_id),
@@ -571,7 +571,7 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "does not send to any downstream system for a 'gone'" do
-        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).not_to receive(:perform_async_in_queue)
         expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
 
         redraft_payload = payload.merge(
@@ -582,7 +582,7 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "does not send to any downstream system for a 'redirect'" do
-        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).not_to receive(:perform_async_in_queue)
         expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
 
         redraft_payload = payload.merge(
@@ -593,7 +593,7 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "does not send to any downstream system for a 'withdrawal'" do
-        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).not_to receive(:perform_async_in_queue)
         expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
 
         redraft_payload = payload.merge(
@@ -604,7 +604,7 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "does not send to any downstream system for 'vanish'" do
-        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).not_to receive(:perform_async_in_queue)
         expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
 
         redraft_payload = payload.merge(

@@ -82,8 +82,8 @@ private
   def downstream_draft(dependent_content_id, locale)
     return unless draft?
 
-    DownstreamDraftWorker.perform_async_in_queue(
-      DownstreamDraftWorker::LOW_QUEUE,
+    DownstreamDraftJob.perform_async_in_queue(
+      DownstreamDraftJob::LOW_QUEUE,
       "content_id" => dependent_content_id,
       "locale" => locale,
       "update_dependencies" => false,

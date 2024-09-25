@@ -62,7 +62,7 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     it "sends to the downstream draft worker" do
-      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+      expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
           a_hash_including(
@@ -80,7 +80,7 @@ RSpec.describe Commands::V2::PutContent do
     it "sends to the downstream draft worker only the fields which have changed" do
       described_class.call(payload)
 
-      expect(DownstreamDraftWorker)
+      expect(DownstreamDraftJob)
         .to receive(:perform_async_in_queue)
         .with("downstream_high", a_hash_including("source_fields" => %w[title]))
 
@@ -106,7 +106,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when the 'downstream' parameter is false" do
       it "does not send to the downstream draft worker" do
-        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).not_to receive(:perform_async_in_queue)
 
         described_class.call(payload, downstream: false)
       end
@@ -114,7 +114,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when the 'bulk_publishing' flag is set" do
       it "enqueues in the correct queue" do
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(
             "downstream_low",
             anything,
@@ -357,9 +357,9 @@ RSpec.describe Commands::V2::PutContent do
 
     context "field doesn't change between drafts" do
       it "doesn't update the dependencies" do
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(anything, a_hash_including("update_dependencies" => true))
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(anything, a_hash_including("update_dependencies" => false))
         described_class.call(payload)
         described_class.call(payload)
@@ -395,17 +395,17 @@ RSpec.describe Commands::V2::PutContent do
       end
 
       it "sends all draft translations downstream" do
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(anything, a_hash_including("content_id" => content_id, "locale" => "en"))
 
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(anything, a_hash_including("content_id" => content_id, "locale" => "cy"))
 
         described_class.call(payload)
       end
 
       it "does not send the other translation downstream if there is no base path" do
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(anything, a_hash_including("content_id" => content_id, "locale" => "cy"))
           .never
 
@@ -440,10 +440,10 @@ RSpec.describe Commands::V2::PutContent do
       end
 
       it "sends only sends the updated translation downstream" do
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(anything, a_hash_including("content_id" => content_id, "locale" => "en"))
 
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(anything, a_hash_including("content_id" => content_id, "locale" => "cy"))
           .never
 
@@ -451,7 +451,7 @@ RSpec.describe Commands::V2::PutContent do
       end
 
       it "does not send the other translation downstream if there is no base path" do
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(anything, a_hash_including("content_id" => content_id, "locale" => "cy"))
           .never
 

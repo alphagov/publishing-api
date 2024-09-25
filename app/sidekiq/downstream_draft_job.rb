@@ -1,8 +1,8 @@
 require "sidekiq-unique-jobs"
 
-class DownstreamDraftWorker
+class DownstreamDraftJob
   include DownstreamQueue
-  include Sidekiq::Worker
+  include Sidekiq::Job
   include PerformAsyncInQueue
 
   sidekiq_options queue: HIGH_QUEUE,
@@ -114,3 +114,5 @@ private
     )
   end
 end
+
+DownstreamDraftWorker = DownstreamDraftJob

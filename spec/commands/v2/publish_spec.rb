@@ -131,7 +131,7 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "updates the dependencies" do
-        expect(DownstreamDraftWorker)
+        expect(DownstreamDraftJob)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including("update_dependencies" => true))
         expect(DownstreamLiveWorker)
@@ -195,7 +195,7 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "updates the dependencies" do
-        expect(DownstreamDraftWorker)
+        expect(DownstreamDraftJob)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including("update_dependencies" => true))
 
@@ -238,7 +238,7 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "doesn't updates the dependencies" do
-        expect(DownstreamDraftWorker)
+        expect(DownstreamDraftJob)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including("update_dependencies" => false))
 
@@ -573,7 +573,7 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "sends to the draft downstream" do
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including("update_dependencies" => true))
 
         described_class.call(payload)

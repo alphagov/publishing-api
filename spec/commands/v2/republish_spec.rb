@@ -47,8 +47,8 @@ RSpec.describe Commands::V2::Republish do
       described_class.call(payload)
     end
 
-    it "calls the DownstreamDraftWorker" do
-      expect(DownstreamDraftWorker)
+    it "calls the DownstreamDraftJob" do
+      expect(DownstreamDraftJob)
         .to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
@@ -107,15 +107,15 @@ RSpec.describe Commands::V2::Republish do
         create(:draft_edition, document:, user_facing_version: 2)
       end
 
-      it "doesn't call the DownstreamDraftWorker" do
-        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
+      it "doesn't call the DownstreamDraftJob" do
+        expect(DownstreamDraftJob).not_to receive(:perform_async_in_queue)
         described_class.call({ content_id: document.content_id })
       end
     end
 
     context "when the downstream parameter is false" do
-      it "doesn't call the DownstreamDraftWorker" do
-        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
+      it "doesn't call the DownstreamDraftJob" do
+        expect(DownstreamDraftJob).not_to receive(:perform_async_in_queue)
         described_class.call(payload, downstream: false)
       end
 

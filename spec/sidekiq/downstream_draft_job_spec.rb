@@ -1,4 +1,4 @@
-RSpec.describe DownstreamDraftWorker do
+RSpec.describe DownstreamDraftJob do
   let(:edition) do
     create(:draft_edition, base_path: "/foo")
   end

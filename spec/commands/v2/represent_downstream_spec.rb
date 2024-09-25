@@ -79,7 +79,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
 
     context "drafts optional" do
       it "can send to downstream draft worker" do
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(
             "downstream_low",
             a_hash_including("content_id", "locale", "update_dependencies" => false),
@@ -89,7 +89,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
       end
 
       it "can not send to downstream draft worker" do
-        expect(DownstreamDraftWorker).to_not receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to_not receive(:perform_async_in_queue)
         subject.call(Document.pluck(:content_id), with_drafts: false)
       end
     end

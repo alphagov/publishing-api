@@ -25,7 +25,7 @@ module Commands
         }
 
         EventLogger.log_command(self.class, event_payload) do |_event|
-          DownstreamDraftWorker.perform_async_in_queue(
+          DownstreamDraftJob.perform_async_in_queue(
             queue,
             "content_id" => content_id,
             "locale" => locale,

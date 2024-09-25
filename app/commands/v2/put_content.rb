@@ -221,8 +221,8 @@ module Commands
 
         after_transaction_commit do
           draft_editions_for_different_locale.each do |edition|
-            DownstreamDraftWorker.perform_async_in_queue(
-              bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE,
+            DownstreamDraftJob.perform_async_in_queue(
+              bulk_publishing? ? DownstreamDraftJob::LOW_QUEUE : DownstreamDraftJob::HIGH_QUEUE,
               "content_id" => edition.content_id,
               "locale" => edition.locale,
               "source_command" => "put_content",
@@ -242,9 +242,9 @@ module Commands
       def send_downstream(content_id, locale, orphaned_links)
         return unless downstream
 
-        queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
+        queue = bulk_publishing? ? DownstreamDraftJob::LOW_QUEUE : DownstreamDraftJob::HIGH_QUEUE
 
-        DownstreamDraftWorker.perform_async_in_queue(
+        DownstreamDraftJob.perform_async_in_queue(
           queue,
           "content_id" => content_id,
           "locale" => locale,

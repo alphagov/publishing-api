@@ -230,7 +230,7 @@ module Commands
 
         queue = update_type == "republish" ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
 
-        DownstreamDraftWorker.perform_async_in_queue(
+        DownstreamDraftJob.perform_async_in_queue(
           queue,
           worker_params,
         )

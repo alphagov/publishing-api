@@ -120,8 +120,8 @@ module Commands
       def send_downstream
         return unless downstream
 
-        DownstreamDraftWorker.perform_async_in_queue(
-          DownstreamDraftWorker::HIGH_QUEUE,
+        DownstreamDraftJob.perform_async_in_queue(
+          DownstreamDraftJob::HIGH_QUEUE,
           "content_id" => document.content_id,
           "locale" => document.locale,
           "update_dependencies" => true,

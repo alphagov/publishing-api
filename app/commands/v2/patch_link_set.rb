@@ -93,8 +93,8 @@ module Commands
       end
 
       def downstream_draft(content_id, locale, orphaned_content_ids, update_dependencies)
-        queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
-        DownstreamDraftWorker.perform_async_in_queue(
+        queue = bulk_publishing? ? DownstreamDraftJob::LOW_QUEUE : DownstreamDraftJob::HIGH_QUEUE
+        DownstreamDraftJob.perform_async_in_queue(
           queue,
           "content_id" => content_id,
           "locale" => locale,
