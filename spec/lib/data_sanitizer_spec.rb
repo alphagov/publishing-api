@@ -1,4 +1,4 @@
-RSpec.describe Tasks::DataSanitizer do
+RSpec.describe DataSanitizer do
   let!(:non_limited_draft) do
     create(:draft_edition, base_path: "/non-limited-draft")
   end
@@ -21,7 +21,7 @@ RSpec.describe Tasks::DataSanitizer do
   end
 
   it "deletes all access limited drafts" do
-    Tasks::DataSanitizer.delete_access_limited(stdout)
+    DataSanitizer.delete_access_limited(stdout)
 
     expect(Edition.exists?(limited_draft.id)).to eq(false)
     expect(Edition.exists?(non_limited_draft.id)).to eq(true)
@@ -32,12 +32,12 @@ RSpec.describe Tasks::DataSanitizer do
     expect(PublishingAPI.service(:draft_content_store)).to receive(:delete_content_item)
       .with("/limited-draft")
 
-    Tasks::DataSanitizer.delete_access_limited(stdout)
+    DataSanitizer.delete_access_limited(stdout)
   end
 
   it "removes the limited draft" do
     expect {
-      Tasks::DataSanitizer.delete_access_limited(stdout)
+      DataSanitizer.delete_access_limited(stdout)
     }.to change(Edition, :count).by(-1)
 
     expect(Edition.exists?(limited_draft.id)).to eq(false)

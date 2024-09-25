@@ -1,4 +1,4 @@
-RSpec.describe Tasks::DatabaseRecordValidator do
+RSpec.describe DatabaseRecordValidator do
   let!(:valid_record) { create(:path_reservation) }
 
   context "when all records are valid" do
