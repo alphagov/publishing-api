@@ -1,8 +1,8 @@
 require "sidekiq-unique-jobs"
 
-class DeletePublishIntentWorker
+class DeletePublishIntentJob
   include DownstreamQueue
-  include Sidekiq::Worker
+  include Sidekiq::Job
   include PerformAsyncInQueue
 
   sidekiq_options queue: HIGH_QUEUE,
@@ -23,3 +23,5 @@ class DeletePublishIntentWorker
     notify_airbrake(e, args)
   end
 end
+
+DeletePublishIntentWorker = DeletePublishIntentJob
