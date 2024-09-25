@@ -37,8 +37,8 @@ module Commands
       def downstream_discard_draft
         return unless downstream
 
-        DownstreamDiscardDraftWorker.perform_async_in_queue(
-          DownstreamDiscardDraftWorker::HIGH_QUEUE,
+        DownstreamDiscardDraftJob.perform_async_in_queue(
+          DownstreamDiscardDraftJob::HIGH_QUEUE,
           "base_path" => draft.base_path,
           "content_id" => content_id,
           "locale" => locale,
@@ -76,7 +76,7 @@ module Commands
         )
       end
 
-      # We pass the document type into the `DownstreamDiscardDraftWorker` which
+      # We pass the document type into the `DownstreamDiscardDraftJob` which
       # passes it down to the `DependencyResolutionJob`. The reason we do
       # this here and not in the discard draft worker is because the edition
       # may have already been destroyed by the time the worker runs, and it

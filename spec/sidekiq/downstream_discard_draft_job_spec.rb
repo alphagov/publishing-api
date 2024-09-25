@@ -1,4 +1,4 @@
-RSpec.describe DownstreamDiscardDraftWorker do
+RSpec.describe DownstreamDiscardDraftJob do
   let(:base_path) { "/foo" }
 
   let(:edition) do

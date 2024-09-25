@@ -63,7 +63,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       it "deletes the draft item from the draft content store" do
-        expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDiscardDraftJob).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
             a_hash_including(
@@ -152,9 +152,9 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
 
         it "it uses the downstream discard draft worker" do
-          expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
+          expect(DownstreamDiscardDraftJob).to receive(:perform_async_in_queue)
             .with(
-              DownstreamDiscardDraftWorker::HIGH_QUEUE,
+              DownstreamDiscardDraftJob::HIGH_QUEUE,
               a_hash_including(
                 "base_path" => base_path,
                 "content_id" => document.content_id,
@@ -191,9 +191,9 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
 
         it "it uses downstream discard draft worker" do
-          expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
+          expect(DownstreamDiscardDraftJob).to receive(:perform_async_in_queue)
             .with(
-              DownstreamDiscardDraftWorker::HIGH_QUEUE,
+              DownstreamDiscardDraftJob::HIGH_QUEUE,
               a_hash_including(
                 "base_path" => base_path,
                 "content_id" => document.content_id,
@@ -217,9 +217,9 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
 
         it "it uses downstream discard draft worker" do
-          expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
+          expect(DownstreamDiscardDraftJob).to receive(:perform_async_in_queue)
             .with(
-              DownstreamDiscardDraftWorker::HIGH_QUEUE,
+              DownstreamDiscardDraftJob::HIGH_QUEUE,
               a_hash_including(
                 "base_path" => base_path,
                 "content_id" => document.content_id,

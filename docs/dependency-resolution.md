@@ -31,7 +31,7 @@ Dependency resolution occurs in a background process provided by a
 resolution process itself is triggered as a result of different Sidekiq
 workers ([DownstreamDraftWorker][downstream-draft-worker],
 [DownstreamLiveWorker][downstream-live-worker], and
-[DownstreamDiscardDraftWorker][downstream-discard-draft-worker]) who are
+[DownstreamDiscardDraftJob][downstream-discard-draft-worker]) who are
 responsible for updating the Content Stores any time an edition changes.
 
 Thus any time an edition is updated and re-presented in the content store
