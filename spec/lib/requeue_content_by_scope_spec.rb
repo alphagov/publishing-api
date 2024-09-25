@@ -27,17 +27,17 @@ RSpec.describe RequeueContentByScope do
 
     before do
       allow(Sidekiq::Queue).to receive(:new).and_return(queue)
-      allow(RequeueContent).to receive(:perform_async)
+      allow(RequeueContentJob).to receive(:perform_async)
     end
 
     it "requeues content for the provided scope" do
       requeue_content_by_scope.call
 
       editions.each do |edition|
-        expect(RequeueContent).to have_received(:perform_async)
+        expect(RequeueContentJob).to have_received(:perform_async)
           .with(edition.id, 1989, "reticulate.splines").once
       end
-      expect(RequeueContent).to have_received(:perform_async).exactly(3).times
+      expect(RequeueContentJob).to have_received(:perform_async).exactly(3).times
     end
 
     context "when the queue has reached its limit" do
