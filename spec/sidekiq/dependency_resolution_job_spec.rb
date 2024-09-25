@@ -1,4 +1,4 @@
-RSpec.describe DependencyResolutionWorker, :perform do
+RSpec.describe DependencyResolutionJob, :perform do
   let(:content_id) { SecureRandom.uuid }
   let(:locale) { "en" }
   let(:document) { create(:document, content_id:, locale:) }

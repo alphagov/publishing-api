@@ -27,7 +27,7 @@ require this.
 
 Dependency resolution occurs in a background process provided by a
 [Sidekiq](https://sidekiq.org) worker:
-[DependencyResolutionWorker][dependency-resolution-worker]. The dependency
+[DependencyResolutionJob][dependency-resolution-worker]. The dependency
 resolution process itself is triggered as a result of different Sidekiq
 workers ([DownstreamDraftWorker][downstream-draft-worker],
 [DownstreamLiveWorker][downstream-live-worker], and

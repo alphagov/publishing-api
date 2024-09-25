@@ -101,24 +101,24 @@ RSpec.describe DownstreamDraftWorker do
       end
 
       it "enqueues dependencies" do
-        expect(DependencyResolutionWorker).to receive(:perform_async)
+        expect(DependencyResolutionJob).to receive(:perform_async)
         subject.perform(arguments)
       end
 
       it "sends the source command to the worker" do
-        expect(DependencyResolutionWorker).to receive(:perform_async)
+        expect(DependencyResolutionJob).to receive(:perform_async)
           .with(a_hash_including("source_command" => "command"))
         subject.perform(arguments)
       end
 
       it "sends the document type to the worker" do
-        expect(DependencyResolutionWorker).to receive(:perform_async)
+        expect(DependencyResolutionJob).to receive(:perform_async)
           .with(a_hash_including("source_document_type" => "services_and_information"))
         subject.perform(arguments)
       end
 
       it "sends the dependency resolution fields to the worker" do
-        expect(DependencyResolutionWorker).to receive(:perform_async)
+        expect(DependencyResolutionJob).to receive(:perform_async)
           .with(a_hash_including("source_fields" => %w[field]))
         subject.perform(arguments.merge("source_fields" => %w[field]))
       end
@@ -127,7 +127,7 @@ RSpec.describe DownstreamDraftWorker do
     context "can not update dependencies" do
       let(:arguments) { base_arguments.merge("update_dependencies" => false) }
       it "doesn't enqueue dependencies" do
-        expect(DependencyResolutionWorker).to_not receive(:perform_async)
+        expect(DependencyResolutionJob).to_not receive(:perform_async)
         subject.perform(arguments)
       end
     end

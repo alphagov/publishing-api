@@ -1,5 +1,5 @@
-class DependencyResolutionWorker
-  include Sidekiq::Worker
+class DependencyResolutionJob
+  include Sidekiq::Job
   include PerformAsyncInQueue
 
   sidekiq_options queue: :dependency_resolution
@@ -108,3 +108,5 @@ private
     )
   end
 end
+
+DependencyResolutionWorker = DependencyResolutionJob

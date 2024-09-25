@@ -77,7 +77,7 @@ module Commands
       end
 
       # We pass the document type into the `DownstreamDiscardDraftWorker` which
-      # passes it down to the `DependencyResolutionWorker`. The reason we do
+      # passes it down to the `DependencyResolutionJob`. The reason we do
       # this here and not in the discard draft worker is because the edition
       # may have already been destroyed by the time the worker runs, and it
       # wouldn't be able to access the destroyed edition's document type.

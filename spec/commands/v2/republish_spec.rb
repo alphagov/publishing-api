@@ -3,7 +3,7 @@ RSpec.describe Commands::V2::Republish do
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
 
-      allow(DependencyResolutionWorker).to receive(:perform_async)
+      allow(DependencyResolutionJob).to receive(:perform_async)
     end
 
     let!(:published_edition) { create(:live_edition) }

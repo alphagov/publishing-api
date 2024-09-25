@@ -36,7 +36,7 @@ RSpec.describe Commands::V2::Publish do
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
 
-      allow(DependencyResolutionWorker).to receive(:perform_async)
+      allow(DependencyResolutionJob).to receive(:perform_async)
     end
 
     around do |example|
