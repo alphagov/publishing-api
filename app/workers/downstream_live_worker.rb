@@ -111,6 +111,7 @@ private
   end
 
   def create_republication_change_note
+    edition.public_updated_at = Time.zone.now
     edition.details = edition.details.merge(
       "change_history" => [{
         "note" => "#{dependency_resolution_source_content.document_type.titleize} #{dependency_resolution_source_content.title} changed",
