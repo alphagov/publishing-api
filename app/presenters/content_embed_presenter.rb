@@ -1,6 +1,8 @@
 module Presenters
   class ContentEmbedPresenter
     def initialize(edition)
+      puts "here in initialize"
+      puts edition.inspect
       @edition = edition
     end
 
@@ -34,6 +36,8 @@ module Presenters
     end
 
     def convert_field(value)
+      puts "here in convert_field"
+      puts value
       case value
       when Array
         value.map do |content|

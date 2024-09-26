@@ -25,11 +25,13 @@ module Queries
       @host_editions ||= Edition.where(state: states)
         .joins(:links)
         .joins("LEFT JOIN links AS primary_links ON primary_links.edition_id = editions.id AND primary_links.link_type = 'primary_publishing_organisation'")
-        .joins("LEFT JOIN documents ON documents.content_id = primary_links.target_content_id")
-        .joins("LEFT JOIN editions AS org_editions ON org_editions.document_id = documents.id")
+        .joins("LEFT JOIN documents AS documents ON documents.id = editions.document_id")
+        .joins("LEFT JOIN documents AS org_documents ON org_documents.content_id = primary_links.target_content_id")
+        .joins("LEFT JOIN editions AS org_editions ON org_editions.document_id = org_documents.id")
         .where(links: { link_type: embedded_link_type, target_content_id: })
         .select(
           "editions.id, editions.title, editions.base_path, editions.document_type, editions.publishing_app",
+          "documents.content_id as document_content_id",
           "primary_links.target_content_id AS primary_publishing_organisation_content_id",
           "org_editions.title AS primary_publishing_organisation_title",
           "org_editions.base_path AS primary_publishing_organisation_base_path",

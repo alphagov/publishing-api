@@ -23,6 +23,9 @@ module Presenters
 
         host_editions.map do |edition|
           {
+
+              content_id: edition.document_content_id,
+
             title: edition.title,
             base_path: edition.base_path,
             document_type: edition.document_type,
