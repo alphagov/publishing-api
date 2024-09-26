@@ -1,5 +1,5 @@
-class RequeueContent
-  include Sidekiq::Worker
+class RequeueContentJob
+  include Sidekiq::Job
   include PerformAsyncInQueue
 
   sidekiq_options queue: :import
@@ -19,3 +19,5 @@ class RequeueContent
     )
   end
 end
+
+RequeueContent = RequeueContentJob

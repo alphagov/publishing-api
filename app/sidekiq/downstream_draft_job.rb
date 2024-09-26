@@ -1,8 +1,8 @@
 require "sidekiq-unique-jobs"
 
-class DownstreamDraftWorker
+class DownstreamDraftJob
   include DownstreamQueue
-  include Sidekiq::Worker
+  include Sidekiq::Job
   include PerformAsyncInQueue
 
   sidekiq_options queue: HIGH_QUEUE,
@@ -74,7 +74,7 @@ private
   end
 
   def enqueue_dependencies
-    DependencyResolutionWorker.perform_async(
+    DependencyResolutionJob.perform_async(
       "content_store" => "Adapters::DraftContentStore",
       "content_id" => content_id,
       "locale" => locale,
@@ -114,3 +114,5 @@ private
     )
   end
 end
+
+DownstreamDraftWorker = DownstreamDraftJob

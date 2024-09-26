@@ -1,4 +1,4 @@
-RSpec.describe DependencyResolutionWorker, :perform do
+RSpec.describe DependencyResolutionJob, :perform do
   let(:content_id) { SecureRandom.uuid }
   let(:locale) { "en" }
   let(:document) { create(:document, content_id:, locale:) }
@@ -37,7 +37,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
   end
 
   it "the dependees get queued in the content store worker" do
-    expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+    expect(DownstreamLiveJob).to receive(:perform_async_in_queue).with(
       "downstream_low",
       a_hash_including(
         "content_id",
@@ -58,11 +58,11 @@ RSpec.describe DependencyResolutionWorker, :perform do
     end
 
     it "sends content ids downstream" do
-      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
+      expect(DownstreamDraftJob).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including("content_id"),
       )
-      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
+      expect(DownstreamDraftJob).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including("content_id" => orphaned_link_content_ids.first),
       )
@@ -72,7 +72,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       let(:locale) { "fr" }
 
       it "doesn't send content ids downstream" do
-        expect(DownstreamDraftWorker).to_not receive(:perform_async_in_queue).with(
+        expect(DownstreamDraftJob).to_not receive(:perform_async_in_queue).with(
           anything,
           a_hash_including("content_id" => orphaned_link_content_ids.first),
         )
@@ -83,7 +83,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       let(:content_store) { "Adapters::ContentStore" }
 
       it "doesn't send content ids downstream" do
-        expect(DownstreamDraftWorker).to_not receive(:perform_async_in_queue).with(
+        expect(DownstreamDraftJob).to_not receive(:perform_async_in_queue).with(
           anything,
           a_hash_including("content_id" => orphaned_link_content_ids.first),
         )
@@ -94,7 +94,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       let(:orphaned_link_content_ids) { [create(:document).content_id] }
 
       it "doesn't send content ids downstream" do
-        expect(DownstreamDraftWorker).to_not receive(:perform_async_in_queue).with(
+        expect(DownstreamDraftJob).to_not receive(:perform_async_in_queue).with(
           anything,
           a_hash_including("content_id" => orphaned_link_content_ids.first),
         )
@@ -112,7 +112,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
     end
 
     it "doesn't send draft content to the live content store" do
-      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+      expect(DownstreamLiveJob).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
           "content_id",
@@ -128,7 +128,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
     end
 
     it "does send draft content to the draft content store" do
-      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
+      expect(DownstreamDraftJob).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
           "content_id",
@@ -162,11 +162,11 @@ RSpec.describe DependencyResolutionWorker, :perform do
       end
 
       it "downstreams all but the locale specified" do
-        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+        expect(DownstreamLiveJob).to receive(:perform_async_in_queue).with(
           anything,
           a_hash_including("content_id", "locale" => "fr"),
         )
-        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+        expect(DownstreamLiveJob).to receive(:perform_async_in_queue).with(
           anything,
           a_hash_including("content_id", "locale" => "es"),
         )
@@ -191,15 +191,15 @@ RSpec.describe DependencyResolutionWorker, :perform do
       end
 
       it "downstreams all but the locale specified" do
-        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+        expect(DownstreamLiveJob).to receive(:perform_async_in_queue).with(
           anything,
           a_hash_including("content_id" => content_id, "locale" => "en"),
         )
-        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+        expect(DownstreamLiveJob).to receive(:perform_async_in_queue).with(
           anything,
           a_hash_including("content_id" => content_id, "locale" => "fr"),
         )
-        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+        expect(DownstreamLiveJob).to receive(:perform_async_in_queue).with(
           anything,
           a_hash_including("content_id" => content_id, "locale" => "es"),
         )

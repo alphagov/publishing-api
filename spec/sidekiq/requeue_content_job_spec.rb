@@ -1,4 +1,4 @@
-RSpec.describe RequeueContent do
+RSpec.describe RequeueContentJob do
   let(:edition) { create(:live_edition, base_path: "/ci1", schema_name: "generic") }
 
   it "it republishes the edition with the version" do
@@ -12,6 +12,6 @@ RSpec.describe RequeueContent do
       persistent: false,
     )
 
-    RequeueContent.perform_async(edition.id, 10)
+    RequeueContentJob.perform_async(edition.id, 10)
   end
 end

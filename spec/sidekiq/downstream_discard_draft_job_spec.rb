@@ -1,4 +1,4 @@
-RSpec.describe DownstreamDiscardDraftWorker do
+RSpec.describe DownstreamDiscardDraftJob do
   let(:base_path) { "/foo" }
 
   let(:edition) do
@@ -166,18 +166,18 @@ RSpec.describe DownstreamDiscardDraftWorker do
       end
 
       it "enqueues dependencies" do
-        expect(DependencyResolutionWorker).to receive(:perform_async)
+        expect(DependencyResolutionJob).to receive(:perform_async)
         subject.perform(arguments)
       end
 
       it "sends the source command to the worker" do
-        expect(DependencyResolutionWorker).to receive(:perform_async)
+        expect(DependencyResolutionJob).to receive(:perform_async)
           .with(a_hash_including("source_command" => "command"))
         subject.perform(arguments)
       end
 
       it "sends the document type to the worker" do
-        expect(DependencyResolutionWorker).to receive(:perform_async)
+        expect(DependencyResolutionJob).to receive(:perform_async)
           .with(a_hash_including("source_document_type" => "document_type"))
         subject.perform(arguments.merge("source_document_type" => "document_type"))
       end
@@ -185,7 +185,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
     context "can not update dependencies" do
       it "doesn't enqueue dependencies" do
-        expect(DependencyResolutionWorker).to_not receive(:perform_async)
+        expect(DependencyResolutionJob).to_not receive(:perform_async)
         subject.perform(arguments.merge("update_dependencies" => false))
       end
     end

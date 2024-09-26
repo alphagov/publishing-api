@@ -134,7 +134,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
     end
 
     it "sends a create request to the draft content store for the redirect" do
-      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).twice
+      expect(DownstreamDraftJob).to receive(:perform_async_in_queue).twice
 
       put "/v2/content/#{content_id}", params: payload.to_json
     end

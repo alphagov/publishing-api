@@ -21,7 +21,7 @@ gem "pg"
 gem "plek"
 gem "prometheus-client"
 gem "sentry-sidekiq"
-gem "sidekiq-unique-jobs"
+gem "sidekiq-unique-jobs", "< 8.0.8"
 gem "whenever", require: false
 gem "with_advisory_lock"
 

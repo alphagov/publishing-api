@@ -27,11 +27,11 @@ require this.
 
 Dependency resolution occurs in a background process provided by a
 [Sidekiq](https://sidekiq.org) worker:
-[DependencyResolutionWorker][dependency-resolution-worker]. The dependency
+[DependencyResolutionJob][dependency-resolution-worker]. The dependency
 resolution process itself is triggered as a result of different Sidekiq
-workers ([DownstreamDraftWorker][downstream-draft-worker],
-[DownstreamLiveWorker][downstream-live-worker], and
-[DownstreamDiscardDraftWorker][downstream-discard-draft-worker]) who are
+workers ([DownstreamDraftJob][downstream-draft-worker],
+[DownstreamLiveJob][downstream-live-worker], and
+[DownstreamDiscardDraftJob][downstream-discard-draft-worker]) who are
 responsible for updating the Content Stores any time an edition changes.
 
 Thus any time an edition is updated and re-presented in the content store
@@ -61,8 +61,8 @@ for determining the locales of each `content_id`.
 
 As a result of the dependency resolution process, editions identified to
 be presented will be queued in the Sidekiq workers:
-[DownstreamDraftWorker][downstream-draft-worker] and
-[DownstreamLiveWorker][downstream-live-worker]. These workers communicate
+[DownstreamDraftJob][downstream-draft-worker] and
+[DownstreamLiveJob][downstream-live-worker]. These workers communicate
 with the content store.
 
 ### Content Store HTTP headers

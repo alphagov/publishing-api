@@ -1,6 +1,6 @@
-class DownstreamDiscardDraftWorker
+class DownstreamDiscardDraftJob
   include DownstreamQueue
-  include Sidekiq::Worker
+  include Sidekiq::Job
   include PerformAsyncInQueue
 
   sidekiq_options queue: HIGH_QUEUE
@@ -49,7 +49,7 @@ private
   end
 
   def enqueue_dependencies
-    DependencyResolutionWorker.perform_async(
+    DependencyResolutionJob.perform_async(
       "content_store" => "Adapters::DraftContentStore",
       "content_id" => content_id,
       "locale" => locale,
@@ -80,3 +80,5 @@ private
     @downstream_payload ||= DownstreamPayload.new(edition, payload_version, draft: true)
   end
 end
+
+DownstreamDiscardDraftWorker = DownstreamDiscardDraftJob

@@ -1,5 +1,5 @@
-class DependencyResolutionWorker
-  include Sidekiq::Worker
+class DependencyResolutionJob
+  include Sidekiq::Job
   include PerformAsyncInQueue
 
   sidekiq_options queue: :dependency_resolution
@@ -82,8 +82,8 @@ private
   def downstream_draft(dependent_content_id, locale)
     return unless draft?
 
-    DownstreamDraftWorker.perform_async_in_queue(
-      DownstreamDraftWorker::LOW_QUEUE,
+    DownstreamDraftJob.perform_async_in_queue(
+      DownstreamDraftJob::LOW_QUEUE,
       "content_id" => dependent_content_id,
       "locale" => locale,
       "update_dependencies" => false,
@@ -96,8 +96,8 @@ private
   def downstream_live(dependent_content_id, locale)
     return if draft?
 
-    DownstreamLiveWorker.perform_async_in_queue(
-      DownstreamLiveWorker::LOW_QUEUE,
+    DownstreamLiveJob.perform_async_in_queue(
+      DownstreamLiveJob::LOW_QUEUE,
       "content_id" => dependent_content_id,
       "locale" => locale,
       "message_queue_event_type" => "links",
@@ -108,3 +108,5 @@ private
     )
   end
 end
+
+DependencyResolutionWorker = DependencyResolutionJob

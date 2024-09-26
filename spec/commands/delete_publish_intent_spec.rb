@@ -39,7 +39,7 @@ RSpec.describe Commands::DeletePublishIntent do
       end
 
       it "enqueues a DeletePublishIntent job" do
-        expect(DeletePublishIntentWorker).to receive(:perform_async)
+        expect(DeletePublishIntentJob).to receive(:perform_async)
         described_class.call(payload, downstream: true)
       end
     end
