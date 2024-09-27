@@ -23,7 +23,7 @@ module Presenters
           .pluck(:note, :public_timestamp)
           .map { |note, timestamp| { note:, public_timestamp: timestamp } }
           .as_json,
-      )
+        )
     end
 
     def change_notes
