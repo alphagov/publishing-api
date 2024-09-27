@@ -40,6 +40,7 @@ class DownstreamLiveJob
     DownstreamService.update_live_content_store(payload) if edition.base_path
 
     if %w[published unpublished].include?(edition.state)
+      puts "here in live job"
       event_type = message_queue_event_type || edition.update_type
       Rails.logger.info(
         "DownstreamLiveJob#perform:" \
@@ -48,6 +49,7 @@ class DownstreamLiveJob
       DownstreamService.broadcast_to_message_queue(payload, event_type)
     end
 
+    puts "here is update_dependencies #{update_dependencies}"
     enqueue_dependencies if update_dependencies
   rescue AbortWorkerError => e
     notify_airbrake(e, args)
@@ -83,15 +85,27 @@ private
   end
 
   def enqueue_dependencies
-    DependencyResolutionJob.perform_async(
-      "content_store" => "Adapters::ContentStore",
-      "content_id" => content_id,
-      "locale" => locale,
-      "orphaned_content_ids" => orphaned_content_ids,
-      "source_command" => source_command,
-      "source_document_type" => edition.document_type,
-      "source_fields" => source_fields,
-    )
+    if @message_queue_event_type == "content_block"
+      HostContentUpdateJob.perform_async(
+        "content_store" => "Adapters::ContentStore",
+        "content_id" => content_id,
+        "locale" => locale,
+        "orphaned_content_ids" => orphaned_content_ids,
+        "source_command" => source_command,
+        "source_document_type" => edition.document_type,
+        "source_fields" => source_fields,
+      )
+    else
+      DependencyResolutionJob.perform_async(
+        "content_store" => "Adapters::ContentStore",
+        "content_id" => content_id,
+        "locale" => locale,
+        "orphaned_content_ids" => orphaned_content_ids,
+        "source_command" => source_command,
+        "source_document_type" => edition.document_type,
+        "source_fields" => source_fields,
+      )
+    end
   end
 
   def notify_airbrake(error, parameters)

@@ -137,7 +137,7 @@ module Commands
       end
 
       def valid_update_types
-        %w[major minor republish links]
+        %w[major minor republish links content_block]
       end
 
       def already_published?
@@ -252,7 +252,7 @@ module Commands
         {
           "content_id" => content_id,
           "locale" => locale,
-          "update_dependencies" => edition_diff.present?,
+          "update_dependencies" => edition_diff.present? || update_type == "content_block",
           "source_command" => "publish",
           "source_fields" => edition_diff.has_previous_edition? ? edition_diff.fields.map(&:to_s) : [],
         }

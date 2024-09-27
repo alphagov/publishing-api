@@ -13,7 +13,7 @@ class ChangeNoteFactory
   end
 
   def build
-    return unless update_type == "major"
+    return unless update_type == "major" || update_type == "host_content"
 
     create_from_top_level_change_note ||
       create_from_details_hash_change_note ||
