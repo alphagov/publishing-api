@@ -7,7 +7,8 @@ module Presenters
     end
 
     def change_history
-      details[:change_history] || presented_change_notes
+      # details[:change_history] || presented_change_notes
+      presented_change_notes
     end
 
   private

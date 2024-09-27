@@ -40,6 +40,7 @@ class DownstreamLiveJob
     DownstreamService.update_live_content_store(payload) if edition.base_path
 
     if %w[published unpublished].include?(edition.state)
+      puts "here in live job"
       event_type = message_queue_event_type || edition.update_type
       Rails.logger.info(
         "DownstreamLiveJob#perform:" \
@@ -48,6 +49,7 @@ class DownstreamLiveJob
       DownstreamService.broadcast_to_message_queue(payload, event_type)
     end
 
+    puts "here is update_dependencies #{update_dependencies}"
     enqueue_dependencies if update_dependencies
   rescue AbortWorkerError => e
     notify_airbrake(e, args)
