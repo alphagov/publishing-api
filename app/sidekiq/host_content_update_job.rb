@@ -24,6 +24,7 @@ private
       "content_id" => dependent_content_id,
       "locale" => locale,
       "message_queue_event_type" => "host_content",
+      "message_queue_event_type" => "host_content_update",
       "update_dependencies" => false,
       "dependency_resolution_source_content_id" => content_id,
       "source_command" => source_command,

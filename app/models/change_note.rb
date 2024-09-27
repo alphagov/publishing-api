@@ -25,6 +25,7 @@ private
   attr_reader :payload, :edition
 
   def create_from_top_level_change_note
+    puts "here in top level change note "
     return unless change_note
 
     change_note_instance.update!(

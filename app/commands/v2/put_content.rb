@@ -254,6 +254,8 @@ module Commands
       end
 
       def send_downstream(content_id, locale, orphaned_links)
+        puts"downstream is "
+        puts downstream.inspect
         return unless downstream
 
         queue = bulk_publishing? ? DownstreamDraftJob::LOW_QUEUE : DownstreamDraftJob::HIGH_QUEUE
