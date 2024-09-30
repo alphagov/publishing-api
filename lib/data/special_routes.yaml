@@ -14,16 +14,6 @@
   :title: "Account home page"
   :rendering_app: "frontend"
 
-- :content_id: "e5098fc2-ad79-4c6f-882b-410831c12f60"
-  :base_path: "/account/saved-pages/add"
-  :title: "Save a page"
-  :rendering_app: "frontend"
-
-- :content_id: "3aeaeb46-b3c5-449b-8a3b-2753ffef3c9f"
-  :base_path: "/account/saved-pages/remove"
-  :title: "Remove a saved page"
-  :rendering_app: "frontend"
-
 - :content_id: "16ca5ac1-7df5-4137-9f83-0270fcfc8bb5"
   :base_path: "/api/content"
   :title: "Content API"
