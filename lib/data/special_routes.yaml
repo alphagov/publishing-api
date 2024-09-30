@@ -9,6 +9,11 @@
     :primary_publishing_organisation:
       - "af07d5a5-df63-4ddc-9383-6a666845ebe9"
 
+- :base_path: "/account"
+  :content_id: "0833d91b-d772-4144-b81f-e7a42df96d5b"
+  :title: "Sign in to GOV.UK (OAuth Redirect)"
+  :rendering_app: "frontend"
+
 - :base_path: "/account/home"
   :content_id: "c1f08359-21f7-49c1-8811-54bf6690b6a3"
   :title: "Account home page"
@@ -20,6 +25,12 @@
   :description: "API exposing all content on GOV.UK."
   :type: "prefix"
   :rendering_app: "content-store"
+
+- :base_path: "/api/personalisation/check-email-subscription"
+  :content_id: "f8f91a56-2298-4365-9590-d7e80fe8c066"
+  :title: "Account API - Check email Subscription"
+  :description: "Personalisation API exposing email subscription data for progressive enhancement of GOV.UK pages"
+  :rendering_app: "account-api"
 
 - :base_path: "/bank-holidays"
   :content_id: "58f79dbd-e57f-4ab2-ae96-96df5767d1b2"
@@ -208,6 +219,17 @@
   :content_id: "eb56dbca-be0b-4381-8dac-0c9de8a3ed7e"
   :title: "Search"
   :rendering_app: "finder-frontend"
+
+- :base_path: "/sign-in"
+  :content_id: "b6bb372b-3c4e-4a21-98a6-ffbf2ea5dc9e"
+  :title: "Sign in to a service"
+  :description: "Find the government service you need to sign in to. At the moment, there are separate accounts for different government services."
+  :rendering_app: "frontend"
+
+- :base_path: "/sign-in/redirect"
+  :content_id: "49ecdc1f-c98b-430e-8256-7a402239daf8"
+  :title: "Sign In to GOV.UK (OAuth Callback)"
+  :rendering_app: "frontend"
 
 - :base_path: "/sign-in/callback"
   :content_id: "f04c45a7-c20b-4f66-a485-dc997a6a3b6d"
