@@ -378,7 +378,8 @@
       "required": [
         "line_1",
         "town_or_city",
-        "postcode"
+        "postcode",
+        "friendly_id"
       ],
       "additionalProperties": false,
       "properties": {
@@ -387,6 +388,9 @@
         },
         "county": {
           "type": "string"
+        },
+        "friendly_id": {
+          "$ref": "#/definitions/friendly_id"
         },
         "line_1": {
           "type": "string"
@@ -406,6 +410,9 @@
       "description": "The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
       "type": "string",
       "format": "date-time"
+    },
+    "friendly_id": {
+      "type": "string"
     },
     "frontend_links": {
       "type": "array",

@@ -5,7 +5,8 @@
   "title": "Government Digital Service - General contact",
   "description": "General contact email address for Government Digital Service",
   "details": {
-    "email_address": "foo@example.com"
+    "email_address": "foo@example.com",
+    "friendly_id": "gds-general-contact"
   },
   "links": {
     "primary_publishing_organisation": [

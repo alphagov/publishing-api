@@ -172,13 +172,17 @@
     "details": {
       "type": "object",
       "required": [
-        "email_address"
+        "email_address",
+        "friendly_id"
       ],
       "additionalProperties": false,
       "properties": {
         "email_address": {
           "type": "string",
           "format": "email"
+        },
+        "friendly_id": {
+          "$ref": "#/definitions/friendly_id"
         }
       }
     },
@@ -186,6 +190,9 @@
       "description": "The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
       "type": "string",
       "format": "date-time"
+    },
+    "friendly_id": {
+      "type": "string"
     },
     "guid": {
       "type": "string",

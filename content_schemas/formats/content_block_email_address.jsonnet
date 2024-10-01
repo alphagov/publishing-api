@@ -4,11 +4,14 @@
     details: {
       type: "object",
       additionalProperties: false,
-      required: ["email_address"],
+      required: ["email_address", "friendly_id"],
       properties: {
         email_address: {
           type: "string",
           format: "email",
+        },
+        friendly_id: {
+          "$ref": "#/definitions/friendly_id",
         },
       },
     },

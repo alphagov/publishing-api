@@ -4,7 +4,7 @@
     details: {
       type: "object",
       additionalProperties: false,
-      required: ["line_1", "town_or_city", "postcode"],
+      required: ["line_1", "town_or_city", "postcode", "friendly_id"],
       properties: {
         line_1: {
           type: "string",
@@ -20,7 +20,10 @@
         },
         postcode: {
           type: "string"
-        }
+        },
+        friendly_id: {
+          "$ref": "#/definitions/friendly_id",
+        },
       },
     },
   },
