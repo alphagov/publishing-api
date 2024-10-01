@@ -16,6 +16,7 @@ module Commands
         edition = create_or_update_edition
         set_timestamps(edition)
 
+        create_embedded_content_reference
         update_content_dependencies(edition)
 
         orphaned_links = link_diff_between(
@@ -45,6 +46,20 @@ module Commands
 
       def link_diff_between(old_links, new_links)
         old_links - new_links
+      end
+
+      def create_embedded_content_reference
+        return unless EmbeddedContentFinderService::SUPPORTED_DOCUMENT_TYPES.include?(payload[:document_type]) && payload[:details][:friendly_id]
+
+        embedded_content_reference = EmbeddedContentReference.find_by(payload[:friendly_id])
+
+        if embedded_content_reference&.content_id == payload[:content_id]
+          raise CommandError.new(code: 422, message: "Embedded Content Reference with that friendly id already exists")
+        end
+
+        return if embedded_content_reference
+
+        EmbeddedContentReference.create!(friendly_id: payload[:details][:friendly_id], content_id: payload[:content_id])
       end
 
       def remove_previous_path_reservations

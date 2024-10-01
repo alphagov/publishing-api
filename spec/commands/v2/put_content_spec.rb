@@ -104,6 +104,83 @@ RSpec.describe Commands::V2::PutContent do
       )
     end
 
+    describe "creating an EmbeddedContentReference" do
+      context "when updating a content block type" do
+        let(:content_block_payload) do
+          {
+            content_id:,
+            locale: "en",
+            schema_name: "content_block_email_address",
+            document_type: "content_block_email_address",
+            title: "Government Digital Service - General contact",
+            description: "General contact email address for Government Digital Service",
+            details: {
+              friendly_id: "my-friendly-id",
+              email_address: "foo@example.com",
+            },
+            publishing_app: "whitehall",
+          }
+        end
+
+        context "when a friendly_id is submitted" do
+          it "creates an EmbeddedContentReference to link the friendly_id to the content_id" do
+            expect(EmbeddedContentReference).to receive(:create!).with(friendly_id: "my-friendly-id", content_id:)
+
+            described_class.call(content_block_payload)
+          end
+        end
+
+        context "when there is already an Embedded Content Reference with that friendly_id" do
+          before do
+            create(:embedded_content_reference, content_id:, friendly_id: content_block_payload[:details][:friendly_id])
+          end
+
+          it "raises an error" do
+            expect {
+              described_class.call(content_block_payload)
+            }.to raise_error(CommandError) { |error|
+                   expect(error.code).to eq(422)
+                 }
+          end
+        end
+
+        context "when a friendly_id is not submitted" do
+          before do
+            validator = double(:validator, validate: true)
+            allow(Commands::V2::PutContentValidator).to receive(:new)
+              .and_return(validator)
+          end
+
+          it "does not create an EmbeddedContentReference" do
+            content_block_payload = {
+              content_id:,
+              locale: "en",
+              schema_name: "content_block_email_address",
+              document_type: "content_block_email_address",
+              title: "Government Digital Service - General contact",
+              description: "General contact email address for Government Digital Service",
+              details: {
+                email_address: "foo@example.com",
+              },
+              publishing_app: "whitehall",
+            }
+
+            expect(EmbeddedContentReference).not_to receive(:create!)
+
+            described_class.call(content_block_payload)
+          end
+        end
+      end
+
+      context "when updating any other type" do
+        it "does not create an EmbeddedContentReference" do
+          expect(EmbeddedContentReference).not_to receive(:create!)
+
+          described_class.call(payload)
+        end
+      end
+    end
+
     context "when the 'downstream' parameter is false" do
       it "does not send to the downstream draft worker" do
         expect(DownstreamDraftJob).not_to receive(:perform_async_in_queue)
