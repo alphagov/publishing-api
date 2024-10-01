@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_20_153403) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_03_103251) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -96,6 +96,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_20_153403) do
     t.index ["state", "base_path"], name: "index_editions_on_state_and_base_path"
     t.index ["updated_at", "id"], name: "index_editions_on_updated_at_and_id"
     t.index ["updated_at"], name: "index_editions_on_updated_at"
+  end
+
+  create_table "embedded_content_references", force: :cascade do |t|
+    t.string "friendly_id", null: false
+    t.uuid "content_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_id"], name: "index_embedded_content_references_on_content_id"
+    t.index ["friendly_id"], name: "index_embedded_content_references_on_friendly_id"
   end
 
   create_table "events", id: :serial, force: :cascade do |t|
