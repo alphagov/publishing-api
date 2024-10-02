@@ -720,7 +720,7 @@ GEM
       logger
       rack (>= 2.2.4)
       redis-client (>= 0.22.2)
-    sidekiq-unique-jobs (8.0.7)
+    sidekiq-unique-jobs (8.0.9)
       concurrent-ruby (~> 1.0, >= 1.0.5)
       sidekiq (>= 7.0.0, < 8.0.0)
       thor (>= 1.0, < 3.0)
@@ -825,7 +825,7 @@ DEPENDENCIES
   rspec-rails
   rubocop-govuk
   sentry-sidekiq
-  sidekiq-unique-jobs (< 8.0.8)
+  sidekiq-unique-jobs (< 8.0.10)
   simplecov
   timecop
   web-console
