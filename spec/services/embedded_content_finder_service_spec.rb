@@ -23,9 +23,19 @@ RSpec.shared_examples "finds references" do |document_type|
              details: { title: "Some Title" })
     end
 
+    let(:embedded_content_reference_1) do
+      create(:embedded_content_reference, friendly_id: "some-friendly-id", content_id: editions[0].content_id)
+    end
+    let(:embedded_content_reference_2) do
+      create(:embedded_content_reference, friendly_id: "some-other-friendly-id", content_id: editions[1].content_id)
+    end
+    let(:draft_embedded_content_reference) do
+      create(:embedded_content_reference, friendly_id: "draft-friendly-id", content_id: draft_edition.content_id)
+    end
+
     %w[body downtime_message more_information].each do |field_name|
       it "finds content references" do
-        details = { field_name => "{{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}" }
+        details = { field_name => "{{embed:#{document_type}:#{embedded_content_reference_1.friendly_id}}} {{embed:#{document_type}:#{embedded_content_reference_2.friendly_id}}}" }
 
         links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE)
 
@@ -33,7 +43,7 @@ RSpec.shared_examples "finds references" do |document_type|
       end
 
       it "finds content references when #{field_name} is an array of hashes" do
-        details = { field_name => [{ "content" => "{{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}" }] }
+        details = { field_name => [{ "content" => "{{embed:#{document_type}:#{embedded_content_reference_1.friendly_id}}} {{embed:#{document_type}:#{embedded_content_reference_2.friendly_id}}}" }] }
 
         links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE)
 
@@ -46,7 +56,7 @@ RSpec.shared_examples "finds references" do |document_type|
             {
               body: [
                 {
-                  content: "some string with a reference: {{embed:#{document_type}:#{editions[0].content_id}}}",
+                  content: "some string with a reference: {{embed:#{document_type}:#{embedded_content_reference_1.friendly_id}}}",
                   content_type: "text/govspeak",
                 },
               ],
@@ -56,7 +66,7 @@ RSpec.shared_examples "finds references" do |document_type|
             {
               body: [
                 {
-                  content: "some string with another reference: {{embed:#{document_type}:#{editions[1].content_id}}}",
+                  content: "some string with another reference: {{embed:#{document_type}:#{embedded_content_reference_2.friendly_id}}}",
                   content_type: "text/govspeak",
                 },
               ],
@@ -71,23 +81,33 @@ RSpec.shared_examples "finds references" do |document_type|
       end
 
       it "finds content references when the field is a hash" do
-        details = { field_name => { title: "{{embed:#{document_type}:#{editions[0].content_id}}}", slug: "{{embed:#{document_type}:#{editions[1].content_id}}}", current: true } }
+        details = { field_name => { title: "{{embed:#{document_type}:#{embedded_content_reference_1.friendly_id}}}", slug: "{{embed:#{document_type}:#{embedded_content_reference_2.friendly_id}}}", current: true } }
 
         links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE)
 
         expect(links).to eq([editions[0].content_id, editions[1].content_id])
       end
 
-      it "errors when given a content ID that is still draft" do
-        details = { field_name => "{{embed:#{document_type}:#{draft_edition.content_id}}}" }
+      it "errors when given a friendly ID for an Edition that is still draft" do
+        details = { field_name => "{{embed:#{document_type}:#{draft_embedded_content_reference.friendly_id}}}" }
 
-        expect { EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE) }.to raise_error(CommandError)
+        expect {
+          EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE)
+        }.to raise_error(
+          CommandError,
+          "Could not find any live editions in locale #{Edition::DEFAULT_LOCALE} for: #{draft_embedded_content_reference.friendly_id}",
+        )
       end
 
-      it "errors when given a live content ID that is not available in the current locale" do
-        details = { field_name => "{{embed:#{document_type}:#{editions[0].content_id}}}" }
+      it "errors when given a friendly ID for a live Edition that is not available in the current locale" do
+        details = { field_name => "{{embed:#{document_type}:#{embedded_content_reference_1.friendly_id}}}" }
 
-        expect { EmbeddedContentFinderService.new.fetch_linked_content_ids(details, "foo") }.to raise_error(CommandError)
+        expect {
+          EmbeddedContentFinderService.new.fetch_linked_content_ids(details, "foo")
+        }.to raise_error(
+          CommandError,
+          "Could not find any live editions in locale foo for: #{embedded_content_reference_1.friendly_id}",
+        )
       end
     end
   end
