@@ -22,6 +22,7 @@ class DownstreamLiveJob
   end
 
   def perform(args = {})
+    puts "here in downstream live job "
     assign_attributes(args.symbolize_keys)
 
     unless edition

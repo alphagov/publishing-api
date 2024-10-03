@@ -181,6 +181,10 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
+    context "publishing a content block update" do
+
+    end
+
     context "dependency fields change on new publication" do
       let(:existing_base_path) { base_path }
 
