@@ -8,11 +8,13 @@ private
 
     host_edition = Document.find_by(content_id: dependent_content_id).live
 
+    puts "#{embedded_edition.details.inspect}"
+
     ChangeNote.create_from_edition({
-                                     public_updated_at: Time.zone.now.to_s,
-                                     update_type: "host_content",
-                                     change_note: "content block #{embedded_edition.title} was updated to something",
-                                   }, host_edition)
+      public_updated_at: Time.zone.now.to_s,
+      update_type: "host_content",
+      change_note: "Email address \"#{embedded_edition.title}\" was changed to #{embedded_edition.details[:email_address]}",
+    }, host_edition)
 
     # TODO: I don't know how we send this ChangeNote back to the relevant publisher.
     # Could they look for the host_content event?
