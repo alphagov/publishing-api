@@ -329,11 +329,13 @@ module_function
       draft:,
     )
 
-    fields.each_with_object({}) do |field, expanded|
+    returned_fields = fields.each_with_object({}) do |field, expanded|
       field = Array(field)
       # equivelant to: expanded.dig(*field) = edition_hash.dig(*field)
       expanded.dig_set(field, edition_hash.dig(*field))
     end
+    puts "here is returned field #{returned_fields}"
+    returned_fields
   end
 
   def next_allowed_direct_link_types(next_allowed_link_types, reverse_to_direct: false)
