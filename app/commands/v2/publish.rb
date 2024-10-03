@@ -68,6 +68,8 @@ module Commands
       end
 
       def previous_edition
+        puts "here in previous edition"
+        puts "has #{document.published_or_unpublished}"
         document.published_or_unpublished
       end
 
@@ -251,10 +253,11 @@ module Commands
       end
 
       def worker_params
+        puts "edition diff is present #{edition_diff.present?}"
         {
           "content_id" => content_id,
           "locale" => locale,
-          "update_dependencies" => edition_diff.present? || update_type == "content_block",
+          "update_dependencies" => edition_diff.present?,
           "source_command" => "publish",
           "source_fields" => edition_diff.has_previous_edition? ? edition_diff.fields.map(&:to_s) : [],
         }
