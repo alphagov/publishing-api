@@ -240,13 +240,13 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "updates dependencies for Live" do
-        expect(DependencyResolutionJob).to receive(:perform_async).with("content_store" => "Adapters::ContentStore",
-                                                                        "content_id" => document.content_id,
-                                                                        "locale" => locale,
-                                                                        "orphaned_content_ids" => [],
-                                                                        "source_command" => "publish",
-                                                                        "source_document_type" => "content_block_email_address",
-                                                                        "source_fields" => [])
+        expect(HostContentUpdateJob).to receive(:perform_async).with("content_store" => "Adapters::ContentStore",
+                                                                     "content_id" => document.content_id,
+                                                                     "locale" => locale,
+                                                                     "orphaned_content_ids" => [],
+                                                                     "source_command" => "publish",
+                                                                     "source_document_type" => "content_block_email_address",
+                                                                     "source_fields" => [])
 
         described_class.call(payload)
       end
