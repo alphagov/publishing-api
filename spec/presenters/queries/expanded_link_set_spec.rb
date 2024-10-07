@@ -81,6 +81,9 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       let(:contact) do
         create(:edition, state: "published", content_store: "live", document_type: "contact", title: "Some contact")
       end
+      let(:content_id_alias) do
+        create(:content_id_alias, content_id: contact.document.content_id)
+      end
 
       before do
         create_edition(a, "/a", document_type: "person")
@@ -92,7 +95,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
             body: [
               {
                 content_type: "text/govspeak",
-                content: "{{embed:contact:#{contact.document.content_id}}}",
+                content: "{{embed:contact:#{content_id_alias.name}}}",
               },
             ],
           },
