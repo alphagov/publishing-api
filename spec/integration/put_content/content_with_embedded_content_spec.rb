@@ -27,8 +27,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   end
 
   context "when embedded content is in a details field other than body" do
-    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
-    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:document) { create(:document, content_id:) }
 
     let(:payload_for_multiple_field_embeds) do
@@ -36,7 +35,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
         document_type: "transaction",
         schema_name: "transaction",
         details: {
-          downtime_message: "{{embed:contact:#{first_contact.document.content_id}}}",
+          downtime_message: "{{embed:contact:#{contact.document.content_id}}}",
         },
       )
     end
@@ -46,13 +45,13 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
         put "/v2/content/#{content_id}", params: payload_for_multiple_field_embeds.to_json
       }.to change(Link, :count).by(1)
 
-      expect(Link.find_by(target_content_id: first_contact.content_id)).not_to be_nil
+      expect(Link.find_by(target_content_id: contact.content_id)).not_to be_nil
     end
 
     it "should send transformed content to the content store" do
       put "/v2/content/#{content_id}", params: payload_for_multiple_field_embeds.to_json
 
-      expect_content_store_to_have_received_details_including({ "downtime_message" => first_contact.title.to_s })
+      expect_content_store_to_have_received_details_including({ "downtime_message" => contact.title.to_s })
     end
   end
 
