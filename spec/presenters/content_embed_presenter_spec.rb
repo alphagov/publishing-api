@@ -9,6 +9,9 @@ RSpec.describe Presenters::ContentEmbedPresenter do
       links_hash:,
     )
   end
+  let(:embedded_content_reference) do
+    create(:embedded_content_reference, friendly_id: "some-friendly-id", content_id: embedded_content_id)
+  end
   let(:links_hash) do
     {
       embed: [embedded_content_id],
@@ -30,7 +33,7 @@ RSpec.describe Presenters::ContentEmbedPresenter do
 
   describe "#render_embedded_content" do
     context "when body is a string" do
-      let(:details) { { body: "some string with a reference: {{embed:contact:#{embedded_content_id}}}" } }
+      let(:details) { { body: "some string with a reference: {{embed:contact:#{embedded_content_reference.friendly_id}}}" } }
 
       it "returns embedded content references with values from their editions" do
         expect(described_class.new(edition).render_embedded_content(details)).to eq({
@@ -42,8 +45,8 @@ RSpec.describe Presenters::ContentEmbedPresenter do
     context "when body is an array" do
       let(:details) do
         { body: [
-          { content_type: "text/govspeak", content: "some string with a reference: {{embed:contact:#{embedded_content_id}}}" },
-          { content_type: "text/html", content: "some string with a reference: {{embed:contact:#{embedded_content_id}}}" },
+          { content_type: "text/govspeak", content: "some string with a reference: {{embed:contact:#{embedded_content_reference.friendly_id}}}" },
+          { content_type: "text/html", content: "some string with a reference: {{embed:contact:#{embedded_content_reference.friendly_id}}}" },
         ] }
       end
 
@@ -59,7 +62,7 @@ RSpec.describe Presenters::ContentEmbedPresenter do
 
     context "when body is a hash" do
       let(:details) do
-        { body: { title: "some string with a reference: {{embed:contact:#{embedded_content_id}}}" } }
+        { body: { title: "some string with a reference: {{embed:contact:#{embedded_content_reference.friendly_id}}}" } }
       end
 
       it "returns embedded content references with values from their editions" do
@@ -75,7 +78,7 @@ RSpec.describe Presenters::ContentEmbedPresenter do
           parts: [
             body: [
               {
-                content: "some string with a reference: {{embed:contact:#{embedded_content_id}}}",
+                content: "some string with a reference: {{embed:contact:#{embedded_content_reference.friendly_id}}}",
                 content_type: "text/govspeak",
               },
             ],
@@ -104,7 +107,7 @@ RSpec.describe Presenters::ContentEmbedPresenter do
     end
 
     context "when the embedded content is available in multiple locales" do
-      let(:details) { { body: "some string with a reference: {{embed:contact:#{embedded_content_id}}}" } }
+      let(:details) { { body: "some string with a reference: {{embed:contact:#{embedded_content_reference.friendly_id}}}" } }
 
       before do
         embedded_document = create(:document, content_id: embedded_content_id, locale: "cy")
@@ -149,6 +152,8 @@ RSpec.describe Presenters::ContentEmbedPresenter do
 
     context "when the document is an email address" do
       let(:embedded_document) { create(:document) }
+      let(:friendly_id) { "abc" }
+
       let(:links_hash) do
         {
           embed: [embedded_document.content_id],
@@ -166,9 +171,10 @@ RSpec.describe Presenters::ContentEmbedPresenter do
             email_address: "foo@example.com",
           },
         )
+        create(:embedded_content_reference, friendly_id:, content_id: embedded_document.content_id)
       end
 
-      let(:details) { { body: "some string with a reference: {{embed:content_block_email_address:#{embedded_document.content_id}}}" } }
+      let(:details) { { body: "some string with a reference: {{embed:content_block_email_address:#{friendly_id}}}" } }
 
       it "returns an email address" do
         expect(described_class.new(edition).render_embedded_content(details)).to eq({
@@ -179,6 +185,7 @@ RSpec.describe Presenters::ContentEmbedPresenter do
 
     context "when multiple documents are embedded in different parts of the document" do
       let(:other_embedded_content_id) { SecureRandom.uuid }
+      let(:other_friendly_id) { "another-friendly_id" }
 
       before do
         embedded_document = create(:document, content_id: other_embedded_content_id)
@@ -190,6 +197,7 @@ RSpec.describe Presenters::ContentEmbedPresenter do
           document_type: "contact",
           title: "VALUE2",
         )
+        create(:embedded_content_reference, friendly_id: other_friendly_id, content_id: other_embedded_content_id)
       end
 
       let(:links_hash) do
@@ -200,8 +208,8 @@ RSpec.describe Presenters::ContentEmbedPresenter do
 
       let(:details) do
         {
-          title: "title string with reference: {{embed:contact:#{other_embedded_content_id}}}",
-          body: "some string with a reference: {{embed:contact:#{embedded_content_id}}}",
+          title: "title string with reference: {{embed:contact:#{other_friendly_id}}}",
+          body: "some string with a reference: {{embed:contact:#{embedded_content_reference.friendly_id}}}",
         }
       end
 
