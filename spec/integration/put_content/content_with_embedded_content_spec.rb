@@ -5,9 +5,21 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:document) { create(:document, content_id:) }
+    let(:first_contact_content_id_alias) do
+      create(:content_id_alias, name: "alias-1", content_id: first_contact.document.content_id)
+    end
+    let(:second_contact_content_id_alias) do
+      create(:content_id_alias, name: "alias-2", content_id: second_contact.document.content_id)
+    end
 
     before do
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{first_contact.document.content_id}}} {{embed:contact:#{second_contact.document.content_id}}}" })
+      payload.merge!(
+        document_type: "press_release",
+        schema_name: "news_article",
+        details: {
+          body: "{{embed:contact:#{first_contact_content_id_alias.name}}} {{embed:contact:#{second_contact_content_id_alias.name}}}",
+        },
+      )
     end
 
     it "should create links" do
@@ -29,13 +41,16 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   context "when embedded content is in a details field other than body" do
     let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:document) { create(:document, content_id:) }
+    let(:content_id_alias) do
+      create(:content_id_alias, name: "alias-1", content_id: contact.document.content_id)
+    end
 
     let(:payload_for_multiple_field_embeds) do
       payload.merge!(
         document_type: "transaction",
         schema_name: "transaction",
         details: {
-          downtime_message: "{{embed:contact:#{contact.document.content_id}}}",
+          downtime_message: "{{embed:contact:#{content_id_alias.name}}}",
         },
       )
     end
@@ -59,6 +74,13 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:document) { create(:document, content_id:) }
+    let(:first_contact_content_id_alias) do
+      create(:content_id_alias, name: "alias-1", content_id: first_contact.document.content_id)
+    end
+    let(:second_contact_content_id_alias) do
+      create(:content_id_alias, name: "alias-2", content_id: second_contact.document.content_id)
+    end
+
     let(:details) do
       {
         country: {
@@ -77,11 +99,11 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
             body: [
               {
                 "content_type": "text/govspeak",
-                "content": "{{embed:contact:#{first_contact.document.content_id}}}",
+                "content": "{{embed:contact:#{first_contact_content_id_alias.name}}}",
               },
               {
                 "content_type": "text/html",
-                "content": "<p>{{embed:contact:#{first_contact.document.content_id}}}</p>",
+                "content": "<p>{{embed:contact:#{first_contact_content_id_alias.name}}}</p>",
               },
             ],
           },
@@ -91,11 +113,11 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
             body: [
               {
                 "content_type": "text/govspeak",
-                "content": "{{embed:contact:#{second_contact.document.content_id}}}",
+                "content": "{{embed:contact:#{second_contact_content_id_alias.name}}}",
               },
               {
                 "content_type": "text/html",
-                "content": "<p>{{embed:contact:#{second_contact.document.content_id}}}</p>",
+                "content": "<p>{{embed:contact:#{second_contact_content_id_alias.name}}}</p>",
               },
             ],
           },
@@ -158,9 +180,24 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:document) { create(:document, content_id:) }
+    let(:first_contact_content_id_alias) do
+      create(:content_id_alias, name: "alias-1", content_id: first_contact.document.content_id)
+    end
+    let(:second_contact_content_id_alias) do
+      create(:content_id_alias, name: "alias-2", content_id: second_contact.document.content_id)
+    end
 
     before do
-      payload.merge!(document_type: "person", schema_name: "person", details: { body: [{ content_type: "text/govspeak", content: "{{embed:contact:#{first_contact.document.content_id}}} {{embed:contact:#{second_contact.document.content_id}}}" }] })
+      payload.merge!(
+        document_type: "person",
+        schema_name: "person",
+        details: {
+          body: [{
+            content_type: "text/govspeak",
+            content: "{{embed:contact:#{first_contact_content_id_alias.name}}} {{embed:contact:#{second_contact_content_id_alias.name}}}",
+          }],
+        },
+      )
     end
 
     it "should create links" do
@@ -183,9 +220,21 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     let(:first_email_address) { create(:edition, state: "published", content_store: "live", document_type: "content_block_email_address", details: { email_address: "foo@example.com" }) }
     let(:second_email_address) { create(:edition, state: "published", content_store: "live", document_type: "content_block_email_address", details: { email_address: "bar@example.com" }) }
     let(:document) { create(:document, content_id:) }
+    let(:first_email_address_content_id_alias) do
+      create(:content_id_alias, name: "alias-1", content_id: first_email_address.document.content_id)
+    end
+    let(:second_email_address_content_id_alias) do
+      create(:content_id_alias, name: "alias-2", content_id: second_email_address.document.content_id)
+    end
 
     before do
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:content_block_email_address:#{first_email_address.document.content_id}}} {{embed:content_block_email_address:#{second_email_address.document.content_id}}}" })
+      payload.merge!(
+        document_type: "press_release",
+        schema_name: "news_article",
+        details: {
+          body: "{{embed:content_block_email_address:#{first_email_address_content_id_alias.name}}} {{embed:content_block_email_address:#{second_email_address_content_id_alias.name}}}",
+        },
+      )
     end
 
     it "should create links" do
@@ -208,9 +257,21 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     let(:email_address) { create(:edition, state: "published", content_store: "live", document_type: "content_block_email_address", details: { email_address: "foo@example.com" }) }
     let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:document) { create(:document, content_id:) }
+    let(:email_address_content_id_alias) do
+      create(:content_id_alias, name: "alias-1", content_id: email_address.document.content_id)
+    end
+    let(:contact_content_id_alias) do
+      create(:content_id_alias, name: "alias-2", content_id: contact.document.content_id)
+    end
 
     before do
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:content_block_email_address:#{email_address.document.content_id}}} {{embed:contact:#{contact.document.content_id}}}" })
+      payload.merge!(
+        document_type: "press_release",
+        schema_name: "news_article",
+        details: {
+          body: "{{embed:content_block_email_address:#{email_address_content_id_alias.name}}} {{embed:contact:#{contact_content_id_alias.name}}}",
+        },
+      )
     end
 
     it "should create links" do
@@ -257,6 +318,12 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:document) { create(:document, content_id:) }
+    let(:first_contact_content_id_alias) do
+      create(:content_id_alias, name: "alias-1", content_id: first_contact.document.content_id)
+    end
+    let(:second_contact_content_id_alias) do
+      create(:content_id_alias, name: "alias-2", content_id: second_contact.document.content_id)
+    end
     let(:edition) { create(:edition, document:) }
 
     before do
@@ -266,7 +333,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
         target_content_id: first_contact.content_id,
         position: 0,
       })
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{second_contact.document.content_id}}}" })
+      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{second_contact_content_id_alias.name}}}" })
     end
 
     it "should replace the embed link" do
@@ -281,35 +348,44 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
 
   context "with embedded content that does not exist" do
     let(:document) { create(:document, content_id:) }
-    let(:fake_content_id) { SecureRandom.uuid }
+    let(:fake_friendly_id) { "non-existent" }
 
     before do
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{fake_content_id}}}" })
+      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{fake_friendly_id}}}" })
     end
 
     it "should return a 422 error" do
       put "/v2/content/#{content_id}", params: payload.to_json
 
       expect(response).to be_unprocessable
-      expect(response.body).to match(/Could not find any live editions in locale en for: #{fake_content_id}/)
+      expect(response.body).to match(/Could not find any live editions in locale en for: #{fake_friendly_id}/)
     end
   end
 
   context "with a mixture of embedded content that does and does not exist" do
     let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:document) { create(:document, content_id:) }
-    let(:first_fake_content_id) { SecureRandom.uuid }
-    let(:second_fake_content_id) { SecureRandom.uuid }
+    let(:contact_content_id_alias) do
+      create(:content_id_alias, name: "alias-1", content_id: contact.document.content_id)
+    end
+    let(:first_fake_friendly_id) { "non-existent-1" }
+    let(:second_fake_friendly_id) { "non-existent-2" }
 
     before do
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{contact.document.content_id}}} {{embed:contact:#{first_fake_content_id}}} {{embed:contact:#{second_fake_content_id}}}" })
+      payload.merge!(
+        document_type: "press_release",
+        schema_name: "news_article",
+        details: {
+          body: "{{embed:contact:#{contact_content_id_alias.name}}} {{embed:contact:#{first_fake_friendly_id}}} {{embed:contact:#{second_fake_friendly_id}}}",
+        },
+      )
     end
 
     it "should return a 422 error" do
       put "/v2/content/#{content_id}", params: payload.to_json
 
       expect(response).to be_unprocessable
-      expect(response.body).to match(/Could not find any live editions in locale en for: #{first_fake_content_id}, #{second_fake_content_id}/)
+      expect(response.body).to match(/Could not find any live editions in locale en for: #{first_fake_friendly_id}, #{second_fake_friendly_id}/)
     end
   end
 
