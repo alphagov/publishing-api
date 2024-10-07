@@ -189,8 +189,12 @@ RSpec.describe Presenters::DetailsPresenter do
         let(:embeddable_content) do
           create(:edition, state: "published", content_store: "live", document_type: "contact", title: "Some contact")
         end
+        let(:friendly_id) { "a-friendly-id" }
         let(:content_embed_presenter) { Presenters::ContentEmbedPresenter.new(edition) }
-        let(:field_value) { "{{embed:contact:#{embeddable_content.document.content_id}}}" }
+        let(:embedded_content_reference) do
+          create(:embedded_content_reference, friendly_id:, content_id: embeddable_content.document.content_id)
+        end
+        let(:field_value) { "{{embed:contact:#{embedded_content_reference.friendly_id}}}" }
 
         context "when the #{field_name} is not enumerable" do
           let(:edition) { create(:edition, details: { field_name => field_value }, links_hash: { embed: [embeddable_content.document.content_id] }) }
