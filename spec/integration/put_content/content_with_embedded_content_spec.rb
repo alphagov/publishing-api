@@ -5,9 +5,21 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:document) { create(:document, content_id:) }
+    let(:first_contact_embedded_content_reference) do
+      create(:embedded_content_reference, friendly_id: "friendly-id-1", content_id: first_contact.document.content_id)
+    end
+    let(:second_contact_embedded_content_reference) do
+      create(:embedded_content_reference, friendly_id: "friendly-id-2", content_id: second_contact.document.content_id)
+    end
 
     before do
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{first_contact.document.content_id}}} {{embed:contact:#{second_contact.document.content_id}}}" })
+      payload.merge!(
+        document_type: "press_release",
+        schema_name: "news_article",
+        details: {
+          body: "{{embed:contact:#{first_contact_embedded_content_reference.friendly_id}}} {{embed:contact:#{second_contact_embedded_content_reference.friendly_id}}}",
+        },
+      )
     end
 
     it "should create links" do
@@ -29,13 +41,16 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   context "when embedded content is in a details field other than body" do
     let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:document) { create(:document, content_id:) }
+    let(:embedded_content_reference) do
+      create(:embedded_content_reference, friendly_id: "friendly-id-1", content_id: contact.document.content_id)
+    end
 
     let(:payload_for_multiple_field_embeds) do
       payload.merge!(
         document_type: "transaction",
         schema_name: "transaction",
         details: {
-          downtime_message: "{{embed:contact:#{contact.document.content_id}}}",
+          downtime_message: "{{embed:contact:#{embedded_content_reference.friendly_id}}}",
         },
       )
     end
