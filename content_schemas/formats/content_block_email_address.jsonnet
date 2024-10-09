@@ -10,6 +10,9 @@
           type: "string",
           format: "email",
         },
+        content_id_alias: {
+          "$ref": "#/definitions/content_id_alias",
+        }
       },
     },
   },
