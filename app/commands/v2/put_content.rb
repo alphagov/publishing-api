@@ -16,6 +16,7 @@ module Commands
         edition = create_or_update_edition
         set_timestamps(edition)
 
+        create_content_id_alias
         update_content_dependencies(edition)
 
         orphaned_links = link_diff_between(
@@ -96,6 +97,19 @@ module Commands
             end,
           )
         end
+      end
+
+      def create_content_id_alias
+        content_id_alias_name = payload[:content_id_alias]
+        return unless content_id_alias_name
+
+        if (content_id_alias = ContentIdAlias.find_by(name: content_id_alias_name))
+          return if content_id_alias.content_id == payload[:content_id]
+
+          raise CommandError.new(code: 422, message: "ContentIdAlias with name \"#{content_id_alias_name}\" exists for a different content ID.")
+        end
+
+        ContentIdAlias.create!(name: content_id_alias_name, content_id: payload[:content_id])
       end
 
       def fetch_embedded_content(edition)
