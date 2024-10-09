@@ -35,6 +35,9 @@
         "string"
       ]
     },
+    "content_id_alias": {
+      "type": "null"
+    },
     "description": {
       "$ref": "#/definitions/description_optional"
     },

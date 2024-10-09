@@ -94,6 +94,16 @@ module SchemaGenerator
       )
     end
 
+    def content_id_alias
+      @content_id_alias ||= OptionalProperty.new(
+        property: "content_id_alias",
+        status: format_data["content_id_alias"] || "required",
+        required_definition: "content_id_alias",
+        optional_definition: "content_id_alias_optional",
+        forbidden_definition: "null",
+      )
+    end
+
     def generate_publisher?
       generate_publisher = format_data.dig("generate", "publisher")
       generate_publisher.nil? ? true : generate_publisher
