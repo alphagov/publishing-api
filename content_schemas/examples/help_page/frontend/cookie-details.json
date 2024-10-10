@@ -1,0 +1,169 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/help/cookie-details",
+  "content_id": "7fc4a12e-6ab4-4fa4-b5a5-7d5a3ae0bdf9",
+  "description": "GOV.UK uses cookies to collect anonymised information about how users browse the site. ",
+  "details": {
+    "body": "<p>GOV.UK puts small files (known as ‘cookies’) onto your computer to collect information about how you browse the site. Find out more about the cookies we use, what they’re for and when they expire.</p>\n\n<h2 id=\"cookies-that-measure-website-use\">Cookies that measure website use</h2>\n\n<p>We use Google Analytics cookies and a Real User Monitoring (RUM) cookie from SpeedCurve to collect information about how you use GOV.UK.</p>\n\n<p>We use the following Google Analytics cookies on GOV.UK:</p>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Purpose</th>\n      <th scope=\"col\">Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>_ga</td>\n      <td>These help us count how many people visit GOV.UK and other government digital services by tracking if you’ve visited before</td>\n      <td>2 years</td>\n    </tr>\n    <tr>\n      <td>_gid</td>\n      <td>These help us count how many people visit GOV.UK and other government digital services by tracking if you’ve visited before</td>\n      <td>24 hours</td>\n    </tr>\n    <tr>\n      <td>_ga_S5RQ7FTGVR</td>\n      <td>Used by Google Analytics to find and track an individual session with your device</td>\n      <td>2 years</td>\n    </tr>\n  </tbody>\n</table>\n\n<p>You can opt out of Google Analytics cookies on the <a href=\"/help/cookies\">GOV.UK cookies page</a> or by installing the <a rel=\"external\" href=\"https://tools.google.com/dlpage/gaoptout\">Google Analytics Opt-out Browser Add-on</a>.</p>\n\n<p>You can read Google’s overview of <a rel=\"external\" href=\"https://support.google.com/analytics/answer/6004245\">data practices within Google Analytics</a>.</p>\n\n<p>Other government digital services also use Google Analytics cookies to collect information about how you use them and they share this information with us. Each digital service has its own consent mechanism and cookie policy that provides more information about their use of cookies.</p>\n\n<p>The <a href=\"/help/privacy-notice\">GOV.UK Privacy Notice</a> has more information about the data we collect using Google Analytics cookies and information we receive from other digital services.</p>\n\n<p>We also set our own cookie to understand how people move through the site:</p>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Purpose</th>\n      <th scope=\"col\">Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>analytics_next_page_call</td>\n      <td>This lets us know the next page you visit on GOV.UK, so we can make journeys better</td>\n      <td>When you close your browser</td>\n    </tr>\n  </tbody>\n</table>\n\n<p>SpeedCurve RUM sets the following cookie:</p>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Purpose</th>\n      <th scope=\"col\">Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>lux_uid</td>\n      <td>This lets us understand the web performance you experience while on GOV.UK</td>\n      <td>1 day or 30 minutes of inactivity</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"comparing-different-versions-of-a-webpage\">Comparing different versions of a webpage</h3>\n\n<p>We sometimes use analytics to try out different versions of pages to see which work better for users (‘multivariate testing’). We’ll save a cookie so that you consistently see the same version when browsing GOV.UK.</p>\n\n<p>The cookie name will change but will be in the form ‘ABTest-[Test name]’ where the ‘Test name’ describes which part of GOV.UK is being tested.</p>\n\n<p>This type of cookie will usually expire after between 1 and 4 weeks, but this may be longer for more in-depth tests.</p>\n\n<p>If you have not opted in to this type of cookie, you’ll see the standard version of the page being tested.</p>\n\n<h3 id=\"javascript-detection\">JavaScript detection</h3>\n\n<p>We measure how many people visiting GOV.UK are using JavaScript, so that the site works for as many users as possible.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Purpose</th>\n      <th scope=\"col\">Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>JS-Detection</td>\n      <td>This tells us if you are browsing GOV.UK while running JavaScript</td>\n      <td>1 year</td>\n    </tr>\n  </tbody>\n</table>\n\n<h2 id=\"cookies-that-help-with-our-communications-and-marketing\">Cookies that help with our communications and marketing</h2>\n\n<p>Some GOV.UK pages may contain content from other sites, like YouTube or Flickr, which may set their own cookies. These sites are sometimes called ‘third party’ services. This tells us how many people are seeing the content and whether it’s useful.</p>\n\n<p>In addition, if you share a link to a GOV.UK page, the service you share it on (for example, Facebook) may set a cookie. We have no control over cookies set on other websites - you can turn them off, but not through us.</p>\n\n<h3 id=\"youtube-videos\">YouTube videos</h3>\n\n<p>We use YouTube to show videos on some GOV.UK pages. YouTube sets cookies when you visit one of these pages.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Purpose</th>\n      <th scope=\"col\">Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>_use_hitbox</td>\n      <td>This is a randomly generated number that identifies your browser</td>\n      <td>When you close your browser</td>\n    </tr>\n    <tr>\n      <td>VISITOR_INFO1_LIVE</td>\n      <td>Lets YouTube count the views of embedded YouTube videos</td>\n      <td>9 months</td>\n    </tr>\n  </tbody>\n</table>\n\n<h2 id=\"cookies-that-remember-your-settings\">Cookies that remember your settings</h2>\n\n<p>These cookies do things like remember your preferences and the choices you make, to personalise your experience of using GOV.UK.</p>\n\n<h3 id=\"messages-across-govuk\">Messages across GOV.UK</h3>\n\n<p>We might display a message on all GOV.UK pages to tell you about an important event or situation. We’ll save a cookie that will let us know how many times you’ve seen it, or if you’ve dismissed it.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Purpose</th>\n      <th scope=\"col\">Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>global_bar_seen</td>\n      <td>Remembers the number of times you’ve seen the message, or if you’ve dismissed it</td>\n      <td>12 weeks</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"surveys\">Surveys</h3>\n\n<p>We will sometimes select users to take part in a survey, for example our performance survey. If you take part, or dismiss the survey, we’ll save a cookie that lets us know you’ve seen the message so that we do not show it to you again.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Purpose</th>\n      <th scope=\"col\">Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>govuk_taken[NameOfSurvey]</td>\n      <td>Saves a message to remember if you’ve taken the survey or dismissed it</td>\n      <td>4 months</td>\n    </tr>\n    <tr>\n      <td>govuk_surveySeen[NameOfSurvey]</td>\n      <td>Saves a message to remember how many times you’ve seen the survey</td>\n      <td>2 years</td>\n    </tr>\n  </tbody>\n</table>\n\n<p>We use <a rel=\"external\" href=\"https://www.smartsurvey.co.uk/\">SmartSurvey</a> to collect responses to the survey. If you take part, SmartSurvey <a rel=\"external\" href=\"https://www.smartsurvey.co.uk/how-we-use-cookies\">will save extra cookies</a> to track your progress on their website.</p>\n\n<h3 id=\"your-location\">Your location</h3>\n\n<p>We may give you the option of saving your home nation on pages where guidance is different if you’re in England, Scotland, Wales or Northern Ireland (for example, the <a href=\"/bank-holidays\">UK bank holidays</a> page).</p>\n\n<p>If you save your location, we’ll save a cookie to your device so we can show you the most relevant information next time you visit that page.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Purpose</th>\n      <th scope=\"col\">Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>user_nation</td>\n      <td>Remembers if you saved your location on pages that can be adjusted based on your home nation</td>\n      <td>365 days</td>\n    </tr>\n  </tbody>\n</table>\n\n<h2 id=\"strictly-necessary-cookies\">Strictly necessary cookies</h2>\n\n<h3 id=\"your-progress-when-applying-for-a-licence\">Your progress when applying for a licence</h3>\n\n<p>When you use the ‘apply for a licence’ service, we’ll set a cookie to remember your progress through the forms. These cookies do not store your personal data and are deleted once you’ve completed the transaction.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Purpose</th>\n      <th scope=\"col\">Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>licensing_session</td>\n      <td>Set to remember information you’ve entered into a form when applying for a licence</td>\n      <td>When you close your browser</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"contacting-govuk\">Contacting GOV.UK</h3>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Purpose</th>\n      <th scope=\"col\">Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>govuk_contact_referrer</td>\n      <td>This lets us know the last page you visited before using the contact GOV.UK form</td>\n      <td>1 day</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"govuk-email-subscriptions\">GOV.UK email subscriptions</h3>\n\n<p>If you sign up to receive email notifications from GOV.UK, we will save a cookie if you change your subscriptions. This cookie is deleted when you close your browser.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Purpose</th>\n      <th scope=\"col\">Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>email-alert-frontend_session</td>\n      <td>This remembers you as you change your email subscriptions</td>\n      <td>When you close your browser</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"cookies-message\">Cookies message</h3>\n\n<p>You may see a banner when you visit GOV.UK inviting you to accept cookies or review your settings. We’ll set cookies so that your computer knows you’ve seen it and not to show it again, and also to store your settings.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Purpose</th>\n      <th scope=\"col\">Expires</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>cookies_policy</td>\n      <td>Saves your cookie consent settings</td>\n      <td>1 year</td>\n    </tr>\n    <tr>\n      <td>cookies_preferences_set</td>\n      <td>Lets us know that you’ve saved your cookie consent settings</td>\n      <td>1 year</td>\n    </tr>\n  </tbody>\n</table>\n\n<h2 id=\"change-your-settings\">Change your settings</h2>\n\n<p>You can <a href=\"/help/cookies\">change which cookies you’re happy for us to use</a>.</p>\n",
+    "change_history": [
+      {
+        "note": "Information on LUX Real User Monitoring",
+        "public_timestamp": "2021-06-16T13:16:24.482Z"
+      },
+      {
+        "note": "Updating the Details about cookies page to provide more information about how data is collected, processed and stored.",
+        "public_timestamp": "2022-01-14T11:28:44.392Z"
+      },
+      {
+        "note": "This content was updated on 22 September 2022. ",
+        "public_timestamp": "2022-10-05T13:52:37.046Z"
+      },
+      {
+        "note": "Information about cookies for GOV.UK accounts has been moved to a separate policy.",
+        "public_timestamp": "2023-01-09T16:28:16.710Z"
+      }
+    ],
+    "external_related_links": [
+      {
+        "title": "Information Commissioner's Office: cookies",
+        "url": "https://ico.org.uk/for-the-public/online/cookies"
+      }
+    ]
+  },
+  "document_type": "help_page",
+  "first_published_at": "2019-05-31T12:02:57+01:00",
+  "links": {
+    "available_translations": [
+      {
+        "api_path": "/api/content/help/cookie-details",
+        "api_url": "https://www.gov.uk/api/content/help/cookie-details",
+        "base_path": "/help/cookie-details",
+        "content_id": "7fc4a12e-6ab4-4fa4-b5a5-7d5a3ae0bdf9",
+        "document_type": "help_page",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-09-18T13:13:52Z",
+        "schema_name": "help_page",
+        "title": "Details about cookies on GOV.UK",
+        "web_url": "https://www.gov.uk/help/cookie-details",
+        "withdrawn": false
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "api_path": "/api/content/help/about-govuk",
+        "api_url": "https://www.gov.uk/api/content/help/about-govuk",
+        "base_path": "/help/about-govuk",
+        "content_id": "464c5c16-dcdb-4ed0-9ba7-341ee652038a",
+        "document_type": "help_page",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2023-09-27T14:45:58Z",
+        "schema_name": "help_page",
+        "title": "About GOV.UK",
+        "web_url": "https://www.gov.uk/help/about-govuk",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/help/terms-conditions",
+        "api_url": "https://www.gov.uk/api/content/help/terms-conditions",
+        "base_path": "/help/terms-conditions",
+        "content_id": "df47bc71-2e96-4993-8342-11b4ba464f1d",
+        "document_type": "help_page",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-09-03T14:21:50Z",
+        "schema_name": "help_page",
+        "title": "Terms and conditions",
+        "web_url": "https://www.gov.uk/help/terms-conditions",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/help/privacy-notice",
+        "api_url": "https://www.gov.uk/api/content/help/privacy-notice",
+        "base_path": "/help/privacy-notice",
+        "content_id": "333f53c7-36a2-47b9-b52d-e249929f6ef1",
+        "document_type": "help_page",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2023-11-24T12:19:15Z",
+        "schema_name": "help_page",
+        "title": "Privacy notice",
+        "web_url": "https://www.gov.uk/help/privacy-notice",
+        "withdrawn": false
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "details": {
+          "acronym": "GDS",
+          "brand": "department-for-science-innovation-and-technology",
+          "default_news_image": null,
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Government Digital Service"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Government Digital Service",
+        "web_url": "https://www.gov.uk/government/organisations/government-digital-service",
+        "withdrawn": false
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "details": {
+          "acronym": "GDS",
+          "brand": "department-for-science-innovation-and-technology",
+          "default_news_image": null,
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Government Digital Service"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Government Digital Service",
+        "web_url": "https://www.gov.uk/government/organisations/government-digital-service",
+        "withdrawn": false
+      }
+    ]
+  },
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2024-09-18T14:13:52+01:00",
+  "publishing_app": "publisher",
+  "publishing_request_id": "21-1726665231.794-10.13.22.107-15684",
+  "publishing_scheduled_at": null,
+  "rendering_app": "government-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "help_page",
+  "title": "Details about cookies on GOV.UK",
+  "updated_at": "2024-09-18T14:13:52+01:00",
+  "withdrawn_notice": {}
+}
