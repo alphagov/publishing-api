@@ -363,9 +363,6 @@
         }
       }
     },
-    "content_id_alias": {
-      "type": "string"
-    },
     "description_optional": {
       "anyOf": [
         {
@@ -385,9 +382,6 @@
       "properties": {
         "change_history": {
           "$ref": "#/definitions/change_history"
-        },
-        "content_id_alias": {
-          "$ref": "#/definitions/content_id_alias"
         },
         "email_address": {
           "type": "string",

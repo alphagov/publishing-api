@@ -32,6 +32,9 @@
         "string"
       ]
     },
+    "content_id_alias": {
+      "$ref": "#/definitions/content_id_alias"
+    },
     "description": {
       "$ref": "#/definitions/description_optional"
     },
@@ -179,9 +182,6 @@
       ],
       "additionalProperties": false,
       "properties": {
-        "content_id_alias": {
-          "$ref": "#/definitions/content_id_alias"
-        },
         "email_address": {
           "type": "string",
           "format": "email"

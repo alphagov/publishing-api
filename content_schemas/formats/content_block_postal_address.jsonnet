@@ -21,9 +21,6 @@
         postcode: {
           type: "string"
         },
-        content_id_alias: {
-          "$ref": "#/definitions/content_id_alias",
-        }
       },
     },
   },
