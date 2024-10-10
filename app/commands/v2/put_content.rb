@@ -100,7 +100,7 @@ module Commands
       end
 
       def create_content_id_alias
-        content_id_alias_name = payload.dig(:details, :content_id_alias)
+        content_id_alias_name = payload[:content_id_alias]
         return unless content_id_alias_name
 
         if (content_id_alias = ContentIdAlias.find_by(name: content_id_alias_name))

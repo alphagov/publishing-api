@@ -113,8 +113,8 @@ RSpec.describe Commands::V2::PutContent do
           document_type: "content_block_email_address",
           title: "Government Digital Service - General contact",
           description: "General contact email address for Government Digital Service",
+          content_id_alias: "gds-general",
           details: {
-            content_id_alias: "gds-general",
             email_address: "foo@example.com",
           },
           publishing_app: "whitehall",
@@ -124,14 +124,14 @@ RSpec.describe Commands::V2::PutContent do
       context "and including a content_id_alias" do
         context "when a ContentIdAlias does not exist with the given name" do
           it "creates a ContentIdAlias" do
-            expect(ContentIdAlias).to receive(:create!).with(name: content_block_payload[:details][:content_id_alias], content_id:)
+            expect(ContentIdAlias).to receive(:create!).with(name: content_block_payload[:content_id_alias], content_id:)
             described_class.call(content_block_payload)
           end
         end
 
         context "when a ContendIdAlias exists with the given name and content ID" do
           before do
-            create(:content_id_alias, content_id:, name: content_block_payload[:details][:content_id_alias])
+            create(:content_id_alias, content_id:, name: content_block_payload[:content_id_alias])
           end
 
           it "does not create a new ContentIdAlias and does not raise an error" do
@@ -142,7 +142,7 @@ RSpec.describe Commands::V2::PutContent do
 
         context "when a ContentIdAlias exists with the given name but a different content ID" do
           before do
-            create(:content_id_alias, content_id: SecureRandom.uuid, name: content_block_payload[:details][:content_id_alias])
+            create(:content_id_alias, content_id: SecureRandom.uuid, name: content_block_payload[:content_id_alias])
           end
 
           it "raises an error" do
@@ -151,7 +151,7 @@ RSpec.describe Commands::V2::PutContent do
               described_class.call(content_block_payload)
             }.to raise_error(CommandError) { |error|
               expect(error.code).to eq(422)
-              expect(error.message).to eq("ContentIdAlias with name \"#{content_block_payload[:details][:content_id_alias]}\" exists for a different content ID.")
+              expect(error.message).to eq("ContentIdAlias with name \"#{content_block_payload[:content_id_alias]}\" exists for a different content ID.")
             }
           end
         end
