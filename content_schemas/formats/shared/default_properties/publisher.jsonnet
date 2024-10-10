@@ -32,4 +32,7 @@
   update_type: {
     "$ref": "#/definitions/update_type",
   },
+  content_id_alias: {
+    "$ref": "#/definitions/content_id_alias",
+  },
 }

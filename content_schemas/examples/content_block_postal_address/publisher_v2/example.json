@@ -4,6 +4,7 @@
   "document_type": "content_block_postal_address",
   "title": "Government Digital Service - Head office",
   "description": "The head office for Government Digital Service",
+  "content_id_alias": "gds-general",
   "details": {
     "line_1": "1 Westminster Road",
     "line_2": "Flat A",

@@ -32,6 +32,9 @@
         "string"
       ]
     },
+    "content_id_alias": {
+      "$ref": "#/definitions/content_id_alias"
+    },
     "description": {
       "type": "null"
     },
@@ -146,6 +149,9 @@
           "type": "null"
         }
       ]
+    },
+    "content_id_alias": {
+      "type": "string"
     },
     "first_published_at": {
       "description": "The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.",

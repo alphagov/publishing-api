@@ -4,6 +4,7 @@
   "document_type": "content_block_email_address",
   "title": "Government Digital Service - General contact",
   "description": "General contact email address for Government Digital Service",
+  "content_id_alias": "gds-general",
   "details": {
     "email_address": "foo@example.com"
   },

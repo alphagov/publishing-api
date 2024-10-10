@@ -35,6 +35,9 @@
         "string"
       ]
     },
+    "content_id_alias": {
+      "$ref": "#/definitions/content_id_alias"
+    },
     "description": {
       "$ref": "#/definitions/description_optional"
     },
@@ -167,6 +170,9 @@
           "$ref": "#/definitions/multiple_content_types"
         }
       ]
+    },
+    "content_id_alias": {
+      "type": "string"
     },
     "country": {
       "type": "object",

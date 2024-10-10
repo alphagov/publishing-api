@@ -104,6 +104,79 @@ RSpec.describe Commands::V2::PutContent do
       )
     end
 
+    describe "linking a content_id to a human readable alias" do
+      let(:content_block_payload) do
+        {
+          content_id:,
+          locale: "en",
+          schema_name: "content_block_email_address",
+          document_type: "content_block_email_address",
+          title: "Government Digital Service - General contact",
+          description: "General contact email address for Government Digital Service",
+          content_id_alias: "gds-general",
+          details: {
+            email_address: "foo@example.com",
+          },
+          publishing_app: "whitehall",
+        }
+      end
+
+      context "and including a content_id_alias" do
+        context "when a ContentIdAlias does not exist with the given name" do
+          it "creates a ContentIdAlias" do
+            expect(ContentIdAlias).to receive(:create!).with(name: content_block_payload[:content_id_alias], content_id:)
+            described_class.call(content_block_payload)
+          end
+        end
+
+        context "when a ContendIdAlias exists with the given name and content ID" do
+          before do
+            create(:content_id_alias, content_id:, name: content_block_payload[:content_id_alias])
+          end
+
+          it "does not create a new ContentIdAlias and does not raise an error" do
+            expect(ContentIdAlias).not_to receive(:create!)
+            expect { described_class.call(content_block_payload) }.not_to raise_error
+          end
+        end
+
+        context "when a ContentIdAlias exists with the given name but a different content ID" do
+          before do
+            create(:content_id_alias, content_id: SecureRandom.uuid, name: content_block_payload[:content_id_alias])
+          end
+
+          it "raises an error" do
+            expect(ContentIdAlias).not_to receive(:create!)
+            expect {
+              described_class.call(content_block_payload)
+            }.to raise_error(CommandError) { |error|
+              expect(error.code).to eq(422)
+              expect(error.message).to eq("ContentIdAlias with name \"#{content_block_payload[:content_id_alias]}\" exists for a different content ID.")
+            }
+          end
+        end
+      end
+
+      context "and not including a content_id_alias" do
+        it "does not create a ContentIdAlias" do
+          content_block_payload = {
+            content_id:,
+            locale: "en",
+            schema_name: "content_block_email_address",
+            document_type: "content_block_email_address",
+            title: "Government Digital Service - General contact",
+            description: "General contact email address for Government Digital Service",
+            details: {
+              email_address: "foo@example.com",
+            },
+            publishing_app: "whitehall",
+          }
+          expect(ContentIdAlias).not_to receive(:create!)
+          described_class.call(content_block_payload)
+        end
+      end
+    end
+
     context "when the 'downstream' parameter is false" do
       it "does not send to the downstream draft worker" do
         expect(DownstreamDraftJob).not_to receive(:perform_async_in_queue)

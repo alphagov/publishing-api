@@ -33,6 +33,9 @@
         "string"
       ]
     },
+    "content_id_alias": {
+      "$ref": "#/definitions/content_id_alias"
+    },
     "description": {
       "$ref": "#/definitions/description"
     },
@@ -145,6 +148,9 @@
           "type": "null"
         }
       ]
+    },
+    "content_id_alias": {
+      "type": "string"
     },
     "details": {
       "type": "object",

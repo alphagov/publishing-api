@@ -11,4 +11,5 @@
   rendering_app: "required",
   routes: "required",
   title: "required",
+  content_id_alias: "forbidden",
 }
