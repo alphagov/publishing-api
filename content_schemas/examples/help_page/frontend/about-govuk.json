@@ -1,0 +1,196 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/help/about-govuk",
+  "content_id": "464c5c16-dcdb-4ed0-9ba7-341ee652038a",
+  "description": "GOV.UK is the best place to find government services and information for citizens and businesses, guidance for professionals, government policy",
+  "details": {
+    "body": "<p>GOV.UK is the website for the UK government. It’s the best place to find government services and information.</p>\n\n<p>The site is maintained by the <a href=\"/government/organisations/government-digital-service\">Government Digital Service (<abbr title=\"Government Digital Service\">GDS</abbr>)</a>.</p>\n\n<h2 id=\"whats-on-govuk\">What’s on GOV.UK</h2>\n\n<p>You can find:</p>\n\n<ul>\n  <li>information and services for citizens and businesses</li>\n  <li>detailed guidance for professionals</li>\n  <li>information on government and policy</li>\n</ul>\n\n<h2 id=\"how-govuk-is-updated\">How GOV.UK is updated</h2>\n\n<p>We work closely with every government department to make sure all the information on GOV.UK is accurate and up to date.</p>\n\n<p>GOV.UK is also updated based on results from user research and feedback from members of the public.</p>\n\n<h2 id=\"tracking-users\">Tracking users</h2>\n\n<p>We track how you use GOV.UK, but we do not collect or store your personal information (such as your name or address) while you’re browsing. This means that you cannot be personally identified.</p>\n\n<p>We use Google Analytics software to track:</p>\n\n<ul>\n  <li>what pages you visit</li>\n  <li>how long you use the site</li>\n  <li>how you got to the site and what links you clicked on</li>\n</ul>\n\n<p>We do not allow Google to share this data with anyone else.</p>\n\n<h2 id=\"reuse-information-published-on-govuk\">Reuse information published on GOV.UK</h2>\n\n<p>You can republish any of the content on GOV.UK, as long as you meet the conditions of the <a rel=\"external\" href=\"http://www.nationalarchives.gov.uk/doc/open-government-licence/\">Open Government Licence</a>.</p>\n\n<h2 id=\"links-to-other-sites-from-govuk\">Links to other sites from GOV.UK</h2>\n\n<p>GOV.UK links to external organisations when that link is essential for helping someone complete a task that they begin on the site.</p>\n\n<p>For example, there’s a link from the content on university applications to the Universities and Colleges Admissions Service (UCAS) website.</p>\n\n<p>We will only consider link requests if the website falls into this ‘essential’ category.</p>\n\n<p>You can <a href=\"https://www.gov.uk/contact/govuk\">ask for a link to be added</a> to GOV.UK.</p>\n\n<h2 id=\"data-sets-on-govuk\">Data sets on GOV.UK</h2>\n\n<p>GOV.UK uses several data sets to help make the website better.</p>\n\n<p>For example, data is used to take you to your council’s website if you want to know what day your bin’s collected.</p>\n\n<p>Many of these data sets are used under the <a rel=\"external\" href=\"http://www.nationalarchives.gov.uk/doc/open-government-licence/\">Open Government Licence</a>.</p>\n\n<p>We use:</p>\n\n<ul>\n  <li>\n<a rel=\"external\" href=\"http://id.esd.org.uk/ServiceList\">Local Government Service List</a> and <a rel=\"external\" href=\"http://id.esd.org.uk/list/interactions\">Local Government Interaction List</a> by <a rel=\"external\" href=\"http://esd.org.uk/\">esd-toolkit</a>\n</li>\n  <li>\n<a rel=\"external\" href=\"https://www.ordnancesurvey.co.uk/products/boundary-line\">Boundary-Line</a> from <a rel=\"external\" href=\"http://www.ordnancesurvey.co.uk/oswebsite/\">Ordnance Survey</a>\n</li>\n  <li>\n<a rel=\"external\" href=\"https://www.ons.gov.uk/methodology/geography/geographicalproducts/postcodeproducts\">ONS Postcode Directory</a> from <a rel=\"external\" href=\"http://www.ons.gov.uk/ons/index.html\">Office for National Statistics</a>\n</li>\n</ul>\n\n",
+    "change_history": [
+      {
+        "note": "Updated links to datasets ",
+        "public_timestamp": "2023-09-27T14:45:58.266Z"
+      }
+    ],
+    "external_related_links": []
+  },
+  "document_type": "help_page",
+  "first_published_at": "2013-09-02T12:39:37+01:00",
+  "links": {
+    "available_translations": [
+      {
+        "api_path": "/api/content/help/about-govuk",
+        "api_url": "https://www.gov.uk/api/content/help/about-govuk",
+        "base_path": "/help/about-govuk",
+        "content_id": "464c5c16-dcdb-4ed0-9ba7-341ee652038a",
+        "document_type": "help_page",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2023-09-27T14:45:58Z",
+        "schema_name": "help_page",
+        "title": "About GOV.UK",
+        "web_url": "https://www.gov.uk/help/about-govuk",
+        "withdrawn": false
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "api_path": "/api/content/help/privacy-notice",
+        "api_url": "https://www.gov.uk/api/content/help/privacy-notice",
+        "base_path": "/help/privacy-notice",
+        "content_id": "333f53c7-36a2-47b9-b52d-e249929f6ef1",
+        "document_type": "help_page",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2023-11-24T12:19:15Z",
+        "schema_name": "help_page",
+        "title": "Privacy notice",
+        "web_url": "https://www.gov.uk/help/privacy-notice",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/help/terms-conditions",
+        "api_url": "https://www.gov.uk/api/content/help/terms-conditions",
+        "base_path": "/help/terms-conditions",
+        "content_id": "df47bc71-2e96-4993-8342-11b4ba464f1d",
+        "document_type": "help_page",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-09-03T14:21:50Z",
+        "schema_name": "help_page",
+        "title": "Terms and conditions",
+        "web_url": "https://www.gov.uk/help/terms-conditions",
+        "withdrawn": false
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "details": {
+          "acronym": "GDS",
+          "brand": "department-for-science-innovation-and-technology",
+          "default_news_image": null,
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Government Digital Service"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Government Digital Service",
+        "web_url": "https://www.gov.uk/government/organisations/government-digital-service",
+        "withdrawn": false
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "details": {
+          "acronym": "GDS",
+          "brand": "department-for-science-innovation-and-technology",
+          "default_news_image": null,
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Government Digital Service"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Government Digital Service",
+        "web_url": "https://www.gov.uk/government/organisations/government-digital-service",
+        "withdrawn": false
+      }
+    ],
+    "suggested_ordered_related_items": [
+      {
+        "api_path": "/api/content/help/privacy-notice",
+        "api_url": "https://www.gov.uk/api/content/help/privacy-notice",
+        "base_path": "/help/privacy-notice",
+        "content_id": "333f53c7-36a2-47b9-b52d-e249929f6ef1",
+        "document_type": "help_page",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2023-11-24T12:19:15Z",
+        "schema_name": "help_page",
+        "title": "Privacy notice",
+        "web_url": "https://www.gov.uk/help/privacy-notice",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/help/terms-conditions",
+        "api_url": "https://www.gov.uk/api/content/help/terms-conditions",
+        "base_path": "/help/terms-conditions",
+        "content_id": "df47bc71-2e96-4993-8342-11b4ba464f1d",
+        "document_type": "help_page",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-09-03T14:21:50Z",
+        "schema_name": "help_page",
+        "title": "Terms and conditions",
+        "web_url": "https://www.gov.uk/help/terms-conditions",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/help/beta",
+        "api_url": "https://www.gov.uk/api/content/help/beta",
+        "base_path": "/help/beta",
+        "content_id": "8779a87f-87e4-477a-a1f0-6fa415080dc8",
+        "document_type": "help_page",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2023-11-06T13:32:46Z",
+        "schema_name": "help_page",
+        "title": "Beta on GOV.UK",
+        "web_url": "https://www.gov.uk/help/beta",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/help/get-emails-about-updates-to-govuk",
+        "api_url": "https://www.gov.uk/api/content/help/get-emails-about-updates-to-govuk",
+        "base_path": "/help/get-emails-about-updates-to-govuk",
+        "content_id": "7e21f642-af50-4833-a2ce-1a564c3571a7",
+        "document_type": "help_page",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2021-11-25T15:09:07Z",
+        "schema_name": "help_page",
+        "title": "Get emails about updates to GOV.UK",
+        "web_url": "https://www.gov.uk/help/get-emails-about-updates-to-govuk",
+        "withdrawn": false
+      }
+    ]
+  },
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2023-09-27T15:45:58+01:00",
+  "publishing_app": "publisher",
+  "publishing_request_id": "21-1695825958.174-10.13.21.25-10471",
+  "publishing_scheduled_at": null,
+  "rendering_app": "government-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "help_page",
+  "title": "About GOV.UK",
+  "updated_at": "2024-09-03T15:21:51+01:00",
+  "withdrawn_notice": {}
+}
