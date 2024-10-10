@@ -83,7 +83,8 @@ private
   end
 
   def enqueue_dependencies
-    DependencyResolutionJob.perform_async(
+    dependency_job_klass = @message_queue_event_type == "content_block" ? HostContentUpdateJob : DependencyResolutionJob
+    dependency_job_klass.perform_async(
       "content_store" => "Adapters::ContentStore",
       "content_id" => content_id,
       "locale" => locale,
