@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PublishingAPISchema < GraphQL::Schema
+class PublishingApiSchema < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
 

@@ -27,5 +27,13 @@ module Types
     def test_field
       "Hello World!"
     end
+
+    field :edition, String, null: false, description: "An edition" do
+      argument :id, Integer
+    end
+      
+    def edition(id:)
+      Edition.find(id.to_s)
+    end
   end
 end
