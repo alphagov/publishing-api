@@ -162,15 +162,10 @@ module SchemaGenerator
 
       def definition
         if document_types.blank?
-          return build_definition(allowed_document_types)
+          raise InvalidFormat, "You must provide a document_type in order to generate the schema."
         end
 
         specified_document_types = Array(document_types)
-        disallowed = specified_document_types - allowed_document_types
-        if disallowed.any?
-          raise InvalidFormat, "Encountered document types which are not allowed in `content_schemas/allowed_document_types.yml`: #{disallowed.join(', ')}"
-        end
-
         build_definition(specified_document_types)
       end
 
@@ -178,14 +173,6 @@ module SchemaGenerator
 
       def build_definition(document_types)
         { "enum" => document_types, "type" => "string" }
-      end
-
-      def allowed_document_types
-        @allowed_document_types ||= YAML.load_file(allowed_document_types_path)
-      end
-
-      def allowed_document_types_path
-        File.expand_path("./content_schemas/allowed_document_types.yml")
       end
     end
 

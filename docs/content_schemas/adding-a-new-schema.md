@@ -12,7 +12,6 @@ With the following contents:
 You can then use the contents of the `formats/_example.jsonnet` as the basis
 of what to put into the file.
 
-Once you have completed these file add the new format to `allowed_document_types.yml`.
 You can generate the corresponding schemas with the
 [`rake` task](../README.md#Rakefile).
 

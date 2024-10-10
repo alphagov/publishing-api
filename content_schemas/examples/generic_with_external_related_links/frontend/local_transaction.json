@@ -2,7 +2,7 @@
   "analytics_identifier": null,
   "base_path": "/pay-council-tax",
   "content_id": "7c6cae47-9806-4964-bb74-c67a0733b240",
-  "document_type": "local_transaction",
+  "document_type": "generic_with_external_links",
   "first_published_at": "2016-11-09T15:39:23.000+00:00",
   "locale": "en",
   "phase": "live",
