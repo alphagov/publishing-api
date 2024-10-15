@@ -1,50 +1,75 @@
 # Changing an existing content schema
 
-## General workflow
+## When not adding or removing top-level fields
 
-* create a branch
-* make changes to the relevant schema fragment under `formats/<format name>.jsonnet`
-* change the relevant frontend examples (or add a new example)
-* run `rake build_schemas` to compile a new schema.json
-* run `rake` to test the example against the schema
-* commit and push
-* open a PR
-* watch the multi-build status to see if all apps are compatible with the change
-* if the builds are successful, it can be merged
+This describes how to add or remove fields that extend the top-level fields
+defined in `default_format.jsonnet`. For example, if you wanted to submit an
+additional field via a form in a publishing app, you might add a field nested
+within `details` (a field already defined in `default_format.jsonnet`).
 
-## Adding a new field to a content schema
+1. If you're adding or removing a required field:
+   - Update publishing app(s) to provide/stop providing the field
+   - If removing a field, update frontend app(s) to no longer access the
+     soon-to-be-removed field
+   - Update existing data in Content Store to ensure they conform with the
+     incoming schema changes
+1. Update the relevant schema fragment under
+   `content_schemas/formats/<format_name>.jsonnet`
+   - Add or remove the desired `details` > `properties` property
+   - If the field is/was required, update the `details` > `required` array
+1. If necessary, add, remove or update relevant definition file within
+   `content_schemas/formats/shared/definitions` to add or remove the definition
+   for the field
+1. Add, remove, or update the relevant example schemas in
+   `content_schemas/examples/**/<example_name>.jsonnet`
+1. Run `rake build_schemas` to compile the updated schemas in
+   `content_schemas/dist/` and validate the example schemas
+1. Check that all the CI workflows pass. These will verify that the content
+   schemas are compatible with the suite of publishing apps
 
-Follow the General workflow described above. You are now free to add support for the field to apps. If you are adding a mandatory field you will need to additionally:
+### Non-top-level field examples
 
-* deploy the publishing app with changes to always populate the field
-* populate the field in any records inside content-store
-* follow the General workflow, adding the field to the `required` attribute
-* you can then update the frontend app to expect the field to always be present
+- [Adding a new optional field to the `details` property](https://github.com/alphagov/publishing-api/pull/2780/commits/18611f4a7eae7083d8ec4db84c5968fe492fd37b)
+- [Adding a new definition](https://github.com/alphagov/publishing-api/commit/ecae69f93d0fdf9b6edf9d45b35844e2c9965520#diff-0dc22d7709c7e0d783753fcb265d78c54c4d332cad274249944ca5cab297398f)
+- [Updating a definition](https://github.com/alphagov/publishing-api/commit/cc282faa094e1cc176346b14a6d70b26c5fff120#diff-d3574f44494e19be552aba2ae11deeef2e321821bc8e2d7bac8c6e51408b784b)
+- [Requiring a property](https://github.com/alphagov/publishing-api/commit/3d141bd62ef6dcd8e1d0aa0224efaa8893ebb0fa#diff-d95f9261dcdb8098a73d80db7612b378c009f051f8cbbff8a0968ce9bafc665c)
 
-For example, imagine that you need to add a new optional field to the details hash of the `case_study` schema. The steps would be:
+## When adding or removing top-level fields
 
-1. edit [`formats/case_study.jsonnet`](/formats/case_study.jsonnet) to
-   add the new optional field
-1. run `rake`. This will:
-  1. regenerate the publisher [`schema.json`](/dist/formats/case_study/publisher/schema.json) to incorporate the changes you made to the `details`
-  1. regenerate the notification [`schema.json`](/dist/formats/case_study/notification/schema.json) to incorporate the changes
-  1. regenerate the frontend [`schema.json`](/dist/formats/case_study/frontend/schema.json) to incorporate the same changes
-  1. revalidate all example files to check if they are still valid after this change. This will pass, because the new field is optional
-1. [Optional step] you could add an additional example to illustrate how your new field should be used. You can add a new file in [examples/case_study/frontend](/examples/case_study/frontend)
-1. create a new branch and commit and push your changes.
-   This will run the contract tests for each application which relies on the schemas.
-   You'll get immediate feedback about whether publishing applications generate content items compatible with the new schema.
-1. once the tests pass, someone will merge your pull request and the new schemas will be available to use
-1. Deploy your changes (see [`docs/deployment.md`](deployment.md) for details).
+This describes how to add or remove top-level fields to the default format.
+These fields tend to be overridden in `.jsonnet` schemas that extend
+`default_format.jsonnet`. This allows you to, among other things, define a
+top-level `"forbidden"` field that should not be provided by consumers of the
+API, then allow it for schemas further down the chain by marking it as
+`"optional"`.
 
-## Removing a field from a content schema
+1. If you're adding or removing a required field:
+   - Update publishing app(s) to provide/stop providing the field
+   - If removing a field, update frontend app(s) to no longer access the
+     soon-to-be-removed field
+   - Update existing data in Content Store to ensure they conform with the
+     incoming schema changes
+1. Add/remove the new field in `default_format.jsonnet`, giving it a status of
+   `required`, `optional`, `forbidden` or `null`.
+1. Add/remove the new definition file for this field type in
+   `content_schemas/formats/shared/definitions`. This will need to include a
+   definition for the field and a definition for the
+   `optional`/`required`/`forbidden` status where relevant. This will be read by
+   the `format` code in the next step
+1. Add a new method named after this field to `lib/schema_generator/format.rb`
+   to have it written to the generated files. This specifies which definition to
+   use based on the status specified in `jsonnet` schema
+1. Add a new key to the `derived_properties` method's hash to read the value in
+   `lib/schema_generator/{publisher_content/frontend/notification}_schema_generator.rb`
+   when generating the schema
+1. Update any extending `jsonnet` files to override this value by setting a
+   different status against this field where required, e.g. to mark a default
+   `forbidden` field as `optional` at a lower level
+1. Run `rake build_schemas` to compile the updated schemas in
+   `content_schemas/dist/` and validate the example schemas
+1. Check that all the CI workflows pass. These will verify that the content
+   schemas are compatible with the suite of publishing apps
 
-If the field was mandatory:
+### Top-level property examples
 
-* Remove the field from the `required` attribute by following the General workflow
-  * Remove the field from examples to ensure that the frontend can handle the field being optional
-* Deploy any frontend changes
-* Change the publisher to stop sending the field
-* Deploy the publisher
-* Optional: change the records in content-store
-* Remove the field by following the General workflow
+- [Adding a new top-level property](https://github.com/alphagov/publishing-api/commit/cacb7e7b1f8563587f0ee9aa08522b70d4c01b8c)
