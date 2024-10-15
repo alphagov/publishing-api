@@ -32,43 +32,7 @@
       "$ref": "#/definitions/details"
     },
     "document_type": {
-      "type": "string",
-      "enum": [
-        "aaib_report",
-        "ai_assurance_portfolio_technique",
-        "algorithmic_transparency_record",
-        "animal_disease_case",
-        "asylum_support_decision",
-        "business_finance_support_scheme",
-        "cma_case",
-        "countryside_stewardship_grant",
-        "drcf_digital_markets_research",
-        "drug_safety_update",
-        "employment_appeal_tribunal_decision",
-        "employment_tribunal_decision",
-        "esi_fund",
-        "export_health_certificate",
-        "farming_grant",
-        "flood_and_coastal_erosion_risk_management_research_report",
-        "international_development_fund",
-        "licence_transaction",
-        "life_saving_maritime_appliance_service_station",
-        "maib_report",
-        "marine_equipment_approved_recommendation",
-        "marine_notice",
-        "medical_safety_alert",
-        "product_safety_alert_report_recall",
-        "protected_food_drink_name",
-        "raib_report",
-        "research_for_development_output",
-        "residential_property_tribunal_decision",
-        "service_standard_report",
-        "statutory_instrument",
-        "tax_tribunal_decision",
-        "traffic_commissioner_regulatory_decision",
-        "utaac_decision",
-        "veterans_support_organisation"
-      ]
+      "type": "string"
     },
     "first_published_at": {
       "anyOf": [
@@ -719,6 +683,9 @@
         },
         {
           "$ref": "#/definitions/medical_safety_alert_metadata"
+        },
+        {
+          "$ref": "#/definitions/mock_spike_finder_document_metadata"
         },
         {
           "$ref": "#/definitions/product_safety_alert_report_recall_metadata"
@@ -2724,6 +2691,21 @@
               "vascular-cardiac-surgery"
             ]
           }
+        }
+      }
+    },
+    "mock_spike_finder_document_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mock_spike_finder_document_facet_one": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mock_spike_finder_document_facet_two": {
+          "type": "string"
         }
       }
     },
