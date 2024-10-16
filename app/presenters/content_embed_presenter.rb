@@ -29,7 +29,12 @@ module Presenters
           state_fallback_order: %w[published],
         )
 
-        Edition.where(id: embedded_edition_ids).index_by(&:content_id)
+        Edition
+        .joins("LEFT JOIN documents on documents.id = editions.document_id")
+        .joins("LEFT JOIN content_id_aliases on content_id_aliases.content_id = documents.content_id")
+        .where(id: embedded_edition_ids)
+        .select("editions.title, editions.details, editions.document_type, content_id_aliases.name")
+        .index_by(&:name)
       end
     end
 
@@ -54,7 +59,7 @@ module Presenters
 
       embedded_content_references.each do |content_reference|
         embed_code = content_reference.embed_code
-        embedded_edition = embedded_editions[content_reference.content_id]
+        embedded_edition = embedded_editions[content_reference.alias]
         content = content.gsub(
           embed_code,
           get_content_for_edition(embedded_edition),
