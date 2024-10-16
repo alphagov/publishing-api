@@ -10,7 +10,7 @@ module Types
       context.schema.object_from_id(id, context)
     end
 
-    field :nodes, [Types::NodeType, null: true], null: true, description: "Fetches a list of objects given a list of IDs." do
+    field :nodes, [Types::NodeType, { null: true }], null: true, description: "Fetches a list of objects given a list of IDs." do
       argument :ids, [ID], required: true, description: "IDs of the objects."
     end
 
@@ -21,19 +21,18 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
+    field :edition, Types::EditionType, null: false, description: "An edition" do
+      argument :content_id, String
     end
 
-    field :edition, GraphqlEdition, null: false, description: "An edition" do
-      argument :id, Integer
+    def edition(content_id:)
+      Document.find_by(content_id:).live
     end
 
-    def edition(id:)
-      Edition.find(id.to_s)
+    field :world_index, Types::WorldIndexType, null: false, description: "World index"
+
+    def world_index
+      edition(content_id: "369729ba-7776-4123-96be-2e3e98e153e1")
     end
   end
 end

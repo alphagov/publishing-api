@@ -1,0 +1,19 @@
+fragment worldLocationInfo on WorldLocation {
+  active
+  name
+  slug
+}
+
+query worldIndex {
+  worldIndex {
+    title
+
+    worldLocations {
+      ...worldLocationInfo
+    }
+
+    internationalDelegations {
+      ...worldLocationInfo
+    }
+  }
+}

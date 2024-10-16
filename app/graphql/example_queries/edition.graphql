@@ -1,0 +1,6 @@
+query edition($contentId: String = "369729ba-7776-4123-96be-2e3e98e153e1") {
+  edition(contentId: $contentId) {
+    title
+    details
+  }
+}
