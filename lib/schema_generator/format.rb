@@ -172,10 +172,6 @@ module SchemaGenerator
       end
 
       def definition
-        if schema_name == "specialist_document"
-          return { "type" => "string" }
-        end
-
         if document_types.blank?
           return build_definition(allowed_document_types)
         end
