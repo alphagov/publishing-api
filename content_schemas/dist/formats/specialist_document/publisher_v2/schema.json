@@ -45,43 +45,7 @@
       "$ref": "#/definitions/details"
     },
     "document_type": {
-      "type": "string",
-      "enum": [
-        "aaib_report",
-        "ai_assurance_portfolio_technique",
-        "algorithmic_transparency_record",
-        "animal_disease_case",
-        "asylum_support_decision",
-        "business_finance_support_scheme",
-        "cma_case",
-        "countryside_stewardship_grant",
-        "drcf_digital_markets_research",
-        "drug_safety_update",
-        "employment_appeal_tribunal_decision",
-        "employment_tribunal_decision",
-        "esi_fund",
-        "export_health_certificate",
-        "farming_grant",
-        "flood_and_coastal_erosion_risk_management_research_report",
-        "international_development_fund",
-        "licence_transaction",
-        "life_saving_maritime_appliance_service_station",
-        "maib_report",
-        "marine_equipment_approved_recommendation",
-        "marine_notice",
-        "medical_safety_alert",
-        "product_safety_alert_report_recall",
-        "protected_food_drink_name",
-        "raib_report",
-        "research_for_development_output",
-        "residential_property_tribunal_decision",
-        "service_standard_report",
-        "statutory_instrument",
-        "tax_tribunal_decision",
-        "traffic_commissioner_regulatory_decision",
-        "utaac_decision",
-        "veterans_support_organisation"
-      ]
+      "type": "string"
     },
     "first_published_at": {
       "$ref": "#/definitions/first_published_at"
@@ -176,16 +140,7 @@
         "aircraft_category": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "commercial-fixed-wing",
-              "commercial-rotorcraft",
-              "general-aviation-fixed-wing",
-              "general-aviation-rotorcraft",
-              "spaceflight",
-              "sport-aviation-and-balloons",
-              "unmanned-aircraft-systems"
-            ]
+            "type": "string"
           }
         },
         "aircraft_type": {
@@ -205,18 +160,7 @@
           "type": "string"
         },
         "report_type": {
-          "type": "string",
-          "enum": [
-            "annual-safety-report",
-            "correspondence-investigation",
-            "field-investigation",
-            "pre-1997-monthly-report",
-            "foreign-report",
-            "formal-report",
-            "spaceflight",
-            "special-bulletin",
-            "safety-study"
-          ]
+          "type": "string"
         }
       }
     },
@@ -252,31 +196,13 @@
         "ai_assurance_technique": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "data-assurance",
-              "compliance-audit",
-              "formal-verification",
-              "performance-testing",
-              "certification",
-              "risk-assessment",
-              "impact-assessment",
-              "impact-evaluation",
-              "conformity-assessment",
-              "bias-audit",
-              "assurance-warranty"
-            ]
+            "type": "string"
           }
         },
         "assurance_technique_approach": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "technical",
-              "procedural",
-              "educational"
-            ]
+            "type": "string"
           }
         },
         "bulk_published": {
@@ -285,75 +211,25 @@
         "key_function": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "r-and-d",
-              "product-and-service-development",
-              "manufacturing",
-              "service-operations",
-              "supply-chain-management",
-              "human-resources",
-              "marketing-and-sales",
-              "customer-services",
-              "risk-management",
-              "strategy-and-corporate-finance"
-            ]
+            "type": "string"
           }
         },
         "principle": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "safety-security-and-robustness",
-              "appropriate-transparency-and-explainability",
-              "fairness",
-              "accountability-and-governance",
-              "contestability-and-redress"
-            ]
+            "type": "string"
           }
         },
         "sector": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "agriculture-forestry-and-fishing",
-              "mining-and-quarrying",
-              "manufacturing",
-              "energy-and-utilities",
-              "construction",
-              "retail",
-              "transportation-and-storage",
-              "accommodation-and-food-service",
-              "digital-and-comms",
-              "financial-and-insurance",
-              "real-estate",
-              "professional-scientific-and-professional-activities",
-              "administrative-and-support-services",
-              "public-administration-and-defence",
-              "education",
-              "healthcare-and-social-work",
-              "arts-entertainment-and-recreation",
-              "other-services"
-            ]
+            "type": "string"
           }
         },
         "use_case": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "big-data-analytics",
-              "data-driven-profiling",
-              "natural-language-processing-and-generation",
-              "image-recognition-and-video-processing",
-              "machine-learning",
-              "deep-learning",
-              "virtual-agents-or-artificial-conversational-interfaces",
-              "robotic-process-automation-and-decision-management",
-              "robotics-and-autonomous-vehicles-systems"
-            ]
+            "type": "string"
           }
         }
       }
@@ -368,20 +244,7 @@
         "algorithmic_transparency_record_capability": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "computer-vision",
-              "computer-audition",
-              "computer-linguistics",
-              "robotics",
-              "forecasting",
-              "discovery",
-              "planning",
-              "creation",
-              "analysis",
-              "management",
-              "other"
-            ]
+            "type": "string"
           }
         },
         "algorithmic_transparency_record_date_published": {
@@ -391,106 +254,28 @@
         "algorithmic_transparency_record_function": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "general-public-services",
-              "defence",
-              "public-order-and-safety",
-              "economic-affairs",
-              "environmental-protection",
-              "housing-and-community-amenities",
-              "health",
-              "recreation-culture-and-religion",
-              "education",
-              "social-protection",
-              "regulation"
-            ]
+            "type": "string"
           }
         },
         "algorithmic_transparency_record_organisation": {
-          "type": "string",
-          "enum": [
-            "bristol-city-council",
-            "cabinet-office",
-            "camden-council",
-            "department-for-business-and-trade",
-            "department-for-education",
-            "department-for-energy-security-and-net-zero",
-            "department-for-environment-food-and-rural-affairs",
-            "department-for-health-and-social-care",
-            "department-for-science-innovation-and-technology",
-            "department-for-transport",
-            "department-for-work-and-pensions",
-            "dorset-council",
-            "ealing-council",
-            "food-standards-agency",
-            "foreign-commonwealth-development-office",
-            "greater-cambridge-partnership",
-            "greater-london-authority",
-            "hm-revenue-customs",
-            "hm-treasury",
-            "hampshire-and-thames-valley-police",
-            "home-office",
-            "information-commissioners-office",
-            "london-borough-of-barnet",
-            "london-borough-of-sutton",
-            "ministry-of-defence",
-            "ministry-of-housing-communities-local-government",
-            "ministry-of-justice",
-            "nhs-england",
-            "social-care-wales",
-            "warwickshire-county-council",
-            "west-berkshire-council",
-            "west-midlands-police"
-          ]
+          "type": "string"
         },
         "algorithmic_transparency_record_organisation_type": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "ministerial-department",
-              "non-ministerial-department",
-              "agency-or-public-body",
-              "local-authority",
-              "devolved-administration",
-              "high-profile-group",
-              "public-corporation"
-            ]
+            "type": "string"
           }
         },
         "algorithmic_transparency_record_other_tags": {
           "type": "string"
         },
         "algorithmic_transparency_record_phase": {
-          "type": "string",
-          "enum": [
-            "pre-deployment",
-            "beta-pilot",
-            "production",
-            "retired"
-          ]
+          "type": "string"
         },
         "algorithmic_transparency_record_region": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "uk",
-              "northern-ireland",
-              "scotland",
-              "wales",
-              "england",
-              "london",
-              "north-east",
-              "north-west",
-              "yorkshire-and-the-humber",
-              "east-midlands",
-              "west-midlands",
-              "south-east",
-              "east-of-england",
-              "south-west"
-            ]
+            "type": "string"
           }
         },
         "algorithmic_transparency_record_task": {
@@ -527,50 +312,19 @@
         "disease_type": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "african-horse-sickness",
-              "african-swine-fever",
-              "bird-flu",
-              "bluetongue",
-              "classical-swine-fever",
-              "foot-and-mouth-disease",
-              "newcastle-disease",
-              "peste-des-petits-ruminants",
-              "swine-vesicular-disease"
-            ]
+            "type": "string"
           }
         },
         "virus_strain": {
           "type": "string"
         },
         "zone_restriction": {
-          "type": "string",
-          "enum": [
-            "in-force",
-            "no-longer-in-force"
-          ]
+          "type": "string"
         },
         "zone_type": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "protection",
-              "surveillance",
-              "restricted",
-              "temporary-control",
-              "captive-bird",
-              "avian-influenza-prevention",
-              "temporary-movement-restriction",
-              "low-pathogenic-avian-influenza-restricted",
-              "infection",
-              "vaccination",
-              "supplementary-movement-control",
-              "wild-bird-control",
-              "wild-bird-monitoring",
-              "none"
-            ]
+            "type": "string"
           }
         }
       }
@@ -695,21 +449,11 @@
         "tribunal_decision_categories": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "section-4-1-support-for-persons-who-are-neither-an-asylum-seeker-nor-a-failed-asylum-seeker",
-              "section-4-2-support-for-failed-asylum-seekers",
-              "section-95-support-for-asylum-seekers"
-            ]
+            "type": "string"
           }
         },
         "tribunal_decision_category": {
-          "type": "string",
-          "enum": [
-            "section-4-1-support-for-persons-who-are-neither-an-asylum-seeker-nor-a-failed-asylum-seeker",
-            "section-4-2-support-for-failed-asylum-seekers",
-            "section-95-support-for-asylum-seekers"
-          ]
+          "type": "string"
         },
         "tribunal_decision_decision_date": {
           "type": "string",
@@ -722,11 +466,7 @@
           }
         },
         "tribunal_decision_landmark": {
-          "type": "string",
-          "enum": [
-            "not-landmark",
-            "landmark"
-          ]
+          "type": "string"
         },
         "tribunal_decision_reference_number": {
           "type": "string"
@@ -760,24 +500,13 @@
         "business_sizes": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "between-10-and-249",
-              "between-250-and-500",
-              "over-500",
-              "under-10"
-            ]
+            "type": "string"
           }
         },
         "business_stages": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "established",
-              "not-yet-trading",
-              "start-up"
-            ]
+            "type": "string"
           }
         },
         "continuation_link": {
@@ -786,60 +515,19 @@
         "industries": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "agriculture-and-food",
-              "business-and-finance",
-              "construction",
-              "education",
-              "health",
-              "hospitality-and-catering",
-              "information-technology-digital-and-creative",
-              "life-sciences",
-              "manufacturing",
-              "mining",
-              "real-estate-and-property",
-              "science-and-technology",
-              "service-industries",
-              "transport-and-distribution",
-              "travel-and-leisure",
-              "utilities-providers",
-              "wholesale-and-retail"
-            ]
+            "type": "string"
           }
         },
         "regions": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "east-midlands",
-              "eastern",
-              "london",
-              "north-east",
-              "north-west",
-              "northern-ireland",
-              "scotland",
-              "south-east",
-              "south-west",
-              "wales",
-              "west-midlands",
-              "yorkshire-and-the-humber"
-            ]
+            "type": "string"
           }
         },
         "types_of_support": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "equity",
-              "expertise-and-advice",
-              "finance",
-              "grant",
-              "loan",
-              "recognition-award"
-            ]
+            "type": "string"
           }
         },
         "will_continue_on": {
@@ -883,28 +571,10 @@
           "type": "boolean"
         },
         "case_state": {
-          "type": "string",
-          "enum": [
-            "open",
-            "closed"
-          ]
+          "type": "string"
         },
         "case_type": {
-          "type": "string",
-          "enum": [
-            "ca98-and-civil-cartels",
-            "competition-disqualification",
-            "consumer-enforcement",
-            "criminal-cartels",
-            "information-and-advice-to-government",
-            "markets",
-            "mergers",
-            "oim-project",
-            "regulatory-references-and-appeals",
-            "review-of-orders-and-undertakings",
-            "sau-referral",
-            "state-aid"
-          ]
+          "type": "string"
         },
         "closed_date": {
           "type": "string",
@@ -913,39 +583,7 @@
         "market_sector": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "aerospace",
-              "agriculture-environment-and-natural-resources",
-              "building-and-construction",
-              "chemicals",
-              "clothing-footwear-and-fashion",
-              "communications",
-              "defence",
-              "distribution-and-service-industries",
-              "electronics-industry",
-              "energy",
-              "engineering",
-              "financial-services",
-              "fire-police-and-security",
-              "food-manufacturing",
-              "giftware-jewellery-and-tableware",
-              "healthcare-and-medical-equipment",
-              "household-goods-furniture-and-furnishings",
-              "mineral-extraction-mining-and-quarrying",
-              "motor-industry",
-              "not-applicable",
-              "oil-and-gas-refining-and-petrochemicals",
-              "paper-printing-and-packaging",
-              "pharmaceuticals",
-              "public-markets",
-              "recreation-and-leisure",
-              "retail-and-wholesale",
-              "telecommunications",
-              "textiles",
-              "transport",
-              "utilities"
-            ]
+            "type": "string"
           }
         },
         "opened_date": {
@@ -953,46 +591,7 @@
           "pattern": "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$"
         },
         "outcome_type": {
-          "type": "string",
-          "enum": [
-            "ca98-no-grounds-for-action-non-infringement",
-            "ca98-infringement-chapter-i",
-            "ca98-infringement-chapter-ii",
-            "ca98-administrative-priorities",
-            "ca98-commitment",
-            "competition-disqualification-order-granted",
-            "competition-disqualification-undertaking-given",
-            "competition-disqualification-no-order-granted-or-undertaking-given",
-            "criminal-cartels-verdict",
-            "markets-phase-1-no-enforcement-action",
-            "markets-phase-1-undertakings-in-lieu-of-reference",
-            "markets-phase-1-referral",
-            "mergers-phase-1-clearance",
-            "mergers-phase-1-clearance-with-undertakings-in-lieu",
-            "mergers-phase-1-referral",
-            "mergers-phase-1-found-not-to-qualify",
-            "mergers-phase-1-public-interest-interventions",
-            "markets-phase-2-clearance-no-adverse-effect-on-competition",
-            "markets-phase-2-adverse-effect-on-competition-leading-to-remedies",
-            "markets-phase-2-decision-to-dispense-with-procedural-obligations",
-            "mergers-phase-2-clearance",
-            "mergers-phase-2-clearance-with-remedies",
-            "mergers-phase-2-prohibition",
-            "mergers-phase-2-cancellation",
-            "consumer-enforcement-no-action",
-            "consumer-enforcement-court-order",
-            "consumer-enforcement-undertakings",
-            "consumer-enforcement-changes-to-business-practices-agreed",
-            "regulatory-references-and-appeals-final-determination",
-            "state-aid-no-aid",
-            "state-aid-aid-approved",
-            "state-aid-conditional-decision",
-            "state-aid-aid-not-approved",
-            "state-aid-investigation",
-            "state-aid-recommendation-accepted",
-            "state-aid-recommendation-implemented",
-            "state-aid-aid-not-misused"
-          ]
+          "type": "string"
         }
       }
     },
@@ -1006,66 +605,22 @@
         "funding_amount": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "up-to-100",
-              "101-to-200",
-              "201-to-300",
-              "301-to-400",
-              "401-to-500",
-              "more-than-500",
-              "up-to-50-actual-costs",
-              "more-than-50-actual-costs"
-            ]
+            "type": "string"
           }
         },
         "grant_type": {
-          "type": "string",
-          "enum": [
-            "option",
-            "capital-item",
-            "supplement"
-          ]
+          "type": "string"
         },
         "land_use": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "air-quality",
-              "arable-land",
-              "biodiversity",
-              "boundaries",
-              "coast",
-              "educational-access",
-              "flood-risk",
-              "grassland",
-              "historic-environment",
-              "livestock-management",
-              "organic-land",
-              "priority-habitats",
-              "trees-non-woodland",
-              "uplands",
-              "vegetation-control",
-              "water-quality",
-              "wildlife-package",
-              "woodland"
-            ]
+            "type": "string"
           }
         },
         "tiers_or_standalone_items": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "higher-tier",
-              "mid-tier",
-              "offer-lowland-grazing",
-              "offer-mixed-farming",
-              "offer-arable",
-              "offer-upland",
-              "standalone-capital-items"
-            ]
+            "type": "string"
           }
         }
       }
@@ -1126,23 +681,11 @@
         "digital_market_research_area": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "advertising-and-marketing",
-              "financial-services",
-              "future-connectivity-and-internet",
-              "media-and-entertainment",
-              "retail-and-digital-commerce",
-              "technology"
-            ]
+            "type": "string"
           }
         },
         "digital_market_research_category": {
-          "type": "string",
-          "enum": [
-            "ad-hoc-research",
-            "ongoing-research"
-          ]
+          "type": "string"
         },
         "digital_market_research_publish_date": {
           "type": "string",
@@ -1151,64 +694,13 @@
         "digital_market_research_publisher": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "advertising-standards-authority",
-              "bank-for-international-settlements",
-              "bank-of-england",
-              "competition-and-markets-authority",
-              "digital-regulation-cooperation-forum",
-              "financial-conduct-authority",
-              "financial-conduct-authority-insight",
-              "gambling-commission",
-              "information-commissioner's-office",
-              "intellectual-property-office",
-              "ofcom"
-            ]
+            "type": "string"
           }
         },
         "digital_market_research_topic": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "adtech",
-              "advertising-spend",
-              "application-programming-interface",
-              "artificial-intelligence",
-              "audio-and-radio",
-              "blockchain",
-              "cloud-computing",
-              "data-and-ai",
-              "data-privacy-access-and-control",
-              "digital-currencies",
-              "digital-economy",
-              "digital-transformation",
-              "distributed-ledger-technology",
-              "edge-computing",
-              "fintech",
-              "future-connectivity",
-              "gambling",
-              "gaming",
-              "general-and-vertical-search",
-              "intellectual-property",
-              "internet-of-things",
-              "internet-usage-and-attitudes",
-              "measuring-advertising-effectiveness",
-              "mobile-devices",
-              "music-streaming",
-              "news-and-publishing",
-              "online-retail",
-              "open-banking",
-              "personalisation-algorithm",
-              "privacy-enhancing-technology",
-              "quantum-computing",
-              "regtech",
-              "safety-and-harms",
-              "social-media-and-instant-messaging",
-              "standards",
-              "tv-video-and-on-demand"
-            ]
+            "type": "string"
           }
         }
       }
@@ -1227,35 +719,7 @@
         "therapeutic_area": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "anaesthesia-intensive-care",
-              "breastfeeding",
-              "cancer",
-              "cardiovascular-disease-lipidology",
-              "dentistry",
-              "dermatology",
-              "dispensing-gp-practices",
-              "ear-nose-throat",
-              "endocrinology-diabetology-metabolism",
-              "gi-hepatology-pancreatic-disorders",
-              "haematology",
-              "immunology-vaccination",
-              "immunosuppression-transplantation",
-              "infectious-disease",
-              "neurology",
-              "nutrition-dietetics",
-              "obstetrics-gynaecology-fertility",
-              "ophthalmology",
-              "paediatrics-neonatology",
-              "pain-management-palliation",
-              "pregnancy",
-              "psychiatry",
-              "radiology-imaging",
-              "respiratory-disease-allergy",
-              "rheumatology",
-              "urology-nephrology"
-            ]
+            "type": "string"
           }
         }
       }
@@ -1281,11 +745,7 @@
           "pattern": "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$"
         },
         "tribunal_decision_landmark": {
-          "type": "string",
-          "enum": [
-            "landmark",
-            "not-landmark"
-          ]
+          "type": "string"
         },
         "tribunal_decision_sub_categories": {
           "type": "array",
@@ -1312,11 +772,7 @@
           }
         },
         "tribunal_decision_country": {
-          "type": "string",
-          "enum": [
-            "england-and-wales",
-            "scotland"
-          ]
+          "type": "string"
         },
         "tribunal_decision_decision_date": {
           "type": "string",
@@ -1336,59 +792,24 @@
           "pattern": "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$"
         },
         "fund_state": {
-          "type": "string",
-          "enum": [
-            "open",
-            "closed"
-          ]
+          "type": "string"
         },
         "fund_type": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "access-to-work",
-              "business-support",
-              "climate-change",
-              "environment",
-              "it-and-broadband",
-              "learning-and-skills",
-              "low-carbon",
-              "renewable-energy",
-              "research-and-innovation",
-              "social-inclusion",
-              "transport",
-              "techincal-assistance",
-              "tourism"
-            ]
+            "type": "string"
           }
         },
         "funding_source": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "european-social-fund",
-              "european-regional-development-fund",
-              "european-agricoltural-fund-for-rural"
-            ]
+            "type": "string"
           }
         },
         "location": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "north-east",
-              "north-west",
-              "yorkshire-and-humber",
-              "east-midlands",
-              "west-midlands",
-              "east-of-england",
-              "south-east",
-              "south-west",
-              "london"
-            ]
+            "type": "string"
           }
         }
       }
@@ -1398,253 +819,15 @@
       "additionalProperties": false,
       "properties": {
         "certificate_status": {
-          "type": "string",
-          "enum": [
-            "active",
-            "on-hold"
-          ]
+          "type": "string"
         },
         "commodity_type": {
-          "type": "string",
-          "enum": [
-            "animal-products-including-food",
-            "equine",
-            "fish",
-            "germplasm",
-            "live-animals",
-            "livestock",
-            "pets"
-          ]
+          "type": "string"
         },
         "destination_country": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "afghanistan",
-              "albania",
-              "algeria",
-              "andean-community-of-peru-bolivia-colombia-ecuador",
-              "angola",
-              "anguilla",
-              "antigua",
-              "argentina",
-              "armenia",
-              "ascension-island",
-              "australia",
-              "austria",
-              "azerbaijan",
-              "bahamas",
-              "bahrain",
-              "bangladesh",
-              "barbados",
-              "belarus",
-              "belgium",
-              "belize",
-              "benin",
-              "bermuda",
-              "bhutan",
-              "bolivia",
-              "bosnia-and-herzegovina",
-              "botswana",
-              "brazil",
-              "british-virgin-islands",
-              "brunei",
-              "bulgaria",
-              "burkina-faso",
-              "burundi",
-              "cambodia",
-              "cameroon",
-              "canada",
-              "cape-verde",
-              "cayman-islands",
-              "central-african-republic",
-              "chad",
-              "chile",
-              "china",
-              "colombia",
-              "comoros",
-              "congo-democratic-republic-of",
-              "congo-republic-of",
-              "costa-rica",
-              "cote-d-ivoire",
-              "croatia",
-              "cuba",
-              "cyprus",
-              "czech-republic",
-              "denmark",
-              "djibouti",
-              "dominica",
-              "dominican-republic",
-              "east-timor",
-              "ecuador",
-              "egypt",
-              "el-salvador",
-              "equatorial-guinea",
-              "eritrea",
-              "estonia",
-              "eswatini-previously-swaziland",
-              "ethiopia",
-              "eu",
-              "eurasian-customs-union",
-              "falkland-islands",
-              "faroe-islands",
-              "federated-states-of-micronesia",
-              "fiji",
-              "finland",
-              "france",
-              "french-polynesia",
-              "gabon",
-              "gambia",
-              "georgia",
-              "germany",
-              "ghana",
-              "gibraltar",
-              "great-britain",
-              "greece",
-              "grenada",
-              "guam",
-              "guatemala",
-              "guernsey",
-              "guinea",
-              "guinea-bissau",
-              "guyana",
-              "haiti",
-              "hawaii",
-              "honduras",
-              "hong-kong",
-              "hungary",
-              "iceland",
-              "india",
-              "indonesia",
-              "iran",
-              "iraq",
-              "isle-of-man",
-              "israel",
-              "italy",
-              "jamaica",
-              "japan",
-              "jersey",
-              "jordan",
-              "kazakhstan",
-              "kenya",
-              "kiribati",
-              "kosovo",
-              "kuwait",
-              "kyrgyzstan",
-              "laos",
-              "latvia",
-              "lebanon",
-              "lesotho",
-              "liberia",
-              "libya",
-              "liechtenstein",
-              "lithuania",
-              "luxembourg",
-              "macao",
-              "madagascar",
-              "malawi",
-              "malaysia",
-              "maldives",
-              "mali",
-              "malta",
-              "marshall-islands",
-              "mauritania",
-              "mauritius",
-              "mexico",
-              "moldova",
-              "mongolia",
-              "montenegro",
-              "montserrat",
-              "morocco",
-              "mozambique",
-              "myanmar",
-              "namibia",
-              "nauru",
-              "nepal",
-              "netherlands",
-              "new-caledonia",
-              "new-zealand",
-              "nicaragua",
-              "niger",
-              "nigeria",
-              "north-korea",
-              "north-macedonia",
-              "north-sudan",
-              "northern-cyprus",
-              "northern-ireland",
-              "norway",
-              "oman",
-              "pakistan",
-              "palau",
-              "palestine",
-              "panama",
-              "papua-new-guinea",
-              "paraguay",
-              "peru",
-              "philippines",
-              "poland",
-              "portugal",
-              "qatar",
-              "republic-of-ireland",
-              "romania",
-              "russia",
-              "rwanda",
-              "samoa",
-              "san-marino",
-              "sao-tome-and-principe",
-              "saudi-arabia",
-              "senegal",
-              "serbia",
-              "seychelles",
-              "sierra-leone",
-              "singapore",
-              "slovakia",
-              "slovenia",
-              "solomon-islands",
-              "somalia",
-              "south-africa",
-              "south-korea",
-              "south-sudan",
-              "spain",
-              "sri-lanka",
-              "st-helena",
-              "st-kitts-and-nevis",
-              "st-lucia",
-              "st-vincent-and-the-grenadines",
-              "sudan",
-              "suriname",
-              "swaziland-now-eswatini",
-              "sweden",
-              "switzerland",
-              "syria",
-              "taiwan",
-              "tajikistan",
-              "tanzania",
-              "thailand",
-              "togo",
-              "tonga",
-              "trinidad-and-tobago",
-              "tristan-da-cunha",
-              "tunisia",
-              "turkey",
-              "turkmenistan",
-              "turks-and-caicos-islands",
-              "tuvalu",
-              "uganda",
-              "ukraine",
-              "united-arab-emirates",
-              "uruguay",
-              "usa",
-              "uzbekistan",
-              "vanuatu",
-              "venezuela",
-              "vietnam",
-              "wallis-and-futuna-islands",
-              "yemen",
-              "zambia",
-              "zimbabwe"
-            ]
+            "type": "string"
           }
         }
       }
@@ -1656,34 +839,7 @@
         "areas_of_interest": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "agroforestry",
-              "air-quality",
-              "boundaries",
-              "crops",
-              "equipment-and-machinery",
-              "flood-risk",
-              "forestry",
-              "hedgerows",
-              "historic-environment",
-              "horticulture",
-              "integrated-pest-management",
-              "land-features-and-archaeological-features",
-              "livestock-management",
-              "nutrient-manure-and-slurry-management",
-              "organic",
-              "peat",
-              "pollinators-and-wildlife",
-              "precision-farming",
-              "priority-habitats",
-              "public-access-and-education",
-              "soil",
-              "trees",
-              "vegetation-control",
-              "water-availability-and-storage",
-              "water-quality"
-            ]
+            "type": "string"
           }
         },
         "bulk_published": {
@@ -1692,29 +848,13 @@
         "land_types": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "arable",
-              "coastal",
-              "grassland",
-              "farmyard",
-              "lowland-heath",
-              "moorland-and-upland",
-              "scrub",
-              "waterbodies",
-              "wetland",
-              "woodland"
-            ]
+            "type": "string"
           }
         },
         "payment_types": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "capital",
-              "revenue"
-            ]
+            "type": "string"
           }
         }
       }
@@ -1737,89 +877,18 @@
           "pattern": "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$"
         },
         "flood_and_coastal_erosion_category": {
-          "type": "string",
-          "enum": [
-            "environmental-management-and-sustainability",
-            "increasing-resilience-to-flooding",
-            "managing-flood-incidents",
-            "policy-governance-and-funding",
-            "understanding-risks-from-all-sources-of-flooding",
-            "whole-life-asset-management"
-          ]
+          "type": "string"
         },
         "project_code": {
           "type": "string"
         },
         "project_status": {
-          "type": "string",
-          "enum": [
-            "completed",
-            "ongoing"
-          ]
+          "type": "string"
         },
         "topics": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "adaptation",
-              "alternative-construction-materials",
-              "appraisal-guidance",
-              "appraisal-strategy",
-              "artificial-intelligence",
-              "asset-maintenance",
-              "asset-monitoring",
-              "asset-performance",
-              "asset-system-optimisation",
-              "behavioural-change",
-              "big-data",
-              "carbon",
-              "channel-management",
-              "citizen-science",
-              "climate-change",
-              "coast",
-              "coastal-erosion",
-              "communicating-risk",
-              "community-participation",
-              "community-response-and-resilience",
-              "decision-making-with-uncertainty",
-              "design-and-build",
-              "deterioration",
-              "ecosystem-service-benefits",
-              "emergency-planning",
-              "flood-costs",
-              "flood-forecasting",
-              "flood-risk-assessment",
-              "flood-risk-governance",
-              "flood-warning",
-              "groundwater",
-              "health-safety-and-wellbeing",
-              "hydrology",
-              "incident-management",
-              "insurance",
-              "investment",
-              "machine-learning",
-              "meteorology",
-              "modelling",
-              "monitoring-and-detection",
-              "natural-capital",
-              "natural-flood-management",
-              "non-stationarity",
-              "offsite-methods-and-remote-techniques",
-              "partnership-working",
-              "recovery",
-              "reservoirs",
-              "resilience-planning",
-              "resilient-infrastructure",
-              "sea-level-rise",
-              "spatial-planning",
-              "strategy-and-planning",
-              "surface-water",
-              "sustainability",
-              "sustainable-drainage-systems",
-              "understanding-physical-processes",
-              "whole-life-costs"
-            ]
+            "type": "string"
           }
         }
       }
@@ -1845,268 +914,28 @@
         "development_sector": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "agriculture",
-              "climate-change",
-              "disabilities",
-              "education",
-              "empowerment-and-accountability",
-              "environment",
-              "girls-and-women",
-              "health",
-              "humanitarian-emergencies-disasters",
-              "innovation",
-              "livelihoods",
-              "peace-and-access-to-justice",
-              "private-sector-business",
-              "research",
-              "technology",
-              "trade",
-              "water-and-sanitation"
-            ]
+            "type": "string"
           }
         },
         "eligible_entities": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "non-governmental-organisations",
-              "uk-based-non-profit-organisations",
-              "uk-based-small-and-diaspora-organisations",
-              "companies",
-              "local-government",
-              "educational-institutions",
-              "individuals",
-              "humanitarian-relief-organisations",
-              "organisations-lmic"
-            ]
+            "type": "string"
           }
         },
         "fund_state": {
-          "type": "string",
-          "enum": [
-            "open",
-            "closed"
-          ]
+          "type": "string"
         },
         "location": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "afghanistan",
-              "albania",
-              "algeria",
-              "andorra",
-              "angola",
-              "antigua-and-barbuda",
-              "argentina",
-              "armenia",
-              "australia",
-              "austria",
-              "azerbaijan",
-              "bahamas",
-              "bahrain",
-              "bangladesh",
-              "barbados",
-              "belarus",
-              "belgium",
-              "belize",
-              "benin",
-              "bhutan",
-              "bolivia",
-              "bosnia-and-herzegovina",
-              "botswana",
-              "brazil",
-              "brunei",
-              "bulgaria",
-              "burkina-faso",
-              "burundi",
-              "cambodia",
-              "cameroon",
-              "canada",
-              "cape-verde",
-              "central-african-republic",
-              "chad",
-              "chile",
-              "china",
-              "colombia",
-              "comoros",
-              "congo",
-              "democratic-republic-of-congo",
-              "cook-islands",
-              "costa-rica",
-              "croatia",
-              "cuba",
-              "cyprus",
-              "czech-republic",
-              "denmark",
-              "djibouti",
-              "dominica",
-              "dominican-republic",
-              "east-timor",
-              "ecuador",
-              "egypt",
-              "el-salvador",
-              "equatorial-guinea",
-              "eritrea",
-              "estonia",
-              "ethiopia",
-              "federated-states-of-micronesia",
-              "fiji",
-              "finland",
-              "france",
-              "gabon",
-              "gambia",
-              "georgia",
-              "germany",
-              "ghana",
-              "greece",
-              "grenada",
-              "guatemala",
-              "guinea",
-              "guinea-bissau",
-              "guyana",
-              "haiti",
-              "honduras",
-              "hungary",
-              "iceland",
-              "india",
-              "indonesia",
-              "iran",
-              "iraq",
-              "ireland",
-              "israel",
-              "italy",
-              "cote-d-ivoire",
-              "jamaica",
-              "japan",
-              "jordan",
-              "kazakhstan",
-              "kenya",
-              "kiribati",
-              "kosovo",
-              "kuwait",
-              "kyrgyzstan",
-              "laos",
-              "latvia",
-              "lebanon",
-              "lesotho",
-              "liberia",
-              "libya",
-              "liechtenstein",
-              "lithuania",
-              "luxembourg",
-              "madagascar",
-              "malawi",
-              "malaysia",
-              "maldives",
-              "mali",
-              "malta",
-              "marshall-islands",
-              "mauritania",
-              "mauritius",
-              "mexico",
-              "moldova",
-              "monaco",
-              "mongolia",
-              "montenegro",
-              "morocco",
-              "mozambique",
-              "myanmar",
-              "namibia",
-              "nauru",
-              "nepal",
-              "netherlands",
-              "new-zealand",
-              "nicaragua",
-              "niger",
-              "nigeria",
-              "north-korea",
-              "north-macedonia",
-              "norway",
-              "oman",
-              "pakistan",
-              "palau",
-              "the-occupied-palestinian-territories",
-              "panama",
-              "papua-new-guinea",
-              "paraguay",
-              "peru",
-              "philippines",
-              "poland",
-              "portugal",
-              "qatar",
-              "romania",
-              "russia",
-              "rwanda",
-              "samoa",
-              "san-marino",
-              "sao-tome-and-principe",
-              "saudi-arabia",
-              "senegal",
-              "serbia",
-              "seychelles",
-              "sierra-leone",
-              "singapore",
-              "slovakia",
-              "slovenia",
-              "solomon-islands",
-              "somalia",
-              "south-africa",
-              "south-korea",
-              "south-sudan",
-              "spain",
-              "sri-lanka",
-              "st-kitts-and-nevis",
-              "st-lucia",
-              "st-vincent",
-              "sudan",
-              "suriname",
-              "swaziland",
-              "sweden",
-              "switzerland",
-              "syria",
-              "tajikistan",
-              "tanzania",
-              "thailand",
-              "togo",
-              "tonga",
-              "trinidad-and-tobago",
-              "tunisia",
-              "turkey",
-              "turkmenistan",
-              "tuvalu",
-              "uganda",
-              "ukraine",
-              "united-arab-emirates",
-              "united-kingdom",
-              "united-states",
-              "uruguay",
-              "uzbekistan",
-              "vanuatu",
-              "vatican-city",
-              "venezuela",
-              "vietnam",
-              "yemen",
-              "zambia",
-              "zimbabwe"
-            ]
+            "type": "string"
           }
         },
         "value_of_funding": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "up-to-10000",
-              "10001-to-100000",
-              "100001-500000",
-              "500001-to-1000000",
-              "more-than-1000000"
-            ]
+            "type": "string"
           }
         }
       }
@@ -2134,13 +963,7 @@
         "licence_transaction_location": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "england",
-              "wales",
-              "scotland",
-              "northern-ireland"
-            ]
+            "type": "string"
           }
         },
         "licence_transaction_will_continue_on": {
@@ -2158,108 +981,19 @@
         "life_saving_maritime_appliance_manufacturer": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "autoflug",
-              "arimar",
-              "ausmar",
-              "avon",
-              "baltic",
-              "beaufort",
-              "beaufort-canada",
-              "besto-seafit",
-              "bombard-liferafts",
-              "callegari",
-              "crewsaver",
-              "csm-liferafts-shanghai-star",
-              "delta-lifejackets",
-              "delta-ribs",
-              "dsb",
-              "duarry",
-              "eurovinil",
-              "fujikura-mes",
-              "halmatic-ribs",
-              "hansen-protection-uk",
-              "harding-watercraft-ribs",
-              "international-safety-group",
-              "isp-challenger",
-              "jiangsu-haining",
-              "k2-lifejackets",
-              "ki-elements-lifejackets",
-              "lalizas",
-              "lifeguard",
-              "liferaft-systems-australia",
-              "marin-ark-1",
-              "marin-ark-2",
-              "maritime-partner-craft",
-              "matchau-marine",
-              "mulder-and-rijke",
-              "mullion",
-              "narwhal",
-              "ningbo-zhenhua",
-              "ningbo-haifeng",
-              "ningbo-neptune",
-              "norsafe-boats",
-              "ocean-safety-own-brand",
-              "ocean-safety-remploy-brand",
-              "ocean-safety-liferafts",
-              "parmaris",
-              "plastimo-lifejackets",
-              "revere",
-              "rfd",
-              "rfd-toyo",
-              "rtk-lifejackets",
-              "sea-safe-liferafts",
-              "seago",
-              "seapro-lifejackets",
-              "seatec",
-              "selantic",
-              "shanghai-cunhong",
-              "shanghai-haian",
-              "shanghai-huaxiong",
-              "shanghai-youlong",
-              "smrt",
-              "spinlock",
-              "survitec-dbc",
-              "unitor",
-              "uzemik",
-              "viking",
-              "wintec-baltic",
-              "wintec-isp",
-              "yantai-huayang",
-              "zodiac"
-            ]
+            "type": "string"
           }
         },
         "life_saving_maritime_appliance_service_station_regions": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "east-anglia",
-              "east-midlands",
-              "north-east-england",
-              "north-west-england",
-              "south-east-england",
-              "south-west-england",
-              "west-midlands",
-              "yorkshire-and-the-humber",
-              "scotland",
-              "wales",
-              "northern-ireland"
-            ]
+            "type": "string"
           }
         },
         "life_saving_maritime_appliance_type": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "lifejackets",
-              "liferafts",
-              "marine-evacuation-system",
-              "inflated-rescue-boats"
-            ]
+            "type": "string"
           }
         }
       }
@@ -2347,27 +1081,12 @@
           "pattern": "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$"
         },
         "report_type": {
-          "type": "string",
-          "enum": [
-            "investigation-report",
-            "investigation-report-on-behalf-of-red-ensign-group",
-            "safety-bulletin",
-            "completed-preliminary-examination",
-            "overseas-report",
-            "discontinued-investigation"
-          ]
+          "type": "string"
         },
         "vessel_type": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "merchant-vessel-100-gross-tons-or-over",
-              "merchant-vessel-under-100-gross-tons",
-              "fishing-vessel",
-              "recreational-craft-sail",
-              "recreational-craft-power"
-            ]
+            "type": "string"
           }
         }
       }
@@ -2382,18 +1101,7 @@
         "category": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "life-saving-appliances",
-              "marine-pollution-prevention",
-              "fire-protection-equipment",
-              "navigation-equipment",
-              "radio-communication-equipment",
-              "equipment-required-under-colregs",
-              "other-safety-equipment",
-              "equipment-under-solas-chapter-ii-1",
-              "general"
-            ]
+            "type": "string"
           }
         },
         "keyword": {
@@ -2422,48 +1130,16 @@
         "marine_notice_topic": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "construction-and-equipment",
-              "crew-and-training",
-              "health-and-safety",
-              "environmental",
-              "navigation",
-              "radio-communications",
-              "registration",
-              "security-isps",
-              "survey-and-inspection"
-            ]
+            "type": "string"
           }
         },
         "marine_notice_type": {
-          "type": "string",
-          "enum": [
-            "marine-guidance-note",
-            "merchant-shipping-notice",
-            "marine-information-note",
-            "form",
-            "instructions-to-surveyors",
-            "codes-of-practice",
-            "safety-bulletin",
-            "other"
-          ]
+          "type": "string"
         },
         "marine_notice_vessel_type": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "pleasure-vessels",
-              "small-commercial-vessels",
-              "cargo-vessels-over-24-metres",
-              "fishing-vessels-under-15-metres",
-              "fishing-vessels-15-24-metres",
-              "fishing-vessels-over-24-metres",
-              "high-speed-craft",
-              "large-yachts",
-              "passenger-vessels"
-            ]
+            "type": "string"
           }
         }
       }
@@ -2477,16 +1153,7 @@
       "additionalProperties": false,
       "properties": {
         "alert_type": {
-          "type": "string",
-          "enum": [
-            "drugs",
-            "devices",
-            "field-safety-notices",
-            "company-led-drugs",
-            "national-patient-safety",
-            "device-safety-information",
-            "medicines-recall-notification"
-          ]
+          "type": "string"
         },
         "bulk_published": {
           "type": "boolean"
@@ -2498,32 +1165,7 @@
         "medical_specialism": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "anaesthetics",
-              "cardiology",
-              "care-home-staff",
-              "cosmetic-surgery",
-              "critical-care",
-              "dentistry",
-              "dispensing-gp-practices",
-              "general-practice",
-              "general-surgery",
-              "haematology-oncology",
-              "infection-prevention",
-              "obstetrics-gynaecology",
-              "ophthalmology",
-              "orthopaedics",
-              "paediatrics",
-              "pathology",
-              "pharmacy",
-              "physiotherapy-occupational-therapy",
-              "radiology",
-              "renal-medicine",
-              "theatre-practitioners",
-              "urology",
-              "vascular-cardiac-surgery"
-            ]
+            "type": "string"
           }
         }
       }
@@ -2582,68 +1224,15 @@
           "type": "boolean"
         },
         "product_alert_type": {
-          "type": "string",
-          "enum": [
-            "product-safety-alert",
-            "product-safety-report",
-            "product-recall"
-          ]
+          "type": "string"
         },
         "product_category": {
-          "type": "string",
-          "enum": [
-            "adaptors-plugs-sockets",
-            "chemical-products",
-            "childcare-articles-childrens-equipment",
-            "clothing-textiles-fashion",
-            "communication-media-equipment",
-            "computers-and-accessories",
-            "construction-products",
-            "cosmetics",
-            "electrical-appliances-equipment",
-            "entertainment-leisure-products-indoors",
-            "entertainment-leisure-products-outdoors",
-            "explosive-atmospheres-equipment",
-            "fireworks-and-pyrotechnic-articles",
-            "food-imitating-products",
-            "furniture",
-            "gas-appliances-and-components",
-            "hand-tools",
-            "household-decorative-articles",
-            "hobby-sports-equipment",
-            "jewellery",
-            "kitchen-cooking-accessories",
-            "lifts",
-            "lighting-products",
-            "machinery",
-            "measuring-instruments",
-            "motor-vehicles",
-            "other",
-            "pressure-equipment-vessels",
-            "personal-protective-equipment-ppe",
-            "recreational-crafts",
-            "stationery",
-            "toys"
-          ]
+          "type": "string"
         },
         "product_measure_type": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "ban-marketing-of-product-and-accompanying-measures",
-              "destruction-of-the-product",
-              "import-rejected-at-border",
-              "making-marketing-of-product-subject-to-prior-conditions",
-              "marking-product-with-appropriate-warnings-on-risks",
-              "modification-programme",
-              "recall-of-product-from-end-users",
-              "removal-of-listing-by-online-marketplace",
-              "temporary-ban-on-supply-offer-and-display-of-product",
-              "warning-consumers-of-risks",
-              "withdrawal-of-product-from-market",
-              "other"
-            ]
+            "type": "string"
           }
         },
         "product_recall_alert_date": {
@@ -2651,14 +1240,7 @@
           "pattern": "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$"
         },
         "product_risk_level": {
-          "type": "string",
-          "enum": [
-            "serious",
-            "high",
-            "medium",
-            "low",
-            "not-provided"
-          ]
+          "type": "string"
         }
       }
     },
@@ -2669,179 +1251,13 @@
         "class_category": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "no-class-category",
-              "1-1-fresh-meat-and-offal",
-              "1-2-meat-products-cooked-salted-smoked-etc",
-              "1-3-cheeses",
-              "1-4-other-products-of-animal-origin-eggs-honey-various-dairy-products-except-butter-etc",
-              "1-5-oils-and-fats-butter-margarine-oil-etc",
-              "1-6-fruit-vegetables-and-cereals-fresh-or-processed",
-              "1-7-fresh-fish-molluscs-and-crustaceans-and-products-derived-therefrom",
-              "1-8-other-products-of-annex-i-of-the-treaty-spices-etc",
-              "2-1-beers",
-              "2-2-chocolate-and-derived-products",
-              "2-3-bread-pastry-cakes-confectionery-biscuits-and-other-bakers-wares",
-              "2-4-beverages-made-from-plant-extracts",
-              "2-5-pasta",
-              "2-6-salt",
-              "2-7-natural-gums-and-resins",
-              "2-8-mustard-paste",
-              "2-9-hay",
-              "2-10-essential-oils",
-              "2-11-cork",
-              "2-12-cochineal-raw-product-of-animal-origin",
-              "2-13-flowers-and-ornamental-plants",
-              "2-14-cotton",
-              "2-15-wool",
-              "2-16-wicker",
-              "2-17-scutched-flax",
-              "2-18-leather",
-              "2-19-fur",
-              "2-20-feather",
-              "2-20a-rush",
-              "2-21-prepared-meals",
-              "2-22-beers",
-              "2-23-chocolate-and-derived-products",
-              "2-24-bread-pastry-cakes-confectionery-biscuits-and-other-bakers-wares",
-              "2-25-beverages-made-from-plant-extracts",
-              "2-26-pasta",
-              "2-27-salt",
-              "wine",
-              "1-rum",
-              "2-whisky-or-whiskey",
-              "3-grain-spirit",
-              "4-wine-spirit",
-              "5-brandy-or-weinbrand",
-              "6-grape-marc-spirit-or-grape-marc",
-              "7-fruit-marc-spirit",
-              "8-raisin-spirit-or-raisin-brandy",
-              "9-fruit-spirit",
-              "10-cider-spirit-and-perry-spirit",
-              "11-honey-spirit",
-              "12-hefebrand-or-lees-spirit",
-              "13-bierbrand-or-eau-de-vie-de-biere",
-              "14-topinambur-or-jerusalem-artichoke-spirit",
-              "15-vodka",
-              "16-spirit-preceded-by-the-name-of-the-fruit-obtained-by-maceration-and-distillation",
-              "17-geist-with-the-name-of-the-fruit-or-the-raw-material-used",
-              "18-gentian",
-              "19-juniper-flavoured-spirit-drinks",
-              "20-gin",
-              "21-distilled-gin",
-              "22-london-gin",
-              "23-caraway-flavoured-spirit-drinks",
-              "24-akvavit-or-aquavit",
-              "25-aniseed-flavoured-spirit-drinks",
-              "26-pastis",
-              "27-pastis-de-marseille",
-              "28-anis",
-              "29-distilled-anis",
-              "30-bitter-tasting-spirit-drinks-or-bitter",
-              "31-flavoured-vodka",
-              "32-liqueur",
-              "33-creme-de-followed-by-the-name-of-a-fruit-or-the-raw-material-used",
-              "34-creme-de-cassis",
-              "35-guignolet",
-              "36-punch-au-rhum",
-              "37-sloe-gin",
-              "37a-sloe-aromatised-spirit-drink-or-pacharan",
-              "38-sambuca",
-              "39-maraschino-marrasquino-or-maraskino",
-              "40-nocino",
-              "41-egg-liqueur-or-advocaat-or-avocat-or-advokat",
-              "42-liqueur-with-egg",
-              "43-mistra",
-              "44-vakeva-glogi-or-spritglogg",
-              "45-berenburg-or-beerenburg",
-              "46-honey-or-mead-nectar",
-              "47-other-spirit-drinks",
-              "99-other-spirit-drink",
-              "traditional-term",
-              "1-aromatised-wine",
-              "2-aromatised-wine-based-drink",
-              "spirit-drink"
-            ]
+            "type": "string"
           }
         },
         "country_of_origin": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "united-kingdom",
-              "albania",
-              "andorra",
-              "argentina",
-              "armenia",
-              "australia",
-              "austria",
-              "belgium",
-              "brazil",
-              "bulgaria",
-              "cambodia",
-              "canada",
-              "chile",
-              "china",
-              "colombia",
-              "costa-rica",
-              "croatia",
-              "cyprus",
-              "czechia",
-              "denmark",
-              "dominican-republic",
-              "el-salvador",
-              "ecuador",
-              "estonia",
-              "finland",
-              "france",
-              "germany",
-              "georgia",
-              "greece",
-              "guatemala",
-              "guinea",
-              "guyana",
-              "honduras",
-              "hungary",
-              "india",
-              "indonesia",
-              "ireland",
-              "italy",
-              "japan",
-              "latvia",
-              "liechtenstein",
-              "lithuania",
-              "luxembourg",
-              "malta",
-              "mexico",
-              "moldova",
-              "mongolia",
-              "morocco",
-              "netherlands",
-              "norway",
-              "panama",
-              "peru",
-              "poland",
-              "portugal",
-              "romania",
-              "russia",
-              "serbia",
-              "slovakia",
-              "slovenia",
-              "south-africa",
-              "south-korea",
-              "spain",
-              "sri-lanka",
-              "sweden",
-              "switzerland",
-              "thailand",
-              "trinidad-and-tobago",
-              "turkey",
-              "ukraine",
-              "united-states",
-              "vietnam"
-            ]
+            "type": "string"
           }
         },
         "date_application": {
@@ -2860,51 +1276,19 @@
           "type": "string"
         },
         "protection_type": {
-          "type": "string",
-          "enum": [
-            "american-viticultural-area",
-            "protected-geographical-indication-pgi",
-            "protected-designation-of-origin-pdo",
-            "traditional-speciality-guaranteed-tsg",
-            "traditional-term",
-            "geographical-indication-gi",
-            "name-protected-by-international-treaty",
-            "us-spirit-drink"
-          ]
+          "type": "string"
         },
         "reason_for_protection": {
-          "type": "string",
-          "enum": [
-            "uk-gi-before-2021",
-            "eu-agreement",
-            "uk-trade-agreement",
-            "uk-gi-after-2021"
-          ]
+          "type": "string"
         },
         "register": {
-          "type": "string",
-          "enum": [
-            "foods-designated-origin-and-geographical-indication",
-            "foods-traditional-speciality-guaranteed",
-            "spirit-drinks",
-            "wines",
-            "aromatised-wines",
-            "traditional-terms-for-wine",
-            "american-viticultural-areas"
-          ]
+          "type": "string"
         },
         "registered_name": {
           "type": "string"
         },
         "status": {
-          "type": "string",
-          "enum": [
-            "registered",
-            "applied-for",
-            "in-consultation",
-            "rejected",
-            "cancelled"
-          ]
+          "type": "string"
         },
         "time_registration": {
           "type": "string",
@@ -2913,64 +1297,14 @@
         "traditional_term_grapevine_product_category": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "wine",
-              "new-wine-still-in-fermentation",
-              "liqueur-wine",
-              "sparkling-wine",
-              "quality-sparkling-wine",
-              "quality-aromatic-sparkling-wine",
-              "aerated-sparkling-wine",
-              "semi-sparkling-wine",
-              "aerated-semi-sparkling-wine",
-              "grape-must",
-              "partially-fermented-grape-must",
-              "partially-fermented-grape-must-extracted-from-raisined-grapes",
-              "concentrated-grape-must",
-              "rectified-concentrated-grape-must",
-              "wine-from-raisined-grapes",
-              "wine-of-overripe-grapes",
-              "wine-vinegar"
-            ]
+            "type": "string"
           }
         },
         "traditional_term_language": {
-          "type": "string",
-          "enum": [
-            "bulgarian",
-            "croatian",
-            "czech",
-            "danish",
-            "dutch",
-            "english",
-            "estonian",
-            "finnish",
-            "french",
-            "german",
-            "greek",
-            "hungarian",
-            "irish",
-            "italian",
-            "latin",
-            "latvian",
-            "lithuanian",
-            "maltese",
-            "polish",
-            "portuguese",
-            "romanian",
-            "slovak",
-            "slovenian",
-            "spanish",
-            "swedish"
-          ]
+          "type": "string"
         },
         "traditional_term_type": {
-          "type": "string",
-          "enum": [
-            "description-of-product-characteristic",
-            "in-place-of-pdo-pgi"
-          ]
+          "type": "string"
         }
       }
     },
@@ -3030,24 +1364,11 @@
         "railway_type": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "heavy-rail",
-              "light-rail",
-              "metros",
-              "heritage-railways"
-            ]
+            "type": "string"
           }
         },
         "report_type": {
-          "type": "string",
-          "enum": [
-            "investigation-report",
-            "bulletin",
-            "interim-report",
-            "discontinuation-report",
-            "safety-digest"
-          ]
+          "type": "string"
         }
       }
     },
@@ -3094,205 +1415,7 @@
         "country": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "AF",
-              "AL",
-              "DZ",
-              "AD",
-              "AO",
-              "AG",
-              "AR",
-              "AM",
-              "AU",
-              "AT",
-              "AZ",
-              "BS",
-              "BH",
-              "BD",
-              "BB",
-              "BY",
-              "BE",
-              "BZ",
-              "BJ",
-              "BT",
-              "BO",
-              "BA",
-              "BW",
-              "BR",
-              "BN",
-              "BG",
-              "BF",
-              "MM",
-              "BI",
-              "KH",
-              "CM",
-              "CA",
-              "CV",
-              "CF",
-              "TD",
-              "CL",
-              "CN",
-              "CO",
-              "KM",
-              "CG",
-              "CD",
-              "CK",
-              "CR",
-              "HR",
-              "CU",
-              "CY",
-              "CZ",
-              "DK",
-              "DJ",
-              "DM",
-              "DO",
-              "TL",
-              "EC",
-              "EG",
-              "SV",
-              "GQ",
-              "ER",
-              "EE",
-              "ET",
-              "FJ",
-              "FI",
-              "FR",
-              "GA",
-              "GM",
-              "GE",
-              "DE",
-              "GH",
-              "GR",
-              "GD",
-              "GT",
-              "GN",
-              "GW",
-              "GY",
-              "HT",
-              "HN",
-              "HU",
-              "IS",
-              "IN",
-              "ID",
-              "IR",
-              "IQ",
-              "IE",
-              "IL",
-              "IT",
-              "CI",
-              "JM",
-              "JP",
-              "JO",
-              "KZ",
-              "KE",
-              "KI",
-              "XK",
-              "KW",
-              "KG",
-              "LA",
-              "LV",
-              "LB",
-              "LS",
-              "LR",
-              "LY",
-              "LI",
-              "LT",
-              "LU",
-              "MK",
-              "MG",
-              "MW",
-              "MY",
-              "MV",
-              "ML",
-              "MT",
-              "MH",
-              "MR",
-              "MU",
-              "MX",
-              "FM",
-              "MD",
-              "MC",
-              "MN",
-              "ME",
-              "MA",
-              "MZ",
-              "NA",
-              "NR",
-              "NP",
-              "NL",
-              "NZ",
-              "NI",
-              "NE",
-              "NG",
-              "KP",
-              "NO",
-              "OM",
-              "PK",
-              "PW",
-              "PA",
-              "PG",
-              "PY",
-              "PE",
-              "PH",
-              "PL",
-              "PT",
-              "QA",
-              "RO",
-              "RU",
-              "RW",
-              "WS",
-              "SM",
-              "ST",
-              "SA",
-              "SN",
-              "RS",
-              "SC",
-              "SL",
-              "SG",
-              "SK",
-              "SI",
-              "SB",
-              "SO",
-              "ZA",
-              "KR",
-              "SS",
-              "ES",
-              "LK",
-              "KN",
-              "LC",
-              "VC",
-              "SD",
-              "SR",
-              "SZ",
-              "SE",
-              "CH",
-              "SY",
-              "TJ",
-              "TZ",
-              "TH",
-              "TG",
-              "TO",
-              "TT",
-              "TN",
-              "TR",
-              "TM",
-              "TV",
-              "UG",
-              "UA",
-              "AE",
-              "GB",
-              "US",
-              "UY",
-              "UZ",
-              "VU",
-              "VA",
-              "VE",
-              "VN",
-              "YE",
-              "ZM",
-              "ZW"
-            ]
+            "type": "string"
           }
         },
         "first_published_at": {
@@ -3302,58 +1425,16 @@
         "research_document_type": {
           "type": "string",
           "items": {
-            "type": "string",
-            "enum": [
-              "book",
-              "book_chapter",
-              "briefing",
-              "case_study",
-              "conference_paper",
-              "country_report",
-              "dataset",
-              "discussion_paper",
-              "evaluation_report",
-              "journal_article",
-              "journal_issue",
-              "lessons_learned",
-              "literature_review",
-              "manual",
-              "protocol",
-              "research_paper",
-              "systematic_review",
-              "technical_report",
-              "thematic_summary",
-              "tool_kit",
-              "training_materials",
-              "working_paper"
-            ]
+            "type": "string"
           }
         },
         "review_status": {
-          "type": "string",
-          "enum": [
-            "unreviewed",
-            "peer_reviewed"
-          ]
+          "type": "string"
         },
         "theme": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "agriculture",
-              "climate_and_environment",
-              "economic_growth",
-              "education",
-              "food_and_nutrition",
-              "governance_and_conflict",
-              "health",
-              "humanitarian_disasters_and_emergencies",
-              "infrastructure",
-              "research_communication_and_uptake",
-              "social_change",
-              "water_and_sanitation"
-            ]
+            "type": "string"
           }
         }
       }
@@ -3369,92 +1450,14 @@
           "type": "string"
         },
         "tribunal_decision_category": {
-          "type": "string",
-          "enum": [
-            "building-safety-act",
-            "electronic-communications-code",
-            "housing-act-2004-and-housing-and-planning-act-2016",
-            "leasehold-disputes-management",
-            "leasehold-enfranchisement-and-extension",
-            "leasehold-reform-ground-rent-act-2022",
-            "park-homes",
-            "rents",
-            "right-to-buy",
-            "tenant-associations",
-            "tenant-fees-act"
-          ]
+          "type": "string"
         },
         "tribunal_decision_decision_date": {
           "type": "string",
           "pattern": "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$"
         },
         "tribunal_decision_sub_category": {
-          "type": "string",
-          "enum": [
-            "building-safety-act---accountable-person",
-            "building-safety-act---failure-to-provide-documents-or-information",
-            "building-safety-act---landlord-appeal-against-liability-to-pay-a-remediation-amount",
-            "building-safety-act---remediation-contribution-order",
-            "building-safety-act---remediation-order",
-            "electronic-communications-code---application-for-an-order-other-",
-            "electronic-communications-code---part-4-para-20",
-            "electronic-communications-code---part-4-para-26",
-            "electronic-communications-code---part-4-para-27",
-            "electronic-communications-code---part-4a-compensation-paid-to-landlord",
-            "electronic-communications-code---part-4a-imposing-agreement-unresponsive-landlord",
-            "electronic-communications-code---part-5-para-33-5-",
-            "electronic-communications-code---part-5-para-35-2-c-",
-            "housing-act-2004-and-housing-and-planning-act-2016---banning-orders",
-            "housing-act-2004-and-housing-and-planning-act-2016---civil-financial-penalties",
-            "housing-act-2004-and-housing-and-planning-act-2016---demolition-and-closing-orders",
-            "housing-act-2004-and-housing-and-planning-act-2016---emergency-notices-and-orders",
-            "housing-act-2004-and-housing-and-planning-act-2016---empty-dwelling-management-orders",
-            "housing-act-2004-and-housing-and-planning-act-2016---houses-in-multiple-occupation-licensing",
-            "housing-act-2004-and-housing-and-planning-act-2016---improvement-notices",
-            "housing-act-2004-and-housing-and-planning-act-2016---management-orders",
-            "housing-act-2004-and-housing-and-planning-act-2016---overcrowding-notices",
-            "housing-act-2004-and-housing-and-planning-act-2016---prohibition-orders",
-            "housing-act-2004-and-housing-and-planning-act-2016---rent-repayment-orders",
-            "housing-act-2004-and-housing-and-planning-act-2016---selective-licensing",
-            "housing-act-2004-and-housing-and-planning-act-2016-electrical-safety-standards",
-            "leasehold-disputes-management---administration-charges",
-            "leasehold-disputes-management---appointment-of-manager",
-            "leasehold-disputes-management---breach-of-lease-forfeiture",
-            "leasehold-disputes-management---estate-charges-estate-management-schemes",
-            "leasehold-disputes-management---right-to-manage",
-            "leasehold-disputes-management---service-charges",
-            "leasehold-disputes-management---variation-of-leases",
-            "leasehold-enfranchisement-and-extension---flats-collective-enfranchisement",
-            "leasehold-enfranchisement-and-extension---flats-lease-extension",
-            "leasehold-enfranchisement-and-extension---houses-enfranchisement",
-            "leasehold-enfranchisement-and-extension---right-of-first-refusal",
-            "leasehold-reform-ground-rent-act-2022---declaration-of-the-effect-of-the-leasehold-reform-ground-rent-act-2022-on-provisions-about-ground-rent",
-            "leasehold-reform-ground-rent-act-2022---financial-penalty",
-            "leasehold-reform-ground-rent-act-2022---ground-rent-recovery-order",
-            "park-homes---appeal-against-alteration-of-a-site-licence-condition",
-            "park-homes---entitlement-to-terminate-an-agreement-for-occupation",
-            "park-homes---local-authority-compliance-notice",
-            "park-homes---local-authority-decision-emergency-action",
-            "park-homes---local-authority-site-licence-refusal-refusal-to-transfer",
-            "park-homes---order-relating-to-implied-and-express-terms",
-            "park-homes---order-requiring-written-statement-of-terms",
-            "park-homes---park-home-having-a-detrimental-effect",
-            "park-homes---pitch-fee",
-            "park-homes---recognition-of-residents-association",
-            "park-homes---refusal-orders-against-giving-assigning-home",
-            "park-homes---section-4-any-question-under-act-or-agreement",
-            "park-homes---site-licence-payment-of-annual-fee",
-            "park-homes---site-owners-failure-to-deposit-site-rules-with-local-authority",
-            "park-homes---site-rule-change-consultation-response",
-            "park-homes---temporary-re-siting-return-of-resited-park-home",
-            "rents---fair-rent",
-            "rents---market-rent-assured-shorthold-tenancy",
-            "right-to-buy---right-to-buy-appeals-elderly-persons",
-            "tenant-associations---recognition-of-tenants-association",
-            "tenant-associations---request-for-information",
-            "tenant-fees-act---financial-penalties",
-            "tenant-fees-act---recovery-of-a-prohibited-payment"
-          ]
+          "type": "string"
         }
       }
     },
@@ -3496,32 +1499,13 @@
           "type": "boolean"
         },
         "result": {
-          "type": "string",
-          "enum": [
-            "met",
-            "not-met",
-            "red",
-            "amber",
-            "green"
-          ]
+          "type": "string"
         },
         "service_provider": {
           "$ref": "#/definitions/guid"
         },
         "stage": {
-          "type": "string",
-          "enum": [
-            "alpha",
-            "alpha-reassessment",
-            "alpha-amber-evidence-review",
-            "beta",
-            "beta-reassessment",
-            "beta-amber-evidence-review",
-            "live",
-            "live-reassessment",
-            "live-review",
-            "live-amber-evidence-review"
-          ]
+          "type": "string"
         }
       }
     },
@@ -3601,38 +1585,12 @@
           "pattern": "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$"
         },
         "sifting_status": {
-          "type": "string",
-          "enum": [
-            "open",
-            "closed",
-            "withdrawn"
-          ]
+          "type": "string"
         },
         "subject": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "business",
-              "crime-justice-and-law",
-              "defence",
-              "education-training-and-skills",
-              "entering-and-staying-in-the-uk",
-              "environment",
-              "going-and-being-abroad",
-              "government",
-              "health-and-social-care",
-              "housing-local-and-community",
-              "international",
-              "life-circumstances",
-              "money",
-              "parenting-childcare-and-childrens-services",
-              "regional-and-local-government",
-              "society-and-culture",
-              "transport",
-              "welfare",
-              "work"
-            ]
+            "type": "string"
           }
         },
         "withdrawn_date": {
@@ -3652,15 +1610,7 @@
           "type": "string"
         },
         "tribunal_decision_category": {
-          "type": "string",
-          "enum": [
-            "banking",
-            "charity",
-            "financial-services",
-            "land-registration",
-            "pensions",
-            "tax"
-          ]
+          "type": "string"
         },
         "tribunal_decision_decision_date": {
           "type": "string",
@@ -3676,50 +1626,22 @@
       "additionalProperties": false,
       "properties": {
         "case_type": {
-          "type": "string",
-          "enum": [
-            "application",
-            "regulatory",
-            "impounding",
-            "environmental"
-          ]
+          "type": "string"
         },
         "decision_subject": {
-          "type": "string",
-          "enum": [
-            "hgv-operator",
-            "psv-operator",
-            "transport-manager"
-          ]
+          "type": "string"
         },
         "first_published_at": {
           "type": "string",
           "pattern": "^[1-9][0-9]{3}[-/](0[1-9]|1[0-2])[-/](0[1-9]|[12][0-9]|3[0-1])$"
         },
         "outcome_type": {
-          "type": "string",
-          "enum": [
-            "no-action",
-            "curtailment",
-            "formal-warning",
-            "loss-of-repute",
-            "revocation"
-          ]
+          "type": "string"
         },
         "regions": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "eastern",
-              "london-and-southeast",
-              "north-west",
-              "north-east",
-              "scotland",
-              "wales",
-              "west-midlands",
-              "western"
-            ]
+            "type": "string"
           }
         }
       }
@@ -3775,139 +1697,67 @@
         "veterans_support_organisation_community_and_social": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "drop-in-centres",
-              "leisure-activities",
-              "volunteering-opportunities",
-              "LGBT-support",
-              "women-veterans-support"
-            ]
+            "type": "string"
           }
         },
         "veterans_support_organisation_employment_education_and_training": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "transition-support",
-              "career-advice-and-support-for-jobseekers",
-              "starting-a-business",
-              "apprenticeships",
-              "education-and-other-training"
-            ]
+            "type": "string"
           }
         },
         "veterans_support_organisation_families_and_children": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "support-for-spouses-and-families",
-              "childcare-and-custody",
-              "support-with-relationships",
-              "domestic-abuse"
-            ]
+            "type": "string"
           }
         },
         "veterans_support_organisation_finance": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "pensions",
-              "compensation",
-              "benefits",
-              "financial-help",
-              "debt-advice",
-              "funeral-costs"
-            ]
+            "type": "string"
           }
         },
         "veterans_support_organisation_health_and_social_care": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "mental-health",
-              "physical-health",
-              "social-care"
-            ]
+            "type": "string"
           }
         },
         "veterans_support_organisation_housing": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "homelessness-crisis-accommodation",
-              "supported-housing",
-              "care-homes",
-              "renting-a-home",
-              "buying-a-home"
-            ]
+            "type": "string"
           }
         },
         "veterans_support_organisation_legal_and_justice": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "general-legal-advice",
-              "support-for-those-in-the-justice-system"
-            ]
+            "type": "string"
           }
         },
         "veterans_support_organisation_region_england": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "north-east-and-yorkshire",
-              "north-west",
-              "midlands",
-              "east-of-england",
-              "london",
-              "south-west",
-              "south-east"
-            ]
+            "type": "string"
           }
         },
         "veterans_support_organisation_region_northern_ireland": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "north-coleraine-area",
-              "south-portadown-area",
-              "east-holywood-area",
-              "west-enniskillen-area"
-            ]
+            "type": "string"
           }
         },
         "veterans_support_organisation_region_scotland": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "the-southern-uplands",
-              "the-central-lowlands",
-              "grampian-mountains",
-              "northern-highlands-hebrides-and-the-northern-isles"
-            ]
+            "type": "string"
           }
         },
         "veterans_support_organisation_region_wales": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "mid-and-west-wales",
-              "north-wales",
-              "south-wales-central",
-              "south-wales-east",
-              "south-wales-west"
-            ]
+            "type": "string"
           }
         }
       }

@@ -10,7 +10,7 @@ module SchemaGenerator
     end
 
     def document_type
-      @document_type ||= DocumentType.new(format_data["document_type"])
+      @document_type ||= DocumentType.new(schema_name, format_data["document_type"])
     end
 
     def base_path
@@ -164,13 +164,18 @@ module SchemaGenerator
     end
 
     class DocumentType
-      attr_reader :document_types
+      attr_reader :document_types, :schema_name
 
-      def initialize(document_types)
+      def initialize(schema_name, document_types)
+        @schema_name = schema_name
         @document_types = document_types
       end
 
       def definition
+        if schema_name == "specialist_document"
+          return { "type" => "string" }
+        end
+
         if document_types.blank?
           return build_definition(allowed_document_types)
         end
