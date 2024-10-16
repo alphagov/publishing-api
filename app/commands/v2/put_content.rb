@@ -16,6 +16,7 @@ module Commands
         edition = create_or_update_edition
         set_timestamps(edition)
 
+        create_content_id_alias
         update_content_dependencies(edition)
 
         orphaned_links = link_diff_between(
@@ -96,6 +97,19 @@ module Commands
             end,
           )
         end
+      end
+
+      def create_content_id_alias
+        content_id_alias_name = payload[:content_id_alias]
+        return unless content_id_alias_name
+
+        if (content_id_alias = ContentIdAlias.find_by(name: content_id_alias_name))
+          return if content_id_alias.content_id == payload[:content_id]
+
+          raise CommandError.new(code: 422, message: "ContentIdAlias with name \"#{content_id_alias_name}\" exists for a different content ID.")
+        end
+
+        ContentIdAlias.create!(name: content_id_alias_name, content_id: payload[:content_id])
       end
 
       def fetch_embedded_content(edition)
@@ -221,8 +235,8 @@ module Commands
 
         after_transaction_commit do
           draft_editions_for_different_locale.each do |edition|
-            DownstreamDraftWorker.perform_async_in_queue(
-              bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE,
+            DownstreamDraftJob.perform_async_in_queue(
+              bulk_publishing? ? DownstreamDraftJob::LOW_QUEUE : DownstreamDraftJob::HIGH_QUEUE,
               "content_id" => edition.content_id,
               "locale" => edition.locale,
               "source_command" => "put_content",
@@ -242,9 +256,9 @@ module Commands
       def send_downstream(content_id, locale, orphaned_links)
         return unless downstream
 
-        queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
+        queue = bulk_publishing? ? DownstreamDraftJob::LOW_QUEUE : DownstreamDraftJob::HIGH_QUEUE
 
-        DownstreamDraftWorker.perform_async_in_queue(
+        DownstreamDraftJob.perform_async_in_queue(
           queue,
           "content_id" => content_id,
           "locale" => locale,

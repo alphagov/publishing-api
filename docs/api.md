@@ -94,7 +94,7 @@ presented edition and [warnings](#warnings).
   - The path that this item will use on [GOV.UK](https://www.gov.uk).
 - `change_note` *(optional)*
   - Specifies the [change note](model.md#changenote).
-  - Ignored if the `update_type` is not major.
+  - Ignored if the `update_type` is not "major" or "content_block".
 - `description` *(optional)*
   - A description of the content that can be displayed publicly.
 - `details` *(conditionally required, default: {})*
@@ -213,7 +213,7 @@ will be presented in the live content store. Uses
   to "superseded".
 - For an `update_type` of "major" the `public_updated_at` field will be updated
   to the current time.
-- For an `update_type` other than "major":
+- For an `update_type` other than "major" or "content_block":
   - If it exists, the [change note](model.md#changenote) will be
     deleted, as change notes are only for major updates.
 - If the edition has a non-blank `base_path`:

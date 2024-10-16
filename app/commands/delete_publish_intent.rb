@@ -4,7 +4,7 @@ module Commands
       if downstream
         enqueue = ENV.fetch("ENQUEUE_PUBLISH_INTENTS", false)
         if enqueue == "true"
-          DeletePublishIntentWorker.perform_async(
+          DeletePublishIntentJob.perform_async(
             "base_path" => base_path,
           )
         else

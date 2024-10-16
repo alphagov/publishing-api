@@ -23,9 +23,6 @@ Sidekiq.configure_server do |config|
   SidekiqUniqueJobs::Server.configure(config)
 end
 
-# Use Sidekiq strict args to force Sidekiq 6 deprecations to error ahead of upgrade to Sidekiq 7
-Sidekiq.strict_args!
-
 # Logging for SidekiqUniqueJobs
 # Somewhat copied from https://github.com/mhenrixon/sidekiq-unique-jobs/blob/36ffe8f95b01ab059a34c8093c2410a64ca191b9/UPGRADING.md?plain=1
 SidekiqUniqueJobs.reflect do |on|

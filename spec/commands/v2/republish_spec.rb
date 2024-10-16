@@ -3,7 +3,7 @@ RSpec.describe Commands::V2::Republish do
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
 
-      allow(DependencyResolutionWorker).to receive(:perform_async)
+      allow(DependencyResolutionJob).to receive(:perform_async)
     end
 
     let!(:published_edition) { create(:live_edition) }
@@ -32,8 +32,8 @@ RSpec.describe Commands::V2::Republish do
       expect(action.content_id).to eq(published_edition.content_id)
     end
 
-    it "calls the DownstreamLiveWorker" do
-      expect(DownstreamLiveWorker)
+    it "calls the DownstreamLiveJob" do
+      expect(DownstreamLiveJob)
         .to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
@@ -47,8 +47,8 @@ RSpec.describe Commands::V2::Republish do
       described_class.call(payload)
     end
 
-    it "calls the DownstreamDraftWorker" do
-      expect(DownstreamDraftWorker)
+    it "calls the DownstreamDraftJob" do
+      expect(DownstreamDraftJob)
         .to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
@@ -107,20 +107,20 @@ RSpec.describe Commands::V2::Republish do
         create(:draft_edition, document:, user_facing_version: 2)
       end
 
-      it "doesn't call the DownstreamDraftWorker" do
-        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
+      it "doesn't call the DownstreamDraftJob" do
+        expect(DownstreamDraftJob).not_to receive(:perform_async_in_queue)
         described_class.call({ content_id: document.content_id })
       end
     end
 
     context "when the downstream parameter is false" do
-      it "doesn't call the DownstreamDraftWorker" do
-        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
+      it "doesn't call the DownstreamDraftJob" do
+        expect(DownstreamDraftJob).not_to receive(:perform_async_in_queue)
         described_class.call(payload, downstream: false)
       end
 
-      it "doesn't call the DownstreamLiveWorker" do
-        expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
+      it "doesn't call the DownstreamLiveJob" do
+        expect(DownstreamLiveJob).not_to receive(:perform_async_in_queue)
         described_class.call(payload, downstream: false)
       end
     end

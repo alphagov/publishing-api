@@ -25,7 +25,7 @@ class RequeueContentByScope
         sleep IMPORT_QUEUE_JOBS_LIMIT_WAIT_DURATION
       end
 
-      RequeueContent.perform_async(edition.id, version, action)
+      RequeueContentJob.perform_async(edition.id, version, action)
     end
   end
 

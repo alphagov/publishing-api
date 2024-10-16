@@ -36,7 +36,7 @@ RSpec.describe Commands::V2::Publish do
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
 
-      allow(DependencyResolutionWorker).to receive(:perform_async)
+      allow(DependencyResolutionJob).to receive(:perform_async)
     end
 
     around do |example|
@@ -52,14 +52,14 @@ RSpec.describe Commands::V2::Publish do
     end
 
     it "sets the source_command to publish" do
-      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+      expect(DownstreamLiveJob).to receive(:perform_async_in_queue)
         .with("downstream_high", hash_including("source_command" => "publish"))
 
       described_class.call(payload)
     end
 
     it "sets the source_fields to the correct value" do
-      expect(DownstreamLiveWorker)
+      expect(DownstreamLiveJob)
         .to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
@@ -82,7 +82,7 @@ RSpec.describe Commands::V2::Publish do
         end
 
         it "uses the update_type from the draft edition" do
-          expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+          expect(DownstreamLiveJob).to receive(:perform_async_in_queue)
             .with("downstream_high", hash_including("message_queue_event_type" => "major"))
 
           described_class.call(payload)
@@ -131,10 +131,10 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "updates the dependencies" do
-        expect(DownstreamDraftWorker)
+        expect(DownstreamDraftJob)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including("update_dependencies" => true))
-        expect(DownstreamLiveWorker)
+        expect(DownstreamLiveJob)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including("update_dependencies" => true))
 
@@ -181,6 +181,82 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
+    context "publishing a content block update" do
+      before do
+        payload[:update_type] = "content_block"
+        draft_item.update!(document_type: "content_block_email_address")
+        ChangeNote.create!(edition: draft_item)
+      end
+
+      it "changes the state of the draft item to 'published'" do
+        described_class.call(payload)
+
+        updated_draft_item = Edition.find(draft_item.id)
+        expect(updated_draft_item.state).to eq("published")
+      end
+
+      it "sends downstream asynchronously" do
+        expect(DownstreamLiveJob)
+          .to receive(:perform_async_in_queue)
+                .with(
+                  "downstream_high",
+                  {
+                    "message_queue_event_type" => "content_block",
+                    "orphaned_content_ids" => [],
+                    "content_id" => document.content_id,
+                    "locale" => locale,
+                    "update_dependencies" => true,
+                    "source_command" => "publish",
+                    "source_fields" => [],
+                  },
+                )
+
+        expect(DownstreamDraftJob)
+          .to receive(:perform_async_in_queue)
+                .with(
+                  "downstream_high",
+                  {
+                    "content_id" => document.content_id,
+                    "locale" => locale,
+                    "update_dependencies" => true,
+                    "source_command" => "publish",
+                    "source_fields" => [],
+                  },
+                )
+
+        described_class.call(payload)
+      end
+
+      it "updates dependencies for Drafts" do
+        expect(DependencyResolutionJob).to receive(:perform_async).with("content_store" => "Adapters::DraftContentStore",
+                                                                        "content_id" => document.content_id,
+                                                                        "locale" => locale,
+                                                                        "orphaned_content_ids" => [],
+                                                                        "source_command" => "publish",
+                                                                        "source_document_type" => "content_block_email_address",
+                                                                        "source_fields" => [])
+
+        described_class.call(payload)
+      end
+
+      it "updates dependencies for Live" do
+        expect(HostContentUpdateJob).to receive(:perform_async).with("content_store" => "Adapters::ContentStore",
+                                                                     "content_id" => document.content_id,
+                                                                     "locale" => locale,
+                                                                     "orphaned_content_ids" => [],
+                                                                     "source_command" => "publish",
+                                                                     "source_document_type" => "content_block_email_address",
+                                                                     "source_fields" => [])
+
+        described_class.call(payload)
+      end
+
+      it "does not delete Change Notes" do
+        described_class.call(payload)
+        expect(ChangeNote.count).to eq(1)
+      end
+    end
+
     context "dependency fields change on new publication" do
       let(:existing_base_path) { base_path }
 
@@ -195,11 +271,11 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "updates the dependencies" do
-        expect(DownstreamDraftWorker)
+        expect(DownstreamDraftJob)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including("update_dependencies" => true))
 
-        expect(DownstreamLiveWorker)
+        expect(DownstreamLiveJob)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including("update_dependencies" => true))
 
@@ -207,7 +283,7 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "sets the source_fields to the correct value" do
-        expect(DownstreamLiveWorker).to(
+        expect(DownstreamLiveJob).to(
           receive(:perform_async_in_queue)
             .with(
               "downstream_high",
@@ -238,11 +314,11 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "doesn't updates the dependencies" do
-        expect(DownstreamDraftWorker)
+        expect(DownstreamDraftJob)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including("update_dependencies" => false))
 
-        expect(DownstreamLiveWorker)
+        expect(DownstreamLiveJob)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including("update_dependencies" => false))
 
@@ -374,7 +450,7 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "sends downstream asynchronously" do
-        expect(DownstreamLiveWorker)
+        expect(DownstreamLiveJob)
           .to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
@@ -393,7 +469,7 @@ RSpec.describe Commands::V2::Publish do
 
       context "when the 'downstream' parameter is false" do
         it "does not send downstream" do
-          expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
+          expect(DownstreamLiveJob).not_to receive(:perform_async_in_queue)
           described_class.call(payload, downstream: false)
         end
       end
@@ -552,7 +628,7 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "sends link_a downstream as an orphaned content_id when draft item is published" do
-        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamLiveJob).to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including("orphaned_content_ids" => [link_a]))
 
         described_class.call(payload)
@@ -573,7 +649,7 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "sends to the draft downstream" do
-        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including("update_dependencies" => true))
 
         described_class.call(payload)

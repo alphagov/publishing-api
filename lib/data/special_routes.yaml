@@ -1,5 +1,5 @@
-- :content_id: "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a"
-  :base_path: "/"
+- :base_path: "/"
+  :content_id: "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a"
   :document_type: "homepage"
   :title: "GOV.UK homepage"
   :rendering_app: "frontend"
@@ -9,195 +9,33 @@
     :primary_publishing_organisation:
       - "af07d5a5-df63-4ddc-9383-6a666845ebe9"
 
-- :content_id: "c1f08359-21f7-49c1-8811-54bf6690b6a3"
-  :base_path: "/account/home"
+- :base_path: "/account"
+  :content_id: "0833d91b-d772-4144-b81f-e7a42df96d5b"
+  :title: "Sign in to GOV.UK (OAuth Redirect)"
+  :rendering_app: "frontend"
+
+- :base_path: "/account/home"
+  :content_id: "c1f08359-21f7-49c1-8811-54bf6690b6a3"
   :title: "Account home page"
   :rendering_app: "frontend"
 
-- :content_id: "e5098fc2-ad79-4c6f-882b-410831c12f60"
-  :base_path: "/account/saved-pages/add"
-  :title: "Save a page"
-  :rendering_app: "frontend"
-
-- :content_id: "3aeaeb46-b3c5-449b-8a3b-2753ffef3c9f"
-  :base_path: "/account/saved-pages/remove"
-  :title: "Remove a saved page"
-  :rendering_app: "frontend"
-
-- :content_id: "16ca5ac1-7df5-4137-9f83-0270fcfc8bb5"
-  :base_path: "/api/content"
+- :base_path: "/api/content"
+  :content_id: "16ca5ac1-7df5-4137-9f83-0270fcfc8bb5"
   :title: "Content API"
   :description: "API exposing all content on GOV.UK."
   :type: "prefix"
   :rendering_app: "content-store"
 
-- :content_id: "ac47f738-b6c3-4369-8d22-ce143c947442"
-  :base_path: "/government/history/past-chancellors"
-  :title: "Past Chancellors of the Exchequer"
-  :rendering_app: "collections"
-  :links:
-    :parent:
-      - "db95a864-874f-4f50-a483-352a5bc7ba18"
+- :base_path: "/api/personalisation/check-email-subscription"
+  :content_id: "f8f91a56-2298-4365-9590-d7e80fe8c066"
+  :title: "Account API - Check email Subscription"
+  :description: "Personalisation API exposing email subscription data for progressive enhancement of GOV.UK pages"
+  :rendering_app: "account-api"
 
-- :content_id: "e46b25e9-d47f-4b93-8466-682b73627db3"
-  :base_path: "/government/history/past-foreign-secretaries"
-  :title: "Past Foreign Secretaries"
-  :type: "prefix"
-  :rendering_app: "collections"
-  :links:
-    :parent:
-      - "db95a864-874f-4f50-a483-352a5bc7ba18"
-
-- :content_id: "5a0ca87e-0e91-4d4c-bd26-29feb24f98ab"
-  :base_path: "/government/uploads"
-  :title: "Government Uploads"
-  :description: "Handles redirects for /government/uploads path for asset manager"
-  :type: "prefix"
-  :rendering_app: "government-frontend"
-
-- :content_id: "cdcad470-21c6-4e19-b644-9e499de1ad12"
-  :base_path: "/media"
-  :title: "Government Uploads"
-  :description: "Handles redirects for /media/:id/:filename path for asset manager"
-  :type: "prefix"
-  :rendering_app: "government-frontend"
-
-- :content_id: "c3b020bf-bc77-4213-afa2-b45eac30f2dc"
-  :base_path: "/search/consultations"
-  :title: "Policy papers and consultations"
-  :rendering_app: "finder-frontend"
-
-- :content_id: "e38cc2da-cea5-4585-9aaa-454c109a51e0"
-  :base_path: "/search/statistics-announcements"
-  :title: "Research and statistics"
-  :rendering_app: "finder-frontend"
-
-- :content_id: "eb56dbca-be0b-4381-8dac-0c9de8a3ed7e"
-  :base_path: "/search/latest"
-  :title: "Search"
-  :rendering_app: "finder-frontend"
-
-- :content_id: "f04c45a7-c20b-4f66-a485-dc997a6a3b6d"
-  :base_path: "/sign-in/callback"
-  :title: "Sign In to GOV.UK (OAuth Callback)"
-  :rendering_app: "frontend"
-
-- :content_id: "7ee16fff-900d-4f5d-bd0a-62fdaa1ad3b6"
-  :base_path: "/sign-out"
-  :title: "Sign Out from GOV.UK"
-  :rendering_app: "frontend"
-
-
-- :content_id: "caf90fb7-11e3-4f8e-9a5d-b83283c91533"
-  :base_path: "/tour"
-  :title: "GOV.UK introductory page"
-  :description: "A description of the various sections of GOV.UK and their uses."
-  :rendering_app: "frontend"
-
-- :content_id: "3c7060f7-9efa-47be-bd36-0326f3fa4f04"
-  :base_path: "/help"
-  :title: "Help using GOV.UK"
-  :description: "Find out about GOV.UK, including the use of cookies, accessibility of the site, the privacy notice and terms and conditions of use."
-  :links:
-    :ordered_related_items:
-      - "58b05bc2-fde5-4a0b-af73-8edc532674f8"
-  :rendering_app: "frontend"
-
-- :content_id: "a4d4e755-3d75-4b19-b120-a638a6d79ba8"
-  :base_path: "/help/ab-testing"
-  :title: "A/B testing on GOV.UK"
-  :description: "This page is being used internally by GOV.UK to make sure A/B testing works."
-  :rendering_app: "frontend"
-
-- :content_id: "220f39ad-d4ad-4b0c-9d40-6c417a1341c0"
-  :base_path: "/help/cookies"
-  :title: "Cookies on GOV.UK"
-  :description: "You can choose which cookies you're happy for GOV.UK to use."
-  :rendering_app: "frontend"
-
-- :content_id: "3c991cea-cdee-4e58-b8d1-d38e7c0e6327"
-  :base_path: "/random"
-  :title: "GOV.UK random page"
-  :rendering_app: "frontend"
-
-- :content_id: "9a86495d-663f-46f8-b4ce-fc9153579338"
-  :base_path: "/roadmap"
-  :title: "GOV.UK Roadmap"
-  :description: "This is GOV.UK's current roadmap. We plan to update it again in the new financial year."
-  :rendering_app: "frontend"
-
-- :content_id: "622fda2b-5fa6-4c84-bc3b-22cd3ff08828"
-  :base_path: "/find-local-council"
-  :title: "Find your local council"
-  :description: "Find your local authority in England, Wales, Scotland and Northern Ireland"
-  :rendering_app: "frontend"
-  :type: "prefix"
-
-- :content_id: "6e92af59-3a73-4db6-b58b-740a02b229d0"
-  :base_path: "/humans.txt"
-  :title: "humans.txt"
-  :description: "In opposition to robots.txt, humans.txt provides information about GOV.UK to interested readers, such as developers interested in joining GDS."
-  :rendering_app: "static"
-  :override_existing: true
-
-- :content_id: "e3bf851b-5df7-441b-8813-f0ec849da35f"
-  :base_path: "/email-signup"
-  :title: "Get email alerts"
-  :description: "Allows users to subscribe to email alerts"
-  :rendering_app: "email-alert-frontend"
-  :override_existing: true
-
-- :content_id: "eb5fad51-f346-4365-be4a-ebc1b25b88f8"
-  :base_path: "/email-signup/confirm"
-  :title: "Get email alerts"
-  :description: "Confirmation page for users subscribing to email alerts"
-  :rendering_app: "email-alert-frontend"
-  :override_existing: true
-
-- :content_id: "ea8a4639-fd68-4e09-8886-dc4c8f4dab7a"
-  :base_path: "/email/unsubscribe"
-  :title: "Email unsubscribe"
-  :description: "Prefix route to allow users to unsubscribe from emails"
-  :rendering_app: "email-alert-frontend"
-  :type: "prefix"
-  :override_existing: true
-
-- :content_id: "1773511a-b3c9-4f37-8692-91a718d5b6ae"
-  :base_path: "/email/subscriptions"
-  :title: "Email - create subscription"
-  :description: "Prefix route to allow users to create email subscriptions"
-  :rendering_app: "email-alert-frontend"
-  :type: "prefix"
-  :override_existing: true
-
-- :content_id: "889e5a6f-d63b-4e10-8ffb-8d3959453285"
-  :base_path: "/email/authenticate"
-  :title: "Email - authenticate"
-  :description: "Prefix route to allow authentication for email subscription management"
-  :rendering_app: "email-alert-frontend"
-  :type: "prefix"
-  :override_existing: true
-
-- :content_id: "fb2f116f-09d2-4861-99d7-b6ea8168fe5d"
-  :base_path: "/email/manage"
-  :title: "Email - manage"
-  :description: "Prefix route to allow email subscription management"
-  :rendering_app: "email-alert-frontend"
-  :type: "prefix"
-  :override_existing: true
-
-- :content_id: "58b05bc2-fde5-4a0b-af73-8edc532674f8"
-  :base_path: "/contact"
-  :title: "Government contacts"
-  :description: "Prefix route for contacts"
-  :rendering_app: "feedback"
-  :type: "prefix"
-  :override_existing: true
-
-- :content_id: "58f79dbd-e57f-4ab2-ae96-96df5767d1b2"
+- :base_path: "/bank-holidays"
+  :content_id: "58f79dbd-e57f-4ab2-ae96-96df5767d1b2"
   :document_type: "calendar"
   :schema: "calendar"
-  :base_path: "/bank-holidays"
   :title: "UK bank holidays"
   :description: "Find out when bank holidays are in England, Wales, Scotland and Northern Ireland - including past and future bank holidays"
   :rendering_app: "frontend"
@@ -211,11 +49,110 @@
     - :base_path: "/bank-holidays.json"
       :type: "exact"
 
-- :content_id: "58f79dbd-e57f-4ab2-ae96-96df5767d1b2"
+- :base_path: "/contact"
+  :content_id: "58b05bc2-fde5-4a0b-af73-8edc532674f8"
+  :title: "Government contacts"
+  :description: "Prefix route for contacts"
+  :rendering_app: "feedback"
+  :type: "prefix"
+  :override_existing: true
+
+- :base_path: "/email/authenticate"
+  :content_id: "889e5a6f-d63b-4e10-8ffb-8d3959453285"
+  :title: "Email - authenticate"
+  :description: "Prefix route to allow authentication for email subscription management"
+  :rendering_app: "email-alert-frontend"
+  :type: "prefix"
+  :override_existing: true
+
+- :base_path: "/email/manage"
+  :content_id: "fb2f116f-09d2-4861-99d7-b6ea8168fe5d"
+  :title: "Email - manage"
+  :description: "Prefix route to allow email subscription management"
+  :rendering_app: "email-alert-frontend"
+  :type: "prefix"
+  :override_existing: true
+
+- :base_path: "/email/subscriptions"
+  :content_id: "1773511a-b3c9-4f37-8692-91a718d5b6ae"
+  :title: "Email - create subscription"
+  :description: "Prefix route to allow users to create email subscriptions"
+  :rendering_app: "email-alert-frontend"
+  :type: "prefix"
+  :override_existing: true
+
+- :base_path: "/email/unsubscribe"
+  :content_id: "ea8a4639-fd68-4e09-8886-dc4c8f4dab7a"
+  :title: "Email unsubscribe"
+  :description: "Prefix route to allow users to unsubscribe from emails"
+  :rendering_app: "email-alert-frontend"
+  :type: "prefix"
+  :override_existing: true
+
+- :base_path: "/email-signup"
+  :content_id: "e3bf851b-5df7-441b-8813-f0ec849da35f"
+  :title: "Get email alerts"
+  :description: "Allows users to subscribe to email alerts"
+  :rendering_app: "email-alert-frontend"
+  :override_existing: true
+
+- :base_path: "/email-signup/confirm"
+  :content_id: "eb5fad51-f346-4365-be4a-ebc1b25b88f8"
+  :title: "Get email alerts"
+  :description: "Confirmation page for users subscribing to email alerts"
+  :rendering_app: "email-alert-frontend"
+  :override_existing: true
+
+- :base_path: "/favicon.ico"
+  :content_id: "5fc8b4bc-f899-4d4e-ae10-f9beeb172f50"
+  :title: "Favicon"
+  :rendering_app: "frontend"
+  :description: "The favicon is the image displayed in locations such as the browser tabs."
+  :override_existing: true
+
+- :base_path: "/find-local-council"
+  :content_id: "622fda2b-5fa6-4c84-bc3b-22cd3ff08828"
+  :title: "Find your local council"
+  :description: "Find your local authority in England, Wales, Scotland and Northern Ireland"
+  :rendering_app: "frontend"
+  :type: "prefix"
+
+- :base_path: "/humans.txt"
+  :content_id: "6e92af59-3a73-4db6-b58b-740a02b229d0"
+  :title: "humans.txt"
+  :description: "In opposition to robots.txt, humans.txt provides information about GOV.UK to interested readers, such as developers interested in joining GDS."
+  :rendering_app: "static"
+  :override_existing: true
+
+- :base_path: "/government/history/past-chancellors"
+  :content_id: "ac47f738-b6c3-4369-8d22-ce143c947442"
+  :title: "Past Chancellors of the Exchequer"
+  :rendering_app: "collections"
+  :links:
+    :parent:
+      - "db95a864-874f-4f50-a483-352a5bc7ba18"
+
+- :base_path: "/government/history/past-foreign-secretaries"
+  :content_id: "e46b25e9-d47f-4b93-8466-682b73627db3"
+  :title: "Past Foreign Secretaries"
+  :type: "prefix"
+  :rendering_app: "collections"
+  :links:
+    :parent:
+      - "db95a864-874f-4f50-a483-352a5bc7ba18"
+
+- :base_path: "/government/uploads"
+  :content_id: "5a0ca87e-0e91-4d4c-bd26-29feb24f98ab"
+  :title: "Government Uploads"
+  :description: "Handles redirects for /government/uploads path for asset manager"
+  :type: "prefix"
+  :rendering_app: "government-frontend"
+
+- :base_path: "/gwyliau-banc"
+  :content_id: "58f79dbd-e57f-4ab2-ae96-96df5767d1b2"
   :document_type: "calendar"
   :schema: "calendar"
   :locale: "cy"
-  :base_path: "/gwyliau-banc"
   :title: "Gwyliau banc y DU"
   :description: "Dysgwch pryd mae gwyliau'r banc yng Nghymru, Lloegr, yr Alban a Gogledd Iwerddon - gan gynnwys gwyliau banc yn y gorffennol a'r dyfodol"
   :rendering_app: "frontend"
@@ -229,10 +166,91 @@
     - :base_path: "/gwyliau-banc.json"
       :type: "exact"
 
-- :content_id: "41c78b38-f70e-4729-815b-680f9b90db30"
+- :base_path: "/help"
+  :content_id: "3c7060f7-9efa-47be-bd36-0326f3fa4f04"
+  :title: "Help using GOV.UK"
+  :description: "Find out about GOV.UK, including the use of cookies, accessibility of the site, the privacy notice and terms and conditions of use."
+  :links:
+    :ordered_related_items:
+      - "58b05bc2-fde5-4a0b-af73-8edc532674f8"
+  :rendering_app: "frontend"
+
+- :base_path: "/help/ab-testing"
+  :content_id: "a4d4e755-3d75-4b19-b120-a638a6d79ba8"
+  :title: "A/B testing on GOV.UK"
+  :description: "This page is being used internally by GOV.UK to make sure A/B testing works."
+  :rendering_app: "frontend"
+
+- :base_path: "/help/cookies"
+  :content_id: "220f39ad-d4ad-4b0c-9d40-6c417a1341c0"
+  :title: "Cookies on GOV.UK"
+  :description: "You can choose which cookies you're happy for GOV.UK to use."
+  :rendering_app: "frontend"
+
+- :base_path: "/media"
+  :content_id: "cdcad470-21c6-4e19-b644-9e499de1ad12"
+  :title: "Government Uploads"
+  :description: "Handles redirects for /media/:id/:filename path for asset manager"
+  :type: "prefix"
+  :rendering_app: "government-frontend"
+
+- :base_path: "/random"
+  :content_id: "3c991cea-cdee-4e58-b8d1-d38e7c0e6327"
+  :title: "GOV.UK random page"
+  :rendering_app: "frontend"
+
+- :base_path: "/roadmap"
+  :content_id: "9a86495d-663f-46f8-b4ce-fc9153579338"
+  :title: "GOV.UK Roadmap"
+  :description: "This is GOV.UK's current roadmap. We plan to update it again in the new financial year."
+  :rendering_app: "frontend"
+
+- :base_path: "/search/consultations"
+  :content_id: "c3b020bf-bc77-4213-afa2-b45eac30f2dc"
+  :title: "Policy papers and consultations"
+  :rendering_app: "finder-frontend"
+
+- :base_path: "/search/statistics-announcements"
+  :content_id: "e38cc2da-cea5-4585-9aaa-454c109a51e0"
+  :title: "Research and statistics"
+  :rendering_app: "finder-frontend"
+
+- :base_path: "/search/latest"
+  :content_id: "eb56dbca-be0b-4381-8dac-0c9de8a3ed7e"
+  :title: "Search"
+  :rendering_app: "finder-frontend"
+
+- :base_path: "/sign-in"
+  :content_id: "b6bb372b-3c4e-4a21-98a6-ffbf2ea5dc9e"
+  :title: "Sign in to a service"
+  :description: "Find the government service you need to sign in to. At the moment, there are separate accounts for different government services."
+  :rendering_app: "frontend"
+
+- :base_path: "/sign-in/redirect"
+  :content_id: "49ecdc1f-c98b-430e-8256-7a402239daf8"
+  :title: "Sign In to GOV.UK (OAuth Callback)"
+  :rendering_app: "frontend"
+
+- :base_path: "/sign-in/callback"
+  :content_id: "f04c45a7-c20b-4f66-a485-dc997a6a3b6d"
+  :title: "Sign In to GOV.UK (OAuth Callback)"
+  :rendering_app: "frontend"
+
+- :base_path: "/sign-out"
+  :content_id: "7ee16fff-900d-4f5d-bd0a-62fdaa1ad3b6"
+  :title: "Sign Out from GOV.UK"
+  :rendering_app: "frontend"
+
+- :base_path: "/tour"
+  :content_id: "caf90fb7-11e3-4f8e-9a5d-b83283c91533"
+  :title: "GOV.UK introductory page"
+  :description: "A description of the various sections of GOV.UK and their uses."
+  :rendering_app: "frontend"
+
+- :base_path: "/when-do-the-clocks-change"
+  :content_id: "41c78b38-f70e-4729-815b-680f9b90db30"
   :document_type: "calendar"
   :schema: "calendar"
-  :base_path: "/when-do-the-clocks-change"
   :title: "When do the clocks change?"
   :description: "Dates when the clocks go back or forward - includes British Summer Time, Greenwich Mean Time"
   :rendering_app: "frontend"

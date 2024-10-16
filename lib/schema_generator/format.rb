@@ -10,7 +10,7 @@ module SchemaGenerator
     end
 
     def document_type
-      @document_type ||= DocumentType.new(format_data["document_type"])
+      @document_type ||= DocumentType.new(schema_name, format_data["document_type"])
     end
 
     def base_path
@@ -94,6 +94,16 @@ module SchemaGenerator
       )
     end
 
+    def content_id_alias
+      @content_id_alias ||= OptionalProperty.new(
+        property: "content_id_alias",
+        status: format_data["content_id_alias"] || "required",
+        required_definition: "content_id_alias",
+        optional_definition: "content_id_alias_optional",
+        forbidden_definition: "null",
+      )
+    end
+
     def generate_publisher?
       generate_publisher = format_data.dig("generate", "publisher")
       generate_publisher.nil? ? true : generate_publisher
@@ -154,13 +164,18 @@ module SchemaGenerator
     end
 
     class DocumentType
-      attr_reader :document_types
+      attr_reader :document_types, :schema_name
 
-      def initialize(document_types)
+      def initialize(schema_name, document_types)
+        @schema_name = schema_name
         @document_types = document_types
       end
 
       def definition
+        if schema_name == "specialist_document"
+          return { "type" => "string" }
+        end
+
         if document_types.blank?
           return build_definition(allowed_document_types)
         end

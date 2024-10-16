@@ -11,8 +11,10 @@ module Commands
 
     private
 
+      UPDATE_TYPES_WITH_CHANGE_NOTES = %w[major content_block].freeze
+
       def publish_edition
-        delete_change_notes unless update_type == "major"
+        delete_change_notes unless UPDATE_TYPES_WITH_CHANGE_NOTES.include?(update_type)
         previous_edition.supersede if previous_edition
 
         unless edition.pathless?
@@ -137,7 +139,7 @@ module Commands
       end
 
       def valid_update_types
-        %w[major minor republish links]
+        %w[major minor republish links content_block]
       end
 
       def already_published?
@@ -228,14 +230,14 @@ module Commands
       def send_downstream
         return unless downstream
 
-        queue = update_type == "republish" ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
+        queue = update_type == "republish" ? DownstreamLiveJob::LOW_QUEUE : DownstreamLiveJob::HIGH_QUEUE
 
-        DownstreamDraftWorker.perform_async_in_queue(
+        DownstreamDraftJob.perform_async_in_queue(
           queue,
           worker_params,
         )
 
-        DownstreamLiveWorker.perform_async_in_queue(
+        DownstreamLiveJob.perform_async_in_queue(
           queue,
           live_worker_params,
         )

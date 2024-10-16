@@ -68,7 +68,7 @@ RSpec.describe "pathless content" do
         end
 
         it "sends to the downstream draft worker" do
-          expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           described_class.call(payload)
         end
 
@@ -113,7 +113,7 @@ RSpec.describe "pathless content" do
         end
 
         it "sends to the content-store" do
-          expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           described_class.call(payload)
         end
 

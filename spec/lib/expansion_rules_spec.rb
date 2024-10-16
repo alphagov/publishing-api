@@ -40,6 +40,7 @@ RSpec.describe ExpansionRules do
   describe ".expansion_fields" do
     let(:default_fields) { rules::DEFAULT_FIELDS }
     let(:contact_fields) { default_fields + [%i[details description], %i[details title], %i[details contact_form_links], %i[details post_addresses], %i[details email_addresses], %i[details phone_numbers]] }
+    let(:content_block_fields) { default_fields + [%i[details email_address]] }
     let(:organisation_fields) { default_fields - [:public_updated_at] + [%i[details acronym], %i[details logo], %i[details brand], %i[details default_news_image], %i[details organisation_govuk_status]] }
     let(:taxon_fields) { default_fields + %i[description details phase] }
     let(:default_fields_and_description) { default_fields + %i[description] }
@@ -67,6 +68,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:parent)).to eq(default_fields) }
 
     specify { expect(rules.expansion_fields(:contact)).to eq(contact_fields) }
+    specify { expect(rules.expansion_fields(:content_block_email_address)).to eq(content_block_fields) }
     specify { expect(rules.expansion_fields(:historic_appointment)).to eq(historic_appointment_fields) }
     specify { expect(rules.expansion_fields(:fatality_notice)).to eq(fatality_notice_fields) }
     specify { expect(rules.expansion_fields(:mainstream_browse_page)).to eq(default_fields_and_description) }

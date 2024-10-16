@@ -16,6 +16,10 @@ Once you have completed these file add the new format to `allowed_document_types
 You can generate the corresponding schemas with the
 [`rake` task](../README.md#Rakefile).
 
+## Sample PR adding a new content schema
+
+- (Adding Content Block Email Address][https://github.com/alphagov/publishing-api/commit/f657d06ba43fcf720fad43b504692e8793bddde4]
+
 ## Examples
 
 Any new schema should also ship with a set of curated examples. These examples

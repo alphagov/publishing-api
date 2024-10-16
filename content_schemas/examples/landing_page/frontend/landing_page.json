@@ -1,0 +1,17 @@
+{
+  "base_path": "/landing-page",
+  "content_id": "774cee22-d896-44c1-a611-e3109cce8eae",
+  "document_type": "landing_page",
+  "description": "some description",
+  "publishing_app": "whitehall",
+  "public_updated_at": "2020-03-25T14:40:22Z",
+  "rendering_app": "frontend",
+  "schema_name": "landing_page",
+  "title": "Some landing page",
+  "locale": "en",
+  "updated_at": "2024-10-08T15:37:00Z",
+  "links": {
+  },
+  "details": {
+  }
+}

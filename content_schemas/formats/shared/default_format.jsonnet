@@ -1,5 +1,6 @@
 {
   base_path: "required",
+  content_id_alias: "forbidden",
   definitions: {},
   description: "optional",
   details: "required",
