@@ -29,7 +29,7 @@ module Queries
         .joins("LEFT JOIN editions AS org_editions ON org_editions.document_id = documents.id AND org_editions.state = 'published'")
         .where(links: { link_type: embedded_link_type, target_content_id: })
         .select(
-          "editions.id, editions.title, editions.base_path, editions.document_type, editions.publishing_app",
+          "editions.id, editions.title, editions.base_path, editions.document_type, editions.publishing_app, editions.last_edited_by_editor_id",
           "primary_links.target_content_id AS primary_publishing_organisation_content_id",
           "org_editions.title AS primary_publishing_organisation_title",
           "org_editions.base_path AS primary_publishing_organisation_base_path",

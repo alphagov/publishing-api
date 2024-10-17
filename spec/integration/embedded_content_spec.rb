@@ -66,6 +66,7 @@ RSpec.describe "Embedded documents" do
           "base_path" => host_edition.base_path,
           "document_type" => host_edition.document_type,
           "publishing_app" => host_edition.publishing_app,
+          "last_edited_by_editor_id" => host_edition.last_edited_by_editor_id,
           "primary_publishing_organisation" => {
             "content_id" => publishing_organisation.content_id,
             "title" => publishing_organisation.title,
