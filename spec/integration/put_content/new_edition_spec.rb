@@ -83,6 +83,8 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
     include_examples "creates a change note"
   end
 
+  include_examples "setting last_edited_by_editor_id"
+
   context "and the change history is in the details hash" do
     before do
       payload.delete(:change_note)

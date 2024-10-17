@@ -9,6 +9,7 @@ module Presenters
       document_id
       id
       last_edited_at
+      last_edited_by_editor_id
       publishing_api_first_published_at
       major_published_at
       published_at

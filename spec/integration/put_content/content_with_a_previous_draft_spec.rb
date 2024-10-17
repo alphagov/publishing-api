@@ -52,6 +52,10 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
     expect(previously_drafted_item.last_edited_at).to eq(Time.zone.now)
   end
 
+  include_examples "setting last_edited_by_editor_id" do
+    subject { previously_drafted_item.reload }
+  end
+
   context "when public_updated_at is in the payload" do
     let(:public_updated_at) { Time.zone.now }
     before do

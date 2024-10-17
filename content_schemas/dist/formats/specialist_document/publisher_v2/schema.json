@@ -241,6 +241,10 @@
       "type": "string",
       "format": "date-time"
     },
+    "last_edited_by_editor_id": {
+      "description": "The UUID of the editor who edited the content.",
+      "type": "string"
+    },
     "links": {
       "type": "object",
       "required": [
