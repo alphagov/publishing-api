@@ -23,6 +23,10 @@
     format: "date-time",
     description: "Last time when the content received a major or minor update.",
   },
+  last_edited_by_editor_id: {
+    type: "string",
+    description: "The UUID of the editor who edited the content.",
+  },
   previous_version: {
     type: "string",
   },
