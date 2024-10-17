@@ -5,6 +5,7 @@ FactoryBot.define do
     content_store { "live" }
     public_updated_at { "2014-05-14T13:00:06Z" }
     first_published_at { "2014-01-02T03:04:05Z" }
+    last_edited_by_editor_id { SecureRandom.uuid }
 
     transient do
       draft_version_number { 2 }
