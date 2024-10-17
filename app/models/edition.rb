@@ -18,6 +18,7 @@ class Edition < ApplicationRecord
     document_type
     first_published_at
     last_edited_at
+    last_edited_by_editor_id
     major_published_at
     phase
     public_updated_at
