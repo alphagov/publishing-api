@@ -42,8 +42,10 @@ RSpec.describe "Embedded documents" do
 
   context "when an edition embeds a reference to the content block" do
     it "returns details of the edition and its publishing organisation in the results" do
+      last_edited_at = "2023-01-01T08:00:00.000Z"
       host_edition = create(:live_edition,
                             publishing_app: "whitehall",
+                            last_edited_at: Time.zone.parse(last_edited_at),
                             details: {
                               "body" => "<p>{{embed:email_address:#{content_block.content_id}}}</p>\n",
                             },
@@ -67,6 +69,7 @@ RSpec.describe "Embedded documents" do
           "document_type" => host_edition.document_type,
           "publishing_app" => host_edition.publishing_app,
           "last_edited_by_editor_id" => host_edition.last_edited_by_editor_id,
+          "last_edited_at" => last_edited_at,
           "primary_publishing_organisation" => {
             "content_id" => publishing_organisation.content_id,
             "title" => publishing_organisation.title,
