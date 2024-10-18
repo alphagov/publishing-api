@@ -6,5 +6,8 @@
       additionalProperties: true,
       properties: {}
     }
-  }
+  },
+  edition_links: (import "shared/whitehall_edition_links.jsonnet") + {
+    documents: "Documents which belong underneath this landing page",
+  },
 }

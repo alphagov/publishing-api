@@ -66,12 +66,42 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "documents": {
+          "description": "Documents which belong underneath this landing page",
+          "$ref": "#/definitions/guid_list"
+        },
         "embed": {
           "description": "Content that will be embedded within the document, using embed tags.",
           "$ref": "#/definitions/guid_list"
         },
+        "government": {
+          "description": "The government associated with this document",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
+        "organisations": {
+          "$ref": "#/definitions/guid_list"
+        },
+        "original_primary_publishing_organisation": {
+          "description": "The organisation that published the original version of the page. Corresponds to the first of the 'Lead organisations' in Whitehall for the first edition, and is empty for all other publishing applications.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "parent": {
+          "$ref": "#/definitions/guid_list"
+        },
         "policy_areas": {
           "description": "A largely deprecated tag currently only used to power email alerts.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "primary_publishing_organisation": {
+          "description": "The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
+        "related_policies": {
+          "$ref": "#/definitions/guid_list"
+        },
+        "topical_events": {
           "$ref": "#/definitions/guid_list"
         }
       }
