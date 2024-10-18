@@ -3,6 +3,7 @@ RSpec.describe Presenters::Queries::EmbeddedContentPresenter do
     let(:organisation_edition_id) { SecureRandom.uuid }
     let(:target_edition_id) { SecureRandom.uuid }
     let(:last_edited_by_editor_id) { SecureRandom.uuid }
+    let(:last_edited_at) { 2.days.ago }
 
     let(:host_editions) do
       [double("Edition",
@@ -12,6 +13,7 @@ RSpec.describe Presenters::Queries::EmbeddedContentPresenter do
               document_type: "publication",
               publishing_app: "publisher",
               last_edited_by_editor_id:,
+              last_edited_at:,
               primary_publishing_organisation_content_id: organisation_edition_id,
               primary_publishing_organisation_title: "bar",
               primary_publishing_organisation_base_path: "/bar")]
@@ -30,6 +32,7 @@ RSpec.describe Presenters::Queries::EmbeddedContentPresenter do
             document_type: "publication",
             publishing_app: "publisher",
             last_edited_by_editor_id:,
+            last_edited_at:,
             primary_publishing_organisation: {
               content_id: organisation_edition_id,
               title: "bar",
