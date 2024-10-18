@@ -135,5 +135,20 @@ module PublishingAPI
                 before: "active_support.initialize_time_zone" do
       config.time_zone = "UTC"
     end
+
+    config.active_record.query_log_tags_enabled = true
+    config.active_record.query_log_tags = [
+      # Rails query log tags:
+      :application,
+      :controller,
+      :action,
+      :job,
+      # GraphQL-Ruby query log tags:
+      {
+        current_graphql_operation: -> { GraphQL::Current.operation_name },
+        current_graphql_field: -> { GraphQL::Current.field&.path },
+        current_dataloader_source: -> { GraphQL::Current.dataloader_source_class },
+      },
+    ]
   end
 end

@@ -45,3 +45,5 @@ group :development, :test do
   gem "timecop"
   gem "webmock", require: false
 end
+
+gem "graphql", "~> 2.3"
