@@ -115,13 +115,7 @@ private
       utilised_keys = route.keys.uniq
 
       supported_keys = %i[path type]
-      if attribute == :redirects
-        supported_keys += %i[
-          destination
-          segments_mode
-          redirect_type
-        ]
-      end
+      supported_keys += %i[destination segments_mode] if attribute == :redirects
 
       utilised_keys - supported_keys
     end
