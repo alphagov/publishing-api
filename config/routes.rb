@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
     post "/lookup-by-base-path", to: "lookups#by_base_path"
 
+    post "/graphql", to: "graphql#execute"
+
     namespace :v2 do
       get "/content", to: "content_items#index"
       scope constraints: method(:content_id_constraint) do
