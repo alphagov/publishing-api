@@ -2,19 +2,18 @@ require "govspeak"
 
 module Presenters
   class DetailsPresenter
-    attr_reader :content_item_details, :change_history_presenter, :content_embed_presenter
+    attr_reader :edition, :content_item_details, :change_history_presenter
 
-    def initialize(content_item_details, change_history_presenter, content_embed_presenter)
-      @content_item_details = SymbolizeJSON.symbolize(content_item_details)
+    def initialize(edition, change_history_presenter)
+      @edition = edition
+      @content_item_details = SymbolizeJSON.symbolize(edition.details)
       @change_history_presenter = change_history_presenter
-      @content_embed_presenter = content_embed_presenter
     end
 
     def details
       @details ||=
         begin
-          updated = content_embed(content_item_details).presence || content_item_details
-          updated = recursively_transform_govspeak(updated)
+          updated = recursively_transform_govspeak(content_item_details)
           updated[:change_history] = change_history if change_history.present?
           updated
         end
@@ -48,10 +47,6 @@ module Presenters
       end
     end
 
-    def content_embed(content_item_details)
-      @content_embed ||= content_embed_presenter&.render_embedded_content(content_item_details)
-    end
-
     def change_history
       @change_history ||= change_history_presenter&.change_history
     end
@@ -76,7 +71,32 @@ module Presenters
     def govspeak_attributes
       {
         attachments: content_item_details[:attachments],
+        embeds: embedded_editions,
       }
+    end
+
+    def embedded_editions
+      @embedded_editions ||= begin
+        target_content_ids = edition
+                               .links
+                               .where(link_type: "embed")
+                               .pluck(:target_content_id)
+
+        embedded_edition_ids = ::Queries::GetEditionIdsWithFallbacks.call(
+          target_content_ids,
+          locale_fallback_order: [edition.locale, Edition::DEFAULT_LOCALE].uniq,
+          state_fallback_order: %w[published],
+        )
+
+        Edition.where(id: embedded_edition_ids).map do |edition|
+          {
+            content_id: edition.content_id,
+            title: edition.title,
+            details: edition.details,
+            document_type: edition.document_type,
+          }
+        end
+      end
     end
   end
 end

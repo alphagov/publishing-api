@@ -1,10 +1,4 @@
 class EmbeddedContentFinderService
-  ContentReference = Data.define(:document_type, :content_id, :embed_code)
-
-  SUPPORTED_DOCUMENT_TYPES = %w[contact content_block_email_address].freeze
-  UUID_REGEX = /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/
-  EMBED_REGEX = /({{embed:(#{SUPPORTED_DOCUMENT_TYPES.join('|')}):#{UUID_REGEX}}})/
-
   def fetch_linked_content_ids(details, locale)
     content_references = details.values.map { |value|
       find_content_references(value)
@@ -21,7 +15,7 @@ class EmbeddedContentFinderService
     when Hash
       value.map { |_, v| find_content_references(v) }.flatten
     when String
-      value.scan(EMBED_REGEX).map { |match| ContentReference.new(document_type: match[1], content_id: match[2], embed_code: match[0]) }.uniq
+      Govspeak::EmbedExtractor.new(value).content_references
     else
       []
     end

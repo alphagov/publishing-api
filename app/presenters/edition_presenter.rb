@@ -113,15 +113,9 @@ module Presenters
 
     def details_presenter
       @details_presenter ||= Presenters::DetailsPresenter.new(
-        edition.to_h[:details],
+        edition,
         change_history_presenter,
-        content_embed_presenter,
       )
-    end
-
-    def content_embed_presenter
-      @content_embed_presenter ||=
-        Presenters::ContentEmbedPresenter.new(edition)
     end
 
     def change_history_presenter
