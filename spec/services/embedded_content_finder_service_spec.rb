@@ -95,7 +95,7 @@ end
 
 RSpec.describe EmbeddedContentFinderService do
   describe ".fetch_linked_content_ids" do
-    EmbeddedContentFinderService::SUPPORTED_DOCUMENT_TYPES.each do |document_type|
+    Govspeak::EmbeddedContent::SUPPORTED_DOCUMENT_TYPES.each do |document_type|
       include_examples "finds references", document_type
     end
 
