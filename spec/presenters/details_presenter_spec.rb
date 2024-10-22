@@ -4,13 +4,11 @@ RSpec.describe Presenters::DetailsPresenter do
       instance_double(Presenters::ChangeHistoryPresenter, change_history: [])
     end
 
-    let(:content_embed_presenter) do
-      instance_double(Presenters::ContentEmbedPresenter, render_embedded_content: nil)
+    subject do
+      described_class.new(edition, change_history_presenter).details
     end
 
-    subject do
-      described_class.new(edition_details, change_history_presenter, content_embed_presenter).details
-    end
+    let(:edition) { build(:edition, details: edition_details) }
 
     context "when we're passed details without a body" do
       let(:edition_details) { {} }
@@ -181,65 +179,6 @@ RSpec.describe Presenters::DetailsPresenter do
 
       it "converts from govspeak appropriately" do
         expect(subject).to eq expected_details
-      end
-    end
-
-    %w[body downtime_message more_information].each do |field_name|
-      context "when we're passed a #{field_name} with embedded content" do
-        let(:embeddable_content) do
-          create(:edition, state: "published", content_store: "live", document_type: "contact", title: "Some contact")
-        end
-        let(:content_embed_presenter) { Presenters::ContentEmbedPresenter.new(edition) }
-        let(:field_value) { "{{embed:contact:#{embeddable_content.document.content_id}}}" }
-
-        context "when the #{field_name} is not enumerable" do
-          let(:edition) { create(:edition, details: { field_name => field_value }, links_hash: { embed: [embeddable_content.document.content_id] }) }
-          let(:edition_details) { edition.details }
-          let(:expected_details) do
-            {
-              field_name => embeddable_content.title,
-            }.symbolize_keys
-          end
-
-          it "embeds the contact details" do
-            is_expected.to match(expected_details)
-          end
-        end
-
-        context "when we're passed details with govspeak and HTML" do
-          let(:edition) do
-            create(:edition,
-                   details: { field_name => [
-                     { content_type: "text/html", content: field_value },
-                     { content_type: "text/govspeak", content: field_value },
-                   ] },
-                   links_hash: { embed: [embeddable_content.document.content_id] })
-          end
-          let(:edition_details) { edition.details }
-          let(:expected_details) do
-            {
-              field_name => [
-                { content_type: "text/html", content: embeddable_content.title },
-                { content_type: "text/govspeak", content: embeddable_content.title },
-              ],
-            }.symbolize_keys
-          end
-
-          it "embeds the contact details" do
-            is_expected.to match(expected_details)
-          end
-        end
-
-        context "when we're passed an empty array" do
-          let(:edition) do
-            create(:edition, details: { field_name => [] })
-          end
-          let(:edition_details) { edition.details }
-
-          it "does not change anything in details" do
-            is_expected.to match(edition_details)
-          end
-        end
       end
     end
   end
