@@ -29,6 +29,17 @@ FactoryBot.define do
       with_draft
     end
 
+    trait :with_embedded_content do
+      base_path { "/#{SecureRandom.uuid}" }
+      details { { body: "{{embed:#{embedded_content_type}:#{embedded_content_id}" } }
+
+      transient do
+        embedded_content_id { SecureRandom.uuid }
+        embedded_content_type { "content_block_email_address" }
+        links_hash { { embed: [embedded_content_id] } }
+      end
+    end
+
     after(:create) do |live_edition, evaluator|
       unless evaluator.published_at
         live_edition.update!(published_at: live_edition.created_at)

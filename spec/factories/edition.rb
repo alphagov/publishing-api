@@ -94,16 +94,4 @@ FactoryBot.define do
     schema_name { "contact" }
     document_type { "contact" }
   end
-
-  factory :live_edition_with_embedded_content, parent: :edition do
-    base_path { "/#{SecureRandom.uuid}" }
-    details { { body: "{{embed:#{embedded_content_type}:#{embedded_content_id}" } }
-    state { "published" }
-
-    transient do
-      embedded_content_id { SecureRandom.uuid }
-      embedded_content_type { "content_block_email_address" }
-      links_hash { { embed: [embedded_content_id] } }
-    end
-  end
 end

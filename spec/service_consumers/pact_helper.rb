@@ -657,7 +657,8 @@ Pact.provider_states_for "GDS API Adapters" do
       reusable_edition = create(:live_edition, document: reusable_document)
 
       document = create(:document, content_id: "d66d6552-2627-4451-9dbc-cadbbd2005a1")
-      live_edition_with_embedded_edition = create(:live_edition_with_embedded_content,
+      live_edition_with_embedded_edition = create(:live_edition,
+                                                  :with_embedded_content,
                                                   document:,
                                                   embedded_content_id: reusable_edition.content_id,
                                                   title: "foo",
