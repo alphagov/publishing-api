@@ -1,7 +1,8 @@
 RSpec.describe "GraphQL" do
   describe "generic edition" do
     before do
-      create(:edition, title: "My Generic Edition", content_store: "live", base_path: "/my/generic/edition")
+      document = create(:document, content_id: "d53db33f-d4ac-4eb3-839a-d415174eb906")
+      @edition = create(:live_edition, document:, base_path: "/my/generic/edition")
     end
 
     it "exposes generic edition fields" do
@@ -9,7 +10,29 @@ RSpec.describe "GraphQL" do
         query:
           "{
             edition(basePath: \"/my/generic/edition\") {
+              analyticsIdentifier
+              basePath
+              contentId
+              description
+              details
+              documentType
+              firstPublishedAt
+              links
+              locale
+              phase
+              publicUpdatedAt
+              publishingApp
+              publishingRequestId
+              publishingScheduledAt
+              renderingApp
+              scheduledPublishingDelaySeconds
+              schemaName
               title
+              updatedAt
+              withdrawnNotice {
+                explanation
+                withdrawnAt
+              }
             }
           }",
       }
@@ -17,12 +40,36 @@ RSpec.describe "GraphQL" do
       expected = {
         "data": {
           "edition": {
-            "title": "My Generic Edition",
+            "analyticsIdentifier": @edition.analytics_identifier,
+            "basePath": @edition.base_path,
+            "contentId": @edition.content_id,
+            "description": @edition.description,
+            "details": @edition.details.to_s,
+            "documentType": @edition.document_type,
+            "firstPublishedAt": @edition.first_published_at.iso8601,
+            "links": [],
+            "locale": @edition.locale,
+            "phase": @edition.phase,
+            "publicUpdatedAt": @edition.public_updated_at.iso8601,
+            "publishingApp": @edition.publishing_app,
+            "publishingRequestId": @edition.publishing_request_id,
+            "publishingScheduledAt": nil,
+            "renderingApp": @edition.rendering_app,
+            "scheduledPublishingDelaySeconds": nil,
+            "schemaName": @edition.schema_name,
+            "title": @edition.title,
+            "updatedAt": @edition.updated_at.iso8601,
+            "withdrawnNotice": {
+              "explanation": nil,
+              "withdrawnAt": nil,
+            },
           },
         },
-      }.to_json
+      }
 
-      expect(response.body).to eq(expected)
+      parsed_response = JSON.parse(response.body).deep_symbolize_keys
+
+      expect(parsed_response).to eq(expected)
     end
 
     it "does not expose non-generic edition fields" do
@@ -54,15 +101,14 @@ RSpec.describe "GraphQL" do
   describe "world index" do
     before do
       create(
-        :edition,
+        :live_edition,
         title: "Help and services around the world",
-        content_store: "live",
         base_path: "/world",
         details:
         {
           "world_locations": [
             {
-              "iso2": nil,
+              "iso2": "WL",
               "name": "Test World Location",
               "slug": "test-world-location",
               "active": true,
@@ -73,7 +119,7 @@ RSpec.describe "GraphQL" do
           ],
           "international_delegations": [
             {
-              "iso2": nil,
+              "iso2": "ID",
               "name": "Test International Delegation",
               "slug": "test-international-delegation",
               "active": false,

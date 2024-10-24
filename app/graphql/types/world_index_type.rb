@@ -2,23 +2,29 @@
 
 module Types
   class WorldIndexType < Types::EditionType
-    field :international_delegations, [WorldLocationType]
-    field :world_locations, [WorldLocationType]
+    class WorldLocation < Types::BaseObject
+      # moved this here in case we end up creating a WorldLocation < Types::EditionType type
+      field :active, Boolean, null: false
+      field :analytics_identifier, String
+      field :content_id, ID, null: false
+      field :iso2, String
+      field :name, String, null: false
+      field :slug, String, null: false
+      field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    end
+
+    field :body, String
+    field :international_delegations, [WorldLocation], null: false
+    field :world_locations, [WorldLocation], null: false
 
     def self.base_path = "/world"
 
     def international_delegations
-      simplify_world_locations(object.details[:international_delegations])
+      object.details[:international_delegations]
     end
 
     def world_locations
-      simplify_world_locations(object.details[:world_locations])
-    end
-
-  private
-
-    def simplify_world_locations(world_locations)
-      world_locations.map { |world_location| world_location.slice(:active, :name, :slug) }
+      object.details[:world_locations]
     end
   end
 end
