@@ -90,6 +90,9 @@
         "$ref": "#/definitions/service_standard_report_metadata",
       },
       {
+        "$ref": "#/definitions/sfo_case_metadata",
+      },
+      {
         "$ref": "#/definitions/statutory_instrument_metadata",
       },
       {
@@ -1056,6 +1059,15 @@
       },
       service_provider: {
         "$ref": "#/definitions/guid",
+      },
+    },
+  },
+  sfo_case_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      case_state: {
+        type: "string",
       },
     },
   },
