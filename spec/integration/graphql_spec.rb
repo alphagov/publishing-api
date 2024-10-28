@@ -59,10 +59,7 @@ RSpec.describe "GraphQL" do
             "schemaName": @edition.schema_name,
             "title": @edition.title,
             "updatedAt": @edition.updated_at.iso8601,
-            "withdrawnNotice": {
-              "explanation": nil,
-              "withdrawnAt": nil,
-            },
+            "withdrawnNotice": nil,
           },
         },
       }
@@ -70,6 +67,48 @@ RSpec.describe "GraphQL" do
       parsed_response = JSON.parse(response.body).deep_symbolize_keys
 
       expect(parsed_response).to eq(expected)
+    end
+
+    context "when there is a withdrawn notice" do
+      before do
+        create(
+          :withdrawn_unpublished_edition,
+          base_path: "/my/withdrawn/edition",
+          explanation: "for integration testing",
+          unpublished_at: "2024-10-27 17:00:00.000000000 +0000",
+        )
+      end
+
+      it "populates the withdrawn notice" do
+        post "/graphql", params: {
+          query:
+            "{
+              edition(basePath: \"/my/withdrawn/edition\") {
+                ... on Edition {
+                  withdrawnNotice {
+                    explanation
+                    withdrawnAt
+                  }
+                }
+              }
+            }",
+        }
+
+        expected = {
+          "data": {
+            "edition": {
+              "withdrawnNotice": {
+                "explanation": "for integration testing",
+                "withdrawnAt": "2024-10-27T17:00:00Z",
+              },
+            },
+          },
+        }
+
+        parsed_response = JSON.parse(response.body).deep_symbolize_keys
+
+        expect(parsed_response).to eq(expected)
+      end
     end
 
     it "does not expose non-generic edition fields" do

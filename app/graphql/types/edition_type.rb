@@ -2,6 +2,11 @@
 
 module Types
   class EditionType < Types::BaseObject
+    class WithdrawnNotice < Types::BaseObject
+      field :explanation, String
+      field :withdrawn_at, GraphQL::Types::ISO8601DateTime
+    end
+
     field :analytics_identifier, String
     field :base_path, String
     field :content_id, ID
@@ -20,7 +25,16 @@ module Types
     field :schema_name, String
     field :title, String, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime
-    field :withdrawn_notice, String
+    field :withdrawn_notice, WithdrawnNotice
+
+    def withdrawn_notice
+      return nil unless object.unpublishing&.withdrawal?
+
+      Presenters::EditionPresenter
+        .new(object)
+        .present
+        .fetch(:withdrawn_notice)
+    end
 
     # Aliased by field methods for fields that are currently presented in the
     # content item, but come from Content Store, so we can't provide them here
