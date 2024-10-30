@@ -2,7 +2,7 @@ RSpec.describe "GraphQL" do
   describe "generic edition" do
     before do
       document = create(:document, content_id: "d53db33f-d4ac-4eb3-839a-d415174eb906")
-      @edition = create(:live_edition, document:, base_path: "/my/generic/edition")
+      @edition = create(:live_edition, document:, document_type: "generic_type", base_path: "/my/generic/edition")
     end
 
     it "exposes generic edition fields" do
@@ -75,6 +75,7 @@ RSpec.describe "GraphQL" do
           :withdrawn_unpublished_edition,
           base_path: "/my/withdrawn/edition",
           explanation: "for integration testing",
+          document_type: "generic_type",
           unpublished_at: "2024-10-27 17:00:00.000000000 +0000",
         )
       end
@@ -145,6 +146,7 @@ RSpec.describe "GraphQL" do
         :live_edition,
         title: "Help and services around the world",
         base_path: "/world",
+        document_type: "world_index",
         details:
         {
           "world_locations": [

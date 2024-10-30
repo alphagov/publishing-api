@@ -16,7 +16,7 @@ module Types
     field :international_delegations, [WorldLocation], null: false
     field :world_locations, [WorldLocation], null: false
 
-    def self.base_path = "/world"
+    def self.document_type = "world_index"
 
     def international_delegations
       object.details[:international_delegations]
