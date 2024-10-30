@@ -681,5 +681,16 @@ Pact.provider_states_for "GDS API Adapters" do
         target_content_id: primary_publishing_organisation.content_id,
       )
     end
+
+    provider_state "a published content item exists with content_id: 19ad249e-7ac4-4aa4-8ab4-b6c5f381c043" do
+      set_up do
+        document = create(:document, content_id: "19ad249e-7ac4-4aa4-8ab4-b6c5f381c043")
+
+        create(:live_edition,
+               document:,
+               base_path: "/my-document",
+               title: "My document")
+      end
+    end
   end
 end
