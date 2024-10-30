@@ -8,27 +8,14 @@ module Types
       possible_types(*EDITION_TYPES)
 
       class << self
-        def resolve_type(_object, context)
-          base_path_argument = base_path_argument(context)
+        def resolve_type(object, _context)
+          document_type = object.document_type
 
           matching_edition_subtype = Types::EditionType.descendants.find do |edition_subtype|
-            base_path_argument == edition_subtype.base_path
+            document_type == edition_subtype.document_type
           end
 
           matching_edition_subtype || Types::EditionType
-        end
-
-      private
-
-        def base_path_argument(context)
-          context
-            .query
-            .lookahead
-            .ast_nodes.first
-            .selections.first
-            .arguments
-            .find { |argument| argument.name == "basePath" }
-            &.value
         end
       end
     end

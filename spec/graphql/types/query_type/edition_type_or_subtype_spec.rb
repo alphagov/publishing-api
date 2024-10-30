@@ -10,45 +10,26 @@ RSpec.describe "Types::QueryType::EditionTypeOrSubtype" do
   end
 
   describe ".resolve_type" do
-    context "when the basePath argument matches an Edition subtype's base path" do
+    context "when the object's `document_type` matches an Edition subtype's `document_type`" do
       it "returns the Edition subtype" do
         expect(
           Types::QueryType::EditionTypeOrSubtype.resolve_type(
+            build(:live_edition, document_type: "world_index"),
             {},
-            mock_context(base_path_argument: "/world"),
           ),
         ).to be Types::WorldIndexType
       end
     end
 
-    context "when the basePath argument does matches a base path of any Edition subtype" do
+    context "when the object's `document_type` does not match an Edition subtype's `document_type`" do
       it "returns the generic Edition type" do
         expect(
           Types::QueryType::EditionTypeOrSubtype.resolve_type(
+            build(:live_edition, document_type: "a_generic_type"),
             {},
-            mock_context(base_path_argument: "/a/generic/edition"),
           ),
         ).to be Types::EditionType
       end
     end
-  end
-
-private
-
-  def mock_context(base_path_argument:)
-    JSON.parse({
-      query: {
-        lookahead: {
-          ast_nodes: [{
-            selections: [{
-              arguments: [{
-                name: "basePath",
-                value: base_path_argument,
-              }],
-            }],
-          }],
-        },
-      },
-    }.to_json, object_class: OpenStruct)
   end
 end
