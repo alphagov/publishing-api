@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_17_080126) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_30_094743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -170,6 +170,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_17_080126) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.index ["base_path"], name: "index_path_reservations_on_base_path", unique: true
+  end
+
+  create_table "statistics_caches", force: :cascade do |t|
+    t.integer "unique_pageviews", null: false
+    t.bigint "document_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["document_id"], name: "index_statistics_caches_on_document_id", unique: true
   end
 
   create_table "unpublishings", id: :serial, force: :cascade do |t|
