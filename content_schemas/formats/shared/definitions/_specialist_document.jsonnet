@@ -1066,7 +1066,7 @@
     type: "object",
     additionalProperties: false,
     properties: {
-      case_state: {
+      sfo_case_state: {
         type: "string",
       },
     },
