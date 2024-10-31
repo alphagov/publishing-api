@@ -18,7 +18,7 @@ You can generate the corresponding schemas with the
 
 ## Sample PR adding a new content schema
 
-- (Adding Content Block Email Address][https://github.com/alphagov/publishing-api/commit/f657d06ba43fcf720fad43b504692e8793bddde4]
+- [Adding Content Block Email Address](https://github.com/alphagov/publishing-api/commit/f657d06ba43fcf720fad43b504692e8793bddde4)
 
 ## Examples
 
