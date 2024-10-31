@@ -54,6 +54,8 @@ RSpec.describe "Embedded documents" do
                               embed: [content_block.content_id],
                             })
 
+      statistics_cache = create(:statistics_cache, document: host_edition.document, unique_pageviews: 333)
+
       get "/v2/content/#{content_block.content_id}/embedded"
 
       expect(response.status).to eq(200)
@@ -70,6 +72,7 @@ RSpec.describe "Embedded documents" do
           "publishing_app" => host_edition.publishing_app,
           "last_edited_by_editor_id" => host_edition.last_edited_by_editor_id,
           "last_edited_at" => last_edited_at,
+          "unique_pageviews" => statistics_cache.unique_pageviews,
           "primary_publishing_organisation" => {
             "content_id" => publishing_organisation.content_id,
             "title" => publishing_organisation.title,

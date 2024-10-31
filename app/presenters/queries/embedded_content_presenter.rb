@@ -29,6 +29,7 @@ module Presenters
             publishing_app: edition.publishing_app,
             last_edited_by_editor_id: edition.last_edited_by_editor_id,
             last_edited_at: edition.last_edited_at,
+            unique_pageviews: edition.unique_pageviews,
             primary_publishing_organisation: {
               content_id: edition.primary_publishing_organisation_content_id,
               title: edition.primary_publishing_organisation_title,

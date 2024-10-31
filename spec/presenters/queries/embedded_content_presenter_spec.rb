@@ -14,6 +14,7 @@ RSpec.describe Presenters::Queries::EmbeddedContentPresenter do
               publishing_app: "publisher",
               last_edited_by_editor_id:,
               last_edited_at:,
+              unique_pageviews: 123,
               primary_publishing_organisation_content_id: organisation_edition_id,
               primary_publishing_organisation_title: "bar",
               primary_publishing_organisation_base_path: "/bar")]
@@ -33,6 +34,7 @@ RSpec.describe Presenters::Queries::EmbeddedContentPresenter do
             publishing_app: "publisher",
             last_edited_by_editor_id:,
             last_edited_at:,
+            unique_pageviews: 123,
             primary_publishing_organisation: {
               content_id: organisation_edition_id,
               title: "bar",
