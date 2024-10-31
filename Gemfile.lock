@@ -158,7 +158,7 @@ GEM
     fiber-storage (1.0.0)
     find_a_port (1.0.1)
     fuzzy_match (2.1.0)
-    gds-api-adapters (97.0.0)
+    gds-api-adapters (97.1.0)
       addressable
       link_header
       null_logger
