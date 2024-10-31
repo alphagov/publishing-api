@@ -22,7 +22,7 @@ module V2
     end
 
     def embedded
-      results = Queries::GetEmbeddedContent.new(
+      results = GetHostContentService.new(
         path_params[:content_id],
       ).call
 

@@ -1,4 +1,4 @@
-RSpec.describe Presenters::Queries::EmbeddedContentPresenter do
+RSpec.describe Presenters::EmbeddedContentPresenter do
   describe "#present" do
     let(:organisation_edition_id) { SecureRandom.uuid }
     let(:target_edition_id) { SecureRandom.uuid }
@@ -6,7 +6,7 @@ RSpec.describe Presenters::Queries::EmbeddedContentPresenter do
     let(:last_edited_at) { 2.days.ago }
 
     let(:host_editions) do
-      [double("Edition",
+      [double("Queries::GetEmbeddedContent::Result",
               id: "1",
               title: "foo",
               base_path: "/foo",
