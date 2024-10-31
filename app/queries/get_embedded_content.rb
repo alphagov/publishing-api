@@ -23,16 +23,18 @@ module Queries
 
     def host_editions
       @host_editions ||= Edition.where(state: states)
-        .joins(:links)
+        .joins(:links, :document)
         .joins("LEFT JOIN links AS primary_links ON primary_links.edition_id = editions.id AND primary_links.link_type = 'primary_publishing_organisation'")
-        .joins("LEFT JOIN documents ON documents.content_id = primary_links.target_content_id")
-        .joins("LEFT JOIN editions AS org_editions ON org_editions.document_id = documents.id AND org_editions.state = 'published'")
+        .joins("LEFT JOIN documents AS org_documents ON org_documents.content_id = primary_links.target_content_id")
+        .joins("LEFT JOIN editions AS org_editions ON org_editions.document_id = org_documents.id AND org_editions.state = 'published'")
+        .joins("LEFT JOIN statistics_caches ON statistics_caches.document_id = documents.id")
         .where(links: { link_type: embedded_link_type, target_content_id: })
         .select(
           "editions.id, editions.title, editions.base_path, editions.document_type, editions.publishing_app, editions.last_edited_by_editor_id, editions.last_edited_at",
           "primary_links.target_content_id AS primary_publishing_organisation_content_id",
           "org_editions.title AS primary_publishing_organisation_title",
           "org_editions.base_path AS primary_publishing_organisation_base_path",
+          "statistics_caches.unique_pageviews AS unique_pageviews",
         )
     end
 

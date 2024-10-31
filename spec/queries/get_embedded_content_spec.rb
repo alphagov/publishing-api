@@ -86,7 +86,15 @@ RSpec.describe Queries::GetEmbeddedContent do
 
         _unwanted_edition = create(:live_edition)
 
+        published_host_editions.map do |edition|
+          create(:statistics_cache, document: edition.document, unique_pageviews: 123)
+        end
+
         expected_editions = published_host_editions
+        expected_pageviews = StatisticsCache.where(document: published_host_editions.map(&:document))
+                                            .map { |s|
+                                              [s.document_id, s.unique_pageviews]
+                                            }.to_h
 
         # The edition records we create in test can't be used as they are as assertions.
         # We load new fields into the Edition using the SQL Select.
@@ -99,7 +107,8 @@ RSpec.describe Queries::GetEmbeddedContent do
                  publishing_app: host_edition.publishing_app,
                  primary_publishing_organisation_content_id: organisation.content_id,
                  primary_publishing_organisation_title: organisation.title,
-                 primary_publishing_organisation_base_path: organisation.base_path)
+                 primary_publishing_organisation_base_path: organisation.base_path,
+                 unique_pageviews: expected_pageviews[host_edition.document.id])
         end
 
         expected_edition_doubles = edition_doubles.map do |edition_double|
@@ -112,6 +121,7 @@ RSpec.describe Queries::GetEmbeddedContent do
             primary_publishing_organisation_content_id: edition_double.primary_publishing_organisation_content_id,
             primary_publishing_organisation_title: edition_double.primary_publishing_organisation_title,
             primary_publishing_organisation_base_path: edition_double.primary_publishing_organisation_base_path,
+            unique_pageviews: edition_double.unique_pageviews,
           )
         end
 
