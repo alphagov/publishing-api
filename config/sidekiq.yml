@@ -11,3 +11,7 @@
   - experiments
   - default
   - import
+:scheduler:
+  :schedule:
+    UpdateStatisticsCachesJob:
+      cron: '30 2 * * *' # Runs at 2:30 a.m every day

@@ -1,4 +1,4 @@
-RSpec.describe Presenters::Queries::EmbeddedContentPresenter do
+RSpec.describe Presenters::EmbeddedContentPresenter do
   describe "#present" do
     let(:organisation_edition_id) { SecureRandom.uuid }
     let(:target_edition_id) { SecureRandom.uuid }
@@ -6,7 +6,7 @@ RSpec.describe Presenters::Queries::EmbeddedContentPresenter do
     let(:last_edited_at) { 2.days.ago }
 
     let(:host_editions) do
-      [double("Edition",
+      [double("Queries::GetEmbeddedContent::Result",
               id: "1",
               title: "foo",
               base_path: "/foo",
@@ -14,6 +14,7 @@ RSpec.describe Presenters::Queries::EmbeddedContentPresenter do
               publishing_app: "publisher",
               last_edited_by_editor_id:,
               last_edited_at:,
+              unique_pageviews: 123,
               primary_publishing_organisation_content_id: organisation_edition_id,
               primary_publishing_organisation_title: "bar",
               primary_publishing_organisation_base_path: "/bar")]
@@ -33,6 +34,7 @@ RSpec.describe Presenters::Queries::EmbeddedContentPresenter do
             publishing_app: "publisher",
             last_edited_by_editor_id:,
             last_edited_at:,
+            unique_pageviews: 123,
             primary_publishing_organisation: {
               content_id: organisation_edition_id,
               title: "bar",
