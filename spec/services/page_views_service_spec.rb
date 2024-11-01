@@ -39,18 +39,18 @@ RSpec.describe PageViewsService do
     end
 
     def stub_creds
-      expect(Google::Auth::ServiceAccountCredentials).to receive(:make_creds) { |args|
+      allow(Google::Auth::ServiceAccountCredentials).to receive(:make_creds) { |args|
         args[:json_key_io].read == StringIO.new(credentials.to_json).read &&
           args[:scope] == PageViewsService::SCOPE
       }.and_return(creds_stub)
     end
 
     def stub_big_query
-      expect(Google::Cloud::Bigquery).to receive(:new).with(
+      allow(Google::Cloud::Bigquery).to receive(:new).with(
         project_id:,
         credentials: creds_stub,
       ).and_return(bigquery_stub)
-      expect(bigquery_stub).to receive(:query).with(
+      allow(bigquery_stub).to receive(:query).with(
         PageViewsService::SQL,
         params: { paths:, start_date:, end_date: },
       ).and_return(stub_response)
@@ -70,6 +70,17 @@ RSpec.describe PageViewsService do
         expect(result.first.page_views).to eq(123)
         expect(result.last.path).to eq("bar")
         expect(result.last.page_views).to eq(345)
+      end
+    end
+
+    it "logs a message and returns an empty array if BigQuery credentials are not found" do
+      ClimateControl.modify BIGQUERY_PROJECT_ID: nil, BIGQUERY_CLIENT_EMAIL: nil, BIGQUERY_PRIVATE_KEY: nil do
+        allow(Rails.logger).to receive(:info)
+
+        result = PageViewsService.new(paths:).call
+
+        expect(result).to eq([])
+        expect(Rails.logger).to have_received(:info).with("BigQuery credentials not found - skipping job")
       end
     end
   end

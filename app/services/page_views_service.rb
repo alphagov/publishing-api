@@ -24,6 +24,11 @@ class PageViewsService
   end
 
   def call
+    if credentials_not_supplied?
+      Rails.logger.info("BigQuery credentials not found - skipping job")
+      return []
+    end
+
     results.map do |row|
       PageView.new(path: row[:cleaned_page_location], page_views: row[:unique_pageviews])
     end
@@ -52,5 +57,9 @@ private
       "client_email" => ENV["BIGQUERY_CLIENT_EMAIL"],
       "private_key" => ENV["BIGQUERY_PRIVATE_KEY"],
     }
+  end
+
+  def credentials_not_supplied?
+    ENV["BIGQUERY_PROJECT_ID"].blank? && ENV["BIGQUERY_CLIENT_EMAIL"].blank? && ENV["BIGQUERY_PRIVATE_KEY"].blank?
   end
 end
