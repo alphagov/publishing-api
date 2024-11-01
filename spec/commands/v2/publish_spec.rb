@@ -179,6 +179,26 @@ RSpec.describe Commands::V2::Publish do
           expect(edition.major_published_at).to eq(major_published_at)
         end
       end
+
+      context "and the edition has embedded content" do
+        before do
+          draft_item.links.create!({ link_type: "embed", target_content_id: SecureRandom.uuid })
+        end
+
+        it "queues a job to update the statistics cache" do
+          expect(UpdateStatisticsCacheForDocumentIdJob).to receive(:perform_async).with(draft_item.document.id)
+
+          described_class.call(payload)
+        end
+      end
+
+      context "and the edition does not have embedded content" do
+        it "does not queue a job to update the statistics cache" do
+          expect(UpdateStatisticsCacheForDocumentIdJob).not_to receive(:perform_async)
+
+          described_class.call(payload)
+        end
+      end
     end
 
     context "publishing a content block update" do
