@@ -5,9 +5,9 @@ class PageViewsService
   PageView = Data.define(:path, :page_views)
   SQL = <<~SQL.freeze
     SELECT cleaned_page_location,
-    COUNT (DISTINCT ga_sessionid) as unique_pageviews FROM
+    COUNT (DISTINCT unique_session_id) as unique_pageviews FROM
     (
-      SELECT cleaned_page_location, ga_sessionid
+      SELECT cleaned_page_location, unique_session_id
       FROM `ga4-analytics-352613.flattened_dataset.partitioned_flattened_events`
       WHERE event_name = "page_view"
       AND cleaned_page_location IN UNNEST(@paths)
