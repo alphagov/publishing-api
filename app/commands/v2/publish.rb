@@ -241,6 +241,12 @@ module Commands
           queue,
           live_worker_params,
         )
+
+        UpdateStatisticsCacheForDocumentIdJob.perform_async(edition.document.id) if has_embedded_content?
+      end
+
+      def has_embedded_content?
+        edition.links.map(&:link_type).include?("embed")
       end
 
       def live_worker_params
