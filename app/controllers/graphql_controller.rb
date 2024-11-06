@@ -14,7 +14,17 @@ class GraphqlController < ApplicationController
       # Query context goes here, for example:
       # current_user: current_user,
     }
-    result = PublishingApiSchema.execute(query, variables:, context:, operation_name:)
+    result = PublishingApiSchema.execute(
+      query,
+      variables:,
+      context:,
+      operation_name:,
+    ).to_hash
+
+    if result.key?("errors")
+      logger.warn("GraphQL query result contained errors: #{result['errors']}")
+    end
+
     render json: result
   rescue StandardError => e
     raise e unless Rails.env.development?
