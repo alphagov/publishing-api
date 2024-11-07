@@ -1,5 +1,9 @@
 module Presenters
   class ContentEmbedPresenter
+    CONTENT_PRESENTERS = {
+      "content_block_email_address" => ContentEmbed::EmailAddressPresenter,
+    }.freeze
+
     def initialize(edition)
       @edition = edition
     end
@@ -64,14 +68,10 @@ module Presenters
       content
     end
 
-    # This is a temporary solution to get email address content blocks working
-    # while we agree on a long-term approach that works for everything.
     def get_content_for_edition(edition)
-      if edition.document_type == "content_block_email_address"
-        edition.details[:email_address]
-      else
-        edition.title
-      end
+      CONTENT_PRESENTERS
+        .fetch(edition.document_type, ContentEmbed::BasePresenter)
+        .new(edition).render
     end
   end
 end
