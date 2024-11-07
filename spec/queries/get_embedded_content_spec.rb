@@ -80,6 +80,7 @@ RSpec.describe Queries::GetEmbeddedContent do
           expect(results[i].base_path).to eq(host_edition.base_path)
           expect(results[i].document_type).to eq(host_edition.document_type)
           expect(results[i].publishing_app).to eq(host_edition.publishing_app)
+          expect(results[i].host_content_id).to eq(host_edition.content_id)
           expect(results[i].primary_publishing_organisation_content_id).to eq(organisation.content_id)
           expect(results[i].primary_publishing_organisation_title).to eq(organisation.title)
           expect(results[i].primary_publishing_organisation_base_path).to eq(organisation.base_path)
