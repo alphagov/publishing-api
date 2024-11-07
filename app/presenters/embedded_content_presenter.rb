@@ -33,6 +33,7 @@ module Presenters
           last_edited_at: edition.last_edited_at,
           unique_pageviews: edition.unique_pageviews,
           instances: edition.instances,
+          host_content_id: edition.host_content_id,
           primary_publishing_organisation: {
             content_id: edition.primary_publishing_organisation_content_id,
             title: edition.primary_publishing_organisation_title,

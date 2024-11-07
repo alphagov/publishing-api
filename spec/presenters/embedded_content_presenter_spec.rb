@@ -3,6 +3,7 @@ RSpec.describe Presenters::EmbeddedContentPresenter do
     let(:organisation_edition_id) { SecureRandom.uuid }
     let(:target_edition_id) { SecureRandom.uuid }
     let(:last_edited_by_editor_id) { SecureRandom.uuid }
+    let(:host_content_id) { SecureRandom.uuid }
     let(:last_edited_at) { 2.days.ago }
     let(:total) { 222 }
     let(:total_pages) { 23 }
@@ -17,6 +18,7 @@ RSpec.describe Presenters::EmbeddedContentPresenter do
               last_edited_by_editor_id:,
               last_edited_at:,
               unique_pageviews: 123,
+              host_content_id:,
               primary_publishing_organisation_content_id: organisation_edition_id,
               primary_publishing_organisation_title: "bar",
               primary_publishing_organisation_base_path: "/bar",
@@ -40,6 +42,7 @@ RSpec.describe Presenters::EmbeddedContentPresenter do
             last_edited_at:,
             unique_pageviews: 123,
             instances: 1,
+            host_content_id: host_content_id,
             primary_publishing_organisation: {
               content_id: organisation_edition_id,
               title: "bar",
