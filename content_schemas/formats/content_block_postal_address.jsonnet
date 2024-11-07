@@ -1,6 +1,6 @@
 (import "shared/content_block.jsonnet") + {
   document_type: "content_block_postal_address",
-  definitions: {
+  definitions: (import "shared/definitions/_content_block_manager.jsonnet") +  {
     details: {
       type: "object",
       additionalProperties: false,
@@ -21,6 +21,9 @@
         postcode: {
           type: "string"
         },
+        instructions_for_publishers: {
+          "$ref": "#/definitions/instructions_for_publishers",
+        }
       },
     },
   },

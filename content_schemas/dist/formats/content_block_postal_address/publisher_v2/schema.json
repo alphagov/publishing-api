@@ -202,6 +202,9 @@
         "county": {
           "type": "string"
         },
+        "instructions_for_publishers": {
+          "$ref": "#/definitions/instructions_for_publishers"
+        },
         "line_1": {
           "type": "string"
         },
@@ -231,6 +234,11 @@
         "$ref": "#/definitions/guid"
       },
       "uniqueItems": true
+    },
+    "instructions_for_publishers": {
+      "description": "An internal message to be added to content blocks",
+      "type": "string",
+      "additionalProperties": false
     },
     "locale": {
       "type": "string",
