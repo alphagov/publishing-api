@@ -7,6 +7,7 @@
   document_type: null,
   edition_links: import "base_edition_links.jsonnet",
   frontend_content_id: "required",
+  instructions_to_publishers: "forbidden",
   links: import "base_links.jsonnet",
   redirects: "forbidden",
   rendering_app: "required",

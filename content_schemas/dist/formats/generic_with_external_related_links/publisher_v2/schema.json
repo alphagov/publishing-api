@@ -237,6 +237,9 @@
     "first_published_at": {
       "$ref": "#/definitions/first_published_at"
     },
+    "instructions_to_publishers": {
+      "type": "null"
+    },
     "last_edited_at": {
       "description": "Last time when the content received a major or minor update.",
       "type": "string",

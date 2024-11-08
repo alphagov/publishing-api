@@ -104,6 +104,16 @@ module SchemaGenerator
       )
     end
 
+    def instructions_to_publishers
+      @instructions_to_publishers ||= OptionalProperty.new(
+        property: "instructions_to_publishers",
+        status: format_data["instructions_to_publishers"] || "optional",
+        required_definition: "instructions_to_publishers",
+        optional_definition: "instructions_to_publishers_optional",
+        forbidden_definition: "null",
+      )
+    end
+
     def generate_publisher?
       generate_publisher = format_data.dig("generate", "publisher")
       generate_publisher.nil? ? true : generate_publisher

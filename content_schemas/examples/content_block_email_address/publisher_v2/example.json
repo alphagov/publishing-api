@@ -3,7 +3,7 @@
   "schema_name": "content_block_email_address",
   "document_type": "content_block_email_address",
   "title": "Government Digital Service - General contact",
-  "description": "General contact email address for Government Digital Service",
+  "instructions_to_publishers": "General contact email address for Government Digital Service",
   "content_id_alias": "gds-general",
   "details": {
     "email_address": "foo@example.com"

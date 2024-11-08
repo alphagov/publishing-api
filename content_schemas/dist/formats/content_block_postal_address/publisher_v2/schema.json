@@ -50,6 +50,9 @@
     "first_published_at": {
       "$ref": "#/definitions/first_published_at"
     },
+    "instructions_to_publishers": {
+      "$ref": "#/definitions/instructions_to_publishers_optional"
+    },
     "last_edited_at": {
       "description": "Last time when the content received a major or minor update.",
       "type": "string",
@@ -231,6 +234,16 @@
         "$ref": "#/definitions/guid"
       },
       "uniqueItems": true
+    },
+    "instructions_to_publishers_optional": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/content_id_alias"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "locale": {
       "type": "string",
