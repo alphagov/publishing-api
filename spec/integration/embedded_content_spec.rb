@@ -82,4 +82,161 @@ RSpec.describe "Embedded documents" do
       )
     end
   end
+
+  context "when passing order details" do
+    it "orders by title" do
+      edition_1 = create(:live_edition,
+                         title: "B Title",
+                         links_hash: {
+                           embed: [content_block.content_id],
+                         })
+
+      edition_2 = create(:live_edition,
+                         title: "A Title",
+                         links_hash: {
+                           embed: [content_block.content_id],
+                         })
+
+      expect_request_to_order_by(
+        order_argument: "title",
+        expected_results: [edition_2, edition_1],
+      )
+
+      expect_request_to_order_by(
+        order_argument: "-title",
+        expected_results: [edition_1, edition_2],
+      )
+    end
+
+    it "orders by document type" do
+      edition_1 = create(:live_edition,
+                         document_type: "news_article",
+                         title: "B",
+                         links_hash: {
+                           embed: [content_block.content_id],
+                         })
+
+      edition_2 = create(:live_edition,
+                         document_type: "guide",
+                         title: "A",
+                         links_hash: {
+                           embed: [content_block.content_id],
+                         })
+
+      expect_request_to_order_by(
+        order_argument: "document_type",
+        expected_results: [edition_2, edition_1],
+      )
+
+      expect_request_to_order_by(
+        order_argument: "-document_type",
+        expected_results: [edition_1, edition_2],
+      )
+    end
+
+    it "orders by unique pageviews" do
+      edition_1 = create(:live_edition,
+                         title: "B",
+                         links_hash: {
+                           embed: [content_block.content_id],
+                         })
+
+      create(:statistics_cache, document: edition_1.document, unique_pageviews: 999)
+
+      edition_2 = create(:live_edition,
+                         title: "A",
+                         links_hash: {
+                           embed: [content_block.content_id],
+                         })
+
+      create(:statistics_cache, document: edition_2.document, unique_pageviews: 1)
+
+      expect_request_to_order_by(
+        order_argument: "unique_pageviews",
+        expected_results: [edition_2, edition_1],
+      )
+
+      expect_request_to_order_by(
+        order_argument: "-unique_pageviews",
+        expected_results: [edition_1, edition_2],
+      )
+    end
+
+    it "orders by primary publishing organisation title" do
+      edition_1 = create(:live_edition,
+                         title: "A",
+                         links_hash: {
+                           embed: [content_block.content_id],
+                           primary_publishing_organisation: [create(:live_edition,
+                                                                    title: "B organisation",
+                                                                    document_type: "organisation",
+                                                                    schema_name: "organisation",
+                                                                    base_path: "/government/organisations/b-organisation").content_id],
+                         })
+
+      create(:statistics_cache, document: edition_1.document, unique_pageviews: 999)
+
+      edition_2 = create(:live_edition,
+                         title: "B",
+                         links_hash: {
+                           embed: [content_block.content_id],
+                           primary_publishing_organisation: [create(:live_edition,
+                                                                    title: "A organisation",
+                                                                    document_type: "organisation",
+                                                                    schema_name: "organisation",
+                                                                    base_path: "/government/organisations/a-organisation").content_id],
+                         })
+
+      create(:statistics_cache, document: edition_2.document, unique_pageviews: 1)
+
+      expect_request_to_order_by(
+        order_argument: "primary_publishing_organisation_title",
+        expected_results: [edition_2, edition_1],
+      )
+
+      expect_request_to_order_by(
+        order_argument: "-primary_publishing_organisation_title",
+        expected_results: [edition_1, edition_2],
+      )
+    end
+
+    it "orders by last edited at" do
+      edition_1 = create(:live_edition,
+                         title: "B",
+                         last_edited_at: Time.zone.now - 1.day,
+                         links_hash: {
+                           embed: [content_block.content_id],
+                         })
+
+      edition_2 = create(:live_edition,
+                         title: "A",
+                         last_edited_at: Time.zone.now - 5.days,
+                         links_hash: {
+                           embed: [content_block.content_id],
+                         })
+
+      expect_request_to_order_by(
+        order_argument: "last_edited_at",
+        expected_results: [edition_2, edition_1],
+      )
+
+      expect_request_to_order_by(
+        order_argument: "-last_edited_at",
+        expected_results: [edition_1, edition_2],
+      )
+    end
+
+    def expect_request_to_order_by(order_argument:, expected_results:)
+      get "/v2/content/#{content_block.content_id}/embedded?order=#{order_argument}"
+      response_body = parsed_response
+
+      expect(response.status).to eq(200)
+
+      expect(response_body["total"]).to eq(expected_results.count)
+
+      expected_results.each_with_index do |expected_result, i|
+        expect(response_body["results"][i]["title"]).to eq(expected_result.title)
+      end
+    end
+  end
 end

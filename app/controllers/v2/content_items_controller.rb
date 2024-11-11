@@ -24,6 +24,7 @@ module V2
     def embedded
       results = GetHostContentService.new(
         path_params[:content_id],
+        query_params[:order],
       ).call
 
       render json: results
