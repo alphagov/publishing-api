@@ -130,7 +130,7 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    date (3.3.4)
+    date (3.4.0)
     declarative (0.0.20)
     diff-lcs (1.5.1)
     dig_rb (1.0.1)
@@ -226,8 +226,8 @@ GEM
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
-    govspeak (8.6.0)
-      actionview (>= 6, < 7.2.2)
+    govspeak (8.6.1)
+      actionview (>= 6, < 7.2.3)
       addressable (>= 2.3.8, < 2.8.8)
       govuk_publishing_components (>= 35.1)
       htmlentities (~> 4)
@@ -252,7 +252,7 @@ GEM
     govuk_personalisation (1.0.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (44.9.1)
+    govuk_publishing_components (45.2.0)
       chartkick
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
@@ -339,7 +339,7 @@ GEM
     mutex_m (0.2.0)
     net-http (0.4.1)
       uri
-    net-imap (0.5.0)
+    net-imap (0.5.1)
       date
       net-protocol
     net-pop (0.1.2)
@@ -578,7 +578,7 @@ GEM
     opentelemetry-semantic_conventions (1.10.1)
       opentelemetry-api (~> 1.0)
     os (1.1.4)
-    ostruct (0.6.0)
+    ostruct (0.6.1)
     pact (1.65.3)
       pact-mock_service (~> 3.0, >= 3.3.1)
       pact-support (~> 1.16, >= 1.16.9)
@@ -619,7 +619,7 @@ GEM
       base64
     prometheus_exporter (2.1.1)
       webrick
-    psych (5.1.2)
+    psych (5.2.0)
       stringio
     public_suffix (6.0.1)
     puma (6.4.3)
@@ -679,7 +679,7 @@ GEM
     redis-client (0.22.2)
       connection_pool
     regexp_parser (2.9.2)
-    reline (0.5.10)
+    reline (0.5.11)
       io-console (~> 0.5)
     representable (3.2.0)
       declarative (< 0.1.0)
@@ -695,7 +695,7 @@ GEM
     retriable (3.1.2)
     rexml (3.3.9)
     rinku (2.0.6)
-    rouge (4.4.0)
+    rouge (4.5.0)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -755,7 +755,7 @@ GEM
     sanitize (6.1.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    securerandom (0.3.1)
+    securerandom (0.3.2)
     selenium-webdriver (4.23.0)
       base64 (~> 0.2)
       logger (~> 1.4)
@@ -811,7 +811,7 @@ GEM
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
     statsd-ruby (1.5.0)
-    stringio (3.1.1)
+    stringio (3.1.2)
     sync (0.5.0)
     table_print (1.5.7)
     term-ansicolor (1.11.2)
@@ -819,7 +819,7 @@ GEM
     thor (1.3.2)
     tilt (2.4.0)
     timecop (0.9.10)
-    timeout (0.4.1)
+    timeout (0.4.2)
     tins (1.37.0)
       bigdecimal
       sync
