@@ -44,6 +44,7 @@ module SchemaGenerator
         "document_type" => format.document_type.definition,
         "description" => format.description.definition,
         "details" => format.details.definition,
+        "instructions_to_publishers" => format.instructions_to_publishers.definition,
         "links" => links,
         "redirects" => format.redirects.definition,
         "rendering_app" => format.rendering_app.definition,

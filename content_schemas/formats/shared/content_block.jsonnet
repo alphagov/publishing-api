@@ -1,6 +1,7 @@
 (import "default_format.jsonnet") + {
   base_path: "forbidden",
   content_id_alias: "optional",
+  instructions_to_publishers: "optional",
   routes: "forbidden",
   rendering_app: "forbidden",
   edition_links: (import "base_edition_links.jsonnet") +  {
