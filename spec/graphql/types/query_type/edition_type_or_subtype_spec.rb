@@ -3,9 +3,11 @@ RSpec.describe "Types::QueryType::EditionTypeOrSubtype" do
     it "includes all EditionType descendants" do
       Rails.application.eager_load!
 
-      expected = [Types::EditionType, *Types::EditionType.descendants]
+      expected = [Types::EditionType, *Types::EditionType.descendants].map(&:name)
+      actual = Types::QueryType::EditionTypeOrSubtype::EDITION_TYPES.map(&:name)
+      diff = expected - actual
 
-      expect(Types::QueryType::EditionTypeOrSubtype::EDITION_TYPES.sort).to eq(expected.sort)
+      expect(diff).to be_empty
     end
   end
 
