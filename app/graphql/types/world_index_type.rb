@@ -2,6 +2,8 @@
 
 module Types
   class WorldIndexType < Types::EditionType
+    def self.document_type = "world_index"
+
     class WorldLocation < Types::BaseObject
       field :active, Boolean, null: false
       field :analytics_identifier, String
@@ -15,8 +17,6 @@ module Types
     field :body, String
     field :international_delegations, [WorldLocation], null: false
     field :world_locations, [WorldLocation], null: false
-
-    def self.document_type = "world_index"
 
     def international_delegations
       object.details[:international_delegations]
