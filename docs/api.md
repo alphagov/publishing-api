@@ -441,6 +441,15 @@ it wants to defer to a reusable piece of content, such as an email address.
 
 - [`content_id`](model.md#content_id)
   - Identifies the target document for the reusable piece of content
+  
+### Query parameters
+
+- `order` *(optional, default: "unique_pageviews")*
+  - The field to sort the results by.
+  - Returned in an ascending order unless prefixed with a hyphen, e.g.
+    "-title".
+- `page` *(optional, default: "1")*
+  - The page number of results to return
 
 ## `PATCH /v2/links/:content_id`
 

@@ -105,5 +105,86 @@ RSpec.describe Queries::GetEmbeddedContent do
         expect(results.count).to eq(0)
       end
     end
+
+    context "sorting" do
+      let(:target_content_id) { SecureRandom.uuid }
+
+      it "sorts by unique_pageviews by default" do
+        expect_sort_call_for(order_field: Queries::GetEmbeddedContent::ORDER_FIELDS[:unique_pageviews], order_direction: :asc)
+
+        described_class.new(target_content_id).call
+      end
+
+      it "allows searching in descending order with the default field" do
+        expect_sort_call_for(order_field: Queries::GetEmbeddedContent::ORDER_FIELDS[:unique_pageviews], order_direction: :desc)
+
+        described_class.new(target_content_id, order_direction: :desc).call
+      end
+
+      it "throws an error with an invalid field" do
+        expect {
+          described_class.new(target_content_id, order_field: :foo).call
+        }.to raise_error(KeyError, "Unknown order field: foo")
+      end
+
+      it "throws an error with an invalid order direction" do
+        expect {
+          described_class.new(target_content_id, order_direction: :foo).call
+        }.to raise_error(KeyError, "Unknown order direction: foo")
+      end
+
+      Queries::GetEmbeddedContent::ORDER_FIELDS.each do |key, order_field|
+        Queries::GetEmbeddedContent::ORDER_DIRECTIONS.each do |order_direction|
+          it "allows searching by #{key} #{order_direction}" do
+            expect_sort_call_for(order_field:, order_direction:)
+
+            described_class.new(target_content_id, order_field: key, order_direction:).call
+          end
+        end
+      end
+
+      def expect_sort_call_for(order_field:, order_direction:)
+        expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
+          expect(arel_query.orders.length).to eq(1)
+          expect(arel_query.orders[0]).to be_a(order_direction == :asc ? Arel::Nodes::Ascending : Arel::Nodes::Descending)
+          expect(arel_query.orders[0].expr.relation.name).to eq(order_field.relation.name)
+          expect(arel_query.orders[0].expr.name).to eq(order_field.name)
+        }.and_return([])
+      end
+    end
+
+    context "pagination" do
+      let(:target_content_id) { SecureRandom.uuid }
+
+      before do
+        allow(ActiveRecord::Base.connection).to receive(:select_value).and_return(232)
+      end
+
+      it "returns the count" do
+        expect(described_class.new(target_content_id).count).to eq(232)
+      end
+
+      it "returns the total number of pages" do
+        expect(described_class.new(target_content_id).total_pages).to eq(24)
+      end
+
+      it "requests the first page by default" do
+        expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
+          expect(arel_query.offset).to eq(0)
+          expect(arel_query.limit).to eq(Queries::GetEmbeddedContent::PER_PAGE)
+        }.and_return([])
+
+        described_class.new(target_content_id).call
+      end
+
+      it "accepts a page argument" do
+        expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
+          expect(arel_query.offset).to eq(10)
+          expect(arel_query.limit).to eq(Queries::GetEmbeddedContent::PER_PAGE)
+        }.and_return([])
+
+        described_class.new(target_content_id, page: 1).call
+      end
+    end
   end
 end

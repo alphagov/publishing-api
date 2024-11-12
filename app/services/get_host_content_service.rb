@@ -1,8 +1,8 @@
 class GetHostContentService
-  attr_reader :target_content_id
-
-  def initialize(target_content_id)
-    self.target_content_id = target_content_id
+  def initialize(target_content_id, order, page)
+    @target_content_id = target_content_id
+    @order = order
+    @page = page.blank? ? 0 : page.to_i - 1
   end
 
   def call
@@ -14,14 +14,44 @@ class GetHostContentService
     Presenters::EmbeddedContentPresenter.present(
       target_content_id,
       host_content,
+      query.count,
+      query.total_pages,
     )
   end
 
 private
 
-  attr_writer :target_content_id
+  attr_accessor :target_content_id, :order, :page
+
+  def query
+    @query ||= Queries::GetEmbeddedContent.new(target_content_id, order_field:, order_direction:, page:)
+  end
 
   def host_content
-    @host_content ||= Queries::GetEmbeddedContent.new(target_content_id).call
+    @host_content ||= query.call
+  rescue KeyError
+    message = "Invalid order field: #{order}"
+    raise CommandError.new(
+      code: 422,
+      message:,
+      error_details: {
+        error: {
+          code: 422,
+          message:,
+        },
+      },
+    )
+  end
+
+  def order_direction
+    return nil if order.blank?
+
+    order.start_with?("-") ? :desc : :asc
+  end
+
+  def order_field
+    return nil if order.blank?
+
+    (order_direction == :desc ? order[1..] : order).to_sym
   end
 end

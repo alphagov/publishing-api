@@ -1,18 +1,21 @@
 module Presenters
   class EmbeddedContentPresenter
-    def self.present(target_edition_id, host_content)
-      new(target_edition_id, host_content).present
+    def self.present(target_edition_id, host_content, total, total_pages)
+      new(target_edition_id, host_content, total, total_pages).present
     end
 
-    def initialize(target_edition_id, host_content)
+    def initialize(target_edition_id, host_content, total, total_pages)
       @target_edition_id = target_edition_id
       @host_content = host_content.to_a
+      @total = total
+      @total_pages = total_pages
     end
 
     def present
       {
         content_id: target_edition_id,
-        total: host_content.count,
+        total:,
+        total_pages:,
         results:,
       }
     end
@@ -40,6 +43,6 @@ module Presenters
 
   private
 
-    attr_reader :target_edition_id, :host_content
+    attr_reader :target_edition_id, :host_content, :total, :total_pages
   end
 end

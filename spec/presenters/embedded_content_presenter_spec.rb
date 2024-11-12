@@ -4,6 +4,8 @@ RSpec.describe Presenters::EmbeddedContentPresenter do
     let(:target_edition_id) { SecureRandom.uuid }
     let(:last_edited_by_editor_id) { SecureRandom.uuid }
     let(:last_edited_at) { 2.days.ago }
+    let(:total) { 222 }
+    let(:total_pages) { 23 }
 
     let(:host_editions) do
       [double("Queries::GetEmbeddedContent::Result",
@@ -20,12 +22,13 @@ RSpec.describe Presenters::EmbeddedContentPresenter do
               primary_publishing_organisation_base_path: "/bar")]
     end
 
-    let(:result) { described_class.present(target_edition_id, host_editions) }
+    let(:result) { described_class.present(target_edition_id, host_editions, total, total_pages) }
 
     let(:expected_output) do
       {
         content_id: target_edition_id,
-        total: 1,
+        total:,
+        total_pages:,
         results: [
           {
             title: "foo",
