@@ -27,7 +27,7 @@ RSpec.describe GetHostContentService do
 
     context "when the target_content_id doesn't match a Document" do
       it "returns 404" do
-        expect { described_class.new(SecureRandom.uuid, nil).call }.to raise_error(CommandError) do |error|
+        expect { described_class.new(SecureRandom.uuid, nil, nil).call }.to raise_error(CommandError) do |error|
           expect(error.code).to eq(404)
           expect(error.message).to eq("Could not find an edition to get embedded content for")
         end
@@ -47,7 +47,7 @@ RSpec.describe GetHostContentService do
       end
 
       it "returns a presented form of the response from the query" do
-        result = described_class.new(target_content_id, nil).call
+        result = described_class.new(target_content_id, nil, nil).call
 
         expect(result).to eq(result_stub)
 
@@ -57,28 +57,46 @@ RSpec.describe GetHostContentService do
         )
       end
 
-      describe "ordering" do
-        it "does not send any ordering fields by default" do
-          described_class.new(target_content_id, nil).call
+      describe "pagination" do
+        it "requests page zero by default" do
+          described_class.new(target_content_id, nil, "").call
 
           expect(Queries::GetEmbeddedContent).to have_received(:new).with(
-            target_content_id, order_field: nil, order_direction: nil
+            target_content_id, order_field: nil, order_direction: nil, page: 0
+          )
+        end
+
+        it "requests a zero indexed page" do
+          described_class.new(target_content_id, nil, "2").call
+
+          expect(Queries::GetEmbeddedContent).to have_received(:new).with(
+            target_content_id, order_field: nil, order_direction: nil, page: 1
+          )
+        end
+      end
+
+      describe "ordering" do
+        it "does not send any ordering fields by default" do
+          described_class.new(target_content_id, nil, nil).call
+
+          expect(Queries::GetEmbeddedContent).to have_received(:new).with(
+            target_content_id, order_field: nil, order_direction: nil, page: 0
           )
         end
 
         it "sends a field in ascending order when not preceded with a minus" do
-          described_class.new(target_content_id, "something").call
+          described_class.new(target_content_id, "something", nil).call
 
           expect(Queries::GetEmbeddedContent).to have_received(:new).with(
-            target_content_id, order_field: :something, order_direction: :asc
+            target_content_id, order_field: :something, order_direction: :asc, page: 0
           )
         end
 
         it "sends a field in descending order when preceded with a minus" do
-          described_class.new(target_content_id, "-something").call
+          described_class.new(target_content_id, "-something", nil).call
 
           expect(Queries::GetEmbeddedContent).to have_received(:new).with(
-            target_content_id, order_field: :something, order_direction: :desc
+            target_content_id, order_field: :something, order_direction: :desc, page: 0
           )
         end
 
@@ -88,7 +106,7 @@ RSpec.describe GetHostContentService do
           end
 
           it "returns a 422 error" do
-            expect { described_class.new(target_content_id, "something").call }.to raise_error(CommandError) do |error|
+            expect { described_class.new(target_content_id, "something", nil).call }.to raise_error(CommandError) do |error|
               expect(error.code).to eq(422)
               expect(error.message).to eq("Invalid order field: something")
             end

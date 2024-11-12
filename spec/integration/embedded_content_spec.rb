@@ -83,6 +83,29 @@ RSpec.describe "Embedded documents" do
     end
   end
 
+  context "pagination" do
+    before do
+      create_list(:live_edition, 12,
+                 links_hash: {
+                   embed: [content_block.content_id],
+                 })
+    end
+
+    it "returns the first page by default" do
+      get "/v2/content/#{content_block.content_id}/embedded"
+      response_body = parsed_response
+
+      expect(response_body["results"].count).to eq(10)
+    end
+
+    it "allows the next page to be requested" do
+      get "/v2/content/#{content_block.content_id}/embedded?page=2"
+      response_body = parsed_response
+
+      expect(response_body["results"].count).to eq(2)
+    end
+  end
+
   context "when passing order details" do
     it "orders by title" do
       edition_1 = create(:live_edition,
