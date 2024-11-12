@@ -619,7 +619,7 @@ GEM
       base64
     prometheus_exporter (2.1.1)
       webrick
-    psych (5.1.2)
+    psych (5.2.0)
       stringio
     public_suffix (6.0.1)
     puma (6.4.3)
@@ -679,7 +679,7 @@ GEM
     redis-client (0.22.2)
       connection_pool
     regexp_parser (2.9.2)
-    reline (0.5.10)
+    reline (0.5.11)
       io-console (~> 0.5)
     representable (3.2.0)
       declarative (< 0.1.0)
@@ -708,7 +708,7 @@ GEM
     rspec-mocks (3.13.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-rails (7.0.1)
+    rspec-rails (7.1.0)
       actionpack (>= 7.0)
       activesupport (>= 7.0)
       railties (>= 7.0)
@@ -755,7 +755,7 @@ GEM
     sanitize (6.1.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    securerandom (0.3.1)
+    securerandom (0.3.2)
     selenium-webdriver (4.23.0)
       base64 (~> 0.2)
       logger (~> 1.4)
@@ -811,7 +811,7 @@ GEM
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
     statsd-ruby (1.5.0)
-    stringio (3.1.1)
+    stringio (3.1.2)
     sync (0.5.0)
     table_print (1.5.7)
     term-ansicolor (1.11.2)
