@@ -14,6 +14,8 @@ module Queries
       :unique_pageviews,
     )
 
+    PER_PAGE = 10
+
     TABLES = {
       editions: Edition.arel_table,
       documents: Document.arel_table,
@@ -48,23 +50,36 @@ module Queries
 
     ORDER_DIRECTIONS = %i[asc desc].freeze
 
-    attr_reader :target_content_id, :state, :order_field, :order_direction
+    attr_reader :target_content_id, :state, :order_field, :order_direction, :page
 
-    def initialize(target_content_id, order_field: nil, order_direction: nil)
+    def initialize(target_content_id, order_field: nil, order_direction: nil, page: nil)
       @target_content_id = target_content_id
       @state = "published"
       @order_direction = ORDER_DIRECTIONS.include?(order_direction || :asc) ? order_direction : raise(KeyError, "Unknown order direction: #{order_direction}")
       @order_field = ORDER_FIELDS.fetch(order_field || :unique_pageviews) { |k| raise KeyError, "Unknown order field: #{k}" }
+      @page = page || 0
     end
 
     def call
-      results = ActiveRecord::Base.connection.select_all(arel_query).to_a
+      results = ActiveRecord::Base.connection.select_all(paginated_query).to_a
       results.map do |row|
         Result.new(**row)
       end
     end
 
-  private
+    def count
+      @count ||= ActiveRecord::Base.connection.select_value(count_query)
+    end
+
+    def total_pages
+      (count.to_f / PER_PAGE).ceil
+    end
+
+    private
+
+    def paginated_query
+      arel_query.take(PER_PAGE).skip(page * PER_PAGE)
+    end
 
     def arel_query
       arel_joins.where(
@@ -72,6 +87,10 @@ module Queries
                                  .and(TABLES[:links][:link_type].eq(embedded_link_type))
                                  .and(TABLES[:links][:target_content_id].eq(target_content_id)),
       ).order(order_direction == :desc ? order_field.desc : order_field.asc)
+    end
+
+    def count_query
+      "SELECT COUNT(*) FROM (#{arel_query.to_sql}) AS full_query"
     end
 
     def arel_joins

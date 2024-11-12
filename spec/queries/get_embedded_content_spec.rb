@@ -152,5 +152,39 @@ RSpec.describe Queries::GetEmbeddedContent do
         }.and_return([])
       end
     end
+
+    context "pagination" do
+      let(:target_content_id) { SecureRandom.uuid }
+
+      before do
+        allow(ActiveRecord::Base.connection).to receive(:select_value).and_return(232)
+      end
+
+      it "returns the count" do
+        expect(described_class.new(target_content_id).count).to eq(232)
+      end
+
+      it "returns the total number of pages" do
+        expect(described_class.new(target_content_id).total_pages).to eq(24)
+      end
+
+      it "requests the first page by default" do
+        expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
+          expect(arel_query.offset).to eq(0)
+          expect(arel_query.limit).to eq(Queries::GetEmbeddedContent::PER_PAGE)
+        }.and_return([])
+
+        described_class.new(target_content_id).call
+      end
+
+      it "accepts a page argument" do
+        expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
+          expect(arel_query.offset).to eq(10)
+          expect(arel_query.limit).to eq(Queries::GetEmbeddedContent::PER_PAGE)
+        }.and_return([])
+
+        described_class.new(target_content_id, page: 1).call
+      end
+    end
   end
 end
