@@ -25,7 +25,7 @@ module V2
       results = GetHostContentService.new(
         path_params[:content_id],
         query_params[:order],
-        query_params[:page]
+        query_params[:page],
       ).call
 
       render json: results

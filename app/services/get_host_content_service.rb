@@ -14,6 +14,8 @@ class GetHostContentService
     Presenters::EmbeddedContentPresenter.present(
       target_content_id,
       host_content,
+      query.count,
+      query.total_pages,
     )
   end
 

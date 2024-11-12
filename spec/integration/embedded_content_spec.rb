@@ -86,15 +86,17 @@ RSpec.describe "Embedded documents" do
   context "pagination" do
     before do
       create_list(:live_edition, 12,
-                 links_hash: {
-                   embed: [content_block.content_id],
-                 })
+                  links_hash: {
+                    embed: [content_block.content_id],
+                  })
     end
 
     it "returns the first page by default" do
       get "/v2/content/#{content_block.content_id}/embedded"
       response_body = parsed_response
 
+      expect(response_body["total"]).to eq(12)
+      expect(response_body["total_pages"]).to eq(2)
       expect(response_body["results"].count).to eq(10)
     end
 
@@ -102,6 +104,8 @@ RSpec.describe "Embedded documents" do
       get "/v2/content/#{content_block.content_id}/embedded?page=2"
       response_body = parsed_response
 
+      expect(response_body["total"]).to eq(12)
+      expect(response_body["total_pages"]).to eq(2)
       expect(response_body["results"].count).to eq(2)
     end
   end

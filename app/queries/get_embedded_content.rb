@@ -75,7 +75,7 @@ module Queries
       (count.to_f / PER_PAGE).ceil
     end
 
-    private
+  private
 
     def paginated_query
       arel_query.take(PER_PAGE).skip(page * PER_PAGE)

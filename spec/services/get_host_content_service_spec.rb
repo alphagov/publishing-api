@@ -37,7 +37,9 @@ RSpec.describe GetHostContentService do
     context "when the target_content_id matches a Document" do
       let(:target_content_id) { SecureRandom.uuid }
       let(:host_editions_stub) { double("ActiveRecord::Relation") }
-      let(:embedded_content_stub) { double(Queries::GetEmbeddedContent, call: host_editions_stub) }
+      let(:count) { 12 }
+      let(:total_pages) { 2 }
+      let(:embedded_content_stub) { double(Queries::GetEmbeddedContent, call: host_editions_stub, count:, total_pages:) }
       let(:result_stub) { double }
 
       before do
@@ -54,6 +56,8 @@ RSpec.describe GetHostContentService do
         expect(Presenters::EmbeddedContentPresenter).to have_received(:present).with(
           target_content_id,
           host_editions_stub,
+          count,
+          total_pages,
         )
       end
 
