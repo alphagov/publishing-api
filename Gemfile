@@ -25,7 +25,6 @@ gem "prometheus-client"
 gem "sentry-sidekiq"
 gem "sidekiq-scheduler"
 gem "sidekiq-unique-jobs", "< 8.0.10"
-gem "whenever", require: false
 gem "with_advisory_lock"
 
 group :development do
