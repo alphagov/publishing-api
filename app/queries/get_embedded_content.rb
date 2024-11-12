@@ -14,10 +14,6 @@ module Queries
       :unique_pageviews,
     )
 
-
-    attr_reader :target_content_id, :state
-
-    def initialize(target_content_id)
     TABLES = {
       editions: Edition.arel_table,
       documents: Document.arel_table,
@@ -42,8 +38,23 @@ module Queries
       TABLES[:statistics_caches][:unique_pageviews],
     ].freeze
 
+    ORDER_FIELDS = {
+      title: TABLES[:editions][:title],
+      document_type: TABLES[:editions][:document_type],
+      unique_pageviews: TABLES[:statistics_caches][:unique_pageviews],
+      primary_publishing_organisation_title: TABLES[:org_editions][:title],
+      last_edited_at: TABLES[:editions][:last_edited_at],
+    }.freeze
+
+    ORDER_DIRECTIONS = %i[asc desc].freeze
+
+    attr_reader :target_content_id, :state, :order_field, :order_direction
+
+    def initialize(target_content_id, order_field: nil, order_direction: nil)
       @target_content_id = target_content_id
       @state = "published"
+      @order_direction = ORDER_DIRECTIONS.include?(order_direction || :asc) ? order_direction : raise(KeyError, "Unknown order direction: #{order_direction}")
+      @order_field = ORDER_FIELDS.fetch(order_field || :unique_pageviews) { |k| raise KeyError, "Unknown order field: #{k}" }
     end
 
     def call
@@ -60,7 +71,7 @@ module Queries
         TABLES[:editions][:state].eq(state)
                                  .and(TABLES[:links][:link_type].eq(embedded_link_type))
                                  .and(TABLES[:links][:target_content_id].eq(target_content_id)),
-      )
+      ).order(order_direction == :desc ? order_field.desc : order_field.asc)
     end
 
     def arel_joins
