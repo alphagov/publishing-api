@@ -693,4 +693,31 @@ Pact.provider_states_for "GDS API Adapters" do
       end
     end
   end
+
+  provider_state "multiple content items exist that embed the reusable content (content_id: bed722e6-db68-43e5-9079-063f623335a7)" do
+    set_up do
+      reusable_document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      reusable_edition = create(:live_edition, document: reusable_document)
+
+      uuids = %w[
+        2ebc85e8-cb0d-47c8-8afb-332a0c3c043c
+        243ea112-5b33-4526-8512-e8f4cb7aeb6b
+        216bffa5-34ff-4392-9ff1-30b5c835280a
+        9d7babcd-d426-411a-98d5-45a5fac1db0c
+        f6a2e129-8d39-48af-9841-8fa539fb931b
+        5f4037e9-3acb-4f7f-9e5b-d9ac0a658445
+        a1f8cfad-ac6d-439a-afc3-d848fbfca107
+        011bd950-5a39-4a4a-ac9f-b7a5cac7590d
+        0cd440c4-9d05-4019-a510-562081145ba7
+        eced5e73-bdc8-4eb9-8a04-b330521df533
+        61f0f8d1-63e3-4181-8245-614339f81e00
+        3d5ac28e-77f0-4939-bf64-ab8dad3f6643
+      ]
+
+      uuids.each_with_index do |uuid, i|
+        document = create(:document, content_id: uuid)
+        create(:live_edition, :with_embedded_content, document:, embedded_content_id: reusable_edition.content_id, base_path: "/embedded-content-#{i}")
+      end
+    end
+  end
 end
