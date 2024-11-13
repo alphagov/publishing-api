@@ -26,6 +26,7 @@ module V2
         path_params[:content_id],
         query_params[:order],
         query_params[:page],
+        query_params[:per_page],
       ).call
 
       render json: results
