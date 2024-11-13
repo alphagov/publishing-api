@@ -27,7 +27,7 @@ RSpec.describe GetHostContentService do
 
     context "when the target_content_id doesn't match a Document" do
       it "returns 404" do
-        expect { described_class.new(SecureRandom.uuid, nil, nil).call }.to raise_error(CommandError) do |error|
+        expect { described_class.new(SecureRandom.uuid, nil, nil, nil).call }.to raise_error(CommandError) do |error|
           expect(error.code).to eq(404)
           expect(error.message).to eq("Could not find an edition to get embedded content for")
         end
@@ -49,7 +49,7 @@ RSpec.describe GetHostContentService do
       end
 
       it "returns a presented form of the response from the query" do
-        result = described_class.new(target_content_id, nil, nil).call
+        result = described_class.new(target_content_id, nil, nil, nil).call
 
         expect(result).to eq(result_stub)
 
@@ -63,44 +63,52 @@ RSpec.describe GetHostContentService do
 
       describe "pagination" do
         it "requests page zero by default" do
-          described_class.new(target_content_id, nil, "").call
+          described_class.new(target_content_id, nil, "", "").call
 
           expect(Queries::GetEmbeddedContent).to have_received(:new).with(
-            target_content_id, order_field: nil, order_direction: nil, page: 0
+            target_content_id, order_field: nil, order_direction: nil, page: 0, per_page: nil
           )
         end
 
         it "requests a zero indexed page" do
-          described_class.new(target_content_id, nil, "2").call
+          described_class.new(target_content_id, nil, "2", "").call
 
           expect(Queries::GetEmbeddedContent).to have_received(:new).with(
-            target_content_id, order_field: nil, order_direction: nil, page: 1
+            target_content_id, order_field: nil, order_direction: nil, page: 1, per_page: nil
+          )
+        end
+
+        it "accepts a per_page argument" do
+          described_class.new(target_content_id, nil, "2", "5").call
+
+          expect(Queries::GetEmbeddedContent).to have_received(:new).with(
+            target_content_id, order_field: nil, order_direction: nil, page: 1, per_page: 5
           )
         end
       end
 
       describe "ordering" do
         it "does not send any ordering fields by default" do
-          described_class.new(target_content_id, nil, nil).call
+          described_class.new(target_content_id, nil, nil, nil).call
 
           expect(Queries::GetEmbeddedContent).to have_received(:new).with(
-            target_content_id, order_field: nil, order_direction: nil, page: 0
+            target_content_id, order_field: nil, order_direction: nil, page: 0, per_page: nil
           )
         end
 
         it "sends a field in ascending order when not preceded with a minus" do
-          described_class.new(target_content_id, "something", nil).call
+          described_class.new(target_content_id, "something", nil, nil).call
 
           expect(Queries::GetEmbeddedContent).to have_received(:new).with(
-            target_content_id, order_field: :something, order_direction: :asc, page: 0
+            target_content_id, order_field: :something, order_direction: :asc, page: 0, per_page: nil
           )
         end
 
         it "sends a field in descending order when preceded with a minus" do
-          described_class.new(target_content_id, "-something", nil).call
+          described_class.new(target_content_id, "-something", nil, nil).call
 
           expect(Queries::GetEmbeddedContent).to have_received(:new).with(
-            target_content_id, order_field: :something, order_direction: :desc, page: 0
+            target_content_id, order_field: :something, order_direction: :desc, page: 0, per_page: nil
           )
         end
 
@@ -110,7 +118,7 @@ RSpec.describe GetHostContentService do
           end
 
           it "returns a 422 error" do
-            expect { described_class.new(target_content_id, "something", nil).call }.to raise_error(CommandError) do |error|
+            expect { described_class.new(target_content_id, "something", nil, nil).call }.to raise_error(CommandError) do |error|
               expect(error.code).to eq(422)
               expect(error.message).to eq("Invalid order field: something")
             end

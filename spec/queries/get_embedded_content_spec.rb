@@ -171,7 +171,7 @@ RSpec.describe Queries::GetEmbeddedContent do
       it "requests the first page by default" do
         expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
           expect(arel_query.offset).to eq(0)
-          expect(arel_query.limit).to eq(Queries::GetEmbeddedContent::PER_PAGE)
+          expect(arel_query.limit).to eq(Queries::GetEmbeddedContent::DEFAULT_PER_PAGE)
         }.and_return([])
 
         described_class.new(target_content_id).call
@@ -180,10 +180,35 @@ RSpec.describe Queries::GetEmbeddedContent do
       it "accepts a page argument" do
         expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
           expect(arel_query.offset).to eq(10)
-          expect(arel_query.limit).to eq(Queries::GetEmbeddedContent::PER_PAGE)
+          expect(arel_query.limit).to eq(Queries::GetEmbeddedContent::DEFAULT_PER_PAGE)
         }.and_return([])
 
         described_class.new(target_content_id, page: 1).call
+      end
+
+      it "accepts a per_page argument" do
+        expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
+          expect(arel_query.offset).to eq(0)
+          expect(arel_query.limit).to eq(1)
+        }.and_return([])
+
+        described_class.new(target_content_id, per_page: 1).call
+      end
+
+      it "accepts a per_page and page argument" do
+        expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
+          expect(arel_query.offset).to eq(5)
+          expect(arel_query.limit).to eq(5)
+        }.and_return([])
+
+        described_class.new(target_content_id, per_page: 5, page: 1).call
+
+        expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
+          expect(arel_query.offset).to eq(10)
+          expect(arel_query.limit).to eq(5)
+        }.and_return([])
+
+        described_class.new(target_content_id, per_page: 5, page: 2).call
       end
     end
   end

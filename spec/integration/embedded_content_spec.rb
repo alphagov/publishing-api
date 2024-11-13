@@ -108,6 +108,15 @@ RSpec.describe "Embedded documents" do
       expect(response_body["total_pages"]).to eq(2)
       expect(response_body["results"].count).to eq(2)
     end
+
+    it "allows a per_page argument to be passed" do
+      get "/v2/content/#{content_block.content_id}/embedded?per_page=1"
+      response_body = parsed_response
+
+      expect(response_body["total"]).to eq(12)
+      expect(response_body["total_pages"]).to eq(12)
+      expect(response_body["results"].count).to eq(1)
+    end
   end
 
   context "when passing order details" do

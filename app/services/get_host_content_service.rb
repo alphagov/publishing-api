@@ -1,8 +1,9 @@
 class GetHostContentService
-  def initialize(target_content_id, order, page)
+  def initialize(target_content_id, order, page, per_page)
     @target_content_id = target_content_id
     @order = order
     @page = page.blank? ? 0 : page.to_i - 1
+    @per_page = per_page.blank? ? nil : per_page.to_i
   end
 
   def call
@@ -21,10 +22,10 @@ class GetHostContentService
 
 private
 
-  attr_accessor :target_content_id, :order, :page
+  attr_accessor :target_content_id, :order, :page, :per_page
 
   def query
-    @query ||= Queries::GetEmbeddedContent.new(target_content_id, order_field:, order_direction:, page:)
+    @query ||= Queries::GetEmbeddedContent.new(target_content_id, order_field:, order_direction:, page:, per_page:)
   end
 
   def host_content
