@@ -22,7 +22,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     it "should send transformed content to the content store" do
       put "/v2/content/#{content_id}", params: payload.to_json
 
-      expect_content_store_to_have_received_details_including({ "body" => "#{first_contact.title} #{second_contact.title}" })
+      expect_content_store_to_have_received_details_including({ "body" => "#{presented_details_for(first_contact)} #{presented_details_for(second_contact)}" })
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     it "should send transformed content to the content store" do
       put "/v2/content/#{content_id}", params: payload_for_multiple_field_embeds.to_json
 
-      expect_content_store_to_have_received_details_including({ "downtime_message" => first_contact.title.to_s })
+      expect_content_store_to_have_received_details_including({ "downtime_message" => presented_details_for(first_contact) })
     end
   end
 
@@ -128,11 +128,11 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
             "body" => [
               {
                 "content_type" => "text/govspeak",
-                "content" => first_contact.title,
+                "content" => presented_details_for(first_contact),
               },
               {
                 "content_type" => "text/html",
-                "content" => "<p>#{first_contact.title}</p>",
+                "content" => "<p>#{presented_details_for(first_contact)}</p>",
               },
             ],
           },
@@ -142,11 +142,11 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
             "body" => [
               {
                 "content_type" => "text/govspeak",
-                "content" => second_contact.title,
+                "content" => presented_details_for(second_contact),
               },
               {
                 "content_type" => "text/html",
-                "content" => "<p>#{second_contact.title}</p>",
+                "content" => "<p>#{presented_details_for(second_contact)}</p>",
               },
             ],
           },
@@ -176,32 +176,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     it "should send transformed content to the content store" do
       put "/v2/content/#{content_id}", params: payload.to_json
 
-      expect_content_store_to_have_received_details_including({ "body" => array_including({ "content_type" => "text/govspeak", "content" => "#{first_contact.title} #{second_contact.title}" }) })
-    end
-  end
-
-  context "with an embedded email address" do
-    let(:first_email_address) { create(:edition, state: "published", content_store: "live", document_type: "content_block_email_address", details: { email_address: "foo@example.com" }) }
-    let(:second_email_address) { create(:edition, state: "published", content_store: "live", document_type: "content_block_email_address", details: { email_address: "bar@example.com" }) }
-    let(:document) { create(:document, content_id:) }
-
-    before do
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:content_block_email_address:#{first_email_address.document.content_id}}} {{embed:content_block_email_address:#{second_email_address.document.content_id}}}" })
-    end
-
-    it "should create links" do
-      expect {
-        put "/v2/content/#{content_id}", params: payload.to_json
-      }.to change(Link, :count).by(2)
-
-      expect(Link.find_by(target_content_id: first_email_address.content_id)).not_to be_nil
-      expect(Link.find_by(target_content_id: second_email_address.content_id)).not_to be_nil
-    end
-
-    it "should send transformed content to the content store" do
-      put "/v2/content/#{content_id}", params: payload.to_json
-
-      expect_content_store_to_have_received_details_including({ "body" => "#{first_email_address.details[:email_address]} #{second_email_address.details[:email_address]}" })
+      expect_content_store_to_have_received_details_including({ "body" => array_including({ "content_type" => "text/govspeak", "content" => "#{presented_details_for(first_contact)} #{presented_details_for(second_contact)}" }) })
     end
   end
 
@@ -226,7 +201,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     it "should send transformed content to the content store" do
       put "/v2/content/#{content_id}", params: payload.to_json
 
-      expect_content_store_to_have_received_details_including({ "body" => "#{email_address.details[:email_address]} #{contact.title}" })
+      expect_content_store_to_have_received_details_including({ "body" => "#{presented_details_for(email_address)} #{presented_details_for(contact)}" })
     end
   end
 

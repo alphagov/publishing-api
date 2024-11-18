@@ -110,11 +110,11 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         expect(c[:details][:body]).to match([
           {
             content_type: "text/govspeak",
-            content: "Some contact",
+            content: presented_details_for(contact),
           },
           {
             content_type: "text/html",
-            content: "<p>Some contact</p>\n",
+            content: "<p>#{presented_details_for(contact)}</p>\n",
           },
         ])
       end

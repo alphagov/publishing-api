@@ -197,7 +197,7 @@ RSpec.describe Presenters::DetailsPresenter do
           let(:edition_details) { edition.details }
           let(:expected_details) do
             {
-              field_name => embeddable_content.title,
+              field_name => presented_details_for(embeddable_content),
             }.symbolize_keys
           end
 
@@ -219,8 +219,8 @@ RSpec.describe Presenters::DetailsPresenter do
           let(:expected_details) do
             {
               field_name => [
-                { content_type: "text/html", content: embeddable_content.title },
-                { content_type: "text/govspeak", content: embeddable_content.title },
+                { content_type: "text/html", content: presented_details_for(embeddable_content) },
+                { content_type: "text/govspeak", content: presented_details_for(embeddable_content) },
               ],
             }.symbolize_keys
           end

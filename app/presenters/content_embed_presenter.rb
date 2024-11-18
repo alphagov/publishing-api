@@ -64,14 +64,13 @@ module Presenters
       content
     end
 
-    # This is a temporary solution to get email address content blocks working
-    # while we agree on a long-term approach that works for everything.
     def get_content_for_edition(edition)
-      if edition.document_type == "content_block_email_address"
-        edition.details[:email_address]
-      else
-        edition.title
-      end
+      ContentBlockTools::ContentBlock.new(
+        document_type: edition.document_type,
+        content_id: edition.document.content_id,
+        title: edition.title,
+        details: edition.details,
+      ).render
     end
   end
 end
