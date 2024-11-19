@@ -1,4 +1,4 @@
-class GetHostContentService
+class GetEmbeddedContentService
   def initialize(target_content_id, order, page, per_page)
     @target_content_id = target_content_id
     @order = order
