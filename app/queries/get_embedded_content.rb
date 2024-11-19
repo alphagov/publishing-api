@@ -12,6 +12,7 @@ module Queries
       :primary_publishing_organisation_title,
       :primary_publishing_organisation_base_path,
       :unique_pageviews,
+      :instances,
     )
 
     DEFAULT_PER_PAGE = 10
@@ -27,17 +28,18 @@ module Queries
     }.freeze
 
     FIELDS = [
-      TABLES[:editions][:id],
-      TABLES[:editions][:title],
-      TABLES[:editions][:base_path],
-      TABLES[:editions][:document_type],
-      TABLES[:editions][:publishing_app],
-      TABLES[:editions][:last_edited_by_editor_id],
-      TABLES[:editions][:last_edited_at],
-      TABLES[:primary_links][:target_content_id].as("primary_publishing_organisation_content_id"),
-      TABLES[:org_editions][:title].as("primary_publishing_organisation_title"),
-      TABLES[:org_editions][:base_path].as("primary_publishing_organisation_base_path"),
-      TABLES[:statistics_caches][:unique_pageviews],
+      { field: TABLES[:editions][:id], included_in_group?: true },
+      { field: TABLES[:editions][:title], included_in_group?: true },
+      { field: TABLES[:editions][:base_path], included_in_group?: true },
+      { field: TABLES[:editions][:document_type], included_in_group?: true },
+      { field: TABLES[:editions][:publishing_app], included_in_group?: true },
+      { field: TABLES[:editions][:last_edited_by_editor_id], included_in_group?: true },
+      { field: TABLES[:editions][:last_edited_at], included_in_group?: true },
+      { field: TABLES[:primary_links][:target_content_id], alias: "primary_publishing_organisation_content_id", included_in_group?: true },
+      { field: TABLES[:org_editions][:title], alias: "primary_publishing_organisation_title", included_in_group?: true },
+      { field: TABLES[:org_editions][:base_path], alias: "primary_publishing_organisation_base_path", included_in_group?: true },
+      { field: TABLES[:statistics_caches][:unique_pageviews], included_in_group?: true },
+      { field: TABLES[:editions][:id].count, alias: "instances", included_in_group?: false },
     ].freeze
 
     ORDER_FIELDS = {
@@ -46,6 +48,7 @@ module Queries
       unique_pageviews: TABLES[:statistics_caches][:unique_pageviews],
       primary_publishing_organisation_title: TABLES[:org_editions][:title],
       last_edited_at: TABLES[:editions][:last_edited_at],
+      instances: TABLES[:editions][:id].count,
     }.freeze
 
     ORDER_DIRECTIONS = %i[asc desc].freeze
@@ -94,9 +97,17 @@ module Queries
       "SELECT COUNT(*) FROM (#{arel_query.to_sql}) AS full_query"
     end
 
+    def select_fields
+      FIELDS.map { |f| f[:alias].present? ? f[:field].as(f[:alias]) : f[:field] }
+    end
+
+    def group_fields
+      FIELDS.select { |f| f[:included_in_group?] }.pluck(:field)
+    end
+
     def arel_joins
       TABLES[:editions]
-        .project(FIELDS)
+        .project(select_fields)
         .join(TABLES[:links]).on(
           TABLES[:links][:edition_id].eq(TABLES[:editions][:id]),
         )
@@ -117,6 +128,7 @@ module Queries
         .join(TABLES[:statistics_caches], Arel::Nodes::OuterJoin).on(
           TABLES[:statistics_caches][:document_id].eq(TABLES[:documents][:id]),
         )
+        .group(group_fields)
     end
 
     def embedded_link_type
