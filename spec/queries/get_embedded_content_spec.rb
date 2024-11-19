@@ -37,6 +37,8 @@ RSpec.describe Queries::GetEmbeddedContent do
     end
 
     context "when there are live and draft editions that embed the target content" do
+      let(:target_content_id) { content_block.content_id }
+
       it "returns the live editions" do
         target_content_id = content_block.content_id
         published_host_editions = create_list(:live_edition, 2,
@@ -84,7 +86,24 @@ RSpec.describe Queries::GetEmbeddedContent do
           expect(results[i].primary_publishing_organisation_title).to eq(organisation.title)
           expect(results[i].primary_publishing_organisation_base_path).to eq(organisation.base_path)
           expect(results[i].unique_pageviews).to eq(expected_pageviews[host_edition.document.id])
+          expect(results[i].instances).to eq(1)
         end
+      end
+
+      it "returns instance counts when the content is embedded more than once" do
+        create(:live_edition,
+               details: {
+                 body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+               },
+               links_hash: {
+                 primary_publishing_organisation: [organisation.content_id],
+                 embed: [target_content_id, target_content_id],
+               },
+               publishing_app: "example-app")
+
+        results = described_class.new(target_content_id).call
+
+        expect(results[0].instances).to eq(2)
       end
     end
 
@@ -147,8 +166,7 @@ RSpec.describe Queries::GetEmbeddedContent do
         expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
           expect(arel_query.orders.length).to eq(1)
           expect(arel_query.orders[0]).to be_a(order_direction == :asc ? Arel::Nodes::Ascending : Arel::Nodes::Descending)
-          expect(arel_query.orders[0].expr.relation.name).to eq(order_field.relation.name)
-          expect(arel_query.orders[0].expr.name).to eq(order_field.name)
+          expect(arel_query.orders[0].expr).to eq(order_field)
         }.and_return([])
       end
     end

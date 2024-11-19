@@ -19,7 +19,8 @@ RSpec.describe Presenters::EmbeddedContentPresenter do
               unique_pageviews: 123,
               primary_publishing_organisation_content_id: organisation_edition_id,
               primary_publishing_organisation_title: "bar",
-              primary_publishing_organisation_base_path: "/bar")]
+              primary_publishing_organisation_base_path: "/bar",
+              instances: 1)]
     end
 
     let(:result) { described_class.present(target_edition_id, host_editions, total, total_pages) }
@@ -38,6 +39,7 @@ RSpec.describe Presenters::EmbeddedContentPresenter do
             last_edited_by_editor_id:,
             last_edited_at:,
             unique_pageviews: 123,
+            instances: 1,
             primary_publishing_organisation: {
               content_id: organisation_edition_id,
               title: "bar",

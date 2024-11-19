@@ -8,20 +8,20 @@ class EmbeddedContentFinderService
   def fetch_linked_content_ids(details, locale)
     content_references = details.values.map { |value|
       find_content_references(value)
-    }.flatten.compact.uniq
+    }.flatten.compact
 
-    check_all_references_exist(content_references, locale)
+    check_all_references_exist(content_references.uniq, locale)
     content_references.map(&:content_id)
   end
 
   def find_content_references(value)
     case value
     when Array
-      value.map { |item| find_content_references(item) }.flatten
+      value.map { |item| find_content_references(item) }.flatten.uniq
     when Hash
-      value.map { |_, v| find_content_references(v) }.flatten
+      value.map { |_, v| find_content_references(v) }.flatten.uniq
     when String
-      value.scan(EMBED_REGEX).map { |match| ContentReference.new(document_type: match[1], content_id: match[2], embed_code: match[0]) }.uniq
+      value.scan(EMBED_REGEX).map { |match| ContentReference.new(document_type: match[1], content_id: match[2], embed_code: match[0]) }
     else
       []
     end

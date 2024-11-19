@@ -1,4 +1,6 @@
 RSpec.describe "Embedded documents" do
+  include_context "PutContent call"
+
   let!(:publishing_organisation) do
     create(:live_edition,
            title: "bar",
@@ -43,16 +45,12 @@ RSpec.describe "Embedded documents" do
   context "when an edition embeds a reference to the content block" do
     it "returns details of the edition and its publishing organisation in the results" do
       last_edited_at = "2023-01-01T08:00:00.000Z"
-      host_edition = create(:live_edition,
-                            publishing_app: "whitehall",
-                            last_edited_at: Time.zone.parse(last_edited_at),
-                            details: {
-                              "body" => "<p>{{embed:email_address:#{content_block.content_id}}}</p>\n",
-                            },
-                            links_hash: {
-                              primary_publishing_organisation: [publishing_organisation.content_id],
-                              embed: [content_block.content_id],
-                            })
+      host_edition = Timecop.freeze Time.zone.parse(last_edited_at) do
+        create_live_edition(
+          body: "<p>{{embed:content_block_email_address:#{content_block.content_id}}}</p>\n",
+          primary_publishing_organisation_uuid: publishing_organisation.content_id,
+        )
+      end
 
       statistics_cache = create(:statistics_cache, document: host_edition.document, unique_pageviews: 333)
 
@@ -73,6 +71,7 @@ RSpec.describe "Embedded documents" do
           "last_edited_by_editor_id" => host_edition.last_edited_by_editor_id,
           "last_edited_at" => last_edited_at,
           "unique_pageviews" => statistics_cache.unique_pageviews,
+          "instances" => 1,
           "primary_publishing_organisation" => {
             "content_id" => publishing_organisation.content_id,
             "title" => publishing_organisation.title,
@@ -80,6 +79,43 @@ RSpec.describe "Embedded documents" do
           },
         },
       )
+    end
+
+    context "when embedded content appears more than once in a field" do
+      let!(:host_edition) do
+        create_live_edition(
+          body: "<p>{{embed:content_block_email_address:#{content_block.content_id}}} {{embed:content_block_email_address:#{content_block.content_id}}}</p>\n",
+        )
+      end
+
+      it "should return multiple instances" do
+        get "/v2/content/#{content_block.content_id}/embedded"
+        response_body = parsed_response
+
+        expect(response_body["content_id"]).to eq(content_block.content_id)
+        expect(response_body["total"]).to eq(1)
+
+        expect(response_body["results"][0]["instances"]).to eq(2)
+      end
+
+      context "when the host edition is changed to reference the content once" do
+        before do
+          create_live_edition(
+            content_id: host_edition.content_id,
+            body: "<p>{{embed:content_block_email_address:#{content_block.content_id}}}</p>\n",
+          )
+        end
+
+        it "should return only one instance" do
+          get "/v2/content/#{content_block.content_id}/embedded"
+          response_body = parsed_response
+
+          expect(response_body["content_id"]).to eq(content_block.content_id)
+          expect(response_body["total"]).to eq(1)
+
+          expect(response_body["results"][0]["instances"]).to eq(1)
+        end
+      end
     end
   end
 
@@ -274,5 +310,28 @@ RSpec.describe "Embedded documents" do
         expect(response_body["results"][i]["title"]).to eq(expected_result.title)
       end
     end
+  end
+
+private
+
+  def create_live_edition(content_id: SecureRandom.uuid, body: "Some body goes here", primary_publishing_organisation_uuid: nil)
+    payload.merge!(
+      document_type: "press_release",
+      schema_name: "news_article",
+      details: { body: },
+    )
+
+    if primary_publishing_organisation_uuid.present?
+      payload.merge!(
+        links: {
+          primary_publishing_organisation: [primary_publishing_organisation_uuid],
+        },
+      )
+    end
+
+    put "/v2/content/#{content_id}", params: payload.to_json
+    post "/v2/content/#{content_id}/publish", params: {}.to_json
+
+    Document.find_by(content_id:).live
   end
 end

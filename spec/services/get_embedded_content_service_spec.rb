@@ -1,4 +1,4 @@
-RSpec.describe GetHostContentService do
+RSpec.describe GetEmbeddedContentService do
   describe "#call" do
     let(:organisation) do
       edition_params = {
