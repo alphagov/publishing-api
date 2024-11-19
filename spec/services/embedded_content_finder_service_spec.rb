@@ -32,6 +32,14 @@ RSpec.shared_examples "finds references" do |document_type|
         expect(links).to eq([editions[0].content_id, editions[1].content_id])
       end
 
+      it "returns duplicates when there is more than one content reference in the field" do
+        details = { field_name => "{{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}" }
+
+        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE)
+
+        expect(links).to eq([editions[0].content_id, editions[0].content_id, editions[1].content_id])
+      end
+
       it "finds content references when #{field_name} is an array of hashes" do
         details = { field_name => [{ "content" => "{{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}" }] }
 
@@ -47,6 +55,10 @@ RSpec.shared_examples "finds references" do |document_type|
               body: [
                 {
                   content: "some string with a reference: {{embed:#{document_type}:#{editions[0].content_id}}}",
+                  content_type: "text/html",
+                },
+                {
+                  content: "some string with a reference: {{embed:#{document_type}:#{editions[0].content_id}}}",
                   content_type: "text/govspeak",
                 },
               ],
@@ -55,6 +67,10 @@ RSpec.shared_examples "finds references" do |document_type|
             },
             {
               body: [
+                {
+                  content: "some string with another reference: {{embed:#{document_type}:#{editions[1].content_id}}}",
+                  content_type: "text/html",
+                },
                 {
                   content: "some string with another reference: {{embed:#{document_type}:#{editions[1].content_id}}}",
                   content_type: "text/govspeak",
