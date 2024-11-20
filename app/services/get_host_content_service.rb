@@ -1,4 +1,4 @@
-class GetEmbeddedContentService
+class GetHostContentService
   def initialize(target_content_id, order, page, per_page)
     @target_content_id = target_content_id
     @order = order
@@ -8,11 +8,11 @@ class GetEmbeddedContentService
 
   def call
     if Document.find_by(content_id: target_content_id).nil?
-      message = "Could not find an edition to get embedded content for"
+      message = "Could not find an edition to get host content for"
       raise CommandError.new(code: 404, message:)
     end
 
-    Presenters::EmbeddedContentPresenter.present(
+    Presenters::HostContentPresenter.present(
       target_content_id,
       host_content,
       query.count,
@@ -25,7 +25,7 @@ private
   attr_accessor :target_content_id, :order, :page, :per_page
 
   def query
-    @query ||= Queries::GetEmbeddedContent.new(target_content_id, order_field:, order_direction:, page:, per_page:)
+    @query ||= Queries::GetHostContent.new(target_content_id, order_field:, order_direction:, page:, per_page:)
   end
 
   def host_content

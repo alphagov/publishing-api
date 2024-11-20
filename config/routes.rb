@@ -22,7 +22,9 @@ Rails.application.routes.draw do
       scope constraints: method(:content_id_constraint) do
         put "/content/:content_id", to: "content_items#put_content"
         get "/content/:content_id", to: "content_items#show"
-        get "/content/:content_id/embedded", to: "content_items#embedded"
+        get "/content/:content_id/host-content", to: "content_items#host_content"
+        # Point legacy `embedded` endpoint to `host_content` endpoint
+        get "/content/:content_id/embedded", to: "content_items#host_content"
         post "/content/:content_id/publish", to: "content_items#publish"
         post "/content/:content_id/republish", to: "content_items#republish"
         post "/content/:content_id/unpublish", to: "content_items#unpublish"

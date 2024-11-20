@@ -1,4 +1,4 @@
-RSpec.describe Queries::GetEmbeddedContent do
+RSpec.describe Queries::GetHostContent do
   describe "#call" do
     let(:organisation) do
       edition_params = {
@@ -130,13 +130,13 @@ RSpec.describe Queries::GetEmbeddedContent do
       let(:target_content_id) { SecureRandom.uuid }
 
       it "sorts by unique_pageviews by default" do
-        expect_sort_call_for(order_field: Queries::GetEmbeddedContent::ORDER_FIELDS[:unique_pageviews], order_direction: :asc)
+        expect_sort_call_for(order_field: Queries::GetHostContent::ORDER_FIELDS[:unique_pageviews], order_direction: :asc)
 
         described_class.new(target_content_id).call
       end
 
       it "allows searching in descending order with the default field" do
-        expect_sort_call_for(order_field: Queries::GetEmbeddedContent::ORDER_FIELDS[:unique_pageviews], order_direction: :desc)
+        expect_sort_call_for(order_field: Queries::GetHostContent::ORDER_FIELDS[:unique_pageviews], order_direction: :desc)
 
         described_class.new(target_content_id, order_direction: :desc).call
       end
@@ -153,8 +153,8 @@ RSpec.describe Queries::GetEmbeddedContent do
         }.to raise_error(KeyError, "Unknown order direction: foo")
       end
 
-      Queries::GetEmbeddedContent::ORDER_FIELDS.each do |key, order_field|
-        Queries::GetEmbeddedContent::ORDER_DIRECTIONS.each do |order_direction|
+      Queries::GetHostContent::ORDER_FIELDS.each do |key, order_field|
+        Queries::GetHostContent::ORDER_DIRECTIONS.each do |order_direction|
           it "allows searching by #{key} #{order_direction}" do
             expect_sort_call_for(order_field:, order_direction:)
 
@@ -190,7 +190,7 @@ RSpec.describe Queries::GetEmbeddedContent do
       it "requests the first page by default" do
         expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
           expect(arel_query.offset).to eq(0)
-          expect(arel_query.limit).to eq(Queries::GetEmbeddedContent::DEFAULT_PER_PAGE)
+          expect(arel_query.limit).to eq(Queries::GetHostContent::DEFAULT_PER_PAGE)
         }.and_return([])
 
         described_class.new(target_content_id).call
@@ -199,7 +199,7 @@ RSpec.describe Queries::GetEmbeddedContent do
       it "accepts a page argument" do
         expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
           expect(arel_query.offset).to eq(10)
-          expect(arel_query.limit).to eq(Queries::GetEmbeddedContent::DEFAULT_PER_PAGE)
+          expect(arel_query.limit).to eq(Queries::GetHostContent::DEFAULT_PER_PAGE)
         }.and_return([])
 
         described_class.new(target_content_id, page: 1).call

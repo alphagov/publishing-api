@@ -1,5 +1,5 @@
 module Queries
-  class GetEmbeddedContent
+  class GetHostContent
     Result = Data.define(
       :id,
       :title,
