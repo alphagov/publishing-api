@@ -1,5 +1,8 @@
 RSpec.describe HostContentUpdateJob, :perform do
   let(:content_id) { SecureRandom.uuid }
+  let(:edition) { build(:live_edition) }
+  let(:document) { build(:document, live: edition, content_id:) }
+
   subject(:worker_perform) do
     described_class.new.perform(
       "content_id" => content_id,
@@ -19,6 +22,7 @@ RSpec.describe HostContentUpdateJob, :perform do
 
   before do
     allow_any_instance_of(Queries::ContentDependencies).to receive(:call).and_return(dependencies)
+    allow(Document).to receive(:find_by).with(content_id:).and_return(document)
   end
 
   it "queues the Live host content for update" do
@@ -36,5 +40,25 @@ RSpec.describe HostContentUpdateJob, :perform do
       },
     )
     worker_perform
+  end
+
+  it "creates an event" do
+    create(:event, content_id:, action: "PatchLinkSet", created_at: 5.days.ago)
+    create(:event, content_id:, action: "PutContent", created_at: 4.days.ago)
+    create(:event, content_id:, action: "Publish", created_at: 3.days.ago)
+    create(:event, content_id:, action: "HostContentUpdateJob", created_at: 2.days.ago)
+    create(:event, content_id:, action: "PutContent", created_at: 1.day.ago)
+    latest_publish_event = create(:event, content_id:, action: "Publish", user_uid: SecureRandom.uuid, created_at: Time.zone.now)
+
+    expect { worker_perform }.to change(Event, :count).by(1)
+
+    event = Event.last
+
+    expect(event.action).to eq("HostContentUpdateJob")
+    expect(event.content_id).to eq(dependent_content_id)
+    expect(event.payload[:source_block][:title]).to eq(edition.title)
+    expect(event.payload[:source_block][:content_id]).to eq(content_id)
+    expect(event.payload[:source_block][:updated_by_user_uid]).to eq(latest_publish_event.user_uid)
+    expect(event.payload[:message]).to eq("Host content updated by content block update")
   end
 end
