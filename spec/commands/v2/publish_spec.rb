@@ -275,6 +275,13 @@ RSpec.describe Commands::V2::Publish do
         described_class.call(payload)
         expect(ChangeNote.count).to eq(1)
       end
+
+      it "creates an event" do
+        described_class.call(payload)
+        event = Event.find_by(content_id: document.content_id)
+
+        expect(event).to_not be_nil
+      end
     end
 
     context "dependency fields change on new publication" do
