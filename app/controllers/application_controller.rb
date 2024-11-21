@@ -51,7 +51,7 @@ private
   end
 
   def payload
-    @payload ||= JSON.parse(request.body.read).deep_symbolize_keys
+    @payload ||= JSON.parse(read_raw_body(request.body)).deep_symbolize_keys
   end
 
   def query_params
@@ -60,5 +60,12 @@ private
 
   def path_params
     @path_params ||= ActionController::Parameters.new(request.path_parameters)
+  end
+
+  def read_raw_body(body)
+    body.rewind
+    raw_body = body.read
+    body.rewind
+    raw_body
   end
 end
