@@ -553,4 +553,25 @@ RSpec.describe V2::ContentItemsController do
       expect(items.length).to eq(4)
     end
   end
+
+  describe "events" do
+    let(:edition) { create(:live_edition) }
+    let(:document) { edition.document }
+
+    let!(:put_content_events) { create_list(:event, 3, content_id: document.content_id, action: "PutContent") }
+    let!(:publish_events) { create_list(:event, 3, content_id: document.content_id, action: "Publish") }
+    let!(:other_events) { create_list(:event, 3) }
+
+    it "returns all events for a content_id" do
+      get :events, params: { content_id: document.content_id }
+
+      expect(parsed_response).to eq([put_content_events, publish_events].flatten.map(&:as_json))
+    end
+
+    it "returns all events for a content_id and action type" do
+      get :events, params: { content_id: document.content_id, action: "Publish" }
+
+      expect(parsed_response).to eq(publish_events.flatten.map(&:as_json))
+    end
+  end
 end
