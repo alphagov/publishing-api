@@ -8,6 +8,7 @@ module Queries
       :publishing_app,
       :last_edited_by_editor_id,
       :last_edited_at,
+      :host_content_id,
       :primary_publishing_organisation_content_id,
       :primary_publishing_organisation_title,
       :primary_publishing_organisation_base_path,
@@ -39,6 +40,7 @@ module Queries
       { field: TABLES[:org_editions][:title], alias: "primary_publishing_organisation_title", included_in_group?: true },
       { field: TABLES[:org_editions][:base_path], alias: "primary_publishing_organisation_base_path", included_in_group?: true },
       { field: TABLES[:statistics_caches][:unique_pageviews], included_in_group?: true },
+      { field: TABLES[:documents][:content_id], alias: "host_content_id", included_in_group?: true },
       { field: TABLES[:editions][:id].count, alias: "instances", included_in_group?: false },
     ].freeze
 
