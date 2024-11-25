@@ -444,6 +444,10 @@ Retrieves a list of all events for a given `:content_id`
 - `action` *(optional)*
   - Specify what action type to filter for
   - If omitted, returns all actions
+- `from` *(optional)*
+  - Filter for actions created after that particular datetime
+- `to` *(optional)*
+  - Filter for actions created before that particular datetime
 
 ## `GET /v2/content/:content_id/host-content`
 
