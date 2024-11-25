@@ -23,6 +23,8 @@ class GraphqlController < ApplicationController
 
     if result.key?("errors")
       logger.warn("GraphQL query result contained errors: #{result['errors']}")
+    else
+      logger.debug("GraphQL query result: #{result}")
     end
 
     render json: result
