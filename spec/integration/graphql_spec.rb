@@ -354,91 +354,115 @@ RSpec.describe "GraphQL" do
             edition(basePath: \"/government/ministers/prime-minister\") {
               ... on Role {
                 basePath
-                title
-                responsibilities
-                supportsHistoricalAccounts
                 locale
+                title
 
-                availableTranslations {
-                  basePath
-                  locale
+                details {
+                  body
+                  supportsHistoricalAccounts
                 }
 
-                currentRoleAppointment {
-                  person {
-                    ...basePersonInfo
-                    biography
+                links {
+                  availableTranslations {
+                    basePath
+                    locale
                   }
-                }
 
-                pastRoleAppointments {
-                  endedOn
-                  startedOn
+                  roleAppointments {
+                    details {
+                      current
+                      endedOn
+                      startedOn
+                    }
 
-                  person {
-                    ...basePersonInfo
+                    links {
+                      person {
+                        basePath
+                        title
+
+                        details {
+                          body
+                        }
+                      }
+                    }
                   }
-                }
 
-                orderedParentOrganisations {
-                  basePath
-                  title
+                  orderedParentOrganisations {
+                    basePath
+                    title
+                  }
                 }
               }
             }
-          }
-
-          fragment basePersonInfo on Person {
-            basePath
-            title
           }",
       }
 
       expected = {
         data: {
           edition: {
-            availableTranslations: [
-              {
-                basePath: "/government/ministers/prime-minister",
-                locale: "en",
-              },
-              {
-                basePath: "/government/ministers/prime-minister.es",
-                locale: "es",
-              },
-            ],
             basePath: "/government/ministers/prime-minister",
-            currentRoleAppointment: {
-              person: {
-                basePath: "/government/people/keir-starmer",
-                biography: "<p>Sir Keir Starmer became Prime Minister on 5 July 2024.</p>\n",
-                title: "The Rt Hon Sir Keir Starmer KCB KC MP",
-              },
-            },
             locale: "en",
-            orderedParentOrganisations: [
-              {
-                basePath: "/government/organisations/cabinet-office",
-                title: "Cabinet Office",
-              },
-              {
-                basePath: "/government/organisations/prime-ministers-office-10-downing-street",
-                title: "Prime Minister's Office, 10 Downing Street",
-              },
-            ],
-            pastRoleAppointments: [
-              {
-                endedOn: "2024-07-05T00:00:00Z",
-                person: {
-                  basePath: "/government/people/rishi-sunak",
-                  title: "The Rt Hon Rishi Sunak MP",
-                },
-                startedOn: "2022-10-25T00:00:00Z",
-              },
-            ],
-            responsibilities: "<h1 id=\"prime-minister\">Prime Minister</h1>\n<p>The Prime Minister is the leader of His Majesty’s Government</p>\n",
-            supportsHistoricalAccounts: true,
             title: "Prime Minister",
+            details: {
+              body: "<h1 id=\"prime-minister\">Prime Minister</h1>\n<p>The Prime Minister is the leader of His Majesty’s Government</p>\n",
+              supportsHistoricalAccounts: true,
+            },
+            links: {
+              availableTranslations: [
+                {
+                  basePath: "/government/ministers/prime-minister",
+                  locale: "en",
+                },
+                {
+                  basePath: "/government/ministers/prime-minister.es",
+                  locale: "es",
+                },
+              ],
+              roleAppointments: [
+                {
+                  details: {
+                    current: true,
+                    endedOn: nil,
+                    startedOn: "2024-07-05T00:00:00Z",
+                  },
+                  links: {
+                    person: [
+                      basePath: "/government/people/keir-starmer",
+                      title: "The Rt Hon Sir Keir Starmer KCB KC MP",
+                      details: {
+                        body: "<p>Sir Keir Starmer became Prime Minister on 5 July 2024.</p>\n",
+                      },
+                    ],
+                  },
+                },
+                {
+                  details: {
+                    current: false,
+                    endedOn: "2024-07-05T00:00:00Z",
+                    startedOn: "2022-10-25T00:00:00Z",
+                  },
+                  links: {
+                    person: [
+                      basePath: "/government/people/rishi-sunak",
+                      details: {
+                        body: "<p>Rishi Sunak was Prime Minister between 25 October 2022 and 5 July 2024.</p>\n",
+                      },
+                      title: "The Rt Hon Rishi Sunak MP",
+                    ],
+                  },
+                },
+              ],
+              orderedParentOrganisations: [
+                {
+                  basePath: "/government/organisations/cabinet-office",
+                  title: "Cabinet Office",
+                },
+                {
+                  basePath: "/government/organisations/prime-ministers-office-10-downing-street",
+                  title: "Prime Minister's Office, 10 Downing Street",
+                },
+              ],
+            },
           },
         },
       }

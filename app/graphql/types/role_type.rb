@@ -11,42 +11,49 @@ module Types
 
     class RoleAppointment < Types::BaseObject
       class Person < Types::BaseObject
-        field :base_path, String
-        field :biography, String
-        field :title, String, null: false
+        class PersonDetails < Types::BaseObject
+          field :body, String
 
-        def biography
-          Presenters::EditionPresenter
-            .new(object)
-            .present
-            .dig(:details, :body)
-            .find { |body| body[:content_type] == "text/html" }[:content]
+          def body
+            govspeak = object.fetch(:body, [])
+              .filter { _1[:content_type] == "text/govspeak" }
+              .map { _1[:content] }
+              .first
+
+            Govspeak::Document.new(govspeak).to_html if govspeak.present?
+          end
+        end
+
+        field :base_path, String
+        field :details, PersonDetails
+        field :title, String, null: false
+      end
+
+      class RoleAppointmentDetails < Types::BaseObject
+        field :current, Boolean
+        field :ended_on, GraphQL::Types::ISO8601DateTime
+        field :started_on, GraphQL::Types::ISO8601DateTime
+      end
+
+      field :details, RoleAppointmentDetails
+
+      class RoleAppointmentLinks < Types::BaseObject
+        field :person, [Person]
+
+        def person
+          Edition
+            .live
+            .joins(document: { reverse_links: :link_set })
+            .where(
+              document: { locale: "en" },
+              link_set: { content_id: object.content_id },
+              reverse_links: { link_type: "person" },
+            )
+            .limit(1)
         end
       end
 
-      field :ended_on, GraphQL::Types::ISO8601DateTime
-      field :person, Person
-      field :started_on, GraphQL::Types::ISO8601DateTime
-
-      def ended_on
-        object.details[:ended_on]
-      end
-
-      def person
-        Edition
-          .live
-          .joins(document: { reverse_links: :link_set })
-          .where(
-            document: { locale: "en" },
-            link_set: { content_id: object.content_id },
-            reverse_links: { link_type: "person" },
-          )
-          .first
-      end
-
-      def started_on
-        object.details[:started_on]
-      end
+      field :links, RoleAppointmentLinks, method: :itself
     end
 
     class Translation < Types::BaseObject
@@ -54,60 +61,53 @@ module Types
       field :base_path, String
     end
 
-    field :available_translations, [Translation]
-    field :current_role_appointment, RoleAppointment
-    field :ordered_parent_organisations, [Organisation]
-    field :past_role_appointments, [RoleAppointment]
-    field :responsibilities, String
-    field :supports_historical_accounts, Boolean
+    class RoleDetails < Types::BaseObject
+      field :body, String
+      field :supports_historical_accounts, Boolean
 
-    def available_translations
-      Presenters::Queries::AvailableTranslations.by_edition(object)
-        .translations.fetch(:available_translations, [])
+      def body
+        govspeak = object.fetch(:body, [])
+          .filter { _1[:content_type] == "text/govspeak" }
+          .map { _1[:content] }
+          .first
+
+        Govspeak::Document.new(govspeak).to_html if govspeak.present?
+      end
     end
 
-    def current_role_appointment
-      Edition
-        .live
-        .joins(document: :link_set_links)
-        .where(
-          document: { locale: "en" },
-          link_set_links: { target_content_id: object.content_id, link_type: "role" },
-        )
-        .where("details ->> 'current' = 'true'")
-        .first
+    class RoleLinks < Types::BaseObject
+      field :available_translations, [Translation]
+      field :ordered_parent_organisations, [Organisation]
+      field :role_appointments, [RoleAppointment]
+
+      def available_translations
+        Presenters::Queries::AvailableTranslations.by_edition(object)
+          .translations.fetch(:available_translations, [])
+      end
+
+      def ordered_parent_organisations
+        Edition
+          .live
+          .joins(document: { reverse_links: :link_set })
+          .where(
+            document: { locale: "en" },
+            link_set: { content_id: object.content_id },
+            reverse_links: { link_type: "ordered_parent_organisations" },
+          )
+      end
+
+      def role_appointments
+        Edition
+          .live
+          .joins(document: :link_set_links)
+          .where(
+            document: { locale: "en" },
+            link_set_links: { target_content_id: object.content_id, link_type: "role" },
+          )
+      end
     end
 
-    def ordered_parent_organisations
-      Edition
-        .live
-        .joins(document: { reverse_links: :link_set })
-        .where(
-          document: { locale: "en" },
-          link_set: { content_id: object.content_id },
-          reverse_links: { link_type: "ordered_parent_organisations" },
-        )
-    end
-
-    def past_role_appointments
-      Edition
-        .live
-        .joins(document: :link_set_links)
-        .where(
-          document: { locale: "en" },
-          link_set_links: { target_content_id: object.content_id, link_type: "role" },
-        )
-        .where("details ->> 'current' = 'false'")
-    end
-
-    def responsibilities
-      presented_edition
-        .dig(:details, :body)
-        .find { |body| body[:content_type] == "text/html" }[:content]
-    end
-
-    def supports_historical_accounts
-      object.details[:supports_historical_accounts]
-    end
+    field :details, RoleDetails
+    field :links, RoleLinks, method: :itself
   end
 end
