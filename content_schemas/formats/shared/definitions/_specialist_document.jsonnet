@@ -1069,7 +1069,7 @@
       sfo_case_state: {
         type: "string",
       },
-      sfo_case_opened_date: {
+      sfo_case_date_announced: {
         type: "string",
         pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
       },
