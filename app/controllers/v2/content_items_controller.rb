@@ -21,8 +21,8 @@ module V2
       ).call
     end
 
-    def embedded
-      results = GetEmbeddedContentService.new(
+    def host_content
+      results = GetHostContentService.new(
         path_params[:content_id],
         query_params[:order],
         query_params[:page],

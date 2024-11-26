@@ -1,4 +1,4 @@
-RSpec.describe Presenters::EmbeddedContentPresenter do
+RSpec.describe Presenters::HostContentPresenter do
   describe "#present" do
     let(:organisation_edition_id) { SecureRandom.uuid }
     let(:target_edition_id) { SecureRandom.uuid }
@@ -9,7 +9,7 @@ RSpec.describe Presenters::EmbeddedContentPresenter do
     let(:total_pages) { 23 }
 
     let(:host_editions) do
-      [double("Queries::GetEmbeddedContent::Result",
+      [double("Queries::GetHostContent::Result",
               id: "1",
               title: "foo",
               base_path: "/foo",

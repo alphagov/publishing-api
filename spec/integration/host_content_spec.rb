@@ -1,4 +1,4 @@
-RSpec.describe "Embedded documents" do
+RSpec.describe "Host content" do
   include_context "PutContent call"
 
   let!(:publishing_organisation) do
@@ -21,22 +21,22 @@ RSpec.describe "Embedded documents" do
 
   context "when the target edition doesn't exist" do
     it "returns a 404" do
-      get "/v2/content/#{SecureRandom.uuid}/embedded"
+      get "/v2/content/#{SecureRandom.uuid}/host-content"
 
       expect(response.status).to eq(404)
     end
   end
 
-  context "when no editions embed the content block" do
+  context "when the content block has no host editions" do
     it "returns an empty results array" do
-      unembedded_edition = create(:live_edition)
+      edition = create(:live_edition)
 
-      get "/v2/content/#{unembedded_edition.content_id}/embedded"
+      get "/v2/content/#{edition.content_id}/host-content"
 
       expect(response.status).to eq(200)
       response_body = parsed_response
 
-      expect(response_body["content_id"]).to eq(unembedded_edition.content_id)
+      expect(response_body["content_id"]).to eq(edition.content_id)
       expect(response_body["total"]).to eq(0)
       expect(response_body["results"]).to eq([])
     end
@@ -54,7 +54,7 @@ RSpec.describe "Embedded documents" do
 
       statistics_cache = create(:statistics_cache, document: host_edition.document, unique_pageviews: 333)
 
-      get "/v2/content/#{content_block.content_id}/embedded"
+      get "/v2/content/#{content_block.content_id}/host-content"
 
       expect(response.status).to eq(200)
 
@@ -82,7 +82,7 @@ RSpec.describe "Embedded documents" do
       )
     end
 
-    context "when embedded content appears more than once in a field" do
+    context "when host content appears more than once in a field" do
       let!(:host_edition) do
         create_live_edition(
           body: "<p>{{embed:content_block_email_address:#{content_block.content_id}}} {{embed:content_block_email_address:#{content_block.content_id}}}</p>\n",
@@ -90,7 +90,7 @@ RSpec.describe "Embedded documents" do
       end
 
       it "should return multiple instances" do
-        get "/v2/content/#{content_block.content_id}/embedded"
+        get "/v2/content/#{content_block.content_id}/host-content"
         response_body = parsed_response
 
         expect(response_body["content_id"]).to eq(content_block.content_id)
@@ -108,7 +108,7 @@ RSpec.describe "Embedded documents" do
         end
 
         it "should return only one instance" do
-          get "/v2/content/#{content_block.content_id}/embedded"
+          get "/v2/content/#{content_block.content_id}/host-content"
           response_body = parsed_response
 
           expect(response_body["content_id"]).to eq(content_block.content_id)
@@ -129,7 +129,7 @@ RSpec.describe "Embedded documents" do
     end
 
     it "returns the first page by default" do
-      get "/v2/content/#{content_block.content_id}/embedded"
+      get "/v2/content/#{content_block.content_id}/host-content"
       response_body = parsed_response
 
       expect(response_body["total"]).to eq(12)
@@ -138,7 +138,7 @@ RSpec.describe "Embedded documents" do
     end
 
     it "allows the next page to be requested" do
-      get "/v2/content/#{content_block.content_id}/embedded?page=2"
+      get "/v2/content/#{content_block.content_id}/host-content?page=2"
       response_body = parsed_response
 
       expect(response_body["total"]).to eq(12)
@@ -147,7 +147,7 @@ RSpec.describe "Embedded documents" do
     end
 
     it "allows a per_page argument to be passed" do
-      get "/v2/content/#{content_block.content_id}/embedded?per_page=1"
+      get "/v2/content/#{content_block.content_id}/host-content?per_page=1"
       response_body = parsed_response
 
       expect(response_body["total"]).to eq(12)
@@ -300,7 +300,7 @@ RSpec.describe "Embedded documents" do
     end
 
     def expect_request_to_order_by(order_argument:, expected_results:)
-      get "/v2/content/#{content_block.content_id}/embedded?order=#{order_argument}"
+      get "/v2/content/#{content_block.content_id}/host-content?order=#{order_argument}"
       response_body = parsed_response
 
       expect(response.status).to eq(200)

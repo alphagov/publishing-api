@@ -1,4 +1,4 @@
-RSpec.describe GetEmbeddedContentService do
+RSpec.describe GetHostContentService do
   describe "#call" do
     let(:organisation) do
       edition_params = {
@@ -29,7 +29,7 @@ RSpec.describe GetEmbeddedContentService do
       it "returns 404" do
         expect { described_class.new(SecureRandom.uuid, nil, nil, nil).call }.to raise_error(CommandError) do |error|
           expect(error.code).to eq(404)
-          expect(error.message).to eq("Could not find an edition to get embedded content for")
+          expect(error.message).to eq("Could not find an edition to get host content for")
         end
       end
     end
@@ -39,13 +39,13 @@ RSpec.describe GetEmbeddedContentService do
       let(:host_editions_stub) { double("ActiveRecord::Relation") }
       let(:count) { 12 }
       let(:total_pages) { 2 }
-      let(:embedded_content_stub) { double(Queries::GetEmbeddedContent, call: host_editions_stub, count:, total_pages:) }
+      let(:embedded_content_stub) { double(Queries::GetHostContent, call: host_editions_stub, count:, total_pages:) }
       let(:result_stub) { double }
 
       before do
         allow(Document).to receive(:find_by).and_return(anything)
-        allow(Queries::GetEmbeddedContent).to receive(:new).and_return(embedded_content_stub)
-        allow(Presenters::EmbeddedContentPresenter).to receive(:present).and_return(result_stub)
+        allow(Queries::GetHostContent).to receive(:new).and_return(embedded_content_stub)
+        allow(Presenters::HostContentPresenter).to receive(:present).and_return(result_stub)
       end
 
       it "returns a presented form of the response from the query" do
@@ -53,7 +53,7 @@ RSpec.describe GetEmbeddedContentService do
 
         expect(result).to eq(result_stub)
 
-        expect(Presenters::EmbeddedContentPresenter).to have_received(:present).with(
+        expect(Presenters::HostContentPresenter).to have_received(:present).with(
           target_content_id,
           host_editions_stub,
           count,
@@ -65,7 +65,7 @@ RSpec.describe GetEmbeddedContentService do
         it "requests page zero by default" do
           described_class.new(target_content_id, nil, "", "").call
 
-          expect(Queries::GetEmbeddedContent).to have_received(:new).with(
+          expect(Queries::GetHostContent).to have_received(:new).with(
             target_content_id, order_field: nil, order_direction: nil, page: 0, per_page: nil
           )
         end
@@ -73,7 +73,7 @@ RSpec.describe GetEmbeddedContentService do
         it "requests a zero indexed page" do
           described_class.new(target_content_id, nil, "2", "").call
 
-          expect(Queries::GetEmbeddedContent).to have_received(:new).with(
+          expect(Queries::GetHostContent).to have_received(:new).with(
             target_content_id, order_field: nil, order_direction: nil, page: 1, per_page: nil
           )
         end
@@ -81,7 +81,7 @@ RSpec.describe GetEmbeddedContentService do
         it "accepts a per_page argument" do
           described_class.new(target_content_id, nil, "2", "5").call
 
-          expect(Queries::GetEmbeddedContent).to have_received(:new).with(
+          expect(Queries::GetHostContent).to have_received(:new).with(
             target_content_id, order_field: nil, order_direction: nil, page: 1, per_page: 5
           )
         end
@@ -91,7 +91,7 @@ RSpec.describe GetEmbeddedContentService do
         it "does not send any ordering fields by default" do
           described_class.new(target_content_id, nil, nil, nil).call
 
-          expect(Queries::GetEmbeddedContent).to have_received(:new).with(
+          expect(Queries::GetHostContent).to have_received(:new).with(
             target_content_id, order_field: nil, order_direction: nil, page: 0, per_page: nil
           )
         end
@@ -99,7 +99,7 @@ RSpec.describe GetEmbeddedContentService do
         it "sends a field in ascending order when not preceded with a minus" do
           described_class.new(target_content_id, "something", nil, nil).call
 
-          expect(Queries::GetEmbeddedContent).to have_received(:new).with(
+          expect(Queries::GetHostContent).to have_received(:new).with(
             target_content_id, order_field: :something, order_direction: :asc, page: 0, per_page: nil
           )
         end
@@ -107,7 +107,7 @@ RSpec.describe GetEmbeddedContentService do
         it "sends a field in descending order when preceded with a minus" do
           described_class.new(target_content_id, "-something", nil, nil).call
 
-          expect(Queries::GetEmbeddedContent).to have_received(:new).with(
+          expect(Queries::GetHostContent).to have_received(:new).with(
             target_content_id, order_field: :something, order_direction: :desc, page: 0, per_page: nil
           )
         end

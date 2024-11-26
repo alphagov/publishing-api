@@ -16,7 +16,7 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`POST /v2/content/:content_id/discard-draft`](#post-v2contentcontent_iddiscard-draft)
 - [`GET /v2/content`](#get-v2content)
 - [`GET /v2/content/:content_id`](#get-v2contentcontent_id)
-- [`GET /v2/content/:content_id/embedded`](#get-v2contentcontent_idembedded)
+- [`GET /v2/content/:content_id/host-content`](#get-v2contentcontent_idhost-content)
 - [`PATCH /v2/links/:content_id`](#patch-v2linkscontent_id)
 - [`GET /v2/links/:content_id`](#get-v2linkscontent_id)
 - [`GET /v2/expanded-links/:content_id`](#get-v2expanded-linkscontent_id)
@@ -428,10 +428,9 @@ included within the response.
   - Specify a particular edition of this document
   - If omitted the most recent edition.
 
-## `GET /v2/content/:content_id/embedded`
+## `GET /v2/content/:content_id/host-content`
 
-Retrieves a summary list of any draft or published content which has an embedded
-reference to the target `:content_id`.
+Retrieves a summary list of content which has an embedded reference to the target `:content_id`.
 
 <!-- TODO: Include a link to how Resuable Content works here when we have it -->
 Content can include an embedded reference in its body when

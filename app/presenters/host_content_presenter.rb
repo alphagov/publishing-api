@@ -1,5 +1,5 @@
 module Presenters
-  class EmbeddedContentPresenter
+  class HostContentPresenter
     def self.present(target_edition_id, host_content, total, total_pages)
       new(target_edition_id, host_content, total, total_pages).present
     end
