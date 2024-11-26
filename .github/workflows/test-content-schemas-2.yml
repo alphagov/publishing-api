@@ -65,9 +65,9 @@ jobs:
 
   test-specialist-publisher:
     name: Test Specialist Publisher
-    uses: alphagov/specialist-publisher/.github/workflows/rspec.yml@SFO-Finder-iteration-3
+    uses: alphagov/specialist-publisher/.github/workflows/rspec.yml@main
     with:
-      ref: 'SFO-Finder-iteration-3'
+      ref: 'main'
       publishingApiRef: ${{ github.ref }}
 
   test-travel-advice-publisher:
