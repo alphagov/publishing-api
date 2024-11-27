@@ -17,6 +17,7 @@ class GetHostContentService
       host_content,
       query.count,
       query.total_pages,
+      query.rollup,
     )
   end
 

@@ -39,7 +39,8 @@ RSpec.describe GetHostContentService do
       let(:host_editions_stub) { double("ActiveRecord::Relation") }
       let(:count) { 12 }
       let(:total_pages) { 2 }
-      let(:embedded_content_stub) { double(Queries::GetHostContent, call: host_editions_stub, count:, total_pages:) }
+      let(:rollup_stub) { double(Queries::GetHostContent::Rollup) }
+      let(:embedded_content_stub) { double(Queries::GetHostContent, call: host_editions_stub, count:, total_pages:, rollup: rollup_stub) }
       let(:result_stub) { double }
 
       before do
@@ -58,6 +59,7 @@ RSpec.describe GetHostContentService do
           host_editions_stub,
           count,
           total_pages,
+          rollup_stub,
         )
       end
 

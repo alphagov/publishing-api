@@ -25,13 +25,27 @@ RSpec.describe Presenters::HostContentPresenter do
               instances: 1)]
     end
 
-    let(:result) { described_class.present(target_edition_id, host_editions, total, total_pages) }
+    let(:rollup) do
+      double("Queries::GetHostContent::Rollup",
+             views: "123",
+             locations: 1,
+             instances: 4.0,
+             organisations: 2)
+    end
+
+    let(:result) { described_class.present(target_edition_id, host_editions, total, total_pages, rollup) }
 
     let(:expected_output) do
       {
         content_id: target_edition_id,
         total:,
         total_pages:,
+        rollup: {
+          views: 123,
+          locations: 1,
+          instances: 4,
+          organisations: 2,
+        },
         results: [
           {
             title: "foo",
@@ -55,6 +69,25 @@ RSpec.describe Presenters::HostContentPresenter do
 
     it "presents attributes of host content in an array of results" do
       expect(result).to eq(expected_output)
+    end
+
+    context "when any rollup values are not present" do
+      let(:rollup) do
+        double("Queries::GetHostContent::Rollup",
+               views: nil,
+               locations: nil,
+               instances: "",
+               organisations: nil)
+      end
+
+      it "returns zeroes for those values" do
+        expect(result[:rollup]).to eq({
+          views: 0,
+          locations: 0,
+          instances: 0,
+          organisations: 0,
+        })
+      end
     end
   end
 end
