@@ -122,6 +122,7 @@ module Queries
         )
         .join(TABLES[:org_documents], Arel::Nodes::OuterJoin).on(
           TABLES[:org_documents][:content_id].eq(TABLES[:primary_links][:target_content_id]),
+          TABLES[:org_documents][:locale].eq("en"),
         )
         .join(TABLES[:org_editions], Arel::Nodes::OuterJoin).on(
           TABLES[:org_editions][:document_id].eq(TABLES[:org_documents][:id]),
