@@ -29,17 +29,17 @@ module Queries
     }.freeze
 
     FIELDS = [
-      { field: TABLES[:editions][:id], included_in_group?: true },
-      { field: TABLES[:editions][:title], included_in_group?: true },
-      { field: TABLES[:editions][:base_path], included_in_group?: true },
-      { field: TABLES[:editions][:document_type], included_in_group?: true },
-      { field: TABLES[:editions][:publishing_app], included_in_group?: true },
-      { field: TABLES[:editions][:last_edited_by_editor_id], included_in_group?: true },
-      { field: TABLES[:editions][:last_edited_at], included_in_group?: true },
+      { field: TABLES[:editions][:id], alias: "id", included_in_group?: true },
+      { field: TABLES[:editions][:title], alias: "title", included_in_group?: true },
+      { field: TABLES[:editions][:base_path], alias: "base_path", included_in_group?: true },
+      { field: TABLES[:editions][:document_type], alias: "document_type", included_in_group?: true },
+      { field: TABLES[:editions][:publishing_app], alias: "publishing_app", included_in_group?: true },
+      { field: TABLES[:editions][:last_edited_by_editor_id], alias: "last_edited_by_editor_id", included_in_group?: true },
+      { field: TABLES[:editions][:last_edited_at], alias: "last_edited_at", included_in_group?: true },
       { field: TABLES[:primary_links][:target_content_id], alias: "primary_publishing_organisation_content_id", included_in_group?: true },
       { field: TABLES[:org_editions][:title], alias: "primary_publishing_organisation_title", included_in_group?: true },
       { field: TABLES[:org_editions][:base_path], alias: "primary_publishing_organisation_base_path", included_in_group?: true },
-      { field: TABLES[:statistics_caches][:unique_pageviews], included_in_group?: true },
+      { field: TABLES[:statistics_caches][:unique_pageviews], alias: "unique_pageviews", included_in_group?: true },
       { field: TABLES[:documents][:content_id], alias: "host_content_id", included_in_group?: true },
       { field: TABLES[:editions][:id].count, alias: "instances", included_in_group?: false },
     ].freeze
@@ -100,7 +100,7 @@ module Queries
     end
 
     def select_fields
-      FIELDS.map { |f| f[:alias].present? ? f[:field].as(f[:alias]) : f[:field] }
+      FIELDS.map { |f| f[:field].as(f[:alias]) }
     end
 
     def group_fields
