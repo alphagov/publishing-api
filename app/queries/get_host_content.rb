@@ -16,6 +16,13 @@ module Queries
       :instances,
     )
 
+    Rollup = Data.define(
+      :views,
+      :locations,
+      :instances,
+      :organisations,
+    )
+
     DEFAULT_PER_PAGE = 10
 
     TABLES = {
@@ -29,17 +36,17 @@ module Queries
     }.freeze
 
     FIELDS = [
-      { field: TABLES[:editions][:id], included_in_group?: true },
-      { field: TABLES[:editions][:title], included_in_group?: true },
-      { field: TABLES[:editions][:base_path], included_in_group?: true },
-      { field: TABLES[:editions][:document_type], included_in_group?: true },
-      { field: TABLES[:editions][:publishing_app], included_in_group?: true },
-      { field: TABLES[:editions][:last_edited_by_editor_id], included_in_group?: true },
-      { field: TABLES[:editions][:last_edited_at], included_in_group?: true },
+      { field: TABLES[:editions][:id], alias: "id", included_in_group?: true },
+      { field: TABLES[:editions][:title], alias: "title", included_in_group?: true },
+      { field: TABLES[:editions][:base_path], alias: "base_path", included_in_group?: true },
+      { field: TABLES[:editions][:document_type], alias: "document_type", included_in_group?: true },
+      { field: TABLES[:editions][:publishing_app], alias: "publishing_app", included_in_group?: true },
+      { field: TABLES[:editions][:last_edited_by_editor_id], alias: "last_edited_by_editor_id", included_in_group?: true },
+      { field: TABLES[:editions][:last_edited_at], alias: "last_edited_at", included_in_group?: true },
       { field: TABLES[:primary_links][:target_content_id], alias: "primary_publishing_organisation_content_id", included_in_group?: true },
       { field: TABLES[:org_editions][:title], alias: "primary_publishing_organisation_title", included_in_group?: true },
       { field: TABLES[:org_editions][:base_path], alias: "primary_publishing_organisation_base_path", included_in_group?: true },
-      { field: TABLES[:statistics_caches][:unique_pageviews], included_in_group?: true },
+      { field: TABLES[:statistics_caches][:unique_pageviews], alias: "unique_pageviews", included_in_group?: true },
       { field: TABLES[:documents][:content_id], alias: "host_content_id", included_in_group?: true },
       { field: TABLES[:editions][:id].count, alias: "instances", included_in_group?: false },
     ].freeze
@@ -81,6 +88,10 @@ module Queries
       (count.to_f / per_page).ceil
     end
 
+    def rollup
+      Rollup.new(**ActiveRecord::Base.connection.select_one(rollup_query))
+    end
+
   private
 
     def paginated_query
@@ -99,8 +110,18 @@ module Queries
       "SELECT COUNT(*) FROM (#{arel_query.to_sql}) AS full_query"
     end
 
+    def rollup_query
+      subquery = arel_query.as(Arel.sql("totals"))
+      TABLES[:editions].project(
+        subquery[:unique_pageviews].sum.as("views"),
+        subquery[:id].count.as("locations"),
+        subquery[:instances].sum.as("instances"),
+        subquery[:primary_publishing_organisation_content_id].count(true).as("organisations"),
+      ).from(subquery)
+    end
+
     def select_fields
-      FIELDS.map { |f| f[:alias].present? ? f[:field].as(f[:alias]) : f[:field] }
+      FIELDS.map { |f| f[:field].as(f[:alias]) }
     end
 
     def group_fields

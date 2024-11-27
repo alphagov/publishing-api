@@ -250,4 +250,52 @@ RSpec.describe Queries::GetHostContent do
       end
     end
   end
+
+  describe "#rollup" do
+    let(:organisation1) { create(:live_edition) }
+    let(:organisation2) { create(:live_edition) }
+
+    let(:content_block) do
+      create(:live_edition,
+             document_type: "content_block_email_address",
+             schema_name: "content_block_email_address",
+             details: {
+               "email_address" => "foo@example.com",
+             })
+    end
+
+    let(:target_content_id) { content_block.content_id }
+
+    it "returns a count of embedded editions" do
+      statistics_caches = []
+
+      edition1 = create(:live_edition, links_hash: {
+        primary_publishing_organisation: [organisation1.content_id],
+        embed: [target_content_id, target_content_id],
+      })
+
+      statistics_caches << create(:statistics_cache, document: edition1.document, unique_pageviews: 12)
+
+      edition2 = create(:live_edition, links_hash: {
+        primary_publishing_organisation: [organisation1.content_id],
+        embed: [target_content_id],
+      })
+
+      statistics_caches << create(:statistics_cache, document: edition2.document, unique_pageviews: 7)
+
+      edition3 = create(:live_edition, links_hash: {
+        primary_publishing_organisation: [organisation2.content_id],
+        embed: [target_content_id],
+      })
+
+      statistics_caches << create(:statistics_cache, document: edition3.document, unique_pageviews: 7)
+
+      result = described_class.new(target_content_id).rollup
+
+      expect(result.views).to eq(statistics_caches.sum(&:unique_pageviews))
+      expect(result.locations).to eq(3)
+      expect(result.instances).to eq(4)
+      expect(result.organisations).to eq(2)
+    end
+  end
 end
