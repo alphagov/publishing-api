@@ -106,6 +106,25 @@ RSpec.describe Queries::GetHostContent do
 
         expect(results[0].instances).to eq(2)
       end
+
+      it "returns one row per content block when an organisation has a translation" do
+        welsh_document = create(:document, locale: "cy", content_id: organisation.content_id)
+        create(:live_edition, document: welsh_document, base_path: "#{organisation.base_path}.cy")
+
+        create(:live_edition,
+               details: {
+                 body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+               },
+               links_hash: {
+                 primary_publishing_organisation: [organisation.content_id],
+                 embed: [target_content_id],
+               },
+               publishing_app: "example-app")
+
+        results = described_class.new(target_content_id).call
+
+        expect(results.count).to eq(1)
+      end
     end
 
     context "when there are superseded editions that embed the target content" do
