@@ -16,6 +16,13 @@ module Queries
       :instances,
     )
 
+    Rollup = Data.define(
+      :views,
+      :locations,
+      :instances,
+      :organisations,
+    )
+
     DEFAULT_PER_PAGE = 10
 
     TABLES = {
@@ -81,6 +88,10 @@ module Queries
       (count.to_f / per_page).ceil
     end
 
+    def rollup
+      Rollup.new(**ActiveRecord::Base.connection.select_one(rollup_query))
+    end
+
   private
 
     def paginated_query
@@ -97,6 +108,16 @@ module Queries
 
     def count_query
       "SELECT COUNT(*) FROM (#{arel_query.to_sql}) AS full_query"
+    end
+
+    def rollup_query
+      subquery = arel_query.as(Arel.sql("totals"))
+      TABLES[:editions].project(
+        subquery[:unique_pageviews].sum.as("views"),
+        subquery[:id].count.as("locations"),
+        subquery[:instances].sum.as("instances"),
+        subquery[:primary_publishing_organisation_content_id].count(true).as("organisations"),
+      ).from(subquery)
     end
 
     def select_fields
