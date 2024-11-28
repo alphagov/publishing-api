@@ -56,11 +56,6 @@ module Types
       field :links, RoleAppointmentLinks, method: :itself
     end
 
-    class Translation < Types::BaseObject
-      field :locale, String
-      field :base_path, String
-    end
-
     class RoleDetails < Types::BaseObject
       field :body, String
       field :supports_historical_accounts, Boolean
@@ -75,15 +70,9 @@ module Types
       end
     end
 
-    class RoleLinks < Types::BaseObject
-      field :available_translations, [Translation]
+    class RoleLinks < EditionType::EditionLinks
       field :ordered_parent_organisations, [Organisation]
       field :role_appointments, [RoleAppointment]
-
-      def available_translations
-        Presenters::Queries::AvailableTranslations.by_edition(object)
-          .translations.fetch(:available_translations, [])
-      end
 
       def ordered_parent_organisations
         Edition

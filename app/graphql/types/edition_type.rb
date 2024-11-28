@@ -43,6 +43,22 @@ module Types
     alias_method :publishing_scheduled_at, :not_stored_in_publishing_api
     alias_method :scheduled_publishing_delay_seconds, :not_stored_in_publishing_api
 
+    class Translation < Types::BaseObject
+      field :locale, String
+      field :base_path, String
+    end
+
+    class EditionLinks < Types::BaseObject
+      field :available_translations, [Translation]
+
+      def available_translations
+        Presenters::Queries::AvailableTranslations.by_edition(object)
+          .translations.fetch(:available_translations, [])
+      end
+    end
+
+    field :links, EditionLinks, method: :itself
+
   private
 
     def presented_edition
