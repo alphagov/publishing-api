@@ -23,6 +23,7 @@ module Types
     field :rendering_app, String
     field :scheduled_publishing_delay_seconds, Int
     field :schema_name, String
+    field :state, String
     field :title, String, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime
     field :withdrawn_notice, WithdrawnNotice
