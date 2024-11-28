@@ -48,8 +48,65 @@ module Types
       field :base_path, String
     end
 
+    class GovernmentDetails < Types::BaseObject
+      field :current, Boolean
+    end
+
+    class GovernmentLink < Types::BaseObject
+      field :base_path, String
+      field :content_id, String
+      field :details, GovernmentDetails
+      field :title, String
+    end
+
+    class OrganisationLink < Types::BaseObject
+      field :base_path, String
+      field :content_id, String
+      field :title, String
+    end
+
+    class PersonLink < Types::BaseObject
+      field :base_path, String
+      field :content_id, String
+      field :title, String
+    end
+
+    class Taxon < Types::BaseObject
+      field :base_path, String
+      field :content_id, String
+      field :document_type, String
+      field :phase, String
+      field :title, String
+    end
+
+    class TaxonLink < Taxon
+      class TaxonLinks < Types::BaseObject
+        links_field :parent_taxons, [Taxon]
+      end
+
+      field :links, TaxonLinks, method: :itself
+    end
+
+    class TopicalEventLink < Types::BaseObject
+      field :base_path, String
+      field :content_id, String
+      field :title, String
+    end
+
+    class WorldLocationLink < Types::BaseObject
+      field :base_path, String
+      field :content_id, String
+      field :title, String
+    end
+
     class EditionLinks < Types::BaseObject
       field :available_translations, [Translation]
+      links_field :government, [GovernmentLink]
+      links_field :organisations, [OrganisationLink]
+      links_field :people, [PersonLink]
+      links_field :taxons, [TaxonLink]
+      links_field :topical_events, [TopicalEventLink]
+      links_field :world_locations, [WorldLocationLink]
 
       def available_translations
         Presenters::Queries::AvailableTranslations.by_edition(object)
