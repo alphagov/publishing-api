@@ -2,7 +2,7 @@
 
 module Types
   class RoleType < Types::EditionType
-    def self.document_type = "ministerial_role"
+    def self.document_types = %w[ministerial_role]
 
     class Organisation < Types::BaseObject
       field :base_path, String

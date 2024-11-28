@@ -12,7 +12,7 @@ module Types
           document_type = object.document_type
 
           matching_edition_subtype = Types::EditionType.descendants.find do |edition_subtype|
-            document_type == edition_subtype.document_type
+            edition_subtype.document_types.include?(document_type)
           end
 
           matching_edition_subtype || Types::EditionType
