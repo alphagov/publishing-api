@@ -2,7 +2,7 @@
 
 module Types
   class WorldIndexType < Types::EditionType
-    def self.document_type = "world_index"
+    def self.document_types = %w[world_index]
 
     class WorldLocation < Types::BaseObject
       field :active, Boolean, null: false
