@@ -3,7 +3,7 @@
 module Types
   class QueryType
     class EditionTypeOrSubtype < Types::BaseUnion
-      EDITION_TYPES = [Types::EditionType, Types::RoleType, Types::WorldIndexType].freeze
+      EDITION_TYPES = [Types::EditionType, Types::RoleType, Types::WorldIndexType, Types::MinistersIndexType].freeze
 
       possible_types(*EDITION_TYPES)
 
