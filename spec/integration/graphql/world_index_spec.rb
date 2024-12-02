@@ -64,35 +64,35 @@ RSpec.describe "GraphQL" do
       }
 
       expected = {
-        "data": {
-          "edition": {
-            "title": "Help and services around the world",
-            "worldLocations": [
+        data: {
+          edition: {
+            title: "Help and services around the world",
+            worldLocations: [
               {
-                "active": true,
-                "analyticsIdentifier": "WL1",
-                "contentId": "d3b7ba48-5027-4a98-a594-1108d205dc66",
-                "name": "Test World Location",
-                "slug": "test-world-location",
-                "updatedAt": "2024-10-18T14:22:38+01:00",
+                active: true,
+                analyticsIdentifier: "WL1",
+                contentId: "d3b7ba48-5027-4a98-a594-1108d205dc66",
+                name: "Test World Location",
+                slug: "test-world-location",
+                updatedAt: "2024-10-18T14:22:38+01:00",
               },
             ],
-            "internationalDelegations": [
+            internationalDelegations: [
               {
-                "active": false,
-                "analyticsIdentifier": "WL2",
-                "contentId": "f0313f16-e25c-4bfe-a0fc-e561833f705f",
-                "name": "Test International Delegation",
-                "slug": "test-international-delegation",
-                "updatedAt": "2024-10-19T15:07:44+01:00",
+                active: false,
+                analyticsIdentifier: "WL2",
+                contentId: "f0313f16-e25c-4bfe-a0fc-e561833f705f",
+                name: "Test International Delegation",
+                slug: "test-international-delegation",
+                updatedAt: "2024-10-19T15:07:44+01:00",
               },
             ],
           },
-
         },
-      }.to_json
+      }
 
-      expect(response.body).to eq(expected)
+      parsed_response = JSON.parse(response.body).deep_symbolize_keys
+      expect(parsed_response).to eq(expected)
     end
   end
 end
