@@ -21,6 +21,14 @@ module V2
       ).call
     end
 
+    def events
+      render json: Queries::GetEvents.call(
+        content_id: path_params[:content_id],
+        action: query_params[:action],
+        from: query_params[:from],
+      )
+    end
+
     def host_content
       results = GetHostContentService.new(
         path_params[:content_id],
