@@ -103,7 +103,7 @@ module Queries
         TABLES[:editions][:state].eq(state)
                                  .and(TABLES[:links][:link_type].eq(embedded_link_type))
                                  .and(TABLES[:links][:target_content_id].eq(target_content_id)),
-      ).order(order_direction == :desc ? order_field.desc : order_field.asc)
+      ).order(order_direction == :desc ? order_field.desc.nulls_last : order_field.asc)
     end
 
     def count_query

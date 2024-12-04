@@ -172,6 +172,28 @@ RSpec.describe Queries::GetHostContent do
         }.to raise_error(KeyError, "Unknown order direction: foo")
       end
 
+      it "sorts with null fields at the bottom" do
+        edition1 = create(:live_edition, links_hash: { embed: [target_content_id] }, title: "Edition 1")
+        edition2 = create(:live_edition, links_hash: { embed: [target_content_id] }, title: "Edition 2")
+        edition3 = create(:live_edition, links_hash: { embed: [target_content_id] }, title: "Edition 3")
+
+        create(:statistics_cache, document: edition2.document, unique_pageviews: 123)
+        create(:statistics_cache, document: edition3.document, unique_pageviews: 2)
+
+        results = described_class.new(target_content_id, order_direction: :desc).call
+
+        expect(results.count).to eq(3)
+
+        expect(results[0].title).to eq(edition2.title)
+        expect(results[0].unique_pageviews).to eq(123)
+
+        expect(results[1].title).to eq(edition3.title)
+        expect(results[1].unique_pageviews).to eq(2)
+
+        expect(results[2].title).to eq(edition1.title)
+        expect(results[2].unique_pageviews).to eq(nil)
+      end
+
       Queries::GetHostContent::ORDER_FIELDS.each do |key, order_field|
         Queries::GetHostContent::ORDER_DIRECTIONS.each do |order_direction|
           it "allows searching by #{key} #{order_direction}" do
@@ -185,8 +207,14 @@ RSpec.describe Queries::GetHostContent do
       def expect_sort_call_for(order_field:, order_direction:)
         expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
           expect(arel_query.orders.length).to eq(1)
-          expect(arel_query.orders[0]).to be_a(order_direction == :asc ? Arel::Nodes::Ascending : Arel::Nodes::Descending)
-          expect(arel_query.orders[0].expr).to eq(order_field)
+          if order_direction == :asc
+            expect(arel_query.orders[0]).to be_a(Arel::Nodes::Ascending)
+            expect(arel_query.orders[0].expr).to eq(order_field)
+          else
+            expect(arel_query.orders[0]).to be_a(Arel::Nodes::NullsLast)
+            expect(arel_query.orders[0].expr).to be_a(Arel::Nodes::Descending)
+            expect(arel_query.orders[0].expr.expr).to eq(order_field)
+          end
         }.and_return([])
       end
     end
