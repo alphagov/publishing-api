@@ -456,6 +456,48 @@
       },
     },
   },
+  data_ethics_guidance_document: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      key_reference: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      ethical_theme: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      organisation: {
+        type: "string",
+      },
+      document_function: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      project_phase: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      technology_area: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+    },
+  },
   drcf_digital_markets_research_metadata: {
     type: "object",
     additionalProperties: false,
