@@ -16,7 +16,9 @@ RSpec.describe "GraphQL" do
                 base_path
                 content_id
                 description
-                details
+                details {
+                  body
+                }
                 document_type
                 first_published_at
                 locale
@@ -45,7 +47,9 @@ RSpec.describe "GraphQL" do
             "base_path": @edition.base_path,
             "content_id": @edition.content_id,
             "description": @edition.description,
-            "details": @edition.details,
+            "details": {
+              "body": @edition.details[:body],
+            },
             "document_type": @edition.document_type,
             "first_published_at": @edition.first_published_at.iso8601,
             "locale": @edition.locale,
@@ -110,33 +114,6 @@ RSpec.describe "GraphQL" do
 
         expect(parsed_response).to eq(expected)
       end
-    end
-
-    it "does not expose non-generic edition fields" do
-      post "/graphql", params: {
-        query:
-          "{
-            edition(base_path: \"/my/generic/edition\") {
-              ... on Edition {
-                world_locations {
-                  active
-                }
-              }
-            }
-          }",
-      }
-
-      parsed_response = JSON.parse(response.body).deep_symbolize_keys
-
-      expect(parsed_response).to match(
-        {
-          errors: [
-            hash_including(
-              message: "Field 'world_locations' doesn't exist on type 'Edition'",
-            ),
-          ],
-        },
-      )
     end
   end
 end

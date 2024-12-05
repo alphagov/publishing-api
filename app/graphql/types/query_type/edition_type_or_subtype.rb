@@ -6,9 +6,6 @@ module Types
       EDITION_TYPES = [
         Types::EditionType,
         Types::MinistersIndexType,
-        Types::NewsArticleType,
-        Types::RoleType,
-        Types::WorldIndexType,
       ].freeze
 
       possible_types(*EDITION_TYPES)
@@ -18,6 +15,8 @@ module Types
           document_type = object.document_type
 
           matching_edition_subtype = Types::EditionType.descendants.find do |edition_subtype|
+            next unless edition_subtype.respond_to?(:document_types)
+
             edition_subtype.document_types.include?(document_type)
           end
 
