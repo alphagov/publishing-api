@@ -19,6 +19,22 @@ namespace :data_hygiene do
     end
   end
 
+  desc "Unpublish remaining whitehall-frontend rendered editions"
+  task unpublish_whitehall_frontend: :environent do
+    whitehall_frontend_documents = Edition
+                                    .where(state: "published", rendering_app: "whitehall-frontend")
+                                    .map { |edition| edition.document.content_id }
+
+    whitehall_frontend_documents.each do |content_id|
+      Commands::V2::Unpublish.call(
+        {
+          content_id: content_id,
+          type: "gone",
+        },
+      )
+    end
+  end
+
   desc "Check the status of a document whether it's in Content Store or Router."
   task :document_status_check, %i[content_id locale] => :environment do |_, args|
     document = Document.find_by!(args.to_hash)
