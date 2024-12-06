@@ -20,7 +20,7 @@ namespace :data_hygiene do
   end
 
   desc "Unpublish remaining whitehall-frontend rendered editions"
-  task unpublish_whitehall_frontend: :environent do
+  task unpublish_whitehall_frontend: :environment do
     whitehall_frontend_documents = Edition
                                     .where(state: "published", rendering_app: "whitehall-frontend")
                                     .map { |edition| edition.document.content_id }
