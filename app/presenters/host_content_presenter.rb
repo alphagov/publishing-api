@@ -26,22 +26,7 @@ module Presenters
       return [] unless host_content.any?
 
       host_content.map do |edition|
-        {
-          title: edition.title,
-          base_path: edition.base_path,
-          document_type: edition.document_type,
-          publishing_app: edition.publishing_app,
-          last_edited_by_editor_id: edition.last_edited_by_editor_id,
-          last_edited_at: edition.last_edited_at,
-          unique_pageviews: edition.unique_pageviews,
-          instances: edition.instances,
-          host_content_id: edition.host_content_id,
-          primary_publishing_organisation: {
-            content_id: edition.primary_publishing_organisation_content_id,
-            title: edition.primary_publishing_organisation_title,
-            base_path: edition.primary_publishing_organisation_base_path,
-          },
-        }
+        HostContentItemPresenter.present(edition)
       end
     end
 

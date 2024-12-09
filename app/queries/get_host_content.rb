@@ -62,15 +62,16 @@ module Queries
 
     ORDER_DIRECTIONS = %i[asc desc].freeze
 
-    attr_reader :target_content_id, :state, :order_field, :order_direction, :page, :per_page
+    attr_reader :target_content_id, :state, :order_field, :order_direction, :page, :per_page, :host_content_id
 
-    def initialize(target_content_id, order_field: nil, order_direction: nil, page: nil, per_page: nil)
+    def initialize(target_content_id, order_field: nil, order_direction: nil, page: nil, per_page: nil, host_content_id: nil)
       @target_content_id = target_content_id
       @state = "published"
       @order_direction = ORDER_DIRECTIONS.include?(order_direction || :asc) ? order_direction : raise(KeyError, "Unknown order direction: #{order_direction}")
       @order_field = ORDER_FIELDS.fetch(order_field || :unique_pageviews) { |k| raise KeyError, "Unknown order field: #{k}" }
       @page = page || 0
       @per_page = per_page || DEFAULT_PER_PAGE
+      @host_content_id = host_content_id
     end
 
     def call
@@ -99,11 +100,20 @@ module Queries
     end
 
     def arel_query
-      arel_joins.where(
-        TABLES[:editions][:state].eq(state)
-                                 .and(TABLES[:links][:link_type].eq(embedded_link_type))
-                                 .and(TABLES[:links][:target_content_id].eq(target_content_id)),
-      ).order(order_direction == :desc ? order_field.desc.nulls_last : order_field.asc)
+      arel_joins
+        .where(clauses)
+        .order(order_direction == :desc ? order_field.desc.nulls_last : order_field.asc)
+    end
+
+    def clauses
+      clauses = TABLES[:editions][:state].eq(state)
+                                         .and(TABLES[:links][:link_type].eq(embedded_link_type))
+                                         .and(TABLES[:links][:target_content_id].eq(target_content_id))
+      if host_content_id
+        clauses = clauses.and(TABLES[:documents][:content_id]).eq(host_content_id)
+      end
+
+      clauses
     end
 
     def count_query

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
         put "/content/:content_id", to: "content_items#put_content"
         get "/content/:content_id", to: "content_items#show"
         get "/content/:content_id/host-content", to: "content_items#host_content"
+        get "/content/:content_id/host-content/:host_content_id", to: "content_items#host_content_item"
         # Point legacy `embedded` endpoint to `host_content` endpoint
         get "/content/:content_id/embedded", to: "content_items#host_content"
         post "/content/:content_id/publish", to: "content_items#publish"

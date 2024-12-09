@@ -17,6 +17,7 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`GET /v2/content`](#get-v2content)
 - [`GET /v2/content/:content_id`](#get-v2contentcontent_id)
 - [`GET /v2/content/:content_id/host-content`](#get-v2contentcontent_idhost-content)
+- [`GET /v2/content/:content_id/host-content/:host_content_id`](#get-v2contentcontent_idhost-contenthost_content_id)
 - [`PATCH /v2/links/:content_id`](#patch-v2linkscontent_id)
 - [`GET /v2/links/:content_id`](#get-v2linkscontent_id)
 - [`GET /v2/expanded-links/:content_id`](#get-v2expanded-linkscontent_id)
@@ -449,6 +450,18 @@ it wants to defer to a reusable piece of content, such as an email address.
     "-title".
 - `page` *(optional, default: "1")*
   - The page number of results to return
+
+## `GET /v2/content/:content_id/host-content/:host_content_id`
+
+Returns metadata for a single item of content with ID `:host_content_id` that has an embedded reference to 
+the target `:content_id`.
+
+### Path parameters
+
+- [`content_id`](model.md#content_id)
+  - Identifies the target document for the reusable piece of content
+- [`host_content_id`](model.md#content_id)
+  - Identifies the document to return the metadata for
 
 ## `PATCH /v2/links/:content_id`
 

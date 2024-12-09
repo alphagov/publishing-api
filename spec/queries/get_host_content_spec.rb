@@ -25,6 +25,8 @@ RSpec.describe Queries::GetHostContent do
              })
     end
 
+    let(:target_content_id) { content_block.content_id }
+
     context "when the target_content is not embedded in any live editions" do
       it "returns an empty results list" do
         target_content_id = SecureRandom.uuid
@@ -37,31 +39,33 @@ RSpec.describe Queries::GetHostContent do
     end
 
     context "when there are live and draft editions that embed the target content" do
-      let(:target_content_id) { content_block.content_id }
+      let!(:published_host_editions) do
+        create_list(:live_edition, 2,
+                    details: {
+                      body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                    },
+                    links_hash: {
+                      primary_publishing_organisation: [organisation.content_id],
+                      embed: [target_content_id],
+                    },
+                    publishing_app: "example-app")
+      end
+
+      let!(:draft_host_editions) do
+        create_list(:edition, 2,
+                    details: {
+                      body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                    },
+                    links_hash: {
+                      primary_publishing_organisation: [organisation.content_id],
+                      embed: [target_content_id],
+                    },
+                    publishing_app: "another-app")
+      end
+
+      let!(:unwanted_edition) { create(:live_edition) }
 
       it "returns the live editions" do
-        target_content_id = content_block.content_id
-        published_host_editions = create_list(:live_edition, 2,
-                                              details: {
-                                                body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
-                                              },
-                                              links_hash: {
-                                                primary_publishing_organisation: [organisation.content_id],
-                                                embed: [target_content_id],
-                                              },
-                                              publishing_app: "example-app")
-        _draft_host_editions = create_list(:edition, 2,
-                                           details: {
-                                             body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
-                                           },
-                                           links_hash: {
-                                             primary_publishing_organisation: [organisation.content_id],
-                                             embed: [target_content_id],
-                                           },
-                                           publishing_app: "another-app")
-
-        _unwanted_edition = create(:live_edition)
-
         published_host_editions.map do |edition|
           create(:statistics_cache, document: edition.document, unique_pageviews: 123)
         end
@@ -91,7 +95,27 @@ RSpec.describe Queries::GetHostContent do
         end
       end
 
-      it "returns instance counts when the content is embedded more than once" do
+      it "allows filtering by host_content_id" do
+        host_edition = published_host_editions[1]
+        results = described_class.new(target_content_id, host_content_id: host_edition.content_id).call
+
+        expect(results.count).to eq(1)
+
+        expect(results[0].id).to eq(host_edition.id)
+        expect(results[0].title).to eq(host_edition.title)
+        expect(results[0].base_path).to eq(host_edition.base_path)
+        expect(results[0].document_type).to eq(host_edition.document_type)
+        expect(results[0].publishing_app).to eq(host_edition.publishing_app)
+        expect(results[0].host_content_id).to eq(host_edition.content_id)
+        expect(results[0].primary_publishing_organisation_content_id).to eq(organisation.content_id)
+        expect(results[0].primary_publishing_organisation_title).to eq(organisation.title)
+        expect(results[0].primary_publishing_organisation_base_path).to eq(organisation.base_path)
+        expect(results[0].instances).to eq(1)
+      end
+    end
+
+    context "when the content id embedded more than once" do
+      before do
         create(:live_edition,
                details: {
                  body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
@@ -101,16 +125,20 @@ RSpec.describe Queries::GetHostContent do
                  embed: [target_content_id, target_content_id],
                },
                publishing_app: "example-app")
+      end
 
+      it "returns instance counts correctly" do
         results = described_class.new(target_content_id).call
 
         expect(results[0].instances).to eq(2)
       end
+    end
 
-      it "returns one row per content block when an organisation has a translation" do
-        welsh_document = create(:document, locale: "cy", content_id: organisation.content_id)
+    context "when an organisation has a translation" do
+      let(:welsh_document) { create(:document, locale: "cy", content_id: organisation.content_id) }
+
+      before do
         create(:live_edition, document: welsh_document, base_path: "#{organisation.base_path}.cy")
-
         create(:live_edition,
                details: {
                  body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
@@ -120,7 +148,9 @@ RSpec.describe Queries::GetHostContent do
                  embed: [target_content_id],
                },
                publishing_app: "example-app")
+      end
 
+      it "returns one row per content block" do
         results = described_class.new(target_content_id).call
 
         expect(results.count).to eq(1)

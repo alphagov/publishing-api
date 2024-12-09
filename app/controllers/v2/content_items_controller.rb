@@ -32,6 +32,15 @@ module V2
       render json: results
     end
 
+    def host_content_item
+      results = GetHostContentItemService.new(
+        path_params[:content_id],
+        path_params[:host_content_id],
+      ).call
+
+      render json: results
+    end
+
     def show
       render json: Queries::GetContent.call(
         path_params[:content_id],
