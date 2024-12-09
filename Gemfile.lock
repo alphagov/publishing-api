@@ -280,7 +280,7 @@ GEM
       capybara (>= 3.36)
       puma
       selenium-webdriver (>= 4.0)
-    graphql (2.4.6)
+    graphql (2.4.7)
       base64
       fiber-storage
     hashdiff (1.1.2)
