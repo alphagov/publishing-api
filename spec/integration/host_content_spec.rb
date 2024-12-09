@@ -43,17 +43,39 @@ RSpec.describe "Host content" do
   end
 
   context "when an edition embeds a reference to the content block" do
-    it "returns details of the edition and its publishing organisation in the results" do
-      last_edited_at = "2023-01-01T08:00:00.000Z"
-      host_edition = Timecop.freeze Time.zone.parse(last_edited_at) do
+    let(:last_edited_at) { "2023-01-01T08:00:00.000Z" }
+
+    let!(:host_edition) do
+      Timecop.freeze Time.zone.parse(last_edited_at) do
         create_live_edition(
           body: "<p>{{embed:content_block_email_address:#{content_block.content_id}}}</p>\n",
           primary_publishing_organisation_uuid: publishing_organisation.content_id,
         )
       end
+    end
 
-      statistics_cache = create(:statistics_cache, document: host_edition.document, unique_pageviews: 333)
+    let!(:statistics_cache) { create(:statistics_cache, document: host_edition.document, unique_pageviews: 333) }
 
+    let(:host_edition_response) do
+      {
+        "title" => host_edition.title,
+        "base_path" => host_edition.base_path,
+        "document_type" => host_edition.document_type,
+        "publishing_app" => host_edition.publishing_app,
+        "last_edited_by_editor_id" => host_edition.last_edited_by_editor_id,
+        "last_edited_at" => last_edited_at,
+        "unique_pageviews" => statistics_cache.unique_pageviews,
+        "instances" => 1,
+        "host_content_id" => host_edition.content_id,
+        "primary_publishing_organisation" => {
+          "content_id" => publishing_organisation.content_id,
+          "title" => publishing_organisation.title,
+          "base_path" => publishing_organisation.base_path,
+        },
+      }
+    end
+
+    it "returns details of the edition and its publishing organisation in the results" do
       get "/v2/content/#{content_block.content_id}/host-content"
 
       expect(response.status).to eq(200)
@@ -62,60 +84,50 @@ RSpec.describe "Host content" do
 
       expect(response_body["content_id"]).to eq(content_block.content_id)
       expect(response_body["total"]).to eq(1)
-      expect(response_body["results"]).to include(
-        {
-          "title" => host_edition.title,
-          "base_path" => host_edition.base_path,
-          "document_type" => host_edition.document_type,
-          "publishing_app" => host_edition.publishing_app,
-          "last_edited_by_editor_id" => host_edition.last_edited_by_editor_id,
-          "last_edited_at" => last_edited_at,
-          "unique_pageviews" => statistics_cache.unique_pageviews,
-          "instances" => 1,
-          "host_content_id" => host_edition.content_id,
-          "primary_publishing_organisation" => {
-            "content_id" => publishing_organisation.content_id,
-            "title" => publishing_organisation.title,
-            "base_path" => publishing_organisation.base_path,
-          },
-        },
+      expect(response_body["results"]).to include(host_edition_response)
+    end
+
+    it "allows a single item to be returned" do
+      get "/v2/content/#{content_block.content_id}/host-content/#{host_edition.content_id}"
+      response_body = parsed_response
+
+      expect(response_body).to eq(host_edition_response)
+    end
+  end
+
+  context "when host content appears more than once in a field" do
+    let!(:host_edition) do
+      create_live_edition(
+        body: "<p>{{embed:content_block_email_address:#{content_block.content_id}}} {{embed:content_block_email_address:#{content_block.content_id}}}</p>\n",
       )
     end
 
-    context "when host content appears more than once in a field" do
-      let!(:host_edition) do
+    it "should return multiple instances" do
+      get "/v2/content/#{content_block.content_id}/host-content"
+      response_body = parsed_response
+
+      expect(response_body["content_id"]).to eq(content_block.content_id)
+      expect(response_body["total"]).to eq(1)
+
+      expect(response_body["results"][0]["instances"]).to eq(2)
+    end
+
+    context "when the host edition is changed to reference the content once" do
+      before do
         create_live_edition(
-          body: "<p>{{embed:content_block_email_address:#{content_block.content_id}}} {{embed:content_block_email_address:#{content_block.content_id}}}</p>\n",
+          content_id: host_edition.content_id,
+          body: "<p>{{embed:content_block_email_address:#{content_block.content_id}}}</p>\n",
         )
       end
 
-      it "should return multiple instances" do
+      it "should return only one instance" do
         get "/v2/content/#{content_block.content_id}/host-content"
         response_body = parsed_response
 
         expect(response_body["content_id"]).to eq(content_block.content_id)
         expect(response_body["total"]).to eq(1)
 
-        expect(response_body["results"][0]["instances"]).to eq(2)
-      end
-
-      context "when the host edition is changed to reference the content once" do
-        before do
-          create_live_edition(
-            content_id: host_edition.content_id,
-            body: "<p>{{embed:content_block_email_address:#{content_block.content_id}}}</p>\n",
-          )
-        end
-
-        it "should return only one instance" do
-          get "/v2/content/#{content_block.content_id}/host-content"
-          response_body = parsed_response
-
-          expect(response_body["content_id"]).to eq(content_block.content_id)
-          expect(response_body["total"]).to eq(1)
-
-          expect(response_body["results"][0]["instances"]).to eq(1)
-        end
+        expect(response_body["results"][0]["instances"]).to eq(1)
       end
     end
   end

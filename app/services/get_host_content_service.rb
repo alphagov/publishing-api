@@ -26,7 +26,13 @@ private
   attr_accessor :target_content_id, :order, :page, :per_page
 
   def query
-    @query ||= Queries::GetHostContent.new(target_content_id, order_field:, order_direction:, page:, per_page:)
+    @query ||= Queries::GetHostContent.new(
+      target_content_id,
+      order_field:,
+      order_direction:,
+      page:,
+      per_page:,
+    )
   end
 
   def host_content
