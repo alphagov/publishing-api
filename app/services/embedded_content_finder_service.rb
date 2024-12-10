@@ -11,9 +11,9 @@ class EmbeddedContentFinderService
   def find_content_references(value)
     case value
     when Array
-      value.map { |item| find_content_references(item) }.flatten.uniq
+      value.map { |item| find_content_references(item) }.uniq.flatten
     when Hash
-      value.map { |_, v| find_content_references(v) }.flatten.uniq
+      value.map { |_, v| find_content_references(v) }.uniq.flatten
     when String
       ContentBlockTools::ContentBlockReference.find_all_in_document(value)
     else

@@ -86,12 +86,58 @@ RSpec.shared_examples "finds references" do |document_type|
         expect(links).to eq([editions[0].content_id, editions[1].content_id])
       end
 
+      it "returns duplicates when there is more than one content reference in the field and #{field_name} is a multipart document" do
+        details = {
+          field_name => [
+            {
+              body: [
+                {
+                  content: "some string with a reference: {{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[0].content_id}}}",
+                  content_type: "text/html",
+                },
+                {
+                  content: "some string with a reference: {{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[0].content_id}}}",
+                  content_type: "text/govspeak",
+                },
+              ],
+              slug: "some-slug",
+              title: "Some title",
+            },
+            {
+              body: [
+                {
+                  content: "some string with another reference: {{embed:#{document_type}:#{editions[1].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}",
+                  content_type: "text/html",
+                },
+                {
+                  content: "some string with another reference: {{embed:#{document_type}:#{editions[1].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}",
+                  content_type: "text/govspeak",
+                },
+              ],
+              slug: "some-other-slug",
+              title: "Some other title",
+            },
+          ],
+        }
+        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE)
+
+        expect(links).to eq([editions[0].content_id, editions[0].content_id, editions[1].content_id, editions[1].content_id])
+      end
+
       it "finds content references when the field is a hash" do
         details = { field_name => { title: "{{embed:#{document_type}:#{editions[0].content_id}}}", slug: "{{embed:#{document_type}:#{editions[1].content_id}}}", current: true } }
 
         links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE)
 
         expect(links).to eq([editions[0].content_id, editions[1].content_id])
+      end
+
+      it "returns duplicates when there is more than one content reference in the field and the field is a hash" do
+        details = { field_name => { title: "{{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[0].content_id}}}", slug: "{{embed:#{document_type}:#{editions[1].content_id}}}", current: true } }
+
+        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE)
+
+        expect(links).to eq([editions[0].content_id, editions[0].content_id, editions[1].content_id])
       end
 
       it "errors when given a content ID that is still draft" do
