@@ -8,7 +8,7 @@
                required: ["divisions"],
                properties: {
                      divisions: {
-                         nation_slug: "string" {
+                         nation: {
                              title: "string",
                              year: {
                                    title: "string",
