@@ -15,17 +15,6 @@ class DataHygiene::DocumentStatusChecker
     false
   end
 
-  def router?
-    routes.each do |route|
-      route = GdsApi.router.get_route(route[:path])
-      return false unless route["backend_id"] == edition.rendering_app
-    end
-
-    true
-  rescue GdsApi::HTTPNotFound
-    false
-  end
-
 private
 
   attr_reader :document
