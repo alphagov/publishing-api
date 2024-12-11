@@ -1,5 +1,5 @@
 (import "shared/default_format.jsonnet") + {
-  document_type: "topical_event",
+  document_type: ["topical_event", "editionable_topical_event"],
   definitions: (import "shared/definitions/_whitehall.jsonnet") + {
     details: {
       type: "object",
