@@ -1,0 +1,70 @@
+{
+  "base_path": "/when-do-the-clocks-change",  
+  "document_type": "clocks_change",
+  "schema_name": "calendar",
+  "title": "When do the clocks change?",
+  "content_id": "41c78b38-f70e-4729-815b-680f9b90db30",
+  "description": "Dates when the clocks go back or forward - includes British Summer Time, Greenwich Mean Time",
+  "locale": "en",
+  "details": {
+      "divisions": [
+        {
+          "divisionName": "united-kingdom",
+          "years": [
+            {
+              "yearNumber": 2025,
+              "events": [
+                {
+                  "title": "Start of British Summer Time",
+                  "date": "2025-03-30T00:00:00Z",
+                  "notes": "Clocks go forward one hour"
+                },
+                {
+                  "title": "End of British Summer Time",
+                  "date": "2025-10-26T00:00:00Z",
+                  "notes": "Clocks go back one hour"
+                }
+              ]
+            },
+            {
+              "yearNumber": 2026,
+              "events": [
+                {
+                  "title": "Start of British Summer Time",
+                  "date": "2026-03-29T00:00:00Z",
+                  "notes": "Clocks go forward one hour"
+                },
+                {
+                  "title": "End of British Summer Time",
+                  "date": "2026-10-25T00:00:00Z",
+                  "notes": "Clocks go back one hour"
+                }
+              ]
+            },
+            {
+              "yearNumber": 2027,
+              "events": [
+                {
+                  "title": "Start of British Summer Time",
+                  "date": "2027-03-28T00:00:00Z",
+                  "notes": "Clocks go forward one hour"
+                },
+                {
+                  "title": "End of British Summer Time",
+                  "date": "2027-10-31T00:00:00Z",
+                  "notes": "Clocks go back one hour"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+  },
+  "links": {
+  },
+  "publishing_app": "frontend",
+  "rendering_app": "frontend",
+  "public_updated_at": "2024-07-30T13:58:11+00:00",
+  "updated_at": "2024-07-31T09:40:32+01:00"
+}
+  

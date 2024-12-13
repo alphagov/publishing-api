@@ -2,29 +2,17 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "required": [
-    "analytics_identifier",
     "base_path",
     "content_id",
     "description",
     "details",
     "document_type",
-    "email_document_supertype",
-    "expanded_links",
-    "first_published_at",
-    "government_document_supertype",
-    "govuk_request_id",
     "links",
     "locale",
-    "payload_version",
-    "phase",
     "public_updated_at",
-    "publishing_app",
-    "redirects",
-    "rendering_app",
-    "routes",
     "schema_name",
     "title",
-    "update_type"
+    "updated_at"
   ],
   "additionalProperties": false,
   "properties": {
@@ -37,18 +25,6 @@
     "content_id": {
       "$ref": "#/definitions/guid"
     },
-    "content_purpose_document_supertype": {
-      "description": "DEPRECATED. Use `content_purpose_subgroup`.",
-      "type": "string"
-    },
-    "content_purpose_subgroup": {
-      "description": "Document subgroup grouping documents by purpose. Narrows down the purpose defined in content_purpose_supergroup.",
-      "type": "string"
-    },
-    "content_purpose_supergroup": {
-      "description": "Document supergroup grouping documents by a purpose",
-      "type": "string"
-    },
     "description": {
       "$ref": "#/definitions/description_optional"
     },
@@ -58,15 +34,20 @@
     "document_type": {
       "type": "string",
       "enum": [
-        "bank_holidays",
-        "clocks_change"
+        "calendar"
       ]
     },
-    "email_document_supertype": {
-      "description": "Document supertype grouping intended to power the Whitehall finders and email subscriptions",
-      "type": "string"
+    "first_published_at": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/first_published_at"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
-    "expanded_links": {
+    "links": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -174,95 +155,14 @@
         }
       }
     },
-    "first_published_at": {
-      "$ref": "#/definitions/first_published_at"
-    },
-    "government_document_supertype": {
-      "description": "Document supertype grouping intended to power the Whitehall finders and email subscriptions",
-      "type": "string"
-    },
-    "govuk_request_id": {
-      "$ref": "#/definitions/govuk_request_id"
-    },
-    "links": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "embed": {
-          "description": "Content that will be embedded within the document, using embed tags.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "finder": {
-          "description": "Powers links from content back to finders the content is surfaced on",
-          "$ref": "#/definitions/guid_list"
-        },
-        "lead_organisations": {
-          "description": "DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "mainstream_browse_pages": {
-          "description": "Powers the /browse section of the site. These are known as sections in some legacy apps.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "meets_user_needs": {
-          "description": "The user needs this piece of content meets.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_related_items": {
-          "description": "Related items, can be any page on GOV.UK. Mostly used for mainstream content to power the sidebar. Ordering of the links is determined by the editor in Content Tagger.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "ordered_related_items_overrides": {
-          "description": "Related items, can be any page on GOV.UK. Overrides 'more like this' automatically generated links in the beta navigation.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "organisations": {
-          "description": "All organisations linked to this content item. This should include lead organisations.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "original_primary_publishing_organisation": {
-          "description": "The organisation that published the original version of the page. Corresponds to the first of the 'Lead organisations' in Whitehall for the first edition, and is empty for all other publishing applications.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "parent": {
-          "description": "The parent content item.",
-          "$ref": "#/definitions/guid_list",
-          "maxItems": 1
-        },
-        "policy_areas": {
-          "description": "A largely deprecated tag currently only used to power email alerts.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "primary_publishing_organisation": {
-          "description": "The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.",
-          "$ref": "#/definitions/guid_list",
-          "maxItems": 1
-        },
-        "suggested_ordered_related_items": {
-          "description": "Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms.",
-          "$ref": "#/definitions/guid_list"
-        },
-        "taxons": {
-          "description": "Prototype-stage taxonomy label for this content item",
-          "$ref": "#/definitions/guid_list"
-        }
-      }
-    },
     "locale": {
       "$ref": "#/definitions/locale"
-    },
-    "navigation_document_supertype": {
-      "description": "Document type grouping powering the new taxonomy-based navigation pages",
-      "type": "string"
     },
     "need_ids": {
       "type": "array",
       "items": {
         "type": "string"
       }
-    },
-    "payload_version": {
-      "$ref": "#/definitions/payload_version"
     },
     "phase": {
       "description": "The service design phase of this content item - https://www.gov.uk/service-manual/phases",
@@ -274,7 +174,14 @@
       ]
     },
     "public_updated_at": {
-      "$ref": "#/definitions/public_updated_at"
+      "anyOf": [
+        {
+          "$ref": "#/definitions/public_updated_at"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "publishing_app": {
       "$ref": "#/definitions/publishing_app_name"
@@ -282,40 +189,41 @@
     "publishing_request_id": {
       "$ref": "#/definitions/publishing_request_id"
     },
-    "redirects": {
-      "type": "array",
-      "additionalItems": false,
-      "items": {}
+    "publishing_scheduled_at": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/publishing_scheduled_at"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "rendering_app": {
       "$ref": "#/definitions/rendering_app"
     },
-    "routes": {
-      "$ref": "#/definitions/routes"
+    "scheduled_publishing_delay_seconds": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/scheduled_publishing_delay_seconds"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "schema_name": {
       "type": "string",
       "enum": [
-        "calendars"
+        "old_calendar"
       ]
-    },
-    "search_user_need_document_supertype": {
-      "description": "Document supertype grouping core and government documents",
-      "type": "string"
     },
     "title": {
       "$ref": "#/definitions/title"
     },
-    "update_type": {
-      "$ref": "#/definitions/update_type"
-    },
-    "user_journey_document_supertype": {
-      "description": "Document type grouping powering analytics of user journeys",
-      "type": "string"
-    },
-    "user_need_document_supertype": {
-      "description": "DEPRECATED. Use `content_purpose_document_supertype`.",
-      "type": "string"
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
     },
     "withdrawn_notice": {
       "$ref": "#/definitions/withdrawn_notice"
@@ -340,6 +248,10 @@
           "type": "null"
         }
       ]
+    },
+    "body": {
+      "description": "The main content provided as HTML rendered from govspeak",
+      "type": "string"
     },
     "change_history": {
       "type": "array",
@@ -374,30 +286,13 @@
     },
     "details": {
       "type": "object",
-      "required": [
-        "divisions"
-      ],
       "additionalProperties": false,
       "properties": {
+        "body": {
+          "$ref": "#/definitions/body"
+        },
         "change_history": {
           "$ref": "#/definitions/change_history"
-        },
-        "divisions": {
-          "nation": {
-            "title": "string",
-            "year": {
-              "bunting": {
-                "style": "string",
-                "visible": "boolean"
-              },
-              "date": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "notes": "string",
-              "title": "string"
-            }
-          }
         }
       }
     },
@@ -539,22 +434,9 @@
         }
       }
     },
-    "govuk_request_id": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
     "guid": {
       "type": "string",
       "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
-    },
-    "guid_list": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/guid"
-      },
-      "uniqueItems": true
     },
     "locale": {
       "type": "string",
@@ -627,10 +509,6 @@
         "zh-tw"
       ]
     },
-    "payload_version": {
-      "description": "Counter to indicate when the payload was generated",
-      "type": "integer"
-    },
     "public_updated_at": {
       "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
       "type": "string",
@@ -684,6 +562,11 @@
         }
       ]
     },
+    "publishing_scheduled_at": {
+      "description": "When this content was last scheduled for publishing. Determined by the publishing intent sent by the publishing API.",
+      "type": "string",
+      "format": "date-time"
+    },
     "rendering_app": {
       "description": "The application that renders this item.",
       "type": "string",
@@ -712,41 +595,12 @@
         "whitehall-frontend"
       ]
     },
-    "route": {
-      "type": "object",
-      "required": [
-        "path",
-        "type"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "path": {
-          "type": "string"
-        },
-        "type": {
-          "enum": [
-            "prefix",
-            "exact"
-          ]
-        }
-      }
-    },
-    "routes": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/route"
-      },
-      "minItems": 1
+    "scheduled_publishing_delay_seconds": {
+      "description": "The delay between the most recent scheduled and actual publishing times. Determined by the content store based on the publishing intent.",
+      "type": "integer"
     },
     "title": {
       "type": "string"
-    },
-    "update_type": {
-      "enum": [
-        "major",
-        "minor",
-        "republish"
-      ]
     },
     "withdrawn_notice": {
       "type": "object",

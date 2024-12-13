@@ -58,7 +58,8 @@
     "document_type": {
       "type": "string",
       "enum": [
-        "calendar"
+        "bank_holidays",
+        "clocks_change"
       ]
     },
     "email_document_supertype": {
@@ -340,10 +341,6 @@
         }
       ]
     },
-    "body": {
-      "description": "The main content provided as HTML rendered from govspeak",
-      "type": "string"
-    },
     "change_history": {
       "type": "array",
       "items": {
@@ -377,13 +374,78 @@
     },
     "details": {
       "type": "object",
+      "required": [
+        "divisions"
+      ],
       "additionalProperties": false,
       "properties": {
-        "body": {
-          "$ref": "#/definitions/body"
-        },
         "change_history": {
           "$ref": "#/definitions/change_history"
+        },
+        "divisions": {
+          "type": "array",
+          "additionalProperties": false,
+          "items": {
+            "type": "object",
+            "required": [
+              "divisionName",
+              "years"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "divisionName": {
+                "description": "The name of the division e.g. England and Wales",
+                "type": "string"
+              },
+              "years": {
+                "type": "array",
+                "additionalProperties": false,
+                "items": {
+                  "$ref": "#/definitions/year"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "required": [
+        "title",
+        "date"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "bunting": {
+          "type": "object",
+          "required": [
+            "visible"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "style": {
+              "description": "The style of bunting to display",
+              "type": "string"
+            },
+            "visible": {
+              "description": "Indicates whether the bunting should be displayed",
+              "type": "boolean"
+            }
+          }
+        },
+        "date": {
+          "description": "The date of the event, e.g.: 2015-12-25T00:00:00Z",
+          "type": "string",
+          "format": "date-time"
+        },
+        "notes": {
+          "description": "Notes about the event e.g. substitute_day or extra_bank_holiday",
+          "type": "string"
+        },
+        "title": {
+          "description": "The title of the event e.g.: Christmas Day",
+          "type": "string"
         }
       }
     },
@@ -743,6 +805,27 @@
         },
         "withdrawn_at": {
           "format": "date-time"
+        }
+      }
+    },
+    "year": {
+      "type": "object",
+      "required": [
+        "yearNumber",
+        "events"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "events": {
+          "type": "array",
+          "additionalProperties": false,
+          "items": {
+            "$ref": "#/definitions/event"
+          }
+        },
+        "yearNumber": {
+          "description": "The year as a number e.g.: 2015",
+          "type": "number"
         }
       }
     }

@@ -47,8 +47,7 @@
     "document_type": {
       "type": "string",
       "enum": [
-        "bank_holidays",
-        "clocks_change"
+        "calendar"
       ]
     },
     "first_published_at": {
@@ -121,7 +120,7 @@
     "schema_name": {
       "type": "string",
       "enum": [
-        "calendars"
+        "old_calendar"
       ]
     },
     "title": {
@@ -171,6 +170,10 @@
         }
       ]
     },
+    "body": {
+      "description": "The main content provided as HTML rendered from govspeak",
+      "type": "string"
+    },
     "description_optional": {
       "anyOf": [
         {
@@ -183,27 +186,10 @@
     },
     "details": {
       "type": "object",
-      "required": [
-        "divisions"
-      ],
       "additionalProperties": false,
       "properties": {
-        "divisions": {
-          "nation": {
-            "title": "string",
-            "year": {
-              "bunting": {
-                "style": "string",
-                "visible": "boolean"
-              },
-              "date": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "notes": "string",
-              "title": "string"
-            }
-          }
+        "body": {
+          "$ref": "#/definitions/body"
         }
       }
     },
