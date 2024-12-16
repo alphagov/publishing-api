@@ -51,12 +51,14 @@ RSpec.describe "GraphQL" do
               ... on WorldIndex {
                 title
 
-                worldLocations {
-                  ...worldLocationInfo
-                }
+                details {
+                  worldLocations {
+                    ...worldLocationInfo
+                  }
 
-                internationalDelegations {
-                  ...worldLocationInfo
+                  internationalDelegations {
+                    ...worldLocationInfo
+                  }
                 }
               }
             }
@@ -67,26 +69,28 @@ RSpec.describe "GraphQL" do
         data: {
           edition: {
             title: "Help and services around the world",
-            worldLocations: [
-              {
-                active: true,
-                analyticsIdentifier: "WL1",
-                contentId: "d3b7ba48-5027-4a98-a594-1108d205dc66",
-                name: "Test World Location",
-                slug: "test-world-location",
-                updatedAt: "2024-10-18T14:22:38+01:00",
-              },
-            ],
-            internationalDelegations: [
-              {
-                active: false,
-                analyticsIdentifier: "WL2",
-                contentId: "f0313f16-e25c-4bfe-a0fc-e561833f705f",
-                name: "Test International Delegation",
-                slug: "test-international-delegation",
-                updatedAt: "2024-10-19T15:07:44+01:00",
-              },
-            ],
+            details: {
+              worldLocations: [
+                {
+                  active: true,
+                  analyticsIdentifier: "WL1",
+                  contentId: "d3b7ba48-5027-4a98-a594-1108d205dc66",
+                  name: "Test World Location",
+                  slug: "test-world-location",
+                  updatedAt: "2024-10-18T14:22:38+01:00",
+                },
+              ],
+              internationalDelegations: [
+                {
+                  active: false,
+                  analyticsIdentifier: "WL2",
+                  contentId: "f0313f16-e25c-4bfe-a0fc-e561833f705f",
+                  name: "Test International Delegation",
+                  slug: "test-international-delegation",
+                  updatedAt: "2024-10-19T15:07:44+01:00",
+                },
+              ],
+            },
           },
         },
       }

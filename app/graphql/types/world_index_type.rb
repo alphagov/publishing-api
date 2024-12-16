@@ -14,16 +14,12 @@ module Types
       field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
     end
 
-    field :body, String
-    field :international_delegations, [WorldLocation], null: false
-    field :world_locations, [WorldLocation], null: false
-
-    def international_delegations
-      object.details[:international_delegations]
+    class WorldIndexDetails < BaseObject
+      field :body, String
+      field :international_delegations, [WorldLocation], null: false
+      field :world_locations, [WorldLocation], null: false
     end
 
-    def world_locations
-      object.details[:world_locations]
-    end
+    field :details, WorldIndexDetails
   end
 end
