@@ -61,7 +61,7 @@ module Types
         def role_appointments
           Edition
             .live
-            .joins(
+            .includes(
               document: {
                 reverse_links: { # role -> role_appointment
                   link_set: {

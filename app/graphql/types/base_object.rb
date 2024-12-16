@@ -12,7 +12,7 @@ module Types
       define_method(field_name_and_link_type.to_sym) do
         Edition
           .live
-          .joins(document: { reverse_links: :link_set })
+          .includes(document: { reverse_links: :link_set })
           .where(
             document: { locale: "en" },
             link_set: { content_id: object.content_id },
