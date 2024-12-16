@@ -720,4 +720,14 @@ Pact.provider_states_for "GDS API Adapters" do
       end
     end
   end
+
+  provider_state "a selection of events exists for content ID b317151d-0b05-4641-8494-596b6f880b20" do
+    set_up do
+      document = create(:document, content_id: "b317151d-0b05-4641-8494-596b6f880b20")
+
+      create(:event, content_id: document.content_id, action: "PutContent", created_at: "2023-01-01T00:00:00Z")
+      create(:event, content_id: document.content_id, action: "Publish", created_at: "2023-01-12T00:00:00Z")
+      create(:event, content_id: document.content_id, action: "HostContentUpdateJob", created_at: "2024-01-01T00:00:00Z")
+    end
+  end
 end
