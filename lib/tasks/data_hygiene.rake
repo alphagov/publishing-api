@@ -23,12 +23,22 @@ namespace :data_hygiene do
   task unpublish_whitehall_frontend: :environment do
     whitehall_frontend_documents = Edition
                                     .where(state: "published", rendering_app: "whitehall-frontend")
-                                    .map { |edition| edition.document.content_id }
+                                    .map(&:document)
 
-    whitehall_frontend_documents.each do |content_id|
+    whitehall_frontend_documents.each do |document|
+      if document.draft.present?
+        Commands::V2::DiscardDraft.call(
+          {
+            content_id: document.content_id,
+            locale: document.locale,
+          },
+        )
+      end
+
       Commands::V2::Unpublish.call(
         {
-          content_id: content_id,
+          content_id: document.content_id,
+          locale: document.locale,
           type: "gone",
         },
       )
