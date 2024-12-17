@@ -691,7 +691,7 @@ GEM
     rbtree (0.4.6)
     rdoc (6.8.1)
       psych (>= 4.0.0)
-    redis-client (0.22.2)
+    redis-client (0.23.0)
       connection_pool
     regexp_parser (2.9.3)
     reline (0.5.12)
@@ -779,11 +779,11 @@ GEM
     sentry-rails (5.22.0)
       railties (>= 5.0)
       sentry-ruby (~> 5.22.0)
-    sentry-ruby (5.22.0)
+    sentry-ruby (5.22.1)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sentry-sidekiq (5.22.0)
-      sentry-ruby (~> 5.22.0)
+    sentry-sidekiq (5.22.1)
+      sentry-ruby (~> 5.22.1)
       sidekiq (>= 3.0)
     set (1.1.0)
     sidekiq (7.3.6)
