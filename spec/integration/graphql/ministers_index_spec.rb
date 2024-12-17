@@ -27,59 +27,59 @@ RSpec.describe "GraphQL" do
       post "/graphql", params: {
         query:
         "{
-          edition(basePath: \"/government/ministers\") {
+          edition(base_path: \"/government/ministers\") {
             ... on MinistersIndex {
-              basePath
+              base_path
 
               links {
-                orderedCabinetMinisters {
+                ordered_cabinet_ministers {
                   ...basePersonInfo
                 }
 
-                orderedAlsoAttendsCabinet {
+                ordered_also_attends_cabinet {
                   ...basePersonInfo
                 }
 
-                orderedAssistantWhips {
+                ordered_assistant_whips {
                   ...basePersonInfo
                 }
 
-                orderedBaronessesAndLordsInWaitingWhips {
+                ordered_baronesses_and_lords_in_waiting_whips {
                   ...basePersonInfo
                 }
 
-                orderedHouseLordsWhips {
+                ordered_house_lords_whips {
                   ...basePersonInfo
                 }
 
-                orderedHouseOfCommonsWhips {
+                ordered_house_of_commons_whips {
                   ...basePersonInfo
                 }
 
-                orderedJuniorLordsOfTheTreasuryWhips {
+                ordered_junior_lords_of_the_treasury_whips {
                   ...basePersonInfo
                 }
 
-                orderedMinisterialDepartments {
+                ordered_ministerial_departments {
                   title
-                  webUrl
+                  web_url
 
                   details {
                     brand
 
                     logo {
                       crest
-                      formattedTitle
+                      formatted_title
                     }
                   }
 
                   links {
-                    orderedMinisters {
+                    ordered_ministers {
                       ...basePersonInfo
                     }
 
-                    orderedRoles {
-                      contentId
+                    ordered_roles {
+                      content_id
                     }
                   }
                 }
@@ -90,36 +90,36 @@ RSpec.describe "GraphQL" do
 
         fragment basePersonInfo on MinistersIndexPerson {
           title
-          basePath
-          webUrl
+          base_path
+          web_url
 
           details {
-            privyCounsellor
+            privy_counsellor
 
             image {
               url
-              altText
+              alt_text
             }
           }
 
           links {
-            roleAppointments {
+            role_appointments {
               details {
                 current
               }
 
               links {
                 role {
-                  contentId
+                  content_id
                   title
-                  webUrl
+                  web_url
 
                   details {
-                    rolePaymentType
+                    role_payment_type
                     seniority
-                    whipOrganisation {
+                    whip_organisation {
                       label
-                      sortOrder
+                      sort_order
                     }
                   }
                 }
@@ -146,25 +146,25 @@ RSpec.describe "GraphQL" do
       expect(parsed_response).to match({
         data: {
           edition: {
-            basePath: "/government/ministers",
+            base_path: "/government/ministers",
             links: be_kind_of(Hash),
           },
         },
       })
 
       expect(parsed_links.keys).to match(%i[
-        orderedCabinetMinisters
-        orderedAlsoAttendsCabinet
-        orderedAssistantWhips
-        orderedBaronessesAndLordsInWaitingWhips
-        orderedHouseLordsWhips
-        orderedHouseOfCommonsWhips
-        orderedJuniorLordsOfTheTreasuryWhips
-        orderedMinisterialDepartments
+        ordered_cabinet_ministers
+        ordered_also_attends_cabinet
+        ordered_assistant_whips
+        ordered_baronesses_and_lords_in_waiting_whips
+        ordered_house_lords_whips
+        ordered_house_of_commons_whips
+        ordered_junior_lords_of_the_treasury_whips
+        ordered_ministerial_departments
       ])
     end
 
-    describe "orderedCabinetMinisters links" do
+    describe "ordered_cabinet_ministers links" do
       before do
         person1 = create_person_with_role_appointment("Keir Starmer 1", "1st Minister")
         extra_role = create_role("First Lord of The Treasury")
@@ -181,31 +181,31 @@ RSpec.describe "GraphQL" do
       it "exposes the links' fields" do
         make_request
 
-        expect(parsed_links.fetch(:orderedCabinetMinisters)).to match([
+        expect(parsed_links.fetch(:ordered_cabinet_ministers)).to match([
           {
-            basePath: "/government/people/keir-starmer-1",
+            base_path: "/government/people/keir-starmer-1",
             details: {
               image: {
                 url: "http://assets.dev.gov.uk/media/keir-starmer-1.jpg",
-                altText: "Keir Starmer 1",
+                alt_text: "Keir Starmer 1",
               },
-              privyCounsellor: nil,
+              privy_counsellor: nil,
             },
             links: {
-              roleAppointments: [
+              role_appointments: [
                 {
                   details: { current: true },
                   links: {
                     role: [
                       {
-                        contentId: uuid_matcher,
+                        content_id: uuid_matcher,
                         details: {
-                          rolePaymentType: nil,
+                          role_payment_type: nil,
                           seniority: 100,
-                          whipOrganisation: nil,
+                          whip_organisation: nil,
                         },
                         title: "1st Minister",
-                        webUrl: "http://www.dev.gov.uk/government/ministers/1st-minister",
+                        web_url: "http://www.dev.gov.uk/government/ministers/1st-minister",
                       },
                     ],
                   },
@@ -215,14 +215,14 @@ RSpec.describe "GraphQL" do
                   links: {
                     role: [
                       {
-                        contentId: uuid_matcher,
+                        content_id: uuid_matcher,
                         details: {
-                          rolePaymentType: nil,
+                          role_payment_type: nil,
                           seniority: 100,
-                          whipOrganisation: nil,
+                          whip_organisation: nil,
                         },
                         title: "First Lord of The Treasury",
-                        webUrl: "http://www.dev.gov.uk/government/ministers/first-lord-of-the-treasury",
+                        web_url: "http://www.dev.gov.uk/government/ministers/first-lord-of-the-treasury",
                       },
                     ],
                   },
@@ -230,32 +230,32 @@ RSpec.describe "GraphQL" do
               ],
             },
             title: "Keir Starmer 1",
-            webUrl: "http://www.dev.gov.uk/government/people/keir-starmer-1",
+            web_url: "http://www.dev.gov.uk/government/people/keir-starmer-1",
           },
           {
-            basePath: "/government/people/keir-starmer-2",
+            base_path: "/government/people/keir-starmer-2",
             details: {
               image: {
                 url: "http://assets.dev.gov.uk/media/keir-starmer-2.jpg",
-                altText: "Keir Starmer 2",
+                alt_text: "Keir Starmer 2",
               },
-              privyCounsellor: nil,
+              privy_counsellor: nil,
             },
             links: {
-              roleAppointments: [
+              role_appointments: [
                 {
                   details: { current: true },
                   links: {
                     role: [
                       {
-                        contentId: uuid_matcher,
+                        content_id: uuid_matcher,
                         details: {
-                          rolePaymentType: nil,
+                          role_payment_type: nil,
                           seniority: 100,
-                          whipOrganisation: nil,
+                          whip_organisation: nil,
                         },
                         title: "2nd Minister",
-                        webUrl: "http://www.dev.gov.uk/government/ministers/2nd-minister",
+                        web_url: "http://www.dev.gov.uk/government/ministers/2nd-minister",
                       },
                     ],
                   },
@@ -263,32 +263,32 @@ RSpec.describe "GraphQL" do
               ],
             },
             title: "Keir Starmer 2",
-            webUrl: "http://www.dev.gov.uk/government/people/keir-starmer-2",
+            web_url: "http://www.dev.gov.uk/government/people/keir-starmer-2",
           },
           {
-            basePath: "/government/people/keir-starmer-3",
+            base_path: "/government/people/keir-starmer-3",
             details: {
               image: {
                 url: "http://assets.dev.gov.uk/media/keir-starmer-3.jpg",
-                altText: "Keir Starmer 3",
+                alt_text: "Keir Starmer 3",
               },
-              privyCounsellor: nil,
+              privy_counsellor: nil,
             },
             links: {
-              roleAppointments: [
+              role_appointments: [
                 {
                   details: { current: true },
                   links: {
                     role: [
                       {
-                        contentId: uuid_matcher,
+                        content_id: uuid_matcher,
                         details: {
-                          rolePaymentType: nil,
+                          role_payment_type: nil,
                           seniority: 100,
-                          whipOrganisation: nil,
+                          whip_organisation: nil,
                         },
                         title: "3rd Minister",
-                        webUrl: "http://www.dev.gov.uk/government/ministers/3rd-minister",
+                        web_url: "http://www.dev.gov.uk/government/ministers/3rd-minister",
                       },
                     ],
                   },
@@ -296,7 +296,7 @@ RSpec.describe "GraphQL" do
               ],
             },
             title: "Keir Starmer 3",
-            webUrl: "http://www.dev.gov.uk/government/people/keir-starmer-3",
+            web_url: "http://www.dev.gov.uk/government/people/keir-starmer-3",
           },
         ])
       end
@@ -314,31 +314,31 @@ RSpec.describe "GraphQL" do
       it "exposes the links' fields" do
         make_request
 
-        expect(parsed_links.fetch(:orderedAlsoAttendsCabinet)).to match([
+        expect(parsed_links.fetch(:ordered_also_attends_cabinet)).to match([
           {
-            basePath: "/government/people/alan-campbell",
+            base_path: "/government/people/alan-campbell",
             details: {
               image: {
                 url: "http://assets.dev.gov.uk/media/alan-campbell.jpg",
-                altText: "Alan Campbell",
+                alt_text: "Alan Campbell",
               },
-              privyCounsellor: nil,
+              privy_counsellor: nil,
             },
             links: {
-              roleAppointments: [
+              role_appointments: [
                 {
                   details: { current: true },
                   links: {
                     role: [
                       {
-                        contentId: uuid_matcher,
+                        content_id: uuid_matcher,
                         details: {
-                          rolePaymentType: nil,
+                          role_payment_type: nil,
                           seniority: 100,
-                          whipOrganisation: nil,
+                          whip_organisation: nil,
                         },
                         title: "Parliamentary Secretary to the Treasury (Chief Whip)",
-                        webUrl: "http://www.dev.gov.uk/government/ministers/parliamentary-secretary-to-the-treasury-chief-whip",
+                        web_url: "http://www.dev.gov.uk/government/ministers/parliamentary-secretary-to-the-treasury-chief-whip",
                       },
                     ],
                   },
@@ -346,7 +346,7 @@ RSpec.describe "GraphQL" do
               ],
             },
             title: "Alan Campbell",
-            webUrl: "http://www.dev.gov.uk/government/people/alan-campbell",
+            web_url: "http://www.dev.gov.uk/government/people/alan-campbell",
           },
         ])
       end
@@ -369,34 +369,34 @@ RSpec.describe "GraphQL" do
       it "exposes the links' fields" do
         make_request
 
-        expect(parsed_links.fetch(:orderedAssistantWhips)).to match([
+        expect(parsed_links.fetch(:ordered_assistant_whips)).to match([
           {
-            basePath: "/government/people/christian-wakeford-mp",
+            base_path: "/government/people/christian-wakeford-mp",
             details: {
               image: {
-                altText: "Christian Wakeford MP",
+                alt_text: "Christian Wakeford MP",
                 url: "http://assets.dev.gov.uk/media/christian-wakeford-mp.jpg",
               },
-              privyCounsellor: nil,
+              privy_counsellor: nil,
             },
             links: {
-              roleAppointments: [
+              role_appointments: [
                 {
                   details: { current: true },
                   links: {
                     role: [
                       {
-                        contentId: uuid_matcher,
+                        content_id: uuid_matcher,
                         details: {
-                          rolePaymentType: nil,
+                          role_payment_type: nil,
                           seniority: 100,
-                          whipOrganisation: {
+                          whip_organisation: {
                             label: "Assistant Whips",
-                            sortOrder: 3,
+                            sort_order: 3,
                           },
                         },
                         title: "Assistant Whip, House of Commons",
-                        webUrl: "http://www.dev.gov.uk/government/ministers/assistant-whip-house-of-commons",
+                        web_url: "http://www.dev.gov.uk/government/ministers/assistant-whip-house-of-commons",
                       },
                     ],
                   },
@@ -404,7 +404,7 @@ RSpec.describe "GraphQL" do
               ],
             },
             title: "Christian Wakeford MP",
-            webUrl: "http://www.dev.gov.uk/government/people/christian-wakeford-mp",
+            web_url: "http://www.dev.gov.uk/government/people/christian-wakeford-mp",
           },
         ])
       end
@@ -421,31 +421,31 @@ RSpec.describe "GraphQL" do
       it "exposes the links' fields" do
         make_request
 
-        expect(parsed_links.fetch(:orderedBaronessesAndLordsInWaitingWhips)).to match([
+        expect(parsed_links.fetch(:ordered_baronesses_and_lords_in_waiting_whips)).to match([
           {
-            basePath: "/government/people/lord-cryer",
+            base_path: "/government/people/lord-cryer",
             details: {
               image: {
-                altText: "Lord Cryer",
+                alt_text: "Lord Cryer",
                 url: "http://assets.dev.gov.uk/media/lord-cryer.jpg",
               },
-              privyCounsellor: nil,
+              privy_counsellor: nil,
             },
             links: {
-              roleAppointments: [
+              role_appointments: [
                 {
                   details: { current: true },
                   links: {
                     role: [
                       {
-                        contentId: uuid_matcher,
+                        content_id: uuid_matcher,
                         details: {
-                          rolePaymentType: "Unpaid",
+                          role_payment_type: "Unpaid",
                           seniority: 100,
-                          whipOrganisation: nil,
+                          whip_organisation: nil,
                         },
                         title: "Lord in Waiting",
-                        webUrl: "http://www.dev.gov.uk/government/ministers/lord-in-waiting",
+                        web_url: "http://www.dev.gov.uk/government/ministers/lord-in-waiting",
                       },
                     ],
                   },
@@ -453,7 +453,7 @@ RSpec.describe "GraphQL" do
               ],
             },
             title: "Lord Cryer",
-            webUrl: "http://www.dev.gov.uk/government/people/lord-cryer",
+            web_url: "http://www.dev.gov.uk/government/people/lord-cryer",
           },
         ])
       end
@@ -471,31 +471,31 @@ RSpec.describe "GraphQL" do
       it "exposes the links' fields" do
         make_request
 
-        expect(parsed_links.fetch(:orderedHouseLordsWhips)).to match([
+        expect(parsed_links.fetch(:ordered_house_lords_whips)).to match([
           {
-            basePath: "/government/people/baroness-wheeler-mbe",
+            base_path: "/government/people/baroness-wheeler-mbe",
             details: {
               image: {
-                altText: "Baroness Wheeler MBE",
+                alt_text: "Baroness Wheeler MBE",
                 url: "http://assets.dev.gov.uk/media/baroness-wheeler-mbe.jpg",
               },
-              privyCounsellor: nil,
+              privy_counsellor: nil,
             },
             links: {
-              roleAppointments: [
+              role_appointments: [
                 {
                   details: { current: true },
                   links: {
                     role: [
                       {
-                        contentId: uuid_matcher,
+                        content_id: uuid_matcher,
                         details: {
-                          rolePaymentType: nil,
+                          role_payment_type: nil,
                           seniority: 100,
-                          whipOrganisation: nil,
+                          whip_organisation: nil,
                         },
                         title: "Captain of The King’s Bodyguard of the Yeoman of the Guard",
-                        webUrl: "http://www.dev.gov.uk/government/ministers/captain-of-the-king-s-bodyguard-of-the-yeoman-of-the-guard",
+                        web_url: "http://www.dev.gov.uk/government/ministers/captain-of-the-king-s-bodyguard-of-the-yeoman-of-the-guard",
                       },
                     ],
                   },
@@ -503,7 +503,7 @@ RSpec.describe "GraphQL" do
               ],
             },
             title: "Baroness Wheeler MBE",
-            webUrl: "http://www.dev.gov.uk/government/people/baroness-wheeler-mbe",
+            web_url: "http://www.dev.gov.uk/government/people/baroness-wheeler-mbe",
           },
         ])
       end
@@ -521,31 +521,31 @@ RSpec.describe "GraphQL" do
       it "exposes the links' fields" do
         make_request
 
-        expect(parsed_links.fetch(:orderedHouseOfCommonsWhips)).to match([
+        expect(parsed_links.fetch(:ordered_house_of_commons_whips)).to match([
           {
-            basePath: "/government/people/samantha-dixon-mp",
+            base_path: "/government/people/samantha-dixon-mp",
             details: {
               image: {
-                altText: "Samantha Dixon MP",
+                alt_text: "Samantha Dixon MP",
                 url: "http://assets.dev.gov.uk/media/samantha-dixon-mp.jpg",
               },
-              privyCounsellor: nil,
+              privy_counsellor: nil,
             },
             links: {
-              roleAppointments: [
+              role_appointments: [
                 {
                   details: { current: true },
                   links: {
                     role: [
                       {
-                        contentId: uuid_matcher,
+                        content_id: uuid_matcher,
                         details: {
-                          rolePaymentType: nil,
+                          role_payment_type: nil,
                           seniority: 100,
-                          whipOrganisation: nil,
+                          whip_organisation: nil,
                         },
                         title: "Vice Chamberlain of HM Household",
-                        webUrl: "http://www.dev.gov.uk/government/ministers/vice-chamberlain-of-hm-household",
+                        web_url: "http://www.dev.gov.uk/government/ministers/vice-chamberlain-of-hm-household",
                       },
                     ],
                   },
@@ -553,7 +553,7 @@ RSpec.describe "GraphQL" do
               ],
             },
             title: "Samantha Dixon MP",
-            webUrl: "http://www.dev.gov.uk/government/people/samantha-dixon-mp",
+            web_url: "http://www.dev.gov.uk/government/people/samantha-dixon-mp",
           },
         ])
       end
@@ -571,31 +571,31 @@ RSpec.describe "GraphQL" do
       it "exposes the links' fields" do
         make_request
 
-        expect(parsed_links.fetch(:orderedJuniorLordsOfTheTreasuryWhips)).to match([
+        expect(parsed_links.fetch(:ordered_junior_lords_of_the_treasury_whips)).to match([
           {
-            basePath: "/government/people/vicky-foxcroft-mp",
+            base_path: "/government/people/vicky-foxcroft-mp",
             details: {
               image: {
-                altText: "Vicky Foxcroft MP",
+                alt_text: "Vicky Foxcroft MP",
                 url: "http://assets.dev.gov.uk/media/vicky-foxcroft-mp.jpg",
               },
-              privyCounsellor: nil,
+              privy_counsellor: nil,
             },
             links: {
-              roleAppointments: [
+              role_appointments: [
                 {
                   details: { current: true },
                   links: {
                     role: [
                       {
-                        contentId: uuid_matcher,
+                        content_id: uuid_matcher,
                         details: {
-                          rolePaymentType: nil,
+                          role_payment_type: nil,
                           seniority: 100,
-                          whipOrganisation: nil,
+                          whip_organisation: nil,
                         },
                         title: "Junior Lord of the Treasury (Government Whip)",
-                        webUrl: "http://www.dev.gov.uk/government/ministers/junior-lord-of-the-treasury-government-whip",
+                        web_url: "http://www.dev.gov.uk/government/ministers/junior-lord-of-the-treasury-government-whip",
                       },
                     ],
                   },
@@ -603,7 +603,7 @@ RSpec.describe "GraphQL" do
               ],
             },
             title: "Vicky Foxcroft MP",
-            webUrl: "http://www.dev.gov.uk/government/people/vicky-foxcroft-mp",
+            web_url: "http://www.dev.gov.uk/government/people/vicky-foxcroft-mp",
           },
         ])
       end
@@ -629,38 +629,38 @@ RSpec.describe "GraphQL" do
       it "exposes the links' fields" do
         make_request
 
-        expect(parsed_links.fetch(:orderedMinisterialDepartments)).to match([
+        expect(parsed_links.fetch(:ordered_ministerial_departments)).to match([
           {
             details: {
               brand: nil,
               logo: nil,
             },
             links: {
-              orderedMinisters: [
+              ordered_ministers: [
                 {
-                  basePath: "/government/people/keir-starmer",
+                  base_path: "/government/people/keir-starmer",
                   details: {
                     image: {
-                      altText: "Keir Starmer",
+                      alt_text: "Keir Starmer",
                       url: "http://assets.dev.gov.uk/media/keir-starmer.jpg",
                     },
-                    privyCounsellor: nil,
+                    privy_counsellor: nil,
                   },
                   links: {
-                    roleAppointments: [
+                    role_appointments: [
                       {
                         details: { current: true },
                         links: {
                           role: [
                             {
-                              contentId: uuid_matcher,
+                              content_id: uuid_matcher,
                               details: {
-                                rolePaymentType: nil,
+                                role_payment_type: nil,
                                 seniority: 100,
-                                whipOrganisation: nil,
+                                whip_organisation: nil,
                               },
                               title: "Prime Minister",
-                              webUrl: "http://www.dev.gov.uk/government/ministers/prime-minister",
+                              web_url: "http://www.dev.gov.uk/government/ministers/prime-minister",
                             },
                           ],
                         },
@@ -670,14 +670,14 @@ RSpec.describe "GraphQL" do
                         links: {
                           role: [
                             {
-                              contentId: uuid_matcher,
+                              content_id: uuid_matcher,
                               details: {
-                                rolePaymentType: nil,
+                                role_payment_type: nil,
                                 seniority: 100,
-                                whipOrganisation: nil,
+                                whip_organisation: nil,
                               },
                               title: "First Lord of The Treasury",
-                              webUrl: "http://www.dev.gov.uk/government/ministers/first-lord-of-the-treasury",
+                              web_url: "http://www.dev.gov.uk/government/ministers/first-lord-of-the-treasury",
                             },
                           ],
                         },
@@ -685,17 +685,17 @@ RSpec.describe "GraphQL" do
                     ],
                   },
                   title: "Keir Starmer",
-                  webUrl: "http://www.dev.gov.uk/government/people/keir-starmer",
+                  web_url: "http://www.dev.gov.uk/government/people/keir-starmer",
                 },
               ],
-              orderedRoles: [
+              ordered_roles: [
                 {
-                  contentId: uuid_matcher,
+                  content_id: uuid_matcher,
                 },
               ],
             },
             title: "Cabinet Office",
-            webUrl: "http://www.dev.gov.uk/government/organisations/cabinet-office",
+            web_url: "http://www.dev.gov.uk/government/organisations/cabinet-office",
           },
         ])
       end

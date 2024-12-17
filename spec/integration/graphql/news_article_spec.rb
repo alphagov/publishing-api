@@ -83,16 +83,16 @@ RSpec.describe "GraphQL" do
         query: <<~QUERY,
           {
               edition(
-                basePath: "/government/news/announcement",
-                contentStore: "live",
+                base_path: "/government/news/announcement",
+                content_store: "live",
               ) {
                 ... on NewsArticle {
-                  basePath
+                  base_path
                   title
                   details
                   links {
-                    availableTranslations {
-                      basePath
+                    available_translations {
+                      base_path
                       locale
                     }
                     government {
@@ -102,31 +102,31 @@ RSpec.describe "GraphQL" do
                       title
                     }
                     organisations {
-                      basePath
+                      base_path
                       title
                     }
                     people {
-                      basePath
+                      base_path
                       title
                     }
                     taxons {
-                      basePath
-                      contentId
+                      base_path
+                      content_id
                       title
                       links {
-                        parentTaxons {
-                          basePath
-                          contentId
+                        parent_taxons {
+                          base_path
+                          content_id
                           title
                         }
                       }
                     }
-                    topicalEvents {
-                      basePath
+                    topical_events {
+                      base_path
                       title
                     }
-                    worldLocations {
-                      basePath
+                    world_locations {
+                      base_path
                       title
                     }
                   }
@@ -139,14 +139,14 @@ RSpec.describe "GraphQL" do
       expected = {
         data: {
           edition: {
-            basePath: @edition.base_path,
+            base_path: @edition.base_path,
             details: {
               body: @edition.details[:body],
             },
             links: {
-              availableTranslations: [
+              available_translations: [
                 {
-                  basePath: @edition.base_path,
+                  base_path: @edition.base_path,
                   locale: @edition.locale,
                 },
               ],
@@ -160,41 +160,41 @@ RSpec.describe "GraphQL" do
               ],
               organisations: [
                 {
-                  basePath: @organisation.base_path,
+                  base_path: @organisation.base_path,
                   title: @organisation.title,
                 },
               ],
               people: [
                 {
-                  basePath: @person.base_path,
+                  base_path: @person.base_path,
                   title: @person.title,
                 },
               ],
               taxons: [
                 {
-                  basePath: @child_taxon.base_path,
-                  contentId: @child_taxon.content_id,
+                  base_path: @child_taxon.base_path,
+                  content_id: @child_taxon.content_id,
                   title: @child_taxon.title,
                   links: {
-                    parentTaxons: [
+                    parent_taxons: [
                       {
-                        basePath: @parent_taxon.base_path,
-                        contentId: @parent_taxon.content_id,
+                        base_path: @parent_taxon.base_path,
+                        content_id: @parent_taxon.content_id,
                         title: @parent_taxon.title,
                       },
                     ],
                   },
                 },
               ],
-              topicalEvents: [
+              topical_events: [
                 {
-                  basePath: @topical_event.base_path,
+                  base_path: @topical_event.base_path,
                   title: @topical_event.title,
                 },
               ],
-              worldLocations: [
+              world_locations: [
                 {
-                  basePath: @world_location.base_path,
+                  base_path: @world_location.base_path,
                   title: @world_location.title,
                 },
               ],

@@ -12,7 +12,7 @@ RSpec.describe "Types::EditionType" do
 
         expect(
           run_graphql_field(
-            "Edition.withdrawnNotice",
+            "Edition.withdrawn_notice",
             edition,
           ),
         ).to eq(expected)
@@ -23,7 +23,7 @@ RSpec.describe "Types::EditionType" do
       it "returns nil" do
         expect(
           run_graphql_field(
-            "Edition.withdrawnNotice",
+            "Edition.withdrawn_notice",
             create(:edition),
           ),
         ).to be_nil
