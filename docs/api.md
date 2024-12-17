@@ -18,6 +18,7 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`GET /v2/content/:content_id`](#get-v2contentcontent_id)
 - [`GET /v2/content/:content_id/host-content`](#get-v2contentcontent_idhost-content)
 - [`GET /v2/content/:content_id/host-content/:host_content_id`](#get-v2contentcontent_idhost-contenthost_content_id)
+- [`GET /v2/content/:content_id/events`](#get-v2contentcontent_idevents)
 - [`PATCH /v2/links/:content_id`](#patch-v2linkscontent_id)
 - [`GET /v2/links/:content_id`](#get-v2linkscontent_id)
 - [`GET /v2/expanded-links/:content_id`](#get-v2expanded-linkscontent_id)
@@ -428,6 +429,25 @@ included within the response.
 - `version` *(optional)*
   - Specify a particular edition of this document
   - If omitted the most recent edition.
+
+## `GET /v2/content/:content_id/events`
+
+Retrieves a list of all events for a given `:content_id`
+
+### Path parameters
+
+- [`content_id`](model.md#content_id)
+  - Identifies the document to return events for
+
+### Query parameters
+
+- `action` *(optional)*
+  - Specify what action type to filter for
+  - If omitted, returns all actions
+- `from` *(optional)*
+  - Filter for actions created after that particular datetime
+- `to` *(optional)*
+  - Filter for actions created before that particular datetime
 
 ## `GET /v2/content/:content_id/host-content`
 
