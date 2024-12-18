@@ -4,10 +4,10 @@ RSpec.describe Types::QueryType do
   describe "#edition" do
     let(:query) do
       <<~QUERY
-        query($basePath: String!, $contentStore: String!) {
-          edition(basePath: $basePath, contentStore: $contentStore) {
+        query($base_path: String!, $content_store: String!) {
+          edition(base_path: $base_path, content_store: $content_store) {
             ... on Edition {
-              basePath
+              base_path
               state
             }
           }
@@ -21,11 +21,11 @@ RSpec.describe Types::QueryType do
       context "requesting the draft edition" do
         it "returns the draft edition" do
           expected_data = {
-            "basePath" => draft_edition.base_path,
+            "base_path" => draft_edition.base_path,
             "state" => "draft",
           }
 
-          result = PublishingApiSchema.execute(query, variables: { basePath: draft_edition.base_path, contentStore: "draft" })
+          result = PublishingApiSchema.execute(query, variables: { base_path: draft_edition.base_path, content_store: "draft" })
           edition_data = result.dig("data", "edition")
           expect(edition_data).to eq(expected_data)
         end
@@ -33,7 +33,7 @@ RSpec.describe Types::QueryType do
 
       context "requesting the live edition" do
         it "returns no edition" do
-          result = PublishingApiSchema.execute(query, variables: { basePath: draft_edition.base_path, contentStore: "live" })
+          result = PublishingApiSchema.execute(query, variables: { base_path: draft_edition.base_path, content_store: "live" })
           edition_data = result.dig("data", "edition")
           expect(edition_data).to be_nil
         end
@@ -45,7 +45,7 @@ RSpec.describe Types::QueryType do
 
       context "requesting the draft edition" do
         it "returns no edition" do
-          result = PublishingApiSchema.execute(query, variables: { basePath: live_edition.base_path, contentStore: "draft" })
+          result = PublishingApiSchema.execute(query, variables: { base_path: live_edition.base_path, content_store: "draft" })
           edition_data = result.dig("data", "edition")
           expect(edition_data).to be_nil
         end
@@ -54,11 +54,11 @@ RSpec.describe Types::QueryType do
       context "requesting the live edition" do
         it "returns the live edition" do
           expected_data = {
-            "basePath" => live_edition.base_path,
+            "base_path" => live_edition.base_path,
             "state" => "published",
           }
 
-          result = PublishingApiSchema.execute(query, variables: { basePath: live_edition.base_path, contentStore: "live" })
+          result = PublishingApiSchema.execute(query, variables: { base_path: live_edition.base_path, content_store: "live" })
           edition_data = result.dig("data", "edition")
           expect(edition_data).to eq(expected_data)
         end
@@ -74,11 +74,11 @@ RSpec.describe Types::QueryType do
       context "requesting the draft edition" do
         it "returns the draft edition" do
           expected_data = {
-            "basePath" => draft_edition.base_path,
+            "base_path" => draft_edition.base_path,
             "state" => "draft",
           }
 
-          result = PublishingApiSchema.execute(query, variables: { basePath: draft_edition.base_path, contentStore: "draft" })
+          result = PublishingApiSchema.execute(query, variables: { base_path: draft_edition.base_path, content_store: "draft" })
           edition_data = result.dig("data", "edition")
           expect(edition_data).to eq(expected_data)
         end
@@ -87,11 +87,11 @@ RSpec.describe Types::QueryType do
       context "requesting the live edition" do
         it "returns the live edition" do
           expected_data = {
-            "basePath" => live_edition.base_path,
+            "base_path" => live_edition.base_path,
             "state" => "published",
           }
 
-          result = PublishingApiSchema.execute(query, variables: { basePath: live_edition.base_path, contentStore: "live" })
+          result = PublishingApiSchema.execute(query, variables: { base_path: live_edition.base_path, content_store: "live" })
           edition_data = result.dig("data", "edition")
           expect(edition_data).to eq(expected_data)
         end

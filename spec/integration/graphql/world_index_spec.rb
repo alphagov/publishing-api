@@ -39,24 +39,24 @@ RSpec.describe "GraphQL" do
         query:
           "fragment worldLocationInfo on WorldLocation {
             active
-            analyticsIdentifier
-            contentId
+            analytics_identifier
+            content_id
             name
             slug
-            updatedAt
+            updated_at
           }
 
           {
-            edition(basePath: \"/world\") {
+            edition(base_path: \"/world\") {
               ... on WorldIndex {
                 title
 
                 details {
-                  worldLocations {
+                  world_locations {
                     ...worldLocationInfo
                   }
 
-                  internationalDelegations {
+                  international_delegations {
                     ...worldLocationInfo
                   }
                 }
@@ -70,24 +70,24 @@ RSpec.describe "GraphQL" do
           edition: {
             title: "Help and services around the world",
             details: {
-              worldLocations: [
+              world_locations: [
                 {
                   active: true,
-                  analyticsIdentifier: "WL1",
-                  contentId: "d3b7ba48-5027-4a98-a594-1108d205dc66",
+                  analytics_identifier: "WL1",
+                  content_id: "d3b7ba48-5027-4a98-a594-1108d205dc66",
                   name: "Test World Location",
                   slug: "test-world-location",
-                  updatedAt: "2024-10-18T14:22:38+01:00",
+                  updated_at: "2024-10-18T14:22:38+01:00",
                 },
               ],
-              internationalDelegations: [
+              international_delegations: [
                 {
                   active: false,
-                  analyticsIdentifier: "WL2",
-                  contentId: "f0313f16-e25c-4bfe-a0fc-e561833f705f",
+                  analytics_identifier: "WL2",
+                  content_id: "f0313f16-e25c-4bfe-a0fc-e561833f705f",
                   name: "Test International Delegation",
                   slug: "test-international-delegation",
-                  updatedAt: "2024-10-19T15:07:44+01:00",
+                  updated_at: "2024-10-19T15:07:44+01:00",
                 },
               ],
             },
