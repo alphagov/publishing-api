@@ -682,6 +682,78 @@
       },
     },
   },
+  intellectual_property_trademark_decisions_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      british_library_number: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      type_of_hearing: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      ipo_mark: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      ipo_class: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      issued_between: {
+        type: "string",
+        pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+        },
+      },
+      and: {
+        type: "string",
+        pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+        },
+      },
+      appointed_person_hearing_officer: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      person_or_company_involved: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      grounds_section: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      grounds_sub_section: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      browse_by_year: {
+        type: "string",
+        pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+        },
+      },
+    },
+  },
   licence_transaction_metadata: {
     type: "object",
     additionalProperties: false,
