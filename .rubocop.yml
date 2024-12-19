@@ -16,3 +16,7 @@ inherit_mode:
 #
 # See https://github.com/alphagov/rubocop-govuk/blob/main/CONTRIBUTING.md
 # **************************************************************
+
+Lint/MissingSuper:
+  AllowedParentClasses:
+    - 'GraphQL::Dataloader::Source'
