@@ -10,15 +10,8 @@ module Types
       field(field_name_and_link_type.to_sym, graphql_field_type)
 
       define_method(field_name_and_link_type.to_sym) do
-        Edition
-          .live
-          .includes(document: { reverse_links: :link_set })
-          .where(
-            document: { locale: "en" },
-            link_set: { content_id: object.content_id },
-            reverse_links: { link_type: field_name_and_link_type.to_s },
-          )
-          .order(reverse_links: { position: :asc })
+        dataloader.with(Sources::LinkedToEditionsSource, parent_object: object)
+          .load(field_name_and_link_type.to_s)
       end
     end
   end
