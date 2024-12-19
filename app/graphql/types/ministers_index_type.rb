@@ -59,29 +59,8 @@ module Types
         field :role_appointments, [MinistersIndexRoleAppointment]
 
         def role_appointments
-          Edition
-            .live
-            .includes(
-              document: {
-                reverse_links: { # role -> role_appointment
-                  link_set: {
-                    documents: [
-                      :editions, # role_appointment
-                      :link_set_links, # role_appointment -> person
-                    ],
-                  },
-                },
-              },
-            )
-            .where(
-              document_type: "ministerial_role",
-              document: { locale: "en" },
-              reverse_links: { link_type: "role" },
-              editions_documents: { document_type: "role_appointment" },
-              link_set_links: { target_content_id: object.content_id, link_type: "person" },
-            )
-            .where("editions_documents.details ->> 'current' = 'true'") # editions_documents is the alias that Active Record gives to the role_appointment Editions in the SQL query
-            .order(reverse_links: { position: :asc })
+          dataloader.with(Sources::PersonCurrentRolesSource)
+            .load(object.content_id)
         end
       end
 
