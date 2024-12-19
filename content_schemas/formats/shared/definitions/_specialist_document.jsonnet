@@ -1162,7 +1162,10 @@
     additionalProperties: false,
     properties: {
       "decision_subject": {
-        "type": "string",
+        type: "array",
+        items: {
+          type: "string",
+        },
       },
       regions: {
         type: "array",
@@ -1171,10 +1174,16 @@
         },
       },
       "case_type": {
-        "type": "string",
+        type: "array",
+        items: {
+          type: "string",
+        },
       },
       "outcome_type": {
-        "type": "string",
+        type: "array",
+        items: {
+          type: "string",
+        },
       },
       first_published_at: {
         type: "string",
