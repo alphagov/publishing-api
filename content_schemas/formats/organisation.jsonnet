@@ -96,10 +96,6 @@
           },
           description: "A set of promotional features to display for the organisation. Turn into proper links once organisations are fully migrated.",
         },
-        important_board_members: {
-          type: "integer",
-          description: "The number of board members that will have photos displayed for them.",
-        },
         organisation_featuring_priority: {
           type: "string",
           enum: [
