@@ -1,4 +1,6 @@
 RSpec.describe "GraphQL" do
+  include MinistersIndexHelpers
+
   describe "ministers index" do
     let(:index_page_link_set) do
       index_page = create(
@@ -169,13 +171,13 @@ RSpec.describe "GraphQL" do
         person1 = create_person_with_role_appointment("Keir Starmer 1", "1st Minister")
         extra_role = create_role("First Lord of The Treasury")
         appoint_person_to_role(person1, extra_role)
-        add_link(person1, link_type: "ordered_cabinet_ministers", position: 0)
+        add_link(person1, link_type: "ordered_cabinet_ministers", link_set: index_page_link_set, position: 0)
 
         person3 = create_person_with_role_appointment("Keir Starmer 3", "3rd Minister")
-        add_link(person3, link_type: "ordered_cabinet_ministers", position: 2)
+        add_link(person3, link_type: "ordered_cabinet_ministers", link_set: index_page_link_set, position: 2)
 
         person2 = create_person_with_role_appointment("Keir Starmer 2", "2nd Minister")
-        add_link(person2, link_type: "ordered_cabinet_ministers", position: 1)
+        add_link(person2, link_type: "ordered_cabinet_ministers", link_set: index_page_link_set, position: 1)
       end
 
       it "exposes the links' fields" do
@@ -308,7 +310,7 @@ RSpec.describe "GraphQL" do
           "Alan Campbell",
           "Parliamentary Secretary to the Treasury (Chief Whip)",
         )
-        add_link(person, link_type: "ordered_also_attends_cabinet")
+        add_link(person, link_type: "ordered_also_attends_cabinet", link_set: index_page_link_set)
       end
 
       it "exposes the links' fields" do
@@ -363,7 +365,7 @@ RSpec.describe "GraphQL" do
           },
         )
         appoint_person_to_role(person, role)
-        add_link(person, link_type: "ordered_assistant_whips")
+        add_link(person, link_type: "ordered_assistant_whips", link_set: index_page_link_set)
       end
 
       it "exposes the links' fields" do
@@ -415,7 +417,7 @@ RSpec.describe "GraphQL" do
         person = create_person("Lord Cryer")
         role = create_role("Lord in Waiting", role_payment_type: "Unpaid")
         appoint_person_to_role(person, role)
-        add_link(person, link_type: "ordered_baronesses_and_lords_in_waiting_whips")
+        add_link(person, link_type: "ordered_baronesses_and_lords_in_waiting_whips", link_set: index_page_link_set)
       end
 
       it "exposes the links' fields" do
@@ -465,7 +467,7 @@ RSpec.describe "GraphQL" do
           "Baroness Wheeler MBE",
           "Captain of The King’s Bodyguard of the Yeoman of the Guard",
         )
-        add_link(person, link_type: "ordered_house_lords_whips")
+        add_link(person, link_type: "ordered_house_lords_whips", link_set: index_page_link_set)
       end
 
       it "exposes the links' fields" do
@@ -515,7 +517,7 @@ RSpec.describe "GraphQL" do
           "Samantha Dixon MP",
           "Vice Chamberlain of HM Household",
         )
-        add_link(person, link_type: "ordered_house_of_commons_whips")
+        add_link(person, link_type: "ordered_house_of_commons_whips", link_set: index_page_link_set)
       end
 
       it "exposes the links' fields" do
@@ -565,7 +567,7 @@ RSpec.describe "GraphQL" do
           "Vicky Foxcroft MP",
           "Junior Lord of the Treasury (Government Whip)",
         )
-        add_link(person, link_type: "ordered_junior_lords_of_the_treasury_whips")
+        add_link(person, link_type: "ordered_junior_lords_of_the_treasury_whips", link_set: index_page_link_set)
       end
 
       it "exposes the links' fields" do
@@ -612,7 +614,7 @@ RSpec.describe "GraphQL" do
     describe "orderedMinisterialDepartments links" do
       before do
         cabinet_office = create_organisation("Cabinet Office")
-        add_link(cabinet_office, link_type: "ordered_ministerial_departments")
+        add_link(cabinet_office, link_type: "ordered_ministerial_departments", link_set: index_page_link_set)
 
         person = create_person("Keir Starmer")
         role = create_role("Prime Minister")
@@ -704,103 +706,5 @@ RSpec.describe "GraphQL" do
 
   def create_index_page
     index_page_link_set # invoke `let`
-  end
-
-  def create_organisation(title)
-    create(
-      :live_edition,
-      title:,
-      document_type: "organisation",
-      schema_name: "organisation",
-      base_path: "/government/organisations/#{title.parameterize}",
-    )
-  end
-
-  def create_role(title, role_payment_type: nil, whip_organisation: nil)
-    create(
-      :live_edition,
-      title: title,
-      document_type: "ministerial_role",
-      base_path: "/government/ministers/#{title.parameterize}",
-      details: {
-        attends_cabinet_type: nil,
-        body: [{
-          content: "# #{title}\nThe #{title} is the #{title} of His Majesty's Government",
-          content_type: "text/govspeak",
-        }],
-        supports_historical_accounts: true,
-        role_payment_type:,
-        seniority: 100,
-        whip_organisation:,
-      },
-    )
-  end
-
-  def appoint_person_to_role(person, role)
-    role_appointment = create(
-      :live_edition,
-      title: "#{person.title} - #{role.title}",
-      document_type: "role_appointment",
-      schema_name: "role_appointment",
-      details: {
-        current: true,
-        started_on: Time.zone.local(2024, 7, 5),
-      },
-    )
-
-    create(
-      :link_set,
-      content_id: role_appointment.content_id,
-      links_hash: { person: [person.content_id], role: [role.content_id] },
-    )
-  end
-
-  def create_person(title)
-    create(
-      :live_edition,
-      title: title,
-      document_type: "person",
-      schema_name: "person",
-      base_path: "/government/people/#{title.parameterize}",
-      details: {
-        body: [{
-          content: "#{title} A Role on 5 July 2024.",
-          content_type: "text/govspeak",
-        }],
-        image: {
-          url: "http://assets.dev.gov.uk/media/#{title.parameterize}.jpg",
-          alt_text: title,
-        },
-      },
-    )
-  end
-
-  def create_person_with_role_appointment(person_title, role_title)
-    person = create_person(person_title)
-    role = create_role(role_title)
-    appoint_person_to_role(person, role)
-
-    person
-  end
-
-  def add_link(target_content, link_type:, position: 0)
-    create(
-      :link,
-      position:,
-      link_type:,
-      link_set: index_page_link_set,
-      target_content_id: target_content.content_id,
-    )
-  end
-
-  def add_department_link(department, target_content, link_type:)
-    link_set = LinkSet.find_or_create_by!(content_id: department.content_id)
-
-    create(
-      :link,
-      link_type:,
-      link_set:,
-      target_content_id: target_content.content_id,
-    )
   end
 end
