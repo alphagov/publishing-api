@@ -29,14 +29,14 @@ module MinistersIndexHelpers
     )
   end
 
-  def appoint_person_to_role(person, role)
+  def appoint_person_to_role(person, role, current: true)
     role_appointment = create(
       :live_edition,
       title: "#{person.title} - #{role.title}",
       document_type: "role_appointment",
       schema_name: "role_appointment",
       details: {
-        current: true,
+        current:,
         started_on: Time.zone.local(2024, 7, 5),
       },
     )
