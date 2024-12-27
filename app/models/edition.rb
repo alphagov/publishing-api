@@ -37,7 +37,7 @@ class Edition < ApplicationRecord
   ].freeze
 
   NON_RENDERABLE_FORMATS = %w[redirect gone].freeze
-  NO_RENDERING_APP_FORMATS = %w[contact external_content role_appointment].freeze
+  NO_RENDERING_APP_FORMATS = %w[contact external_content role_appointment world_location].freeze
   CONTENT_BLOCK_PREFIX = "content_block".freeze
 
   belongs_to :document
