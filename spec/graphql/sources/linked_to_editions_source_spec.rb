@@ -15,4 +15,22 @@ RSpec.describe Sources::LinkedToEditionsSource do
       expect(request.load).to eq([target_edition_1, target_edition_3])
     end
   end
+
+  it "returns the specified edition links" do
+    target_edition_1 = create(:edition)
+    target_edition_2 = create(:edition)
+    target_edition_3 = create(:edition)
+
+    source_edition = create(:edition,
+                            links_hash: {
+                              "test_link" => [target_edition_1.content_id, target_edition_3.content_id],
+                              "another_link_type" => [target_edition_2.content_id],
+                            })
+
+    GraphQL::Dataloader.with_dataloading do |dataloader|
+      request = dataloader.with(described_class, parent_object: source_edition).request("test_link")
+
+      expect(request.load).to eq([target_edition_1, target_edition_3])
+    end
+  end
 end

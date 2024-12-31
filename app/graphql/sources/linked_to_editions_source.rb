@@ -8,10 +8,17 @@ module Sources
     # rubocop:enable Lint/MissingSuper
 
     def fetch(link_types)
-      all_links = @object.document.link_set_links
+      link_set_links = @object.document.link_set_links
         .includes(target_documents: @content_store) # content_store is :live or :draft (a Document has_one Edition by that name)
         .where(link_type: link_types)
         .where(target_documents: { locale: "en" })
+
+      edition_links = @object.links
+        .includes(target_documents: @content_store) # content_store is :live or :draft (a Document has_one Edition by that name)
+        .where(link_type: link_types)
+        .where(target_documents: { locale: "en" })
+
+      all_links = link_set_links + edition_links
 
       link_types_map = link_types.index_with { [] }
 
