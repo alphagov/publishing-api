@@ -51,13 +51,13 @@
         "$ref": "#/definitions/international_development_fund_metadata",
       },
       {
-        "$ref": "#/definitions/licence_transaction_metadata",
+        "$ref": "#/definitions/farming_grant_metadata",
       },
       {
         "$ref": "#/definitions/flood_and_coastal_erosion_risk_management_research_report",
       },
       {
-        "$ref": "#/definitions/farming_grant_metadata",
+        "$ref": "#/definitions/licence_transaction_metadata",
       },
       {
           "$ref": "#/definitions/life_saving_maritime_appliance_service_station_metadata",
@@ -653,6 +653,33 @@
       },
     },
   },
+  farming_grant_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      areas_of_interest: {
+        type: "array",
+        items: {
+          type: "string",
+        }
+      },
+      land_types: {
+        type: "array",
+        items: {
+          type: "string",
+        }
+      },
+      payment_types: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+    },
+  },
   flood_and_coastal_erosion_risk_management_research_report: {
     type: "object",
     additionalProperties: false,
@@ -746,33 +773,6 @@
       },
       licence_transaction_licence_identifier: {
         type: "string",
-      },
-    },
-  },
-  farming_grant_metadata: {
-    type: "object",
-    additionalProperties: false,
-    properties: {
-      bulk_published: {
-        type: "boolean",
-      },
-      areas_of_interest: {
-        type: "array",
-        items: {
-          type: "string",
-        }
-      },
-      land_types: {
-        type: "array",
-        items: {
-          type: "string",
-        }
-      },
-      payment_types: {
-        type: "array",
-        items: {
-          type: "string",
-        },
       },
     },
   },
@@ -1048,9 +1048,6 @@
       },
       research_document_type: {
         type: "string",
-        items: {
-          type: "string",
-        },
       },
     },
   },
@@ -1161,8 +1158,8 @@
     type: "object",
     additionalProperties: false,
     properties: {
-      "decision_subject": {
-        "type": "string",
+      decision_subject: {
+        type: "string",
       },
       regions: {
         type: "array",
@@ -1170,11 +1167,11 @@
           type: "string",
         },
       },
-      "case_type": {
-        "type": "string",
+      case_type: {
+        type: "string",
       },
-      "outcome_type": {
-        "type": "string",
+      outcome_type: {
+        type: "string",
       },
       first_published_at: {
         type: "string",
