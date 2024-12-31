@@ -653,6 +653,33 @@
       },
     },
   },
+  farming_grant_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      areas_of_interest: {
+        type: "array",
+        items: {
+          type: "string",
+        }
+      },
+      land_types: {
+        type: "array",
+        items: {
+          type: "string",
+        }
+      },
+      payment_types: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+    },
+  },
   flood_and_coastal_erosion_risk_management_research_report: {
     type: "object",
     additionalProperties: false,
@@ -746,33 +773,6 @@
       },
       licence_transaction_licence_identifier: {
         type: "string",
-      },
-    },
-  },
-  farming_grant_metadata: {
-    type: "object",
-    additionalProperties: false,
-    properties: {
-      bulk_published: {
-        type: "boolean",
-      },
-      areas_of_interest: {
-        type: "array",
-        items: {
-          type: "string",
-        }
-      },
-      land_types: {
-        type: "array",
-        items: {
-          type: "string",
-        }
-      },
-      payment_types: {
-        type: "array",
-        items: {
-          type: "string",
-        },
       },
     },
   },
