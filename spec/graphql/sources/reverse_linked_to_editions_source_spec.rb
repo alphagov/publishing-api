@@ -17,4 +17,29 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       expect(request.load).to eq([source_edition_1, source_edition_3])
     end
   end
+
+  it "returns the specified reverse edition links" do
+    target_edition = create(:edition)
+
+    source_edition_1 = create(:edition,
+                              links_hash: {
+                                "test_link" => [target_edition.content_id],
+                              })
+
+    source_edition_2 = create(:edition,
+                              links_hash: {
+                                "test_link" => [target_edition.content_id],
+                              })
+
+    create(:edition,
+           links_hash: {
+             "another_link_type" => [target_edition.content_id],
+           })
+
+    GraphQL::Dataloader.with_dataloading do |dataloader|
+      request = dataloader.with(described_class, parent_object: target_edition).request("test_link")
+
+      expect(request.load).to eq([source_edition_1, source_edition_2])
+    end
+  end
 end
