@@ -730,13 +730,13 @@
           "$ref": "#/definitions/international_development_fund_metadata"
         },
         {
-          "$ref": "#/definitions/licence_transaction_metadata"
+          "$ref": "#/definitions/farming_grant_metadata"
         },
         {
           "$ref": "#/definitions/flood_and_coastal_erosion_risk_management_research_report"
         },
         {
-          "$ref": "#/definitions/farming_grant_metadata"
+          "$ref": "#/definitions/licence_transaction_metadata"
         },
         {
           "$ref": "#/definitions/life_saving_maritime_appliance_service_station_metadata"
@@ -1966,10 +1966,7 @@
           "pattern": "^[1-9][0-9]{3}[-/](0[1-9]|1[0-2])[-/](0[1-9]|[12][0-9]|3[0-1])$"
         },
         "research_document_type": {
-          "type": "string",
-          "items": {
-            "type": "string"
-          }
+          "type": "string"
         },
         "review_status": {
           "type": "string"
