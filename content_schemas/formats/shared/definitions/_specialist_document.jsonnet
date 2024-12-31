@@ -1161,8 +1161,8 @@
     type: "object",
     additionalProperties: false,
     properties: {
-      "decision_subject": {
-        "type": "string",
+      decision_subject: {
+        type: "string",
       },
       regions: {
         type: "array",
@@ -1170,11 +1170,11 @@
           type: "string",
         },
       },
-      "case_type": {
-        "type": "string",
+      case_type: {
+        type: "string",
       },
-      "outcome_type": {
-        "type": "string",
+      outcome_type: {
+        type: "string",
       },
       first_published_at: {
         type: "string",
