@@ -51,13 +51,13 @@
         "$ref": "#/definitions/international_development_fund_metadata",
       },
       {
-        "$ref": "#/definitions/licence_transaction_metadata",
+        "$ref": "#/definitions/farming_grant_metadata",
       },
       {
         "$ref": "#/definitions/flood_and_coastal_erosion_risk_management_research_report",
       },
       {
-        "$ref": "#/definitions/farming_grant_metadata",
+        "$ref": "#/definitions/licence_transaction_metadata",
       },
       {
           "$ref": "#/definitions/life_saving_maritime_appliance_service_station_metadata",
