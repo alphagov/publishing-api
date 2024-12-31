@@ -17,13 +17,17 @@ module Sources
       link_types_map = link_types.index_with { [] }
 
       all_links.each_with_object(link_types_map) { |link, hash|
-        hash[link.link_type].concat(editions_for_link(link))
+        if link.link_set
+          hash[link.link_type].concat(editions_for_link_set_link(link))
+        elsif link.edition
+          hash[link.link_type] << link.edition
+        end
       }.values
     end
 
   private
 
-    def editions_for_link(link)
+    def editions_for_link_set_link(link)
       link.source_documents.map { |document| document.send(@content_store) }
     end
   end
