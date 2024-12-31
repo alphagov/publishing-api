@@ -99,6 +99,18 @@ module Types
       reverse_links_field :related_to_step_navs, :pages_related_to_step_nav, [EditionType]
       reverse_links_field :secondary_to_step_navs, :secondary_to_step_navs, [EditionType]
 
+      field :role_appointments, [EditionType]
+
+      def role_appointments
+        if object.document_type == "role" || object.document_type == "ministerial_role"
+          dataloader.with(Sources::ReverseLinkedToEditionsSource, parent_object: object)
+            .load("role")
+        else
+          dataloader.with(Sources::ReverseLinkedToEditionsSource, parent_object: object)
+            .load("person")
+        end
+      end
+
       def available_translations
         Presenters::Queries::AvailableTranslations.by_edition(object)
           .translations.fetch(:available_translations, [])
