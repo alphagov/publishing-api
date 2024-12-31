@@ -1048,9 +1048,6 @@
       },
       research_document_type: {
         type: "string",
-        items: {
-          type: "string",
-        },
       },
     },
   },
