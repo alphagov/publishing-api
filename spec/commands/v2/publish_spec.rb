@@ -727,10 +727,11 @@ RSpec.describe Commands::V2::Publish do
           )
         end
 
-        it "raises an error to indicate it has already been published" do
+        it "performs a no-op" do
+          expect(DownstreamLiveJob).not_to receive(:perform_async_in_queue)
           expect {
             described_class.call(payload)
-          }.to raise_error(CommandError, /already published edition/)
+          }.not_to raise_error
         end
       end
     end

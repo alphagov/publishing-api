@@ -2,9 +2,11 @@ module Commands
   module V2
     class Publish < BaseCommand
       def call
-        validate
-        publish_edition
-        after_transaction_commit { send_downstream }
+        unless already_published? && edition.nil?
+          validate
+          publish_edition
+          after_transaction_commit { send_downstream }
+        end
 
         Success.new({ content_id: })
       end
@@ -82,13 +84,8 @@ module Commands
       end
 
       def no_draft_item_exists
-        if already_published?
-          message = "Cannot publish an already published edition"
-          raise_command_error(409, message, { fields: {} })
-        else
-          message = "Item with content_id #{content_id} and locale #{locale} does not exist"
-          raise_command_error(404, message, { fields: {} })
-        end
+        message = "Item with content_id #{content_id} and locale #{locale} does not exist"
+        raise_command_error(404, message, { fields: {} })
       end
 
       def validate_update_type

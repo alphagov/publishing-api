@@ -187,6 +187,8 @@ Transitions an edition from a draft state to a published state. The edition
 will be presented in the live content store. Uses
 [optimistic-locking](#optimistic-locking-previous_version).
 
+This endpoint is idempotent. If the document already has a published edition and does not have a draft edition, the endpoint will return a 200 OK response.
+
 ### Path parameters
 
 - [`content_id`](model.md#content_id)
