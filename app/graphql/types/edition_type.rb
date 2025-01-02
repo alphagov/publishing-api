@@ -153,17 +153,6 @@ module Types
       field :supports_historical_accounts, Boolean
       field :whip_organisation, WhipOrganisation
       field :world_locations, [EditionType], null: false
-
-      def body
-        return object[:body] if object[:body].is_a?(String)
-
-        govspeak = object.fetch(:body, [])
-          .filter { _1[:content_type] == "text/govspeak" }
-          .map { _1[:content] }
-          .first
-
-        Govspeak::Document.new(govspeak).to_html if govspeak.present?
-      end
     end
 
     field :active, Boolean, null: false
@@ -196,6 +185,16 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime
     field :web_url, String
     field :withdrawn_notice, WithdrawnNotice
+
+    def details
+      Presenters::ContentTypeResolver.new("text/html").resolve(
+        Presenters::DetailsPresenter.new(
+          object.details,
+          Presenters::ChangeHistoryPresenter.new(object),
+          Presenters::ContentEmbedPresenter.new(object),
+        ).details,
+      )
+    end
 
     def withdrawn_notice
       return nil unless object.unpublishing&.withdrawal?
