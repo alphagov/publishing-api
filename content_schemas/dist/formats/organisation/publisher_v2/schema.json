@@ -235,10 +235,6 @@
           "description": "Whether the organisation is exempt from Freedom of Information requests.",
           "type": "boolean"
         },
-        "important_board_members": {
-          "description": "The number of board members that will have photos displayed for them.",
-          "type": "integer"
-        },
         "logo": {
           "description": "The organisation's logo, including the logo image and formatted name.",
           "type": "object",
