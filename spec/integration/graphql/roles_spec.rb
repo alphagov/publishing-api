@@ -114,7 +114,7 @@ RSpec.describe "GraphQL" do
         query:
           "{
             edition(base_path: \"/government/ministers/prime-minister\") {
-              ... on Role {
+              ... on Edition {
                 base_path
                 locale
                 title

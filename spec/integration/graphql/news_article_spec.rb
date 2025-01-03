@@ -14,6 +14,9 @@ RSpec.describe "GraphQL" do
       @government = create(
         :live_edition,
         document_type: "government",
+        details: {
+          "current" => true,
+        },
       )
 
       @organisation = create(
@@ -86,10 +89,12 @@ RSpec.describe "GraphQL" do
                 base_path: "/government/news/announcement",
                 content_store: "live",
               ) {
-                ... on NewsArticle {
+                ... on Edition {
                   base_path
                   title
-                  details
+                  details {
+                    body
+                  }
                   links {
                     available_translations {
                       base_path
@@ -153,7 +158,7 @@ RSpec.describe "GraphQL" do
               government: [
                 {
                   details: {
-                    current: @government.details["current"],
+                    current: @government.details[:current],
                   },
                   title: @government.title,
                 },

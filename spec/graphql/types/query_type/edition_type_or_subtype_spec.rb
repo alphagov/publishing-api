@@ -1,13 +1,14 @@
 RSpec.describe "Types::QueryType::EditionTypeOrSubtype" do
   describe "EDITION_TYPES" do
-    it "includes all EditionType descendants" do
+    it "includes all EditionType descendants that have a value for `document_types`" do
       Rails.application.eager_load!
 
-      expected = [Types::EditionType, *Types::EditionType.descendants].map(&:name)
-      actual = Types::QueryType::EditionTypeOrSubtype::EDITION_TYPES.map(&:name)
-      diff = expected - actual
+      expected_subtypes = [*Types::EditionType.descendants]
+        .select { |type| type.respond_to?(:document_types) }
+      expected = [Types::EditionType] + expected_subtypes
+      actual = Types::QueryType::EditionTypeOrSubtype::EDITION_TYPES
 
-      expect(diff).to be_empty
+      expect(actual).to eq(expected)
     end
   end
 
@@ -16,10 +17,10 @@ RSpec.describe "Types::QueryType::EditionTypeOrSubtype" do
       it "returns the Edition subtype" do
         expect(
           Types::QueryType::EditionTypeOrSubtype.resolve_type(
-            build(:live_edition, document_type: "world_index"),
+            build(:live_edition, document_type: "ministers_index"),
             {},
           ),
-        ).to be Types::WorldIndexType
+        ).to be Types::MinistersIndexType
       end
     end
 
