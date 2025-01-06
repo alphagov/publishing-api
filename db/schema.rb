@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_30_094743) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_06_115835) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -116,6 +116,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_30_094743) do
     t.string "request_id"
     t.uuid "content_id"
     t.jsonb "payload", default: {}
+    t.index ["content_id"], name: "index_events_on_content_id"
   end
 
   create_table "expanded_links", force: :cascade do |t|
