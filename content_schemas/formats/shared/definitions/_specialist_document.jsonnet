@@ -466,17 +466,17 @@
       bulk_published: {
         type: "boolean",
       },
-      data_ethics_guidance_document_key_reference: {
-        type: "string",
-      },
       data_ethics_guidance_document_ethical_theme: {
         type: "array",
         items: {
           type: "string",
         },
       },
-      data_ethics_guidance_document_organisation: {
-        type: "string",
+      data_ethics_guidance_document_organisation_alias: {
+        type: "array",
+        items: {
+          type: "string",
+        },
       },
       data_ethics_guidance_document_project_phase: {
         type: "array",
