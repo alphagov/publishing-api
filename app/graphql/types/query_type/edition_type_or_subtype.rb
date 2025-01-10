@@ -6,9 +6,6 @@ module Types
       EDITION_TYPES = [
         Types::EditionType,
         Types::MinistersIndexType,
-        Types::NewsArticleType,
-        Types::RoleType,
-        Types::WorldIndexType,
       ].freeze
 
       possible_types(*EDITION_TYPES)

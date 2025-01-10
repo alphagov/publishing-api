@@ -34,10 +34,10 @@ RSpec.describe "GraphQL" do
       )
     end
 
-    it "exposes world index specific fields in addition to generic edition fields" do
+    it "has world index specific fields in the generic edition type" do
       post "/graphql", params: {
         query:
-          "fragment worldLocationInfo on WorldLocation {
+          "fragment worldLocationInfo on Edition {
             active
             analytics_identifier
             content_id
@@ -48,7 +48,7 @@ RSpec.describe "GraphQL" do
 
           {
             edition(base_path: \"/world\") {
-              ... on WorldIndex {
+              ... on Edition {
                 title
 
                 details {
