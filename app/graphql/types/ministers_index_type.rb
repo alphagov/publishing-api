@@ -46,12 +46,7 @@ module Types
       end
 
       class MinistersIndexPersonDetails < Types::BaseObject
-        class Image < Types::BaseObject
-          field :url, String
-          field :alt_text, String
-        end
-
-        field :image, Image
+        field :image, EditionType::Details::Image
         field :privy_counsellor, Boolean
       end
 
@@ -77,13 +72,8 @@ module Types
       end
 
       class DepartmentDetails < Types::BaseObject
-        class Logo < Types::BaseObject
-          field :crest, String
-          field :formatted_title, String
-        end
-
         field :brand, String
-        field :logo, Logo
+        field :logo, EditionType::Details::Logo
       end
 
       class DepartmentLinks < Types::BaseObject
