@@ -11,6 +11,7 @@ private
       source_block: {
         title: source_edition.title,
         content_id: source_edition.content_id,
+        document_type: source_edition.document_type,
         updated_by_user_uid: source_edition_publication_event&.user_uid,
       },
     }

@@ -1,6 +1,7 @@
 RSpec.describe HostContentUpdateJob, :perform do
   let(:content_id) { SecureRandom.uuid }
-  let(:edition) { build(:live_edition) }
+  let(:document_type) { "content_block_email_address" }
+  let(:edition) { build(:live_edition, document_type:) }
   let(:document) { build(:document, live: edition, content_id:) }
 
   subject(:worker_perform) do
@@ -58,6 +59,7 @@ RSpec.describe HostContentUpdateJob, :perform do
     expect(event.content_id).to eq(dependent_content_id)
     expect(event.payload[:source_block][:title]).to eq(edition.title)
     expect(event.payload[:source_block][:content_id]).to eq(content_id)
+    expect(event.payload[:source_block][:document_type]).to eq(document_type)
     expect(event.payload[:source_block][:updated_by_user_uid]).to eq(latest_publish_event.user_uid)
     expect(event.payload[:message]).to eq("Host content updated by content block update")
   end
