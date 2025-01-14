@@ -14,12 +14,7 @@ class Link < ApplicationRecord
   validate :association_presence
 
   def self.filter_editions(scope, filters)
-    if filters.size > 1
-      # TODO: richard.towers - temporary warning to check whether this method is ever
-      #       called with multiple filters. The code looks wrong, so if it's not being
-      #       called we should make this an error and only support a single filter.
-      logger.warn("filter_editions called with multiple filters. These will be ANDed together in a way that probably isn't what we want. Filters were: #{filters.inspect}")
-    end
+    raise "filter_editions doesn't support multiple filters" if filters.size > 1
 
     scope = scope.joins(document: :link_set_links)
 
