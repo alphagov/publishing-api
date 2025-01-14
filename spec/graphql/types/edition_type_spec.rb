@@ -30,4 +30,54 @@ RSpec.describe "Types::EditionType" do
       end
     end
   end
+
+  context "content types in the details" do
+    context "when the body is a string" do
+      it "returns the string" do
+        edition = create(:edition, details: { body: "some text" })
+
+        expect(
+          run_graphql_field(
+            "Edition.details",
+            edition,
+          )[:body],
+        ).to eq("some text")
+      end
+    end
+
+    context "when there are multiple content types and one is html" do
+      it "returns the html" do
+        edition = create(:edition, details: {
+          body: [
+            { content_type: "text/govspeak", content: "some text" },
+            { content_type: "text/html", content: "<p>some other text</p>" },
+          ],
+        })
+
+        expect(
+          run_graphql_field(
+            "Edition.details",
+            edition,
+          )[:body],
+        ).to eq("<p>some other text</p>")
+      end
+    end
+
+    context "when there are multiple content types and none are html" do
+      it "converts the govspeak to html" do
+        edition = create(:edition, details: {
+          body: [
+            { content_type: "text/govspeak", content: "some text" },
+          ],
+        })
+
+        expect(
+          run_graphql_field(
+            "Edition.details",
+            edition,
+          )[:body],
+        ).to eq("<p>some text</p>\n")
+      end
+    end
+  end
 end
