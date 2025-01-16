@@ -2,25 +2,7 @@
   document_type: "finder_email_signup",
   definitions: {
     subscription_list_title_prefix: {
-      oneOf: [
-        {
-          type: "object",
-          properties: {
-            plural: {
-              type: "string",
-            },
-            singular: {
-              type: "string",
-            },
-            many: {
-              type: "string",
-            },
-          },
-        },
-        {
-          type: "string",
-        },
-      ],
+      type: "string",
     },
     facet_name: {
       oneOf: [
