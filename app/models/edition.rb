@@ -1,10 +1,7 @@
 class Edition < ApplicationRecord
   include SymbolizeJSON
 
-  enum content_store: {
-    draft: "draft",
-    live: "live",
-  }
+  enum :content_store, draft: "draft", live: "live"
 
   DEFAULT_LOCALE = "en".freeze
 
