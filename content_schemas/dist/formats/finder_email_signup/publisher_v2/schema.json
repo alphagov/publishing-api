@@ -522,25 +522,7 @@
       "minItems": 1
     },
     "subscription_list_title_prefix": {
-      "oneOf": [
-        {
-          "type": "object",
-          "properties": {
-            "many": {
-              "type": "string"
-            },
-            "plural": {
-              "type": "string"
-            },
-            "singular": {
-              "type": "string"
-            }
-          }
-        },
-        {
-          "type": "string"
-        }
-      ]
+      "type": "string"
     },
     "title": {
       "type": "string"
