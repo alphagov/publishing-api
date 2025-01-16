@@ -1,7 +1,7 @@
 RSpec.describe "POST /lookup-by-base-path", type: :request do
   context "validating" do
     it "requires a base_paths param" do
-      expected_error_response = { "error" => { "code" => 422, "message" => "param is missing or the value is empty: base_paths" } }
+      expected_error_response = { "error" => { "code" => 422, "message" => "param is missing or the value is empty or invalid: base_paths" } }
 
       post "/lookup-by-base-path"
 
