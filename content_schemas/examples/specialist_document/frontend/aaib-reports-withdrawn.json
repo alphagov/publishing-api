@@ -1,0 +1,241 @@
+{
+  "content_id": "fb81a47b-7c8f-4280-b6c7-b6fa258b19b3",
+  "public_updated_at": "2015-07-09T08:17:10+00:00",
+  "locale": "en",
+  "details": {
+    "metadata": {
+      "date_of_occurrence": "2015-08-08",
+      "aircraft_category": [
+        "sport-aviation-and-balloons"
+      ],
+      "report_type": "correspondence-investigation",
+      "location": "Damyns Hall Aerodrome, Essex",
+      "aircraft_type": "Rotorsport UK Calidus",
+      "registration": "G-PCPC",
+      "bulk_published": false
+    },
+    "change_history": [
+      {
+        "public_timestamp": "2015-07-09T08:17:10Z",
+        "note": "First published."
+      }
+    ],
+    "body": "<h2 id=\"summary\">Summary:</h2>\n<p>The gyroplane began to move forward against the brakes before sufficient rotor rpm had been achieved for takeoff.  The pilot responded by re-positioning the control stick fully aft and the rotors struck the tailplane.  The pilot lost directional control and the right landing gear subsequently failed, causing the gyroplane to tip onto its right side.  The pilot was uninjured.</p>\n\n<h3 id=\"download-report\">Download report:</h3>\n<p><a rel=\"external\" href=\"https://assets.digital.cabinet-office.gov.uk/media/559e25de40f0b61564000039/Rotorsport_UK_Calidus_G-PCPC_07-15.pdf\">Rotorsport UK Calidus G-PCPC 07-15</a> </p>\n\n<h3 id=\"download-glossary-of-abbreviations\">Download glossary of abbreviations:</h3>\n<p><a href=\"https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/433812/Glossary_of_abbreviations.pdf\">Glossary of abbreviations</a></p>\n\n",
+    "max_cache_time": 10,
+    "attachments": [
+      {
+        "attachment_type": "file",
+        "id": "bb227d96-abc7-4748-bd70-3029dba930bb",
+        "content_id": "bb227d96-abc7-4748-bd70-3029dba930bb",
+        "title": "Rotorsport UK Calidus G-PCPC 07-15",
+        "url": "https://assets.digital.cabinet-office.gov.uk/media/559e25de40f0b61564000039/Rotorsport_UK_Calidus_G-PCPC_07-15.pdf",
+        "updated_at": "2015-07-09T08:43:38Z",
+        "created_at": "2015-07-09T07:42:22Z",
+        "content_type": "application/pdf"
+      }
+    ],
+    "headers": [
+      {
+        "text": "Summary:",
+        "level": 2,
+        "id": "summary",
+        "headers": [
+          {
+            "text": "Download report:",
+            "level": 3,
+            "id": "download-report"
+          },
+          {
+            "text": "Download glossary of abbreviations:",
+            "level": 3,
+            "id": "download-glossary-of-abbreviations"
+          }
+        ]
+      }
+    ]
+  },
+  "base_path": "/aaib-reports/aaib-investigation-to-rotorsport-uk-calidus-g-pcpc",
+  "description": "Overturned after rotor struck tailplane during preparation for takeoff, Damyns Hall Aerodrome, Essex, 8 April 2015.",
+  "title": "AAIB investigation to Rotorsport UK Calidus, G-PCPC\t",
+  "updated_at": "2015-07-09T08:54:30+00:00",
+  "withdrawn_notice": {
+    "explanation": "<div class=\"govspeak\"><p>This information has been archived as it is now out of date.</p></div>",
+    "withdrawn_at": "2017-02-28T13:05:30Z"
+  },
+  "schema_name": "specialist_document",
+  "document_type": "aaib_report",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "OT248",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/air-accidents-investigation-branch",
+        "base_path": "/government/organisations/air-accidents-investigation-branch",
+        "content_id": "38eb5d8f-2d89-480c-8655-e2e7ac23f8f4",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-04-15T10:04:28Z",
+        "schema_name": "organisation",
+        "title": "Air Accidents Investigation Branch",
+        "web_url": "https://www.gov.uk/government/organisations/air-accidents-investigation-branch",
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Air Accidents<br/>Investigation Branch",
+            "crest": null
+          }
+        },
+        "links": {
+        },
+        "api_path": "/api/content/government/organisations/air-accidents-investigation-branch"
+      }
+    ],
+    "finder": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/aaib-reports",
+        "base_path": "/aaib-reports",
+        "content_id": "b7574bba-969f-4c49-855a-ae1586258ff6",
+        "description": "Find reports of AAIB investigations into air accidents and incidents",
+        "document_type": "finder",
+        "locale": "en",
+        "public_updated_at": "2017-03-15T14:44:21Z",
+        "schema_name": "finder",
+        "title": "Air Accidents Investigation Branch reports",
+        "withdrawn": false,
+        "details": {
+          "facets": [
+            {
+              "key": "aircraft_category",
+              "name": "Aircraft category",
+              "type": "text",
+              "preposition": "in aircraft category",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Commercial - fixed wing",
+                  "value": "commercial-fixed-wing"
+                },
+                {
+                  "label": "Commercial - rotorcraft",
+                  "value": "commercial-rotorcraft"
+                },
+                {
+                  "label": "General aviation - fixed wing",
+                  "value": "general-aviation-fixed-wing"
+                },
+                {
+                  "label": "General aviation - rotorcraft",
+                  "value": "general-aviation-rotorcraft"
+                },
+                {
+                  "label": "Sport aviation and balloons",
+                  "value": "sport-aviation-and-balloons"
+                },
+                {
+                  "label": "Unmanned Aircraft Systems (UAS)",
+                  "value": "unmanned-aircraft-systems"
+                }
+              ]
+            },
+            {
+              "key": "report_type",
+              "name": "Report type",
+              "type": "text",
+              "preposition": "of type",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Annual safety report",
+                  "value": "annual-safety-report"
+                },
+                {
+                  "label": "Bulletin - Correspondence investigation",
+                  "value": "correspondence-investigation"
+                },
+                {
+                  "label": "Bulletin - Field investigation",
+                  "value": "field-investigation"
+                },
+                {
+                  "label": "Bulletin - Pre-1997 uncategorised monthly report",
+                  "value": "pre-1997-monthly-report"
+                },
+                {
+                  "label": "Foreign report",
+                  "value": "foreign-report"
+                },
+                {
+                  "label": "Formal report",
+                  "value": "formal-report"
+                },
+                {
+                  "label": "Special bulletin",
+                  "value": "special-bulletin"
+                },
+                {
+                  "label": "Safety study",
+                  "value": "safety-study"
+                }
+              ]
+            },
+            {
+              "key": "date_of_occurrence",
+              "name": "Date of occurrence",
+              "short_name": "Occurred",
+              "type": "date",
+              "preposition": "occurred",
+              "display_as_result_metadata": true,
+              "filterable": true
+            },
+            {
+              "key": "aircraft_type",
+              "name": "Aircraft type",
+              "type": "text",
+              "display_as_result_metadata": false,
+              "filterable": false
+            },
+            {
+              "key": "location",
+              "name": "Location",
+              "type": "text",
+              "display_as_result_metadata": false,
+              "filterable": false
+            },
+            {
+              "key": "registration",
+              "name": "Registration",
+              "type": "text",
+              "display_as_result_metadata": false,
+              "filterable": false
+            }
+          ]
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/aaib-reports",
+        "web_url": "https://www.gov.uk/aaib-reports"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "api_url": "https://www.gov.uk/api/content/aaib-reports/aaib-investigation-to-rotorsport-uk-calidus-g-pcpc",
+        "base_path": "/aaib-reports/aaib-investigation-to-rotorsport-uk-calidus-g-pcpc",
+        "content_id": "9854f859-3413-4d6d-b6d5-6a10cf2a9030",
+        "description": "Overturned after rotor struck tailplane during preparation for takeoff, Damyns Hall Aerodrome, Essex, 8 April 2015.",
+        "document_type": "aaib_report",
+        "locale": "en",
+        "public_updated_at": "2015-07-09T08:17:10Z",
+        "schema_name": "specialist_document",
+        "title": "AAIB investigation to Rotorsport UK Calidus, G-PCPC\t",
+        "web_url": "https://www.gov.uk/aaib-reports/aaib-investigation-to-rotorsport-uk-calidus-g-pcpc",
+        "api_path": "/api/content/aaib-reports/aaib-investigation-to-rotorsport-uk-calidus-g-pcpc",
+        "links": {
+        }
+      }
+    ]
+  }
+}
