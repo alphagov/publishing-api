@@ -114,6 +114,7 @@
                 "bis",
                 "dbt",
                 "eo",
+                "gds",
                 "hmrc",
                 "ho",
                 "mod",
