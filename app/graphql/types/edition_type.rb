@@ -102,7 +102,7 @@ module Types
       field :role_appointments, [EditionType]
 
       def role_appointments
-        if object.document_type == "role" || object.document_type == "ministerial_role"
+        if %w[role ministerial_role].include?(object.document_type)
           dataloader.with(Sources::ReverseLinkedToEditionsSource, parent_object: object)
             .load("role")
         else
