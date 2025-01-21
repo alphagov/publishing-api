@@ -82,4 +82,29 @@ namespace :csv_report do
 
     query.each { |row| csv << row }
   end
+
+  desc "Prints a CSV of weekly edition counts by publishing_app (i.e. how many updates were made per week in each app)"
+  task :weekly_edition_counts_by_publishing_app, %i[from until] => :environment do |_, args|
+    raise ArgumentError, "Please enter from and until times" unless args[:from] && args[:until]
+
+    from_time = Time.zone.parse(args[:from])
+    until_time = Time.zone.parse(args[:until])
+
+    results = Edition.where(created_at: from_time...until_time)
+                     .group(
+                       "date_trunc('week', created_at)",
+                       "publishing_app",
+                     )
+                     .select(
+                       "date_trunc('week', created_at) as week_created",
+                       "publishing_app",
+                       "count(*) as count",
+                     )
+                     .order(:week_created, :publishing_app)
+
+    csv = CSV.new($stdout)
+    csv << %w[week_created publishing_app count]
+
+    results.each { |row| csv << [row.week_created, row.publishing_app, row.count] }
+  end
 end
