@@ -137,4 +137,31 @@ RSpec.describe "CSV report rake tasks" do
         .to output(csv).to_stdout
     end
   end
+
+  describe "csv_report:weekly_edition_counts_by_publishing_app" do
+    let(:task) { Rake::Task["csv_report:weekly_edition_counts_by_publishing_app"] }
+    before { task.reenable }
+
+    it "outputs a CSV of weekly edition counts by publishing_app" do
+      %w[whitehall content-publisher].each do |publishing_app|
+        %w[2020-01-08 2020-01-13 2020-01-20 2020-01-27].each do |created_at|
+          2.times { create(:live_edition, publishing_app: publishing_app, created_at: created_at) }
+        end
+      end
+
+      csv = <<~CSV
+        week_created,publishing_app,count
+        2020-01-06T00:00:00Z,content-publisher,2
+        2020-01-06T00:00:00Z,whitehall,2
+        2020-01-13T00:00:00Z,content-publisher,2
+        2020-01-13T00:00:00Z,whitehall,2
+        2020-01-20T00:00:00Z,content-publisher,2
+        2020-01-20T00:00:00Z,whitehall,2
+        2020-01-27T00:00:00Z,content-publisher,2
+        2020-01-27T00:00:00Z,whitehall,2
+      CSV
+
+      expect { task.invoke("2020-01-01", "2020-02-01") }.to output(csv).to_stdout
+    end
+  end
 end

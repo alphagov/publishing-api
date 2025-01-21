@@ -105,6 +105,6 @@ namespace :csv_report do
     csv = CSV.new($stdout)
     csv << %w[week_created publishing_app count]
 
-    results.each { |row| csv << [row.week_created, row.publishing_app, row.count] }
+    results.each { |row| csv << [row.week_created.iso8601, row.publishing_app, row.count] }
   end
 end
