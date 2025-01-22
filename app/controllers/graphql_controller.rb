@@ -7,31 +7,41 @@ class GraphqlController < ApplicationController
   # protect_from_forgery with: :null_session
 
   def execute
-    variables = prepare_variables(params[:variables])
-    query = params[:query]
-    operation_name = params[:operationName]
-    context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
-    }
-    result = PublishingApiSchema.execute(
-      query,
-      variables:,
-      context:,
-      operation_name:,
-    ).to_hash
+    GC.disable
 
-    if result.key?("errors")
-      logger.warn("GraphQL query result contained errors: #{result['errors']}")
-    else
-      logger.debug("GraphQL query result: #{result}")
+    result = nil
+
+    StackProf.run(mode: :wall, out: "test.dump") do
+      variables = prepare_variables(params[:variables])
+      query = params[:query]
+      operation_name = params[:operationName]
+      context = {
+        # Query context goes here, for example:
+        # current_user: current_user,
+      }
+      result = PublishingApiSchema.execute(
+        query,
+        variables:,
+        context:,
+        operation_name:,
+      ).to_hash
+
+      if result.key?("errors")
+        logger.warn("GraphQL query result contained errors: #{result['errors']}")
+      else
+        logger.debug("GraphQL query result: #{result}")
+      end
     end
+
+    # StackProf::Report.new(profile).print_text
 
     render json: result
   rescue StandardError => e
     raise e unless Rails.env.development?
 
     handle_error_in_development(e)
+  ensure
+    GC.enable
   end
 
 private

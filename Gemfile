@@ -32,6 +32,7 @@ group :development do
   gem "listen"
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem "rack-mini-profiler"
+  gem "stackprof"
   gem "web-console"
 end
 
