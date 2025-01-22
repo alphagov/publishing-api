@@ -645,6 +645,8 @@ GEM
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.1.8)
+    rack-mini-profiler (3.3.1)
+      rack (>= 1.2.0)
     rack-protection (4.1.1)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
@@ -914,6 +916,7 @@ DEPENDENCIES
   pg
   plek
   prometheus-client
+  rack-mini-profiler
   rails (= 8.0.1)
   rspec-rails
   rubocop-govuk
