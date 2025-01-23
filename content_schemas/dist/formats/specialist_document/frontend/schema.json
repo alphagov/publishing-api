@@ -2038,17 +2038,26 @@
       "additionalProperties": false,
       "properties": {
         "case_type": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "decision_subject": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "first_published_at": {
           "type": "string",
           "pattern": "^[1-9][0-9]{3}[-/](0[1-9]|1[0-2])[-/](0[1-9]|[12][0-9]|3[0-1])$"
         },
         "outcome_type": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "regions": {
           "type": "array",
