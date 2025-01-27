@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_06_115835) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_27_105807) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -96,6 +96,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_06_115835) do
     t.uuid "last_edited_by_editor_id"
     t.index ["base_path", "content_store"], name: "index_editions_on_base_path_and_content_store", unique: true
     t.index ["document_id", "content_store"], name: "index_editions_on_document_id_and_content_store", unique: true
+    t.index ["document_id", "document_type"], name: "index_editions_on_document_id_and_document_type_current", where: "((details ->> 'current'::text) = 'true'::text)"
+    t.index ["document_id", "document_type"], name: "index_editions_on_document_id_and_document_type_live", where: "((content_store)::text = 'live'::text)"
     t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state"
     t.index ["document_id", "user_facing_version"], name: "index_editions_on_document_id_and_user_facing_version", unique: true
     t.index ["document_id"], name: "index_editions_on_document_id"
@@ -158,6 +160,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_06_115835) do
     t.integer "position", default: 0, null: false
     t.integer "edition_id"
     t.index ["edition_id"], name: "index_links_on_edition_id"
+    t.index ["link_set_id", "link_type"], name: "index_links_on_link_set_id_and_link_type"
     t.index ["link_set_id", "target_content_id"], name: "index_links_on_link_set_id_and_target_content_id"
     t.index ["link_set_id"], name: "index_links_on_link_set_id"
     t.index ["link_type"], name: "index_links_on_link_type"
