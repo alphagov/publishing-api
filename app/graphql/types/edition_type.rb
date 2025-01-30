@@ -135,7 +135,7 @@ module Types
 
       field :body, String
       field :brand, String
-      field :change_history, GraphQL::Types::JSON
+      field :change_history, GraphQL::Types::JSON, extras: [:parent]
       field :current, Boolean
       field :default_news_image, Image
       field :display_date, GraphQL::Types::ISO8601DateTime
@@ -158,6 +158,7 @@ module Types
     field :active, Boolean, null: false
     field :analytics_identifier, String
     field :base_path, String
+    field :change_history, GraphQL::Types::JSON
     field :content_id, ID
     field :current, Boolean
     field :description, String
@@ -186,11 +187,15 @@ module Types
     field :web_url, String
     field :withdrawn_notice, WithdrawnNotice
 
+    def change_history
+      Presenters::ChangeHistoryPresenter.new(object).change_history
+    end
+
     def details
       Presenters::ContentTypeResolver.new("text/html").resolve(
         Presenters::DetailsPresenter.new(
           object.details,
-          Presenters::ChangeHistoryPresenter.new(object),
+          nil,
           Presenters::ContentEmbedPresenter.new(object),
         ).details,
       )
