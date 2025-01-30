@@ -10,8 +10,8 @@ module Types
       field(field_name_and_link_type.to_sym, graphql_field_type)
 
       define_method(field_name_and_link_type.to_sym) do
-        dataloader.with(Sources::LinkedToEditionsSource, parent_object: object)
-          .load(field_name_and_link_type.to_s)
+        dataloader.with(Sources::LinkedToEditionsSource, content_store: object.content_store)
+          .load([object, field_name_and_link_type.to_s])
       end
     end
 
