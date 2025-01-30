@@ -58,9 +58,6 @@
         facets: {
           "$ref": "#/definitions/finder_facets",
         },
-        format_name: {
-          type: "string",
-        },
         label_text: {
           type: "string",
         },
