@@ -8,6 +8,7 @@ RSpec.describe "GraphQL" do
         document_type: "news_story",
         details: {
           body: "Some text",
+          change_history: [{ note: "Info", public_timestamp: "2025-01-01 00:01:00" }],
         },
       )
 
@@ -94,6 +95,7 @@ RSpec.describe "GraphQL" do
                   title
                   details {
                     body
+                    change_history
                   }
                   links {
                     available_translations {
@@ -147,6 +149,7 @@ RSpec.describe "GraphQL" do
             base_path: @edition.base_path,
             details: {
               body: @edition.details[:body],
+              change_history: [{ note: "Info", public_timestamp: "2025-01-01 00:01:00" }],
             },
             links: {
               available_translations: [
