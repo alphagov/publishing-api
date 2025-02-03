@@ -5,6 +5,8 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:document) { create(:document, content_id:) }
+    let(:first_embed_code) { "{{embed:contact:#{first_contact.document.content_id}}}" }
+    let(:second_embed_code) { "{{embed:contact:#{second_contact.document.content_id}}}" }
 
     before do
       payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{first_contact.document.content_id}}} {{embed:contact:#{second_contact.document.content_id}}}" })
@@ -22,7 +24,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     it "should send transformed content to the content store" do
       put "/v2/content/#{content_id}", params: payload.to_json
 
-      expect_content_store_to_have_received_details_including({ "body" => "#{presented_details_for(first_contact)} #{presented_details_for(second_contact)}" })
+      expect_content_store_to_have_received_details_including({ "body" => "#{presented_details_for(first_contact, first_embed_code)} #{presented_details_for(second_contact, second_embed_code)}" })
     end
   end
 
@@ -30,6 +32,8 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:document) { create(:document, content_id:) }
+
+    let(:first_embed_code) { "{{embed:contact:#{first_contact.document.content_id}}}" }
 
     let(:payload_for_multiple_field_embeds) do
       payload.merge!(
@@ -52,13 +56,15 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     it "should send transformed content to the content store" do
       put "/v2/content/#{content_id}", params: payload_for_multiple_field_embeds.to_json
 
-      expect_content_store_to_have_received_details_including({ "downtime_message" => presented_details_for(first_contact) })
+      expect_content_store_to_have_received_details_including({ "downtime_message" => presented_details_for(first_contact, first_embed_code) })
     end
   end
 
   context "with multipart content" do
     let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:first_embed_code) { "{{embed:contact:#{first_contact.document.content_id}}}" }
+    let(:second_embed_code) { "{{embed:contact:#{second_contact.document.content_id}}}" }
     let(:document) { create(:document, content_id:) }
     let(:details) do
       {
@@ -78,11 +84,11 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
             body: [
               {
                 "content_type": "text/govspeak",
-                "content": "{{embed:contact:#{first_contact.document.content_id}}}",
+                "content": first_embed_code,
               },
               {
                 "content_type": "text/html",
-                "content": "<p>{{embed:contact:#{first_contact.document.content_id}}}</p>",
+                "content": "<p>#{first_embed_code}</p>",
               },
             ],
           },
@@ -92,11 +98,11 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
             body: [
               {
                 "content_type": "text/govspeak",
-                "content": "{{embed:contact:#{second_contact.document.content_id}}}",
+                "content": second_embed_code,
               },
               {
                 "content_type": "text/html",
-                "content": "<p>{{embed:contact:#{second_contact.document.content_id}}}</p>",
+                "content": "<p>#{second_embed_code}</p>",
               },
             ],
           },
@@ -128,11 +134,11 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
             "body" => [
               {
                 "content_type" => "text/govspeak",
-                "content" => presented_details_for(first_contact),
+                "content" => presented_details_for(first_contact, first_embed_code),
               },
               {
                 "content_type" => "text/html",
-                "content" => "<p>#{presented_details_for(first_contact)}</p>",
+                "content" => "<p>#{presented_details_for(first_contact, first_embed_code)}</p>",
               },
             ],
           },
@@ -142,11 +148,11 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
             "body" => [
               {
                 "content_type" => "text/govspeak",
-                "content" => presented_details_for(second_contact),
+                "content" => presented_details_for(second_contact, second_embed_code),
               },
               {
                 "content_type" => "text/html",
-                "content" => "<p>#{presented_details_for(second_contact)}</p>",
+                "content" => "<p>#{presented_details_for(second_contact, second_embed_code)}</p>",
               },
             ],
           },
@@ -158,6 +164,8 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   context "with embedded content as an array" do
     let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:first_embed_code) { "{{embed:contact:#{first_contact.document.content_id}}}" }
+    let(:second_embed_code) { "{{embed:contact:#{first_contact.document.content_id}}}" }
     let(:document) { create(:document, content_id:) }
 
     before do
@@ -176,17 +184,19 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     it "should send transformed content to the content store" do
       put "/v2/content/#{content_id}", params: payload.to_json
 
-      expect_content_store_to_have_received_details_including({ "body" => array_including({ "content_type" => "text/govspeak", "content" => "#{presented_details_for(first_contact)} #{presented_details_for(second_contact)}" }) })
+      expect_content_store_to_have_received_details_including({ "body" => array_including({ "content_type" => "text/govspeak", "content" => "#{presented_details_for(first_contact, first_embed_code)} #{presented_details_for(second_contact, second_embed_code)}" }) })
     end
   end
 
   context "with mixed embedded content" do
     let(:email_address) { create(:edition, state: "published", content_store: "live", document_type: "content_block_email_address", details: { email_address: "foo@example.com" }) }
+    let(:email_embed_code) { "{{embed:content_block_email_address:#{email_address.document.content_id}}}" }
     let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:contact_embed_code) { "{{embed:contact:#{contact.document.content_id}}}" }
     let(:document) { create(:document, content_id:) }
 
     before do
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:content_block_email_address:#{email_address.document.content_id}}} {{embed:contact:#{contact.document.content_id}}}" })
+      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "#{email_embed_code} #{contact_embed_code}" })
     end
 
     it "should create links" do
@@ -201,7 +211,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     it "should send transformed content to the content store" do
       put "/v2/content/#{content_id}", params: payload.to_json
 
-      expect_content_store_to_have_received_details_including({ "body" => "#{presented_details_for(email_address)} #{presented_details_for(contact)}" })
+      expect_content_store_to_have_received_details_including({ "body" => "#{presented_details_for(email_address, email_embed_code)} #{presented_details_for(contact, contact_embed_code)}" })
     end
   end
 

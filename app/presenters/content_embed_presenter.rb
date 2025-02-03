@@ -57,19 +57,20 @@ module Presenters
         embedded_edition = embedded_editions[content_reference.content_id]
         content = content.gsub(
           embed_code,
-          get_content_for_edition(embedded_edition),
+          get_content_for_edition(embedded_edition, embed_code),
         )
       end
 
       content
     end
 
-    def get_content_for_edition(edition)
+    def get_content_for_edition(edition, embed_code)
       ContentBlockTools::ContentBlock.new(
         document_type: edition.document_type,
         content_id: edition.document.content_id,
         title: edition.title,
         details: edition.details,
+        embed_code: embed_code,
       ).render
     end
   end

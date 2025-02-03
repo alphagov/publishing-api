@@ -82,6 +82,8 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         create(:edition, state: "published", content_store: "live", document_type: "contact", title: "Some contact")
       end
 
+      let(:embed_code) { "{{embed:contact:#{contact.document.content_id}}}" }
+
       before do
         create_edition(a, "/a", document_type: "person")
         create_edition(
@@ -92,7 +94,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
             body: [
               {
                 content_type: "text/govspeak",
-                content: "{{embed:contact:#{contact.document.content_id}}}",
+                content: embed_code,
               },
             ],
           },
@@ -110,11 +112,11 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         expect(c[:details][:body]).to match([
           {
             content_type: "text/govspeak",
-            content: presented_details_for(contact),
+            content: presented_details_for(contact, embed_code),
           },
           {
             content_type: "text/html",
-            content: "<p>#{presented_details_for(contact)}</p>\n",
+            content: "<p>#{presented_details_for(contact, embed_code)}</p>\n",
           },
         ])
       end
