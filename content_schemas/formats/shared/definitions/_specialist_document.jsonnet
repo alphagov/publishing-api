@@ -27,6 +27,9 @@
         "$ref": "#/definitions/countryside_stewardship_grant_metadata",
       },
       {
+        "$ref": "#/definitions/defra_approved_appliance_metadata",
+      },
+      {
         "$ref": "#/definitions/drcf_digital_markets_research_metadata",
       },
       {
@@ -489,6 +492,43 @@
         items: {
           type: "string",
         },
+      },
+    },
+  },
+  defra_approved_appliance_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      defra_approved_appliance_name: {
+        type: "string",
+      },
+      defra_approved_appliance_type: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      defra_approved_appliance_fuel_type: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      defra_approved_appliance_manufacturer: {
+        type: "string",
+      },
+      defra_approved_appliance_country: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      defra_approved_appliance_fuel_authorised_date: {
+        type: "string",
+        pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
       },
     },
   },
