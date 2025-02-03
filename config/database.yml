@@ -5,15 +5,29 @@ default: &default
   template: template0
 
 development:
-  <<: *default
-  database: publishing_api_development
-  url: <%= ENV["DATABASE_URL"]%>
+  primary:
+    <<: *default
+    database: publishing_api_development
+    url: <%= ENV["DATABASE_URL"]%>
+  graphql_logical_replica:
+    <<: *default
+    database: publishing_api_development_replica
+    url: <%= ENV["DATABASE_URL"]%>
 
 test:
-  <<: *default
-  database: publishing_api_test
-  url: <%= ENV["TEST_DATABASE_URL"] %>
+  primary:
+    <<: *default
+    database: publishing_api_test
+    url: <%= ENV["DATABASE_URL"]%>
+  graphql_logical_replica:
+    <<: *default
+    database: publishing_api_test_replica
+    url: <%= ENV["DATABASE_URL"]%>
 
 production:
-  <<: *default
-  # Rails reads values from DATABASE_URL env var.
+  primary:
+    <<: *default
+    # Rails reads values from DATABASE_URL env var.
+  graphql_logical_replica:
+    <<: *default
+    database: publishing_api_production_replica
