@@ -10,7 +10,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
     create(:link, link_set: link_set, target_content_id: target_edition_3.content_id, link_type: "test_link")
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(described_class, parent_object: source_edition).request("test_link")
+      request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
 
       expect(request.load).to eq([target_edition_1, target_edition_3])
     end
@@ -28,7 +28,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
                             })
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(described_class, parent_object: source_edition).request("test_link")
+      request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
 
       expect(request.load).to eq([target_edition_1, target_edition_3])
     end
@@ -49,9 +49,32 @@ RSpec.describe Sources::LinkedToEditionsSource do
     create(:link, link_set: link_set, target_content_id: target_edition_3.content_id, link_type: "test_link")
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(described_class, parent_object: source_edition).request("test_link")
+      request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
 
       expect(request.load).to eq([target_edition_1, target_edition_3])
+    end
+  end
+
+  it "returns links from only the requested content store" do
+    target_edition_1 = create(:edition, content_store: "live")
+    target_edition_2 = create(:edition, content_store: "live")
+    target_edition_3 = create(:edition, content_store: "draft")
+    target_edition_4 = create(:edition, content_store: "draft")
+
+    source_edition = create(:edition,
+                            content_store: "draft",
+                            links_hash: {
+                              "test_link" => [target_edition_1.content_id, target_edition_3.content_id],
+                            })
+
+    link_set = create(:link_set, content_id: source_edition.content_id)
+    create(:link, link_set:, target_content_id: target_edition_2.content_id, link_type: "test_link")
+    create(:link, link_set:, target_content_id: target_edition_4.content_id, link_type: "test_link")
+
+    GraphQL::Dataloader.with_dataloading do |dataloader|
+      request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
+
+      expect(request.load).to eq([target_edition_3, target_edition_4])
     end
   end
 end
