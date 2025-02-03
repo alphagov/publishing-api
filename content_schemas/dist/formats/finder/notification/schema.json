@@ -428,9 +428,6 @@
         "filter": {
           "$ref": "#/definitions/finder_filter"
         },
-        "format_name": {
-          "type": "string"
-        },
         "generic_description": {
           "type": "boolean"
         },
