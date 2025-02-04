@@ -84,6 +84,7 @@
         "cma_case",
         "content_block_email_address",
         "content_block_postal_address",
+        "content_block_pension",
         "complaints_procedure",
         "completed_transaction",
         "consultation",
