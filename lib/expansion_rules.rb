@@ -91,7 +91,8 @@ module_function
 
   DEFAULT_FIELDS_AND_DESCRIPTION = (DEFAULT_FIELDS + [:description]).freeze
 
-  CONTENT_BLOCK_FIELDS = (DEFAULT_FIELDS + details_fields(:email_address)).freeze
+  CONTENT_BLOCK_EMAIL_FIELDS = (DEFAULT_FIELDS + details_fields(:email_address)).freeze
+  CONTENT_BLOCK_POSTAL_FIELDS = (DEFAULT_FIELDS + details_fields(:line_1, :town_or_city, :postcode)).freeze
   CONTACT_FIELDS = (DEFAULT_FIELDS + details_fields(:description, :title, :contact_form_links, :post_addresses, :email_addresses, :phone_numbers)).freeze
   GOVERNMENT_FIELDS = (MANDATORY_FIELDS + %i[api_path base_path document_type] + details_fields(:started_on, :ended_on, :current)).freeze
   ORGANISATION_FIELDS = (DEFAULT_FIELDS - [:public_updated_at] + details_fields(:acronym, :logo, :brand, :default_news_image, :organisation_govuk_status)).freeze
@@ -164,7 +165,9 @@ module_function
       { document_type: :contact,
         fields: CONTACT_FIELDS },
       { document_type: :content_block_email_address,
-        fields: CONTENT_BLOCK_FIELDS },
+        fields: CONTENT_BLOCK_EMAIL_FIELDS },
+      { document_type: :content_block_postal_address,
+        fields: CONTENT_BLOCK_POSTAL_FIELDS },
       { document_type: :topical_event,
         fields: DEFAULT_FIELDS },
       { document_type: :organisation,

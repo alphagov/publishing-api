@@ -1,5 +1,6 @@
 RSpec.describe Presenters::ContentEmbedPresenter do
   let(:embedded_content_id) { SecureRandom.uuid }
+  let(:embed_code) { "{{embed:contact:#{embedded_content_id}}}" }
   let(:document) { create(:document) }
   let(:edition) do
     create(
@@ -38,6 +39,7 @@ RSpec.describe Presenters::ContentEmbedPresenter do
         content_id: embedded_edition.document.content_id,
         title: embedded_edition.title,
         details: embedded_edition.details,
+        embed_code: embed_code,
       ).at_least(:once).and_return(stub_block)
     end
 
@@ -162,6 +164,7 @@ RSpec.describe Presenters::ContentEmbedPresenter do
 
     context "when multiple documents are embedded in different parts of the document" do
       let(:other_embedded_content_id) { SecureRandom.uuid }
+      let(:other_embed_code) { "{{embed:contact:#{other_embedded_content_id}}}" }
 
       let!(:other_embedded_edition) do
         embedded_document = create(:document, content_id: other_embedded_content_id)
@@ -184,6 +187,7 @@ RSpec.describe Presenters::ContentEmbedPresenter do
           content_id: other_embedded_edition.document.content_id,
           title: other_embedded_edition.title,
           details: other_embedded_edition.details,
+          embed_code: other_embed_code,
         ).at_least(:once).and_return(other_stub_block)
       end
 
