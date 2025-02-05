@@ -99,14 +99,16 @@ module Types
       reverse_links_field :related_to_step_navs, :pages_related_to_step_nav, [EditionType]
       reverse_links_field :secondary_to_step_navs, :secondary_to_step_navs, [EditionType]
 
-      field :role_appointments, [EditionType]
+      field :role_appointments, [EditionType] do
+        argument :only_current, Boolean, required: false, default_value: false
+      end
 
-      def role_appointments
+      def role_appointments(only_current:)
         if %w[role ministerial_role].include?(object.document_type)
-          dataloader.with(Sources::ReverseLinkedToEditionsSource, parent_object: object)
+          dataloader.with(Sources::ReverseLinkedToEditionsSource, parent_object: object, only_current:)
             .load("role")
         else
-          dataloader.with(Sources::ReverseLinkedToEditionsSource, parent_object: object)
+          dataloader.with(Sources::ReverseLinkedToEditionsSource, parent_object: object, only_current:)
             .load("person")
         end
       end
