@@ -277,3 +277,15 @@
   :title: 'Apply for a licence'
   :rendering_app: 'licensify'
   :override_existing: true
+
+- :base_path: "/chat"
+  :content_id: "62256aa9-f0e8-463a-8483-2f03be24287d"
+  :document_type: "gone"
+  # title and description are required to be null for a gone schema
+  :title: ~
+  :description: ~
+  :additional_routes:
+    - :base_path: "/chat/about"
+    - :base_path: "/chat/support"
+    - :base_path: "/chat/privacy"
+    - :base_path: "/chat/accessibility"
