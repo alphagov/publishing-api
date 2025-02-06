@@ -6,7 +6,7 @@ RSpec.shared_examples "finds references" do |document_type|
                state: "published",
                document_type:,
                content_store: "live",
-               details: { title: "Some Title" }),
+               details: { title: "Some Title", another: "thing" }),
         create(:edition,
                state: "published",
                document_type:,
@@ -38,6 +38,14 @@ RSpec.shared_examples "finds references" do |document_type|
         links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE)
 
         expect(links).to eq([editions[0].content_id, editions[0].content_id, editions[1].content_id])
+      end
+
+      it "returns duplicates when there are field references in the field" do
+        details = { field_name => "{{embed:#{document_type}:#{editions[0].content_id}/title}} {{embed:#{document_type}:#{editions[0].content_id}/another}}" }
+
+        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE)
+
+        expect(links).to eq([editions[0].content_id, editions[0].content_id])
       end
 
       it "finds content references when #{field_name} is an array of hashes" do

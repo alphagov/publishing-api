@@ -2,7 +2,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   include_context "PutContent call"
 
   context "with embedded content as a string" do
-    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact", details: { email: "foo@example.com", phone: "123456" }) }
     let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:document) { create(:document, content_id:) }
     let(:first_embed_code) { "{{embed:contact:#{first_contact.document.content_id}}}" }
@@ -25,6 +25,45 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
       put "/v2/content/#{content_id}", params: payload.to_json
 
       expect_content_store_to_have_received_details_including({ "body" => "#{presented_details_for(first_contact, first_embed_code)} #{presented_details_for(second_contact, second_embed_code)}" })
+    end
+
+    context "when fields are referenced" do
+      let(:first_embed_code) { "{{embed:contact:#{first_contact.document.content_id}/email}}" }
+      let(:second_embed_code) { "{{embed:contact:#{first_contact.document.content_id}/phone}}" }
+
+      let(:body) do
+        "
+        Hello, here is some an email:
+
+        #{first_embed_code}
+
+        And here is a phone number:
+
+        #{second_embed_code}
+        "
+      end
+
+      let(:expected_body) do
+        "
+        Hello, here is some an email:
+
+        #{presented_details_for(first_contact, first_embed_code)}
+
+        And here is a phone number:
+
+        #{presented_details_for(first_contact, second_embed_code)}
+        "
+      end
+
+      before do
+        payload.merge!(details: { body: })
+      end
+
+      it "should send transformed content to the content store" do
+        put "/v2/content/#{content_id}", params: payload.to_json
+
+        expect_content_store_to_have_received_details_including({ "body" => expected_body })
+      end
     end
   end
 
