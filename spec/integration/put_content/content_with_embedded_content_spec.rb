@@ -204,7 +204,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:first_embed_code) { "{{embed:contact:#{first_contact.document.content_id}}}" }
-    let(:second_embed_code) { "{{embed:contact:#{first_contact.document.content_id}}}" }
+    let(:second_embed_code) { "{{embed:contact:#{second_contact.document.content_id}}}" }
     let(:document) { create(:document, content_id:) }
 
     before do
