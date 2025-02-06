@@ -25,8 +25,9 @@ private
 
   def check_all_references_exist(content_references, locale)
     found_editions = live_editions(content_references, locale)
-    if found_editions.count != content_references.count
-      not_found_content_ids = content_references.map(&:content_id) - found_editions.map(&:content_id)
+    not_found_content_ids = content_references.map(&:content_id) - found_editions.map(&:content_id)
+
+    if not_found_content_ids.any?
       raise CommandError.new(
         code: 422,
         message: "Could not find any live editions in locale #{locale} for: #{not_found_content_ids.join(', ')}, ",
