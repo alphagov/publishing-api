@@ -42,7 +42,7 @@ class SpecialRoutePublisher
   def publish_route(route)
     routes = get_routes(route)
 
-    routes.each { |r| Rails.logger.info("Publishing #{r[:type]} route #{r[:path]}, routing to #{route.fetch(:rendering_app)}...") }
+    routes.each { |r| Rails.logger.info("Publishing #{r[:type]} route #{r[:path]}, routing to #{route[:rendering_app]}...") }
 
     content_id = route.fetch(:content_id)
 
@@ -68,7 +68,7 @@ class SpecialRoutePublisher
       details: {},
       routes:,
       publishing_app: "publishing-api",
-      rendering_app: route.fetch(:rendering_app),
+      rendering_app: route[:rendering_app],
       public_updated_at: Time.zone.now.iso8601,
       update_type: route.fetch(:update_type, "major"),
     })
