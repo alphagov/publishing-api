@@ -105,6 +105,9 @@
         "$ref": "#/definitions/tax_tribunal_decision_metadata",
       },
       {
+        "$ref": "#/definitions/trademark_decision_metadata",
+      },
+      {
         "$ref": "#/definitions/traffic_commissioner_regulatory_decision_metadata",
       },
       {
@@ -1166,6 +1169,49 @@
       },
       hidden_indexable_content: {
         type: "string",
+      },
+    },
+  },
+  trademark_decision_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      trademark_decision_british_library_number: {
+        type: "string",
+      },
+      trademark_decision_type_of_hearing: {
+        type: "string",
+      },
+      trademark_decision_mark: {
+        type: "string",
+      },
+      trademark_decision_class: {
+        type: "string",
+      },
+      trademark_decision_date: {
+        type: "string",
+        pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+      },
+      trademark_decision_appointed_person_hearing_officer: {
+        type: "string",
+      },
+      trademark_decision_person_or_company_involved: {
+        type: "string",
+      },
+      trademark_decision_grounds_section: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      trademark_decision_grounds_sub_section: {
+        type: "array",
+        items: {
+          type: "string",
+        },
       },
     },
   },
