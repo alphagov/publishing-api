@@ -211,7 +211,7 @@
           description: "Possible values to show for non-dynamic select facets. All values are shown regardless of the search.",
           type: "array",
           items: {
-            "$ref": "#/definitions/label_value_pair",
+            "$ref": "#/definitions/label_value_pair_with_sub_facets",
           },
         },
         option_lookup: {
