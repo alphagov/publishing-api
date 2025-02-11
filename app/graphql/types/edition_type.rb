@@ -135,7 +135,7 @@ module Types
 
       field :body, String
       field :brand, String
-      field :change_history, GraphQL::Types::JSON, extras: [:parent]
+      field :change_history, GraphQL::Types::JSON
       field :current, Boolean
       field :default_news_image, Image
       field :display_date, GraphQL::Types::ISO8601DateTime
@@ -162,7 +162,7 @@ module Types
     field :content_id, ID
     field :current, Boolean
     field :description, String
-    field :details, Details
+    field :details, Details, extras: [:lookahead]
     field :document_type, String
     field :ended_on, GraphQL::Types::ISO8601DateTime
     field :first_published_at, GraphQL::Types::ISO8601DateTime, null: false
@@ -187,16 +187,18 @@ module Types
     field :web_url, String
     field :withdrawn_notice, WithdrawnNotice
 
-    def change_history
-      Presenters::ChangeHistoryPresenter.new(object).change_history
-    end
+    def details(lookahead:)
+      requested_details_fields = lookahead.selections.map(&:name)
+      object.details = object.details.slice(*requested_details_fields)
 
-    def details
+      change_history_presenter = Presenters::ChangeHistoryPresenter.new(object) if requested_details_fields.include?(:change_history)
+      content_embed_presenter = Presenters::ContentEmbedPresenter.new(object)
+
       Presenters::ContentTypeResolver.new("text/html").resolve(
         Presenters::DetailsPresenter.new(
           object.details,
-          nil,
-          Presenters::ContentEmbedPresenter.new(object),
+          change_history_presenter,
+          content_embed_presenter,
         ).details,
       )
     end
