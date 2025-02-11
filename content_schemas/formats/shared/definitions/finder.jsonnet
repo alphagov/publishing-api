@@ -207,6 +207,14 @@
             "topical"
           ],
         },
+        sub_facet_key: {
+          description: "The key field name used for the subcategory of this facet.",
+          type: "string",
+        },
+        sub_facet_name: {
+          description: "The human readable label of the field name used for the subcategory of this facet.",
+          type: "string",
+        },
         allowed_values: {
           description: "Possible values to show for non-dynamic select facets. All values are shown regardless of the search.",
           type: "array",

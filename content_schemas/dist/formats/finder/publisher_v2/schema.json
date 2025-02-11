@@ -378,6 +378,14 @@
             "description": "Controls whether Option Select Facet displays a filter field",
             "type": "boolean"
           },
+          "sub_facet_key": {
+            "description": "The key field name used for the subcategory of this facet.",
+            "type": "string"
+          },
+          "sub_facet_name": {
+            "description": "The human readable label of the field name used for the subcategory of this facet.",
+            "type": "string"
+          },
           "type": {
             "description": "Defines the UI component and how the facet is queried from the search API",
             "type": "string",
