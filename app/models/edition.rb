@@ -34,8 +34,6 @@ class Edition < ApplicationRecord
   ].freeze
 
   NON_RENDERABLE_FORMATS = %w[redirect gone].freeze
-  NO_RENDERING_APP_FORMATS = %w[contact external_content role_appointment world_location].freeze
-  CONTENT_BLOCK_PREFIX = "content_block".freeze
 
   belongs_to :document
   has_one :unpublishing
@@ -238,17 +236,18 @@ class Edition < ApplicationRecord
     Plek.website_root + base_path
   end
 
+  def rendering_app
+    mapping = {
+      "news_article": "government-frontend",
+      "publication": "government-frontend",
+    }
+
+    mapping[schema_name] || nil
+  end
+
 private
 
   def renderable_content?
     NON_RENDERABLE_FORMATS.exclude?(document_type)
-  end
-
-  def requires_rendering_app?
-    !is_content_block? && renderable_content? && NO_RENDERING_APP_FORMATS.exclude?(document_type)
-  end
-
-  def is_content_block?
-    document_type.start_with?(CONTENT_BLOCK_PREFIX)
   end
 end
