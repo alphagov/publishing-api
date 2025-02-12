@@ -42,10 +42,31 @@ module Types
     field :edition, EditionTypeOrSubtype, description: "An edition or one of its subtypes" do
       argument :base_path, String
       argument :content_store, String, required: false, default_value: "live"
+
+      extras [:lookahead]
     end
 
-    def edition(base_path:, content_store:)
-      Edition.where(content_store:).find_by(base_path:)
+    def edition(base_path:, content_store:, lookahead:)
+      attributes = convert_edition_selections(lookahead:)
+
+      attributes << :document_type
+
+      if lookahead.selects?(:links)
+        if lookahead.selections.find { _1.name == :links }.selects?(:available_translations)
+          attributes << :state
+        end
+
+        attributes << :id
+        attributes << :content_store
+        attributes << :"documents.content_id"
+        attributes << :"documents.locale"
+
+        Edition
+          .joins(:document)
+          .select(*attributes).where(content_store:).find_by(base_path:)
+      else
+        Edition.select(*attributes).where(content_store:).find_by(base_path:)
+      end
     end
   end
 end
