@@ -204,9 +204,19 @@ module Types
     end
 
     def withdrawn_notice
-      return nil unless object.unpublishing&.withdrawal?
+      return nil unless object.respond_to?(:unpublishing_type)
 
-      presented_edition.fetch(:withdrawn_notice)
+      return nil unless object.unpublishing_type == "withdrawal"
+
+      withdrawn_at = (
+        object.unpublishing_unpublished_at ||
+        object.unpublishing_created_at
+      ).iso8601
+
+      {
+        explanation: object.unpublishing_explanation,
+        withdrawn_at:,
+      }
     end
 
     # Aliased by field methods for fields that are currently presented in the
@@ -217,13 +227,5 @@ module Types
 
     alias_method :publishing_scheduled_at, :not_stored_in_publishing_api
     alias_method :scheduled_publishing_delay_seconds, :not_stored_in_publishing_api
-
-  private
-
-    def presented_edition
-      @presented_edition ||= Presenters::EditionPresenter
-        .new(object)
-        .present
-    end
   end
 end
