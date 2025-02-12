@@ -11,13 +11,10 @@ module Presenters
     end
 
     def details
-      @details ||=
-        begin
-          updated = content_embed(content_item_details).presence || content_item_details
-          updated = recursively_transform_govspeak(updated)
-          updated[:change_history] = change_history if change_history.present?
-          updated
-        end
+      updated = content_embed(content_item_details).presence || content_item_details
+      updated = recursively_transform_govspeak(updated)
+      updated[:change_history] = change_history if change_history.present?
+      updated
     end
 
   private
