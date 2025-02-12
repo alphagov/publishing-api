@@ -23,7 +23,11 @@ private
   end
 
   def validate_hash!(hash)
-    validate_array!(hash.values)
+    if hash.keys == %i[content_type content]
+      @error_messages << "fields with content types should be presented in an array"
+    else
+      validate_array!(hash.values)
+    end
   end
 
   def validate_array!(array)
