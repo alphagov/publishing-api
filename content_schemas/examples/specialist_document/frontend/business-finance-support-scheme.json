@@ -48,5 +48,309 @@
   "schema_name": "specialist_document",
   "document_type": "business_finance_support_scheme",
   "links": {
+    "finder": [
+      {
+        "api_path": "/api/content/business-finance-support",
+        "api_url": "https://www.gov.uk/api/content/business-finance-support",
+        "base_path": "/business-finance-support",
+        "content_id": "12fecc5b-c02a-405e-b96e-7aa32ceaf504",
+        "details": {
+          "facets": [
+            {
+              "allowed_values": [
+                {
+                  "label": "Finance",
+                  "value": "finance"
+                },
+                {
+                  "label": "Equity",
+                  "value": "equity"
+                },
+                {
+                  "label": "Grant",
+                  "value": "grant"
+                },
+                {
+                  "label": "Loan",
+                  "value": "loan"
+                },
+                {
+                  "label": "Expertise and advice",
+                  "value": "expertise-and-advice"
+                },
+                {
+                  "label": "Recognition awards",
+                  "value": "recognition-award"
+                }
+              ],
+              "display_as_result_metadata": false,
+              "filterable": true,
+              "key": "types_of_support",
+              "name": "Type of support",
+              "preposition": "of type",
+              "type": "text"
+            },
+            {
+              "allowed_values": [
+                {
+                  "label": "Not yet trading",
+                  "value": "not-yet-trading"
+                },
+                {
+                  "label": "Start-ups (1-2 years trading)",
+                  "value": "start-up"
+                },
+                {
+                  "label": "Established",
+                  "value": "established"
+                }
+              ],
+              "display_as_result_metadata": false,
+              "filterable": true,
+              "key": "business_stages",
+              "name": "Business stage",
+              "preposition": "for businesses which are",
+              "type": "text"
+            },
+            {
+              "allowed_values": [
+                {
+                  "label": "Agriculture and food",
+                  "value": "agriculture-and-food"
+                },
+                {
+                  "label": "Business and finance",
+                  "value": "business-and-finance"
+                },
+                {
+                  "label": "Construction",
+                  "value": "construction"
+                },
+                {
+                  "label": "Education",
+                  "value": "education"
+                },
+                {
+                  "label": "Health",
+                  "value": "health"
+                },
+                {
+                  "label": "Hospitality and catering",
+                  "value": "hospitality-and-catering"
+                },
+                {
+                  "label": "IT, digital and creative",
+                  "value": "information-technology-digital-and-creative"
+                },
+                {
+                  "label": "Life Sciences",
+                  "value": "life-sciences"
+                },
+                {
+                  "label": "Manufacturing",
+                  "value": "manufacturing"
+                },
+                {
+                  "label": "Mining",
+                  "value": "mining"
+                },
+                {
+                  "label": "Real estate and property",
+                  "value": "real-estate-and-property"
+                },
+                {
+                  "label": "Science and technology",
+                  "value": "science-and-technology"
+                },
+                {
+                  "label": "Service industries",
+                  "value": "service-industries"
+                },
+                {
+                  "label": "Transport and distribution",
+                  "value": "transport-and-distribution"
+                },
+                {
+                  "label": "Travel and leisure",
+                  "value": "travel-and-leisure"
+                },
+                {
+                  "label": "Utilities providers",
+                  "value": "utilities-providers"
+                },
+                {
+                  "label": "Wholesale and retail",
+                  "value": "wholesale-and-retail"
+                }
+              ],
+              "display_as_result_metadata": false,
+              "filterable": true,
+              "key": "industries",
+              "name": "Industry",
+              "preposition": "for businesses in",
+              "type": "text"
+            },
+            {
+              "allowed_values": [
+                {
+                  "label": "0 to 9 employees",
+                  "value": "under-10"
+                },
+                {
+                  "label": "10 to 249 employees",
+                  "value": "between-10-and-249"
+                },
+                {
+                  "label": "250 to 500 employees",
+                  "value": "between-250-and-500"
+                },
+                {
+                  "label": "More than 500 employees",
+                  "value": "over-500"
+                }
+              ],
+              "display_as_result_metadata": false,
+              "filterable": true,
+              "key": "business_sizes",
+              "name": "Number of employees",
+              "preposition": "for businesses with",
+              "type": "text"
+            },
+            {
+              "allowed_values": [
+                {
+                  "label": "East Midlands",
+                  "value": "east-midlands"
+                },
+                {
+                  "label": "Eastern",
+                  "value": "eastern"
+                },
+                {
+                  "label": "London",
+                  "value": "london"
+                },
+                {
+                  "label": "North East",
+                  "value": "north-east"
+                },
+                {
+                  "label": "North West",
+                  "value": "north-west"
+                },
+                {
+                  "label": "Northern Ireland",
+                  "value": "northern-ireland"
+                },
+                {
+                  "label": "Scotland",
+                  "value": "scotland"
+                },
+                {
+                  "label": "South East",
+                  "value": "south-east"
+                },
+                {
+                  "label": "South West",
+                  "value": "south-west"
+                },
+                {
+                  "label": "Wales",
+                  "value": "wales"
+                },
+                {
+                  "label": "West Midlands",
+                  "value": "west-midlands"
+                },
+                {
+                  "label": "Yorkshire and the Humber",
+                  "value": "yorkshire-and-the-humber"
+                }
+              ],
+              "display_as_result_metadata": false,
+              "filterable": true,
+              "key": "regions",
+              "name": "Region",
+              "preposition": "for businesses in",
+              "type": "text"
+            }
+          ]
+        },
+        "document_type": "finder",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2025-02-03T08:41:42Z",
+        "schema_name": "finder",
+        "title": "Finance and support for your business",
+        "web_url": "https://www.gov.uk/business-finance-support",
+        "withdrawn": false
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D1382",
+        "api_path": "/api/content/government/organisations/department-for-business-and-trade",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-business-and-trade",
+        "base_path": "/government/organisations/department-for-business-and-trade",
+        "content_id": "aa750cdf-7925-429d-a2b3-0d9fa47d2c48",
+        "details": {
+          "acronym": "DBT",
+          "brand": "department-for-business-trade",
+          "default_news_image": {
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/media/64539946faf4aa0012e132d1/s960_DBT_Plaque-2.jpg",
+            "url": "https://assets.publishing.service.gov.uk/media/64539946c33b46000cf5e655/s300_DBT_Plaque-2.jpg"
+          },
+          "logo": {
+            "crest": "dbt",
+            "formatted_title": "Department for<br/>Business &amp; Trade"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Department for Business and Trade",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-business-and-trade",
+        "withdrawn": false
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D1198",
+        "api_path": "/api/content/government/organisations/department-for-business-energy-and-industrial-strategy",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-business-energy-and-industrial-strategy",
+        "base_path": "/government/organisations/department-for-business-energy-and-industrial-strategy",
+        "content_id": "2bde479a-97f2-42b5-986a-287a623c2a1c",
+        "details": {
+          "acronym": "BEIS",
+          "brand": "department-for-business-innovation-skills",
+          "default_news_image": {
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/media/5a37dab9ed915d5a62fdc6b1/s960_beis-sign-1vs.jpg",
+            "url": "https://assets.publishing.service.gov.uk/media/5a37dab9ed915d5a5f965fd5/s300_beis-sign-1vs.jpg"
+          },
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Department for<br/>Business, Energy<br/>&amp; Industrial Strategy"
+          },
+          "organisation_govuk_status": {
+            "status": "split",
+            "updated_at": null,
+            "url": ""
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Department for Business, Energy & Industrial Strategy",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-business-energy-and-industrial-strategy",
+        "withdrawn": false
+      }
+    ]
   }
 }
