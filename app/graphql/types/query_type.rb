@@ -58,7 +58,12 @@ module Types
       # content_store for BaseObject#links_field #reverse_links_field
       # document_id for getting Document and its content_id
 
-      Edition.select(attributes).where(content_store:).find_by(base_path:)
+      attributes << "documents.content_id"
+      # documents.content_id for getting LinkSet Links
+
+      Edition
+        .left_outer_joins(:document)
+        .select(attributes).where(content_store:).find_by(base_path:)
     end
   end
 end
