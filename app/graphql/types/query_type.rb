@@ -46,6 +46,10 @@ module Types
       all_selections = lookahead.selections.map(&:name)
 
       all_selections.delete(:links)
+      # links_are_selected = all_selections.delete(:links)
+
+      # if links_are_selected
+        # includes(:document.... select(:content_id)....????
 
       attributes = all_selections
       attributes += %i{id document_type content_store document_id}
