@@ -52,7 +52,7 @@ module Presenters
       embedded_content_references = EmbeddedContentFinderService.new.find_content_references(content)
       return content if embedded_content_references.empty?
 
-      embedded_content_references.each do |content_reference|
+      embedded_content_references.uniq.each do |content_reference|
         embed_code = content_reference.embed_code
         embedded_edition = embedded_editions[content_reference.content_id]
         content = content.gsub(
