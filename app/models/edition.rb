@@ -75,7 +75,15 @@ class Edition < ApplicationRecord
   validates_with StateForDocumentValidator
   validates_with RoutesAndRedirectsValidator
 
-  delegate :content_id, :locale, to: :document
+  def self.attribute_or_delegate(*names, to:)
+    names.each do |name|
+      define_method(name) do
+        attribute(name.to_s) || method(to).call.method(name).call
+      end
+    end
+  end
+
+  attribute_or_delegate :content_id, :locale, to: :document
 
   def auth_bypass_ids_are_uuids
     unless auth_bypass_ids.all? { |id| UuidValidator.valid?(id) }
