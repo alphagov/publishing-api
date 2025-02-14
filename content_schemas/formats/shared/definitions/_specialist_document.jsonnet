@@ -57,6 +57,9 @@
         "$ref": "#/definitions/flood_and_coastal_erosion_risk_management_research_report",
       },
       {
+        "$ref": "#/definitions/hmrc_contact_metadata",
+      },
+      {
         "$ref": "#/definitions/licence_transaction_metadata",
       },
       {
@@ -706,6 +709,18 @@
       date_of_completion: {
         type: "string",
         pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+      },
+    },
+  },
+  hmrc_contact_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      topics: {
+        type: "array",
+        items: {
+          type: "string",
+        },
       },
     },
   },
