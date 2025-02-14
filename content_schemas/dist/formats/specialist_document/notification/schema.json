@@ -131,6 +131,7 @@
         "historic_appointment",
         "historic_appointments",
         "history",
+        "hmrc_contact",
         "hmrc_manual",
         "hmrc_manual_section",
         "homepage",
@@ -735,6 +736,9 @@
         },
         {
           "$ref": "#/definitions/flood_and_coastal_erosion_risk_management_research_report"
+        },
+        {
+          "$ref": "#/definitions/hmrc_contact_metadata"
         },
         {
           "$ref": "#/definitions/licence_transaction_metadata"
@@ -1431,6 +1435,18 @@
         "$ref": "#/definitions/guid"
       },
       "uniqueItems": true
+    },
+    "hmrc_contact_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     },
     "international_development_fund_metadata": {
       "type": "object",
