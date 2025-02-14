@@ -98,4 +98,12 @@ RSpec.describe Types::QueryType do
       end
     end
   end
+
+  describe "ALL_EDITION_COLUMNS" do
+    it "is an up-to-date list of the Edition model's database columns" do
+      expect(Types::ALL_EDITION_COLUMNS).to match_array(
+        Edition.attribute_names.map(&:to_sym),
+      )
+    end
+  end
 end
