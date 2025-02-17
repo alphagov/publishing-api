@@ -30,7 +30,13 @@ RSpec.describe Presenters::ContentEmbedPresenter do
   end
 
   describe "#render_embedded_content" do
-    let(:expected_value) { "VALUE" }
+    let(:expected_value) do
+      "<span class=\"content-embed content-embed__contact\"
+          data-content-block=\"\"
+          data-document-type=\"contact\"
+          data-content-id=\"#{embedded_content_id}\"
+          data-embed-code=\"#{embed_code}\">VALUE</span>".squish
+    end
     let(:stub_block) { double(ContentBlockTools::ContentBlock, render: expected_value) }
 
     before do
@@ -44,12 +50,70 @@ RSpec.describe Presenters::ContentEmbedPresenter do
     end
 
     context "when body is a string" do
-      let(:details) { { body: "some string with a reference: {{embed:contact:#{embedded_content_id}}}" } }
+      context "when there is only one embed" do
+        let(:details) { { body: "some string with a reference: {{embed:contact:#{embedded_content_id}}}" } }
+        it "returns embedded content references with values from their editions" do
+          expect(described_class.new(edition).render_embedded_content(details)).to eq({
+            body: "some string with a reference: #{expected_value}",
+          })
+        end
+      end
 
-      it "returns embedded content references with values from their editions" do
-        expect(described_class.new(edition).render_embedded_content(details)).to eq({
-          body: "some string with a reference: #{expected_value}",
-        })
+      context "when there are multiple embeds" do
+        context "when there are multiple embeds to the same block" do
+          let(:details) { { body: "some string with a reference: #{embed_code} and another: #{embed_code}" } }
+          it "returns embedded content" do
+            expect(described_class.new(edition).render_embedded_content(details)).to eq({
+              body: "some string with a reference: #{expected_value} and another: #{expected_value}",
+            })
+          end
+        end
+
+        context "when there are multiple embeds for different blocks" do
+          let(:embedded_content_id_2) { SecureRandom.uuid }
+          let!(:embedded_edition_2) do
+            embedded_document = create(:document, content_id: embedded_content_id_2)
+            create(
+              :edition,
+              document: embedded_document,
+              state: "published",
+              content_store: "live",
+              document_type: "content_block_pension",
+              title: "VALUE2",
+            )
+          end
+          let(:embed_code_2) { "{{embed:content_block_pension:#{embedded_content_id_2}}}" }
+          let(:links_hash) do
+            {
+              embed: [embedded_content_id, embedded_content_id_2],
+            }
+          end
+          let(:expected_value_2) do
+            "<span class=\"content-embed content-embed__contact\"
+          data-content-block=\"\"
+          data-document-type=\"contact\"
+          data-content-id=\"#{embedded_content_id_2}\"
+          data-embed-code=\"#{embed_code_2}\">VALUE2</span>".squish
+          end
+          let(:stub_block_2) { double(ContentBlockTools::ContentBlock, render: expected_value_2) }
+
+          before do
+            expect(ContentBlockTools::ContentBlock).to receive(:new).with(
+              document_type: embedded_edition_2.document_type,
+              content_id: embedded_edition_2.document.content_id,
+              title: embedded_edition_2.title,
+              details: embedded_edition_2.details,
+              embed_code: embed_code_2,
+            ).and_return(stub_block_2)
+          end
+          let(:details) { { body: "some string with a reference: #{embed_code} and another: #{embed_code_2}" } }
+
+          it "returns embedded content" do
+            expect(described_class.new(edition).render_embedded_content(details)).to eq({
+              body: "some string with a reference: #{expected_value} and another: #{expected_value_2}",
+            })
+          end
+        end
       end
     end
 
