@@ -45,25 +45,28 @@ module Types
     def edition(base_path:, content_store:, lookahead:)
       all_selections = lookahead.selections.map(&:name)
 
-      all_selections.delete(:links)
-      # links_are_selected = all_selections.delete(:links)
-
-      # if links_are_selected
-        # includes(:document.... select(:content_id)....????
+      links_are_selected = all_selections.delete(:links)
 
       attributes = all_selections
-      attributes += %i{id document_type content_store document_id}
+      attributes << "id"
+      attributes << "document_type"
       # id for edition link queries,
       # document_type for EditionTypeOrSubtype
-      # content_store for BaseObject#links_field #reverse_links_field
-      # document_id for getting Document and its content_id
 
-      attributes << "documents.content_id"
-      # documents.content_id for getting LinkSet Links
+      if links_are_selected
+        attributes << "content_store"
+        attributes << "document_id"
+        attributes << "documents.content_id"
+        # content_store for BaseObject#links_field #reverse_links_field
+        # document_id for getting Document and its content_id
+        # documents.content_id for getting LinkSet Links
 
-      Edition
-        .left_outer_joins(:document)
-        .select(attributes).where(content_store:).find_by(base_path:)
+        Edition
+          .left_outer_joins(:document)
+          .select(attributes).where(content_store:).find_by(base_path:)
+      else
+        Edition.select(attributes).where(content_store:).find_by(base_path:)
+      end
     end
   end
 end
