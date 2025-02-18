@@ -19,8 +19,8 @@ module Types
       field(field_name_and_link_type.to_sym, graphql_field_type)
 
       define_method(field_name_and_link_type.to_sym) do
-        dataloader.with(Sources::ReverseLinkedToEditionsSource, parent_object: object)
-          .load(belongs_to.to_s)
+        dataloader.with(Sources::ReverseLinkedToEditionsSource, content_store: object.content_store)
+          .load([object, belongs_to.to_s])
       end
     end
   end
