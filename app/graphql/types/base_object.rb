@@ -7,11 +7,20 @@ module Types
     field_class Types::BaseField
 
     def self.links_field(link_type, graphql_field_type)
-      field(link_type.to_sym, graphql_field_type)
+      field(link_type.to_sym, graphql_field_type, extras: [:lookahead])
 
-      define_method(link_type.to_sym) do
+      define_method(link_type.to_sym) do |lookahead:|
+        attributes = convert_edition_selections(lookahead:, table_name: "editions")
+
+        attributes << :"document.content_id"
+
+        if lookahead.selects?(:links)
+          attributes << :"editions.id"
+          attributes << :"editions.content_store"
+        end
+
         dataloader.with(Sources::LinkedToEditionsSource, content_store: object.content_store)
-          .load([object, link_type.to_s])
+          .load([object, link_type.to_s, attributes])
       end
     end
 
