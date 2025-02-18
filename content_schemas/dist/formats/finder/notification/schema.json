@@ -554,6 +554,10 @@
             "description": "Label for the facet.",
             "type": "string"
           },
+          "nested_facet": {
+            "description": "Indicates whether this facet has nested sub facets within allowed values or not.",
+            "type": "boolean"
+          },
           "open_on_load": {
             "description": "When set to true, the option select facet will always be open on page load",
             "type": "boolean"
