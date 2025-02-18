@@ -763,6 +763,9 @@
         },
         {
           "type": "null"
+        },
+        {
+          "$ref": "#/definitions/multiple_content_types"
         }
       ]
     },
@@ -1022,6 +1025,25 @@
         "zh-hk",
         "zh-tw"
       ]
+    },
+    "multiple_content_types": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "content_type",
+          "content"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "content_type": {
+            "type": "string"
+          }
+        }
+      }
     },
     "payload_version": {
       "description": "Counter to indicate when the payload was generated",
