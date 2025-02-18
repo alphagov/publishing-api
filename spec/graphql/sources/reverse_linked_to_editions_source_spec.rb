@@ -12,7 +12,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
     create(:link, link_set: link_set_3, target_content_id: target_edition.content_id, link_type: "test_link")
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(described_class, parent_object: target_edition).request("test_link")
+      request = dataloader.with(described_class, content_store: target_edition.content_store).request([target_edition, "test_link"])
 
       expect(request.load).to eq([source_edition_1, source_edition_3])
     end
@@ -37,7 +37,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
            })
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(described_class, parent_object: target_edition).request("test_link")
+      request = dataloader.with(described_class, content_store: target_edition.content_store).request([target_edition, "test_link"])
 
       expect(request.load).to eq([source_edition_1, source_edition_2])
     end
