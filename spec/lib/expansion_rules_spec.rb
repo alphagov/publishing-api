@@ -42,6 +42,7 @@ RSpec.describe ExpansionRules do
     let(:contact_fields) { default_fields + [%i[details description], %i[details title], %i[details contact_form_links], %i[details post_addresses], %i[details email_addresses], %i[details phone_numbers]] }
     let(:content_block_email_fields) { default_fields + [%i[details email_address]] }
     let(:content_block_postal_fields) { default_fields + [%i[details line_1], %i[details town_or_city], %i[details postcode]] }
+    let(:content_block_pension_fields) { default_fields + [%i[details description], %i[details rates]] }
     let(:organisation_fields) { default_fields - [:public_updated_at] + [%i[details acronym], %i[details logo], %i[details brand], %i[details default_news_image], %i[details organisation_govuk_status]] }
     let(:taxon_fields) { default_fields + %i[description details phase] }
     let(:default_fields_and_description) { default_fields + %i[description] }
@@ -71,6 +72,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:contact)).to eq(contact_fields) }
     specify { expect(rules.expansion_fields(:content_block_email_address)).to eq(content_block_email_fields) }
     specify { expect(rules.expansion_fields(:content_block_postal_address)).to eq(content_block_postal_fields) }
+    specify { expect(rules.expansion_fields(:content_block_pension)).to eq(content_block_pension_fields) }
     specify { expect(rules.expansion_fields(:historic_appointment)).to eq(historic_appointment_fields) }
     specify { expect(rules.expansion_fields(:fatality_notice)).to eq(fatality_notice_fields) }
     specify { expect(rules.expansion_fields(:mainstream_browse_page)).to eq(default_fields_and_description) }
@@ -434,6 +436,64 @@ RSpec.describe ExpansionRules do
           details: {
             country: "fr",
             change_description: nil,
+          },
+          analytics_identifier: nil,
+          api_path: nil,
+          base_path: nil,
+          content_id: nil,
+          locale: nil,
+          public_updated_at: nil,
+          schema_name: nil,
+          title: nil,
+          withdrawn: nil,
+        )
+      end
+    end
+
+    context "with a format with a deeply nested details hash" do
+      let(:edition_hash) do
+        {
+          document_type: "content_block_pension",
+          details: {
+            description: "some description",
+            something: "else",
+            rates: {
+              "rate-1" => {
+                name: "Rate 1",
+                amount: "£123",
+                cadence: "Monthly",
+                description: "Some description",
+              },
+              "rate-2" => {
+                name: "Rate 2",
+                amount: "£12",
+                cadence: "Weekly",
+                description: "Some other description",
+              },
+            },
+          },
+        }
+      end
+
+      it "expands into a new details hash" do
+        expect(described_class.expand_fields(edition_hash)).to eq(
+          document_type: "content_block_pension",
+          details: {
+            description: "some description",
+            rates: {
+              "rate-1" => {
+                name: "Rate 1",
+                amount: "£123",
+                cadence: "Monthly",
+                description: "Some description",
+              },
+              "rate-2" => {
+                name: "Rate 2",
+                amount: "£12",
+                cadence: "Weekly",
+                description: "Some other description",
+              },
+            },
           },
           analytics_identifier: nil,
           api_path: nil,
