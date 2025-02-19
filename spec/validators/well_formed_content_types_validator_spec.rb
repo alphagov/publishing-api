@@ -49,6 +49,13 @@ RSpec.describe WellFormedContentTypesValidator do
     expect(record.errors).to be_empty
   end
 
+  it "rejects hashes containing content types that are not wrapped in an array" do
+    value = { content_type: "text/html", content: "<p>content</p>" }
+    subject.validate_each(record, attribute, value)
+    expect(record.errors).to be_present
+    expect(record.errors.messages_for(:some_attribute)).to eq(["fields with content types should be presented in an array"])
+  end
+
   it "rejects values where the content key is missing" do
     value = [{ content_type: "text/html" }]
     subject.validate_each(record, attribute, value)

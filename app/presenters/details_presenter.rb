@@ -11,40 +11,33 @@ module Presenters
     end
 
     def details
-      @details ||=
-        begin
-          updated = content_embed(content_item_details).presence || content_item_details
-          updated = recursively_transform_govspeak(updated)
-          updated[:change_history] = change_history if change_history.present?
-          updated
-        end
+      updated = content_embed(content_item_details).presence || content_item_details
+      updated = recursively_transform_govspeak(updated)
+      updated[:change_history] = change_history if change_history.present?
+      updated
     end
 
   private
 
-    def govspeak_content?(value)
-      wrapped = Array.wrap(value)
-      wrapped.all? { |hsh| hsh.is_a?(Hash) } &&
-        wrapped.one? { |hsh| hsh[:content_type] == "text/govspeak" } &&
-        wrapped.none? { |hsh| hsh[:content_type] == "text/html" }
-    end
-
-    def html_content?(value)
-      wrapped = Array.wrap(value)
-      wrapped.all? { |hsh| hsh.is_a?(Hash) } &&
-        wrapped.one? { |hsh| hsh[:content_type] == "text/html" }
+    def parsed_content(array_of_hashes)
+      if array_of_hashes.one? { |hash| hash[:content_type] == "text/html" }
+        array_of_hashes
+      elsif array_of_hashes.one? { |hash| hash[:content_type] == "text/govspeak" }
+        render_govspeak(array_of_hashes)
+      end
     end
 
     def recursively_transform_govspeak(obj)
-      return obj if !obj.respond_to?(:map) || html_content?(obj)
-      return render_govspeak(obj) if govspeak_content?(obj)
-
-      if obj.is_a?(Hash)
+      if obj.is_a?(Array) && obj.all?(Hash) && (parsed_obj = parsed_content(obj))
+        parsed_obj
+      elsif obj.is_a?(Array)
+        obj.map { |o| recursively_transform_govspeak(o) }
+      elsif obj.is_a?(Hash)
         obj.transform_values do |value|
           recursively_transform_govspeak(value)
         end
       else
-        obj.map { |o| recursively_transform_govspeak(o) }
+        obj
       end
     end
 

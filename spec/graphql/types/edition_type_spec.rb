@@ -1,5 +1,5 @@
 RSpec.describe "Types::EditionType" do
-  include GraphQL::Testing::Helpers.for(PublishingApiSchema)
+  include GraphQL::Testing::Helpers
 
   describe "#withdrawn_notice" do
     context "when the edition is withdrawn" do
@@ -12,6 +12,7 @@ RSpec.describe "Types::EditionType" do
 
         expect(
           run_graphql_field(
+            PublishingApiSchema,
             "Edition.withdrawn_notice",
             edition,
           ),
@@ -23,6 +24,7 @@ RSpec.describe "Types::EditionType" do
       it "returns nil" do
         expect(
           run_graphql_field(
+            PublishingApiSchema,
             "Edition.withdrawn_notice",
             create(:edition),
           ),
@@ -38,8 +40,10 @@ RSpec.describe "Types::EditionType" do
 
         expect(
           run_graphql_field(
+            PublishingApiSchema,
             "Edition.details",
             edition,
+            lookahead: OpenStruct.new(selections: [OpenStruct.new(name: :body)]),
           )[:body],
         ).to eq("some text")
       end
@@ -56,8 +60,10 @@ RSpec.describe "Types::EditionType" do
 
         expect(
           run_graphql_field(
+            PublishingApiSchema,
             "Edition.details",
             edition,
+            lookahead: OpenStruct.new(selections: [OpenStruct.new(name: :body)]),
           )[:body],
         ).to eq("<p>some other text</p>")
       end
@@ -73,8 +79,10 @@ RSpec.describe "Types::EditionType" do
 
         expect(
           run_graphql_field(
+            PublishingApiSchema,
             "Edition.details",
             edition,
+            lookahead: OpenStruct.new(selections: [OpenStruct.new(name: :body)]),
           )[:body],
         ).to eq("<p>some text</p>\n")
       end
