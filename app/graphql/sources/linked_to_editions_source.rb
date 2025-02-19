@@ -39,9 +39,7 @@ module Sources
           "base_path",
           "details",
           "content_store",
-          "document_id",
           "document.content_id",
-          "document.locale",
         )
 
       editions_map = editions.each_with_object({}) do |e, hash|

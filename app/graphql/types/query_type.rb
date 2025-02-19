@@ -55,10 +55,8 @@ module Types
 
       if links_are_selected
         attributes << "content_store"
-        attributes << "document_id"
         attributes << "documents.content_id"
         # content_store for BaseObject#links_field #reverse_links_field
-        # document_id for getting Document and its content_id
         # documents.content_id for getting LinkSet Links
 
         Edition
