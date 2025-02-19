@@ -34,6 +34,7 @@ module Sources
           content_store: @content_store,
         )
         .select(
+          "id",
           "title",
           "base_path",
           "details",
@@ -49,7 +50,9 @@ module Sources
       link_types_map = editions_and_link_types.map { [_1.content_id, _2] }.index_with { [] }
 
       all_links.each_with_object(link_types_map) { |link, hash|
-        hash[[link.content_id, link.link_type]] << editions_map[link.target_content_id]
+        unless editions_map[link.target_content_id].nil?
+          hash[[link.content_id, link.link_type]] << editions_map[link.target_content_id]
+        end
       }.values
     end
   end
