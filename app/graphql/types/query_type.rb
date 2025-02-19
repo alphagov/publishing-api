@@ -47,7 +47,7 @@ module Types
 
       links_are_selected = all_selections.delete(:links)
 
-      attributes = all_selections
+      attributes = ALL_EDITION_COLUMNS & all_selections
       attributes << "id"
       attributes << "document_type"
       # id for edition link queries,
@@ -61,9 +61,9 @@ module Types
 
         Edition
           .left_outer_joins(:document)
-          .select(attributes).where(content_store:).find_by(base_path:)
+          .select(*attributes).where(content_store:).find_by(base_path:)
       else
-        Edition.select(attributes).where(content_store:).find_by(base_path:)
+        Edition.select(*attributes).where(content_store:).find_by(base_path:)
       end
     end
   end
