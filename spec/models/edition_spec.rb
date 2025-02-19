@@ -283,54 +283,6 @@ RSpec.describe Edition do
     end
   end
 
-  describe "#details_for_govspeak_conversion" do
-    subject do
-      build(:edition, details:)
-        .details_for_govspeak_conversion
-    end
-
-    let(:html_content) { { content_type: "text/html", content: "<b>Hello</b>" } }
-    let(:govspeak_content) { { content_type: "text/govspeak", content: "**Hello**" } }
-
-    context "details has no body" do
-      let(:details) { { field: "value" } }
-      it { is_expected.to match(details) }
-    end
-
-    context "details doesn't have a text/govspeak content type" do
-      let(:details) { { body: [html_content] } }
-      it { is_expected.to match(details) }
-    end
-
-    context "details doesn't have a text/html content type" do
-      let(:details) { { body: [govspeak_content] } }
-      it { is_expected.to match(details) }
-    end
-
-    context "details has text/html and text/govspeak content types" do
-      let(:details) { { body: [html_content, govspeak_content] } }
-      it { is_expected.to match(body: [govspeak_content]) }
-    end
-
-    context "details has govspeak in multiple keys" do
-      let(:details) do
-        {
-          key_1: [html_content, govspeak_content],
-          key_2: [govspeak_content, html_content],
-          key_3: html_content,
-        }
-      end
-      let(:expected_result) do
-        {
-          key_1: [govspeak_content],
-          key_2: [govspeak_content],
-          key_3: html_content,
-        }
-      end
-      it { is_expected.to match(expected_result) }
-    end
-  end
-
   it_behaves_like WellFormedContentTypesValidator
 
   context "#publish" do
