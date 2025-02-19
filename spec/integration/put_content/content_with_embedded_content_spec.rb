@@ -156,7 +156,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     it "should create links" do
       expect {
         put "/v2/content/#{content_id}", params: payload.to_json
-      }.to change(Link, :count).by(2)
+      }.to change(Link, :count).by(4)
 
       expect(Link.find_by(target_content_id: first_contact.content_id)).not_to be_nil
       expect(Link.find_by(target_content_id: second_contact.content_id)).not_to be_nil

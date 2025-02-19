@@ -91,7 +91,9 @@ RSpec.shared_examples "finds references" do |document_type|
         }
         links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE)
 
-        expect(links).to eq([editions[0].content_id, editions[1].content_id])
+        expect(links.length).to eq(4)
+        expect(links.count(editions[0].content_id)).to eq(2)
+        expect(links.count(editions[1].content_id)).to eq(2)
       end
 
       it "returns duplicates when there is more than one content reference in the field and #{field_name} is a multipart document" do
@@ -129,7 +131,36 @@ RSpec.shared_examples "finds references" do |document_type|
         }
         links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE)
 
-        expect(links).to eq([editions[0].content_id, editions[0].content_id, editions[1].content_id, editions[1].content_id])
+        expect(links.length).to eq(8)
+        expect(links.count(editions[0].content_id)).to eq(4)
+        expect(links.count(editions[1].content_id)).to eq(4)
+      end
+
+      it "returns duplicates when there is more than one content reference in the field and #{field_name} is a guide document" do
+        details = {
+          field_name => [
+            {
+              "title": "Key stage 3 and 4",
+              "slug": "key-stage-3-and-4",
+              "body": "some string with another reference: {{embed:#{document_type}:#{editions[0].content_id}}} and another {{embed:#{document_type}:#{editions[0].content_id}}}",
+            },
+            {
+              "title": "Other compulsory subjects",
+              "slug": "other-compulsory-subjects",
+              "body": "some string with another reference: {{embed:#{document_type}:#{editions[1].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}",
+            },
+            {
+              "title": "Overview",
+              "slug": "overview",
+              "body": "some string with another reference: {{embed:#{document_type}:#{editions[1].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}",
+            },
+          ],
+        }
+        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE)
+
+        expect(links.length).to eq(6)
+        expect(links.count(editions[0].content_id)).to eq(2)
+        expect(links.count(editions[1].content_id)).to eq(4)
       end
 
       it "finds content references when the field is a hash" do
