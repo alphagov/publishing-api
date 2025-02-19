@@ -18,6 +18,9 @@
         "$ref": "#/definitions/asylum_support_decision_metadata",
       },
       {
+        "$ref": "#/definitions/authorised_fuel_metadata",
+      },
+      {
         "$ref": "#/definitions/business_finance_support_scheme_metadata",
       },
       {
@@ -344,6 +347,40 @@
         pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
       },
       hidden_indexable_content: {
+        type: "string",
+      },
+    },
+  },
+  authorised_fuel_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      authorised_fuel_name: {
+        type: "string",
+      },
+      authorised_fuel_manufacturer_name: {
+        type: "string",
+      },
+      authorised_fuel_type: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      authorised_fuel_country: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      authorised_fuel_date_the_fuel_was_authorised: {
+        type: "string",
+        pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+      },
+      authorised_fuel_address: {
         type: "string",
       },
     },
