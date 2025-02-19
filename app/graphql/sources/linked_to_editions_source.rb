@@ -6,9 +6,15 @@ module Sources
     end
     # rubocop:enable Lint/MissingSuper
 
-    def fetch(editions_and_link_types)
-      content_id_tuples = editions_and_link_types.map { |edition, link_type| "('#{edition.content_id}','#{link_type}')" }.join(",")
-      edition_id_tuples = editions_and_link_types.map { |edition, link_type| "(#{edition.id},'#{link_type}')" }.join(",")
+    def fetch(editions_and_link_types_and_selections)
+      content_id_tuples = editions_and_link_types_and_selections
+        .map { |edition, link_type, _|
+          "('#{edition.content_id}','#{link_type}')"
+        }.join(",")
+      edition_id_tuples = editions_and_link_types_and_selections
+        .map { |edition, link_type, _|
+          "(#{edition.id},'#{link_type}')"
+        }.join(",")
 
       edition_links = Link
         .joins(edition: :document)
@@ -24,6 +30,8 @@ module Sources
 
       all_links = edition_links + link_set_links
 
+      all_selections = editions_and_link_types_and_selections.map(&:last).reduce(&:+).uniq
+
       editions = Edition
         .joins(:document)
         .where(
@@ -33,19 +41,13 @@ module Sources
           },
           content_store: @content_store,
         )
-        .select(
-          "id",
-          "title",
-          "base_path",
-          "details",
-          "content_store",
-          "document.content_id",
-        )
+        .select(all_selections)
 
       editions_map = editions.each_with_object({}) do |e, hash|
         hash[e.content_id] = e
       end
-      link_types_map = editions_and_link_types.map { [_1.content_id, _2] }.index_with { [] }
+      link_types_map = editions_and_link_types_and_selections
+        .map { [_1.content_id, _2] }.index_with { [] }
 
       all_links.each_with_object(link_types_map) { |link, hash|
         unless editions_map[link.target_content_id].nil?
