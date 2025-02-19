@@ -48,12 +48,12 @@ module Types
       links_are_selected = all_selections.delete(:links)
 
       attributes = ALL_EDITION_COLUMNS & all_selections
-      attributes << :id
       attributes << :document_type
-      # id for edition link queries,
       # document_type for EditionTypeOrSubtype
 
       if links_are_selected
+        attributes << :id
+        # id for edition link queries,
         attributes << :content_store
         attributes << :"documents.content_id"
         # content_store for BaseObject#links_field #reverse_links_field
