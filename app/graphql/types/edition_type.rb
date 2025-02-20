@@ -10,7 +10,6 @@ module Types
     class EditionLinks < Types::BaseObject
       links_field :active_top_level_browse_page, [EditionType]
       links_field :associated_taxons, [EditionType]
-      links_field :available_translations, [EditionType]
       links_field :contact, [EditionType]
       links_field :contacts, [EditionType]
       links_field :content_owners, [EditionType]
@@ -99,6 +98,7 @@ module Types
       reverse_links_field :related_to_step_navs, :pages_related_to_step_nav, [EditionType]
       reverse_links_field :secondary_to_step_navs, :secondary_to_step_navs, [EditionType]
 
+      field :available_translations, [EditionType]
       field :role_appointments, [EditionType]
 
       def role_appointments
