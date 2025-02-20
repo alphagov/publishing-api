@@ -43,15 +43,12 @@ module Types
     end
 
     def edition(base_path:, content_store:, lookahead:)
-      all_selections = lookahead.selections.map(&:name)
+      attributes = ALL_EDITION_COLUMNS & lookahead.selections.map(&:name)
 
-      links_are_selected = all_selections.delete(:links)
-
-      attributes = ALL_EDITION_COLUMNS & all_selections
       attributes << :document_type
       # document_type for EditionTypeOrSubtype
 
-      if links_are_selected
+      if lookahead.selects?(:links)
         attributes << :id
         # id for edition link queries,
         attributes << :content_store
