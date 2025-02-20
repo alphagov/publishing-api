@@ -18,7 +18,7 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
             },
             cadence: {
               type: "string",
-              enum: ["weekly", "monthly"],
+              enum: ["a day", "a week", "a month", "a year"],
             },
             description: {
               type: "string",

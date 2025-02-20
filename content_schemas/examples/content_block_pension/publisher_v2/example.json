@@ -11,7 +11,7 @@
       "rate-1": {
         "name": "Rate 1",
         "amount": "£221.20",
-        "cadence": "weekly",
+        "cadence": "a week",
         "description": "Your weekly pension amount"
       }
     }
