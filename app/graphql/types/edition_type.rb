@@ -10,7 +10,7 @@ module Types
     class EditionLinks < Types::BaseObject
       links_field :active_top_level_browse_page, [EditionType]
       links_field :associated_taxons, [EditionType]
-      links_field :available_translations, [EditionType]
+      field :available_translations, [EditionType]
       links_field :contact, [EditionType]
       links_field :contacts, [EditionType]
       links_field :content_owners, [EditionType]
