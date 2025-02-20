@@ -49,6 +49,10 @@ module Types
       # document_type for EditionTypeOrSubtype
 
       if lookahead.selects?(:links)
+        if lookahead.selections.find { _1.name == :links }.selects?(:available_translations)
+          attributes << :state
+        end
+
         attributes << :id
         # id for edition link queries,
         attributes << :content_store
