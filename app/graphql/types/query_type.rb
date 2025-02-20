@@ -53,6 +53,7 @@ module Types
         # id for edition link queries,
         attributes << :content_store
         attributes << :"documents.content_id"
+        attributes << :"documents.locale"
         # content_store for BaseObject#links_field #reverse_links_field
         # documents.content_id for getting LinkSet Links
 
