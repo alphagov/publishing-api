@@ -133,29 +133,6 @@ class Edition < ApplicationRecord
     errors.add(:user_facing_version, message)
   end
 
-  # FIXME: This method is used to retrieve a version of .details that doesn't
-  # have text/html, thus this can be used to convert the item to HTML
-  # It is here for comparing our Govspeak output with that that was provided to
-  # us previously and can be removed once we have migrated most applications.
-  def details_for_govspeak_conversion
-    return details unless details.is_a?(Hash)
-
-    value_without_html = lambda do |value|
-      wrapped = Array.wrap(value)
-      html = wrapped.find { |item| item.is_a?(Hash) && item[:content_type] == "text/html" }
-      govspeak = wrapped.find { |item| item.is_a?(Hash) && item[:content_type] == "text/govspeak" }
-      if html.present? && govspeak.present?
-        wrapped - [html]
-      else
-        value
-      end
-    end
-
-    details.deep_dup.transform_values do |value|
-      value_without_html.call(value)
-    end
-  end
-
   def publish
     update!(state: "published", content_store: "live")
   end
