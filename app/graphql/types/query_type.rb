@@ -60,7 +60,7 @@ module Types
         # documents.content_id for getting LinkSet Links
 
         Edition
-          .left_outer_joins(:document)
+          .joins(:document)
           .select(*attributes).where(content_store:).find_by(base_path:)
       else
         Edition.select(*attributes).where(content_store:).find_by(base_path:)
