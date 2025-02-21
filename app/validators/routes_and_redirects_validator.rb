@@ -8,6 +8,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
     nationalhighways.co.uk
     nhs.uk
     police.uk
+    pubscodeadjudicator.org.uk
     ukri.org
   ].freeze
 
