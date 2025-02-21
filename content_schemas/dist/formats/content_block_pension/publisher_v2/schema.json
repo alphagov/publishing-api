@@ -225,8 +225,10 @@
                 "cadence": {
                   "type": "string",
                   "enum": [
-                    "weekly",
-                    "monthly"
+                    "a day",
+                    "a week",
+                    "a month",
+                    "a year"
                   ]
                 },
                 "description": {
