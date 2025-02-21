@@ -14,7 +14,7 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
           {
             amount: {
               type: "string",
-              pattern: "£[0-9]+\\.[0-9]+",
+              pattern: "^£{1}[1-9]{1,3}(,\\d{3})*(\\.\\d{2})?",
             },
             cadence: {
               type: "string",
