@@ -7,30 +7,31 @@ module Sources
     # rubocop:enable Lint/MissingSuper
 
     def fetch(editions_and_link_types_and_selections)
-      content_id_tuples = editions_and_link_types_and_selections
-        .map { |edition, link_type, _|
-          "('#{edition.content_id}','#{link_type}')"
-        }.join(",")
-      edition_id_tuples = editions_and_link_types_and_selections
-        .map { |edition, link_type, _|
-          "(#{edition.id},'#{link_type}')"
-        }.join(",")
+      edition_id_tuples = []
+      content_id_tuples = []
+      link_types_map = {}
+      all_selections = Set.new(%i[])
+
+      editions_and_link_types_and_selections.each do |edition, link_type, selections|
+        edition_id_tuples.push("(#{edition.id},'#{link_type}')")
+        content_id_tuples.push("('#{edition.content_id}','#{link_type}')")
+        link_types_map[[edition.content_id, link_type]] = []
+        all_selections.merge(selections)
+      end
 
       edition_links = Link
         .joins(edition: :document)
-        .where('("editions"."id", "links"."link_type") IN (?)', Arel.sql(edition_id_tuples))
+        .where('("editions"."id", "links"."link_type") IN (?)', Arel.sql(edition_id_tuples.join(",")))
         .order(link_type: :asc, position: :asc)
         .select("link_type", "position", "target_content_id", "editions.id", "documents.content_id")
 
       link_set_links = Link
         .joins(:link_set)
-        .where('("link_sets"."content_id", "links"."link_type") IN (?)', Arel.sql(content_id_tuples))
+        .where('("link_sets"."content_id", "links"."link_type") IN (?)', Arel.sql(content_id_tuples.join(",")))
         .order(link_type: :asc, position: :asc)
         .select("link_type", "position", "target_content_id", "link_sets.content_id")
 
       all_links = edition_links + link_set_links
-
-      all_selections = editions_and_link_types_and_selections.map(&:last).reduce(&:+).uniq
 
       editions = Edition
         .joins(:document)
@@ -41,13 +42,11 @@ module Sources
           },
           content_store: @content_store,
         )
-        .select(all_selections)
+        .select(all_selections.to_a)
 
       editions_map = editions.each_with_object({}) do |e, hash|
         hash[e.content_id] = e
       end
-      link_types_map = editions_and_link_types_and_selections
-        .map { [_1.content_id, _2] }.index_with { [] }
 
       all_links.each_with_object(link_types_map) { |link, hash|
         unless editions_map[link.target_content_id].nil?
