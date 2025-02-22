@@ -44,9 +44,7 @@ module Sources
         )
         .select(all_selections.to_a)
 
-      editions_map = editions.each_with_object({}) do |e, hash|
-        hash[e.content_id] = e
-      end
+      editions_map = editions.index_by(&:content_id)
 
       all_links.each_with_object(link_types_map) { |link, hash|
         unless editions_map[link.target_content_id].nil?
