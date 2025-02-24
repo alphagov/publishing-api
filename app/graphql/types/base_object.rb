@@ -17,11 +17,11 @@ module Types
         links_are_selected = all_selections.delete(:links)
 
         attributes = ALL_EDITION_COLUMNS & all_selections
+        attributes << :"document.content_id"
 
         if links_are_selected
           attributes << :id
           attributes << :content_store
-          attributes << :"document.content_id"
         end
 
         dataloader.with(Sources::LinkedToEditionsSource, content_store: object.content_store)
