@@ -49,3 +49,4 @@ The Publishing API also has [contract tests with GDS API Adapters](https://docs.
 [link-set-link]: docs/link-expansion.md#patch-link-set---link-set-links
 [edition-link]: docs/link-expansion.md#put-content---edition-links
 [contributing]: CONTRIBUTING.md
+
