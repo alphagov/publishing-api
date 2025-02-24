@@ -1963,7 +1963,7 @@
         "alternative_format_contact_email": {
           "type": "string"
         },
-        "attachment_data_id": {
+        "asset_manager_id": {
           "type": "string"
         },
         "attachment_type": {
