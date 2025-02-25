@@ -99,15 +99,24 @@ module Types
       reverse_links_field :related_to_step_navs, :pages_related_to_step_nav, [EditionType]
       reverse_links_field :secondary_to_step_navs, :secondary_to_step_navs, [EditionType]
 
-      field :role_appointments, [EditionType]
+      field :role_appointments, [EditionType], extras: [:lookahead]
 
-      def role_appointments
+      def role_appointments(lookahead:)
+        attributes = convert_edition_selections(lookahead:, table_name: "editions")
+
+        attributes << :"documents.content_id"
+
+        if lookahead.selects?(:links)
+          attributes << :"editions.id"
+          attributes << :"editions.content_store"
+        end
+
         if %w[role ministerial_role].include?(object.document_type)
           dataloader.with(Sources::ReverseLinkedToEditionsSource, content_store: object.content_store)
-            .load([object, "role"])
+            .load([object, "role", attributes])
         else
           dataloader.with(Sources::ReverseLinkedToEditionsSource, content_store: object.content_store)
-            .load([object, "person"])
+            .load([object, "person", attributes])
         end
       end
 
