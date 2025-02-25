@@ -23,13 +23,13 @@ module Sources
         .joins(edition: :document)
         .where('("editions"."id", "links"."link_type") IN (?)', Arel.sql(edition_id_tuples.join(",")))
         .order(link_type: :asc, position: :asc)
-        .select("link_type", "position", "target_content_id", "editions.id", "documents.content_id")
+        .select("link_type", "target_content_id", "documents.content_id")
 
       link_set_links = Link
         .joins(:link_set)
         .where('("link_sets"."content_id", "links"."link_type") IN (?)', Arel.sql(content_id_tuples.join(",")))
         .order(link_type: :asc, position: :asc)
-        .select("link_type", "position", "target_content_id", "link_sets.content_id")
+        .select("link_type", "target_content_id", "link_sets.content_id")
 
       all_links = edition_links + link_set_links
 
