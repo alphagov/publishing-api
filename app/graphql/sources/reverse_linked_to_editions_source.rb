@@ -6,17 +6,19 @@ module Sources
     end
     # rubocop:enable Lint/MissingSuper
 
-    def fetch(editions_and_link_types)
-      all_selections = {
-        links: %i[target_content_id link_type link_set_id edition_id],
-        documents: %i[content_id],
-      }
+    def fetch(editions_and_link_types_and_selections)
       content_id_tuples = []
       link_types_map = {}
 
-      editions_and_link_types.each do |edition, link_type|
+      all_selections = GraphqlSelections.new(
+        links: %i[target_content_id link_type link_set_id edition_id],
+        documents: %i[content_id],
+      )
+
+      editions_and_link_types_and_selections.each do |edition, link_type, selections|
         content_id_tuples.push("('#{edition.content_id}','#{link_type}')")
         link_types_map[[edition.content_id, link_type]] = []
+        all_selections.merge(selections)
       end
 
       link_set_links_source_editions = Edition
@@ -28,7 +30,7 @@ module Sources
           '("links"."target_content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),
         )
-        .select("editions.*", all_selections)
+        .select(all_selections.to_select_args)
 
       edition_links_source_editions = Edition
         .joins(:document, :links)
@@ -37,7 +39,7 @@ module Sources
           '("links"."target_content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),
         )
-        .select("editions.*", all_selections)
+        .select(all_selections.to_select_args)
 
       all_editions = Edition.from(
         <<~SQL,
