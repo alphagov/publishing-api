@@ -237,6 +237,15 @@ module_function
     REVERSE_LINKS.values.uniq
   end
 
+  def is_recurring_link_path?(link_type_path)
+    recurring_link_paths = MULTI_LEVEL_LINK_PATHS.select { |path| path.last.is_a?(Array) }.map(&:flatten)
+    candidates = recurring_link_paths.select { |path| link_type_path[0, path.length] == path }
+    candidates.any? do |candidate|
+      suffix = link_type_path[candidate.length..-1]
+      suffix.all? { |link_type| link_type == candidate.last }
+    end
+  end
+
   def reverse_link_type(link_type)
     REVERSE_LINKS[link_type.to_sym]
   end

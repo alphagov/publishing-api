@@ -20,6 +20,26 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.is_reverse_link_type?(:made_up)).to be(false) }
   end
 
+  describe ".is_recurring_link_path?" do
+    specify { expect(rules.is_recurring_link_path?(%i[associated_taxons])).to be(true) }
+    specify { expect(rules.is_recurring_link_path?(%i[associated_taxons associated_taxons])).to be(true) }
+    specify { expect(rules.is_recurring_link_path?(%i[associated_taxons associated_taxons associated_taxons])).to be(true) }
+    specify { expect(rules.is_recurring_link_path?(%i[child_taxons associated_taxons associated_taxons associated_taxons])).to be(true) }
+    specify { expect(rules.is_recurring_link_path?(%i[child_taxons])).to be(true) }
+    specify { expect(rules.is_recurring_link_path?(%i[child_taxons child_taxons])).to be(true) }
+    specify { expect(rules.is_recurring_link_path?(%i[parent_taxons])).to be(true) }
+    specify { expect(rules.is_recurring_link_path?(%i[parent_taxons parent_taxons])).to be(true) }
+    specify { expect(rules.is_recurring_link_path?(%i[parent_taxons parent_taxons root_taxon])).to be(false) }
+    specify { expect(rules.is_recurring_link_path?(%i[taxons root_taxon])).to be(false) }
+    specify { expect(rules.is_recurring_link_path?(%i[taxons parent_taxons])).to be(true) }
+    specify { expect(rules.is_recurring_link_path?(%i[taxons parent_taxons parent_taxons])).to be(true) }
+    specify { expect(rules.is_recurring_link_path?(%i[taxons parent_taxons parent_taxons root_taxon])).to be(false) }
+    specify { expect(rules.is_recurring_link_path?(%i[ordered_related_items mainstream_browse_pages parent])).to be(true) }
+    specify { expect(rules.is_recurring_link_path?(%i[ordered_related_items mainstream_browse_pages parent parent])).to be(true) }
+    specify { expect(rules.is_recurring_link_path?(%i[ordered_related_items])).to be(false) }
+    specify { expect(rules.is_recurring_link_path?(%i[ordered_related_items_overrides taxons])).to be(false) }
+  end
+
   describe ".reverse_to_direct_link_types" do
     specify do
       expect(rules.reverse_to_direct_link_types(%i[children documents]))

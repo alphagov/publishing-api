@@ -22,13 +22,15 @@ class LinkExpansion::LinkReference
   )
     links = {}
 
+    cycle_detection_content_ids = ExpansionRules.is_recurring_link_path?(link_types_path) ? parent_content_ids : []
+
     if might_have_own_links
-      own_links = child_own_links(content_id, link_types_path, parent_content_ids)
+      own_links = child_own_links(content_id, link_types_path, cycle_detection_content_ids)
       links.merge!(own_links)
     end
 
     if might_be_linked_to
-      linked_to = child_linked_to(content_id, link_types_path, parent_content_ids)
+      linked_to = child_linked_to(content_id, link_types_path, cycle_detection_content_ids)
       links.merge!(linked_to)
     end
 
