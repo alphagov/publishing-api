@@ -395,21 +395,24 @@
               "required": [
                 "name",
                 "amount",
-                "cadence"
+                "frequency"
               ],
               "additionalProperties": false,
               "order": [
                 "name",
                 "amount",
-                "cadence",
-                "description"
+                "description",
+                "frequency"
               ],
               "properties": {
                 "amount": {
                   "type": "string",
                   "pattern": "^£{1}[1-9]{1,3}(,\\d{3})*(\\.\\d{2})?"
                 },
-                "cadence": {
+                "description": {
+                  "type": "string"
+                },
+                "frequency": {
                   "type": "string",
                   "enum": [
                     "a day",
@@ -417,9 +420,6 @@
                     "a month",
                     "a year"
                   ]
-                },
-                "description": {
-                  "type": "string"
                 },
                 "name": {
                   "type": "string"
