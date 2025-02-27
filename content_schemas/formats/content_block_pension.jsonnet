@@ -16,7 +16,7 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
               type: "string",
               pattern: "^£{1}[1-9]{1,3}(,\\d{3})*(\\.\\d{2})?",
             },
-            cadence: {
+            frequency: {
               type: "string",
               enum: ["a day", "a week", "a month", "a year"],
             },
@@ -24,7 +24,7 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
               type: "string",
             },
           },
-          ["amount", "cadence"],
+          ["amount", "frequency"],
         ),
       },
     },

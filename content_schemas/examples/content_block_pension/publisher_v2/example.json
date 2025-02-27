@@ -11,19 +11,19 @@
       "rate-1": {
         "name": "Rate 1",
         "amount": "£221.20",
-        "cadence": "a week",
+        "frequency": "a week",
         "description": "Your weekly pension amount"
       },
       "rate-2": {
         "name": "Rate without decimal point",
         "amount": "£221",
-        "cadence": "a week",
+        "frequency": "a week",
         "description": "Your weekly pension amount"
       },
       "rate-3": {
         "name": "Rate with big value",
         "amount": "£1,223",
-        "cadence": "a week",
+        "frequency": "a week",
         "description": "Your weekly pension amount"
       }
     }
