@@ -206,13 +206,13 @@
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
               "required": [
-                "name",
+                "title",
                 "amount",
                 "frequency"
               ],
               "additionalProperties": false,
               "order": [
-                "name",
+                "title",
                 "amount",
                 "description",
                 "frequency"
@@ -234,7 +234,7 @@
                     "a year"
                   ]
                 },
-                "name": {
+                "title": {
                   "type": "string"
                 }
               }
