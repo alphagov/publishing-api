@@ -11,7 +11,10 @@ RSpec.describe Sources::PersonCurrentRolesSource do
     appoint_person_to_role(person_1, role_3)
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(described_class).request(person_1.content_id)
+      request = dataloader.with(described_class).request([
+        person_1.content_id,
+        { editions: %i[id base_path title details] },
+      ])
 
       expect(request.load).to eq([role_1, role_3])
     end
