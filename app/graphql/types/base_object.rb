@@ -23,5 +23,17 @@ module Types
           .load([object, belongs_to.to_s])
       end
     end
+
+  private
+
+    def convert_edition_selections(lookahead:, table_name: nil)
+      selections = lookahead.selections.map(&:name)
+      mapped_columns = selections.map { CONTENT_ITEM_FIELDS_TO_EDITION_COLUMNS[_1] }
+      columns = ALL_EDITION_COLUMNS & (mapped_columns + selections)
+
+      return columns if table_name.nil?
+
+      columns.map { :"editions.#{_1}" }
+    end
   end
 end
