@@ -46,6 +46,10 @@
             type: "string",
           },
         },
+        document_type_label: {
+          description: "a human readable version of the document type",
+          type: "string",
+        },
         body: {
           "$ref": "#/definitions/body",
         },

@@ -317,6 +317,10 @@
         "change_history": {
           "$ref": "#/definitions/change_history"
         },
+        "document_type_label": {
+          "description": "a human readable version of the document type",
+          "type": "string"
+        },
         "documents": {
           "$ref": "#/definitions/attachments_with_thumbnails"
         },
