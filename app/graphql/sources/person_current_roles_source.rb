@@ -1,51 +1,78 @@
 module Sources
   class PersonCurrentRolesSource < GraphQL::Dataloader::Source
-    def fetch(person_content_ids)
+    # rubocop:disable Lint/MissingSuper
+    def initialize
+      @content_store = :live
+    end
+    # rubocop:enable Lint/MissingSuper
+
+    def fetch(person_content_ids_and_selections)
+      person_content_ids = []
+      ids_map = {}
+      all_selections = {
+        role_appointment_links: %i[target_content_id],
+        documents: %i[content_id],
+      }
+      editions_selections = Set.new
+
+      person_content_ids_and_selections.each do |person_content_id, selections|
+        person_content_ids << person_content_id
+        ids_map[person_content_id] = []
+        editions_selections.merge(selections)
+      end
+
+      all_selections[:editions] = editions_selections.to_a
+
       all_roles = Edition
-        .live
-        .includes(
-          document: {
-            reverse_links: { # role -> role_appointment
-              link_set: {
-                documents: [
-                  :editions, # role_appointment
-                  :link_set_links, # role_appointment -> person
-                ],
-              },
-            },
-          },
+        .joins(document: [reverse_links: :link_set])
+        .joins(
+          <<~SQL,
+            INNER JOIN documents role_appointment_documents
+            ON role_appointment_documents.content_id = link_sets.content_id
+          SQL
+        )
+        .joins(
+          <<~SQL,
+            INNER JOIN editions role_appointment_editions
+            ON role_appointment_editions.document_id = role_appointment_documents.id
+          SQL
+        )
+        .joins(
+          <<~SQL,
+            INNER JOIN link_sets role_appointment_link_sets
+            ON role_appointment_link_sets.content_id = role_appointment_documents.content_id
+          SQL
+        )
+        .joins(
+          <<~SQL,
+            INNER JOIN links role_appointment_links
+            ON role_appointment_links.link_set_id = role_appointment_link_sets.id
+          SQL
         )
         .where(
-          document_type: "ministerial_role",
-          document: { locale: "en" },
+          editions: {
+            content_store: @content_store,
+            document_type: "ministerial_role",
+          },
+          documents: { locale: "en" },
           reverse_links: { link_type: "role" },
-          documents: { locale: "en" }, # role_appointment Documents
-          editions_documents: { document_type: "role_appointment" }, # role_appointment Editions
-          link_set_links: { target_content_id: person_content_ids, link_type: "person" },
+          role_appointment_documents: { locale: "en" },
+          role_appointment_editions: {
+            content_store: @content_store,
+            document_type: "role_appointment",
+          },
+          role_appointment_links: {
+            target_content_id: person_content_ids,
+            link_type: "person",
+          },
         )
-        .where("editions_documents.details ->> 'current' = 'true'") # editions_documents is the alias that Active Record gives to the role_appointment Editions in the SQL query
+        .where("role_appointment_editions.details ->> 'current' = 'true'")
         .order(reverse_links: { position: :asc })
-
-      ids_map = person_content_ids.index_with { [] }
+        .select(all_selections)
 
       all_roles.each_with_object(ids_map) { |role, hash|
-        hash[person_content_id_for_role(role)] << role
+        hash[role.target_content_id] << role
       }.values
-    end
-
-  private
-
-    def person_content_id_for_role(role)
-      role_appointment_documents_for_role(role)
-        .flat_map(&:link_set_links)
-        .find { |link| link.link_type == "person" } # role_appointment -> person
-        .target_content_id
-    end
-
-    def role_appointment_documents_for_role(role)
-      role.document.reverse_links
-        .select { |link| link.link_type == "role" } # role -> role_appointment
-        .flat_map { |link| link.link_set.documents }
     end
   end
 end
