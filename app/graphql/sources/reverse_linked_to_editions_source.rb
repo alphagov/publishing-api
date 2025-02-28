@@ -7,10 +7,15 @@ module Sources
     # rubocop:enable Lint/MissingSuper
 
     def fetch(editions_and_link_types)
-      content_id_tuples = editions_and_link_types.map { |edition, link_type| "('#{edition.content_id}','#{link_type}')" }.join(",")
+      content_id_tuples = editions_and_link_types.map { |edition, link_type|
+        "('#{edition.content_id}','#{link_type}')"
+      }.join(",")
 
       all_links = Link
-        .where('("links"."target_content_id", "links"."link_type") IN (?)', Arel.sql(content_id_tuples))
+        .where(
+          '("links"."target_content_id", "links"."link_type") IN (?)',
+          Arel.sql(content_id_tuples),
+        )
         .includes(source_documents: @content_store)
 
       link_types_map = editions_and_link_types.map { [_1.content_id, _2] }.index_with { [] }
