@@ -51,11 +51,26 @@ module Types
       end
 
       class MinistersIndexPersonLinks < Types::BaseObject
-        field :role_appointments, [MinistersIndexRoleAppointment]
+        field :role_appointments, [MinistersIndexRoleAppointment], extras: [:lookahead]
 
-        def role_appointments
+        def role_appointments(lookahead:)
+          links_lookahead = lookahead.selections.find { _1.name == :links }
+          role_lookahead = links_lookahead.selections.find { _1.name == :role }
+
+          attributes = convert_edition_selections(
+            lookahead: role_lookahead,
+            table_name: "editions",
+          )
+
+          attributes << :"documents.content_id"
+
+          if role_lookahead.selects?(:links)
+            attributes << :"editions.id"
+            attributes << :"editions.content_store"
+          end
+
           dataloader.with(Sources::PersonCurrentRolesSource)
-            .load(object.content_id)
+            .load([object.content_id, attributes])
         end
       end
 
