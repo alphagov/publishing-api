@@ -106,4 +106,14 @@ RSpec.describe Types::QueryType do
       )
     end
   end
+
+  describe "CONTENT_ITEM_FIELDS_TO_EDITION_COLUMNS" do
+    it "maps Edition methods with Edition database columns" do
+      Types::CONTENT_ITEM_FIELDS_TO_EDITION_COLUMNS.each do |field_name, column_name|
+        expect(Edition.new).to respond_to(field_name)
+        expect(Edition.attribute_names).not_to include(field_name.to_s)
+        expect(Edition.attribute_names).to include(column_name.to_s)
+      end
+    end
+  end
 end

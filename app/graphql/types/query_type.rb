@@ -34,6 +34,10 @@ module Types
     user_facing_version
   ]).freeze
 
+  CONTENT_ITEM_FIELDS_TO_EDITION_COLUMNS = {
+    web_url: :base_path,
+  }.freeze
+
   class QueryType < Types::BaseObject
     field :edition, EditionTypeOrSubtype, description: "An edition or one of its subtypes" do
       argument :base_path, String
