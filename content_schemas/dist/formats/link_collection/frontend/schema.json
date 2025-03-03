@@ -34,7 +34,7 @@
     "document_type": {
       "type": "string",
       "enum": [
-        "link_collection"
+        "link_collections"
       ]
     },
     "first_published_at": {

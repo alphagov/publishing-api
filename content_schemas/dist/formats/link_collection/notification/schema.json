@@ -58,7 +58,7 @@
     "document_type": {
       "type": "string",
       "enum": [
-        "link_collection"
+        "link_collections"
       ]
     },
     "email_document_supertype": {

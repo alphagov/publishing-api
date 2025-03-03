@@ -1,5 +1,5 @@
 (import "shared/default_format.jsonnet") + {
-  document_type: "link_collection",
+  document_type: "link_collections",
   base_path: "optional",
   routes: "optional",
   rendering_app: "optional",

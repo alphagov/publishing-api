@@ -4,14 +4,14 @@
       patternProperties: {
         "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
             type: "object",
-            required: ["name"] + required,
+            required: ["title"] + required,
             additionalProperties: false,
             properties: {
-              name: {
+              title: {
                 type: "string"
               }
             } + properties,
-            order: ["name"] + std.objectFields(properties),
+            order: ["title"] + std.objectFields(properties),
         }
       }
    }
