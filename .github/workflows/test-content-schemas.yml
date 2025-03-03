@@ -1,0 +1,29 @@
+name: Test Content Schemas
+
+on:
+  pull_request:
+  workflow_run:
+      workflows: ["Test Content Schemas (1)", "Test Content Schemas (2)"]
+      types: [completed]
+
+jobs:
+  test-content-schemas-success:
+    name: Test Content Schemas for all applications
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "All content schema tests completed." '
+  test-content-schemas-skipped:
+    name: Test Content Schemas for all applications
+    if: ${{ github.event.workflow_run.conclusion == 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "Content schema tests not required." '
+  test-content-schemas-failed:
+    name: Test Content Schemas for all applications
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Content schema tests failed."
+          exit 1
