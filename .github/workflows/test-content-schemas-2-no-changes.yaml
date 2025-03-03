@@ -1,0 +1,19 @@
+name: Test Content Schemas (2)
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "content_schemas/**"
+  pull_request:
+    paths-ignore:
+      - "content_schemas/**"
+
+jobs:
+  all-jobs-completed:
+    name: All jobs completed
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "Content schema tests not required." '

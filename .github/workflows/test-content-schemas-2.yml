@@ -7,13 +7,18 @@ on:
       - main
     paths:
       - "content_schemas/**"
-      - "!content_schemas/README.md"
   pull_request:
     paths:
       - "content_schemas/**"
-      - "!content_schemas/README.md"
 
 jobs:
+  all-jobs-completed:
+    name: All jobs completed
+    runs-on: ubuntu-latest
+    needs: [test-manuals-publisher, test-publisher, test-search-api, test-search-admin, test-service-manual-publisher, test-short-url-manager, test-smart-answers, test-specialist-publisher, test-travel-advice-publisher, test-whitehall]
+    steps:
+      - run: 'echo "All content schema tests completed." '
+
   test-manuals-publisher:
     name: Test Manuals Publisher
     uses: alphagov/manuals-publisher/.github/workflows/rspec.yml@main
