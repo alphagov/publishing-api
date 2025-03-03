@@ -59,10 +59,17 @@ module Presenters
       embedded_content_references.uniq.each do |content_reference|
         embed_code = content_reference.embed_code
         embedded_edition = embedded_editions[content_reference.content_id]
-        content = content.gsub(
-          embed_code,
-          get_content_for_edition(embedded_edition, embed_code),
-        )
+        if embedded_edition.present?
+          content = content.gsub(
+            embed_code,
+            get_content_for_edition(embedded_edition, embed_code),
+          )
+        else
+          Sentry.capture_exception(CommandError.new(
+                                     code: 422,
+                                     message: "Could not find a live edition for embedded content ID: #{content_reference.content_id}",
+                                   ))
+        end
       end
 
       content

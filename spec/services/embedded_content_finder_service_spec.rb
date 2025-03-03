@@ -179,16 +179,20 @@ RSpec.shared_examples "finds references" do |document_type|
         expect(links).to eq([editions[0].content_id, editions[0].content_id, editions[1].content_id])
       end
 
-      it "errors when given a content ID that is still draft" do
+      it "does not return a content ID that is still draft" do
         details = { field_name => "{{embed:#{document_type}:#{draft_edition.content_id}}}" }
 
-        expect { EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE) }.to raise_error(CommandError)
+        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, "foo")
+
+        expect(links).to eq([])
       end
 
-      it "errors when given a live content ID that is not available in the current locale" do
+      it "does not return a live content ID that is not available in the current locale" do
         details = { field_name => "{{embed:#{document_type}:#{editions[0].content_id}}}" }
 
-        expect { EmbeddedContentFinderService.new.fetch_linked_content_ids(details, "foo") }.to raise_error(CommandError)
+        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, "foo")
+
+        expect(links).to eq([])
       end
     end
   end
@@ -208,10 +212,16 @@ RSpec.describe EmbeddedContentFinderService do
       expect(links).to eq([])
     end
 
-    it "errors when given a content ID that has no live editions" do
+    it "alerts Sentry when there is are embeds without live editions" do
       details = { body: "{{embed:contact:00000000-0000-0000-0000-000000000000}}" }
+      expect(Sentry).to receive(:capture_exception).with(CommandError.new(
+                                                           code: 422,
+                                                           message: "Could not find any live editions for embedded content IDs: 00000000-0000-0000-0000-000000000000",
+                                                         ))
 
-      expect { EmbeddedContentFinderService.new.fetch_linked_content_ids(details, Edition::DEFAULT_LOCALE) }.to raise_error(CommandError)
+      links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, "foo")
+
+      expect(links).to eq([])
     end
 
     context "when the field value is an array" do

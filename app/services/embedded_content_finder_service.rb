@@ -4,8 +4,7 @@ class EmbeddedContentFinderService
       find_content_references(value)
     }.flatten.compact
 
-    check_all_references_exist(content_references.uniq, locale)
-    content_references.map(&:content_id)
+    live_content_ids(content_references, locale)
   end
 
   def find_content_references(value)
@@ -23,16 +22,17 @@ class EmbeddedContentFinderService
 
 private
 
-  def check_all_references_exist(content_references, locale)
-    found_editions = live_editions(content_references, locale)
+  def live_content_ids(content_references, locale)
+    found_editions = live_editions(content_references.uniq, locale)
     not_found_content_ids = content_references.map(&:content_id) - found_editions.map(&:content_id)
 
     if not_found_content_ids.any?
-      raise CommandError.new(
-        code: 422,
-        message: "Could not find any live editions in locale #{locale} for: #{not_found_content_ids.join(', ')}, ",
-      )
+      Sentry.capture_exception(CommandError.new(
+                                 code: 422,
+                                 message: "Could not find any live editions for embedded content IDs: #{not_found_content_ids.join(', ')}",
+                               ))
     end
+    content_references.map(&:content_id) - not_found_content_ids
   end
 
   def live_editions(content_references, locale)
