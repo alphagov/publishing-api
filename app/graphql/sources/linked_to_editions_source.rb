@@ -19,41 +19,60 @@ module Sources
         all_selections.merge(selections)
       end
 
-      link_set_links_source_editions = Edition
-        .joins(:document)
-        .joins("INNER JOIN link_sets ON link_sets.content_id = documents.content_id")
-        .joins("INNER JOIN links ON links.link_set_id = link_sets.id")
-        .where(editions: { content_store: @content_store })
+      # link_set_links_source_editions = Edition
+      #   .joins(:document)
+      #   .joins("INNER JOIN link_sets ON link_sets.content_id = documents.content_id")
+      #   .joins("INNER JOIN links ON links.link_set_id = link_sets.id")
+      #   .where(editions: { content_store: @content_store })
+      #   .where(
+      #     '("link_sets"."content_id", "links"."link_type") IN (?)',
+      #     Arel.sql(content_id_tuples.join(",")),
+      #   )
+      #   .select(all_selections.to_a)
+      # locale?
+      # order?
+
+      # edition_links_source_editions = Edition
+      #   .joins(:document, :links)
+      #   .where(editions: { content_store: @content_store })
+      #   .where(
+      #     '("editions"."id", "links"."link_type") IN (?)',
+      #     Arel.sql(edition_id_tuples.join(",")),
+      #   )
+      #   .select(all_selections.to_a)
+      # locale?
+      # order?
+
+      link_set_links_source_editions = Link
+        .joins(:link_set)
+        .joins(edition: :document)
         .where(
           '("link_sets"."content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),
         )
+        .where(
+          edition: {
+            document: { locale: "en" },
+            content_store: @content_store,
+          },
+        )
+        .order(link_type: :asc, position: :asc)
         .select(all_selections.to_a)
-      # locale?
-      # order?
 
-      edition_links_source_editions = Edition
-        .joins(:document, :links)
-        .where(editions: { content_store: @content_store })
+      edition_links_source_editions = Link
+        .joins(edition: :document)
         .where(
           '("editions"."id", "links"."link_type") IN (?)',
           Arel.sql(edition_id_tuples.join(",")),
         )
+        .where(
+          edition: {
+            document: { locale: "en" },
+            content_store: @content_store,
+          },
+        )
+        .order(link_type: :asc, position: :asc)
         .select(all_selections.to_a)
-      # locale?
-      # order?
-
-      # edition_links = Link
-      #   .joins(edition: :document)
-      #   .where('("editions"."id", "links"."link_type") IN (?)', Arel.sql(edition_id_tuples.join(",")))
-      #   .order(link_type: :asc, position: :asc)
-      #   .select("link_type", "target_content_id", "documents.content_id")
-
-      # link_set_links = Link
-      #   .joins(:link_set)
-      #   .where('("link_sets"."content_id", "links"."link_type") IN (?)', Arel.sql(content_id_tuples.join(",")))
-      #   .order(link_type: :asc, position: :asc)
-      #   .select("link_type", "target_content_id", "link_sets.content_id")
 
       # all_links = edition_links + link_set_links
 

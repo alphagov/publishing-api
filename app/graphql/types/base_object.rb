@@ -12,11 +12,11 @@ module Types
       define_method(link_type.to_sym) do |lookahead:|
         attributes = convert_edition_selections(lookahead:, table_name: "editions")
 
-        attributes << :"documents.content_id"
+        attributes << :"document.content_id"
 
         if lookahead.selects?(:links)
-          attributes << :"editions.id"
-          attributes << :"editions.content_store"
+          attributes << :"edition.id"
+          attributes << :"edition.content_store"
         end
 
         dataloader.with(Sources::LinkedToEditionsSource, content_store: object.content_store)
