@@ -312,11 +312,11 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
       payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{fake_content_id}}}" })
     end
 
-    it "should return a 422 error" do
+    it "should not create a new Link" do
       put "/v2/content/#{content_id}", params: payload.to_json
 
-      expect(response).to be_unprocessable
-      expect(response.body).to match(/Could not find any live editions in locale en for: #{fake_content_id}/)
+      expect(response).to be_ok
+      expect(Link.find_by(target_content_id: fake_content_id)).to be_nil
     end
   end
 
@@ -330,11 +330,13 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
       payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{contact.document.content_id}}} {{embed:contact:#{first_fake_content_id}}} {{embed:contact:#{second_fake_content_id}}}" })
     end
 
-    it "should return a 422 error" do
+    it "should return a 200 with only the existing links" do
       put "/v2/content/#{content_id}", params: payload.to_json
 
-      expect(response).to be_unprocessable
-      expect(response.body).to match(/Could not find any live editions in locale en for: #{first_fake_content_id}, #{second_fake_content_id}/)
+      expect(response).to be_ok
+      expect(Link.find_by(target_content_id: first_fake_content_id)).to be_nil
+      expect(Link.find_by(target_content_id: second_fake_content_id)).to be_nil
+      expect(Link.find_by(target_content_id: contact.document.content_id)).not_to be_nil
     end
   end
 
