@@ -281,14 +281,7 @@
     ],
   },
   finder_summary: {
-    anyOf: [
-      {
-        type: "string",
-      },
-      {
-        type: "null",
-      },
-    ],
+    "$ref": "#/definitions/multiple_content_types"
   },
   finder_beta: {
     description: "Indicates if finder is in beta. TODO: Switch to top-level phase label",
