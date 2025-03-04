@@ -12,7 +12,7 @@ module Types
       define_method(link_type.to_sym) do |lookahead:|
         attributes = convert_edition_selections(lookahead:, table_name: "editions")
 
-        attributes << :"document.content_id"
+        attributes << :"documents.content_id"
 
         if lookahead.selects?(:links)
           attributes << :"editions.id"
