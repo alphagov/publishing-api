@@ -98,4 +98,28 @@ RSpec.describe Types::QueryType do
       end
     end
   end
+
+  describe "resolving query fields that aren't database columns" do
+    let(:query) do
+      <<~QUERY
+        query($base_path: String!, $content_store: String!) {
+          edition(base_path: $base_path, content_store: $content_store) {
+            ... on Edition {
+              web_url
+            }
+          }
+        }
+      QUERY
+    end
+    let(:live_edition) { create(:live_edition) }
+
+    it "fetches the base_path from the database to resolve the web_url field" do
+      expected_data = {
+        "web_url" => "http://www.dev.gov.uk#{live_edition.base_path}",
+      }
+      result = PublishingApiSchema.execute(query, variables: { base_path: live_edition.base_path, content_store: "live" })
+      edition_data = result.dig("data", "edition")
+      expect(edition_data).to eq(expected_data)
+    end
+  end
 end
