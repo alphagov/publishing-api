@@ -119,7 +119,7 @@ GEM
     climate_control (1.2.0)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.0)
-    content_block_tools (0.4.4)
+    content_block_tools (0.4.5)
       actionview (>= 6)
     crack (1.0.0)
       bigdecimal
