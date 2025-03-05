@@ -65,10 +65,10 @@ module Presenters
             get_content_for_edition(embedded_edition, embed_code),
           )
         else
-          Sentry.capture_exception(CommandError.new(
-                                     code: 422,
-                                     message: "Could not find a live edition for embedded content ID: #{content_reference.content_id}",
-                                   ))
+          GovukError.notify(CommandError.new(
+                              code: 422,
+                              message: "Could not find a live edition for embedded content ID: #{content_reference.content_id}",
+                            ))
         end
       end
 

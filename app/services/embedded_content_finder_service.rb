@@ -27,10 +27,10 @@ private
     not_found_content_ids = content_references.map(&:content_id) - found_editions.map(&:content_id)
 
     if not_found_content_ids.any?
-      Sentry.capture_exception(CommandError.new(
-                                 code: 422,
-                                 message: "Could not find any live editions for embedded content IDs: #{not_found_content_ids.join(', ')}",
-                               ))
+      GovukError.notify(CommandError.new(
+                          code: 422,
+                          message: "Could not find any live editions for embedded content IDs: #{not_found_content_ids.join(', ')}",
+                        ))
     end
     content_references.map(&:content_id) - not_found_content_ids
   end

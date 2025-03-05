@@ -214,10 +214,10 @@ RSpec.describe EmbeddedContentFinderService do
 
     it "alerts Sentry when there is are embeds without live editions" do
       details = { body: "{{embed:contact:00000000-0000-0000-0000-000000000000}}" }
-      expect(Sentry).to receive(:capture_exception).with(CommandError.new(
-                                                           code: 422,
-                                                           message: "Could not find any live editions for embedded content IDs: 00000000-0000-0000-0000-000000000000",
-                                                         ))
+      expect(GovukError).to receive(:notify).with(CommandError.new(
+                                                    code: 422,
+                                                    message: "Could not find any live editions for embedded content IDs: 00000000-0000-0000-0000-000000000000",
+                                                  ))
 
       links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details, "foo")
 

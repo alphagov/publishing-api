@@ -37,10 +37,10 @@ RSpec.describe Presenters::ContentEmbedPresenter do
         let(:details) { { body: "some string with a reference: {{embed:contact:#{fake_content_id}}}" } }
 
         it "alerts Sentry and returns the content as is" do
-          expect(Sentry).to receive(:capture_exception).with(CommandError.new(
-                                                               code: 422,
-                                                               message: "Could not find a live edition for embedded content ID: #{fake_content_id}",
-                                                             ))
+          expect(GovukError).to receive(:notify).with(CommandError.new(
+                                                        code: 422,
+                                                        message: "Could not find a live edition for embedded content ID: #{fake_content_id}",
+                                                      ))
           expect(described_class.new(edition).render_embedded_content(details)).to eq({
             body: "some string with a reference: {{embed:contact:#{fake_content_id}}}",
           })
@@ -73,10 +73,10 @@ RSpec.describe Presenters::ContentEmbedPresenter do
           let(:details) { { body: "some string with a reference: {{embed:contact:#{embedded_content_id}}} {{embed:contact:#{fake_content_id}}}" } }
 
           it "alerts Sentry and returns the expected content" do
-            expect(Sentry).to receive(:capture_exception).with(CommandError.new(
-                                                                 code: 422,
-                                                                 message: "Could not find a live edition for embedded content ID: #{fake_content_id}",
-                                                               ))
+            expect(GovukError).to receive(:notify).with(CommandError.new(
+                                                          code: 422,
+                                                          message: "Could not find a live edition for embedded content ID: #{fake_content_id}",
+                                                        ))
             expect(described_class.new(edition).render_embedded_content(details)).to eq({
               body: "some string with a reference: #{expected_value} {{embed:contact:#{fake_content_id}}}",
             })
