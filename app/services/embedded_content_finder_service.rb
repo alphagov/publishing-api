@@ -23,11 +23,13 @@ class EmbeddedContentFinderService
 private
 
   def live_content_ids(content_references, locale)
+    logger.info("getting live editions for content references #{content_references.inspect}")
     found_editions = live_editions(content_references.uniq, locale)
     not_found_content_ids = content_references.map(&:content_id) - found_editions.map(&:content_id)
 
     if not_found_content_ids.any?
-      Sentry.capture_exception(CommandError.new(
+      logger.warn("Could not find any live editions for embedded content IDs: #{not_found_content_ids.join(', ')}")
+      GovukError.notify(CommandError.new(
                                  code: 422,
                                  message: "Could not find any live editions for embedded content IDs: #{not_found_content_ids.join(', ')}",
                                ))
