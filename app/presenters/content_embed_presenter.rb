@@ -5,8 +5,6 @@ module Presenters
     end
 
     def render_embedded_content(details)
-      return details unless target_content_ids
-
       details.each_pair do |field, value|
         next if value.blank?
 
@@ -18,15 +16,13 @@ module Presenters
 
   private
 
-    def target_content_ids
-      @target_content_ids ||= @edition
-                                .links
-                                .where(link_type: "embed")
-                                .pluck(:target_content_id)
-    end
-
     def embedded_editions
       @embedded_editions ||= begin
+        target_content_ids = @edition
+         .links
+         .where(link_type: "embed")
+         .pluck(:target_content_id)
+
         embedded_edition_ids = ::Queries::GetEditionIdsWithFallbacks.call(
           target_content_ids,
           locale_fallback_order: [@edition.locale, Edition::DEFAULT_LOCALE].uniq,
