@@ -76,10 +76,10 @@ RSpec.describe HostContentUpdateJob, :perform do
 
     let(:edition_dependee) { double(:edition_dependent, call: []) }
 
-    it "searches in the default locale" do
+    it "does not specify a locale" do
       expect(Queries::ContentDependencies).to receive(:new).with(
         content_id:,
-        locale: Edition::DEFAULT_LOCALE,
+        locale: nil,
         content_stores: %w[live],
       ).and_return(edition_dependee)
 
