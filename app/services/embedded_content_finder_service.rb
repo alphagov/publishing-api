@@ -1,10 +1,10 @@
 class EmbeddedContentFinderService
-  def fetch_linked_content_ids(details, locale)
+  def fetch_linked_content_ids(details)
     content_references = details.values.map { |value|
       find_content_references(value)
     }.flatten.compact
 
-    live_content_ids(content_references, locale)
+    live_content_ids(content_references)
   end
 
   def find_content_references(value)
@@ -22,8 +22,8 @@ class EmbeddedContentFinderService
 
 private
 
-  def live_content_ids(content_references, locale)
-    found_editions = live_editions(content_references.uniq, locale)
+  def live_content_ids(content_references)
+    found_editions = live_editions(content_references.uniq)
     not_found_content_ids = content_references.map(&:content_id) - found_editions.map(&:content_id)
 
     if not_found_content_ids.any?
@@ -35,12 +35,12 @@ private
     content_references.map(&:content_id) - not_found_content_ids
   end
 
-  def live_editions(content_references, locale)
+  def live_editions(content_references)
     Edition.with_document.where(
       state: "published",
       content_store: "live",
       document_type: content_references.map(&:document_type),
-      documents: { content_id: content_references.map(&:content_id), locale: },
+      documents: { content_id: content_references.map(&:content_id) },
     )
   end
 end
