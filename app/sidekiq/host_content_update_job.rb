@@ -40,4 +40,12 @@ private
   def source_edition
     @source_edition ||= Document.find_by(content_id:).live
   end
+
+  def dependencies
+    Queries::ContentDependencies.new(
+      content_id:,
+      locale: Edition::DEFAULT_LOCALE,
+      content_stores:,
+    ).call
+  end
 end

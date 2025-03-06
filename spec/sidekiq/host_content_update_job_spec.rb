@@ -63,4 +63,27 @@ RSpec.describe HostContentUpdateJob, :perform do
     expect(event.payload[:source_block][:updated_by_user_uid]).to eq(latest_publish_event.user_uid)
     expect(event.payload[:message]).to eq("Host content updated by content block update")
   end
+
+  describe "when the locale is a non-English locale" do
+    subject(:worker_perform) do
+      described_class.new.perform(
+        "content_id" => content_id,
+        "locale" => "cy",
+        "content_store" => "Adapters::ContentStore",
+        "orphaned_content_ids" => [],
+      )
+    end
+
+    let(:edition_dependee) { double(:edition_dependent, call: []) }
+
+    it "searches in the default locale" do
+      expect(Queries::ContentDependencies).to receive(:new).with(
+        content_id:,
+        locale: Edition::DEFAULT_LOCALE,
+        content_stores: %w[live],
+      ).and_return(edition_dependee)
+
+      worker_perform
+    end
+  end
 end
