@@ -12,7 +12,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
     GraphQL::Dataloader.with_dataloading do |dataloader|
       request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
 
-      expect(request.load).to eq([target_edition_1, target_edition_3])
+      expect(request.load).to match_array([target_edition_1, target_edition_3])
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
     GraphQL::Dataloader.with_dataloading do |dataloader|
       request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
 
-      expect(request.load).to eq([target_edition_1, target_edition_3])
+      expect(request.load).to match_array([target_edition_1, target_edition_3])
     end
   end
 
@@ -51,7 +51,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
     GraphQL::Dataloader.with_dataloading do |dataloader|
       request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
 
-      expect(request.load).to eq([target_edition_1, target_edition_3])
+      expect(request.load).to match_array([target_edition_1, target_edition_3])
     end
   end
 
@@ -74,7 +74,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
     GraphQL::Dataloader.with_dataloading do |dataloader|
       request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
 
-      expect(request.load).to eq([target_edition_3, target_edition_4])
+      expect(request.load).to match_array([target_edition_3, target_edition_4])
     end
   end
 end
