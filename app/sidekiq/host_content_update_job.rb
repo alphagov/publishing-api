@@ -44,7 +44,7 @@ private
   def dependencies
     Queries::ContentDependencies.new(
       content_id:,
-      locale: Edition::DEFAULT_LOCALE,
+      locale: nil,
       content_stores:,
     ).call
   end
