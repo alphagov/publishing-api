@@ -2,8 +2,11 @@ module Commands
   module V2
     class Publish < BaseCommand
       def call
+        Rails.logger.debug("Starting publish command")
         validate
+        Rails.logger.debug("Completed validation, starting publish")
         publish_edition
+        Rails.logger.debug("Completed publish, sending downstream")
         after_transaction_commit { send_downstream }
 
         Success.new({ content_id: })
@@ -15,7 +18,7 @@ module Commands
 
       def publish_edition
         delete_change_notes unless UPDATE_TYPES_WITH_CHANGE_NOTES.include?(update_type)
-        previous_edition.supersede if previous_edition
+        supersede_previous_edition if previous_edition
 
         unless edition.pathless?
           redirect_old_base_path
@@ -26,7 +29,10 @@ module Commands
         set_publishing_request_id
         set_update_type
         set_timestamps
+
+        Rails.logger.debug("Publishing Edition")
         edition.publish
+
         remove_draft_access
         create_publish_action
         create_change_note if payload[:update_type].present?
@@ -41,14 +47,20 @@ module Commands
       end
 
       def create_publish_action
+        Rails.logger.debug("Creating publish action")
+
         Action.create_publish_action(edition, document.locale, event)
       end
 
       def create_change_note
+        Rails.logger.debug("Creating change note")
+
         ChangeNote.create_from_edition(payload, edition)
       end
 
       def remove_draft_access
+        Rails.logger.debug("Removing draft access")
+
         edition.update!(auth_bypass_ids: []) if edition.auth_bypass_ids.any?
         AccessLimit.where(edition:).delete_all
       end
@@ -73,6 +85,8 @@ module Commands
 
       def redirect_old_base_path
         return unless previous_edition
+
+        Rails.logger.debug("Redirecting old base path")
 
         previous_base_path = previous_edition.base_path
 
@@ -116,7 +130,13 @@ module Commands
       end
 
       def delete_change_notes
+        Rails.logger.debug("Deleting change notes")
         ChangeNote.where(edition:).delete_all
+      end
+
+      def supersede_previous_edition
+        Rails.logger.debug("Supersedeing previous edition")
+        previous_edition.supersede
       end
 
       def document
@@ -147,6 +167,8 @@ module Commands
       end
 
       def clear_published_items_of_same_locale_and_base_path
+        Rails.logger.debug("Clear published items of same locale and base path")
+
         SubstitutionHelper.clear!(
           new_item_document_type: edition.document_type,
           new_item_content_id: document.content_id,
@@ -161,6 +183,8 @@ module Commands
 
       def clear_published_item_of_different_locale_but_matching_base_path
         return unless edition.base_path
+
+        Rails.logger.debug("Clearing published item of different locale but matching base path")
 
         published_edition_for_different_locale = Edition.with_document.where(
           documents: {
@@ -183,6 +207,8 @@ module Commands
       end
 
       def set_timestamps
+        Rails.logger.debug("Setting timestamps")
+
         Edition::Timestamps.live_transition(edition, update_type, previous_edition)
       end
 
@@ -191,6 +217,8 @@ module Commands
       end
 
       def set_publishing_request_id
+        Rails.logger.debug("Setting publishing request id")
+
         edition.update!(
           publishing_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )
@@ -198,6 +226,8 @@ module Commands
 
       def set_update_type
         return if edition.update_type
+
+        Rails.logger.debug("Setting update type")
 
         edition.update!(update_type:)
       end
