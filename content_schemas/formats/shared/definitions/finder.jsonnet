@@ -288,6 +288,9 @@
       {
         type: "null",
       },
+      {
+        "$ref": "#/definitions/multiple_content_types",
+      },
     ],
   },
   finder_beta: {

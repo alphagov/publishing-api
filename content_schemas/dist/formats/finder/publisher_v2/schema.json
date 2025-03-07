@@ -551,6 +551,9 @@
         },
         {
           "type": "null"
+        },
+        {
+          "$ref": "#/definitions/multiple_content_types"
         }
       ]
     },
@@ -671,6 +674,25 @@
         "zh-hk",
         "zh-tw"
       ]
+    },
+    "multiple_content_types": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "content_type",
+          "content"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "content_type": {
+            "type": "string"
+          }
+        }
+      }
     },
     "public_updated_at": {
       "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
