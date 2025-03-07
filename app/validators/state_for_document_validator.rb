@@ -7,11 +7,11 @@ class StateForDocumentValidator < ActiveModel::Validator
       state: record.state == "draft" ? "draft" : %w[published unpublished],
     }
 
-    conflict = Edition.where(criteria).where.not(id: record.id).order(nil).first
+    conflict_id = Edition.where(criteria).where.not(id: record.id).pick(:id)
 
-    if conflict
+    if conflict_id
       error = "state=#{record.state} and document=#{record.document_id} "\
-        "conflicts with edition id=#{conflict[:id]}"
+        "conflicts with edition id=#{conflict_id}"
       record.errors.add(:base, error)
     end
   end
