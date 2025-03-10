@@ -554,6 +554,10 @@
             "description": "When set to true, the height of the option select facet will be larger",
             "type": "boolean"
           },
+          "main_facet_key": {
+            "description": "If this facet is a subfacet, a reference point back to the main facet.",
+            "type": "string"
+          },
           "name": {
             "description": "Label for the facet.",
             "type": "string"
