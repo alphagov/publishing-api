@@ -7,6 +7,10 @@ module Sources
     # rubocop:enable Lint/MissingSuper
 
     def fetch(editions_and_link_types)
+      all_selections = {
+        links: %i[target_content_id link_type link_set_id edition_id],
+        documents: %i[content_id],
+      }
       content_id_tuples = []
       link_types_map = {}
 
@@ -15,26 +19,39 @@ module Sources
         link_types_map[[edition.content_id, link_type]] = []
       end
 
-      all_links = Link
+      link_set_links_source_editions = Edition
+        .joins(:document)
+        .joins("INNER JOIN link_sets ON link_sets.content_id = documents.content_id")
+        .joins("INNER JOIN links ON links.link_set_id = link_sets.id")
+        .where(editions: { content_store: @content_store })
         .where(
           '("links"."target_content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),
         )
-        .includes(source_documents: @content_store)
+        .select("editions.*", all_selections)
 
-      all_links.each_with_object(link_types_map) { |link, hash|
-        if link.link_set
-          hash[[link.target_content_id, link.link_type]].concat(editions_for_link_set_link(link))
-        elsif link.edition
-          hash[[link.target_content_id, link.link_type]] << link.edition
-        end
+      edition_links_source_editions = Edition
+        .joins(:document, :links)
+        .where(editions: { content_store: @content_store })
+        .where(
+          '("links"."target_content_id", "links"."link_type") IN (?)',
+          Arel.sql(content_id_tuples.join(",")),
+        )
+        .select("editions.*", all_selections)
+
+      all_editions = Edition.from(
+        <<~SQL,
+          (
+            #{link_set_links_source_editions.to_sql}
+            UNION
+            #{edition_links_source_editions.to_sql}
+          ) AS editions
+        SQL
+      )
+
+      all_editions.each_with_object(link_types_map) { |edition, hash|
+        hash[[edition.target_content_id, edition.link_type]] << edition
       }.values
-    end
-
-  private
-
-    def editions_for_link_set_link(link)
-      link.source_documents.map { |document| document.send(@content_store) }
     end
   end
 end
