@@ -14,9 +14,7 @@ Pact.configure do |config|
   config.include FactoryBot::Syntax::Methods
 end
 
-def url_encode(str)
-  ERB::Util.url_encode(str)
-end
+delegate :url_encode, to: :'ERB::Util'
 
 Pact.service_provider "Publishing API" do
   honours_pact_with "GDS API Adapters" do
