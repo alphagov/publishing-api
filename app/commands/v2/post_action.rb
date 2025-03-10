@@ -29,7 +29,7 @@ module Commands
       end
 
       def draft?
-        payload[:draft].nil? ? true : payload[:draft]
+        payload[:draft].nil? || payload[:draft]
       end
 
       def edition

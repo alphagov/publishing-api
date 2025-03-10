@@ -116,12 +116,12 @@ module SchemaGenerator
 
     def generate_publisher?
       generate_publisher = format_data.dig("generate", "publisher")
-      generate_publisher.nil? ? true : generate_publisher
+      generate_publisher.nil? || generate_publisher
     end
 
     def generate_notification?
       generate_notification = format_data.dig("generate", "notification")
-      generate_notification.nil? ? true : generate_notification
+      generate_notification.nil? || generate_notification
     end
 
     def generate_frontend?
