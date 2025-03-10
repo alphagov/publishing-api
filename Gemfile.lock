@@ -686,6 +686,9 @@ GEM
     rails-html-sanitizer (1.6.2)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
+    rails-pg-extras (5.6.7)
+      rails
+      ruby-pg-extras (= 5.6.7)
     railties (8.0.1)
       actionpack (= 8.0.1)
       activesupport (= 8.0.1)
@@ -773,6 +776,9 @@ GEM
       rubocop (~> 1.0)
     rubocop-rspec (3.3.0)
       rubocop (~> 1.61)
+    ruby-pg-extras (5.6.7)
+      pg
+      terminal-table
     ruby-progressbar (1.13.0)
     rubyzip (2.4.1)
     rufus-scheduler (3.9.2)
@@ -843,6 +849,8 @@ GEM
     table_print (1.5.7)
     term-ansicolor (1.11.2)
       tins (~> 1.0)
+    terminal-table (4.0.0)
+      unicode-display_width (>= 1.1.1, < 4)
     thor (1.3.2)
     tilt (2.4.0)
     timecop (0.9.10)
@@ -923,6 +931,7 @@ DEPENDENCIES
   plek
   prometheus-client
   rails (= 8.0.1)
+  rails-pg-extras
   rspec-rails
   rubocop-govuk
   sentry-sidekiq
