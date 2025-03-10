@@ -80,10 +80,6 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links"
         },
-        "owning_organisations": {
-          "description": "Link type automatically added by Publishing API",
-          "$ref": "#/definitions/frontend_links_with_base_path"
-        },
         "part_of_step_navs": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
