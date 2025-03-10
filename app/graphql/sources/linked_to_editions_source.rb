@@ -7,26 +7,37 @@ module Sources
     # rubocop:enable Lint/MissingSuper
 
     def fetch(editions_and_link_types)
-      content_id_tuples = editions_and_link_types.map { |edition, link_type| "('#{edition.content_id}','#{link_type}')" }.join(",")
-      edition_id_tuples = editions_and_link_types.map { |edition, link_type| "(#{edition.id},'#{link_type}')" }.join(",")
+      edition_id_tuples = []
+      content_id_tuples = []
+      link_types_map = {}
+
+      editions_and_link_types.each do |edition, link_type|
+        edition_id_tuples.push("(#{edition.id},'#{link_type}')")
+        content_id_tuples.push("('#{edition.content_id}','#{link_type}')")
+        link_types_map[[edition.content_id, link_type]] = []
+      end
 
       edition_links = Link
         .joins(:edition, { target_documents: @content_store })
         .includes(:edition, { target_documents: @content_store })
-        .where('("editions"."id", "links"."link_type") IN (?)', Arel.sql(edition_id_tuples))
+        .where(
+          '("editions"."id", "links"."link_type") IN (?)',
+          Arel.sql(edition_id_tuples.join(",")),
+        )
         .where(target_documents: { locale: "en" })
         .order(link_type: :asc, position: :asc)
 
       link_set_links = Link
         .joins(:link_set, { target_documents: @content_store })
         .includes(:link_set, { target_documents: @content_store })
-        .where('("link_sets"."content_id", "links"."link_type") IN (?)', Arel.sql(content_id_tuples))
+        .where(
+          '("link_sets"."content_id", "links"."link_type") IN (?)',
+          Arel.sql(content_id_tuples.join(",")),
+        )
         .where(target_documents: { locale: "en" })
         .order(link_type: :asc, position: :asc)
 
       all_links = edition_links + link_set_links
-
-      link_types_map = editions_and_link_types.map { [_1.content_id, _2] }.index_with { [] }
 
       all_links.each_with_object(link_types_map) { |link, hash|
         hash[[(link.link_set || link.edition).content_id, link.link_type]].concat(editions_for_link(link))
