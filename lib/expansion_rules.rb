@@ -41,8 +41,7 @@ module_function
     %i[ordered_house_of_commons_whips role_appointments role],
     %i[ordered_junior_lords_of_the_treasury_whips role_appointments role],
     %i[ordered_military_personnel role_appointments role],
-    %i[ordered_ministerial_departments ordered_ministers role_appointments role owning_organisations],
-    # TODO: Remove the ordered_roles expansion once we're using the owning_organisations link above:
+    %i[ordered_ministerial_departments ordered_ministers role_appointments role],
     %i[ordered_ministerial_departments ordered_roles],
     %i[ordered_ministers role_appointments role],
     %i[office_staff role_appointments role],
@@ -69,7 +68,6 @@ module_function
     person: :role_appointments,
     role: :role_appointments,
     ministerial: :ministers,
-    ordered_roles: :owning_organisations,
   }.freeze
 
   # These fields are required by the frontend_links definition

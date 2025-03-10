@@ -47,10 +47,6 @@ module SchemaGenerator
       # `Role` content items that are ministerial roles will automatically
       # have a `ministers` link type from the main `ministers` index page.
       "ministers" => "frontend_links",
-
-      # `Role` content items will automatically have an `owning_organisations` link
-      # which refers back to the organisations that the role belongs to.
-      "owning_organisations" => "frontend_links_with_base_path",
     }.freeze
 
     def initialize(format)

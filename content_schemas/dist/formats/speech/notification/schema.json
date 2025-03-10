@@ -137,10 +137,6 @@
           "description": "The organisation that published the original version of the page. Corresponds to the first of the 'Lead organisations' in Whitehall for the first edition, and is empty for all other publishing applications.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
-        "owning_organisations": {
-          "description": "Link type automatically added by Publishing API",
-          "$ref": "#/definitions/frontend_links_with_base_path"
-        },
         "parent": {
           "description": "The parent content item.",
           "$ref": "#/definitions/frontend_links_with_base_path",
