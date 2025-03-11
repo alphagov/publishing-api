@@ -94,6 +94,18 @@ RSpec.describe "Host content" do
 
       expect(response_body).to eq(host_edition_response)
     end
+
+    it "allows filtering by locale" do
+      get "/v2/content/#{content_block.content_id}/host-content/#{host_edition.content_id}?locale=en"
+      response_body = parsed_response
+
+      expect(response_body).to eq(host_edition_response)
+    end
+
+    it "returns 404 when not found in a given locale" do
+      get "/v2/content/#{content_block.content_id}/host-content/#{host_edition.content_id}?locale=cy"
+      expect(response.status).to eq(404)
+    end
   end
 
   context "when host content appears more than once in a field" do

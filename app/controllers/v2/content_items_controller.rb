@@ -45,6 +45,7 @@ module V2
       results = GetHostContentItemService.new(
         path_params[:content_id],
         path_params[:host_content_id],
+        query_params[:locale],
       ).call
 
       render json: results

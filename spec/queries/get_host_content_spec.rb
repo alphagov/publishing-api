@@ -113,6 +113,18 @@ RSpec.describe Queries::GetHostContent do
         expect(results[0].primary_publishing_organisation_base_path).to eq(organisation.base_path)
         expect(results[0].instances).to eq(1)
       end
+
+      it "allows filtering by locale" do
+        host_edition = published_host_editions[1]
+
+        welsh_results = described_class.new(target_content_id, host_content_id: host_edition.content_id, locale: "cy").call
+
+        expect(welsh_results.count).to eq(0)
+
+        english_results = described_class.new(target_content_id, host_content_id: host_edition.content_id, locale: "en").call
+
+        expect(english_results.count).to eq(1)
+      end
     end
 
     context "when the content is embedded more than once" do
