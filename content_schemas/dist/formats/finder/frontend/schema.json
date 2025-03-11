@@ -659,6 +659,9 @@
         },
         {
           "type": "null"
+        },
+        {
+          "type": "string"
         }
       ]
     },
