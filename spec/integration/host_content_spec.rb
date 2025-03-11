@@ -67,6 +67,7 @@ RSpec.describe "Host content" do
         "unique_pageviews" => statistics_cache.unique_pageviews,
         "instances" => 1,
         "host_content_id" => host_edition.content_id,
+        "host_locale" => host_edition.document.locale,
         "primary_publishing_organisation" => {
           "content_id" => publishing_organisation.content_id,
           "title" => publishing_organisation.title,

@@ -16,6 +16,7 @@ RSpec.describe Presenters::HostContentItemPresenter do
              last_edited_at:,
              unique_pageviews: 123,
              host_content_id:,
+             host_locale: "en",
              primary_publishing_organisation_content_id: organisation_edition_id,
              primary_publishing_organisation_title: "bar",
              primary_publishing_organisation_base_path: "/bar",
@@ -35,6 +36,7 @@ RSpec.describe Presenters::HostContentItemPresenter do
         unique_pageviews: 123,
         instances: 1,
         host_content_id: host_content_id,
+        host_locale: "en",
         primary_publishing_organisation: {
           content_id: organisation_edition_id,
           title: "bar",
