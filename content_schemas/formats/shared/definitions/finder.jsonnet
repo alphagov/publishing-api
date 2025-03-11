@@ -207,6 +207,10 @@
             "topical"
           ],
         },
+        main_facet_key: {
+          description: "If this facet is a subfacet, a reference point back to the main facet.",
+          type: "string",
+        },
         sub_facet_key: {
           description: "The key field name used for the subcategory of this facet.",
           type: "string",
