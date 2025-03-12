@@ -199,6 +199,7 @@
             "date",
             "hidden",
             "hidden_clearable",
+            "nested",
             "radio",
             "research_and_statistics",
             "official_documents",
