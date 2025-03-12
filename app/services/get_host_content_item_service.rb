@@ -1,7 +1,8 @@
 class GetHostContentItemService
-  def initialize(target_content_id, host_content_id)
+  def initialize(target_content_id, host_content_id, locale = Edition::DEFAULT_LOCALE)
     @target_content_id = target_content_id
     @host_content_id = host_content_id
+    @locale = locale
   end
 
   def call
@@ -20,10 +21,10 @@ class GetHostContentItemService
 
 private
 
-  attr_accessor :target_content_id, :order, :page, :per_page, :host_content_id
+  attr_accessor :target_content_id, :order, :page, :per_page, :host_content_id, :locale
 
   def query
-    @query ||= Queries::GetHostContent.new(target_content_id, host_content_id:)
+    @query ||= Queries::GetHostContent.new(target_content_id, host_content_id:, locale:)
   end
 
   def results

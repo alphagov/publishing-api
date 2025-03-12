@@ -483,6 +483,11 @@ the target `:content_id`.
 - [`host_content_id`](model.md#content_id)
   - Identifies the document to return the metadata for
 
+### Query parameters
+
+- `locale` *(optional, default: "en")*
+  - An optional locale to filter by
+
 ## `PATCH /v2/links/:content_id`
 
 [Request/Response detail][patch-link-set-pact]

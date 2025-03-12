@@ -21,6 +21,7 @@ module Presenters
         unique_pageviews: host_content.unique_pageviews,
         instances: host_content.instances,
         host_content_id: host_content.host_content_id,
+        host_locale: host_content.host_locale,
         primary_publishing_organisation: {
           content_id: host_content.primary_publishing_organisation_content_id,
           title: host_content.primary_publishing_organisation_title,

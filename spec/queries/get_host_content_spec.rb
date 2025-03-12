@@ -87,6 +87,7 @@ RSpec.describe Queries::GetHostContent do
           expect(results[i].document_type).to eq(host_edition.document_type)
           expect(results[i].publishing_app).to eq(host_edition.publishing_app)
           expect(results[i].host_content_id).to eq(host_edition.content_id)
+          expect(results[i].host_locale).to eq(host_edition.document.locale)
           expect(results[i].primary_publishing_organisation_content_id).to eq(organisation.content_id)
           expect(results[i].primary_publishing_organisation_title).to eq(organisation.title)
           expect(results[i].primary_publishing_organisation_base_path).to eq(organisation.base_path)
@@ -112,9 +113,21 @@ RSpec.describe Queries::GetHostContent do
         expect(results[0].primary_publishing_organisation_base_path).to eq(organisation.base_path)
         expect(results[0].instances).to eq(1)
       end
+
+      it "allows filtering by locale" do
+        host_edition = published_host_editions[1]
+
+        welsh_results = described_class.new(target_content_id, host_content_id: host_edition.content_id, locale: "cy").call
+
+        expect(welsh_results.count).to eq(0)
+
+        english_results = described_class.new(target_content_id, host_content_id: host_edition.content_id, locale: "en").call
+
+        expect(english_results.count).to eq(1)
+      end
     end
 
-    context "when the content id embedded more than once" do
+    context "when the content is embedded more than once" do
       before do
         create(:live_edition,
                details: {
@@ -131,6 +144,27 @@ RSpec.describe Queries::GetHostContent do
         results = described_class.new(target_content_id).call
 
         expect(results[0].instances).to eq(2)
+      end
+    end
+
+    context "when the edition is in a locale other than English" do
+      before do
+        create(:live_edition,
+               document: create(:document, locale: "cy"),
+               details: {
+                 body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+               },
+               links_hash: {
+                 primary_publishing_organisation: [organisation.content_id],
+                 embed: [target_content_id, target_content_id],
+               },
+               publishing_app: "example-app")
+      end
+
+      it "returns the locale" do
+        results = described_class.new(target_content_id).call
+
+        expect(results[0].host_locale).to eq("cy")
       end
     end
 
