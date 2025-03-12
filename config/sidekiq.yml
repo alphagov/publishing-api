@@ -15,3 +15,5 @@
   :schedule:
     UpdateStatisticsCachesJob:
       cron: '30 2 * * *' # Runs at 2:30 a.m every day
+    RemoveOldEventsJob:
+      cron: '30 3 * * *' # Runs at 3:30 a.m every day
