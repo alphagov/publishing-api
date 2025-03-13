@@ -29,6 +29,7 @@
         "web_url": "https://www.gov.uk/government/organisations/land-registry",
         "locale": "en",
         "analytics_identifier": "D69",
+        "schema_name": "organisation",
         "details": {
           "brand": "department-for-business-innovation-skills",
           "logo": {
