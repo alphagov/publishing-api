@@ -7,27 +7,51 @@ module Sources
     # rubocop:enable Lint/MissingSuper
 
     def fetch(editions_and_link_types)
-      content_id_tuples = editions_and_link_types.map { |edition, link_type| "('#{edition.content_id}','#{link_type}')" }.join(",")
+      all_selections = {
+        links: %i[target_content_id link_type link_set_id edition_id],
+        documents: %i[content_id],
+      }
+      content_id_tuples = []
+      link_types_map = {}
 
-      all_links = Link
-        .where('("links"."target_content_id", "links"."link_type") IN (?)', Arel.sql(content_id_tuples))
-        .includes(source_documents: @content_store)
+      editions_and_link_types.each do |edition, link_type|
+        content_id_tuples.push("('#{edition.content_id}','#{link_type}')")
+        link_types_map[[edition.content_id, link_type]] = []
+      end
 
-      link_types_map = editions_and_link_types.map { [_1.content_id, _2] }.index_with { [] }
+      link_set_links_source_editions = Edition
+        .joins(:document)
+        .joins("INNER JOIN link_sets ON link_sets.content_id = documents.content_id")
+        .joins("INNER JOIN links ON links.link_set_id = link_sets.id")
+        .where(editions: { content_store: @content_store })
+        .where(
+          '("links"."target_content_id", "links"."link_type") IN (?)',
+          Arel.sql(content_id_tuples.join(",")),
+        )
+        .select("editions.*", all_selections)
 
-      all_links.each_with_object(link_types_map) { |link, hash|
-        if link.link_set
-          hash[[link.target_content_id, link.link_type]].concat(editions_for_link_set_link(link))
-        elsif link.edition
-          hash[[link.target_content_id, link.link_type]] << link.edition
-        end
+      edition_links_source_editions = Edition
+        .joins(:document, :links)
+        .where(editions: { content_store: @content_store })
+        .where(
+          '("links"."target_content_id", "links"."link_type") IN (?)',
+          Arel.sql(content_id_tuples.join(",")),
+        )
+        .select("editions.*", all_selections)
+
+      all_editions = Edition.from(
+        <<~SQL,
+          (
+            #{link_set_links_source_editions.to_sql}
+            UNION
+            #{edition_links_source_editions.to_sql}
+          ) AS editions
+        SQL
+      )
+
+      all_editions.each_with_object(link_types_map) { |edition, hash|
+        hash[[edition.target_content_id, edition.link_type]] << edition
       }.values
-    end
-
-  private
-
-    def editions_for_link_set_link(link)
-      link.source_documents.map { |document| document.send(@content_store) }
     end
   end
 end
