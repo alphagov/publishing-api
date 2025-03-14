@@ -2,33 +2,48 @@ RSpec.describe "Types::EditionType" do
   include GraphQL::Testing::Helpers
 
   describe "#withdrawn_notice" do
+    let(:query) do
+      <<~QUERY
+        query($base_path: String!) {
+          edition(base_path: $base_path) {
+            ... on Edition {
+              base_path
+
+              withdrawn_notice {
+                explanation
+                withdrawn_at
+              }
+            }
+          }
+        }
+      QUERY
+    end
+
     context "when the edition is withdrawn" do
       it "returns a withdrawal notice" do
         edition = create(:withdrawn_unpublished_edition, explanation: "for testing", unpublished_at: "2024-10-28 17:00:00.000000000 +0000")
         expected = {
-          explanation: "for testing",
-          withdrawn_at: "2024-10-28T17:00:00Z",
+          "explanation" => "for testing",
+          "withdrawn_at" => "2024-10-28T17:00:00Z",
         }
 
-        expect(
-          run_graphql_field(
-            PublishingApiSchema,
-            "Edition.withdrawn_notice",
-            edition,
-          ),
-        ).to eq(expected)
+        result = PublishingApiSchema
+          .execute(query, variables: { base_path: edition.base_path })
+          .dig("data", "edition", "withdrawn_notice")
+
+        expect(result).to eq(expected)
       end
     end
 
     context "when the edition is not withdrawn" do
       it "returns nil" do
-        expect(
-          run_graphql_field(
-            PublishingApiSchema,
-            "Edition.withdrawn_notice",
-            create(:edition),
-          ),
-        ).to be_nil
+        edition = create(:live_edition)
+
+        result = PublishingApiSchema
+          .execute(query, variables: { base_path: edition.base_path })
+          .dig("data", "edition", "withdrawn_notice")
+
+        expect(result).to be_nil
       end
     end
   end
