@@ -199,6 +199,7 @@
             "date",
             "hidden",
             "hidden_clearable",
+            "nested",
             "radio",
             "research_and_statistics",
             "official_documents",
@@ -227,7 +228,7 @@
           description: "Possible values to show for non-dynamic select facets. All values are shown regardless of the search.",
           type: "array",
           items: {
-            "$ref": "#/definitions/label_value_pair",
+            "$ref": "#/definitions/label_value_pair_with_sub_facets",
           },
         },
         option_lookup: {
