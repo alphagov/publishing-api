@@ -1,0 +1,91 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/apply-apprenticeship",
+  "content_id": "45ad868a-2e79-4029-991b-c29559d7eb29",
+  "document_type": "answer",
+  "first_published_at": "2011-09-09T16:17:04+01:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-12-09T10:00:07+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "government-frontend",
+  "schema_name": "answer",
+  "title": "Find an apprenticeship",
+  "updated_at": "2025-03-05T19:58:22+00:00",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D6",
+        "api_path": "/api/content/government/organisations/department-for-education",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-education",
+        "base_path": "/government/organisations/department-for-education",
+        "content_id": "ebd15ade-73b2-4eaf-b1c3-43034a42eb37",
+        "details": {
+          "acronym": "DfE",
+          "brand": "department-for-education",
+          "default_news_image": {
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/media/5a37db2e40f0b649cceb18c3/s960__K1E8325edit.jpg",
+            "url": "https://assets.publishing.service.gov.uk/media/5a37db2ee5274a7908e352f2/s300__K1E8325edit.jpg"
+          },
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Department \u003Cbr/\u003Efor Education"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {
+
+        },
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Department for Education",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-education",
+        "withdrawn": false
+      }
+    ],
+    "available_translations": [
+      {
+        "api_path": "/api/content/apply-apprenticeship",
+        "api_url": "https://www.gov.uk/api/content/apply-apprenticeship",
+        "base_path": "/apply-apprenticeship",
+        "content_id": "45ad868a-2e79-4029-991b-c29559d7eb29",
+        "document_type": "answer",
+        "links": {
+
+        },
+        "locale": "en",
+        "public_updated_at": "2014-12-09T10:00:07Z",
+        "schema_name": "answer",
+        "title": "Find an apprenticeship",
+        "web_url": "https://www.gov.uk/apply-apprenticeship",
+        "withdrawn": false
+      }
+    ]
+  },
+  "description": "Register your profile, search vacancies and apply for an apprenticeship - you must be 16 or over",
+  "details": {
+    "body": "<p>Use this service to search and apply for apprenticeships in England.</p> <p>During an apprenticeship, you’ll: <ul><li>work and get paid</li><li>train and gain a qualification</li></ul></p>",
+    "external_related_links": [
+      {
+        "title": "Apprenticeships: becoming an apprentice",
+        "url": "https://www.apprenticeships.gov.uk/apprentices/becoming-apprentice"
+      },
+      {
+        "title": "National Careers Service: careers advice and guidance",
+        "url": "https://nationalcareers.service.gov.uk"
+      },
+      {
+        "title": "Skills for careers: advice on skills and training",
+        "url": "https://www.skillsforcareers.education.gov.uk"
+      }
+    ]
+  },
+  "publishing_request_id": "21-1701337929.617-10.13.20.225-8355"
+}
