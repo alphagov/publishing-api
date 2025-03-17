@@ -113,11 +113,6 @@ module PublishingAPI
       zh-tw
     ]
 
-    config.s3_export = OpenStruct.new(
-      bucket: ENV["EVENT_LOG_AWS_BUCKETNAME"],
-      events_key_prefix: "events/",
-    )
-
     # This also configures session_options for use below
     config.session_store :cookie_store, key: "_interslice_session"
 
