@@ -134,6 +134,7 @@
         "web_url": "https://www.gov.uk/government/organisations/department-of-health",
         "locale": "en",
         "analytics_identifier": "D12",
+        "schema_name": "organisation",
         "details": {
           "brand": "department-of-health",
           "logo": {
