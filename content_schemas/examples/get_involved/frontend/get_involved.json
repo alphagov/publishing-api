@@ -9,7 +9,6 @@
   "public_updated_at": "2021-10-29T12:29:28.000+00:00",
   "publishing_app": "whitehall",
   "publishing_scheduled_at": null,
-  "rendering_app": "government-frontend",
   "scheduled_publishing_delay_seconds": null,
   "schema_name": "get_involved",
   "title": "Get involved",

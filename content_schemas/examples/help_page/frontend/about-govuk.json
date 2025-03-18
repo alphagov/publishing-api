@@ -187,7 +187,6 @@
   "publishing_app": "publisher",
   "publishing_request_id": "21-1695825958.174-10.13.21.25-10471",
   "publishing_scheduled_at": null,
-  "rendering_app": "government-frontend",
   "scheduled_publishing_delay_seconds": null,
   "schema_name": "help_page",
   "title": "About GOV.UK",

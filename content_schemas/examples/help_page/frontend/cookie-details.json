@@ -160,7 +160,6 @@
   "publishing_app": "publisher",
   "publishing_request_id": "21-1726665231.794-10.13.22.107-15684",
   "publishing_scheduled_at": null,
-  "rendering_app": "government-frontend",
   "scheduled_publishing_delay_seconds": null,
   "schema_name": "help_page",
   "title": "Details about cookies on GOV.UK",
