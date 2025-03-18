@@ -16,4 +16,11 @@ test:
 
 production:
   <<: *default
-  # Rails reads values from DATABASE_URL env var.
+
+production_replica:
+  primary:
+    <<: *default
+  primary_replica:
+    <<: *default
+    url: <%= ENV["REPLICA_DATABASE_URL"] %>
+    replica: true
