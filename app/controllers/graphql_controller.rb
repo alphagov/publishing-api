@@ -9,34 +9,46 @@ class GraphqlController < ApplicationController
   skip_before_action :authenticate_user!, only: [:execute]
 
   def execute
-    variables = prepare_variables(params[:variables])
-    query = params[:query]
-    operation_name = params[:operationName]
-    context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
-    }
-    result = PublishingApiSchema.execute(
-      query,
-      variables:,
-      context:,
-      operation_name:,
-    ).to_hash
+    execute_in_read_replica do
+      variables = prepare_variables(params[:variables])
+      query = params[:query]
+      operation_name = params[:operationName]
+      context = {
+        # Query context goes here, for example:
+        # current_user: current_user,
+      }
+      result = PublishingApiSchema.execute(
+        query,
+        variables:,
+        context:,
+        operation_name:,
+      ).to_hash
 
-    if result.key?("errors")
-      logger.warn("GraphQL query result contained errors: #{result['errors']}")
-    else
-      logger.debug("GraphQL query result: #{result}")
+      if result.key?("errors")
+        logger.warn("GraphQL query result contained errors: #{result['errors']}")
+      else
+        logger.debug("GraphQL query result: #{result}")
+      end
+
+      render json: result
+    rescue StandardError => e
+      raise e unless Rails.env.development?
+
+      handle_error_in_development(e)
     end
-
-    render json: result
-  rescue StandardError => e
-    raise e unless Rails.env.development?
-
-    handle_error_in_development(e)
   end
 
 private
+
+  def execute_in_read_replica(&block)
+    if Rails.env.production_replica?
+      ActiveRecord::Base.connected_to(role: :reading, prevent_writes: true) do
+        yield block
+      end
+    else
+      yield block
+    end
+  end
 
   # Handle variables in form data, JSON body, or a blank value
   def prepare_variables(variables_param)
