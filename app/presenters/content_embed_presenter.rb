@@ -43,8 +43,10 @@ module Presenters
         value.each do |nested_key, nested_value|
           value[nested_key] = convert_field(nested_value)
         end
-      else
+      when String
         render_embedded_editions(value)
+      else
+        value
       end
     end
 
