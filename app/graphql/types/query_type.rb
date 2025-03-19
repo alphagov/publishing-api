@@ -14,20 +14,20 @@ module Types
         lookahead.selections.map(&:name),
       )
 
-      selections.insert(:editions, %i[document_type])
+      selections[:editions].append(:document_type)
 
       if lookahead.selects?(:links)
-        if lookahead.selections.find { _1.name == :links }.selects?(:available_translations)
-          selections.insert(:editions, %i[state])
+        if lookahead.selection(:links).selects?(:available_translations)
+          selections[:editions].append(:state)
         end
 
-        selections.insert(:documents, %i[content_id locale])
+        (selections[:documents] ||= []).append(:content_id, :locale)
       end
 
       Edition
-        .joins(selections.selects_from_table?(:documents) && :document)
-        .left_joins(selections.selects_from_table?(:unpublishings) && :unpublishing)
-        .select(selections.to_select_args).where(content_store:).find_by(base_path:)
+        .joins(selections[:documents].present? && :document)
+        .left_joins(selections[:unpublishings].present? && :unpublishing)
+        .select(selections).where(content_store:).find_by(base_path:)
     end
   end
 end

@@ -11,16 +11,19 @@ module Sources
       content_id_tuples = []
       link_types_map = {}
 
-      all_selections = GraphqlSelections.new(
+      all_selections = {
         links: %i[link_type position],
         documents: %i[content_id],
-      )
+      }
 
       editions_and_link_types_and_selections.each do |edition, link_type, selections|
         edition_id_tuples.push("(#{edition.id},'#{link_type}')")
         content_id_tuples.push("('#{edition.content_id}','#{link_type}')")
         link_types_map[[edition.content_id, link_type]] = []
-        all_selections.merge(selections)
+
+        selections.each do |table, columns|
+          (all_selections[table] ||= []).append(*columns)
+        end
       end
 
       link_set_links_target_editions = Edition
@@ -34,7 +37,7 @@ module Sources
           documents: { locale: "en" },
         )
         .select(
-          all_selections.to_select_args,
+          all_selections,
           { link_sets: ["content_id AS source_content_id"] },
         )
 
@@ -61,7 +64,7 @@ module Sources
           documents: { locale: "en" },
         )
         .select(
-          all_selections.to_select_args,
+          all_selections,
           { source_documents: ["content_id AS source_content_id"] },
         )
 

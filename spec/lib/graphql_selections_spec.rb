@@ -5,7 +5,7 @@ RSpec.describe GraphqlSelections do
         %i[id base_path],
       )
 
-      expect(selections.to_select_args).to eq({ editions: %i[id base_path] })
+      expect(selections).to eq({ editions: %i[id base_path] })
     end
 
     it "resolves field names that aren't database columns" do
@@ -13,7 +13,7 @@ RSpec.describe GraphqlSelections do
         %i[content_id links web_url],
       )
 
-      expect(selections.to_select_args).to eq({
+      expect(selections).to eq({
         editions: %i[id content_store base_path],
         documents: %i[content_id],
       })
@@ -24,7 +24,7 @@ RSpec.describe GraphqlSelections do
         %i[id withdrawn_notice],
       )
 
-      expect(selections.to_select_args).to eq({ editions: %i[id] })
+      expect(selections).to eq({ editions: %i[id] })
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe GraphqlSelections do
         %i[id content_id withdrawn_notice],
       )
 
-      expect(selections.to_select_args).to eq({
+      expect(selections).to eq({
         editions: %i[id],
         documents: %i[content_id],
         unpublishings: [
@@ -43,47 +43,6 @@ RSpec.describe GraphqlSelections do
           "type AS unpublishing_type",
           "unpublished_at AS unpublishing_unpublished_at",
         ],
-      })
-    end
-  end
-
-  describe "#insert" do
-    it "merges the column names with existing ones for the same table" do
-      selections = GraphqlSelections.new(editions: %i[id])
-
-      selections.insert(:editions, %i[content_store])
-
-      expect(selections.to_select_args).to eq({ editions: %i[id content_store] })
-    end
-
-    it "creates entries for new tables" do
-      selections = GraphqlSelections.new(editions: %i[id])
-
-      selections.insert(:documents, %i[content_id])
-
-      expect(selections.to_select_args).to eq({
-        editions: %i[id],
-        documents: %i[content_id],
-      })
-    end
-  end
-
-  describe "#merge" do
-    it "deeply merges the given GraphqlSelections into itself" do
-      selections = GraphqlSelections.new(
-        editions: %i[id content_store],
-        documents: %i[content_id],
-      )
-      other_selections = GraphqlSelections.new(
-        editions: %i[id base_path],
-        documents: %i[locale],
-      )
-
-      selections.merge(other_selections)
-
-      expect(selections.to_select_args).to eq({
-        editions: %i[id content_store base_path],
-        documents: %i[content_id locale],
       })
     end
   end
