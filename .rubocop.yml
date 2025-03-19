@@ -7,6 +7,13 @@ inherit_mode:
   merge:
     - Exclude
 
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - production
+    - production_replica
+
 # **************************************************************
 # TRY NOT TO ADD OVERRIDES IN THIS FILE
 #
