@@ -17,20 +17,8 @@ module Presenters
   private
 
     def embedded_editions
-      @embedded_editions ||= begin
-        target_content_ids = @edition
-         .links
-         .where(link_type: "embed")
-         .pluck(:target_content_id)
-
-        embedded_edition_ids = ::Queries::GetEditionIdsWithFallbacks.call(
-          target_content_ids,
-          locale_fallback_order: [@edition.locale, Edition::DEFAULT_LOCALE].uniq,
-          state_fallback_order: %w[published],
-        )
-
-        Edition.where(id: embedded_edition_ids).index_by(&:content_id)
-      end
+      @embedded_editions ||=
+        ::Queries::GetEmbeddedEditionsFromHostEdition.call(edition: @edition)
     end
 
     def convert_field(value)
@@ -52,6 +40,7 @@ module Presenters
 
     def render_embedded_editions(content)
       embedded_content_references = EmbeddedContentFinderService.new.find_content_references(content)
+
       return content if embedded_content_references.empty?
 
       embedded_content_references.uniq.each do |content_reference|
