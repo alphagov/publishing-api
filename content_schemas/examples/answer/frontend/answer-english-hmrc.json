@@ -1,0 +1,77 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/contact-hmrc",
+  "content_id": "86f14e34-ba09-4e35-913e-af9e213cff2e",
+  "document_type": "answer",
+  "first_published_at": "2014-11-24T15:21:11+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2024-11-12T14:00:46+00:00",
+  "publishing_app": "publisher",
+  "schema_name": "answer",
+  "title": "Contact HMRC",
+  "updated_at": "2025-03-17T17:50:28+00:00",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D25",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs",
+        "base_path": "/government/organisations/hm-revenue-customs",
+        "content_id": "6667cce2-e809-4e21-ae09-cb0bdc1ddda3",
+        "details": {
+          "acronym": "HMRC",
+          "brand": "hm-revenue-customs",
+          "default_news_image": {
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/media/5efdb7ace90e075c58556288/s960_HMRC_sign__media_library_-_alternative__GOVUK_960.jpg",
+            "url": "https://assets.publishing.service.gov.uk/media/5efdb7ac3a6f4023cb365a65/s300_HMRC_sign__media_library_-_alternative__GOVUK_960.jpg"
+          },
+          "logo": {
+            "crest": "hmrc",
+            "formatted_title": "HM Revenue\u003Cbr/\u003E&amp; Customs"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {
+
+        },
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "HM Revenue & Customs",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs",
+        "withdrawn": false
+      }
+    ],
+    "available_translations": [
+      {
+        "api_path": "/api/content/contact-hmrc",
+        "api_url": "https://www.gov.uk/api/content/contact-hmrc",
+        "base_path": "/contact-hmrc",
+        "content_id": "86f14e34-ba09-4e35-913e-af9e213cff2e",
+        "document_type": "answer",
+        "links": {
+
+        },
+        "locale": "en",
+        "public_updated_at": "2024-11-12T14:00:46Z",
+        "schema_name": "answer",
+        "title": "Contact HMRC",
+        "web_url": "https://www.gov.uk/contact-hmrc",
+        "withdrawn": false
+      }
+    ]
+  },
+  "description": "Contact details, webchat and helplines for enquiries with HMRC on tax, Self Assessment, Child Benefit or tax credits (including Welsh language services).",
+  "details": {
+    "body": "<p>Get contact details if you have a query about:</p>\n\n<ul>\n  <li><a href=\"/government/organisations/hm-revenue-customs/contact/self-assessment\">Self Assessment</a></li>\n  <li><a href=\"/government/organisations/hm-revenue-customs/contact/tax-credits-enquiries\">tax credits</a></li>\n  <li><a href=\"/government/organisations/hm-revenue-customs/contact/child-benefit\">Child Benefit</a></li>\n  <li>\n<a href=\"/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-individuals-pensioners-and-employees\">Income Tax</a> (including PAYE)</li>\n  <li>\n<a href=\"/government/organisations/hm-revenue-customs/contact/employer-enquiries\">tax for employers</a> (including employers’ PAYE)</li>\n  <li><a href=\"/government/organisations/hm-revenue-customs/contact/national-insurance-enquiries-for-employees-and-individuals\">National Insurance</a></li>\n  <li><a href=\"/government/organisations/hm-revenue-customs/contact/vat-enquiries\">VAT</a></li>\n  <li><a href=\"/government/organisations/hm-revenue-customs/contact/construction-industry-scheme\">the Construction Industry Scheme</a></li>\n  <li><a href=\"/government/organisations/hm-revenue-customs/contact/reporting-fraudulent-emails\">emails from <abbr title=\"HM Revenue and Customs\">HMRC</abbr> that you think might not be genuine</a></li>\n  <li><a href=\"/government/organisations/hm-revenue-customs/contact\">any other taxes or <abbr title=\"HM Revenue and Customs\">HMRC</abbr> services</a></li>\n</ul>\n\n<p>You can also get help with signing in and using <a href=\"https://www.gov.uk/government/organisations/hm-revenue-customs/contact/online-services-helpdesk\"><abbr title=\"HM Revenue and Customs\">HMRC</abbr> online services</a>, for example if you’ve lost your user ID, password or activation code.</p>\n\n<p>You’ll usually have the option to contact <abbr title=\"HM Revenue and Customs\">HMRC</abbr> through an online form, webchat, by phone or by post.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>You can <a href=\"/get-help-hmrc-extra-support\">get extra support</a> if your health condition or personal circumstances make it difficult when you contact HMRC.</p>\n</div>\n\n<p>You can also use <abbr title=\"HM Revenue and Customs\">HMRC</abbr>’s Welsh language services:</p>\n\n<ul>\n  <li><a href=\"/government/organisations/hm-revenue-customs/contact/welsh-language-helpline-for-debt-management\">Taliadau</a></li>\n  <li><a href=\"/government/organisations/hm-revenue-customs/contact/vat-customs-and-excise-and-duties-enquiries-for-welsh-speaking-customers\">Ymholiadau TAW, Tollau ac Ecséis</a></li>\n  <li><a href=\"/government/organisations/hm-revenue-customs/contact/welsh-language-helplines\">Treth Incwm, Hunanasesiad a mwy</a></li>\n</ul>\n\n<h2 id=\"make-a-complaint\">Make a complaint</h2>\n\n<p>Contact the relevant HM Revenue and Customs (<abbr title=\"HM Revenue and Customs\">HMRC</abbr>) helpline if you’re unhappy with the service you’ve received. <abbr title=\"HM Revenue and Customs\">HMRC</abbr> has guidance about <a href=\"/complain-to-hm-revenue-and-customs\">how they’ll deal with your complaint</a> and what happens next.</p>\n\n<p>There’s a separate process for:</p>\n\n<ul>\n  <li><a href=\"/government/organisations/hm-revenue-customs/contact/complain-about-hmrc-online-services\">complaints about <abbr title=\"HM Revenue and Customs\">HMRC</abbr> online services</a></li>\n  <li><a href=\"/guidance/complain-about-serious-misconduct-by-hm-revenue-and-customs-staff\">reporting serious misconduct by <abbr title=\"HM Revenue and Customs\">HMRC</abbr> staff</a></li>\n</ul>\n\n",
+    "external_related_links": []
+  },
+  "publishing_request_id": "21-1731491888.130-10.13.21.21-10415"
+}
