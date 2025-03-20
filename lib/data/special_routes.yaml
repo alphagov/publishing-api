@@ -117,6 +117,13 @@
   :rendering_app: "frontend"
   :type: "prefix"
 
+- :base_path: "/find-local-council.json"
+  :content_id: "622fda2b-5fa6-4c84-bc3b-22cd3ff08828"
+  :title: "Find your local council"
+  :description: "Find your local authority in England, Wales, Scotland and Northern Ireland"
+  :rendering_app: "frontend"
+  :type: "exact"
+
 - :base_path: "/humans.txt"
   :content_id: "6e92af59-3a73-4db6-b58b-740a02b229d0"
   :title: "humans.txt"
