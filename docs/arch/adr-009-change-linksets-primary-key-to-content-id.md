@@ -58,7 +58,7 @@ select links.*
 from link_sets
 join links on link_sets.id = links.link_set_id
 and link_sets.content_id = ?
-and link_type = ?
+and links.link_type = ?
 ```
 
 While postgres is usually pretty good at using appropriate indexes to join these two tables together, there are
@@ -68,8 +68,8 @@ content id of a particular edition, and we wanted to find both link set and edit
 ```
 select links.* from link_sets
 join links on link_sets.id = links.link_set_id
-where (content_id = '77fb899a-a86c-4bf4-858f-229ea665f02d' or edition_id = 6488459)
-and link_type = 'organisations';
+where (link_sets.content_id = '77fb899a-a86c-4bf4-858f-229ea665f02d' or links.edition_id = 6488459)
+and links.link_type = 'organisations';
 ```
 
 However, because content_id and edition_id are on different tables, postgres can't join the two indexes together.
@@ -111,8 +111,8 @@ link expansion, instead doing something like:
 
 ```
 select * from links
-where (link_set_content_id = '77fb899a-a86c-4bf4-858f-229ea665f02d' or edition_id = 6488459)
-and link_type = 'organisations';
+where (links.link_set_content_id = '77fb899a-a86c-4bf4-858f-229ea665f02d' or links.edition_id = 6488459)
+and links.link_type = 'organisations';
 ```
 
 Even though this looks very similar to the query above, it's much more performant. This is for two reasons:
@@ -163,7 +163,7 @@ We should be able to do something like this:
 
 ```
 update links
-set link_set_content_id = link_sets.content_id
+set links.link_set_content_id = link_sets.content_id
 from link_sets
 where links.link_set_id is not null and links.link_set_id = link_sets.id;
 ```
