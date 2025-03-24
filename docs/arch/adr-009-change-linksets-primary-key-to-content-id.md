@@ -128,6 +128,9 @@ to [joins(:link_set)](https://github.com/alphagov/publishing-api/blob/e4b7b18534
 
 We'll need to coordinate changes to the database schema and changes to the code to avoid causing downtime.
 
+We also need to make sure that the [gov-graph](https://docs.publishing.service.gov.uk/repos/govuk-knowledge-graph-gcp.html#content)
+code is updated so that it doesn't break during the migration, and so that it eventually uses the new column.
+
 ### 1 - Add the new column
 
 Firstly, we'll need to add the new column:
@@ -278,9 +281,15 @@ ALTER TABLE link_sets DROP COLUMN id;
 We could do these in a rails migration using the execute method. Might be better to just
 do them in a SQL console though.
 
-Probably best to update the schema.rb file at this point too.  
+Probably best to update the schema.rb file at this point too.
 
-### 11 - Celebrate 🎉
+### 11 - Update documentation
+
+We should update the documentation to reflect the new column names, and to remove any references to the old column.
+For example [this diagram](https://docs.publishing.service.gov.uk/repos/publishing-api/model.html#diagram) should be
+updated to make it clear that the relationship between Link and content_id is direct, rather than through LinkSet.
+
+### 12 - Celebrate 🎉
 
 Link expansion is now easier to do! We need fewer joins, and we can get more efficient query plans! Hooray!
 
