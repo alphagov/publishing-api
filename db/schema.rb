@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_28_101515) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_25_162853) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -159,6 +159,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_101515) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "position", default: 0, null: false
     t.integer "edition_id"
+    t.uuid "link_set_content_id"
     t.index ["edition_id", "link_type"], name: "index_links_on_edition_id_and_link_type"
     t.index ["edition_id"], name: "index_links_on_edition_id"
     t.index ["link_set_id", "link_type"], name: "index_links_on_link_set_id_and_link_type"
@@ -217,5 +218,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_101515) do
   add_foreign_key "link_changes", "actions", on_delete: :cascade
   add_foreign_key "links", "editions", on_delete: :cascade
   add_foreign_key "links", "link_sets"
+  add_foreign_key "links", "link_sets", column: "link_set_content_id", primary_key: "content_id"
   add_foreign_key "unpublishings", "editions", on_delete: :cascade
 end
