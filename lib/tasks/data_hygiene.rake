@@ -40,4 +40,21 @@ namespace :data_hygiene do
   task :bulk_update_organisation, %i[csv_filename] => :environment do |_, args|
     DataHygiene::BulkOrganisationUpdater.call(args[:csv_filename])
   end
+
+  desc "Discard drafts (if present) and unpublish"
+  task :discard_drafts_and_unpublish, %i[content_id] => :environment do |_, args|
+    document = Document.where(content_id: args[:content_id]).first
+    abort("Content ID #{args[:content_id]} not found") unless document
+
+    if document.draft.present?
+      Commands::V2::DiscardDraft.call(
+        {
+          content_id: document.content_id,
+          locale: document.locale,
+        },
+      )
+    end
+
+    Commands::V2::Unpublish.call({ content_id: document.content_id, type: "gone" })
+  end
 end
