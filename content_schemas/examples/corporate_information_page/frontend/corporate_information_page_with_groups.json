@@ -1,0 +1,440 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/department-of-health-and-social-care/about",
+  "content_id": "5f5a1b1f-7631-11e4-a3cb-005056011aef",
+  "description": "We support ministers in leading the nation’s health and social care to help people live more independent, healthier lives for longer.",
+  "details": {
+    "attachments": [],
+    "body": "<div class=\"govspeak\"><h2 id=\"our-responsibilities\">Our responsibilities</h2>\n\n<p>We are responsible for:</p>\n\n<ul>\n  <li>supporting and advising our ministers: we help them shape and deliver policy that delivers the government’s objectives</li>\n  <li>setting direction: we anticipate the future and lead debate ensuring we protect and improve global and domestic health</li>\n  <li>accountability: we make sure the department and our arm’s length bodies deliver on our agreed plans and commitments</li>\n  <li>acting as guardians of the health and care framework: we make sure the legislative, financial, administrative and policy frameworks are fit for purpose and work together</li>\n  <li>troubleshooting: in the last resort, the public and Parliament expect us to take the action needed to resolve crucial and complex issues</li>\n</ul>\n\n<h2 id=\"who-we-are\">Who we are</h2>\n\n<p><abbr title=\"Department of Health and Social Care\">DHSC</abbr> is a ministerial department, supported by a number of agencies and partner organisations. As of 30 June 2024, the department employs 3,540 full-time equivalent employees, who work in locations across the country.</p>\n\n<h2 id=\"agencies-and-public-bodies\">Agencies and public bodies</h2>\n\n<p><a href=\"https://www.gov.uk/government/organisations#department-of-health-and-social-care\" class=\"govuk-link\">Find out more about the department’s agencies and public bodies</a></p>\n\n</div>",
+    "change_history": [
+      {
+        "note": "Added the department's priorities for 2021 to 2022.",
+        "public_timestamp": "2021-07-15T14:00:01.000+01:00"
+      },
+      {
+        "note": "Updated to include DHSC priorities for 2017 to 2018.",
+        "public_timestamp": "2018-04-09T15:44:37.000+01:00"
+      },
+      {
+        "note": "Removed 2014 to 2015 priorities. New 2015 to 2016 to follow",
+        "public_timestamp": "2015-08-24T10:00:56.000+01:00"
+      },
+      {
+        "note": "Added a link to contact information for DH partner organisations and agencies",
+        "public_timestamp": "2014-07-04T16:42:22.000+01:00"
+      },
+      {
+        "note": "First published.",
+        "public_timestamp": "2014-07-04T16:42:22.000+01:00"
+      }
+    ],
+    "corporate_information_groups": [
+      {
+        "contents": [
+          {
+            "title": "Our organisation chart",
+            "url": "https://data.gov.uk/dataset/04427362-663e-49e0-9103-8bc01dcaa2c7/organogram-of-staff-roles-and-salaries"
+          },
+          "a4d031e4-83fa-4897-85cc-e3e217cdffe5",
+          "5f54ec49-7631-11e4-a3cb-005056011aef",
+          "5f554069-7631-11e4-a3cb-005056011aef",
+          "5f55b4d0-7631-11e4-a3cb-005056011aef",
+          "1a1c7179-d197-40b0-99d8-ab7739c05f44",
+          "5f5543ee-7631-11e4-a3cb-005056011aef",
+          "5f553aa0-7631-11e4-a3cb-005056011aef"
+        ],
+        "name": "Access our information"
+      },
+      {
+        "contents": [
+          "5f54eea2-7631-11e4-a3cb-005056011aef",
+          "5f54e968-7631-11e4-a3cb-005056011aef"
+        ],
+        "name": "Jobs and contracts"
+      }
+    ],
+    "organisation": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+    "tags": {
+      "browse_pages": []
+    }
+  },
+  "document_type": "about",
+  "first_published_at": "2014-07-04T17:42:22+01:00",
+  "links": {
+    "available_translations": [
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about",
+        "content_id": "5f5a1b1f-7631-11e4-a3cb-005056011aef",
+        "document_type": "about",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2021-07-15T13:00:01Z",
+        "schema_name": "corporate_information_page",
+        "title": "About us",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about",
+        "withdrawn": false
+      }
+    ],
+    "corporate_information_pages": [
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/procurement",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/procurement",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/procurement",
+        "content_id": "5f54eea2-7631-11e4-a3cb-005056011aef",
+        "document_type": "procurement",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2025-03-27T09:09:08Z",
+        "schema_name": "corporate_information_page",
+        "title": "Procurement at DHSC",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/procurement",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/recruitment",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/recruitment",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/recruitment",
+        "content_id": "5f54e968-7631-11e4-a3cb-005056011aef",
+        "document_type": "recruitment",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2025-03-14T16:25:16Z",
+        "schema_name": "corporate_information_page",
+        "title": "Working for DHSC",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/recruitment",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/accessible-documents-policy",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/accessible-documents-policy",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/accessible-documents-policy",
+        "content_id": "a4d031e4-83fa-4897-85cc-e3e217cdffe5",
+        "document_type": "accessible_documents_policy",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2022-04-11T15:12:44Z",
+        "schema_name": "corporate_information_page",
+        "title": "Accessible documents policy",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/accessible-documents-policy",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/complaints-procedure",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/complaints-procedure",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/complaints-procedure",
+        "content_id": "5f54ec49-7631-11e4-a3cb-005056011aef",
+        "document_type": "complaints_procedure",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2022-12-22T11:00:04Z",
+        "schema_name": "corporate_information_page",
+        "title": "Complaints procedure",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/complaints-procedure",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/equality-and-diversity",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/equality-and-diversity",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/equality-and-diversity",
+        "content_id": "5f554069-7631-11e4-a3cb-005056011aef",
+        "document_type": "equality_and_diversity",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2014-02-10T10:43:46Z",
+        "schema_name": "corporate_information_page",
+        "title": "Equality and diversity",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/equality-and-diversity",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/media-enquiries",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/media-enquiries",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/media-enquiries",
+        "content_id": "5f55b4d0-7631-11e4-a3cb-005056011aef",
+        "document_type": "media_enquiries",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2023-11-06T07:00:00Z",
+        "schema_name": "corporate_information_page",
+        "title": "Media enquiries",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/media-enquiries",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/modern-slavery-statement",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/modern-slavery-statement",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/modern-slavery-statement",
+        "content_id": "1a1c7179-d197-40b0-99d8-ab7739c05f44",
+        "document_type": "modern_slavery_statement",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2021-11-25T14:00:00Z",
+        "schema_name": "corporate_information_page",
+        "title": "Modern slavery statement",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/modern-slavery-statement",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/our-governance",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/our-governance",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/our-governance",
+        "content_id": "5f5543ee-7631-11e4-a3cb-005056011aef",
+        "document_type": "our_governance",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-01-25T11:36:54Z",
+        "schema_name": "corporate_information_page",
+        "title": "Our governance",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/our-governance",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/statistics",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/statistics",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/statistics",
+        "content_id": "5f553aa0-7631-11e4-a3cb-005056011aef",
+        "document_type": "statistics",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2023-12-13T16:29:18Z",
+        "schema_name": "corporate_information_page",
+        "title": "Statistics at DHSC",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/statistics",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/personal-information-charter",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/personal-information-charter",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/personal-information-charter",
+        "content_id": "5f54ed74-7631-11e4-a3cb-005056011aef",
+        "document_type": "personal_information_charter",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-07-15T10:28:41Z",
+        "schema_name": "corporate_information_page",
+        "title": "Personal information charter",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/personal-information-charter",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/publication-scheme",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/publication-scheme",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/publication-scheme",
+        "content_id": "5f55435a-7631-11e4-a3cb-005056011aef",
+        "document_type": "publication_scheme",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2013-09-09T05:31:40Z",
+        "schema_name": "corporate_information_page",
+        "title": "Publication scheme",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/publication-scheme",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/social-media-use",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/social-media-use",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/social-media-use",
+        "content_id": "73b29e6c-78cf-4886-91a0-b471c2ccb65f",
+        "document_type": "social_media_use",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2023-05-03T13:11:18Z",
+        "schema_name": "corporate_information_page",
+        "title": "Social media use",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/social-media-use",
+        "withdrawn": false
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D12",
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care",
+        "base_path": "/government/organisations/department-of-health-and-social-care",
+        "content_id": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+        "details": {
+          "acronym": "DHSC",
+          "brand": "department-of-health",
+          "default_news_image": {
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/media/627508178fa8f520738d5474/s960_DHSC_plaque.jpg",
+            "url": "https://assets.publishing.service.gov.uk/media/62750817e90e070dbf5acad5/s300_DHSC_plaque.jpg"
+          },
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Department<br/>of Health &amp;<br/>Social Care"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Department of Health and Social Care",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care",
+        "withdrawn": false
+      }
+    ],
+    "suggested_ordered_related_items": [
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/our-governance",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/our-governance",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/our-governance",
+        "content_id": "5f5543ee-7631-11e4-a3cb-005056011aef",
+        "document_type": "our_governance",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-01-25T11:36:54Z",
+        "schema_name": "corporate_information_page",
+        "title": "Our governance",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/our-governance",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/statistics",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/statistics",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/statistics",
+        "content_id": "5f553aa0-7631-11e4-a3cb-005056011aef",
+        "document_type": "statistics",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2023-12-13T16:29:18Z",
+        "schema_name": "corporate_information_page",
+        "title": "Statistics at DHSC",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/statistics",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/recruitment",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/recruitment",
+        "base_path": "/government/organisations/department-of-health-and-social-care/about/recruitment",
+        "content_id": "5f54e968-7631-11e4-a3cb-005056011aef",
+        "document_type": "recruitment",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2025-03-14T16:25:16Z",
+        "schema_name": "corporate_information_page",
+        "title": "Working for DHSC",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/recruitment",
+        "withdrawn": false
+      }
+    ],
+    "taxons": [
+      {
+        "api_path": "/api/content/government/government-efficiency-transparency-and-accountability",
+        "api_url": "https://www.gov.uk/api/content/government/government-efficiency-transparency-and-accountability",
+        "base_path": "/government/government-efficiency-transparency-and-accountability",
+        "content_id": "f3f4b5d3-49c4-487b-bd5b-be75f11ec8c5",
+        "details": {
+          "internal_name": "Government efficiency, transparency and accountability [PA] (level 2)",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": false
+        },
+        "document_type": "taxon",
+        "links": {
+          "parent_taxons": [
+            {
+              "api_path": "/api/content/government/all",
+              "api_url": "https://www.gov.uk/api/content/government/all",
+              "base_path": "/government/all",
+              "content_id": "e48ab80a-de80-4e83-bf59-26316856a5f9",
+              "description": "",
+              "details": {
+                "internal_name": "Government",
+                "notes_for_editors": "",
+                "visible_to_departmental_editors": true
+              },
+              "document_type": "taxon",
+              "links": {
+                "root_taxon": [
+                  {
+                    "api_path": "/api/content/",
+                    "api_url": "https://www.gov.uk/api/content/",
+                    "base_path": "/",
+                    "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+                    "document_type": "homepage",
+                    "links": {},
+                    "locale": "en",
+                    "public_updated_at": "2023-06-28T09:32:34Z",
+                    "schema_name": "homepage",
+                    "title": "GOV.UK homepage",
+                    "web_url": "https://www.gov.uk/",
+                    "withdrawn": false
+                  }
+                ]
+              },
+              "locale": "en",
+              "phase": "live",
+              "public_updated_at": "2018-09-16T20:29:39Z",
+              "schema_name": "taxon",
+              "title": "Government",
+              "web_url": "https://www.gov.uk/government/all",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-08-17T15:32:41Z",
+        "schema_name": "taxon",
+        "title": "Government efficiency, transparency and accountability",
+        "web_url": "https://www.gov.uk/government/government-efficiency-transparency-and-accountability",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/health-and-social-care",
+        "api_url": "https://www.gov.uk/api/content/health-and-social-care",
+        "base_path": "/health-and-social-care",
+        "content_id": "8124ead8-8ebc-4faf-88ad-dd5cbcc92ba8",
+        "description": "",
+        "details": {
+          "internal_name": "Health and social care",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {},
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:30:51Z",
+        "schema_name": "taxon",
+        "title": "Health and social care",
+        "web_url": "https://www.gov.uk/health-and-social-care",
+        "withdrawn": false
+      }
+    ]
+  },
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2021-07-15T14:00:01+01:00",
+  "publishing_app": "whitehall",
+  "publishing_request_id": "21-1743066548.198-10.13.21.195-2451",
+  "publishing_scheduled_at": "2021-07-15T14:00:00+01:00",
+  "scheduled_publishing_delay_seconds": 3,
+  "schema_name": "corporate_information_page",
+  "title": "About us",
+  "updated_at": "2025-03-27T09:09:10+00:00",
+  "withdrawn_notice": {}
+}
