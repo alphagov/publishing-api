@@ -64,6 +64,9 @@
         show_summaries: {
           "$ref": "#/definitions/finder_show_summaries",
         },
+        show_metadata_block: {
+          "$ref": "#/definitions/finder_show_metadata_block",
+        },
         signup_link: {
           "$ref": "#/definitions/finder_signup_link",
         },

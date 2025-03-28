@@ -315,7 +315,8 @@
               "display_as_result_metadata": true,
               "filterable": true
             }
-          ]
+          ],
+          "show_metadata_block": true
         },
         "links": {
         },

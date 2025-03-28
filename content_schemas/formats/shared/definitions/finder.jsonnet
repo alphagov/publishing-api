@@ -275,6 +275,9 @@
   finder_show_summaries: {
     type: "boolean",
   },
+  finder_show_metadata_block: {
+    type: "boolean",
+  },
   finder_signup_link: {
     anyOf: [
       {
