@@ -13,10 +13,8 @@ module Queries
       validate_fields!
 
       content_ids = Link
-        .where(target_content_id:)
-        .where(link_type:)
-        .joins(:link_set)
-        .pluck(:content_id)
+                      .where(target_content_id:, link_type:)
+                      .pluck(:link_set_content_id)
 
       editions = Edition.with_document.where("documents.content_id": content_ids)
 
