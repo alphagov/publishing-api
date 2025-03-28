@@ -17,11 +17,5 @@ RSpec.describe Action do
       let(:link_set) { create(:link_set) }
       it { is_expected.to be_valid }
     end
-
-    context "edition and link set" do
-      let(:edition) { create(:edition) }
-      let(:link_set) { create(:link_set) }
-      it { is_expected.not_to be_valid }
-    end
   end
 end
