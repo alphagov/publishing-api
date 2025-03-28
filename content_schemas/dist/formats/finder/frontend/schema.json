@@ -346,6 +346,9 @@
         "reject": {
           "$ref": "#/definitions/finder_reject_filter"
         },
+        "show_metadata_block": {
+          "$ref": "#/definitions/finder_show_metadata_block"
+        },
         "show_summaries": {
           "$ref": "#/definitions/finder_show_summaries"
         },
@@ -617,6 +620,9 @@
           }
         }
       }
+    },
+    "finder_show_metadata_block": {
+      "type": "boolean"
     },
     "finder_show_summaries": {
       "type": "boolean"
