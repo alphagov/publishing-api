@@ -6,12 +6,10 @@ module Sources
         .includes(
           document: {
             reverse_links: { # role -> role_appointment
-              link_set: {
-                documents: [
-                  :editions, # role_appointment
-                  :link_set_links, # role_appointment -> person
-                ],
-              },
+              source_documents: [
+                :editions, # role_appointment
+                :link_set_links, # role_appointment -> person
+              ],
             },
           },
         )
@@ -19,7 +17,7 @@ module Sources
           document_type: "ministerial_role",
           document: { locale: "en" },
           reverse_links: { link_type: "role" },
-          documents: { locale: "en" }, # role_appointment Documents
+          source_documents: { locale: "en" }, # role_appointment Documents
           editions_documents: { document_type: "role_appointment" }, # role_appointment Editions
           link_set_links: { target_content_id: person_content_ids, link_type: "person" },
         )
