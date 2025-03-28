@@ -28,10 +28,18 @@ module Presenters
     def change_notes
       ChangeNote
         .joins(:edition)
-        .where(editions: { document: edition.document_id })
-        .where("user_facing_version <= ?", edition.user_facing_version)
+        .where(editions: { document: })
+        .where("user_facing_version <= ?", version_number)
         .where.not(public_timestamp: nil)
         .order(:public_timestamp)
+    end
+
+    def version_number
+      edition.user_facing_version
+    end
+
+    def document
+      edition.document
     end
   end
 end

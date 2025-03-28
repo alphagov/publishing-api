@@ -99,19 +99,15 @@ module Types
       reverse_links_field :secondary_to_step_navs, :secondary_to_step_navs, [EditionType]
 
       field :available_translations, [EditionType]
-      field :role_appointments, [EditionType], extras: [:lookahead]
+      field :role_appointments, [EditionType]
 
-      def role_appointments(lookahead:)
-        selections = GraphqlSelections.with_edition_fields(
-          lookahead.selections.map(&:name),
-        )
-
+      def role_appointments
         if %w[role ministerial_role].include?(object.document_type)
           dataloader.with(Sources::ReverseLinkedToEditionsSource, content_store: object.content_store)
-            .load([object, "role", selections])
+            .load([object, "role"])
         else
           dataloader.with(Sources::ReverseLinkedToEditionsSource, content_store: object.content_store)
-            .load([object, "person", selections])
+            .load([object, "person"])
         end
       end
 
@@ -208,19 +204,9 @@ module Types
     end
 
     def withdrawn_notice
-      return nil unless object.respond_to?(:unpublishing_type)
+      return nil unless object.unpublishing&.withdrawal?
 
-      return nil unless object.unpublishing_type == "withdrawal"
-
-      withdrawn_at = (
-        object.unpublishing_unpublished_at ||
-        object.unpublishing_created_at
-      ).iso8601
-
-      {
-        explanation: object.unpublishing_explanation,
-        withdrawn_at:,
-      }
+      presented_edition.fetch(:withdrawn_notice)
     end
 
     # Aliased by field methods for fields that are currently presented in the
@@ -231,5 +217,13 @@ module Types
 
     alias_method :publishing_scheduled_at, :not_stored_in_publishing_api
     alias_method :scheduled_publishing_delay_seconds, :not_stored_in_publishing_api
+
+  private
+
+    def presented_edition
+      @presented_edition ||= Presenters::EditionPresenter
+        .new(object)
+        .present
+    end
   end
 end

@@ -10,14 +10,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
     create(:link, link_set: link_set, target_content_id: target_edition_3.content_id, link_type: "test_link")
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(
-        described_class,
-        content_store: source_edition.content_store,
-      ).request([
-        source_edition,
-        "test_link",
-        { editions: %i[id base_path title document_id] },
-      ])
+      request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
 
       expect(request.load).to match_array([target_edition_1, target_edition_3])
     end
@@ -35,14 +28,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
                             })
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(
-        described_class,
-        content_store: source_edition.content_store,
-      ).request([
-        source_edition,
-        "test_link",
-        { editions: %i[id base_path title document_id] },
-      ])
+      request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
 
       expect(request.load).to match_array([target_edition_1, target_edition_3])
     end
@@ -63,14 +49,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
     create(:link, link_set: link_set, target_content_id: target_edition_3.content_id, link_type: "test_link")
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(
-        described_class,
-        content_store: source_edition.content_store,
-      ).request([
-        source_edition,
-        "test_link",
-        { editions: %i[id base_path title document_id] },
-      ])
+      request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
 
       expect(request.load).to match_array([target_edition_1, target_edition_3])
     end
@@ -93,14 +72,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
     create(:link, link_set:, target_content_id: target_edition_4.content_id, link_type: "test_link")
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(
-        described_class,
-        content_store: source_edition.content_store,
-      ).request([
-        source_edition,
-        "test_link",
-        { editions: %i[id base_path title document_id] },
-      ])
+      request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
 
       expect(request.load).to match_array([target_edition_3, target_edition_4])
     end
@@ -127,7 +99,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
       ).request([
         source_edition,
         "test_link",
-        { editions: %i[id base_path title document_id] },
+        %i[id base_path title document_id],
       ])
 
       expect(request.load).to eq([target_edition_0, target_edition_1, target_edition_2, target_edition_3])

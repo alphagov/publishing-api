@@ -51,18 +51,11 @@ module Types
       end
 
       class MinistersIndexPersonLinks < Types::BaseObject
-        field :role_appointments, [MinistersIndexRoleAppointment], extras: [:lookahead]
+        field :role_appointments, [MinistersIndexRoleAppointment]
 
-        def role_appointments(lookahead:)
-          links_lookahead = lookahead.selection(:links)
-          role_lookahead = links_lookahead.selection(:role)
-
-          selections = GraphqlSelections.with_edition_fields(
-            role_lookahead.selections.map(&:name),
-          )
-
+        def role_appointments
           dataloader.with(Sources::PersonCurrentRolesSource)
-            .load([object.content_id, selections])
+            .load(object.content_id)
         end
       end
 

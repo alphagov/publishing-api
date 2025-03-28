@@ -6,21 +6,19 @@ module Sources
     end
     # rubocop:enable Lint/MissingSuper
 
-    def fetch(editions_and_link_types_and_selections)
+    def fetch(editions_and_link_types)
+      all_selections = {
+        links: %i[link_type position],
+        documents: %i[content_id],
+      }
       edition_id_tuples = []
       content_id_tuples = []
       link_types_map = {}
 
-      all_selections = GraphqlSelections.new(
-        links: %i[link_type position],
-        documents: %i[content_id],
-      )
-
-      editions_and_link_types_and_selections.each do |edition, link_type, selections|
+      editions_and_link_types.each do |edition, link_type|
         edition_id_tuples.push("(#{edition.id},'#{link_type}')")
         content_id_tuples.push("('#{edition.content_id}','#{link_type}')")
         link_types_map[[edition.content_id, link_type]] = []
-        all_selections.merge(selections)
       end
 
       link_set_links_target_editions = Edition
@@ -34,8 +32,9 @@ module Sources
           documents: { locale: "en" },
         )
         .select(
-          all_selections.to_h,
-          { link_sets: ["content_id AS source_content_id"] },
+          "editions.*",
+          all_selections,
+          { link_sets: { content_id: :source_content_id } },
         )
 
       edition_links_target_editions = Edition
@@ -61,8 +60,9 @@ module Sources
           documents: { locale: "en" },
         )
         .select(
-          all_selections.to_h,
-          { source_documents: ["content_id AS source_content_id"] },
+          "editions.*",
+          all_selections,
+          { source_documents: { content_id: :source_content_id } },
         )
 
       all_editions = Edition
