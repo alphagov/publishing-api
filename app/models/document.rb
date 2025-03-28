@@ -4,7 +4,11 @@ class Document < ApplicationRecord
   belongs_to :owning_document, class_name: "Document", optional: true
   has_many :editions
   has_one :link_set, primary_key: "content_id", foreign_key: "content_id", inverse_of: :documents
-  has_many :link_set_links, class_name: "Link", through: :link_set, source: :links
+  has_many :link_set_links,
+           class_name: "Link",
+           foreign_key: :link_set_content_id,
+           primary_key: :content_id,
+           inverse_of: :source_documents
   has_many :reverse_links,
            class_name: "Link",
            foreign_key: :target_content_id,
