@@ -22,11 +22,11 @@ module Sources
       end
 
       all_roles = Edition
-        .joins(document: [reverse_links: :link_set])
+        .joins(document: :reverse_links)
         .joins(
           <<~SQL,
             INNER JOIN documents role_appointment_documents
-            ON role_appointment_documents.content_id = link_sets.content_id
+            ON role_appointment_documents.content_id = reverse_links.link_set_content_id
           SQL
         )
         .joins(
@@ -37,14 +37,8 @@ module Sources
         )
         .joins(
           <<~SQL,
-            INNER JOIN link_sets role_appointment_link_sets
-            ON role_appointment_link_sets.content_id = role_appointment_documents.content_id
-          SQL
-        )
-        .joins(
-          <<~SQL,
             INNER JOIN links role_appointment_links
-            ON role_appointment_links.link_set_id = role_appointment_link_sets.id
+            ON role_appointment_links.link_set_content_id = role_appointment_documents.content_id
           SQL
         )
         .where(
