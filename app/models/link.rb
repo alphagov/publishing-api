@@ -19,6 +19,9 @@ class Link < ApplicationRecord
            primary_key: :target_content_id,
            foreign_key: :content_id
 
+  scope :link_set_links, -> { where.not(link_set: nil) }
+  scope :edition_links, -> { where.not(edition: nil) }
+
   validates :target_content_id, presence: true, uuid: true
   validate :link_type_is_valid
   validate :association_presence
