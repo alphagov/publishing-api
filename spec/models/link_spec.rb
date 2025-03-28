@@ -109,4 +109,27 @@ RSpec.describe Link do
       described_class.filter_editions(scope, "organisations" => "12345")
     end
   end
+
+  describe ".link_set_links and .edition_links" do
+    let(:edition) { create(:edition) }
+    let(:link_set) { create(:link_set) }
+
+    before do
+      @link_set_links = Array.new(5) do
+        create(:link, link_set:, target_content_id: SecureRandom.uuid, link_type: "organisations")
+      end
+
+      @edition_links = Array.new(4) do
+        create(:link, edition:, target_content_id: SecureRandom.uuid, link_type: "organisations")
+      end
+    end
+
+    it "returns all link set links" do
+      expect(described_class.link_set_links).to match_array(@link_set_links)
+    end
+
+    it "returns all edition links" do
+      expect(described_class.edition_links).to match_array(@edition_links)
+    end
+  end
 end
