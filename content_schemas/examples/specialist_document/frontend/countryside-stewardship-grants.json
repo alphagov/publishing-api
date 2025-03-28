@@ -315,7 +315,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "show_metadata_block": true
         },
         "links": {
         },
