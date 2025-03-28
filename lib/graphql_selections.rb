@@ -63,8 +63,6 @@ class GraphqlSelections
       database_selections.insert(table, columns)
     end
 
-    database_selections.insert(:editions, %i[document_id user_facing_version])
-
     database_selections
   end
 

@@ -1,17 +1,11 @@
 RSpec.describe GraphqlSelections do
   describe ".with_edition_fields" do
-    it "always includes selections necessary for fetching change notes from the database" do
-      selections = GraphqlSelections.with_edition_fields([])
-
-      expect(selections.to_h).to eq({ editions: %i[document_id user_facing_version] })
-    end
-
     it "nests the editions selections under `editions`" do
       selections = GraphqlSelections.with_edition_fields(
         %i[id base_path],
       )
 
-      expect(selections.to_h).to eq({ editions: %i[base_path id document_id user_facing_version] })
+      expect(selections.to_h).to eq({ editions: %i[base_path id] })
     end
 
     it "resolves field names that aren't database columns" do
@@ -20,7 +14,7 @@ RSpec.describe GraphqlSelections do
       )
 
       expect(selections.to_h).to eq({
-        editions: %i[base_path document_id user_facing_version],
+        editions: %i[base_path],
         documents: %i[content_id],
       })
     end
@@ -31,7 +25,7 @@ RSpec.describe GraphqlSelections do
       )
 
       expect(selections.to_h).to eq({
-        editions: %i[id content_store document_id user_facing_version],
+        editions: %i[id content_store],
       })
     end
 
@@ -40,7 +34,7 @@ RSpec.describe GraphqlSelections do
         %i[id withdrawn_notice],
       )
 
-      expect(selections.to_h).to eq({ editions: %i[id document_id user_facing_version] })
+      expect(selections.to_h).to eq({ editions: %i[id] })
     end
   end
 
@@ -51,7 +45,7 @@ RSpec.describe GraphqlSelections do
       )
 
       expect(selections.to_h).to eq({
-        editions: %i[id document_id user_facing_version document_type],
+        editions: %i[id document_type],
         documents: %i[content_id],
       })
     end
@@ -62,7 +56,7 @@ RSpec.describe GraphqlSelections do
       )
 
       expect(selections.to_h).to eq({
-        editions: %i[base_path document_id user_facing_version document_type],
+        editions: %i[base_path document_type],
         unpublishings: [
           "created_at AS unpublishing_created_at",
           "explanation AS unpublishing_explanation",
@@ -78,7 +72,7 @@ RSpec.describe GraphqlSelections do
       )
 
       expect(selections.to_h).to eq({
-        editions: %i[id content_store document_id user_facing_version document_type],
+        editions: %i[id content_store document_type],
         documents: %i[content_id locale],
       })
     end
