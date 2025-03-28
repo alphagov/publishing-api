@@ -56,6 +56,7 @@ class Action < ApplicationRecord
 private
 
   def one_of_edition_link_set
+    # TODO: ADR-009
     if edition_id && link_set_id || edition && link_set
       errors.add(:base, "can not be associated with both an edition and link set")
     end
