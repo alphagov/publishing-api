@@ -99,19 +99,15 @@ module Types
       reverse_links_field :secondary_to_step_navs, :secondary_to_step_navs, [EditionType]
 
       field :available_translations, [EditionType]
-      field :role_appointments, [EditionType], extras: [:lookahead]
+      field :role_appointments, [EditionType]
 
-      def role_appointments(lookahead:)
-        selections = GraphqlSelections.with_edition_fields(
-          lookahead.selections.map(&:name),
-        )
-
+      def role_appointments
         if %w[role ministerial_role].include?(object.document_type)
           dataloader.with(Sources::ReverseLinkedToEditionsSource, content_store: object.content_store)
-            .load([object, "role", selections])
+            .load([object, "role"])
         else
           dataloader.with(Sources::ReverseLinkedToEditionsSource, content_store: object.content_store)
-            .load([object, "person", selections])
+            .load([object, "person"])
         end
       end
 
