@@ -53,6 +53,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       links = link_set.links
       expect(links.map(&:link_type)).to eq(%w[parent taxons taxons taxons])
       expect(links.map(&:target_content_id)).to eq(parent + taxons)
+      expect(links.map(&:link_set_content_id)).to eq([link_set.content_id] * 4)
     end
 
     it "doesn't reject an empty links hash, but doesn't delete links either" do
@@ -146,6 +147,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       parent_links = links.where(link_type: "parent")
       expect(parent_links.map(&:target_content_id)).to eq(parent)
+      expect(parent_links.map(&:link_set_content_id)).to eq([link_set.content_id])
     end
 
     it "updates links for groups that appear in the payload and in the database" do
@@ -156,6 +158,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       taxons_links = links.where(link_type: "taxons")
       expect(taxons_links.map(&:target_content_id)).to eq(taxons)
+      expect(taxons_links.map(&:link_set_content_id)).to eq([link_set.content_id] * 3)
     end
 
     it "does not affect links for groups that do not appear in the payload" do
@@ -166,6 +169,10 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       related_links = links.where(link_type: "related")
       expect(related_links.map(&:target_content_id)).to eq(related)
+
+      # link_set_content_id in the database is nil by default
+      # until step 6 in the adr-009 migration
+      expect(related_links.map(&:link_set_content_id)).to eq([nil])
     end
 
     it "increments the lock version for the link set" do
@@ -417,6 +424,17 @@ RSpec.describe Commands::V2::PatchLinkSet do
         content_id:,
         links_hash: { taxons: [link_a] },
       )
+    end
+
+    it "sets link_set_content_id on link_b" do
+      described_class.call(payload)
+
+      link_set = LinkSet.last
+      links = link_set.links
+
+      taxons_links = links.where(link_type: "taxons")
+      expect(taxons_links.map(&:target_content_id)).to eq([link_b])
+      expect(taxons_links.map(&:link_set_content_id)).to eq([link_set.content_id])
     end
 
     it "sends link_a downstream as an orphaned content_id when replaced by link_b" do
