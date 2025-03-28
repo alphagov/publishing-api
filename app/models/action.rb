@@ -1,5 +1,6 @@
 class Action < ApplicationRecord
   belongs_to :edition, optional: true
+  # TODO: ADR-009 - this needs to change to link_set_content_id
   belongs_to :link_set, optional: true
   belongs_to :event
 
