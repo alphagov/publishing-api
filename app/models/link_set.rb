@@ -1,10 +1,16 @@
 class LinkSet < ApplicationRecord
+  self.primary_key = "content_id"
+
   include FindOrCreateLocked
 
   # NOTE: link sets can have more than one document, because there
   # can be multiple documents with the same content_id and different locales
   has_many :documents, foreign_key: "content_id", primary_key: "content_id", inverse_of: :link_set
-  has_many :links, -> { order(link_type: :asc, position: :asc) }, dependent: :destroy
+  has_many :links,
+           -> { order(link_type: :asc, position: :asc) },
+           foreign_key: :link_set_content_id,
+           primary_key: :content_id,
+           dependent: :destroy
 
   # We could define the `==` method on `Link` to perform this check but that
   # breaks the strict definition of a model instance being a representation of

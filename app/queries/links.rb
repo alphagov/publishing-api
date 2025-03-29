@@ -104,7 +104,7 @@ module Queries
 
     def links_results
       Link
-        .joins(:link_set)
+        .link_set_links
         .where(where)
         .where.not(where_not)
         .order(link_type: :asc, position: :asc)
@@ -113,7 +113,7 @@ module Queries
 
     def where
       where = if mode == :from
-                { "link_sets.content_id": content_id }
+                { "links.link_set_content_id": content_id }
               else
                 { "links.target_content_id": content_id }
               end
@@ -133,7 +133,7 @@ module Queries
     end
 
     def link_content_id_field
-      mode == :from ? "links.target_content_id" : "link_sets.content_id"
+      mode == :from ? "links.target_content_id" : "links.link_set_content_id"
     end
 
     def group_results(results)
@@ -184,7 +184,7 @@ module Queries
     def has_own_links_field
       children_field(
         %{
-          nested_link_sets.content_id = #{link_content_id_field}
+          nested_links.link_set_content_id = #{link_content_id_field}
           #{and_not_parent('nested_links.target_content_id')}
           AND (#{allowed_links_condition(next_allowed_link_types_from)})
         },
@@ -195,7 +195,7 @@ module Queries
       children_field(
         %{
           nested_links.target_content_id = #{link_content_id_field}
-          #{and_not_parent('nested_link_sets.content_id')}
+          #{and_not_parent('nested_links.link_set_content_id')}
           AND (#{allowed_links_condition(next_allowed_link_types_to)})
         },
       )
@@ -206,9 +206,8 @@ module Queries
         EXISTS(
           SELECT nested_links.id
           FROM links AS nested_links
-          INNER JOIN link_sets AS nested_link_sets
-          ON nested_link_sets.id = nested_links.link_set_id
-          WHERE #{where}
+          WHERE link_set_content_id IS NOT NULL
+          AND #{where}
           LIMIT 1
         )
       })
