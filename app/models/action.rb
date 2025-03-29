@@ -1,10 +1,8 @@
 class Action < ApplicationRecord
   belongs_to :edition, optional: true
-  # TODO: ADR-009 - this needs to change to link_set_content_id
-  belongs_to :link_set, optional: true
+  belongs_to :link_set, optional: true, foreign_key: :content_id, primary_key: :content_id
   belongs_to :event
 
-  validate :one_of_edition_link_set
   validates :action, presence: true
 
   def self.create_put_content_action(updated_draft, locale, event)
@@ -45,20 +43,10 @@ class Action < ApplicationRecord
       locale: nil,
       action: "PatchLinkSet",
       user_uid: event.user_uid,
-      link_set:,
       event:,
     )
 
     after_links = link_set.links.to_a
     LinkChangeService.new(action, before_links, after_links).record
-  end
-
-private
-
-  def one_of_edition_link_set
-    # TODO: ADR-009
-    if edition_id && link_set_id || edition && link_set
-      errors.add(:base, "can not be associated with both an edition and link set")
-    end
   end
 end
