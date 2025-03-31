@@ -8,7 +8,7 @@ module Sources
 
     def fetch(editions_and_link_types)
       all_selections = {
-        links: %i[target_content_id link_type link_set_id edition_id],
+        links: %i[target_content_id link_type edition_id],
         documents: %i[content_id],
       }
       content_id_tuples = []
@@ -21,8 +21,7 @@ module Sources
 
       link_set_links_source_editions = Edition
         .joins(:document)
-        .joins("INNER JOIN link_sets ON link_sets.content_id = documents.content_id")
-        .joins("INNER JOIN links ON links.link_set_id = link_sets.id")
+        .joins("INNER JOIN links ON links.link_set_content_id = documents.content_id")
         .where(editions: { content_store: @content_store })
         .where(
           '("links"."target_content_id", "links"."link_type") IN (?)',
