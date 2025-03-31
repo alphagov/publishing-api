@@ -18,7 +18,12 @@ module Commands
           link_set.links.where(link_type: group).delete_all
 
           payload_content_ids.uniq.each_with_index do |content_id, i|
-            link_set.links.create!(target_content_id: content_id, link_type: group, position: i)
+            link_set.links.create!(
+              link_set_content_id: link_set.content_id,
+              target_content_id: content_id,
+              link_type: group,
+              position: i,
+            )
           end
         end
 
