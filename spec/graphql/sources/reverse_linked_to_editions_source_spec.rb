@@ -14,7 +14,8 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
     GraphQL::Dataloader.with_dataloading do |dataloader|
       request = dataloader.with(described_class, content_store: target_edition.content_store).request([target_edition, "test_link"])
 
-      expect(request.load).to eq([source_edition_1, source_edition_3])
+      # TODO: - should these editions be sorted?
+      expect(request.load).to contain_exactly(source_edition_1, source_edition_3)
     end
   end
 

@@ -49,6 +49,7 @@ module Sources
       )
 
       all_editions.each_with_object(link_types_map) { |edition, hash|
+        # TODO: - how should these editions be sorted? What if there is both a link_set and edition link?
         hash[[edition.target_content_id, edition.link_type]] << edition
       }.values
     end
