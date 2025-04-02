@@ -855,6 +855,8 @@ GEM
     string_pattern (2.3.0)
       regexp_parser (~> 2.5, >= 2.5.0)
     stringio (3.1.6)
+    strong_migrations (2.2.1)
+      activerecord (>= 7)
     sync (0.5.0)
     table_print (1.5.7)
     term-ansicolor (1.11.2)
@@ -948,6 +950,7 @@ DEPENDENCIES
   sidekiq-scheduler
   sidekiq-unique-jobs (< 8.0.10)
   simplecov
+  strong_migrations
   timecop
   web-console
   webmock
