@@ -48,7 +48,11 @@
       {
         "contents": [
           "5f54eea2-7631-11e4-a3cb-005056011aef",
-          "5f54e968-7631-11e4-a3cb-005056011aef"
+          "5f54e968-7631-11e4-a3cb-005056011aef",
+          {
+            "title": "Jobs",
+            "url": "https://www.civilservicejobs.service.gov.uk/csr"
+          }
         ],
         "name": "Jobs and contracts"
       }
