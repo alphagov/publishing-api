@@ -37,11 +37,6 @@ bundle exec rake represent_downstream:rendering_app['application-name']
 bundle exec rake represent_downstream:publishing_app['application-name']
 ```
 
-* Represent downstream content which has at least one link of type `taxon`
-```
-bundle exec rake represent_downstream:tagged_to_taxon
-```
-
 * Represent an individual edition downstream
 ```
 bundle exec rake represent_downstream:content_id['some-content-id']

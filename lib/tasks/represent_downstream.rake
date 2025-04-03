@@ -36,12 +36,6 @@ namespace :represent_downstream do
     Rake::Task["represent_downstream:content_id"].invoke(content_ids)
   end
 
-  desc "Represent downstream content tagged to a parent taxon"
-  task tagged_to_taxon: :environment do
-    content_ids = Link.where(link_type: "taxons").distinct(:link_set_content_id).pluck(:link_set_content_id)
-    Rake::Task["represent_downstream:content_id"].invoke(content_ids)
-  end
-
   desc "
   Represent an individual or multiple documents downstream
   Usage
