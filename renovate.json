@@ -6,7 +6,12 @@
     ":automergePr",
     ":automergeRequireAllStatusChecks"
   ],
-  "enabledManagers": ["ruby-version"],
+  "enabledManagers": [
+    "docker-compose",
+    "dockerfile",
+    "github-actions",
+    "ruby-version"
+  ],
   "labels": ["dependencies"],
   "packageRules": [
     {
