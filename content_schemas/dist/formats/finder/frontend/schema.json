@@ -331,6 +331,9 @@
         "generic_description": {
           "type": "boolean"
         },
+        "hide_contents_list": {
+          "$ref": "#/definitions/finder_hide_contents_list"
+        },
         "label_text": {
           "type": "string"
         },
@@ -583,6 +586,9 @@
           }
         }
       }
+    },
+    "finder_hide_contents_list": {
+      "type": "boolean"
     },
     "finder_reject_filter": {
       "description": "A fixed filter that rejects documents which match the conditions",

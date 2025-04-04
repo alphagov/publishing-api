@@ -462,7 +462,8 @@
               "display_as_result_metadata": true,
               "filterable": true
             }
-          ]
+          ],
+          "hide_contents_list": true
         },
         "links": {
         },
