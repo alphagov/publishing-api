@@ -352,6 +352,9 @@
         "show_summaries": {
           "$ref": "#/definitions/finder_show_summaries"
         },
+        "show_table_of_contents": {
+          "$ref": "#/definitions/finder_show_table_of_contents"
+        },
         "signup_link": {
           "$ref": "#/definitions/finder_signup_link"
         },
@@ -625,6 +628,9 @@
       "type": "boolean"
     },
     "finder_show_summaries": {
+      "type": "boolean"
+    },
+    "finder_show_table_of_contents": {
       "type": "boolean"
     },
     "finder_signup_link": {
