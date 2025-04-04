@@ -316,6 +316,7 @@
               "filterable": true
             }
           ],
+          "show_table_of_contents": true,
           "show_metadata_block": true
         },
         "links": {
