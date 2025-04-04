@@ -46,9 +46,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
     it "creates the link set and associated links" do
       described_class.call(payload)
 
-      link_set = LinkSet.last
+      link_set = LinkSet.find(content_id)
       expect(link_set).to be_present
-      expect(link_set.content_id).to eq(content_id)
 
       links = link_set.links
       expect(links.map(&:link_type)).to eq(%w[parent taxons taxons taxons])
@@ -77,7 +76,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     it "creates a lock version for the link set" do
       described_class.call(payload)
 
-      link_set = LinkSet.last
+      link_set = LinkSet.find(content_id)
       expect(link_set).to be_present
       expect(link_set.stale_lock_version).to eq(1)
     end
@@ -99,7 +98,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     it "re-orders the links when the ordering is changed in the request" do
       described_class.call(payload_shuffled)
 
-      link_set = LinkSet.last
+      link_set = LinkSet.find(content_id)
       expect(link_set).to be_present
       expect(link_set.content_id).to eq(content_id)
 
@@ -142,7 +141,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     it "creates links for groups that appear in the payload and not in the database" do
       described_class.call(payload)
 
-      link_set = LinkSet.last
+      link_set = LinkSet.find(content_id)
       links = link_set.links
 
       parent_links = links.where(link_type: "parent")
@@ -153,7 +152,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     it "updates links for groups that appear in the payload and in the database" do
       described_class.call(payload)
 
-      link_set = LinkSet.last
+      link_set = LinkSet.find(content_id)
       links = link_set.links
 
       taxons_links = links.where(link_type: "taxons")
@@ -164,21 +163,18 @@ RSpec.describe Commands::V2::PatchLinkSet do
     it "does not affect links for groups that do not appear in the payload" do
       described_class.call(payload)
 
-      link_set = LinkSet.last
+      link_set = LinkSet.find(content_id)
       links = link_set.links
 
       related_links = links.where(link_type: "related")
       expect(related_links.map(&:target_content_id)).to eq(related)
-
-      # link_set_content_id in the database is nil by default
-      # until step 6 in the adr-009 migration
-      expect(related_links.map(&:link_set_content_id)).to eq([nil])
+      expect(related_links.map(&:link_set_content_id)).to eq([link_set.content_id])
     end
 
     it "increments the lock version for the link set" do
       described_class.call(payload)
 
-      link_set = LinkSet.last
+      link_set = LinkSet.find(content_id)
       expect(link_set).to be_present
       expect(link_set.stale_lock_version).to eq(2)
     end
@@ -429,7 +425,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     it "sets link_set_content_id on link_b" do
       described_class.call(payload)
 
-      link_set = LinkSet.last
+      link_set = LinkSet.find(content_id)
       links = link_set.links
 
       taxons_links = links.where(link_type: "taxons")
