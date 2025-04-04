@@ -47,7 +47,7 @@ module Sources
             #{edition_links_source_editions.to_sql}
           ) AS editions
         SQL
-      )
+      ).order("editions.id")
 
       all_editions.each_with_object(link_types_map) { |edition, hash|
         hash[[edition.target_content_id, edition.link_type]] << edition
