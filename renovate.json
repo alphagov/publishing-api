@@ -6,7 +6,11 @@
     ":automergePr",
     ":automergeRequireAllStatusChecks"
   ],
-  "enabledManagers": ["ruby-version"],
+  "enabledManagers": [
+    "dockerfile",
+    "github-actions",
+    "ruby-version"
+  ],
   "labels": ["dependencies"],
   "packageRules": [
     {
