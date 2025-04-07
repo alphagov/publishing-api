@@ -1,6 +1,7 @@
 local FileAttachmentAssetProperties = {
   accessible: { type: "boolean", },
   alternative_format_contact_email: { type: "string", },
+  asset_manager_id: { type: "string", },
   attachment_type: { type: "string", enum: ["file"], },
   content_type: { type: "string", },
   file_size: { type: "integer", },
