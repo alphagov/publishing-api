@@ -8,6 +8,28 @@
   "public_updated_at": "2016-05-03T14:11:50.000+00:00",
   "details": {
     "body": "<div class=\"govspeak\"><h2 id=\"our-responsibilities\">Our responsibilities</h2><ul>  <li>    <p>we lead across health and care by creating national policies and legislation, providing the long-term vision and ambition to meet current and future challenges, putting health and care at the heart of government and being a global leader in health and care policy</p>  </li>  <li>    <p>we support the integrity of the system by providing funding, assuring the delivery and continuity of services and accounting to Parliament in a way that represents the best interests of the patient, public and taxpayer.</p>  </li>  <li>    <p>we champion innovation and improvement by supporting research and technology, promoting honesty, openness and transparency, and instilling a culture that values compassion, dignity and the highest quality of care above everything</p>  </li>  <li>    <p>above all, <abbr title=\"The Department of Health\">DH</abbr> encourages staff in every health and care organisation, including our own, to understand and learn from people’s experience of health and care and to apply this to everything we do</p>  </li></ul><h2 id=\"our-priorities\">Our priorities</h2><p>From 2016 to 2017, our priorities will be:</p><ul>  <li>improving out-of-hospital care</li>  <li>creating the safest, highest quality healthcare services</li>  <li>maintaining and improving performance against core standards while achieving financial balance</li>  <li>improving efficiency and productivity of the health and care system</li>  <li>preventing ill health and supporting people to live healthier lives</li>  <li>supporting research, innovation and growth</li>  <li>enabling people and communities to make decisions about their own health and care</li>  <li>building and developing the workforce</li>  <li>improving services through the use of digital technology, information and transparency</li></ul><p>Read our <a href=\"https://www.gov.uk/government/publications/department-of-health-shared-delivery-plan-2015-to-2020\">Shared Delivery Plan</a> to find out more about how we are performing against our objectives.</p><h2 id=\"who-we-are\">Who we are</h2><p><abbr title=\"The Department of Health\">DH</abbr> is a ministerial department, supported by 15 arm’s length bodies and a number of other agencies and public bodies. The department employs 2,160 staff who work in locations across the country.</p><h2 id=\"partner-organisations-and-agencies-including-contact-information\">Partner organisations and agencies including contact information</h2><p><a href=\"https://www.gov.uk/government/publications/how-to-contact-department-of-health-arms-length-bodies\">Find out more about the department’s partner organisations and agencies, also known as arm’s length bodies.</a></p><p>This page includes contact information and a list of members of the executive boards.</p></div>",
+    "headers": [
+      {
+        "text": "Our responsibilities",
+        "level": 2,
+        "id": "our-responsibilities"
+      },
+      {
+        "text": "Our priorities",
+        "level": 2,
+        "id": "our-priorities"
+      },
+      {
+        "text": "Who we are",
+        "level": 2,
+        "id": "who-we-are"
+      },
+      {
+        "text": "Partner organisations and agencies including contact information",
+        "level": 2,
+        "id": "partner-organisations-and-agencies-including-contact-information"
+      }
+    ],
     "organisation": "7cd6bf12-bbe9-4118-8523-f927b0442156",
     "corporate_information_groups": [
       {

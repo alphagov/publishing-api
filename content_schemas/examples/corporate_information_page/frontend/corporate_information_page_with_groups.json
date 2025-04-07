@@ -6,6 +6,23 @@
   "details": {
     "attachments": [],
     "body": "<div class=\"govspeak\"><h2 id=\"our-responsibilities\">Our responsibilities</h2>\n\n<p>We are responsible for:</p>\n\n<ul>\n  <li>supporting and advising our ministers: we help them shape and deliver policy that delivers the government’s objectives</li>\n  <li>setting direction: we anticipate the future and lead debate ensuring we protect and improve global and domestic health</li>\n  <li>accountability: we make sure the department and our arm’s length bodies deliver on our agreed plans and commitments</li>\n  <li>acting as guardians of the health and care framework: we make sure the legislative, financial, administrative and policy frameworks are fit for purpose and work together</li>\n  <li>troubleshooting: in the last resort, the public and Parliament expect us to take the action needed to resolve crucial and complex issues</li>\n</ul>\n\n<h2 id=\"who-we-are\">Who we are</h2>\n\n<p><abbr title=\"Department of Health and Social Care\">DHSC</abbr> is a ministerial department, supported by a number of agencies and partner organisations. As of 30 June 2024, the department employs 3,540 full-time equivalent employees, who work in locations across the country.</p>\n\n<h2 id=\"agencies-and-public-bodies\">Agencies and public bodies</h2>\n\n<p><a href=\"https://www.gov.uk/government/organisations#department-of-health-and-social-care\" class=\"govuk-link\">Find out more about the department’s agencies and public bodies</a></p>\n\n</div>",
+    "headers": [
+      {
+        "text": "Our responsibilities",
+        "level": 2,
+        "id": "our-responsibilities"
+      },
+      {
+        "text": "Who we are",
+        "level": 2,
+        "id": "who-we-are"
+      },
+      {
+        "text": "Agencies and public bodies",
+        "level": 2,
+        "id": "agencies-and-public-bodies"
+      }
+    ],
     "change_history": [
       {
         "note": "Added the department's priorities for 2021 to 2022.",
