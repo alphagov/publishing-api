@@ -16,14 +16,18 @@
     {
       "matchCategories": "ruby",
       "labels": ["dependencies", "ruby"]
-    },
+    }
+  ],
+  "customManagers": [
     {
-      "matchCategories": "ruby",
-      "matchUpdateTypes": ["major", "minor"],
-      "prBodyNotes": [
-        ":warning: Make sure the Dockerfile's `ruby_version` argument is updated.",
-        "[Guidance on updating Ruby](https://docs.publishing.service.gov.uk/manual/ruby.html#updating-the-ruby-version-in-apps)"
-      ]
+      "customType": "regex",
+      "fileMatch": ["Dockerfile"],
+      "matchStrings": [
+        "ARG ruby_version=(?<currentValue>.*?)"
+      ],
+      "depNameTemplate": "ruby",
+      "packageNameTemplate": "ruby",
+      "datasourceTemplate": "ruby-version"
     }
   ]
 }
