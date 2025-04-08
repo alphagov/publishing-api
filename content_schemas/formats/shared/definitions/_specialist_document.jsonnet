@@ -111,6 +111,9 @@
         "$ref": "#/definitions/traffic_commissioner_regulatory_decision_metadata",
       },
       {
+        "$ref": "#/definitions/ukhsa_data_access_approval_metadata",
+      },
+      {
         "$ref": "#/definitions/utaac_decision_metadata",
       },
       {
@@ -1282,6 +1285,36 @@
         type: "string",
       },
     },
+  },
+  ukhsa_data_access_approval_metadata: {
+    "ukhsa_approval_status": {
+      type: "string",
+    },
+    "ukhsa_access_type": {
+      type: "string",
+    },
+    "ukhsa_applicant_organisation_name": {
+      type: "string",
+    },
+    "ukhsa_applicant_organisation_type": {
+      type: "array",
+      items: {
+        type: "string",
+      },
+    },
+    "ukhsa_classification_identification_risk": {
+      type: "string",
+    },
+    "ukhsa_dataset": {
+      type: "array",
+      items: {
+        type: "string",
+      },
+    },
+    "ukhsa_approval_date": {
+      type: "string",
+      pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+    }
   },
   veterans_support_organisation_metadata: {
     type: "object",
