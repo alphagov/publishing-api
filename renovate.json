@@ -9,7 +9,7 @@
   "enabledManagers": [
     "dockerfile",
     "github-actions",
-    "ruby-version"
+    "custom.regex"
   ],
   "labels": ["dependencies"],
   "packageRules": [
@@ -21,13 +21,38 @@
   "customManagers": [
     {
       "customType": "regex",
+      "fileMatch": [".ruby-version"],
+      "matchStrings": [
+        "ARG ruby_version=(?<currentValue>.*?)"
+      ],
+      "depNameTemplate": "ruby",
+      "packageNameTemplate": "ruby",
+      "datasourceTemplate": "custom.govuk-ruby-images-semver"
+    },
+    {
+      "customType": "regex",
       "fileMatch": ["Dockerfile"],
       "matchStrings": [
         "ARG ruby_version=(?<currentValue>.*?)"
       ],
       "depNameTemplate": "ruby",
       "packageNameTemplate": "ruby",
-      "datasourceTemplate": "ruby-version"
+      "datasourceTemplate": "custom.govuk-ruby-images-major-minor",
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)$"
     }
-  ]
+  ],
+  "customDatasources": {
+    "govuk-ruby-images-semver": {
+      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/alphagov/govuk-ruby-images/refs/heads/main/build-matrix.json",
+      "transformTemplates": [
+        "{\"releases\":[{\"version\": $join(version[extra = 'latest'].rubyver, '.')}],\"sourceUrl\": \"https://github.com/alphagov/govuk-ruby-images\"}"
+      ]
+    },
+    "govuk-ruby-images-major-minor": {
+      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/alphagov/govuk-ruby-images/refs/heads/main/build-matrix.json",
+      "transformTemplates": [
+        "{\"releases\":[{\"version\": $join(version[extra = 'latest'].rubyver[[0..1]], '.')}],\"sourceUrl\": \"https://github.com/alphagov/govuk-ruby-images\"}"
+      ]
+    }
+  }
 }
