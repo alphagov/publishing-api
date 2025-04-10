@@ -24,6 +24,10 @@
         ":warning: Make sure the Dockerfile's `ruby_version` argument is updated.",
         "[Guidance on updating Ruby](https://docs.publishing.service.gov.uk/manual/ruby.html#updating-the-ruby-version-in-apps)"
       ]
+    },
+    {
+      "matchPackageNames": ["postgres"],
+      "allowedVersions": "<14"
     }
   ]
 }
