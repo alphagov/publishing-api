@@ -2,7 +2,15 @@ RSpec.describe "GraphQL" do
   describe "generic edition" do
     before do
       document = create(:document, content_id: "d53db33f-d4ac-4eb3-839a-d415174eb906")
-      @edition = create(:live_edition, document:, document_type: "generic_type", base_path: "/my/generic/edition")
+      @edition = create(
+        :live_edition,
+        document:,
+        document_type: "generic_type",
+        base_path: "/my/generic/edition",
+        first_published_at: Time.utc(2025, 1, 1, 0, 0, 0),
+        public_updated_at: Time.utc(2025, 4, 1, 0, 0, 0),
+        updated_at: Time.utc(2025, 4, 1, 0, 0, 0),
+      )
     end
 
     it "exposes generic edition fields" do
@@ -51,10 +59,10 @@ RSpec.describe "GraphQL" do
               "body": @edition.details[:body],
             },
             "document_type": @edition.document_type,
-            "first_published_at": @edition.first_published_at.iso8601,
+            "first_published_at": "2025-01-01T00:00:00+00:00",
             "locale": @edition.locale,
             "phase": @edition.phase,
-            "public_updated_at": @edition.public_updated_at.iso8601,
+            "public_updated_at": "2025-04-01T01:00:00+01:00",
             "publishing_app": @edition.publishing_app,
             "publishing_request_id": @edition.publishing_request_id,
             "publishing_scheduled_at": nil,
@@ -62,7 +70,7 @@ RSpec.describe "GraphQL" do
             "scheduled_publishing_delay_seconds": nil,
             "schema_name": @edition.schema_name,
             "title": @edition.title,
-            "updated_at": @edition.updated_at.iso8601,
+            "updated_at": "2025-04-01T01:00:00+01:00",
             "withdrawn_notice": nil,
           },
         },
@@ -80,7 +88,7 @@ RSpec.describe "GraphQL" do
           base_path: "/my/withdrawn/edition",
           explanation: "for integration testing",
           document_type: "generic_type",
-          unpublished_at: Time.utc(2024, 10, 27, 17, 0, 0),
+          unpublished_at: Time.utc(2024, 10, 28, 17, 0, 0),
         )
       end
 
@@ -104,7 +112,7 @@ RSpec.describe "GraphQL" do
             "edition": {
               "withdrawn_notice": {
                 "explanation": "for integration testing",
-                "withdrawn_at": "2024-10-27T17:00:00Z",
+                "withdrawn_at": "2024-10-28T17:00:00+00:00",
               },
             },
           },

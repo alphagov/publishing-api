@@ -4,7 +4,7 @@ module Types
   class EditionType < Types::BaseObject
     class WithdrawnNotice < Types::BaseObject
       field :explanation, String
-      field :withdrawn_at, GraphQL::Types::ISO8601DateTime
+      field :withdrawn_at, Types::ContentApiDatetime
     end
 
     class EditionLinks < Types::BaseObject
@@ -139,10 +139,10 @@ module Types
       field :change_history, GraphQL::Types::JSON
       field :current, Boolean
       field :default_news_image, Image
-      field :display_date, GraphQL::Types::ISO8601DateTime
+      field :display_date, Types::ContentApiDatetime
       field :emphasised_organisations, GraphQL::Types::JSON
-      field :ended_on, GraphQL::Types::ISO8601DateTime
-      field :first_public_at, GraphQL::Types::ISO8601DateTime
+      field :ended_on, Types::ContentApiDatetime
+      field :first_public_at, Types::ContentApiDatetime
       field :image, Image
       field :international_delegations, [EditionType], null: false
       field :logo, Logo
@@ -150,7 +150,7 @@ module Types
       field :privy_counsellor, Boolean
       field :role_payment_type, String
       field :seniority, Integer
-      field :started_on, GraphQL::Types::ISO8601DateTime
+      field :started_on, Types::ContentApiDatetime
       field :supports_historical_accounts, Boolean
       field :whip_organisation, WhipOrganisation
       field :world_locations, [EditionType], null: false
@@ -165,26 +165,26 @@ module Types
     field :description, String
     field :details, Details, extras: [:lookahead]
     field :document_type, String
-    field :ended_on, GraphQL::Types::ISO8601DateTime
-    field :first_published_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :ended_on, Types::ContentApiDatetime
+    field :first_published_at, Types::ContentApiDatetime, null: false
     field :iso2, String
     field :links, EditionLinks, method: :itself
     field :locale, String, null: false
     field :name, String, null: false
     field :phase, String, null: false
-    field :public_updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :public_updated_at, Types::ContentApiDatetime, null: false
     field :publishing_app, String
     field :publishing_request_id, String
-    field :publishing_scheduled_at, GraphQL::Types::ISO8601DateTime
+    field :publishing_scheduled_at, Types::ContentApiDatetime
     field :rendering_app, String
     field :scheduled_publishing_delay_seconds, Int
     field :schema_name, String
     field :slug, String, null: false
-    field :started_on, GraphQL::Types::ISO8601DateTime
+    field :started_on, Types::ContentApiDatetime
     field :state, String
     field :supports_historical_accounts, Boolean
     field :title, String, null: false
-    field :updated_at, GraphQL::Types::ISO8601DateTime
+    field :updated_at, Types::ContentApiDatetime
     field :web_url, String
     field :withdrawn_notice, WithdrawnNotice
 
