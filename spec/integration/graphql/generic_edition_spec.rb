@@ -80,7 +80,7 @@ RSpec.describe "GraphQL" do
           base_path: "/my/withdrawn/edition",
           explanation: "for integration testing",
           document_type: "generic_type",
-          unpublished_at: "2024-10-27 17:00:00.000000000 +0000",
+          unpublished_at: Time.utc(2024, 10, 27, 17, 0, 0),
         )
       end
 
