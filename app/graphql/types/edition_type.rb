@@ -121,6 +121,7 @@ module Types
       class Image < Types::BaseObject
         field :alt_text, String
         field :caption, String
+        field :high_resolution_url, String
         field :url, String
       end
 
