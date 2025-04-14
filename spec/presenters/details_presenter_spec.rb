@@ -185,6 +185,17 @@ RSpec.describe Presenters::DetailsPresenter do
           it "embeds the contact details" do
             is_expected.to match(expected_details)
           end
+
+          context "when the embed code contains an alias" do
+            let(:content_id_alias) do
+              create(:content_id_alias, name: "a-friendly-name", content_id: embeddable_content.document.content_id)
+            end
+            let(:field_value) { "{{embed:contact:#{content_id_alias.name}}}" }
+
+            it "embeds the contact details" do
+              is_expected.to match(expected_details)
+            end
+          end
         end
 
         context "when we're passed details with govspeak and HTML" do
