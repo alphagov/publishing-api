@@ -31,7 +31,7 @@ RSpec.describe "GraphQL" do
         schema_name: "role_appointment",
         details: {
           current: true,
-          started_on: Time.zone.local(2024, 7, 5),
+          started_on: Time.utc(2024, 7, 5),
         },
       ).tap do |role_appointment|
         person = create(
@@ -61,8 +61,8 @@ RSpec.describe "GraphQL" do
         schema_name: "role_appointment",
         details: {
           current: false,
-          started_on: Time.zone.local(2022, 10, 25),
-          ended_on: Time.zone.local(2024, 7, 5),
+          started_on: Time.utc(2022, 11, 25),
+          ended_on: Time.utc(2024, 7, 5),
         },
       ).tap do |role_appointment|
         person = create(
@@ -185,7 +185,7 @@ RSpec.describe "GraphQL" do
                   details: {
                     current: true,
                     ended_on: nil,
-                    started_on: "2024-07-05T00:00:00Z",
+                    started_on: "2024-07-05T01:00:00+01:00",
                   },
                   links: {
                     person: [
@@ -200,8 +200,8 @@ RSpec.describe "GraphQL" do
                 {
                   details: {
                     current: false,
-                    ended_on: "2024-07-05T00:00:00Z",
-                    started_on: "2022-10-25T00:00:00Z",
+                    ended_on: "2024-07-05T01:00:00+01:00",
+                    started_on: "2022-11-25T00:00:00+00:00",
                   },
                   links: {
                     person: [
