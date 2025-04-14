@@ -119,9 +119,9 @@ module Types
 
     class Details < Types::BaseObject
       class Image < Types::BaseObject
-        field :url, String
-        field :caption, String
         field :alt_text, String
+        field :caption, String
+        field :url, String
       end
 
       class Logo < Types::BaseObject
