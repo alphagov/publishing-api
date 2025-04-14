@@ -23,9 +23,31 @@ RSpec.shared_examples "finds references" do |document_type|
              details: { title: "Some Title" })
     end
 
+    let(:content_id_aliases) do
+      editions.map do |edition|
+        create(:content_id_alias, content_id: edition.content_id)
+      end
+    end
+
     %w[body downtime_message more_information].each do |field_name|
       it "finds content references" do
         details = { field_name => "{{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}" }
+
+        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
+
+        expect(links).to eq([editions[0].content_id, editions[1].content_id])
+      end
+
+      it "supports content ID aliases" do
+        details = { field_name => "{{embed:#{document_type}:#{content_id_aliases[0].name}}} {{embed:#{document_type}:#{content_id_aliases[1].name}}}" }
+
+        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
+
+        expect(links).to eq([editions[0].content_id, editions[1].content_id])
+      end
+
+      it "supports mixed content ID aliases and UUIDS" do
+        details = { field_name => "{{embed:#{document_type}:#{content_id_aliases[0].name}}} {{embed:#{document_type}:#{editions[1].content_id}}}" }
 
         links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
 
@@ -40,8 +62,24 @@ RSpec.shared_examples "finds references" do |document_type|
         expect(links).to eq([editions[0].content_id, editions[0].content_id, editions[1].content_id])
       end
 
+      it "returns duplicates when there is more than one alias in the field" do
+        details = { field_name => "{{embed:#{document_type}:#{content_id_aliases[0].name}}} {{embed:#{document_type}:#{content_id_aliases[0].name}}} {{embed:#{document_type}:#{content_id_aliases[1].name}}}" }
+
+        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
+
+        expect(links).to eq([editions[0].content_id, editions[0].content_id, editions[1].content_id])
+      end
+
       it "returns duplicates when there are field references in the field" do
         details = { field_name => "{{embed:#{document_type}:#{editions[0].content_id}/title}} {{embed:#{document_type}:#{editions[0].content_id}/another}}" }
+
+        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
+
+        expect(links).to eq([editions[0].content_id, editions[0].content_id])
+      end
+
+      it "returns duplicates when there are field references and an alias in the field" do
+        details = { field_name => "{{embed:#{document_type}:#{content_id_aliases[0].name}/title}} {{embed:#{document_type}:#{content_id_aliases[0].name}/another}}" }
 
         links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
 
@@ -209,6 +247,18 @@ RSpec.describe EmbeddedContentFinderService do
       expect(GovukError).to receive(:notify).with(CommandError.new(
                                                     code: 422,
                                                     message: "Could not find any live editions for embedded content IDs: 00000000-0000-0000-0000-000000000000",
+                                                  ))
+
+      links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
+
+      expect(links).to eq([])
+    end
+
+    it "alerts Sentry when there is an invalid alias in the embed code" do
+      details = { body: "{{embed:contact:some-content-id-alias}}" }
+      expect(GovukError).to receive(:notify).with(CommandError.new(
+                                                    code: 422,
+                                                    message: "Could not find a Content ID for alias some-content-id-alias",
                                                   ))
 
       links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)

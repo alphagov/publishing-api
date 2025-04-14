@@ -45,7 +45,7 @@ module Presenters
 
       embedded_content_references.uniq.each do |content_reference|
         embed_code = content_reference.embed_code
-        embedded_edition = embedded_editions[content_reference.content_id]
+        embedded_edition = embedded_editions[content_reference.identifier]
         if embedded_edition.present?
           content = content.gsub(
             embed_code,
@@ -54,7 +54,7 @@ module Presenters
         else
           GovukError.notify(CommandError.new(
                               code: 422,
-                              message: "Could not find a live edition for embedded content ID: #{content_reference.content_id}",
+                              message: "Could not find a live edition for embedded content ID: #{content_reference.identifier}",
                             ))
         end
       end
