@@ -2,6 +2,7 @@ module Sources
   class PersonCurrentRolesSource < GraphQL::Dataloader::Source
     def fetch(person_content_ids)
       all_roles = Edition
+        .strict_loading
         .live
         .includes(
           document: {
@@ -43,7 +44,7 @@ module Sources
     def role_appointment_documents_for_role(role)
       role.document.reverse_links
         .select { |link| link.link_type == "role" } # role -> role_appointment
-        .flat_map { |link| link.link_set.documents }
+        .flat_map(&:source_documents)
     end
   end
 end
