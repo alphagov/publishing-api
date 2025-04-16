@@ -223,6 +223,10 @@ class Edition < ApplicationRecord
     Plek.website_root + base_path
   end
 
+  def linked_editions
+    Queries::RecursiveLinkExpansion::RecursiveLinkExpansion.new(self).call
+  end
+
 private
 
   def renderable_content?
