@@ -26,6 +26,9 @@
           description: "Groups of corporate information to display on about pages",
           "$ref": "#/definitions/grouped_lists_of_links",
         },
+        headers: {
+          "$ref": "#/definitions/nested_headers",
+        },
         organisation: {
           description: "A single organisation that is the subject of this corporate information page",
           "$ref": "#/definitions/guid",
