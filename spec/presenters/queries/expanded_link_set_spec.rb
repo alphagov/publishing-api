@@ -120,6 +120,28 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           },
         ])
       end
+
+      context "when embed code contains an alias" do
+        let(:content_id_alias) do
+          create(:content_id_alias, name: "a-friendly-name", content_id: contact.document.content_id)
+        end
+        let(:embed_code) { "{{embed:contact:#{content_id_alias.name}}}" }
+
+        it "recursively calls the details presenter and embeds content inside expanded links" do
+          b = expanded_links[:role_appointments].first
+          c = b[:links][:role].first
+          expect(c[:details][:body]).to match([
+            {
+              content_type: "text/govspeak",
+              content: presented_details_for(contact, embed_code),
+            },
+            {
+              content_type: "text/html",
+              content: "<p>#{presented_details_for(contact, embed_code)}</p>\n",
+            },
+          ])
+        end
+      end
     end
   end
 end

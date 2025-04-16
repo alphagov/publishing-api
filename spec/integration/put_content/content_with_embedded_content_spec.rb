@@ -9,7 +9,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     let(:second_embed_code) { "{{embed:contact:#{second_contact.document.content_id}}}" }
 
     before do
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{first_contact.document.content_id}}} {{embed:contact:#{second_contact.document.content_id}}}" })
+      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "#{first_embed_code} #{second_embed_code}" })
     end
 
     it "should create links" do
@@ -67,10 +67,78 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     end
   end
 
+  context "with embedded content with an alias" do
+    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact", details: { email: "foo@example.com", phone: "123456" }) }
+    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+
+    let(:first_contact_alias) { create(:content_id_alias, content_id: first_contact.document.content_id) }
+    let(:second_contact_alias) { create(:content_id_alias, content_id: second_contact.document.content_id) }
+
+    let(:first_embed_code) { "{{embed:contact:#{first_contact_alias.name}}}" }
+    let(:second_embed_code) { "{{embed:contact:#{second_contact_alias.name}}}" }
+
+    before do
+      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "#{first_embed_code} #{second_embed_code}" })
+    end
+
+    it "should create links" do
+      expect {
+        put "/v2/content/#{content_id}", params: payload.to_json
+      }.to change(Link, :count).by(2)
+
+      expect(Link.find_by(target_content_id: first_contact.content_id)).not_to be_nil
+      expect(Link.find_by(target_content_id: second_contact.content_id)).not_to be_nil
+    end
+
+    it "should send transformed content to the content store" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      expect_content_store_to_have_received_details_including({ "body" => "#{presented_details_for(first_contact, first_embed_code)} #{presented_details_for(second_contact, second_embed_code)}" })
+    end
+
+    context "when fields are referenced" do
+      let(:first_embed_code) { "{{embed:contact:#{first_contact_alias.name}/email}}" }
+      let(:second_embed_code) { "{{embed:contact:#{first_contact_alias.name}/phone}}" }
+
+      let(:body) do
+        "
+        Hello, here is some an email:
+
+        #{first_embed_code}
+
+        And here is a phone number:
+
+        #{second_embed_code}
+        "
+      end
+
+      let(:expected_body) do
+        "
+        Hello, here is some an email:
+
+        #{presented_details_for(first_contact, first_embed_code)}
+
+        And here is a phone number:
+
+        #{presented_details_for(first_contact, second_embed_code)}
+        "
+      end
+
+      before do
+        payload.merge!(details: { body: })
+      end
+
+      it "should send transformed content to the content store" do
+        put "/v2/content/#{content_id}", params: payload.to_json
+
+        expect_content_store_to_have_received_details_including({ "body" => expected_body })
+      end
+    end
+  end
+
   context "when embedded content is in a details field other than body" do
     let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
-    let(:document) { create(:document, content_id:) }
 
     let(:first_embed_code) { "{{embed:contact:#{first_contact.document.content_id}}}" }
 
