@@ -24,16 +24,17 @@ class EmbeddedContentFinderService
 private
 
   def live_content_ids(content_references)
-    found_editions = live_editions(content_references.uniq)
-    not_found_content_ids = content_references.map(&:identifier) - found_editions.map(&:content_id)
+    found_content_ids = live_editions(content_references.uniq)
+                        .pluck({ documents: :content_id })
+    identifiers = content_references.map(&:identifier)
+    not_found_content_ids = identifiers - found_content_ids
 
     if not_found_content_ids.any?
-      GovukError.notify(CommandError.new(
-                          code: 422,
-                          message: "Could not find any live editions for embedded content IDs: #{not_found_content_ids.join(', ')}",
-                        ))
+      log_error "Could not find any live editions for embedded content IDs: #{not_found_content_ids.join(', ')}"
+      identifiers - not_found_content_ids
+    else
+      identifiers
     end
-    content_references.map(&:identifier) - not_found_content_ids
   end
 
   def transform_aliases_to_content_ids(content_references)
@@ -43,12 +44,7 @@ private
       if reference.identifier_is_alias?
         identifier = content_id_aliases[reference.identifier]
         if identifier.nil?
-          GovukError.notify(
-            CommandError.new(
-              code: 422,
-              message: "Could not find a Content ID for alias #{reference.identifier}",
-            ),
-          )
+          log_error "Could not find a Content ID for alias #{reference.identifier}"
           next
         end
         ContentBlockTools::ContentBlockReference.new(
@@ -66,6 +62,15 @@ private
       content_store: "live",
       document_type: content_references.map(&:document_type),
       documents: { content_id: content_references.map(&:identifier) },
+    )
+  end
+
+  def log_error(message)
+    GovukError.notify(
+      CommandError.new(
+        code: 422,
+        message:,
+      ),
     )
   end
 end
