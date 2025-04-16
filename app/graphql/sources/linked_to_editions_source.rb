@@ -22,6 +22,7 @@ module Sources
       end
 
       link_set_links_target_editions = Edition
+        .strict_loading
         .joins(document: { reverse_links: :link_set })
         .where(
           '("link_sets"."content_id", "links"."link_type") IN (?)',

@@ -38,15 +38,17 @@ module Sources
         )
         .select("editions.*", all_selections)
 
-      all_editions = Edition.from(
-        <<~SQL,
-          (
-            #{link_set_links_source_editions.to_sql}
-            UNION
-            #{edition_links_source_editions.to_sql}
-          ) AS editions
-        SQL
-      ).order("editions.id")
+      all_editions = Edition
+        .strict_loading
+        .from(
+          <<~SQL,
+            (
+              #{link_set_links_source_editions.to_sql}
+              UNION
+              #{edition_links_source_editions.to_sql}
+            ) AS editions
+          SQL
+        ).order("editions.id")
 
       all_editions.each_with_object(link_types_map) { |edition, hash|
         hash[[edition.target_content_id, edition.link_type]] << edition

@@ -8,7 +8,10 @@ module Types
     end
 
     def edition(base_path:, content_store:)
-      Edition.where(content_store:).find_by(base_path:)
+      Edition
+        .strict_loading
+        .where(content_store:)
+        .find_by(base_path:)
     end
   end
 end
