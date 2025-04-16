@@ -81,6 +81,24 @@ RSpec.describe "GraphQL" do
       expect(parsed_response).to eq(expected)
     end
 
+    it "sets the document type as a prometheus label" do
+      post "/graphql", params: {
+        query:
+          "{
+            edition(base_path: \"/my/generic/edition\") {
+              ... on Edition {
+                title
+                document_type
+                schema_name
+              }
+            }
+          }",
+      }
+
+      expect(request.env["govuk.prometheus_labels"][:document_type]).to eq(@edition.document_type)
+      expect(request.env["govuk.prometheus_labels"][:schema_name]).to eq(@edition.schema_name)
+    end
+
     context "when there is a withdrawn notice" do
       before do
         create(
