@@ -27,6 +27,9 @@
         "$ref": "#/definitions/countryside_stewardship_grant_metadata",
       },
       {
+        "$ref": "#/definitions/design_decision_metadata",
+      },
+      {
         "$ref": "#/definitions/drcf_digital_markets_research_metadata",
       },
       {
@@ -499,6 +502,28 @@
           type: "string",
         },
       },
+    },
+  },
+  design_decision_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      design_decision_british_library_number: {
+        type: "string",
+      },
+      design_decision_hearing_officer: {
+        type: "string",
+      },
+      design_decision_date: {
+        type: "string",
+        pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+      },
+      design_decision_litigants: {
+        type: "string",
+      }
     },
   },
   drcf_digital_markets_research_metadata: {
