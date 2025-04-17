@@ -19,7 +19,10 @@ module Sources
           document: { locale: "en" },
           reverse_links: { link_type: "role" },
           source_documents: { locale: "en" }, # role_appointment Documents
-          editions_documents: { document_type: "role_appointment" }, # role_appointment Editions
+          editions_documents: { # role_appointment Editions
+            document_type: "role_appointment",
+            state: "published",
+          },
           link_set_links: { target_content_id: person_content_ids, link_type: "person" },
         )
         .where("editions_documents.details ->> 'current' = 'true'") # editions_documents is the alias that Active Record gives to the role_appointment Editions in the SQL query
