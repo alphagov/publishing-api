@@ -1,0 +1,188 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/news/british-high-commission-marks-his-majesty-king-charles-iiis-birthday-with-brilliantly-british-celebrations",
+  "content_id": "b4091e0f-1286-4fb5-8ec2-bff944ba1a5c",
+  "description": "British High Commissioner, Jane Marriott CMG OBE, welcomed guests to celebrate His Majesty King Charles III’s 76th birthday in Islamabad and Karachi.  ",
+  "details": {
+    "attachments": [],
+    "body": "<div class=\"govspeak\"><p>In Islamabad, Ahsan Iqbal the Federal Minister for Planning, Development, Special Initiatives and Inter Provincial Coordination, attended as Chief Guest, and Chief Minister Sindh, Murad Ali Shah in Karachi.</p>\n\n<p>The UK’s Honourable Artillery Company Regimental Band, the oldest surviving regiment of the British army, visited Pakistan for the occasion, performing in both cities and at the Pakistan Monument. Both events captured audiences with live performances, including by Gharvi Group, who went viral this year for their iconic ‘Blockbuster’ song.</p>\n\n<p>British High Commissioner to Pakistan, Jane Marriott CMG OBE, said:</p>\n\n<p>“Brilliantly British captures everything we love about the UK, a powerhouse of creativity, diversity, and cultural vibrancy. British films, TV dramas, songs and fashion are some of the most renowned things that connect the UK and Pakistan.”</p>\n\n<p>In Islamabad, rock band Khudgharz left crowds calling for more with their British and Pakistani covers set. In Karachi, the Acton House garden was home to “Actonbury”, a festival featuring 5 artists: Maria Unera, Jermeas Naeem, Alycia Dias, Hussain Dossa and the Honourable Artillery Company Regimental Band.</p>\n\n<p>2024 marks a significant year for artistic and people-to-people exchanges between the UK and Pakistan. Key moments include the 90th anniversary of the creation of the British Council, a thrilling test cricket series, and the release of a previously undiscovered album by late Qawwali maestro Ustad Nusrat Fateh Ali Khan, ‘Chain of Light’.</p>\n\n<p>Through music and art, the events celebrated the UK’s creative sector, which generates over £50 billion in exports, shaping the global art and cultural landscape.</p>\n</div>",
+    "change_history": [
+      {
+        "note": "First published.",
+        "public_timestamp": "2024-11-16T00:00:00.000+00:00"
+      }
+    ],
+    "emphasised_organisations": [],
+    "first_public_at": "2024-11-16T00:00:00.000+00:00",
+    "image": {
+      "alt_text": "",
+      "caption": "British High Commissioner, Jane Marriott CMG OBE with Chief Guest, Ahsan Iqbal at the Islamabad KBP.",
+      "high_resolution_url": "https://assets.publishing.service.gov.uk/media/67389cee72f19089dfdade59/s960_British_High_Commissioner__Jane_Marriott_CMG_OBE_with_Chief_Guest_at_the_Islamabad_KBP_Federal_Minister_Ahsan_Iqbal.jpg",
+      "url": "https://assets.publishing.service.gov.uk/media/67389ceeabe1d74ea7dade4e/s300_British_High_Commissioner__Jane_Marriott_CMG_OBE_with_Chief_Guest_at_the_Islamabad_KBP_Federal_Minister_Ahsan_Iqbal.jpg"
+    },
+    "political": true,
+    "tags": {
+      "browse_pages": []
+    }
+  },
+  "document_type": "world_news_story",
+  "first_published_at": "2024-11-16T00:00:00+00:00",
+  "links": {
+    "available_translations": [
+      {
+        "api_path": "/api/content/government/news/british-high-commission-marks-his-majesty-king-charles-iiis-birthday-with-brilliantly-british-celebrations",
+        "api_url": "https://www.gov.uk/api/content/government/news/british-high-commission-marks-his-majesty-king-charles-iiis-birthday-with-brilliantly-british-celebrations",
+        "base_path": "/government/news/british-high-commission-marks-his-majesty-king-charles-iiis-birthday-with-brilliantly-british-celebrations",
+        "content_id": "b4091e0f-1286-4fb5-8ec2-bff944ba1a5c",
+        "document_type": "world_news_story",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-11-16T00:00:00Z",
+        "schema_name": "news_article",
+        "title": "British High Commission marks His Majesty King Charles III’s birthday with “Brilliantly British” celebrations",
+        "web_url": "https://www.gov.uk/government/news/british-high-commission-marks-his-majesty-king-charles-iiis-birthday-with-brilliantly-british-celebrations",
+        "withdrawn": false
+      }
+    ],
+    "government": [
+      {
+        "api_path": "/api/content/government/2024-starmer-labour-government",
+        "api_url": "https://www.gov.uk/api/content/government/2024-starmer-labour-government",
+        "base_path": "/government/2024-starmer-labour-government",
+        "content_id": "9dbff654-cdeb-4ebe-9a12-cd4cc20a033e",
+        "details": {
+          "current": true,
+          "ended_on": null,
+          "started_on": "2024-07-05T00:00:00+00:00"
+        },
+        "document_type": "government",
+        "links": {},
+        "locale": "en",
+        "title": "2024 Starmer Labour government",
+        "web_url": "https://www.gov.uk/government/2024-starmer-labour-government"
+      }
+    ],
+    "taxons": [
+      {
+        "api_path": "/api/content/international",
+        "api_url": "https://www.gov.uk/api/content/international",
+        "base_path": "/international",
+        "content_id": "37d0fa26-abed-4c74-8835-b3b51ae1c8b2",
+        "description": "",
+        "details": {
+          "internal_name": "International",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
+        },
+        "document_type": "taxon",
+        "links": {
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {},
+              "locale": "en",
+              "public_updated_at": "2023-06-28T09:32:34Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-16T20:30:28Z",
+        "schema_name": "taxon",
+        "title": "International",
+        "web_url": "https://www.gov.uk/international",
+        "withdrawn": false
+      }
+    ],
+    "world_locations": [
+      {
+        "analytics_identifier": "WL105",
+        "content_id": "5e9f134e-7706-11e4-a3cb-005056011aef",
+        "links": {},
+        "locale": "en",
+        "schema_name": "world_location",
+        "title": "Pakistan"
+      }
+    ],
+    "worldwide_organisations": [
+      {
+        "analytics_identifier": "WO365",
+        "api_path": "/api/content/world/organisations/british-deputy-high-commission-karachi",
+        "api_url": "https://www.gov.uk/api/content/world/organisations/british-deputy-high-commission-karachi",
+        "base_path": "/world/organisations/british-deputy-high-commission-karachi",
+        "content_id": "f4cf3a9a-7a30-11e4-a3cb-005056011aef",
+        "description": "The British Deputy High Commission in Karachi represents the UK government in Sindh, Pakistan.",
+        "details": {
+          "default_news_image": null,
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "British Deputy High Commission<br/>Karachi"
+          },
+          "world_location_names": [
+            {
+              "content_id": "5e9f134e-7706-11e4-a3cb-005056011aef",
+              "name": "Pakistan"
+            }
+          ]
+        },
+        "document_type": "worldwide_organisation",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2025-02-12T06:57:41Z",
+        "schema_name": "worldwide_organisation",
+        "title": "British Deputy High Commission Karachi",
+        "web_url": "https://www.gov.uk/world/organisations/british-deputy-high-commission-karachi",
+        "withdrawn": false
+      },
+      {
+        "analytics_identifier": "WO103",
+        "api_path": "/api/content/world/organisations/british-high-commission-islamabad",
+        "api_url": "https://www.gov.uk/api/content/world/organisations/british-high-commission-islamabad",
+        "base_path": "/world/organisations/british-high-commission-islamabad",
+        "content_id": "f4c948e9-7a30-11e4-a3cb-005056011aef",
+        "description": "The British High Commission in Pakistan maintains and develops relations between the UK and Pakistan.",
+        "details": {
+          "default_news_image": null,
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "British High Commission<br/>Islamabad"
+          },
+          "world_location_names": [
+            {
+              "content_id": "5e9f134e-7706-11e4-a3cb-005056011aef",
+              "name": "Pakistan"
+            }
+          ]
+        },
+        "document_type": "worldwide_organisation",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2025-02-05T08:47:25Z",
+        "schema_name": "worldwide_organisation",
+        "title": "British High Commission Islamabad",
+        "web_url": "https://www.gov.uk/world/organisations/british-high-commission-islamabad",
+        "withdrawn": false
+      }
+    ]
+  },
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2024-11-16T00:00:00+00:00",
+  "publishing_app": "whitehall",
+  "publishing_request_id": "21-1742823204.164-10.13.20.190-2567",
+  "publishing_scheduled_at": null,
+  "rendering_app": "frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "news_article",
+  "title": "British High Commission marks His Majesty King Charles III’s birthday with “Brilliantly British” celebrations",
+  "updated_at": "2025-03-24T15:47:30+00:00",
+  "withdrawn_notice": {}
+}
