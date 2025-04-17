@@ -148,6 +148,7 @@ module Types
       field :logo, Logo
       field :political, Boolean
       field :privy_counsellor, Boolean
+      field :reshuffle, GraphQL::Types::JSON
       field :role_payment_type, String
       field :seniority, Integer
       field :started_on, Types::ContentApiDatetime
