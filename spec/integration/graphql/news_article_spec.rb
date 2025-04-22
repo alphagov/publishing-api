@@ -18,6 +18,7 @@ RSpec.describe "GraphQL" do
           image: {
             alt_text: "Some alt text",
             caption: "Some caption",
+            high_resolution_url: "https://assets.publishing.service.gov.uk/media/324438lksdjalsdj/s960_my_lovely_hd_image.jpg",
             url: "https://assets.publishing.service.gov.uk/media/29843nksdfjhdsfj/s300_my_lovely_image.jpg",
           },
           political: false,
@@ -121,6 +122,7 @@ RSpec.describe "GraphQL" do
                   image {
                     alt_text
                     caption
+                    high_resolution_url
                     url
                   }
                   political
