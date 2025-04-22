@@ -1,7 +1,6 @@
 module Queries
   module RecursiveLinkExpansion
     class RecursiveLinkExpansion
-
       def initialize(edition)
         @edition = edition
         @links = ::Queries::RecursiveLinkExpansion::LinkExpansionRules.for(edition.schema_name)
@@ -21,16 +20,15 @@ module Queries
             Arel.sql("SELECT * from forward_edition_links"),
             Arel.sql("SELECT * from reverse_link_set_links"),
             Arel.sql("SELECT * from reverse_edition_links"),
-          ]
+          ],
         ).from("all_links").select("all_links.*")
 
         Edition.with_recursive(
           linked_editions: [
             base_case,
-            Arel.sql(recursive_case.to_sql) # Workaround to ensure the recursive case is wrapped in parens
-          ]
+            Arel.sql(recursive_case.to_sql), # Workaround to ensure the recursive case is wrapped in parens
+          ],
         ).from("linked_editions").select("linked_editions.*")
-
       end
     end
   end

@@ -16,15 +16,15 @@ module Queries
       end
 
       def call
-        Arel.sql(<<~SQL
-            SELECT content_id, edition_id, path, lookahead.type, lookahead.reverse, lookahead.links
-            FROM linked_editions
-            CROSS JOIN LATERAL (
-              SELECT * from jsonb_to_recordset(linked_editions.links) AS lookahead(type varchar, reverse boolean, links jsonb)
-              LIMIT #{max_links_count(@links)}
-            ) AS lookahead
-          SQL
-        )
+        Arel.sql(<<~SQL,
+          SELECT content_id, edition_id, path, lookahead.type, lookahead.reverse, lookahead.links
+          FROM linked_editions
+          CROSS JOIN LATERAL (
+            SELECT * from jsonb_to_recordset(linked_editions.links) AS lookahead(type varchar, reverse boolean, links jsonb)
+            LIMIT #{max_links_count(@links)}
+          ) AS lookahead
+        SQL
+                )
       end
 
     private

@@ -10,8 +10,8 @@ module Queries
           { "type": "ordered_baronesses_and_lords_in_waiting_whips", "reverse": false, "links": [{ "type": "person", "reverse": true, "links": [{ "type": "role", "reverse": false, "links": [] }] }] },
           { "type": "ordered_house_lords_whips", "reverse": false, "links": [{ "type": "person", "reverse": true, "links": [{ "type": "role", "reverse": false, "links": [] }] }] },
           { "type": "ordered_house_of_commons_whips", "reverse": false, "links": [{ "type": "person", "reverse": true, "links": [{ "type": "role", "reverse": false, "links": [] }] }] },
-          { "type": "ordered_junior_lords_of_the_treasury_whips", "reverse": false, "links": [{ "type": "person", "reverse": true, "links": [{ "type": "role", "reverse": false, "links": [] }] }] }
-        ]
+          { "type": "ordered_junior_lords_of_the_treasury_whips", "reverse": false, "links": [{ "type": "person", "reverse": true, "links": [{ "type": "role", "reverse": false, "links": [] }] }] },
+        ],
       }.with_indifferent_access.freeze
 
       def self.for(schema_name)

@@ -2,7 +2,7 @@ module Queries
   module RecursiveLinkExpansion
     class ReverseLinkSetLinks
       def call
-        # TODO - parameterize locale / state
+        # TODO: - parameterize locale / state
         Edition
           .from("lookahead")
           .joins("INNER JOIN links ON links.target_content_id = lookahead.content_id and links.link_type = lookahead.type and lookahead.reverse = true")
@@ -17,7 +17,7 @@ module Queries
             "links.position as position",
             "editions.state as state",
             "lookahead.links",
-            )
+          )
       end
     end
   end
