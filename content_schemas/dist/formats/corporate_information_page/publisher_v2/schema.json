@@ -274,6 +274,9 @@
           "description": "Groups of corporate information to display on about pages",
           "$ref": "#/definitions/grouped_lists_of_links"
         },
+        "headers": {
+          "$ref": "#/definitions/nested_headers"
+        },
         "organisation": {
           "description": "A single organisation that is the subject of this corporate information page",
           "$ref": "#/definitions/guid"
@@ -497,6 +500,33 @@
         "zh-hk",
         "zh-tw"
       ]
+    },
+    "nested_headers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "text",
+          "level",
+          "id"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "headers": {
+            "$ref": "#/definitions/nested_headers"
+          },
+          "id": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "minItems": 1
     },
     "public_updated_at": {
       "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
