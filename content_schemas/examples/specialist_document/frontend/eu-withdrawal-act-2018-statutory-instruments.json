@@ -249,7 +249,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "show_table_of_contents": true
         },
         "links": {
         },

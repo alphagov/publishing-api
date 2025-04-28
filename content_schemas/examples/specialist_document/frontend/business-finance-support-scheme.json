@@ -274,7 +274,8 @@
               "preposition": "for businesses in",
               "type": "text"
             }
-          ]
+          ],
+          "show_table_of_contents": true
         },
         "document_type": "finder",
         "links": {},
