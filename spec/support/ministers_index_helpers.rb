@@ -29,7 +29,7 @@ module MinistersIndexHelpers
     )
   end
 
-  def appoint_person_to_role(person, role, current: true)
+  def appoint_person_to_role(person, role, current: true, state: "published")
     role_appointment = create(
       :live_edition,
       title: "#{person.title} - #{role.title}",
@@ -39,6 +39,7 @@ module MinistersIndexHelpers
         current:,
         started_on: Time.zone.local(2024, 7, 5),
       },
+      state:,
     )
 
     create(
