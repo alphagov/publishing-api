@@ -91,6 +91,7 @@ module_function
 
   DEFAULT_FIELDS_AND_DESCRIPTION = (DEFAULT_FIELDS + [:description]).freeze
 
+  CONTENT_BLOCK_CONTACT_FIELDS = (DEFAULT_FIELDS + details_fields(:description, :email_addresses, :telephones)).freeze
   CONTENT_BLOCK_EMAIL_FIELDS = (DEFAULT_FIELDS + details_fields(:email_address)).freeze
   CONTENT_BLOCK_POSTAL_FIELDS = (DEFAULT_FIELDS + details_fields(:line_1, :town_or_city, :postcode)).freeze
   CONTENT_BLOCK_PENSION_FIELDS = (DEFAULT_FIELDS + details_fields(:description, :rates)).freeze
