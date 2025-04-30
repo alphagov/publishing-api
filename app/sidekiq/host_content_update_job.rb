@@ -18,7 +18,7 @@ private
 
     EventLogger.log_command(self.class, event_payload) do |_event|
       DownstreamLiveJob.perform_async_in_queue(
-        DownstreamLiveJob::LOW_QUEUE,
+        DownstreamLiveJob::HIGH_QUEUE,
         "content_id" => dependent_content_id,
         "locale" => locale,
         "message_queue_event_type" => "host_content",
