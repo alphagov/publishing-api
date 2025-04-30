@@ -28,7 +28,7 @@ RSpec.describe HostContentUpdateJob, :perform do
 
   it "queues the Live host content for update" do
     expect(DownstreamLiveJob).to receive(:perform_async_in_queue).with(
-      "downstream_low",
+      "downstream_high",
       {
         "content_id" => dependent_content_id,
         "dependency_resolution_source_content_id" =>
