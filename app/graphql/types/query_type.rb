@@ -19,6 +19,8 @@ module Types
         unpublishing_data = case edition.unpublishing.type
                             when "gone"
                               Presenters::GonePresenter.from_edition(edition).for_graphql
+                            when "redirect"
+                              Presenters::RedirectPresenter.from_unpublished_edition(edition).for_graphql
                             when "vanish"
                               Presenters::VanishPresenter.from_edition(edition).for_graphql
                             end

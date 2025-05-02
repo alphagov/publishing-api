@@ -134,6 +134,40 @@ RSpec.describe "GraphQL" do
         end
       end
 
+      context "when the unpublishing type is 'redirect'" do
+        let(:edition) do
+          create(
+            :redirect_unpublished_edition,
+          )
+        end
+
+        before do
+          post "/graphql", params: {
+            query:
+              "{
+                edition(base_path: \"#{edition.base_path}\") {
+                  ... on Edition {
+                    title
+                  }
+                }
+              }",
+          }
+        end
+
+        it "does not return the edition" do
+          parsed_response = JSON.parse(response.body).deep_symbolize_keys
+          expect(parsed_response.dig(:data, :edition)).to be_nil
+        end
+
+        it "includes the unpublishing type and other data in the error" do
+          parsed_response = JSON.parse(response.body).deep_symbolize_keys
+          expect(parsed_response.dig(:errors, 0, :message)).to eq("Edition has been unpublished")
+          expect(parsed_response.dig(:errors, 0, :extensions, :document_type)).to eq("redirect")
+          expect(parsed_response.dig(:errors, 0, :extensions, :redirects)).to eq(edition.unpublishing.redirects)
+          expect(parsed_response.dig(:errors, 0, :extensions, :public_updated_at)).to eq("2014-01-02T04:04:05Z")
+        end
+      end
+
       context "when the unpublishing type is 'vanish'" do
         let(:edition) do
           create(
