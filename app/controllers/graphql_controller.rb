@@ -80,6 +80,8 @@ private
   end
 
   def set_prometheus_labels(edition)
+    return unless edition
+
     prometheus_labels = request.env.fetch("govuk.prometheus_labels", {})
 
     request.env["govuk.prometheus_labels"] = prometheus_labels.merge(
