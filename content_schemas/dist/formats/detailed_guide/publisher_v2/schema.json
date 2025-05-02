@@ -299,6 +299,9 @@
         "government": {
           "$ref": "#/definitions/government"
         },
+        "headers": {
+          "$ref": "#/definitions/nested_headers"
+        },
         "image": {
           "$ref": "#/definitions/image"
         },
@@ -583,6 +586,33 @@
           "$ref": "#/definitions/nation_applicability"
         }
       }
+    },
+    "nested_headers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "text",
+          "level",
+          "id"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "headers": {
+            "$ref": "#/definitions/nested_headers"
+          },
+          "id": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "minItems": 1
     },
     "political": {
       "description": "If the content is considered political in nature, reflecting views of the government it was published under.",
