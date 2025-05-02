@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_02_153736) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_02_155450) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -217,7 +217,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_02_153736) do
   add_foreign_key "editions", "documents"
   add_foreign_key "link_changes", "actions", on_delete: :cascade
   add_foreign_key "links", "editions", on_delete: :cascade
-  add_foreign_key "links", "link_sets"
   add_foreign_key "links", "link_sets", column: "link_set_content_id", primary_key: "content_id"
   add_foreign_key "unpublishings", "editions", on_delete: :cascade
 end
