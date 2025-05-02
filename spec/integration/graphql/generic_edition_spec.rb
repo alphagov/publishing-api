@@ -141,5 +141,23 @@ RSpec.describe "GraphQL" do
         expect(parsed_response).to eq(expected)
       end
     end
+
+    describe "when the Edition is gone (unpublishing.type == 'gone')" do
+      it "410s?"
+    end
+
+    describe "when the Edition is vanish (unpublishing.type == 'vanish')" do
+      it "404s?"
+    end
+
+    describe "when the Edition is a redirect (unpublishing.type == 'redirect')" do
+      it "doesn't include, like, most of its content in the response?"
+
+      it "includes its `redirects` in the response"
+    end
+
+    describe "when one of the Edition's links is a redirect (unpublishing.type = 'redirect')" do
+      it "doesn't include that link in the response"
+    end
   end
 end
