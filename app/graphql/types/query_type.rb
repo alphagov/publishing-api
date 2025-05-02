@@ -8,7 +8,22 @@ module Types
     end
 
     def edition(base_path:, content_store:)
-      Edition.where(content_store:).find_by(base_path:)
+      edition = Edition
+        .includes(:unpublishing)
+        .where(content_store:)
+        .find_by(base_path:)
+
+      return unless edition
+
+      if edition.unpublishing && !edition.unpublishing.withdrawal?
+        unpublishing_data = {}
+
+        unpublishing_data.merge!(Presenters::VanishPresenter.from_edition(edition).for_graphql) if edition.unpublishing.type == "vanish"
+
+        raise GraphQL::ExecutionError.new("Edition has been unpublished", extensions: unpublishing_data)
+      end
+
+      edition
     end
   end
 end

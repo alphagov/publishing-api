@@ -98,45 +98,79 @@ RSpec.describe "GraphQL" do
       expect(request.env["govuk.prometheus_labels"][:schema_name]).to eq(edition.schema_name)
     end
 
-    context "when there is a withdrawn notice" do
-      let(:edition) do
-        create(
-          :withdrawn_unpublished_edition,
-          explanation: "for integration testing",
-          document_type: "generic_type",
-          unpublished_at: Time.utc(2024, 10, 28, 17, 0, 0),
-        )
-      end
+    context "when the edition is unpublished" do
+      context "when the unpublishing type is 'vanish'" do
+        let(:edition) do
+          create(
+            :vanish_unpublished_edition,
+          )
+        end
 
-      it "populates the withdrawn notice" do
-        post "/graphql", params: {
-          query:
-            "{
-              edition(base_path: \"#{edition.base_path}\") {
-                ... on Edition {
-                  withdrawn_notice {
-                    explanation
-                    withdrawn_at
+        before do
+          post "/graphql", params: {
+            query:
+              "{
+                edition(base_path: \"#{edition.base_path}\") {
+                  ... on Edition {
+                    title
                   }
                 }
-              }
-            }",
-        }
+              }",
+          }
+        end
 
-        expected = {
-          "data": {
-            "edition": {
-              "withdrawn_notice": {
-                "explanation": "for integration testing",
-                "withdrawn_at": "2024-10-28T17:00:00+00:00",
+        it "does not return the edition" do
+          parsed_response = JSON.parse(response.body).deep_symbolize_keys
+          expect(parsed_response.dig(:data, :edition)).to be_nil
+        end
+
+        it "includes the unpublishing type in the error" do
+          parsed_response = JSON.parse(response.body).deep_symbolize_keys
+          expect(parsed_response.dig(:errors, 0, :message)).to eq("Edition has been unpublished")
+          expect(parsed_response.dig(:errors, 0, :extensions, :document_type)).to eq("vanish")
+        end
+      end
+
+      context "when the unpublishing type is 'withdrawal'" do
+        let(:edition) do
+          create(
+            :withdrawn_unpublished_edition,
+            explanation: "for integration testing",
+            document_type: "generic_type",
+            unpublished_at: Time.utc(2024, 10, 28, 17, 0, 0),
+          )
+        end
+
+        it "populates the withdrawn notice" do
+          post "/graphql", params: {
+            query:
+              "{
+                edition(base_path: \"#{edition.base_path}\") {
+                  ... on Edition {
+                    withdrawn_notice {
+                      explanation
+                      withdrawn_at
+                    }
+                  }
+                }
+              }",
+          }
+
+          expected = {
+            "data": {
+              "edition": {
+                "withdrawn_notice": {
+                  "explanation": "for integration testing",
+                  "withdrawn_at": "2024-10-28T17:00:00+00:00",
+                },
               },
             },
-          },
-        }
+          }
 
-        parsed_response = JSON.parse(response.body).deep_symbolize_keys
+          parsed_response = JSON.parse(response.body).deep_symbolize_keys
 
-        expect(parsed_response).to eq(expected)
+          expect(parsed_response).to eq(expected)
+        end
       end
     end
   end

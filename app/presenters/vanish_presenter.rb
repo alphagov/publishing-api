@@ -19,6 +19,10 @@ class Presenters::VanishPresenter
     present.merge(payload_version:)
   end
 
+  def for_graphql
+    present
+  end
+
   def for_message_queue(payload_version)
     present.merge(
       content_id:,
