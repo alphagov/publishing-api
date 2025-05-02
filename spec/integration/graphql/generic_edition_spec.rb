@@ -99,6 +99,41 @@ RSpec.describe "GraphQL" do
     end
 
     context "when the edition is unpublished" do
+      context "when the unpublishing type is 'gone'" do
+        let(:edition) do
+          create(
+            :gone_unpublished_edition,
+          )
+        end
+
+        before do
+          post "/graphql", params: {
+            query:
+              "{
+                edition(base_path: \"#{edition.base_path}\") {
+                  ... on Edition {
+                    title
+                  }
+                }
+              }",
+          }
+        end
+
+        it "does not return the edition" do
+          parsed_response = JSON.parse(response.body).deep_symbolize_keys
+          expect(parsed_response.dig(:data, :edition)).to be_nil
+        end
+
+        it "includes the unpublishing type and other data in the error" do
+          parsed_response = JSON.parse(response.body).deep_symbolize_keys
+          expect(parsed_response.dig(:errors, 0, :message)).to eq("Edition has been unpublished")
+          expect(parsed_response.dig(:errors, 0, :extensions, :document_type)).to eq("gone")
+          expect(parsed_response.dig(:errors, 0, :extensions, :details, :alternative_path)).to eq(edition.unpublishing.alternative_path)
+          expect(parsed_response.dig(:errors, 0, :extensions, :details, :explanation)).to eq(edition.unpublishing.explanation)
+          expect(parsed_response.dig(:errors, 0, :extensions, :public_updated_at)).to eq("2014-01-02T03:04:05Z")
+        end
+      end
+
       context "when the unpublishing type is 'vanish'" do
         let(:edition) do
           create(

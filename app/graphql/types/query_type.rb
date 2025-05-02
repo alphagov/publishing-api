@@ -16,9 +16,12 @@ module Types
       return unless edition
 
       if edition.unpublishing && !edition.unpublishing.withdrawal?
-        unpublishing_data = {}
-
-        unpublishing_data.merge!(Presenters::VanishPresenter.from_edition(edition).for_graphql) if edition.unpublishing.type == "vanish"
+        unpublishing_data = case edition.unpublishing.type
+                            when "gone"
+                              Presenters::GonePresenter.from_edition(edition).for_graphql
+                            when "vanish"
+                              Presenters::VanishPresenter.from_edition(edition).for_graphql
+                            end
 
         raise GraphQL::ExecutionError.new("Edition has been unpublished", extensions: unpublishing_data)
       end
