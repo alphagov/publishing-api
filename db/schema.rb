@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_26_155406) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_02_153736) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -162,12 +162,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_26_155406) do
     t.uuid "link_set_content_id"
     t.index ["edition_id", "link_type"], name: "index_links_on_edition_id_and_link_type"
     t.index ["edition_id"], name: "index_links_on_edition_id"
-    t.index ["link_set_id", "link_type"], name: "index_links_on_link_set_id_and_link_type"
     t.index ["link_set_content_id", "link_type"], name: "index_links_on_link_set_content_id_and_link_type"
     t.index ["link_set_content_id", "target_content_id"], name: "index_links_on_link_set_content_id_and_target_content_id"
     t.index ["link_set_content_id"], name: "index_links_on_link_set_content_id"
-    t.index ["link_set_id", "target_content_id"], name: "index_links_on_link_set_id_and_target_content_id"
-    t.index ["link_set_id"], name: "index_links_on_link_set_id"
     t.index ["link_type"], name: "index_links_on_link_type"
     t.index ["target_content_id", "link_type"], name: "index_links_on_target_content_id_and_link_type"
     t.index ["target_content_id"], name: "index_links_on_target_content_id"
