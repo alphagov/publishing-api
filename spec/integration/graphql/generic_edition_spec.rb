@@ -142,12 +142,60 @@ RSpec.describe "GraphQL" do
       end
     end
 
-    describe "when the Edition is gone (unpublishing.type == 'gone')" do
-      it "410s?"
+    context "when the Edition is gone (unpublishing.type == 'gone')" do
+      before do
+        create(
+          :gone_unpublished_edition,
+          base_path: "/my/withdrawn/edition",
+        )
+      end
+
+      it "410s" do
+        post "/graphql", params: {
+          query:
+            "{
+              edition(base_path: \"/my/withdrawn/edition\") {
+                ... on Edition {
+                  withdrawn_notice {
+                    explanation
+                    withdrawn_at
+                  }
+                }
+              }
+            }",
+        }
+
+        expect(response.status).to eq(410)
+      end
     end
 
     describe "when the Edition is vanish (unpublishing.type == 'vanish')" do
-      it "404s?"
+      before do
+        create(
+          :vanish_unpublished_edition,
+          base_path: "/my/withdrawn/edition",
+          explanation: "for integration testing",
+          document_type: "generic_type",
+        )
+      end
+
+      it "404's" do
+        post "/graphql", params: {
+          query:
+            "{
+              edition(base_path: \"/my/withdrawn/edition\") {
+                ... on Edition {
+                  withdrawn_notice {
+                    explanation
+                    withdrawn_at
+                  }
+                }
+              }
+            }",
+        }
+
+        expect(response.status).to eq(404)
+      end
     end
 
     describe "when the Edition is a redirect (unpublishing.type == 'redirect')" do
