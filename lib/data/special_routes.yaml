@@ -26,6 +26,13 @@
   :type: "prefix"
   :rendering_app: "content-store"
 
+- :base_path: "/api/local-authority"
+  :content_id: "941aa7c4-1acb-4a5c-95f4-d39eb64a902b"
+  :title: "Local Authority API"
+  :description: "API version of /find-local-council for app use"
+  :type: "prefix"
+  :rendering_app: "frontend"
+
 - :base_path: "/api/personalisation/check-email-subscription"
   :content_id: "f8f91a56-2298-4365-9590-d7e80fe8c066"
   :title: "Account API - Check email Subscription"
