@@ -39,20 +39,20 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:13
+        image: postgres:13@sha256:7dad293647281f6a0f0b7b9b7adc3c27775d2adc821d8ccd9d2ff72ef503a1c8
         ports: ["5432:5432"]
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
       redis:
-        image: redis
+        image: redis@sha256:a4b90e7079b67c41bdf4ca6f9d87197079e4c1c3273b7f489a74f2687d85a05e
         ports: ["6379:6379"]
         options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       TEST_DATABASE_URL: postgresql://postgres@localhost/test-db
       RAILS_ENV: test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           repository: alphagov/publishing-api
           ref: ${{ inputs.ref }}
@@ -65,7 +65,7 @@ jobs:
         env:
           PACT_CONSUMER_VERSION: ${{ inputs.pact_consumer_version }}
       - if: inputs.pact_artifact != ''
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
           name: ${{ inputs.pact_artifact }}
           path: tmp/pacts
