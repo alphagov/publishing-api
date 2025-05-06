@@ -105,4 +105,54 @@ RSpec.describe Sources::LinkedToEditionsSource do
       expect(request.load).to eq([target_edition_0, target_edition_1, target_edition_2, target_edition_3])
     end
   end
+
+  context "when the linked item is unpublished" do
+    %w[children parent related_statistical_data_sets].each do |link_type|
+      it "includes unpublished links when they are of the permitted type #{link_type}" do
+        edition_linked_edition = create(:edition, content_store: "live")
+        withdrawn_edition_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
+        link_set_linked_edition = create(:edition, content_store: "live")
+        withdrawn_link_set_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
+
+        source_edition = create(:edition,
+                                content_store: "live",
+                                links_hash: {
+                                  link_type => [edition_linked_edition.content_id, withdrawn_edition_linked_edition.content_id],
+                                })
+
+        link_set = create(:link_set, content_id: source_edition.content_id)
+        create(:link, link_set:, target_content_id: link_set_linked_edition.content_id, link_type:)
+        create(:link, link_set:, target_content_id: withdrawn_link_set_linked_edition.content_id, link_type:)
+
+        GraphQL::Dataloader.with_dataloading do |dataloader|
+          request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, link_type])
+
+          expect(request.load).to match_array([edition_linked_edition, withdrawn_edition_linked_edition, link_set_linked_edition, withdrawn_link_set_linked_edition])
+        end
+      end
+    end
+
+    it "does not include unpublished links when they are of another type" do
+      edition_linked_edition = create(:edition, content_store: "live")
+      withdrawn_edition_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
+      link_set_linked_edition = create(:edition, content_store: "live")
+      withdrawn_link_set_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
+
+      source_edition = create(:edition,
+                              content_store: "live",
+                              links_hash: {
+                                "test_link" => [edition_linked_edition.content_id, withdrawn_edition_linked_edition.content_id],
+                              })
+
+      link_set = create(:link_set, content_id: source_edition.content_id)
+      create(:link, link_set:, target_content_id: link_set_linked_edition.content_id, link_type: "test_link")
+      create(:link, link_set:, target_content_id: withdrawn_link_set_linked_edition.content_id, link_type: "test_link")
+
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
+
+        expect(request.load).to match_array([edition_linked_edition, link_set_linked_edition])
+      end
+    end
+  end
 end
