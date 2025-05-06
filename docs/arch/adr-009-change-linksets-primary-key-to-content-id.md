@@ -260,7 +260,9 @@ isn't using link_set_id anywhere, or stopping writing to it could cause confusin
 
 🔪
 
-### 10 - Remove the id column from link_sets
+### 10 - Remove the id column from link_sets (SKIPPED)
+
+NOTE: We skipped this step, as keeping the id column on link_sets is low cost.
 
 Assuming we've already removed all the constraints and indexes that use id, it should now be safe enough to do this:
 
