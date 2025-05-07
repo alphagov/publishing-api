@@ -15,6 +15,7 @@ FactoryBot.define do
       create(
         :unpublishing,
         edition:,
+        created_at: evaluator.created_at || Time.zone.now,
         type: evaluator.unpublishing_type,
         explanation: evaluator.explanation,
         redirects: [{ path: edition.base_path, type: :exact, destination: evaluator.alternative_path }],
@@ -34,6 +35,7 @@ FactoryBot.define do
   factory :redirect_unpublished_edition, parent: :unpublished_edition do
     content_store { "live" }
     transient do
+      created_at { "2014-01-02T04:04:05Z" }
       unpublishing_type { "redirect" }
       unpublished_at { nil }
     end
