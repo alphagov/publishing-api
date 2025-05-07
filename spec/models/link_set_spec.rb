@@ -18,12 +18,7 @@ RSpec.describe LinkSet do
     context "with only other links" do
       let(:other_links) do
         [
-          build(
-            :link,
-            link_set_content_id: link_set.content_id,
-            # TODO: ADR-009 - remove when we remove link_set_id
-            link_set_id: link_set.attributes["id"],
-          ),
+          build(:link, link_set_content_id: link_set.content_id),
         ]
       end
 
