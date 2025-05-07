@@ -1,6 +1,4 @@
 class Link < ApplicationRecord
-  self.ignored_columns += %w[link_set_id]
-
   include SymbolizeJSON
 
   belongs_to :link_set,
