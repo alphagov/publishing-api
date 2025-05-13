@@ -16,7 +16,10 @@ ARGUMENTS
      --data-dir
              The directory in which you've stored the "unfiltered_base_paths"
              file and where the "filtered_base_paths" file will be written. By
-             default this is tmp/diff_graphql"
+             default this is tmp/diff_graphql
+
+     --translated-only
+             Filters out base paths for pages in English."
 usage_text="
 usage: script/diff_graphql/filter_base_paths.sh [--data-dir path/to/data/dir]
                                                 --schema_names schema_name_1
@@ -35,6 +38,7 @@ while [ $# -gt 0 ]; do
       done
 
       ;;
+    --translated-only) translated_only=true; shift;;
     *) echo "$usage_text"; exit 1;;
   esac
 done
@@ -53,7 +57,12 @@ sed -i -r -e '/^"url_path"$/d' -e 's/"//g' $data_dir/unfiltered_base_paths
 
 echo "Unfiltered base paths: $(grep -c '^' $data_dir/unfiltered_base_paths)"
 
-cp $data_dir/unfiltered_base_paths script/diff_graphql/unfiltered_base_paths
+if [[ $translated_only = true ]]; then
+  echo -e '\nFiltering out untranslated content'
+  grep -E '^.+\.[a-zA-Z]{2}(-[a-zA-Z0-9]{2,3})?$' $data_dir/unfiltered_base_paths > script/diff_graphql/unfiltered_base_paths
+else
+  cp $data_dir/unfiltered_base_paths script/diff_graphql/unfiltered_base_paths
+fi
 
 govuk-docker-run bundle exec rails runner script/diff_graphql/filter_base_paths.rb ${schema_names[*]}
 
