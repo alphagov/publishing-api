@@ -37,6 +37,9 @@
         change_history: {
           "$ref": "#/definitions/change_history",
         },
+        headers: {
+          "$ref": "#/definitions/nested_headers",
+        },
         alternative_scotland_url: {
           type: "string",
         },
