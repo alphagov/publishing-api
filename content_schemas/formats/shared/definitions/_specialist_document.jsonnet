@@ -1297,6 +1297,9 @@
       "ukhsa_access_type": {
         type: "string",
       },
+      "ukhsa_request_type": {
+        type: "string",
+      },
       "ukhsa_organisation_name": {
         type: "string",
       },
