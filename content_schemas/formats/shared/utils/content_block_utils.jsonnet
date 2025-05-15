@@ -11,7 +11,6 @@
                 type: "string"
               }
             } + properties,
-            order: ["title"] + std.objectFields(properties),
         }
       }
    }

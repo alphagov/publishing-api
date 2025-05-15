@@ -394,12 +394,6 @@
                 "frequency"
               ],
               "additionalProperties": false,
-              "order": [
-                "title",
-                "amount",
-                "description",
-                "frequency"
-              ],
               "properties": {
                 "amount": {
                   "type": "string",

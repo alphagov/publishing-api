@@ -393,11 +393,6 @@
                 "email_address"
               ],
               "additionalProperties": false,
-              "order": [
-                "title",
-                "description",
-                "email_address"
-              ],
               "properties": {
                 "description": {
                   "type": "string"
@@ -423,10 +418,6 @@
                 "telephone"
               ],
               "additionalProperties": false,
-              "order": [
-                "title",
-                "telephone"
-              ],
               "properties": {
                 "telephone": {
                   "type": "string"
