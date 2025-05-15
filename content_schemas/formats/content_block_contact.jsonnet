@@ -39,6 +39,26 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
             },
             ["url"],
         ),
+        addresses: utils.embedded_object(
+            {
+                street_address: {
+                    type: "string",
+                },
+                locality: {
+                    type: "string",
+                },
+                region: {
+                    type: "string",
+                },
+                postal_code: {
+                    type: "string",
+                },
+                country: {
+                    type: "string",
+                },
+            },
+            ["street_address", "locality", "postal_code", "country"],
+        )
       },
     },
   },
