@@ -64,6 +64,13 @@
   :type: "prefix"
   :override_existing: true
 
+- :base_path: "/csv-preview"
+  :content_id: "ead457b8-d693-41ff-9dd0-9c337839d1c2"
+  :title: "CSV preview"
+  :description: "Handles CSV previews"
+  :type: "prefix"
+  :rendering_app: "frontend"
+
 - :base_path: "/email/authenticate"
   :content_id: "889e5a6f-d63b-4e10-8ffb-8d3959453285"
   :title: "Email - authenticate"
