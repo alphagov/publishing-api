@@ -151,7 +151,11 @@ module Queries
           TABLES[:documents][:id].eq(TABLES[:editions][:document_id]),
         )
         .join(TABLES[:primary_links], Arel::Nodes::OuterJoin).on(
-          TABLES[:primary_links][:edition_id].eq(TABLES[:editions][:id]),
+          TABLES[:primary_links][:edition_id].eq(
+            TABLES[:editions][:id],
+          ).or(
+            TABLES[:primary_links][:link_set_content_id].eq(TABLES[:documents][:content_id]),
+          ),
           TABLES[:primary_links][:link_type].eq("primary_publishing_organisation"),
         )
         .join(TABLES[:org_documents], Arel::Nodes::OuterJoin).on(

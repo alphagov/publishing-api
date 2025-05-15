@@ -127,6 +127,40 @@ RSpec.describe Queries::GetHostContent do
       end
     end
 
+    context "when an organisation exists as a linkset link" do
+      let!(:published_host_editions) do
+        create_list(:live_edition, 2,
+                    details: {
+                      body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                    },
+                    links_hash: {
+                      embed: [target_content_id],
+                    },
+                    publishing_app: "example-app")
+      end
+
+      before do
+        published_host_editions.each do |edition|
+          link_set = create(:link_set, content_id: edition.document.content_id)
+          create(:link, link_set:, target_content_id: organisation.content_id, link_set_content_id: edition.document.content_id, link_type: "primary_publishing_organisation")
+        end
+      end
+
+      it "returns the live editions" do
+        results = described_class.new(target_content_id).call
+
+        expect(results.count).to eq(2)
+
+        expect(results[0].primary_publishing_organisation_content_id).to eq(organisation.content_id)
+        expect(results[0].primary_publishing_organisation_title).to eq(organisation.title)
+        expect(results[0].primary_publishing_organisation_base_path).to eq(organisation.base_path)
+
+        expect(results[1].primary_publishing_organisation_content_id).to eq(organisation.content_id)
+        expect(results[1].primary_publishing_organisation_title).to eq(organisation.title)
+        expect(results[1].primary_publishing_organisation_base_path).to eq(organisation.base_path)
+      end
+    end
+
     context "when the content is embedded more than once" do
       before do
         create(:live_edition,
