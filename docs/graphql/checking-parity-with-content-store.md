@@ -1,0 +1,62 @@
+# Checking parity of GraphQL and Content Store responses
+
+A couple of scripts are available to check the parity of GraphQL and Content
+Store responses:
+
+- `script/diff_graphql/run.sh` - this will guide you through diffing the
+  responses for one page.
+- `script/diff_graphql/bulk.sh` - this allows you to diff multiple pages in one
+  process.
+
+  For the bulk script, you'll need to prepare a file with a list of base paths
+  (e.g. `/world`) and an empty line at the end. See the "Retrieving base paths
+  from logs using Athena" section for one way to do this.
+
+  Diffs will be output to `tmp/diff_graphql/diffs` by default. Run the script
+  with `--help` for information on all the required and optional arguments.
+
+## Retrieving base paths from logs using Athena
+
+You can use
+[Athena](https://docs.publishing.service.gov.uk/manual/query-cdn-logs.html) to
+retrieve base paths of cache misses over a given time period. Below is an
+example Trino SQL query. You just need to edit the dates.
+
+Save the output to `tmp/diff_graphql/unfiltered_base_paths` and then run the
+`script/diff_graphql/filter_base_paths.sh` script to filter the base paths by
+one or more schema names in preparation for running the bulk script. You will
+need a replicated Publishing API database for this script to work properly.
+
+```sql
+SELECT DISTINCT
+  REPLACE(
+    SPLIT_PART("url", '?', 1),
+    '//',
+    '/'
+  ) AS "url_path"
+FROM
+  "fastly_logs"."govuk_www"
+WHERE
+  "date" = 6
+  AND "month" = 5
+  AND "year" = 2025
+  AND (
+    "request_received"
+    BETWEEN TIMESTAMP '2025-05-06 12:00'
+    AND TIMESTAMP '2025-05-06 17:00'
+  )
+  AND "content_type" LIKE 'text/html%'
+  AND "method" = 'GET'
+  AND "status" = 200
+  AND "fastly_backend" = 'origin'
+  AND "cache_response" = 'MISS'
+  AND LOWER("user_agent") NOT LIKE '%bot%'
+  AND LOWER("user_agent") NOT LIKE '%crawler%'
+  AND LOWER("user_agent") NOT LIKE '%engine%'
+  AND LOWER("user_agent") NOT LIKE '%google%'
+  AND LOWER("user_agent") NOT LIKE '%java%'
+  AND LOWER("user_agent") NOT LIKE '%lua%'
+  AND LOWER("user_agent") NOT LIKE '%python%'
+  AND LOWER("user_agent") NOT LIKE '%ruby%'
+  AND LOWER("user_agent") NOT LIKE '%spider%';
+```
