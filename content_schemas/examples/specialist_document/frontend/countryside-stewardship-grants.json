@@ -1,7 +1,7 @@
 {
   "content_id": "6f86e13a-04f5-4b69-98f3-4ab374c764e0",
   "locale": "en",
-  "base_path": "/countryside-stewardship-grants/nectar-flower-mix-ab1",
+  "base_path": "/capital-grant-finder/nectar-flower-mix-ab1",
   "title": "Nectar flower mix (AB1)",
   "description": "Find out about eligibility and requirements for the nectar flower mix option.\r\n",
   "details": {
@@ -30,19 +30,12 @@
     ],
     "metadata": {
       "bulk_published": false,
-      "grant_type": "option",
+      "grant_type": "capital-item",
       "land_use": [
         "arable-land",
         "wildlife-package",
         "water-quality",
         "wildlife-package"
-      ],
-      "tiers_or_standalone_items": [
-        "higher-tier",
-        "mid-tier"
-      ],
-      "funding_amount": [
-        "more-than-500"
       ]
     },
     "max_cache_time": 10,
@@ -139,15 +132,15 @@
     "finder": [
       {
         "analytics_identifier": null,
-        "api_path": "/api/content/countryside-stewardship-grants",
-        "base_path": "/countryside-stewardship-grants",
+        "api_path": "/api/content/capital-grant-finder",
+        "base_path": "/capital-grant-finder",
         "content_id": "0eb7b150-879a-4c44-becc-718e23a77e2c",
         "description": "Find information about Countryside Stewardship options, capital items and supplements",
         "document_type": "finder",
         "locale": "en",
         "public_updated_at": "2017-03-15T14:44:21Z",
         "schema_name": "finder",
-        "title": "Countryside Stewardship grants",
+        "title": "Capital grant finder",
         "withdrawn": false,
         "details": {
           "facets": [
@@ -159,10 +152,6 @@
               "display_as_result_metadata": false,
               "filterable": true,
               "allowed_values": [
-                {
-                  "label": "Option",
-                  "value": "option"
-                },
                 {
                   "label": "Capital item",
                   "value": "capital-item"
@@ -248,70 +237,6 @@
                 {
                   "label": "Woodland",
                   "value": "woodland"
-                }
-              ]
-            },
-            {
-              "key": "tiers_or_standalone_items",
-              "name": "Tiers or standalone items",
-              "type": "text",
-              "preposition": "for",
-              "display_as_result_metadata": false,
-              "filterable": true,
-              "allowed_values": [
-                {
-                  "label": "Higher Tier",
-                  "value": "higher-tier"
-                },
-                {
-                  "label": "Mid Tier",
-                  "value": "mid-tier"
-                },
-                {
-                  "label": "Standalone capital items",
-                  "value": "standalone-capital-items"
-                }
-              ]
-            },
-            {
-              "key": "funding_amount",
-              "name": "Funding (per unit per year)",
-              "type": "text",
-              "preposition": "of",
-              "display_as_result_metadata": false,
-              "filterable": true,
-              "allowed_values": [
-                {
-                  "label": "Up to £100",
-                  "value": "up-to-100"
-                },
-                {
-                  "label": "£101 to £200",
-                  "value": "101-to-200"
-                },
-                {
-                  "label": "£201 to £300",
-                  "value": "201-to-300"
-                },
-                {
-                  "label": "£301 to £400",
-                  "value": "301-to-400"
-                },
-                {
-                  "label": "£401 to £500",
-                  "value": "401-to-500"
-                },
-                {
-                  "label": "More than £500",
-                  "value": "more-than-500"
-                },
-                {
-                  "label": "Up to 50% actual costs",
-                  "value": "up-to-50-actual-costs"
-                },
-                {
-                  "label": "More than 50% actual costs",
-                  "value": "more-than-50-actual-costs"
                 }
               ]
             }
