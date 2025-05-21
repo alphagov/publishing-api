@@ -948,6 +948,7 @@ DEPENDENCIES
   json-schema
   jsonnet
   listen
+  nokogiri
   oj
   pact
   pact_broker-client

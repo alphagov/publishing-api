@@ -19,6 +19,7 @@ gem "govuk_sidekiq"
 gem "graphql"
 gem "jsonnet"
 gem "json-schema", require: false
+gem "nokogiri"
 gem "oj"
 gem "pg"
 gem "plek"
