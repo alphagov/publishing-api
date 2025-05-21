@@ -21,9 +21,9 @@ module Presenters
 
     def parsed_content(array_of_hashes)
       if array_of_hashes.one? { |hash| hash[:content_type] == "text/html" }
-        array_of_hashes
+        render_ast(array_of_hashes)
       elsif array_of_hashes.one? { |hash| hash[:content_type] == "text/govspeak" }
-        render_govspeak(array_of_hashes)
+        render_ast(render_govspeak(array_of_hashes))
       end
     end
 
@@ -58,12 +58,24 @@ module Presenters
       wrapped_value + [govspeak]
     end
 
+    def render_ast(content_array)
+      ast_version1 = {
+        content_type: "application/prs.astv1+json",
+        content: ConvertHtmlToAst.call(raw_html(content_array)),
+      }
+      content_array + [ast_version1]
+    end
+
     def rendered_govspeak(value)
       Govspeak::Document.new(raw_govspeak(value), govspeak_attributes).to_html
     end
 
     def raw_govspeak(value)
       value.find { |format| format[:content_type] == "text/govspeak" }[:content]
+    end
+
+    def raw_html(value)
+      value.find { |format| format[:content_type] == "text/html" }[:content]
     end
 
     def govspeak_attributes
