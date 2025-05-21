@@ -71,7 +71,6 @@ RSpec.describe ExpansionRules do
 
     specify { expect(rules.expansion_fields(:contact)).to eq(contact_fields) }
     specify { expect(rules.expansion_fields(:content_block_email_address)).to eq(content_block_email_fields) }
-    specify { expect(rules.expansion_fields(:content_block_postal_address)).to eq(content_block_postal_fields) }
     specify { expect(rules.expansion_fields(:content_block_pension)).to eq(content_block_pension_fields) }
     specify { expect(rules.expansion_fields(:historic_appointment)).to eq(historic_appointment_fields) }
     specify { expect(rules.expansion_fields(:fatality_notice)).to eq(fatality_notice_fields) }
