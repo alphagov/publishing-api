@@ -109,15 +109,22 @@ RSpec.describe Commands::V2::PutContent do
         {
           content_id:,
           locale: "en",
-          schema_name: "content_block_email_address",
-          document_type: "content_block_email_address",
-          title: "Government Digital Service - General contact",
-          description: "General contact email address for Government Digital Service",
-          content_id_alias: "gds-general",
-          details: {
-            email_address: "foo@example.com",
-          },
+          schema_name: "content_block_pension",
+          document_type: "content_block_pension",
+          title: "Basic state pension",
+          description: "General pension details",
+          content_id_alias: "general-pension",
           publishing_app: "whitehall",
+          details: {
+            description: "some description",
+            rates: {
+              "rate-1": {
+                title: "Rate 1",
+                amount: "£221.20",
+                frequency: "a week",
+              },
+            },
+          },
         }
       end
 
@@ -159,20 +166,10 @@ RSpec.describe Commands::V2::PutContent do
 
       context "and not including a content_id_alias" do
         it "does not create a ContentIdAlias" do
-          content_block_payload = {
-            content_id:,
-            locale: "en",
-            schema_name: "content_block_email_address",
-            document_type: "content_block_email_address",
-            title: "Government Digital Service - General contact",
-            description: "General contact email address for Government Digital Service",
-            details: {
-              email_address: "foo@example.com",
-            },
-            publishing_app: "whitehall",
-          }
+          payload_without_id = content_block_payload.dup
+          payload_without_id.delete(:content_id_alias)
           expect(ContentIdAlias).not_to receive(:create!)
-          described_class.call(content_block_payload)
+          described_class.call(payload_without_id)
         end
       end
     end

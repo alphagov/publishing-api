@@ -35,7 +35,7 @@ FactoryBot.define do
 
       transient do
         embedded_content_id { SecureRandom.uuid }
-        embedded_content_type { "content_block_email_address" }
+        embedded_content_type { "content_block_pension" }
         links_hash { { embed: [embedded_content_id] } }
       end
     end

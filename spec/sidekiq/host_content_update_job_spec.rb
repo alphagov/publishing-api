@@ -1,6 +1,6 @@
 RSpec.describe HostContentUpdateJob, :perform do
   let(:content_id) { SecureRandom.uuid }
-  let(:document_type) { "content_block_email_address" }
+  let(:document_type) { "content_block_pension" }
   let(:edition) { build(:live_edition, document_type:) }
   let(:document) { build(:document, live: edition, content_id:) }
 

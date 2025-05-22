@@ -92,7 +92,6 @@ module_function
   DEFAULT_FIELDS_AND_DESCRIPTION = (DEFAULT_FIELDS + [:description]).freeze
 
   CONTENT_BLOCK_CONTACT_FIELDS = (DEFAULT_FIELDS + details_fields(:description, :email_addresses, :telephones)).freeze
-  CONTENT_BLOCK_EMAIL_FIELDS = (DEFAULT_FIELDS + details_fields(:email_address)).freeze
   CONTENT_BLOCK_PENSION_FIELDS = (DEFAULT_FIELDS + details_fields(:description, :rates)).freeze
   CONTACT_FIELDS = (DEFAULT_FIELDS + details_fields(:description, :title, :contact_form_links, :post_addresses, :email_addresses, :phone_numbers)).freeze
   GOVERNMENT_FIELDS = (MANDATORY_FIELDS + %i[api_path base_path document_type] + details_fields(:started_on, :ended_on, :current)).freeze
@@ -165,8 +164,6 @@ module_function
         fields: [] },
       { document_type: :contact,
         fields: CONTACT_FIELDS },
-      { document_type: :content_block_email_address,
-        fields: CONTENT_BLOCK_EMAIL_FIELDS },
       { document_type: :content_block_pension,
         fields: CONTENT_BLOCK_PENSION_FIELDS },
       { document_type: :topical_event,

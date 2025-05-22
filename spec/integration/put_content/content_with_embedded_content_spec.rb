@@ -296,14 +296,14 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   end
 
   context "with mixed embedded content" do
-    let(:email_address) { create(:edition, state: "published", content_store: "live", document_type: "content_block_email_address", details: { email_address: "foo@example.com" }) }
-    let(:email_embed_code) { "{{embed:content_block_email_address:#{email_address.document.content_id}}}" }
+    let(:pension) { create(:edition, state: "published", content_store: "live", document_type: "content_block_pension", details: { rates: { "rate-1" => { name: "example rate" } } }) }
+    let(:pension_embed_code) { "{{embed:content_block_pension:#{pension.document.content_id}}}" }
     let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
     let(:contact_embed_code) { "{{embed:contact:#{contact.document.content_id}}}" }
     let(:document) { create(:document, content_id:) }
 
     before do
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "#{email_embed_code} #{contact_embed_code}" })
+      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "#{pension_embed_code} #{contact_embed_code}" })
     end
 
     it "should create links" do
@@ -312,13 +312,13 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
       }.to change(Link, :count).by(2)
 
       expect(Link.find_by(target_content_id: contact.content_id)).not_to be_nil
-      expect(Link.find_by(target_content_id: email_address.content_id)).not_to be_nil
+      expect(Link.find_by(target_content_id: pension.content_id)).not_to be_nil
     end
 
     it "should send transformed content to the content store" do
       put "/v2/content/#{content_id}", params: payload.to_json
 
-      expect_content_store_to_have_received_details_including({ "body" => "#{presented_details_for(email_address, email_embed_code)} #{presented_details_for(contact, contact_embed_code)}" })
+      expect_content_store_to_have_received_details_including({ "body" => "#{presented_details_for(pension, pension_embed_code)} #{presented_details_for(contact, contact_embed_code)}" })
     end
   end
 

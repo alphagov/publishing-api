@@ -204,7 +204,7 @@ RSpec.describe Commands::V2::Publish do
     context "publishing a content block update" do
       before do
         payload[:update_type] = "content_block"
-        draft_item.update!(document_type: "content_block_email_address")
+        draft_item.update!(document_type: "content_block_pension")
         ChangeNote.create!(edition: draft_item)
       end
 
@@ -253,7 +253,7 @@ RSpec.describe Commands::V2::Publish do
                                                                         "locale" => locale,
                                                                         "orphaned_content_ids" => [],
                                                                         "source_command" => "publish",
-                                                                        "source_document_type" => "content_block_email_address",
+                                                                        "source_document_type" => "content_block_pension",
                                                                         "source_fields" => [])
 
         described_class.call(payload)
@@ -265,7 +265,7 @@ RSpec.describe Commands::V2::Publish do
                                                                      "locale" => locale,
                                                                      "orphaned_content_ids" => [],
                                                                      "source_command" => "publish",
-                                                                     "source_document_type" => "content_block_email_address",
+                                                                     "source_document_type" => "content_block_pension",
                                                                      "source_fields" => [])
 
         described_class.call(payload)
