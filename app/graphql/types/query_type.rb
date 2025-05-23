@@ -5,9 +5,10 @@ module Types
     field :edition, EditionTypeOrSubtype, description: "An edition or one of its subtypes" do
       argument :base_path, String
       argument :content_store, String, required: false, default_value: "live"
+      argument :locale, String, required: false, default_value: "en"
     end
 
-    def edition(base_path:, content_store:)
+    def edition(base_path:, content_store:, locale:)
       edition = Edition
         .includes(:unpublishing)
         .where(content_store:)
