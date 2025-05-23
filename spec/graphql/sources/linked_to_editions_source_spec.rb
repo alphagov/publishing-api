@@ -13,6 +13,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
       request = dataloader.with(
         described_class,
         content_store: source_edition.content_store,
+        locale: "en",
       ).request([source_edition, "test_link"])
 
       expect(request.load).to match_array([target_edition_1, target_edition_3])
@@ -34,6 +35,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
       request = dataloader.with(
         described_class,
         content_store: source_edition.content_store,
+        locale: "en",
       ).request([source_edition, "test_link"])
 
       expect(request.load).to match_array([target_edition_1, target_edition_3])
@@ -58,6 +60,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
       request = dataloader.with(
         described_class,
         content_store: source_edition.content_store,
+        locale: "en",
       ).request([source_edition, "test_link"])
 
       expect(request.load).to match_array([target_edition_1, target_edition_3])
@@ -84,6 +87,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
       request = dataloader.with(
         described_class,
         content_store: source_edition.content_store,
+        locale: "en",
       ).request([source_edition, "test_link"])
 
       expect(request.load).to match_array([target_edition_3, target_edition_4])
@@ -108,6 +112,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
       request = dataloader.with(
         described_class,
         content_store: source_edition.content_store,
+        locale: "en",
       ).request([
         source_edition,
         "test_link",
@@ -140,6 +145,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           request = dataloader.with(
             described_class,
             content_store: source_edition.content_store,
+            locale: "en",
           ).request([source_edition, link_type])
 
           expect(request.load).to match_array([edition_linked_edition, withdrawn_edition_linked_edition, link_set_linked_edition, withdrawn_link_set_linked_edition])
@@ -167,6 +173,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
         request = dataloader.with(
           described_class,
           content_store: source_edition.content_store,
+          locale: "en",
         ).request([source_edition, "test_link"])
 
         expect(request.load).to match_array([edition_linked_edition, link_set_linked_edition])

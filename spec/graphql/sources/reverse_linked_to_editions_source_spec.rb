@@ -15,6 +15,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       request = dataloader.with(
         described_class,
         content_store: target_edition.content_store,
+        locale: "en",
       ).request([target_edition, "test_link"])
 
       expect(request.load).to eq([source_edition_1, source_edition_3])
@@ -43,6 +44,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       request = dataloader.with(
         described_class,
         content_store: target_edition.content_store,
+        locale: "en",
       ).request([target_edition, "test_link"])
 
       expect(request.load).to eq([source_edition_1, source_edition_2])
@@ -65,6 +67,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         request = dataloader.with(
           described_class,
           content_store: target_edition.content_store,
+          locale: "en",
         ).request([target_edition, "test_link"])
 
         expect(request.load).to eq([source_edition])
@@ -91,6 +94,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           request = dataloader.with(
             described_class,
             content_store: target_edition.content_store,
+            locale: "en",
           ).request([target_edition, link_type])
 
           expect(request.load).to eq([link_set_linked_edition, edition_linked_edition])
@@ -115,6 +119,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         request = dataloader.with(
           described_class,
           content_store: target_edition.content_store,
+          locale: "en",
         ).request([target_edition, "test_link"])
 
         expect(request.load).to eq([])
