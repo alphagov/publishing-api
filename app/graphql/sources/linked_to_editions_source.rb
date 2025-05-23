@@ -14,12 +14,16 @@ module Sources
       edition_id_tuples = []
       content_id_tuples = []
       link_types_map = {}
+      locales = []
 
       editions_and_link_types.each do |edition, link_type|
         edition_id_tuples.push("(#{edition.id},'#{link_type}')")
         content_id_tuples.push("('#{edition.content_id}','#{link_type}')")
         link_types_map[[edition.content_id, link_type]] = []
+        locales << edition.locale
       end
+
+      locales = (locales - %w[en] + %w[en]).uniq
 
       link_set_links_target_editions = Edition
         .joins(document: { reverse_links: :link_set })
@@ -29,7 +33,7 @@ module Sources
         )
         .where(
           editions: { content_store: @content_store },
-          documents: { locale: "en" },
+          documents: { locale: locales },
         )
         .select(
           "editions.*",
@@ -57,7 +61,7 @@ module Sources
         )
         .where(
           editions: { content_store: @content_store },
-          documents: { locale: "en" },
+          documents: { locale: locales },
         )
         .select(
           "editions.*",
