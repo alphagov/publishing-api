@@ -103,10 +103,18 @@ module Types
 
       def role_appointments
         if %w[role ministerial_role].include?(object.document_type)
-          dataloader.with(Sources::ReverseLinkedToEditionsSource, content_store: object.content_store)
+          dataloader.with(
+            Sources::ReverseLinkedToEditionsSource,
+            content_store: object.content_store,
+            locale: "en",
+          )
             .load([object, "role"])
         else
-          dataloader.with(Sources::ReverseLinkedToEditionsSource, content_store: object.content_store)
+          dataloader.with(
+            Sources::ReverseLinkedToEditionsSource,
+            content_store: object.content_store,
+            locale: "en",
+          )
             .load([object, "person"])
         end
       end

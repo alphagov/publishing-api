@@ -1,8 +1,9 @@
 module Sources
   class LinkedToEditionsSource < GraphQL::Dataloader::Source
     # rubocop:disable Lint/MissingSuper
-    def initialize(content_store:)
+    def initialize(content_store:, locale:)
       @content_store = content_store.to_sym
+      @locale = locale
     end
     # rubocop:enable Lint/MissingSuper
 
@@ -29,7 +30,7 @@ module Sources
         )
         .where(
           editions: { content_store: @content_store },
-          documents: { locale: "en" },
+          documents: { locale: @locale },
         )
         .select(
           "editions.*",
@@ -57,7 +58,7 @@ module Sources
         )
         .where(
           editions: { content_store: @content_store },
-          documents: { locale: "en" },
+          documents: { locale: @locale },
         )
         .select(
           "editions.*",

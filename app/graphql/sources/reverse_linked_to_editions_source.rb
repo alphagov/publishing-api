@@ -1,8 +1,9 @@
 module Sources
   class ReverseLinkedToEditionsSource < GraphQL::Dataloader::Source
     # rubocop:disable Lint/MissingSuper
-    def initialize(content_store:)
+    def initialize(content_store:, locale:)
       @content_store = content_store.to_sym
+      @locale = locale
     end
     # rubocop:enable Lint/MissingSuper
 
@@ -22,7 +23,10 @@ module Sources
       link_set_links_source_editions = Edition
         .joins(:document)
         .joins("INNER JOIN links ON links.link_set_content_id = documents.content_id")
-        .where(editions: { content_store: @content_store })
+        .where(
+          editions: { content_store: @content_store },
+          documents: { locale: @locale },
+        )
         .where(
           '("links"."target_content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),
@@ -31,7 +35,10 @@ module Sources
 
       edition_links_source_editions = Edition
         .joins(:document, :links)
-        .where(editions: { content_store: @content_store })
+        .where(
+          editions: { content_store: @content_store },
+          documents: { locale: @locale },
+        )
         .where(
           '("links"."target_content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),
