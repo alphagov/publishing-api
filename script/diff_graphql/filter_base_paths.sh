@@ -19,7 +19,10 @@ ARGUMENTS
              default this is tmp/diff_graphql
 
      --translated-only
-             Filters out base paths for pages in English."
+             Filters out base paths for pages in English.
+
+     --with-content-store
+             Filter base paths using Content Store instead of Publishing API."
 usage_text="
 usage: script/diff_graphql/filter_base_paths.sh [--data-dir path/to/data/dir]
                                                 --schema_names schema_name_1
@@ -39,6 +42,7 @@ while [ $# -gt 0 ]; do
 
       ;;
     --translated-only) translated_only=true; shift;;
+    --with-content-store) with_content_store=true; shift;;
     *) echo "$usage_text"; exit 1;;
   esac
 done
@@ -64,7 +68,19 @@ else
   cp $data_dir/unfiltered_base_paths script/diff_graphql/unfiltered_base_paths
 fi
 
-govuk-docker-run bundle exec rails runner script/diff_graphql/filter_base_paths.rb ${schema_names[*]}
+if [[ $with_content_store = true ]]; then
+  mkdir -p ../content-store/script/diff_graphql
+  cp script/diff_graphql/{unfiltered_base_paths,filter_base_paths.rb} ../content-store/script/diff_graphql
+
+  cd ../content-store
+  govuk-docker-run bundle exec rails runner script/diff_graphql/filter_base_paths.rb ${schema_names[*]}
+  cd - > /dev/null
+
+  mv ../content-store/script/diff_graphql/filtered_base_paths script/diff_graphql/filtered_base_paths
+  rm -rf ../content-store/script/diff_graphql
+else
+  govuk-docker-run bundle exec rails runner script/diff_graphql/filter_base_paths.rb ${schema_names[*]}
+fi
 
 mv script/diff_graphql/filtered_base_paths $data_dir/filtered_base_paths
 rm script/diff_graphql/unfiltered_base_paths
