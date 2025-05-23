@@ -9,7 +9,7 @@ module Types
 
     def edition(base_path:, content_store:)
       edition = Edition
-        .includes(:unpublishing)
+        .includes(:document, :unpublishing)
         .where(content_store:)
         .find_by(base_path:)
 
