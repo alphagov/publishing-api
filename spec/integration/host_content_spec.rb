@@ -12,11 +12,8 @@ RSpec.describe "Host content" do
   let!(:content_block) do
     create(:live_edition,
            title: "Foo's email address",
-           document_type: "content_block_email_address",
-           schema_name: "content_block_email_address",
-           details: {
-             "email_address" => "foo@example.com",
-           })
+           document_type: "content_block_pension",
+           schema_name: "content_block_pension")
   end
 
   context "when the target edition doesn't exist" do
@@ -48,7 +45,7 @@ RSpec.describe "Host content" do
     let!(:host_edition) do
       Timecop.freeze Time.zone.parse(last_edited_at) do
         create_live_edition(
-          body: "<p>{{embed:content_block_email_address:#{content_block.content_id}}}</p>\n",
+          body: "<p>{{embed:content_block_pension:#{content_block.content_id}}}</p>\n",
           primary_publishing_organisation_uuid: publishing_organisation.content_id,
         )
       end
@@ -111,7 +108,7 @@ RSpec.describe "Host content" do
   context "when host content appears more than once in a field" do
     let!(:host_edition) do
       create_live_edition(
-        body: "<p>{{embed:content_block_email_address:#{content_block.content_id}}} {{embed:content_block_email_address:#{content_block.content_id}}}</p>\n",
+        body: "<p>{{embed:content_block_pension:#{content_block.content_id}}} {{embed:content_block_pension:#{content_block.content_id}}}</p>\n",
       )
     end
 
@@ -129,7 +126,7 @@ RSpec.describe "Host content" do
       before do
         create_live_edition(
           content_id: host_edition.content_id,
-          body: "<p>{{embed:content_block_email_address:#{content_block.content_id}}}</p>\n",
+          body: "<p>{{embed:content_block_pension:#{content_block.content_id}}}</p>\n",
         )
       end
 

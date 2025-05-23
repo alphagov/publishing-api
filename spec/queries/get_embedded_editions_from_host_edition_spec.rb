@@ -4,7 +4,7 @@ RSpec.describe Queries::GetEmbeddedEditionsFromHostEdition do
     let(:host_edition) do
       create(:live_edition,
              details: {
-               body: "<p>{{embed:email_address:#{embedded_content_id}}}</p>\n",
+               body: "<p>{{embed:content_block_pension:#{embedded_content_id}}}</p>\n",
              },
              links_hash: {
                embed: [embedded_content_id],
@@ -18,22 +18,16 @@ RSpec.describe Queries::GetEmbeddedEditionsFromHostEdition do
     let!(:content_block) do
       create(:live_edition,
              document: block_document,
-             document_type: "content_block_email_address",
-             schema_name: "content_block_email_address",
-             details: {
-               "email_address" => "foo@example.com",
-             })
+             document_type: "content_block_pension",
+             schema_name: "content_block_pension")
     end
 
     let!(:draft_content_block) do
       create(:draft_edition,
              document: block_document,
              user_facing_version: 2,
-             document_type: "content_block_email_address",
-             schema_name: "content_block_email_address",
-             details: {
-               "email_address" => "another@example.com",
-             })
+             document_type: "content_block_pension",
+             schema_name: "content_block_pension")
     end
 
     context "when there are live and draft embedded editions" do

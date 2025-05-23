@@ -18,11 +18,8 @@ RSpec.describe GetHostContentService do
 
     let(:content_block) do
       create(:live_edition,
-             document_type: "content_block_email_address",
-             schema_name: "content_block_email_address",
-             details: {
-               "email_address" => "foo@example.com",
-             })
+             document_type: "content_block_pension",
+             schema_name: "content_block_pension")
     end
 
     context "when the target_content_id doesn't match a Document" do

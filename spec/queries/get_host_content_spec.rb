@@ -18,11 +18,8 @@ RSpec.describe Queries::GetHostContent do
 
     let(:content_block) do
       create(:live_edition,
-             document_type: "content_block_email_address",
-             schema_name: "content_block_email_address",
-             details: {
-               "email_address" => "foo@example.com",
-             })
+             document_type: "content_block_pension",
+             schema_name: "content_block_pension")
     end
 
     let(:target_content_id) { content_block.content_id }
@@ -42,7 +39,7 @@ RSpec.describe Queries::GetHostContent do
       let!(:published_host_editions) do
         create_list(:live_edition, 2,
                     details: {
-                      body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                      body: "<p>{{embed:content_block_pension:#{target_content_id}}}</p>\n",
                     },
                     links_hash: {
                       primary_publishing_organisation: [organisation.content_id],
@@ -54,7 +51,7 @@ RSpec.describe Queries::GetHostContent do
       let!(:draft_host_editions) do
         create_list(:edition, 2,
                     details: {
-                      body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                      body: "<p>{{embed:content_block_pension:#{target_content_id}}}</p>\n",
                     },
                     links_hash: {
                       primary_publishing_organisation: [organisation.content_id],
@@ -131,7 +128,7 @@ RSpec.describe Queries::GetHostContent do
       let!(:published_host_editions) do
         create_list(:live_edition, 2,
                     details: {
-                      body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                      body: "<p>{{embed:content_block_pension:#{target_content_id}}}</p>\n",
                     },
                     links_hash: {
                       embed: [target_content_id],
@@ -165,7 +162,7 @@ RSpec.describe Queries::GetHostContent do
       before do
         create(:live_edition,
                details: {
-                 body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                 body: "<p>{{embed:content_block_pension:#{target_content_id}}}</p>\n",
                },
                links_hash: {
                  primary_publishing_organisation: [organisation.content_id],
@@ -186,7 +183,7 @@ RSpec.describe Queries::GetHostContent do
         create(:live_edition,
                document: create(:document, locale: "cy"),
                details: {
-                 body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                 body: "<p>{{embed:content_block_pension:#{target_content_id}}}</p>\n",
                },
                links_hash: {
                  primary_publishing_organisation: [organisation.content_id],
@@ -209,7 +206,7 @@ RSpec.describe Queries::GetHostContent do
         create(:live_edition, document: welsh_document, base_path: "#{organisation.base_path}.cy")
         create(:live_edition,
                details: {
-                 body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                 body: "<p>{{embed:content_block_pension:#{target_content_id}}}</p>\n",
                },
                links_hash: {
                  primary_publishing_organisation: [organisation.content_id],
@@ -230,7 +227,7 @@ RSpec.describe Queries::GetHostContent do
         target_content_id = content_block.content_id
         _superseded_host_edition = create(:gone_edition,
                                           details: {
-                                            body: "<p>{{embed:email_address:#{target_content_id}}}</p>\n",
+                                            body: "<p>{{embed:content_block_pension:#{target_content_id}}}</p>\n",
                                           },
                                           links_hash: {
                                             primary_publishing_organisation: [organisation.content_id],
@@ -383,11 +380,8 @@ RSpec.describe Queries::GetHostContent do
 
     let(:content_block) do
       create(:live_edition,
-             document_type: "content_block_email_address",
-             schema_name: "content_block_email_address",
-             details: {
-               "email_address" => "foo@example.com",
-             })
+             document_type: "content_block_pension",
+             schema_name: "content_block_pension")
     end
 
     let(:target_content_id) { content_block.content_id }
