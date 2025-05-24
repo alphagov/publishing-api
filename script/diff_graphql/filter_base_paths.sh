@@ -53,7 +53,7 @@ if [ ${#schema_names[@]} -eq 0 ]; then
   exit 1
 fi
 
-sed -i -r -e '/^"url_path"$/d' -e 's/"//g' $data_dir/unfiltered_base_paths
+sed -i '' -r -e '/^"url_path"$/d' -e 's/"//g' $data_dir/unfiltered_base_paths
 
 echo "Unfiltered base paths: $(grep -c '^' $data_dir/unfiltered_base_paths)"
 
