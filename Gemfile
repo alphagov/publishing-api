@@ -26,7 +26,7 @@ gem "prometheus-client"
 gem "rails-pg-extras"
 gem "sentry-sidekiq"
 gem "sidekiq-scheduler"
-gem "sidekiq-unique-jobs", "< 8.0.10"
+gem "sidekiq-unique-jobs", "< 8.0.12"
 gem "strong_migrations"
 gem "with_advisory_lock"
 
