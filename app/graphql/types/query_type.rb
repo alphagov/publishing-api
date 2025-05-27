@@ -28,6 +28,8 @@ module Types
         raise GraphQL::ExecutionError.new("Edition has been unpublished", extensions: unpublishing_data)
       end
 
+      context[:root_edition] = edition
+
       edition
     end
   end
