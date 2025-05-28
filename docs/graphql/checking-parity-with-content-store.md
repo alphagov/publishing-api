@@ -25,7 +25,9 @@ example Trino SQL query. You just need to edit the dates.
 Save the output to `tmp/diff_graphql/unfiltered_base_paths` and then run the
 `script/diff_graphql/filter_base_paths.sh` script to filter the base paths by
 one or more schema names in preparation for running the bulk script. You will
-need a replicated Publishing API database for this script to work properly.
+need a replicated Publishing API or Content Store database for this script to
+work properly. If using Content Store, pass the `--with-content-store` flag to
+the script.
 
 ```sql
 SELECT DISTINCT
