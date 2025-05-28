@@ -6,26 +6,31 @@
   "instructions_to_publishers": "Information about the new state pension",
   "content_id_alias": "new-state-pension",
   "details": {
-    "description": "Description goes here",
-    "rates": {
-      "rate-1": {
-        "title": "Rate 1",
-        "amount": "£221.20",
-        "frequency": "a week",
-        "description": "Your weekly pension amount"
-      },
-      "rate-2": {
-        "title": "Rate without decimal point",
-        "amount": "£221",
-        "frequency": "a week",
-        "description": "Your weekly pension amount"
-      },
-      "rate-3": {
-        "title": "Rate with big value",
-        "amount": "£1,223",
-        "frequency": "a week",
-        "description": "Your weekly pension amount"
+    "block_attributes": {
+      "description": "Description goes here",
+      "rates": {
+        "rate-1": {
+          "title": "Rate 1",
+          "amount": "£221.20",
+          "frequency": "a week",
+          "description": "Your weekly pension amount"
+        },
+        "rate-2": {
+          "title": "Rate without decimal point",
+          "amount": "£221",
+          "frequency": "a week",
+          "description": "Your weekly pension amount"
+        },
+        "rate-3": {
+          "title": "Rate with big value",
+          "amount": "£1,223",
+          "frequency": "a week",
+          "description": "Your weekly pension amount"
+        }
       }
+    },
+    "field_orders": {
+      "default": ["description", "rates"]
     }
   },
   "links": {

@@ -197,40 +197,59 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "description": {
-          "type": "string"
-        },
-        "rates": {
+        "block_attributes": {
           "type": "object",
-          "patternProperties": {
-            "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
+          "required": [
+            "description"
+          ],
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "rates": {
               "type": "object",
-              "required": [
-                "title",
-                "amount",
-                "frequency"
-              ],
-              "additionalProperties": false,
-              "properties": {
-                "amount": {
-                  "type": "string",
-                  "pattern": "^£{1}[1-9]{1,3}(,\\d{3})*(\\.\\d{2})?"
-                },
-                "description": {
-                  "type": "string"
-                },
-                "frequency": {
-                  "type": "string",
-                  "enum": [
-                    "a day",
-                    "a week",
-                    "a month",
-                    "a year"
-                  ]
-                },
-                "title": {
-                  "type": "string"
+              "patternProperties": {
+                "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
+                  "type": "object",
+                  "required": [
+                    "title",
+                    "amount",
+                    "frequency"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "amount": {
+                      "type": "string",
+                      "pattern": "^£{1}[1-9]{1,3}(,\\d{3})*(\\.\\d{2})?"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "frequency": {
+                      "type": "string",
+                      "enum": [
+                        "a day",
+                        "a week",
+                        "a month",
+                        "a year"
+                      ]
+                    },
+                    "title": {
+                      "type": "string"
+                    }
+                  }
                 }
+              }
+            }
+          }
+        },
+        "field_orders": {
+          "type": "object",
+          "properties": {
+            "default_order": {
+              "type": "array",
+              "contains": {
+                "type": "string"
               }
             }
           }

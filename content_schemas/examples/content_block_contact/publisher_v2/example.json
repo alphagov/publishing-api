@@ -6,37 +6,42 @@
   "instructions_to_publishers": "Media and press contact email address for HMRC",
   "content_id_alias": "hmrc-media",
   "details": {
-    "description": "Description goes here",
-    "email_addresses": {
-      "email-1": {
-        "title": "Email 1",
-        "email_address": "hello@example.com",
-        "description": "General enquiries"
+    "block_attributes": {
+      "description": "Description goes here",
+      "email_addresses": {
+        "email-1": {
+          "title": "Email 1",
+          "email_address": "hello@example.com",
+          "description": "General enquiries"
+        },
+        "email-2": {
+          "title": "Email 2",
+          "email_address": "hiagain@example.com",
+          "description": "More enquiries"
+        },
+        "email-3": {
+          "title": "Email 3",
+          "email_address": "bye@example.com",
+          "description": "Another address"
+        }
       },
-      "email-2": {
-        "title": "Email 2",
-        "email_address": "hiagain@example.com",
-        "description": "More enquiries"
-      },
-      "email-3": {
-        "title": "Email 3",
-        "email_address": "bye@example.com",
-        "description": "Another address"
+      "telephones": {
+        "telephone-1": {
+          "title": "Telephone 1",
+          "telephone": "1234 567 89"
+        },
+        "telephone-2": {
+          "title": "Telephone 2",
+          "telephone": "1234 567 89"
+        },
+        "telephone-3": {
+          "title": "Telephone 3",
+          "telephone": "1234 567 89"
+        }
       }
     },
-    "telephones": {
-      "telephone-1": {
-        "title": "Telephone 1",
-        "telephone": "1234 567 89"
-      },
-      "telephone-2": {
-        "title": "Telephone 2",
-        "telephone": "1234 567 89"
-      },
-      "telephone-3": {
-        "title": "Telephone 3",
-        "telephone": "1234 567 89"
-      }
+    "field_orders": {
+      "default": ["description"]
     }
   },
   "links": {
