@@ -71,6 +71,22 @@
         "document_type": "organisation",
         "analytics_identifier": "OT1341"
       }
+    ],
+    "people": [
+      {
+        "api_path": "/api/content/government/people/jacqui-smith",
+        "api_url": "https://www.gov.uk/api/content/government/people/jacqui-smith",
+        "base_path": "/government/people/jacqui-smith",
+        "content_id": "8d7c6906-f1dd-4a7d-ba70-ecd1a08aefe6",
+        "document_type": "person",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2025-03-05T13:18:02Z",
+        "schema_name": "person",
+        "title": "The Rt Hon Baroness Smith of Malvern",
+        "web_url": "https://www.gov.uk/government/people/jacqui-smith",
+        "withdrawn": false
+        }
     ]
   }
 }
