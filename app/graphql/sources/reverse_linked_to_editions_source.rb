@@ -3,7 +3,8 @@ module Sources
     # rubocop:disable Lint/MissingSuper
     def initialize(content_store:, locale:)
       @content_store = content_store.to_sym
-      @locale = locale
+      @primary_locale = locale
+      @locale_with_fallback = [locale, Edition::DEFAULT_LOCALE].uniq
     end
     # rubocop:enable Lint/MissingSuper
 
@@ -12,6 +13,20 @@ module Sources
         links: %i[target_content_id link_type edition_id],
         documents: %i[content_id],
       }
+      row_number_selection = Arel.sql(
+        <<~SQL,
+          row_number() OVER (
+            PARTITION BY "documents"."content_id", "links"."link_type", "links"."target_content_id"
+            ORDER BY (
+              CASE
+                WHEN ("documents"."locale" = ?) THEN 0
+                ELSE 1
+              END
+            )
+          )
+        SQL
+        @primary_locale,
+      )
       content_id_tuples = []
       link_types_map = {}
 
@@ -25,7 +40,7 @@ module Sources
         .joins("INNER JOIN links ON links.link_set_content_id = documents.content_id")
         .where(
           editions: { content_store: @content_store },
-          documents: { locale: @locale },
+          documents: { locale: @locale_with_fallback },
         )
         .where(
           '("links"."target_content_id", "links"."link_type") IN (?)',
@@ -35,13 +50,17 @@ module Sources
           %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
           Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
         )
-        .select("editions.*", all_selections)
+        .select(
+          "editions.*",
+          all_selections,
+          row_number_selection,
+        )
 
       edition_links_source_editions = Edition
         .joins(:document, :links)
         .where(
           editions: { content_store: @content_store },
-          documents: { locale: @locale },
+          documents: { locale: @locale_with_fallback },
         )
         .where(
           '("links"."target_content_id", "links"."link_type") IN (?)',
@@ -51,7 +70,11 @@ module Sources
           %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
           Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
         )
-        .select("editions.*", all_selections)
+        .select(
+          "editions.*",
+          all_selections,
+          row_number_selection,
+        )
 
       all_editions = Edition.from(
         <<~SQL,
@@ -61,7 +84,9 @@ module Sources
             #{edition_links_source_editions.to_sql}
           ) AS editions
         SQL
-      ).order("editions.id")
+      )
+        .where(editions: { row_number: 1 })
+        .order("editions.id")
 
       all_editions.each_with_object(link_types_map) { |edition, hash|
         unless hash[[edition.target_content_id, edition.link_type]].include?(edition)

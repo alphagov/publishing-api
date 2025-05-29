@@ -3,7 +3,8 @@ module Sources
     # rubocop:disable Lint/MissingSuper
     def initialize(content_store:, locale:)
       @content_store = content_store.to_sym
-      @locale = locale
+      @primary_locale = locale
+      @locale_with_fallback = [locale, Edition::DEFAULT_LOCALE].uniq
     end
     # rubocop:enable Lint/MissingSuper
 
@@ -30,7 +31,7 @@ module Sources
         )
         .where(
           editions: { content_store: @content_store },
-          documents: { locale: @locale },
+          documents: { locale: @locale_with_fallback },
         )
         .where(
           %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
@@ -40,6 +41,20 @@ module Sources
           "editions.*",
           all_selections,
           { link_sets: { content_id: :source_content_id } },
+          Arel.sql(
+            <<~SQL,
+              row_number() OVER (
+                PARTITION BY "documents"."content_id", "links"."link_type", "link_sets"."content_id"
+                ORDER BY (
+                  CASE
+                    WHEN ("documents"."locale" = ?) THEN 0
+                    ELSE 1
+                  END
+                )
+              )
+            SQL
+            @primary_locale,
+          ),
         )
 
       edition_links_target_editions = Edition
@@ -62,7 +77,7 @@ module Sources
         )
         .where(
           editions: { content_store: @content_store },
-          documents: { locale: @locale },
+          documents: { locale: @locale_with_fallback },
         )
         .where(
           %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
@@ -72,6 +87,20 @@ module Sources
           "editions.*",
           all_selections,
           { source_documents: { content_id: :source_content_id } },
+          Arel.sql(
+            <<~SQL,
+              row_number() OVER (
+                PARTITION BY "documents"."content_id", "links"."link_type", "source_editions"."id"
+                ORDER BY (
+                  CASE
+                    WHEN ("documents"."locale" = ?) THEN 0
+                    ELSE 1
+                  END
+                )
+              )
+            SQL
+            @primary_locale,
+          ),
         )
 
       all_editions = Edition
@@ -84,6 +113,7 @@ module Sources
             ) AS editions
           SQL
         )
+        .where(editions: { row_number: 1 })
         .order(link_type: :asc, position: :asc)
 
       all_editions.each_with_object(link_types_map) { |edition, hash|
