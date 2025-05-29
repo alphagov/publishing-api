@@ -13,7 +13,7 @@ module Types
         dataloader.with(
           Sources::LinkedToEditionsSource,
           content_store: object.content_store,
-          locale: "en",
+          locale: context[:root_edition].locale,
         )
           .load([object, link_type.to_s])
       end
@@ -26,7 +26,7 @@ module Types
         dataloader.with(
           Sources::ReverseLinkedToEditionsSource,
           content_store: object.content_store,
-          locale: "en",
+          locale: context[:root_edition].locale,
         )
           .load([object, link_type.to_s])
       end

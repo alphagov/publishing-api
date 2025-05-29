@@ -180,4 +180,82 @@ RSpec.describe Sources::LinkedToEditionsSource do
       end
     end
   end
+
+  describe "links between documents with different locales" do
+    it "fetches links matching the specified locale" do
+      content_id_1 = SecureRandom.uuid
+      _edition_1_en = create(:edition, document: create(:document, locale: "en", content_id: content_id_1))
+      edition_1_fr = create(:edition, document: create(:document, locale: "fr", content_id: content_id_1))
+
+      content_id_2 = SecureRandom.uuid
+      _edition_2_en = create(:edition, document: create(:document, locale: "en", content_id: content_id_2))
+      edition_2_fr = create(:edition, document: create(:document, locale: "fr", content_id: content_id_2))
+
+      source_edition = create(
+        :edition,
+        links_hash: { "edition_link" => [content_id_1] },
+      )
+
+      create(
+        :link_set,
+        content_id: source_edition.content_id,
+        links_hash: { "link_set_link" => [content_id_2] },
+      )
+
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request_1 = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: "fr",
+        ).request([source_edition, "edition_link"])
+
+        request_2 = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: "fr",
+        ).request([source_edition, "link_set_link"])
+
+        expect(request_1.load).to match_array([edition_1_fr])
+        expect(request_2.load).to match_array([edition_2_fr])
+      end
+    end
+
+    it "returns English language links if there's no better match available" do
+      content_id_1 = SecureRandom.uuid
+      edition_1_en = create(:edition, document: create(:document, locale: "en", content_id: content_id_1))
+      _edition_1_fr = create(:edition, document: create(:document, locale: "fr", content_id: content_id_1))
+
+      content_id_2 = SecureRandom.uuid
+      edition_2_en = create(:edition, document: create(:document, locale: "en", content_id: content_id_2))
+      _edition_2_fr = create(:edition, document: create(:document, locale: "fr", content_id: content_id_2))
+
+      source_edition = create(
+        :edition,
+        links_hash: { "edition_link" => [content_id_1] },
+      )
+
+      create(
+        :link_set,
+        content_id: source_edition.content_id,
+        links_hash: { "link_set_link" => [content_id_2] },
+      )
+
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request_1 = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: "de",
+        ).request([source_edition, "edition_link"])
+
+        request_2 = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: "de",
+        ).request([source_edition, "link_set_link"])
+
+        expect(request_1.load).to match_array([edition_1_en])
+        expect(request_2.load).to match_array([edition_2_en])
+      end
+    end
+  end
 end

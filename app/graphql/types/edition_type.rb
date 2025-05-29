@@ -106,14 +106,14 @@ module Types
           dataloader.with(
             Sources::ReverseLinkedToEditionsSource,
             content_store: object.content_store,
-            locale: "en",
+            locale: context[:root_edition].locale,
           )
             .load([object, "role"])
         else
           dataloader.with(
             Sources::ReverseLinkedToEditionsSource,
             content_store: object.content_store,
-            locale: "en",
+            locale: context[:root_edition].locale,
           )
             .load([object, "person"])
         end
