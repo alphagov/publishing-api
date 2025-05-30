@@ -154,6 +154,7 @@ module Types
       field :seniority, Integer
       field :started_on, Types::ContentApiDatetime
       field :supports_historical_accounts, Boolean
+      field :url_override, String
       field :whip_organisation, WhipOrganisation
       field :world_locations, [EditionType], null: false
     end
