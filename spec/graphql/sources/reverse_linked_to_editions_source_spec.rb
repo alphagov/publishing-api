@@ -43,6 +43,26 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
     end
   end
 
+  context "when the same document is both a link set link and an edition link" do
+    it "only returns the document once" do
+      target_edition = create(:edition)
+
+      source_edition = create(:edition,
+                              links_hash: {
+                                "test_link" => [target_edition.content_id],
+                              })
+
+      link_set = create(:link_set, content_id: source_edition.content_id)
+      create(:link, link_set: link_set, target_content_id: target_edition.content_id, link_type: "test_link")
+
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(described_class, content_store: target_edition.content_store).request([target_edition, "test_link"])
+
+        expect(request.load).to eq([source_edition])
+      end
+    end
+  end
+
   context "when the linked item is unpublished" do
     %w[children parent related_statistical_data_sets].each do |link_type|
       it "includes unpublished links when they are of the permitted type #{link_type}" do

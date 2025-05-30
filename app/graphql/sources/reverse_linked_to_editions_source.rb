@@ -51,7 +51,9 @@ module Sources
       all_editions.each_with_object(link_types_map) { |edition, hash|
         next if edition.state == "unpublished" && %w[children parent related_statistical_data_sets].exclude?(edition.link_type)
 
-        hash[[edition.target_content_id, edition.link_type]] << edition
+        unless hash[[edition.target_content_id, edition.link_type]].include?(edition)
+          hash[[edition.target_content_id, edition.link_type]] << edition
+        end
       }.values
     end
   end
