@@ -430,18 +430,6 @@
           type: "string",
         },
       },
-      tiers_or_standalone_items: {
-        type: "array",
-        items: {
-          type: "string",
-        },
-      },
-      funding_amount: {
-        type: "array",
-        items: {
-          type: "string",
-        },
-      },
     },
   },
   data_ethics_guidance_document_metadata: {
