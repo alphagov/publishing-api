@@ -9,7 +9,7 @@ module Types
 
     def edition(base_path:, content_store:)
       edition = Edition
-        .includes(:unpublishing)
+        .includes(:document, :unpublishing)
         .where(content_store:)
         .find_by(base_path:)
 
@@ -27,6 +27,8 @@ module Types
 
         raise GraphQL::ExecutionError.new("Edition has been unpublished", extensions: unpublishing_data)
       end
+
+      context[:root_edition] = edition
 
       edition
     end

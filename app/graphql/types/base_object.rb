@@ -10,7 +10,11 @@ module Types
       field(link_type.to_sym, graphql_field_type)
 
       define_method(link_type.to_sym) do
-        dataloader.with(Sources::LinkedToEditionsSource, content_store: object.content_store)
+        dataloader.with(
+          Sources::LinkedToEditionsSource,
+          content_store: object.content_store,
+          locale: context[:root_edition].locale,
+        )
           .load([object, link_type.to_s])
       end
     end
@@ -19,7 +23,11 @@ module Types
       field(field_name.to_sym, graphql_field_type)
 
       define_method(field_name.to_sym) do
-        dataloader.with(Sources::ReverseLinkedToEditionsSource, content_store: object.content_store)
+        dataloader.with(
+          Sources::ReverseLinkedToEditionsSource,
+          content_store: object.content_store,
+          locale: context[:root_edition].locale,
+        )
           .load([object, link_type.to_s])
       end
     end
