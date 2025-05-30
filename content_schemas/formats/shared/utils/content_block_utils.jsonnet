@@ -1,5 +1,6 @@
 {
    embedded_object(properties, required):: {
+      anchor: "mode",
       type: "object",
       patternProperties: {
         "^[a-z0-9]+(?:-[a-z0-9]+)*$": {

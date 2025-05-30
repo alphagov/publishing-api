@@ -231,7 +231,8 @@
                 }
               }
             }
-          }
+          },
+          "something": "mode"
         },
         "contact_forms": {
           "type": "object",
@@ -253,7 +254,8 @@
                 }
               }
             }
-          }
+          },
+          "something": "mode"
         },
         "description": {
           "type": "string"
@@ -281,7 +283,8 @@
                 }
               }
             }
-          }
+          },
+          "something": "mode"
         },
         "telephones": {
           "type": "object",
@@ -302,7 +305,8 @@
                 }
               }
             }
-          }
+          },
+          "something": "mode"
         }
       }
     },
