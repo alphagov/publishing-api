@@ -242,5 +242,60 @@ RSpec.describe "GraphQL" do
         end
       end
     end
+
+    it "handles multiple copies of the same linked-to Edition for distinct link_types" do
+      source_edition = create(:live_edition, title: "News Article")
+      linked_to_edition = create(:live_edition, title: "News Office")
+
+      create(
+        :link_set,
+        content_id: source_edition.content_id,
+        links_hash: {
+          "organisations" => [linked_to_edition.content_id],
+          "primary_publishing_organisation" => [linked_to_edition.content_id],
+        },
+      )
+
+      post "/graphql", params: {
+        query:
+          "{
+            edition(base_path: \"#{source_edition.base_path}\") {
+              ... on Edition {
+                title
+
+                links {
+                  organisations {
+                    title
+                  }
+
+                  primary_publishing_organisation {
+                    title
+                  }
+                }
+              }
+            }
+          }",
+      }
+
+      expected = {
+        data: {
+          edition: {
+            title: "News Article",
+            links: {
+              organisations: [
+                { title: "News Office" },
+              ],
+              primary_publishing_organisation: [
+                { title: "News Office" },
+              ],
+            },
+          },
+        },
+      }
+
+      parsed_response = JSON.parse(response.body).deep_symbolize_keys
+
+      expect(parsed_response).to eq(expected)
+    end
   end
 end
