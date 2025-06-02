@@ -27,10 +27,22 @@ module Types
               field :whip_organisation, MinistersIndexRoleDetailsWhipOrganisation
             end
 
+            class MinistersIndexRoleLinks < Types::BaseObject
+              class Organisation < Types::BaseObject
+                field :content_id, String
+              end
+
+              # We can work backwards from the `ordered_roles` link_type which goes:
+              #     Organisation --ordered_roles--> [Role]
+              # To work out which organisations this role belongs to:
+              reverse_links_field :organisations, :ordered_roles, [Organisation]
+            end
+
             field :content_id, String
             field :details, MinistersIndexRoleDetails
             field :title, String
             field :web_url, String
+            field :links, MinistersIndexRoleLinks, method: :itself
           end
 
           field :role, [MinistersIndexRole]
@@ -85,6 +97,7 @@ module Types
       field :links, DepartmentLinks, method: :itself
       field :title, String
       field :web_url, String
+      field :content_id, String
     end
 
     class MinistersIndexLinks < Types::BaseObject
