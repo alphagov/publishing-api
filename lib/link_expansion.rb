@@ -102,7 +102,7 @@ private
     # FIXME: We're leaking publishing app domain knowledge into the API here.
     # The agreed approach will be to allow any withdrawn links to appear but
     # this requires we assess impact on the rendering applications first.
-    %i[children parent related_statistical_data_sets].include?(link_type) ||
+    Link::PERMITTED_UNPUBLISHED_LINK_TYPES.include?(link_type.to_s) ||
       edition_hash[:state] != "unpublished"
   end
 

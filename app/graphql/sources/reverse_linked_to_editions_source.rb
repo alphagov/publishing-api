@@ -49,7 +49,8 @@ module Sources
       ).order("editions.id")
 
       all_editions.each_with_object(link_types_map) { |edition, hash|
-        next if edition.state == "unpublished" && %w[children parent related_statistical_data_sets].exclude?(edition.link_type)
+        next if edition.state == "unpublished" &&
+          Link::PERMITTED_UNPUBLISHED_LINK_TYPES.exclude?(edition.link_type)
 
         unless hash[[edition.target_content_id, edition.link_type]].include?(edition)
           hash[[edition.target_content_id, edition.link_type]] << edition

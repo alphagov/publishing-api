@@ -1,4 +1,10 @@
 class Link < ApplicationRecord
+  PERMITTED_UNPUBLISHED_LINK_TYPES = %w[
+    children
+    parent
+    related_statistical_data_sets
+  ].freeze
+
   include SymbolizeJSON
 
   belongs_to :link_set,

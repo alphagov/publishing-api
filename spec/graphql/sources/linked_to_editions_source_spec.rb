@@ -107,7 +107,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
   end
 
   context "when the linked item is unpublished" do
-    %w[children parent related_statistical_data_sets].each do |link_type|
+    Link::PERMITTED_UNPUBLISHED_LINK_TYPES.each do |link_type|
       it "includes unpublished links when they are of the permitted type #{link_type}" do
         edition_linked_edition = create(:edition, content_store: "live")
         withdrawn_edition_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
