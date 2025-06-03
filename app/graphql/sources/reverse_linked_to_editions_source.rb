@@ -27,6 +27,10 @@ module Sources
           '("links"."target_content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),
         )
+        .where(
+          %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
+          Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
+        )
         .select("editions.*", all_selections)
 
       edition_links_source_editions = Edition
@@ -35,6 +39,10 @@ module Sources
         .where(
           '("links"."target_content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),
+        )
+        .where(
+          %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
+          Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
         )
         .select("editions.*", all_selections)
 
@@ -49,9 +57,6 @@ module Sources
       ).order("editions.id")
 
       all_editions.each_with_object(link_types_map) { |edition, hash|
-        next if edition.state == "unpublished" &&
-          Link::PERMITTED_UNPUBLISHED_LINK_TYPES.exclude?(edition.link_type)
-
         unless hash[[edition.target_content_id, edition.link_type]].include?(edition)
           hash[[edition.target_content_id, edition.link_type]] << edition
         end
