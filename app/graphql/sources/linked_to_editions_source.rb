@@ -1,8 +1,10 @@
 module Sources
   class LinkedToEditionsSource < GraphQL::Dataloader::Source
     # rubocop:disable Lint/MissingSuper
-    def initialize(content_store:)
+    def initialize(content_store:, locale:)
       @content_store = content_store.to_sym
+      @primary_locale = locale
+      @locale_with_fallback = [locale, Edition::DEFAULT_LOCALE].uniq
     end
     # rubocop:enable Lint/MissingSuper
 
@@ -11,6 +13,20 @@ module Sources
         links: %i[link_type position],
         documents: %i[content_id],
       }
+      row_number_selection = Arel.sql(
+        <<~SQL,
+          row_number() OVER (
+            PARTITION BY "documents"."content_id", "links"."link_type"
+            ORDER BY (
+              CASE
+                WHEN ("documents"."locale" = ?) THEN 0
+                ELSE 1
+              END
+            )
+          )
+        SQL
+        @primary_locale,
+      )
       edition_id_tuples = []
       content_id_tuples = []
       link_types_map = {}
@@ -29,12 +45,17 @@ module Sources
         )
         .where(
           editions: { content_store: @content_store },
-          documents: { locale: "en" },
+          documents: { locale: @locale_with_fallback },
+        )
+        .where(
+          %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
+          Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
         )
         .select(
           "editions.*",
           all_selections,
           { link_sets: { content_id: :source_content_id } },
+          row_number_selection,
         )
 
       edition_links_target_editions = Edition
@@ -57,12 +78,17 @@ module Sources
         )
         .where(
           editions: { content_store: @content_store },
-          documents: { locale: "en" },
+          documents: { locale: @locale_with_fallback },
+        )
+        .where(
+          %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
+          Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
         )
         .select(
           "editions.*",
           all_selections,
           { source_documents: { content_id: :source_content_id } },
+          row_number_selection,
         )
 
       all_editions = Edition
@@ -75,11 +101,10 @@ module Sources
             ) AS editions
           SQL
         )
+        .where(editions: { row_number: 1 })
         .order(link_type: :asc, position: :asc)
 
       all_editions.each_with_object(link_types_map) { |edition, hash|
-        next if edition.state == "unpublished" && %w[children parent related_statistical_data_sets].exclude?(edition.link_type)
-
         hash[[edition.source_content_id, edition.link_type]] << edition
       }.values
     end

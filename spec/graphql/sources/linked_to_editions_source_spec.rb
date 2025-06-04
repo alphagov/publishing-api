@@ -10,7 +10,11 @@ RSpec.describe Sources::LinkedToEditionsSource do
     create(:link, link_set: link_set, target_content_id: target_edition_3.content_id, link_type: "test_link")
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
+      request = dataloader.with(
+        described_class,
+        content_store: source_edition.content_store,
+        locale: "en",
+      ).request([source_edition, "test_link"])
 
       expect(request.load).to match_array([target_edition_1, target_edition_3])
     end
@@ -28,7 +32,11 @@ RSpec.describe Sources::LinkedToEditionsSource do
                             })
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
+      request = dataloader.with(
+        described_class,
+        content_store: source_edition.content_store,
+        locale: "en",
+      ).request([source_edition, "test_link"])
 
       expect(request.load).to match_array([target_edition_1, target_edition_3])
     end
@@ -49,7 +57,11 @@ RSpec.describe Sources::LinkedToEditionsSource do
     create(:link, link_set: link_set, target_content_id: target_edition_3.content_id, link_type: "test_link")
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
+      request = dataloader.with(
+        described_class,
+        content_store: source_edition.content_store,
+        locale: "en",
+      ).request([source_edition, "test_link"])
 
       expect(request.load).to match_array([target_edition_1, target_edition_3])
     end
@@ -72,7 +84,11 @@ RSpec.describe Sources::LinkedToEditionsSource do
     create(:link, link_set:, target_content_id: target_edition_4.content_id, link_type: "test_link")
 
     GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
+      request = dataloader.with(
+        described_class,
+        content_store: source_edition.content_store,
+        locale: "en",
+      ).request([source_edition, "test_link"])
 
       expect(request.load).to match_array([target_edition_3, target_edition_4])
     end
@@ -96,6 +112,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
       request = dataloader.with(
         described_class,
         content_store: source_edition.content_store,
+        locale: "en",
       ).request([
         source_edition,
         "test_link",
@@ -107,7 +124,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
   end
 
   context "when the linked item is unpublished" do
-    %w[children parent related_statistical_data_sets].each do |link_type|
+    Link::PERMITTED_UNPUBLISHED_LINK_TYPES.each do |link_type|
       it "includes unpublished links when they are of the permitted type #{link_type}" do
         edition_linked_edition = create(:edition, content_store: "live")
         withdrawn_edition_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
@@ -125,7 +142,11 @@ RSpec.describe Sources::LinkedToEditionsSource do
         create(:link, link_set:, target_content_id: withdrawn_link_set_linked_edition.content_id, link_type:)
 
         GraphQL::Dataloader.with_dataloading do |dataloader|
-          request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, link_type])
+          request = dataloader.with(
+            described_class,
+            content_store: source_edition.content_store,
+            locale: "en",
+          ).request([source_edition, link_type])
 
           expect(request.load).to match_array([edition_linked_edition, withdrawn_edition_linked_edition, link_set_linked_edition, withdrawn_link_set_linked_edition])
         end
@@ -149,9 +170,284 @@ RSpec.describe Sources::LinkedToEditionsSource do
       create(:link, link_set:, target_content_id: withdrawn_link_set_linked_edition.content_id, link_type: "test_link")
 
       GraphQL::Dataloader.with_dataloading do |dataloader|
-        request = dataloader.with(described_class, content_store: source_edition.content_store).request([source_edition, "test_link"])
+        request = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: "en",
+        ).request([source_edition, "test_link"])
 
         expect(request.load).to match_array([edition_linked_edition, link_set_linked_edition])
+      end
+    end
+  end
+
+  describe "links between documents with different locales" do
+    it "includes links matching the specified locale" do
+      content_id_1 = SecureRandom.uuid
+      _edition_1_en = create(:edition, document: create(:document, locale: "en", content_id: content_id_1))
+      edition_1_fr = create(:edition, document: create(:document, locale: "fr", content_id: content_id_1))
+
+      content_id_2 = SecureRandom.uuid
+      _edition_2_en = create(:edition, document: create(:document, locale: "en", content_id: content_id_2))
+      edition_2_fr = create(:edition, document: create(:document, locale: "fr", content_id: content_id_2))
+
+      source_edition = create(
+        :edition,
+        links_hash: { "test_link" => [content_id_1] },
+      )
+
+      create(
+        :link_set,
+        content_id: source_edition.content_id,
+        links_hash: { "test_link" => [content_id_2] },
+      )
+
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: "fr",
+        ).request([source_edition, "test_link"])
+
+        expect(request.load).to contain_exactly(edition_1_fr, edition_2_fr)
+      end
+    end
+
+    it "includes English language links if there's no better match available" do
+      content_id_1 = SecureRandom.uuid
+      edition_1_en = create(:edition, document: create(:document, locale: "en", content_id: content_id_1))
+      _edition_1_fr = create(:edition, document: create(:document, locale: "fr", content_id: content_id_1))
+
+      content_id_2 = SecureRandom.uuid
+      edition_2_en = create(:edition, document: create(:document, locale: "en", content_id: content_id_2))
+      _edition_2_fr = create(:edition, document: create(:document, locale: "fr", content_id: content_id_2))
+
+      source_edition = create(
+        :edition,
+        links_hash: { "test_link" => [content_id_1] },
+      )
+
+      create(
+        :link_set,
+        content_id: source_edition.content_id,
+        links_hash: { "test_link" => [content_id_2] },
+      )
+
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: "de",
+        ).request([source_edition, "test_link"])
+
+        expect(request.load).to contain_exactly(edition_1_en, edition_2_en)
+      end
+    end
+
+    it "doesn't include a link if none match the locale or English" do
+      content_id_1 = SecureRandom.uuid
+      _edition_1_de = create(:edition, document: create(:document, locale: "de", content_id: content_id_1))
+      _edition_1_fr = create(:edition, document: create(:document, locale: "fr", content_id: content_id_1))
+
+      content_id_2 = SecureRandom.uuid
+      _edition_2_de = create(:edition, document: create(:document, locale: "de", content_id: content_id_2))
+      _edition_2_fr = create(:edition, document: create(:document, locale: "fr", content_id: content_id_2))
+
+      source_edition = create(
+        :edition,
+        links_hash: { "test_link" => [content_id_1] },
+      )
+
+      create(
+        :link_set,
+        content_id: source_edition.content_id,
+        links_hash: { "test_link" => [content_id_2] },
+      )
+
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: "hu",
+        ).request([source_edition, "test_link"])
+
+        expect(request.load).to match_array([])
+      end
+    end
+
+    context "when the source Edition is live" do
+      it "defaults to including a (live) 'en' link if the locale-matching one is draft" do
+        content_id_1 = SecureRandom.uuid
+        edition_1_en = create(
+          :live_edition,
+          document: create(:document, locale: "en", content_id: content_id_1),
+        )
+        _edition_1_fr = create(
+          :draft_edition,
+          document: create(:document, locale: "fr", content_id: content_id_1),
+        )
+
+        content_id_2 = SecureRandom.uuid
+        edition_2_en = create(
+          :live_edition,
+          document: create(:document, locale: "en", content_id: content_id_2),
+        )
+        _edition_2_fr = create(
+          :draft_edition,
+          document: create(:document, locale: "fr", content_id: content_id_2),
+        )
+
+        source_edition = create(
+          :live_edition,
+          links_hash: { "test_link" => [content_id_1] },
+        )
+
+        create(
+          :link_set,
+          content_id: source_edition.content_id,
+          links_hash: { "test_link" => [content_id_2] },
+        )
+
+        GraphQL::Dataloader.with_dataloading do |dataloader|
+          request = dataloader.with(
+            described_class,
+            content_store: source_edition.content_store,
+            locale: "fr",
+          ).request([source_edition, "test_link"])
+
+          expect(request.load).to contain_exactly(edition_1_en, edition_2_en)
+        end
+      end
+
+      it "doesn't include any link if none are live" do
+        content_id_1 = SecureRandom.uuid
+        _edition_1_en = create(
+          :draft_edition,
+          document: create(:document, locale: "en", content_id: content_id_1),
+        )
+        _edition_1_fr = create(
+          :draft_edition,
+          document: create(:document, locale: "fr", content_id: content_id_1),
+        )
+
+        content_id_2 = SecureRandom.uuid
+        _edition_2_en = create(
+          :draft_edition,
+          document: create(:document, locale: "en", content_id: content_id_2),
+        )
+        _edition_2_fr = create(
+          :draft_edition,
+          document: create(:document, locale: "fr", content_id: content_id_2),
+        )
+
+        source_edition = create(
+          :live_edition,
+          links_hash: { "test_link" => [content_id_1] },
+        )
+
+        create(
+          :link_set,
+          content_id: source_edition.content_id,
+          links_hash: { "test_link" => [content_id_2] },
+        )
+
+        GraphQL::Dataloader.with_dataloading do |dataloader|
+          request = dataloader.with(
+            described_class,
+            content_store: source_edition.content_store,
+            locale: "fr",
+          ).request([source_edition, "test_link"])
+
+          expect(request.load).to match_array([])
+        end
+      end
+    end
+
+    context "when the linked Edition with matching locale is unpublished" do
+      it "includes the link if it's a permitted link_type" do
+        content_id_1 = SecureRandom.uuid
+        _edition_1_en = create(
+          :live_edition,
+          document: create(:document, locale: "en", content_id: content_id_1),
+        )
+        edition_1_fr = create(
+          :withdrawn_unpublished_edition,
+          document: create(:document, locale: "fr", content_id: content_id_1),
+        )
+
+        content_id_2 = SecureRandom.uuid
+        _edition_2_en = create(
+          :live_edition,
+          document: create(:document, locale: "en", content_id: content_id_2),
+        )
+        edition_2_fr = create(
+          :withdrawn_unpublished_edition,
+          document: create(:document, locale: "fr", content_id: content_id_2),
+        )
+
+        source_edition = create(
+          :live_edition,
+          links_hash: { "related_statistical_data_sets" => [content_id_1] },
+        )
+
+        create(
+          :link_set,
+          content_id: source_edition.content_id,
+          links_hash: { "related_statistical_data_sets" => [content_id_2] },
+        )
+
+        GraphQL::Dataloader.with_dataloading do |dataloader|
+          request = dataloader.with(
+            described_class,
+            content_store: source_edition.content_store,
+            locale: "fr",
+          ).request([source_edition, "related_statistical_data_sets"])
+
+          expect(request.load).to contain_exactly(edition_1_fr, edition_2_fr)
+        end
+      end
+
+      it "defaults to including a (not-unpublished) 'en' link if the better-matching one isn't a permitted link_type" do
+        content_id_1 = SecureRandom.uuid
+        edition_1_en = create(
+          :live_edition,
+          document: create(:document, locale: "en", content_id: content_id_1),
+        )
+        _edition_1_fr = create(
+          :withdrawn_unpublished_edition,
+          document: create(:document, locale: "fr", content_id: content_id_1),
+        )
+
+        content_id_2 = SecureRandom.uuid
+        edition_2_en = create(
+          :live_edition,
+          document: create(:document, locale: "en", content_id: content_id_2),
+        )
+        _edition_2_fr = create(
+          :withdrawn_unpublished_edition,
+          document: create(:document, locale: "fr", content_id: content_id_2),
+        )
+
+        source_edition = create(
+          :live_edition,
+          links_hash: { "test_link" => [content_id_1] },
+        )
+
+        create(
+          :link_set,
+          content_id: source_edition.content_id,
+          links_hash: { "test_link" => [content_id_2] },
+        )
+
+        GraphQL::Dataloader.with_dataloading do |dataloader|
+          request = dataloader.with(
+            described_class,
+            content_store: source_edition.content_store,
+            locale: "fr",
+          ).request([source_edition, "test_link"])
+
+          expect(request.load).to contain_exactly(edition_1_en, edition_2_en)
+        end
       end
     end
   end

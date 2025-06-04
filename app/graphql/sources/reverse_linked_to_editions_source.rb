@@ -1,8 +1,10 @@
 module Sources
   class ReverseLinkedToEditionsSource < GraphQL::Dataloader::Source
     # rubocop:disable Lint/MissingSuper
-    def initialize(content_store:)
+    def initialize(content_store:, locale:)
       @content_store = content_store.to_sym
+      @primary_locale = locale
+      @locale_with_fallback = [locale, Edition::DEFAULT_LOCALE].uniq
     end
     # rubocop:enable Lint/MissingSuper
 
@@ -11,6 +13,20 @@ module Sources
         links: %i[target_content_id link_type edition_id],
         documents: %i[content_id],
       }
+      row_number_selection = Arel.sql(
+        <<~SQL,
+          row_number() OVER (
+            PARTITION BY "documents"."content_id"
+            ORDER BY (
+              CASE
+                WHEN ("documents"."locale" = ?) THEN 0
+                ELSE 1
+              END
+            )
+          )
+        SQL
+        @primary_locale,
+      )
       content_id_tuples = []
       link_types_map = {}
 
@@ -22,21 +38,43 @@ module Sources
       link_set_links_source_editions = Edition
         .joins(:document)
         .joins("INNER JOIN links ON links.link_set_content_id = documents.content_id")
-        .where(editions: { content_store: @content_store })
+        .where(
+          editions: { content_store: @content_store },
+          documents: { locale: @locale_with_fallback },
+        )
         .where(
           '("links"."target_content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),
         )
-        .select("editions.*", all_selections)
+        .where(
+          %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
+          Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
+        )
+        .select(
+          "editions.*",
+          all_selections,
+          row_number_selection,
+        )
 
       edition_links_source_editions = Edition
         .joins(:document, :links)
-        .where(editions: { content_store: @content_store })
+        .where(
+          editions: { content_store: @content_store },
+          documents: { locale: @locale_with_fallback },
+        )
         .where(
           '("links"."target_content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),
         )
-        .select("editions.*", all_selections)
+        .where(
+          %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
+          Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
+        )
+        .select(
+          "editions.*",
+          all_selections,
+          row_number_selection,
+        )
 
       all_editions = Edition.from(
         <<~SQL,
@@ -46,11 +84,11 @@ module Sources
             #{edition_links_source_editions.to_sql}
           ) AS editions
         SQL
-      ).order("editions.id")
+      )
+        .where(editions: { row_number: 1 })
+        .order("editions.id")
 
       all_editions.each_with_object(link_types_map) { |edition, hash|
-        next if edition.state == "unpublished" && %w[children parent related_statistical_data_sets].exclude?(edition.link_type)
-
         unless hash[[edition.target_content_id, edition.link_type]].include?(edition)
           hash[[edition.target_content_id, edition.link_type]] << edition
         end
