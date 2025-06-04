@@ -15,6 +15,14 @@ Store responses:
   Diffs will be output to `tmp/diff_graphql/diffs` by default. Run the script
   with `--help` for information on all the required and optional arguments.
 
+## Issue with Bash version
+
+If you get a syntax error when running the diffing scripts, you might be using
+an old version of Bash. At the time of writing, the version of Bash shipped with
+macOS is two major versions behind the latest release and missing some features
+used in the scripts. You can
+[install a modern version via Homebrew](https://formulae.brew.sh/formula/bash).
+
 ## Retrieving base paths from logs using Athena
 
 You can use
