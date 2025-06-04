@@ -19,13 +19,13 @@ function curl_and_strip_hashes() {
     esac
   done
 
-  curl -u $username:$password $domain$curl_path \
+  curl -u "$username:$password" "$domain$curl_path" \
     | sed -r \
         -e 's/\?graphql=true//g' \
         -e 's/nonce="[^"]{22}=="/nonce="HASH=="/g' \
         -e 's/ (aria-labelledby|for|id)="([^"]+)-[a-z0-9]{8}"/ \1="\2-HASH"/g' \
         -e 's/<meta name="govuk:updated-at" content=".*">/<meta name="govuk:updated-at" content="TIMESTAMP">/' \
-    > $output_path
+    > "$output_path"
 }
 
 function diff_html() {
@@ -56,7 +56,7 @@ function diff_html() {
   else
     diff \
       --color=always \
-      $style_flags \
+      ${style_flags:+"$style_flags"} \
       tmp/diff_graphql/content_store_response.html \
       tmp/diff_graphql/graphql_response.html
   fi
@@ -73,16 +73,16 @@ function prepare_html() {
   done
 
   curl_and_strip_hashes \
-    --curl-path $base_path \
+    --curl-path "$base_path" \
     --output-path tmp/diff_graphql/content_store_response.html \
-    --environment $environment \
+    --environment "$environment" \
     --username "$username" \
     --password "$password"
 
   curl_and_strip_hashes \
-    --curl-path $base_path?graphql=true \
+    --curl-path "$base_path?graphql=true" \
     --output-path tmp/diff_graphql/graphql_response.html \
-    --environment $environment \
+    --environment "$environment" \
     --username "$username" \
     --password "$password"
 }

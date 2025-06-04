@@ -5,12 +5,12 @@
 
 source script/diff_graphql/functions.sh
 
-while [[ $download_html != @(y|yes|n|no) ]]; do
+while [[ "$download_html" != @(y|yes|n|no) ]]; do
   read -p 'Download HTML (y[es]/n[o])? ' download_html
 done
 
 if [[ $download_html == @(y|yes) ]]; then
-  while [ -z $base_path ]; do
+  while [ -z "$base_path" ]; do
     read -p 'Enter base path (e.g. "/world"): ' base_path
   done
 
@@ -19,11 +19,11 @@ if [[ $download_html == @(y|yes) ]]; then
   done
 
   if [[ $environment == @(i|integration) ]]; then
-    while [ -z $username ]; do
+    while [ -z "$username" ]; do
       read -p 'Enter username: ' username
     done
 
-    while [ -z $password ]; do
+    while [ -z "$password" ]; do
       read -s -p 'Enter password: ' password
     done
   fi
@@ -32,10 +32,10 @@ if [[ $download_html == @(y|yes) ]]; then
 
   echo ''
   prepare_html \
-    --base-path $base_path \
-    --environment $environment \
-    --username $username \
-    --password $password
+    --base-path "$base_path" \
+    --environment "$environment" \
+    --username "$username" \
+    --password "$password"
   echo ''
 fi
 
