@@ -109,31 +109,30 @@ mkdir -p "$output_dir"
 diff_count=0
 
 while read -r base_path; do
-  output_path="$output_dir/$(echo $base_path | sed 's/^\///' | sed 's/\//__/g')"
-  echo -n "" > $output_path
+  output_path="$output_dir/$(echo "$base_path" | sed 's/^\///' | sed 's/\//__/g')"
+  echo -n "" > "$output_path"
   echo -e "Processing $base_path\n"
   prepare_html \
-    --base-path $base_path \
-    --environment $environment \
-    --username $username \
-    --password $password
-  diff_html --diff-style $diff_style >> $output_path
+    --base-path "$base_path" \
+    --environment "$environment" \
+    --username "$username" \
+    --password "$password"
 
-  if [ $? -eq 0 ]; then
-    rm $output_path
+  if diff_html --diff-style "$diff_style" >> "$output_path"; then
+    rm "$output_path"
   else
-    echo -e "$base_path\n\n$(cat $output_path)" > $output_path
+    echo -e "$base_path\n\n$(cat "$output_path")" > "$output_path"
 
     diff_count=$((diff_count + 1))
 
-    if [ ! "$max_diffs" -eq 0 ] && [ $diff_count -ge $max_diffs ]; then
+    if [ "$max_diffs" -ne 0 ] && [ $diff_count -ge "$max_diffs" ]; then
       echo -e "\nMax diffs ($max_diffs) reached. Exiting script."
       exit 1
     fi
   fi
 
-  echo -e "\nProcessed $line\nJust a second...\n"
+  echo -e "\nProcessed $base_path\nJust a second...\n"
   sleep 1
-done < $base_paths_file_path
+done < "$base_paths_file_path"
 
 echo "Finished!"
