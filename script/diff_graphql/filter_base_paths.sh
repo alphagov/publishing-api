@@ -4,7 +4,7 @@
 
 data_dir='tmp/diff_graphql'
 schema_names=()
-help_text="script/diff_graphql/bulk.sh
+help_text="script/diff_graphql/filter_base_paths.sh
 
 DESCRIPTION
      Filter a list of base paths by one or more given schema names.
