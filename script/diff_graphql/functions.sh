@@ -25,6 +25,7 @@ function curl_and_strip_hashes() {
         -e 's/nonce="[^"]{22}=="/nonce="HASH=="/g' \
         -e 's/ (aria-labelledby|for|id)="([^"]+)-[a-z0-9]{8}"/ \1="\2-HASH"/g' \
         -e 's/<meta name="govuk:updated-at" content=".*">/<meta name="govuk:updated-at" content="TIMESTAMP">/' \
+        -e '/<meta name="govuk:content-has-history" content=".*">/d' \
     > "$output_path"
 }
 
