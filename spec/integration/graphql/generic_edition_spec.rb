@@ -297,5 +297,384 @@ RSpec.describe "GraphQL" do
 
       expect(parsed_response).to eq(expected)
     end
+
+    it "handles multiple copies of the same LinkSet Link for distinct source Editions" do
+      source_edition = create(:live_edition, title: "News Article")
+      organisation_edition = create(:live_edition, title: "News Office")
+      related_edition1 = create(:live_edition, title: "Related Article 1")
+      related_edition2 = create(:live_edition, title: "Related Article 2")
+
+      create(
+        :link_set,
+        content_id: related_edition1.content_id,
+        links_hash: {
+          "parent_taxons" => [organisation_edition.content_id],
+        },
+      )
+
+      create(
+        :link_set,
+        content_id: related_edition2.content_id,
+        links_hash: {
+          "parent_taxons" => [organisation_edition.content_id],
+        },
+      )
+
+      create(
+        :link_set,
+        content_id: source_edition.content_id,
+        links_hash: {
+          "taxons" => [
+            organisation_edition.content_id,
+            related_edition1.content_id,
+            related_edition2.content_id,
+          ],
+        },
+      )
+
+      post "/graphql", params: {
+        query:
+          "{
+            edition(base_path: \"#{source_edition.base_path}\") {
+              ... on Edition {
+                title
+
+                links {
+                  taxons {
+                    title
+
+                    links {
+                      parent_taxons {
+                        title
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }",
+      }
+
+      expected = {
+        data: {
+          edition: {
+            title: "News Article",
+            links: {
+              taxons: [
+                {
+                  title: "News Office",
+                  links: {
+                    parent_taxons: [],
+                  },
+                },
+                {
+                  title: "Related Article 1",
+                  links: {
+                    parent_taxons: [
+                      { title: "News Office" },
+                    ],
+                  },
+                },
+                {
+                  title: "Related Article 2",
+                  links: {
+                    parent_taxons: [
+                      { title: "News Office" },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        },
+      }
+
+      parsed_response = JSON.parse(response.body).deep_symbolize_keys
+
+      expect(parsed_response).to eq(expected)
+    end
+
+    it "handles multiple copies of the same Edition Link for distinct source Editions" do
+      organisation_edition = create(:live_edition, title: "News Office")
+
+      related_edition1 = create(
+        :live_edition,
+        title: "Related Article 1",
+        links_hash: {
+          "parent_taxons" => [organisation_edition.content_id],
+        },
+      )
+
+      related_edition2 = create(
+        :live_edition,
+        title: "Related Article 2",
+        links_hash: {
+          "parent_taxons" => [organisation_edition.content_id],
+        },
+      )
+
+      source_edition = create(
+        :live_edition,
+        title: "News Article",
+        links_hash: {
+          "taxons" => [
+            organisation_edition.content_id,
+            related_edition1.content_id,
+            related_edition2.content_id,
+          ],
+        },
+      )
+
+      post "/graphql", params: {
+        query:
+          "{
+            edition(base_path: \"#{source_edition.base_path}\") {
+              ... on Edition {
+                title
+
+                links {
+                  taxons {
+                    title
+
+                    links {
+                      parent_taxons {
+                        title
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }",
+      }
+
+      expected = {
+        data: {
+          edition: {
+            title: "News Article",
+            links: {
+              taxons: [
+                {
+                  title: "News Office",
+                  links: {
+                    parent_taxons: [],
+                  },
+                },
+                {
+                  title: "Related Article 1",
+                  links: {
+                    parent_taxons: [
+                      { title: "News Office" },
+                    ],
+                  },
+                },
+                {
+                  title: "Related Article 2",
+                  links: {
+                    parent_taxons: [
+                      { title: "News Office" },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        },
+      }
+
+      parsed_response = JSON.parse(response.body).deep_symbolize_keys
+
+      expect(parsed_response).to eq(expected)
+    end
+
+    it "handles multiple copies of the same reverse LinkSet Link for distinct target Editions" do
+      target_edition = create(:live_edition, title: "News Article")
+
+      organisation_edition = create(:live_edition, title: "News Office")
+      related_edition1 = create(:live_edition, title: "Related Article 1")
+      related_edition2 = create(:live_edition, title: "Related Article 2")
+
+      create(
+        :link_set,
+        content_id: organisation_edition.content_id,
+        links_hash: {
+          "parent_taxons" => [
+            target_edition.content_id,
+            related_edition1.content_id,
+            related_edition2.content_id,
+          ],
+        },
+      )
+
+      create(
+        :link_set,
+        content_id: related_edition1.content_id,
+        links_hash: {
+          "parent_taxons" => [target_edition.content_id],
+        },
+      )
+
+      create(
+        :link_set,
+        content_id: related_edition2.content_id,
+        links_hash: {
+          "parent_taxons" => [target_edition.content_id],
+        },
+      )
+
+      post "/graphql", params: {
+        query:
+          "{
+            edition(base_path: \"#{target_edition.base_path}\") {
+              ... on Edition {
+                title
+
+                links {
+                  child_taxons {
+                    title
+
+                    links {
+                      child_taxons {
+                        title
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }",
+      }
+
+      expected = {
+        data: {
+          edition: {
+            title: "News Article",
+            links: {
+              child_taxons: [
+                {
+                  title: "News Office",
+                  links: {
+                    child_taxons: [],
+                  },
+                },
+                {
+                  title: "Related Article 1",
+                  links: {
+                    child_taxons: [
+                      { title: "News Office" },
+                    ],
+                  },
+                },
+                {
+                  title: "Related Article 2",
+                  links: {
+                    child_taxons: [
+                      { title: "News Office" },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        },
+      }
+
+      parsed_response = JSON.parse(response.body).deep_symbolize_keys
+
+      expect(parsed_response).to eq(expected)
+    end
+
+    it "handles multiple copies of the same reverse Edition Link for distinct target Editions" do
+      target_edition = create(:live_edition, title: "News Article")
+
+      related_edition1 = create(
+        :live_edition,
+        title: "Related Article 1",
+        links_hash: {
+          "parent_taxons" => [target_edition.content_id],
+        },
+      )
+
+      related_edition2 = create(
+        :live_edition,
+        title: "Related Article 2",
+        links_hash: {
+          "parent_taxons" => [target_edition.content_id],
+        },
+      )
+
+      create(
+        :live_edition,
+        title: "News Office",
+        links_hash: {
+          "parent_taxons" => [
+            target_edition.content_id,
+            related_edition1.content_id,
+            related_edition2.content_id,
+          ],
+        },
+      )
+
+      post "/graphql", params: {
+        query:
+          "{
+            edition(base_path: \"#{target_edition.base_path}\") {
+              ... on Edition {
+                title
+
+                links {
+                  child_taxons {
+                    title
+
+                    links {
+                      child_taxons {
+                        title
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }",
+      }
+
+      expected = {
+        data: {
+          edition: {
+            title: "News Article",
+            links: {
+              child_taxons: [
+                {
+                  title: "Related Article 1",
+                  links: {
+                    child_taxons: [
+                      { title: "News Office" },
+                    ],
+                  },
+                },
+                {
+                  title: "Related Article 2",
+                  links: {
+                    child_taxons: [
+                      { title: "News Office" },
+                    ],
+                  },
+                },
+                {
+                  title: "News Office",
+                  links: {
+                    child_taxons: [],
+                  },
+                },
+              ],
+            },
+          },
+        },
+      }
+
+      parsed_response = JSON.parse(response.body).deep_symbolize_keys
+
+      expect(parsed_response).to eq(expected)
+    end
   end
 end
