@@ -28,13 +28,6 @@ jobs:
       ref: 'main'
       publishingApiRef: ${{ github.ref }}
 
-  test-contacts-admin:
-    name: Test Contacts Admin
-    uses: alphagov/contacts-admin/.github/workflows/rspec.yml@main
-    with:
-      ref: 'main'
-      publishingApiRef: ${{ github.ref }}
-
   test-content-data-api:
     name: Test Content Data API
     uses: alphagov/content-data-api/.github/workflows/rspec.yml@main
