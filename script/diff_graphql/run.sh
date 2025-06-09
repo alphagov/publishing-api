@@ -28,7 +28,7 @@ if [[ $download_html == @(y|yes) ]]; then
     done
   fi
 
-  mkdir -p tmp
+  mkdir -p tmp/diff_graphql
 
   echo ''
   prepare_html \
