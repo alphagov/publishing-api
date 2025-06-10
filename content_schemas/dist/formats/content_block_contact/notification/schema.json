@@ -375,6 +375,9 @@
     },
     "details": {
       "type": "object",
+      "required": [
+        "contact_type"
+      ],
       "additionalProperties": false,
       "properties": {
         "addresses": {
@@ -437,6 +440,15 @@
               }
             }
           }
+        },
+        "contact_type": {
+          "type": "string",
+          "default": "General",
+          "enum": [
+            "General",
+            "Freedom of Information",
+            "Media enquiries"
+          ]
         },
         "description": {
           "type": "string"
