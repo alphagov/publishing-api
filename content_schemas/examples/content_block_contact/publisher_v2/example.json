@@ -26,18 +26,23 @@
       }
     },
     "telephones": {
-      "telephone-1": {
-        "title": "Telephone 1",
-        "telephone": "1234 567 89"
-      },
-      "telephone-2": {
-        "title": "Telephone 2",
-        "telephone": "1234 567 89"
-      },
-      "telephone-3": {
-        "title": "Telephone 3",
-        "telephone": "1234 567 89"
-      }
+      "telephone_numbers": [
+        {
+          "label": "Telephone 1",
+          "telephone": "1234 567 89",
+          "type": "telephone"
+        },
+        {
+          "label": "Telephone 2",
+          "telephone": "1234 567 89",
+          "type": "textphone"
+        },
+        {
+          "label": "Telephone 3",
+          "telephone": "1234 567 89",
+          "type": "welsh_language"
+        }
+      ]
     }
   },
   "links": {

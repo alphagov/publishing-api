@@ -33,11 +33,31 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
         ),
         telephones: utils.embedded_object(
              {
-                telephone: {
-                   type: "string",
+                telephone_numbers: {
+                   type: "array",
+                   items: {
+                        type: "object",
+                        properties: {
+                            "type": {
+                                type: "string",
+                                enum: [
+                                    "telephone",
+                                    "textphone",
+                                    "relay_uk",
+                                    "welsh_language"
+                                ]
+                            },
+                            "label": {
+                                type: "string",
+                            },
+                            "telephone_number": {
+                                type: "string",
+                            }
+                        }
+                   }
                 },
              },
-             ["telephone"],
+             ["telephone_numbers"],
         ),
         contact_forms: utils.embedded_object(
             {
