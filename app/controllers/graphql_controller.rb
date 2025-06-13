@@ -24,12 +24,14 @@ class GraphqlController < ApplicationController
         operation_name:,
       ).to_hash
 
-      set_prometheus_labels(result.dig("data", "edition"))
+      set_prometheus_labels(result.dig("data", "edition")&.slice("document_type", "schema_name"))
 
       if result.key?("errors")
         logger.warn("GraphQL query result contained errors: #{result['errors']}")
+        set_prometheus_labels("contains_errors" => true)
       else
         logger.debug("GraphQL query result: #{result}")
+        set_prometheus_labels("contains_errors" => false)
       end
 
       render json: result
@@ -79,14 +81,11 @@ private
     render json: { errors: [{ message: error.message, backtrace: error.backtrace }], data: {} }, status: :internal_server_error
   end
 
-  def set_prometheus_labels(edition)
-    return unless edition
+  def set_prometheus_labels(hash)
+    return unless hash
 
     prometheus_labels = request.env.fetch("govuk.prometheus_labels", {})
 
-    request.env["govuk.prometheus_labels"] = prometheus_labels.merge(
-      document_type: edition["document_type"],
-      schema_name: edition["schema_name"],
-    )
+    request.env["govuk.prometheus_labels"] = prometheus_labels.merge(hash)
   end
 end
