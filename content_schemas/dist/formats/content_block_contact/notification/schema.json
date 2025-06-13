@@ -485,12 +485,32 @@
               "type": "object",
               "required": [
                 "title",
-                "telephone"
+                "telephone_numbers"
               ],
               "additionalProperties": false,
               "properties": {
-                "telephone": {
-                  "type": "string"
+                "telephone_numbers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "telephone_number": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "telephone",
+                          "textphone",
+                          "relay_uk",
+                          "welsh_language"
+                        ]
+                      }
+                    }
+                  }
                 },
                 "title": {
                   "type": "string"
