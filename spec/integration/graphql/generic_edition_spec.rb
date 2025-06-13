@@ -94,8 +94,16 @@ RSpec.describe "GraphQL" do
           }",
       }
 
-      expect(request.env["govuk.prometheus_labels"][:document_type]).to eq(edition.document_type)
-      expect(request.env["govuk.prometheus_labels"][:schema_name]).to eq(edition.schema_name)
+      expect(request.env["govuk.prometheus_labels"]["document_type"]).to eq(edition.document_type)
+      expect(request.env["govuk.prometheus_labels"]["schema_name"]).to eq(edition.schema_name)
+    end
+
+    it "sets the contains_errors prometheus label if there is an error" do
+      post "/graphql", params: {
+        query: "{brokenQuery}",
+      }
+
+      expect(request.env["govuk.prometheus_labels"]["contains_errors"]).to eq(true)
     end
 
     context "when the edition is unpublished" do
