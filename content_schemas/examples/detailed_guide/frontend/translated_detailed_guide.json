@@ -5,6 +5,28 @@
   "description": "You must send an annual return (or update your details) every year if your charity is registered in England or Wales.",
   "details": {
     "body": "<div class=\"govspeak\"><h2 id=\"charity-annual-returns\">Charity annual returns</h2>\n\n<p>Over 6 million people search for and <a href=\"https://www.gov.uk/find-charity-information\">find charities’ details online</a> every year. The annual return you complete tells potential donors, funders, volunteers and beneficiaries about your charity. For example:</p>\n\n<ul>\n  <li>how people can contact your charity</li>\n  <li>what it is set up to do</li>\n  <li>how it meets its aims</li>\n  <li>how much money it makes and spends</li>\n  <li>where it operates</li>\n</ul>\n\n<p>You can find most of the information you need in your charity’s accounts and trustees’ annual report.</p>\n\n<h2 id=\"completing-annual-returns--the-law\">Completing annual returns – the law</h2>\n\n<div class=\"call-to-action\">\n<p>As a charity trustee, by law you must keep your charity’s registered details up-to-date. You need to <a href=\"https://www.gov.uk/change-your-charitys-details\">update your charity’s details</a> before you complete its annual return.</p>\n</div>\n\n<p>If your charity’s income is more than £10,000, you must complete an annual return within 10 months of the end of each financial reporting period. Charitable incorporated organisations (CIOs) must complete an annual return regardless of their income.</p>\n\n<p>If you fail to meet this legal requirement, your charity’s details will be marked ‘overdue’. This could put off potential donors, funders or volunteers.</p>\n\n<p>After 6 months the Charity Commission may remove your charity’s details altogether and consider whether further action is needed.</p>\n\n<p>If your charity is not a CIO and its income is under £10,000, complete the annual return to meet your legal obligation to keep your registered details up-to-date.</p>\n\n<h2 id=\"what-a-charity-annual-return-includes\">What a charity annual return includes</h2>\n\n<p>Your charity annual return is an online form - before you start, you’ll need:</p>\n\n<ul>\n  <li>your charity’s online services password</li>\n  <li>your registered charity number</li>\n  <li>registration numbers for any linked charities (if applicable)</li>\n</ul>\n\n<h3 id=\"financial-information\">Financial information</h3>\n\n<p>From your charity’s latest accounts, provide:</p>\n\n<ul>\n  <li>start and end dates for the financial period you’re reporting (for example 01/04/2013 to 31/03/2014)</li>\n  <li>total income and total spending for this reporting period</li>\n  <li>total spending outside England and Wales (if applicable)</li>\n</ul>\n\n<p>If your charity’s income is over £25,000, you’ll need to submit a PDF copy of its accounts – these do not need to be signed. CIOs must submit accounts regardless of their income. These accounts need to be agreed by the trustees and you should also include a PDF copy of your independent examiner or auditor’s report.</p>\n\n<p>If your charity’s income is over £25,000, you also need to send its trustees’ annual report (TAR). CIOs must submit a TAR regardless of their income.</p>\n\n<p>If your charity’s income is over £500,000, you’ll need to include extra financial information from its accounts in the form.</p>\n\n<h3 id=\"serious-incident-reports\">Serious incident reports</h3>\n\n<p>If your charity has an income of £25,000 or more, you must state if any serious incidents took place in the last year, including any that you should have reported but did not.</p>\n\n<h2 id=\"when-to-complete-your-annual-return\">When to complete your annual return</h2>\n\n<p>Complete your charity’s annual return as soon as you approve its latest accounts and trustees’ annual report.</p>\n\n<div class=\"call-to-action\">\n<p>If your charity’s income is more than £10,000, by law, you must complete an annual return within 10 months of the financial reporting period ending. All CIOs must complete an annual return regardless of their income.</p>\n</div>\n\n<p>As trustees, you’re responsible for making sure your charity’s annual return is completed on time. If you delegate this task – for example, to a member of staff – make sure they know what to do and when it is due.</p>\n\n<p>Plan ahead to make sure your charity completes its annual return on time. You should also:</p>\n\n<ul>\n  <li>\n<a href=\"https://www.gov.uk/change-your-charitys-details\">update the charity’s details</a> whenever something changes, such as a trustee being replaced</li>\n  <li>keep your charity’s password safe, particularly if the person who has it leaves the charity</li>\n  <li>arrange handover training if someone takes over responsibility for completing the annual return</li>\n  <li>arrange a trustee meeting to agree the accounts and trustees’ annual report within two months of the financial period ending</li>\n</ul>\n\n<div class=\"call-to-action\">\n<p><a href=\"https://www.gov.uk/send-charity-annual-return\">Complete your charity’s annual return now</a>.</p>\n</div>\n</div>",
+    "headers": [
+      {
+        "text": "Charity annual returns",
+        "level": 2,
+        "id": "charity-annual-returns"
+      },
+      {
+        "text": "Completing annual returns – the law",
+        "level": 2,
+        "id": "completing-annual-returns--the-law"
+      },
+      {
+        "text": "What a charity annual return includes",
+        "level": 2,
+        "id": "what-a-charity-annual-return-includes"
+      },
+      {
+        "text": "When to complete your annual return",
+        "level": 2,
+        "id": "when-to-complete-your-annual-return"
+      }     
+    ],
     "change_history": [
       {
         "note": "First published.",

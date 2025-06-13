@@ -9,6 +9,18 @@
   "locale": "en",
   "details": {
     "body": "<div class=\"govspeak\"><p>You must report any loss or theft of an animal to the police and to the British Cattle Movement Service (BCMS) and inform them if the animal is recovered.</p>\n\n<h2 id=\"if-an-animal-is-lost-or-stolen\">If an animal is lost or stolen</h2>\n\n<p>You must:</p>\n\n<ul>\n  <li>report the loss or theft to the police and obtain an incident number</li>\n  <li>post the animal’s passport or certificate of registration to arrive with BCMS within 7 days of becoming aware of the loss or theft, at the following address:</li>\n</ul>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\nBCMS\n<br>Curwen Road\n<br>Workington \n<br>CA14 2DD \n<br>\n</p></div></div>\n\n<p>You should also make a note of the date of the loss or theft in your <a rel=\"external\" href=\"https://www.gov.uk/keep-a-holding-register-for-cattle\">holding register</a>.</p>\n\n<h2 id=\"if-the-animal-is-recovered\">If the animal is recovered</h2>\n\n<p>You must:</p>\n\n<ul>\n  <li>confirm this in writing with BCMS at the address above</li>\n  <li>inform the police that the animal has been recovered</li>\n  <li>update your farm records to show the animal has been recovered</li>\n</ul>\n\n<p>BCMS will send you a replacement passport.</p>\n</div>",
+    "headers": [
+      {
+        "text": "If an animal is lost or stolen",
+        "level": 2,
+        "id": "if-an-animal-is-lost-or-stolen"
+      },
+      {
+        "text": "If the animal is recovered",
+        "level": 2,
+        "id": "if-the-animal-is-recovered"
+      }        
+    ],
     "first_public_at": "2014-05-06T13:03:41+01:00",
     "tags": {
       "browse_pages": [
