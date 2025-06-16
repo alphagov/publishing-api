@@ -61,7 +61,7 @@ module Presenters
           end
 
           if hash[:details]
-            hash[:details] = Presenters::DetailsPresenter.new(hash[:details], nil, content_embed_presenter(hash[:content_id], hash[:locale])).details
+            hash[:details] = Presenters::DetailsPresenter.new(hash[:details], nil, content_embed_presenter(hash[:content_id], hash[:locale]), locale: hash[:locale]).details
           end
         end
       end

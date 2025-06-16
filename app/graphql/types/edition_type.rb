@@ -212,6 +212,7 @@ module Types
           object.details,
           change_history_presenter,
           content_embed_presenter,
+          locale: object.locale,
         ).details,
       )
     end
