@@ -165,6 +165,59 @@ RSpec.describe Presenters::DetailsPresenter do
       end
     end
 
+    describe "providing a locale to Govspeak" do
+      let(:edition_details) do
+        {
+          body: [
+            { content_type: "text/govspeak", content: "**hello**" },
+          ],
+        }
+      end
+
+      context "when we're passed Govspeak without a locale specified" do
+        it "passes English as the locale to Govspeak" do
+          expect(Govspeak::Document)
+            .to receive(:new)
+            .with(anything, a_hash_including(locale: "en"))
+            .and_call_original
+
+          subject
+        end
+      end
+
+      context "when we're passed Govspeak with a locale specified" do
+        it "passes the specified locale to Govspeak" do
+          expect(Govspeak::Document)
+            .to receive(:new)
+            .with(anything, a_hash_including(locale: "cy"))
+            .and_call_original
+
+          described_class.new(
+            edition_details,
+            change_history_presenter,
+            content_embed_presenter,
+            locale: "cy",
+          ).details
+        end
+
+        context "when the provided locale is nil" do
+          it "passes English as the locale to Govspeak" do
+            expect(Govspeak::Document)
+              .to receive(:new)
+              .with(anything, a_hash_including(locale: "en"))
+              .and_call_original
+
+            described_class.new(
+              edition_details,
+              change_history_presenter,
+              content_embed_presenter,
+              locale: nil,
+            ).details
+          end
+        end
+      end
+    end
+
     %w[body downtime_message more_information].each do |field_name|
       context "when we're passed a #{field_name} with embedded content" do
         let(:embeddable_content) do
