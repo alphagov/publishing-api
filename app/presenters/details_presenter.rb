@@ -2,12 +2,13 @@ require "govspeak"
 
 module Presenters
   class DetailsPresenter
-    attr_reader :content_item_details, :change_history_presenter, :content_embed_presenter
+    attr_reader :content_item_details, :change_history_presenter, :content_embed_presenter, :locale
 
-    def initialize(content_item_details, change_history_presenter, content_embed_presenter)
+    def initialize(content_item_details, change_history_presenter, content_embed_presenter, locale: nil)
       @content_item_details = SymbolizeJSON.symbolize(content_item_details)
       @change_history_presenter = change_history_presenter
       @content_embed_presenter = content_embed_presenter
+      @locale = locale || "en"
     end
 
     def details
@@ -69,6 +70,7 @@ module Presenters
     def govspeak_attributes
       {
         attachments: content_item_details[:attachments],
+        locale:,
       }
     end
   end
