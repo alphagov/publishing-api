@@ -24,8 +24,10 @@ function curl_and_strip_hashes() {
         -e 's/\?graphql=true//g' \
         -e 's/nonce="[^"]{22}=="/nonce="HASH=="/g' \
         -e 's/ (aria-labelledby|for|id)="([^"]+)-[a-z0-9]{8}"/ \1="\2-HASH"/g' \
-        -e 's/<meta name="govuk:updated-at" content=".*">/<meta name="govuk:updated-at" content="TIMESTAMP">/' \
+        -e 's/<(meta name="govuk:updated-at" content=)"[^"]+">/<\1"TIMESTAMP">/' \
         -e '/<meta name="govuk:content-has-history" content=".*">/d' \
+        -e 's/(This news article was withdrawn on &lt;time datetime=)"[^"]+"/\1"TIMESTAMP"/' \
+        -e 's/(This news article was withdrawn on <time datetime=)"[^"]+"/\1"TIMESTAMP"/' \
     > "$output_path"
 }
 
