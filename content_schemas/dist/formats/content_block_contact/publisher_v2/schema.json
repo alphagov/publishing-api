@@ -302,10 +302,18 @@
               "type": "object",
               "required": [
                 "title",
-                "telephone_numbers"
+                "telephone_numbers",
+                "show_uk_call_charges"
               ],
               "additionalProperties": false,
               "properties": {
+                "show_uk_call_charges": {
+                  "type": "string",
+                  "enum": [
+                    "true",
+                    "false"
+                  ]
+                },
                 "telephone_numbers": {
                   "type": "array",
                   "items": {

@@ -30,17 +30,20 @@
         {
           "label": "Telephone 1",
           "telephone": "1234 567 89",
-          "type": "telephone"
+          "type": "telephone",
+          "show_uk_call_charges": "false"
         },
         {
           "label": "Telephone 2",
           "telephone": "1234 567 89",
-          "type": "textphone"
+          "type": "textphone",
+          "show_uk_call_charges": "true"
         },
         {
           "label": "Telephone 3",
           "telephone": "1234 567 89",
-          "type": "welsh_language"
+          "type": "welsh_language",
+          "show_uk_call_charges": "true"
         }
       ]
     }
