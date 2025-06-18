@@ -37,6 +37,7 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                    type: "array",
                    items: {
                         type: "object",
+                        required: ["type", "label", "telephone_number"],
                         properties: {
                             "type": {
                                 type: "string",
