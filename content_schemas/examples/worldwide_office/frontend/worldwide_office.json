@@ -22,9 +22,9 @@
         "content_id": "5be699d9-f6ac-407d-8868-5516095e872f",
         "title": "Consular section",
         "locale": "en",
-        "document_type": "contact",
+        "document_type": "content_block_contact",
         "public_updated_at": "2022-08-29T14:36:05Z",
-        "schema_name": "contact",
+        "schema_name": "content_block_contact",
         "withdrawn": false,
         "details": {
           "description": "24/7 consular support is available by telephone for all routine enquiries and emergencies. Please call +63 (02) 8 858 2200 / +44 20 7136 6857. \r\n\r\nPublic access to the embassy is by appointment only. Please visit https://www.gov.uk/world/philippines or call +63 (02) 8 858 2200.",
