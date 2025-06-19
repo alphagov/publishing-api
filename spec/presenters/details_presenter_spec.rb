@@ -221,10 +221,10 @@ RSpec.describe Presenters::DetailsPresenter do
     %w[body downtime_message more_information].each do |field_name|
       context "when we're passed a #{field_name} with embedded content" do
         let(:embeddable_content) do
-          create(:edition, state: "published", content_store: "live", document_type: "contact", title: "Some contact")
+          create(:edition, state: "published", content_store: "live", document_type: "content_block_contact", title: "Some contact")
         end
         let(:content_embed_presenter) { Presenters::ContentEmbedPresenter.new(edition) }
-        let(:field_value) { "{{embed:contact:#{embeddable_content.document.content_id}}}" }
+        let(:field_value) { "{{embed:content_block_contact:#{embeddable_content.document.content_id}}}" }
 
         context "when the #{field_name} is not enumerable" do
           let(:edition) { create(:edition, details: { field_name => field_value }, links_hash: { embed: [embeddable_content.document.content_id] }) }
@@ -243,7 +243,7 @@ RSpec.describe Presenters::DetailsPresenter do
             let(:content_id_alias) do
               create(:content_id_alias, name: "a-friendly-name", content_id: embeddable_content.document.content_id)
             end
-            let(:field_value) { "{{embed:contact:#{content_id_alias.name}}}" }
+            let(:field_value) { "{{embed:content_block_contact:#{content_id_alias.name}}}" }
 
             it "embeds the contact details" do
               is_expected.to match(expected_details)

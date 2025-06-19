@@ -2,11 +2,11 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   include_context "PutContent call"
 
   context "with embedded content as a string" do
-    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact", details: { email: "foo@example.com", phone: "123456" }) }
-    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact", details: { email: "foo@example.com", phone: "123456" }) }
+    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact") }
     let(:document) { create(:document, content_id:) }
-    let(:first_embed_code) { "{{embed:contact:#{first_contact.document.content_id}}}" }
-    let(:second_embed_code) { "{{embed:contact:#{second_contact.document.content_id}}}" }
+    let(:first_embed_code) { "{{embed:content_block_contact:#{first_contact.document.content_id}}}" }
+    let(:second_embed_code) { "{{embed:content_block_contact:#{second_contact.document.content_id}}}" }
 
     before do
       payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "#{first_embed_code} #{second_embed_code}" })
@@ -28,8 +28,8 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     end
 
     context "when fields are referenced" do
-      let(:first_embed_code) { "{{embed:contact:#{first_contact.document.content_id}/email}}" }
-      let(:second_embed_code) { "{{embed:contact:#{first_contact.document.content_id}/phone}}" }
+      let(:first_embed_code) { "{{embed:content_block_contact:#{first_contact.document.content_id}/email}}" }
+      let(:second_embed_code) { "{{embed:content_block_contact:#{first_contact.document.content_id}/phone}}" }
 
       let(:body) do
         "
@@ -68,14 +68,14 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   end
 
   context "with embedded content with an alias" do
-    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact", details: { email: "foo@example.com", phone: "123456" }) }
-    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact", details: { email: "foo@example.com", phone: "123456" }) }
+    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact") }
 
     let(:first_contact_alias) { create(:content_id_alias, content_id: first_contact.document.content_id) }
     let(:second_contact_alias) { create(:content_id_alias, content_id: second_contact.document.content_id) }
 
-    let(:first_embed_code) { "{{embed:contact:#{first_contact_alias.name}}}" }
-    let(:second_embed_code) { "{{embed:contact:#{second_contact_alias.name}}}" }
+    let(:first_embed_code) { "{{embed:content_block_contact:#{first_contact_alias.name}}}" }
+    let(:second_embed_code) { "{{embed:content_block_contact:#{second_contact_alias.name}}}" }
 
     before do
       payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "#{first_embed_code} #{second_embed_code}" })
@@ -97,8 +97,8 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     end
 
     context "when fields are referenced" do
-      let(:first_embed_code) { "{{embed:contact:#{first_contact_alias.name}/email}}" }
-      let(:second_embed_code) { "{{embed:contact:#{first_contact_alias.name}/phone}}" }
+      let(:first_embed_code) { "{{embed:content_block_contact:#{first_contact_alias.name}/email}}" }
+      let(:second_embed_code) { "{{embed:content_block_contact:#{first_contact_alias.name}/phone}}" }
 
       let(:body) do
         "
@@ -137,17 +137,17 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   end
 
   context "when embedded content is in a details field other than body" do
-    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
-    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact") }
+    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact") }
 
-    let(:first_embed_code) { "{{embed:contact:#{first_contact.document.content_id}}}" }
+    let(:first_embed_code) { "{{embed:content_block_contact:#{first_contact.document.content_id}}}" }
 
     let(:payload_for_multiple_field_embeds) do
       payload.merge!(
         document_type: "transaction",
         schema_name: "transaction",
         details: {
-          downtime_message: "{{embed:contact:#{first_contact.document.content_id}}}",
+          downtime_message: "{{embed:content_block_contact:#{first_contact.document.content_id}}}",
         },
       )
     end
@@ -168,10 +168,10 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   end
 
   context "with multipart content" do
-    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
-    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
-    let(:first_embed_code) { "{{embed:contact:#{first_contact.document.content_id}}}" }
-    let(:second_embed_code) { "{{embed:contact:#{second_contact.document.content_id}}}" }
+    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact") }
+    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact") }
+    let(:first_embed_code) { "{{embed:content_block_contact:#{first_contact.document.content_id}}}" }
+    let(:second_embed_code) { "{{embed:content_block_contact:#{second_contact.document.content_id}}}" }
     let(:document) { create(:document, content_id:) }
     let(:details) do
       {
@@ -269,14 +269,14 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   end
 
   context "with embedded content as an array" do
-    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
-    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
-    let(:first_embed_code) { "{{embed:contact:#{first_contact.document.content_id}}}" }
-    let(:second_embed_code) { "{{embed:contact:#{second_contact.document.content_id}}}" }
+    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact") }
+    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact") }
+    let(:first_embed_code) { "{{embed:content_block_contact:#{first_contact.document.content_id}}}" }
+    let(:second_embed_code) { "{{embed:content_block_contact:#{second_contact.document.content_id}}}" }
     let(:document) { create(:document, content_id:) }
 
     before do
-      payload.merge!(document_type: "person", schema_name: "person", details: { body: [{ content_type: "text/govspeak", content: "{{embed:contact:#{first_contact.document.content_id}}} {{embed:contact:#{second_contact.document.content_id}}}" }] })
+      payload.merge!(document_type: "person", schema_name: "person", details: { body: [{ content_type: "text/govspeak", content: "{{embed:content_block_contact:#{first_contact.document.content_id}}} {{embed:content_block_contact:#{second_contact.document.content_id}}}" }] })
     end
 
     it "should create links" do
@@ -298,8 +298,8 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   context "with mixed embedded content" do
     let(:pension) { create(:edition, state: "published", content_store: "live", document_type: "content_block_pension", details: { rates: { "rate-1" => { name: "example rate" } } }) }
     let(:pension_embed_code) { "{{embed:content_block_pension:#{pension.document.content_id}}}" }
-    let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
-    let(:contact_embed_code) { "{{embed:contact:#{contact.document.content_id}}}" }
+    let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact") }
+    let(:contact_embed_code) { "{{embed:content_block_contact:#{contact.document.content_id}}}" }
     let(:document) { create(:document, content_id:) }
 
     before do
@@ -323,7 +323,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   end
 
   context "without embedded content and embed links already existing on a draft edition" do
-    let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact") }
     let(:document) { create(:document, content_id:) }
     let(:edition) { create(:edition, document:) }
 
@@ -347,8 +347,8 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   end
 
   context "with different embedded content and embed links already existing on a draft edition" do
-    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
-    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:first_contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact") }
+    let(:second_contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact") }
     let(:document) { create(:document, content_id:) }
     let(:edition) { create(:edition, document:) }
 
@@ -359,7 +359,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
         target_content_id: first_contact.content_id,
         position: 0,
       })
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{second_contact.document.content_id}}}" })
+      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:content_block_contact:#{second_contact.document.content_id}}}" })
     end
 
     it "should replace the embed link" do
@@ -377,7 +377,7 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
     let(:fake_content_id) { SecureRandom.uuid }
 
     before do
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{fake_content_id}}}" })
+      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:content_block_contact:#{fake_content_id}}}" })
     end
 
     it "should not create a new Link" do
@@ -389,13 +389,13 @@ RSpec.describe "PUT /v2/content when embedded content is provided" do
   end
 
   context "with a mixture of embedded content that does and does not exist" do
-    let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "contact") }
+    let(:contact) { create(:edition, state: "published", content_store: "live", document_type: "content_block_contact") }
     let(:document) { create(:document, content_id:) }
     let(:first_fake_content_id) { SecureRandom.uuid }
     let(:second_fake_content_id) { SecureRandom.uuid }
 
     before do
-      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:contact:#{contact.document.content_id}}} {{embed:contact:#{first_fake_content_id}}} {{embed:contact:#{second_fake_content_id}}}" })
+      payload.merge!(document_type: "press_release", schema_name: "news_article", details: { body: "{{embed:content_block_contact:#{contact.document.content_id}}} {{embed:content_block_contact:#{first_fake_content_id}}} {{embed:content_block_contact:#{second_fake_content_id}}}" })
     end
 
     it "should return a 200 with only the existing links" do

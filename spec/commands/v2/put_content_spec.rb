@@ -479,14 +479,13 @@ RSpec.describe Commands::V2::PutContent do
           .with(anything, a_hash_including("content_id" => content_id, "locale" => "cy"))
           .never
 
-        payload = {
+        payload_without_base_path = {
           content_id:,
           update_type: "major",
           title: "Some Title",
           publishing_app:,
-          rendering_app: "frontend",
-          document_type: "contact",
-          schema_name: "contact",
+          document_type: "world_location",
+          schema_name: "world_location",
           locale:,
           redirects: [],
           phase: "beta",
@@ -494,7 +493,7 @@ RSpec.describe Commands::V2::PutContent do
           details: {},
         }
 
-        described_class.call(payload)
+        described_class.call(payload_without_base_path)
       end
     end
 
@@ -525,14 +524,13 @@ RSpec.describe Commands::V2::PutContent do
           .with(anything, a_hash_including("content_id" => content_id, "locale" => "cy"))
           .never
 
-        payload = {
+        payload_without_base_path = {
           content_id:,
           update_type: "major",
           title: "Some Title",
           publishing_app:,
-          rendering_app: "frontend",
-          document_type: "contact",
-          schema_name: "contact",
+          document_type: "world_location",
+          schema_name: "world_location",
           locale:,
           redirects: [],
           phase: "beta",
@@ -540,7 +538,7 @@ RSpec.describe Commands::V2::PutContent do
           details: {},
         }
 
-        described_class.call(payload)
+        described_class.call(payload_without_base_path)
       end
     end
   end

@@ -119,7 +119,7 @@ RSpec.describe Edition do
     end
 
     context "when the edition is optionally 'renderable'" do
-      subject { build(:edition, document_type: "contact") }
+      subject { build(:edition, document_type: "external_content") }
 
       it "does not require a rendering_app" do
         subject.rendering_app = nil

@@ -78,11 +78,11 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     end
 
     context "with embedded content in the body" do
-      let(:contact) do
-        create(:edition, state: "published", content_store: "live", document_type: "contact", title: "Some contact")
+      let(:organisation) do
+        create(:edition, state: "published", content_store: "live", document_type: "content_block_contact", title: "Some contact")
       end
 
-      let(:embed_code) { "{{embed:contact:#{contact.document.content_id}}}" }
+      let(:embed_code) { "{{embed:content_block_contact:#{organisation.document.content_id}}}" }
 
       before do
         create_edition(a, "/a", document_type: "person")
@@ -98,7 +98,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
               },
             ],
           },
-          links_hash: { embed: [contact.document.content_id] },
+          links_hash: { embed: [organisation.document.content_id] },
         )
         create_edition(c, "/c", document_type: "role_appointment")
 
@@ -112,20 +112,20 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         expect(c[:details][:body]).to match([
           {
             content_type: "text/govspeak",
-            content: presented_details_for(contact, embed_code),
+            content: presented_details_for(organisation, embed_code),
           },
           {
             content_type: "text/html",
-            content: "<p>#{presented_details_for(contact, embed_code)}</p>\n",
+            content: "#{presented_details_for(organisation, embed_code)}\n",
           },
         ])
       end
 
       context "when embed code contains an alias" do
         let(:content_id_alias) do
-          create(:content_id_alias, name: "a-friendly-name", content_id: contact.document.content_id)
+          create(:content_id_alias, name: "a-friendly-name", content_id: organisation.document.content_id)
         end
-        let(:embed_code) { "{{embed:contact:#{content_id_alias.name}}}" }
+        let(:embed_code) { "{{embed:content_block_contact:#{content_id_alias.name}}}" }
 
         it "recursively calls the details presenter and embeds content inside expanded links" do
           b = expanded_links[:role_appointments].first
@@ -133,11 +133,11 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           expect(c[:details][:body]).to match([
             {
               content_type: "text/govspeak",
-              content: presented_details_for(contact, embed_code),
+              content: presented_details_for(organisation, embed_code),
             },
             {
               content_type: "text/html",
-              content: "<p>#{presented_details_for(contact, embed_code)}</p>\n",
+              content: "#{presented_details_for(organisation, embed_code)}\n",
             },
           ])
         end

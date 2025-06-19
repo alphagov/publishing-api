@@ -57,8 +57,8 @@ RSpec.describe DownstreamDraftJob do
         pathless = create(
           :draft_edition,
           base_path: nil,
-          document_type: "contact",
-          schema_name: "contact",
+          document_type: "role",
+          schema_name: "role",
         )
 
         expect(Adapters::DraftContentStore).to_not receive(:put_content_item)
