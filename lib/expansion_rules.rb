@@ -50,8 +50,6 @@ module_function
     %i[ordered_special_representatives role_appointments role],
     %i[ordered_traffic_commissioners role_appointments role],
     %i[historical_accounts person],
-    %i[main_office contact],
-    %i[home_page_offices contact],
     %i[worldwide_organisation sponsoring_organisations],
     %i[worldwide_organisation world_locations],
   ].freeze
@@ -91,9 +89,7 @@ module_function
 
   DEFAULT_FIELDS_AND_DESCRIPTION = (DEFAULT_FIELDS + [:description]).freeze
 
-  CONTENT_BLOCK_CONTACT_FIELDS = (DEFAULT_FIELDS + details_fields(:description, :email_addresses, :telephones)).freeze
   CONTENT_BLOCK_PENSION_FIELDS = (DEFAULT_FIELDS + details_fields(:description, :rates)).freeze
-  CONTACT_FIELDS = (DEFAULT_FIELDS + details_fields(:description, :title, :contact_form_links, :post_addresses, :email_addresses, :phone_numbers)).freeze
   GOVERNMENT_FIELDS = (MANDATORY_FIELDS + %i[api_path base_path document_type] + details_fields(:started_on, :ended_on, :current)).freeze
   ORGANISATION_FIELDS = (DEFAULT_FIELDS - [:public_updated_at] + details_fields(:acronym, :logo, :brand, :default_news_image, :organisation_govuk_status)).freeze
   TAXON_FIELDS = (DEFAULT_FIELDS + %i[description details phase]).freeze
@@ -162,8 +158,6 @@ module_function
         fields: [] },
       { document_type: :gone,
         fields: [] },
-      { document_type: :contact,
-        fields: CONTACT_FIELDS },
       { document_type: :content_block_pension,
         fields: CONTENT_BLOCK_PENSION_FIELDS },
       { document_type: :topical_event,
