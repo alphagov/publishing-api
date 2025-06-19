@@ -56,14 +56,6 @@
     - :base_path: "/bank-holidays.json"
       :type: "exact"
 
-- :base_path: "/contact"
-  :content_id: "58b05bc2-fde5-4a0b-af73-8edc532674f8"
-  :title: "Government contacts"
-  :description: "Prefix route for contacts"
-  :rendering_app: "feedback"
-  :type: "prefix"
-  :override_existing: true
-
 - :base_path: "/csv-preview"
   :content_id: "ead457b8-d693-41ff-9dd0-9c337839d1c2"
   :title: "CSV preview"
