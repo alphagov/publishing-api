@@ -8,6 +8,23 @@ class GraphqlController < ApplicationController
 
   skip_before_action :authenticate_user!, only: [:execute]
 
+  def content
+    execute_in_read_replica do
+      result = PublishingApiSchema.execute(
+        news_article_query(base_path: "/#{params[:path_without_root]}"),
+      ).to_hash
+
+      process_graphql_result(result)
+
+      # what would be really good here is responding with 404s and the like
+      render json: result.dig("data", "edition")
+    rescue StandardError => e
+      raise e unless Rails.env.development?
+
+      handle_error_in_development(e)
+    end
+  end
+
   def execute
     execute_in_read_replica do
       variables = prepare_variables(params[:variables])
@@ -24,15 +41,7 @@ class GraphqlController < ApplicationController
         operation_name:,
       ).to_hash
 
-      set_prometheus_labels(result.dig("data", "edition")&.slice("document_type", "schema_name"))
-
-      if result.key?("errors")
-        logger.warn("GraphQL query result contained errors: #{result['errors']}")
-        set_prometheus_labels("contains_errors" => true)
-      else
-        logger.debug("GraphQL query result: #{result}")
-        set_prometheus_labels("contains_errors" => false)
-      end
+      process_graphql_result(result)
 
       render json: result
     rescue StandardError => e
@@ -43,6 +52,18 @@ class GraphqlController < ApplicationController
   end
 
 private
+
+  def process_graphql_result(result)
+    set_prometheus_labels(result.dig("data", "edition")&.slice("document_type", "schema_name"))
+
+    if result.key?("errors")
+      logger.warn("GraphQL query result contained errors: #{result['errors']}")
+      set_prometheus_labels("contains_errors" => true)
+    else
+      logger.debug("GraphQL query result: #{result}")
+      set_prometheus_labels("contains_errors" => false)
+    end
+  end
 
   def execute_in_read_replica(&block)
     if Rails.env.production_replica?
@@ -87,5 +108,179 @@ private
     prometheus_labels = request.env.fetch("govuk.prometheus_labels", {})
 
     request.env["govuk.prometheus_labels"] = prometheus_labels.merge(hash)
+  end
+
+  def news_article_query(base_path:)
+    <<-QUERY
+        {
+          edition(
+            base_path: "#{base_path}",
+            content_store: "live",
+          ) {
+            ... on Edition {
+              base_path
+              content_id
+              description
+              details {
+                body
+                change_history
+                display_date
+                emphasised_organisations
+                first_public_at
+                image {
+                  alt_text
+                  caption
+                  credit
+                  high_resolution_url
+                  url
+                }
+                political
+              }
+              document_type
+              first_published_at
+              links {
+                available_translations {
+                  base_path
+                  locale
+                }
+                document_collections {
+                  ...RelatedItem
+                  web_url
+                }
+                government {
+                  details {
+                    current
+                  }
+                  title
+                }
+                mainstream_browse_pages {
+                  ...RelatedItem
+                }
+                ordered_related_items {
+                  ...RelatedItem
+                  links {
+                    mainstream_browse_pages {
+                      links {
+                        parent {
+                          title
+                        }
+                      }
+                    }
+                  }
+                }
+                ordered_related_items_overrides {
+                  ...RelatedItem
+                }
+                organisations {
+                  analytics_identifier
+                  base_path
+                  content_id
+                  title
+                }
+                people {
+                  base_path
+                  content_id
+                  title
+                }
+                primary_publishing_organisation {
+                  base_path
+                  details {
+                    default_news_image {
+                      alt_text
+                      url
+                    }
+                  }
+                  title
+                }
+                related {
+                  ...RelatedItem
+                }
+                related_guides {
+                  ...RelatedItem
+                }
+                related_mainstream_content {
+                  ...RelatedItem
+                }
+                related_statistical_data_sets {
+                  ...RelatedItem
+                }
+                suggested_ordered_related_items {
+                  ...RelatedItem
+                }
+                taxons {
+                  ...Taxon
+                  links {
+                    parent_taxons {
+                      ...Taxon
+                      links {
+                        parent_taxons {
+                          ...Taxon
+                          links {
+                            parent_taxons {
+                              ...Taxon
+                              links {
+                                parent_taxons {
+                                  ...Taxon
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                topical_events {
+                  ...RelatedItem
+                  content_id
+                }
+                world_locations {
+                  analytics_identifier
+                  base_path
+                  content_id
+                  locale
+                  title
+                }
+                worldwide_organisations {
+                  analytics_identifier
+                  base_path
+                  title
+                }
+              }
+              locale
+              public_updated_at
+              publishing_app
+              rendering_app
+              schema_name
+              title
+              updated_at
+              withdrawn_notice {
+                explanation
+                withdrawn_at
+              }
+            }
+          }
+        }
+
+        fragment RelatedItem on Edition {
+          base_path
+          document_type
+          locale
+          title
+        }
+
+        fragment Taxon on Edition {
+          base_path
+          content_id
+          details {
+            url_override
+          }
+          document_type
+          locale
+          phase
+          title
+          web_url
+        }
+    QUERY
   end
 end
