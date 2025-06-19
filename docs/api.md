@@ -92,7 +92,7 @@ presented edition and [warnings](#warnings).
 - `analytics_identifier` *(optional)*
   - An identifier to track the content item in analytics software.
 - `base_path` *(conditionally required)*
-  - Required if `schema_name` is not one of "contact" or "government".
+  - Required if `schema_name` is not "government".
   - The path that this item will use on [GOV.UK](https://www.gov.uk).
 - `change_note` *(optional)*
   - Specifies the [change note](model.md#changenote).
