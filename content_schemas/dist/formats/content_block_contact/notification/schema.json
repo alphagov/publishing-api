@@ -490,6 +490,9 @@
               ],
               "additionalProperties": false,
               "properties": {
+                "description": {
+                  "type": "string"
+                },
                 "show_uk_call_charges": {
                   "type": "string",
                   "enum": [

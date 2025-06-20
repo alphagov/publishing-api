@@ -31,7 +31,8 @@
           "label": "Telephone 1",
           "telephone": "1234 567 89",
           "type": "telephone",
-          "show_uk_call_charges": "false"
+          "show_uk_call_charges": "false",
+          "description": "A Telephone line"
         },
         {
           "label": "Telephone 2",
