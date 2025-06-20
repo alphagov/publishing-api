@@ -43,13 +43,16 @@ module Presenters
 
       return content if embedded_content_references.empty?
 
+      processed_content = content.dup
       embedded_content_references.uniq.each do |content_reference|
         embed_code = content_reference.embed_code
         embedded_edition = embedded_editions[content_reference.identifier]
+
         if embedded_edition.present?
-          content = content.gsub(
-            embed_code,
-            get_content_for_edition(embedded_edition, embed_code),
+          rendered_content = get_content_for_edition(embedded_edition, embed_code)
+          processed_content = processed_content.gsub(
+            /(?<!data-embed-code=")#{Regexp.escape(embed_code)}(?!")/,
+            rendered_content,
           )
         else
           GovukError.notify(CommandError.new(
@@ -59,7 +62,7 @@ module Presenters
         end
       end
 
-      content
+      processed_content
     end
 
     def get_content_for_edition(edition, embed_code)

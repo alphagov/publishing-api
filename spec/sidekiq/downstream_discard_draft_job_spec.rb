@@ -149,8 +149,8 @@ RSpec.describe DownstreamDiscardDraftJob do
       pathless = create(
         :draft_edition,
         base_path: nil,
-        document_type: "contact",
-        schema_name: "contact",
+        document_type: "role",
+        schema_name: "role",
       )
       expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
       subject.perform(

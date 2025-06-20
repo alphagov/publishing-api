@@ -1,5 +1,5 @@
 RSpec.describe Queries::GetLinkables do
-  let(:document_type) { "contact" }
+  let(:document_type) { "organisation" }
 
   describe "#call" do
     before { Rails.cache.clear }

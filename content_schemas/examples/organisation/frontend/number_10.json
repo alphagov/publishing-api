@@ -397,9 +397,9 @@
         "content_id": "823d3f8e-d79b-41f6-b3a1-53886f198ae9",
         "title": "Contact Number 10",
         "locale": "en",
-        "document_type": "contact",
+        "document_type": "content_block_contact",
         "public_updated_at": "2020-03-24T13:59:47Z",
-        "schema_name": "contact",
+        "schema_name": "content_block_contact",
         "withdrawn": false,
         "details": {
           "description": "Emails can be sent to the Prime Minister’s Office using the link above. If you are emailing about an issue relating to the responsibilities of another Government Department or public authority then you should contact them directly.\r\n\r\nDue  to the exceptionally high volumes of emails being received at this time, the Prime Minister’s Office is only able to deal with those that relate directly to the Prime Minister. At this time we are not able to respond to emails that do not fall into this category or are of a general nature.\r\n\r\nPlease consider carefully whether your email is necessary and note that emails are not monitored throughout the day or at weekends.",
