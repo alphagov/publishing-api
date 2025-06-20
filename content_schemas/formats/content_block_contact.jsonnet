@@ -1,5 +1,21 @@
 local utils = import "shared/utils/content_block_utils.jsonnet";
 
+local hours = std.map(function(num) std.format("%02d", num), std.range(1, 12));
+local minutes = std.map(function(num) std.format("%02d", num), std.range(0, 59));
+local days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+];
+local meridian = [
+    "AM",
+    "PM"
+];
+
 (import "shared/content_block.jsonnet") + {
   document_type: "content_block_contact",
   definitions: {
@@ -63,6 +79,46 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                 },
                 description: {
                     type: "string",
+                },
+                opening_hours: {
+                    type: "array",
+                    items: {
+                        type: "object",
+                        properties: {
+                            days_from: {
+                                type: "string",
+                                enum: days
+                            },
+                            days_to: {
+                                type: "string",
+                                enum: days
+                            },
+                           time_from_h: {
+                             type: "string",
+                             enum: hours
+                           },
+                           time_from_m: {
+                             type: "string",
+                             enum: minutes
+                           },
+                           time_from_meridian: {
+                             type: "string",
+                             enum: meridian
+                           },
+                           time_to_h: {
+                             type: "string",
+                             enum: hours
+                           },
+                           time_to_m: {
+                             type: "string",
+                             enum: minutes
+                           },
+                           time_to_meridian: {
+                             type: "string",
+                             enum: meridian
+                           }
+                        }
+                    }
                 }
              },
              ["telephone_numbers", "show_uk_call_charges"],

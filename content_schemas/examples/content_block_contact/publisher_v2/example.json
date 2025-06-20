@@ -32,7 +32,19 @@
           "telephone": "1234 567 89",
           "type": "telephone",
           "show_uk_call_charges": "false",
-          "description": "A Telephone line"
+          "description": "A Telephone line",
+          "opening_hours": [
+            {
+              "days_from": "Monday",
+              "days_to": "Friday",
+              "time_from_h": "9",
+              "time_from_m": "00",
+              "time_from_meridian": "AM",
+              "time_to_h": "5",
+              "time_to_m": "00",
+              "time_to_meridian": "PM"
+            }
+          ]
         },
         {
           "label": "Telephone 2",
