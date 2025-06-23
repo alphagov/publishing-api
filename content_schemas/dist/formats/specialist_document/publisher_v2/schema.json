@@ -819,22 +819,10 @@
         "bulk_published": {
           "type": "boolean"
         },
-        "funding_amount": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "grant_type": {
           "type": "string"
         },
         "land_use": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "tiers_or_standalone_items": {
           "type": "array",
           "items": {
             "type": "string"
