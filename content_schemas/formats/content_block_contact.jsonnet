@@ -57,8 +57,15 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                         }
                    }
                 },
+                show_uk_call_charges: {
+                    type: "string",
+                    enum: ["true", "false"]
+                },
+                description: {
+                    type: "string",
+                }
              },
-             ["telephone_numbers"],
+             ["telephone_numbers", "show_uk_call_charges"],
         ),
         contact_forms: utils.embedded_object(
             {
