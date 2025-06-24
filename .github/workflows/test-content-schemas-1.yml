@@ -95,7 +95,7 @@ jobs:
     name: Test Government Frontend
     uses: alphagov/government-frontend/.github/workflows/minitest.yml@main
     with:
-      ref: 'countryside-stewardship-grants-request'
+      ref: 'main'
       publishingApiRef: ${{ github.ref }}
 
   test-hmrc-manuals-api:
