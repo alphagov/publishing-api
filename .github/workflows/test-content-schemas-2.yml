@@ -32,7 +32,7 @@ jobs:
     name: Test Search API
     uses: alphagov/search-api/.github/workflows/rspec.yml@main
     with:
-      ref: 'countryside-stewardship-grants-request'
+      ref: 'main'
       publishingApiRef: ${{ github.ref }}
 
   test-search-admin:
@@ -67,7 +67,7 @@ jobs:
     name: Test Specialist Publisher
     uses: alphagov/specialist-publisher/.github/workflows/rspec.yml@main
     with:
-      ref: 'countryside-stewardship-grants-request'
+      ref: 'main'
       publishingApiRef: ${{ github.ref }}
 
   test-travel-advice-publisher:
