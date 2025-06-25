@@ -63,7 +63,35 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                 },
                 description: {
                     type: "string",
-                }
+                },
+                opening_hours: {
+                    type: "array",
+                    items: {
+                        type: "object",
+                        required: [
+                            "day_from",
+                            "day_to",
+                            "time_from",
+                            "time_to",
+                         ],
+                         properties: {
+                           day_from: {
+                             type: "string",
+                           },
+                           day_to: {
+                             type: "string",
+                           },
+                           time_from: {
+                             type: "string",
+                             pattern: "^[0-9]{1,2}:[0-9]{2}AM|PM$",
+                           },
+                           time_to: {
+                             type: "string",
+                             pattern: "^[0-9]{1,2}:[0-9]{2}AM|PM$",
+                           },
+                        }
+                    }
+                },
              },
              ["telephone_numbers", "show_uk_call_charges"],
         ),
