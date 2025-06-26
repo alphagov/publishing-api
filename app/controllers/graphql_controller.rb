@@ -11,7 +11,9 @@ class GraphqlController < ApplicationController
   def content
     execute_in_read_replica do
       result = PublishingApiSchema.execute(
-        news_article_query(base_path: "/#{params[:path_without_root]}"),
+        base_path == "/government/ministers" ?
+          ministers_index_query :
+          news_article_query(base_path:),
       ).to_hash
 
       process_graphql_result(result)
@@ -52,6 +54,10 @@ class GraphqlController < ApplicationController
   end
 
 private
+
+  def base_path
+    "/#{params[:path_without_root]}"
+  end
 
   def process_graphql_result(result)
     set_prometheus_labels(result.dig("data", "edition")&.slice("document_type", "schema_name"))
@@ -108,6 +114,126 @@ private
     prometheus_labels = request.env.fetch("govuk.prometheus_labels", {})
 
     request.env["govuk.prometheus_labels"] = prometheus_labels.merge(hash)
+  end
+
+  def ministers_index_query
+    <<-QUERY
+      {
+        edition(base_path: "/government/ministers") {
+          ... on MinistersIndex {
+            base_path
+            content_id
+            document_type
+            first_published_at
+            locale
+            public_updated_at
+            publishing_app
+            rendering_app
+            schema_name
+            updated_at
+
+            details {
+              body
+              reshuffle
+            }
+
+            links {
+              ordered_cabinet_ministers {
+                ...basePersonInfo
+              }
+
+              ordered_also_attends_cabinet {
+                ...basePersonInfo
+              }
+
+              ordered_assistant_whips {
+                ...basePersonInfo
+              }
+
+              ordered_baronesses_and_lords_in_waiting_whips {
+                ...basePersonInfo
+              }
+
+              ordered_house_lords_whips {
+                ...basePersonInfo
+              }
+
+              ordered_house_of_commons_whips {
+                ...basePersonInfo
+              }
+
+              ordered_junior_lords_of_the_treasury_whips {
+                ...basePersonInfo
+              }
+
+              ordered_ministerial_departments {
+                title
+                web_url
+
+                details {
+                  brand
+
+                  logo {
+                    crest
+                    formatted_title
+                  }
+                }
+
+                links {
+                  ordered_ministers {
+                    ...basePersonInfo
+                  }
+
+                  ordered_roles {
+                    content_id
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      fragment basePersonInfo on MinistersIndexPerson {
+        title
+        base_path
+        web_url
+
+        details {
+          privy_counsellor
+
+          image {
+            url
+            alt_text
+          }
+        }
+
+        links {
+          role_appointments {
+            details {
+              current
+            }
+
+            links {
+              role {
+                content_id
+                title
+                web_url
+
+                details {
+                  role_payment_type
+                  seniority
+                  whip_organisation {
+                    label
+                    sort_order
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    QUERY
   end
 
   def news_article_query(base_path:)
