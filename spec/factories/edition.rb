@@ -91,7 +91,7 @@ FactoryBot.define do
 
   factory :pathless_edition, aliases: [:pathless_draft_edition], parent: :edition do
     base_path { nil }
-    schema_name { "contact" }
-    document_type { "contact" }
+    schema_name { "role" }
+    document_type { "role" }
   end
 end

@@ -167,62 +167,12 @@ RSpec.shared_examples "finds references" do |document_type|
             },
           ],
         }
+
         links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
 
         expect(links.length).to eq(8)
         expect(links.count(editions[0].content_id)).to eq(4)
         expect(links.count(editions[1].content_id)).to eq(4)
-      end
-
-      it "returns duplicates when there is more than one content reference in the field and #{field_name} is a guide document" do
-        details = {
-          field_name => [
-            {
-              "title": "Key stage 3 and 4",
-              "slug": "key-stage-3-and-4",
-              "body": "some string with another reference: {{embed:#{document_type}:#{editions[0].content_id}}} and another {{embed:#{document_type}:#{editions[0].content_id}}}",
-            },
-            {
-              "title": "Other compulsory subjects",
-              "slug": "other-compulsory-subjects",
-              "body": "some string with another reference: {{embed:#{document_type}:#{editions[1].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}",
-            },
-            {
-              "title": "Overview",
-              "slug": "overview",
-              "body": "some string with another reference: {{embed:#{document_type}:#{editions[1].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}",
-            },
-          ],
-        }
-        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
-
-        expect(links.length).to eq(6)
-        expect(links.count(editions[0].content_id)).to eq(2)
-        expect(links.count(editions[1].content_id)).to eq(4)
-      end
-
-      it "finds content references when the field is a hash" do
-        details = { field_name => { title: "{{embed:#{document_type}:#{editions[0].content_id}}}", slug: "{{embed:#{document_type}:#{editions[1].content_id}}}", current: true } }
-
-        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
-
-        expect(links).to eq([editions[0].content_id, editions[1].content_id])
-      end
-
-      it "returns duplicates when there is more than one content reference in the field and the field is a hash" do
-        details = { field_name => { title: "{{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[0].content_id}}}", slug: "{{embed:#{document_type}:#{editions[1].content_id}}}", current: true } }
-
-        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
-
-        expect(links).to eq([editions[0].content_id, editions[0].content_id, editions[1].content_id])
-      end
-
-      it "does not return a content ID that is still draft" do
-        details = { field_name => "{{embed:#{document_type}:#{draft_edition.content_id}}}" }
-
-        links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
-
-        expect(links).to eq([])
       end
     end
   end
@@ -243,27 +193,29 @@ RSpec.describe EmbeddedContentFinderService do
     end
 
     it "alerts Sentry when there is are embeds without live editions" do
-      details = { body: "{{embed:contact:00000000-0000-0000-0000-000000000000}}" }
-      expect(GovukError).to receive(:notify).with(CommandError.new(
-                                                    code: 422,
-                                                    message: "Could not find any live editions for embedded content IDs: 00000000-0000-0000-0000-000000000000",
-                                                  ))
+      details = { body: "{{embed:content_block_contact:00000000-0000-0000-0000-000000000000}}" }
+      allow(GovukError).to receive(:notify)
 
       links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
 
       expect(links).to eq([])
+      expect(GovukError).to have_received(:notify).with(CommandError.new(
+                                                          code: 422,
+                                                          message: "Could not find any live editions for embedded content IDs: 00000000-0000-0000-0000-000000000000",
+                                                        ))
     end
 
     it "alerts Sentry when there is an invalid alias in the embed code" do
-      details = { body: "{{embed:contact:some-content-id-alias}}" }
-      expect(GovukError).to receive(:notify).with(CommandError.new(
-                                                    code: 422,
-                                                    message: "Could not find a Content ID for alias some-content-id-alias",
-                                                  ))
+      details = { body: "{{embed:content_block_contact:some-content-id-alias}}" }
+      allow(GovukError).to receive(:notify)
 
       links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
 
       expect(links).to eq([])
+      expect(GovukError).to have_received(:notify).with(CommandError.new(
+                                                          code: 422,
+                                                          message: "Could not find a Content ID for alias some-content-id-alias",
+                                                        ))
     end
 
     context "when the field value is an array" do

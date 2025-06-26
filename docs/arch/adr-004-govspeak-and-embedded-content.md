@@ -74,7 +74,7 @@ with the relevant document_type and content_id:
 ```markdown
 Some text
 
-[embed:contact:2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]
+[embed:content_block_contact:2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]
 
 More text
 ```

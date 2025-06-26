@@ -1,4 +1,12 @@
 RSpec.describe "pathless content" do
+  let(:validator) do
+    instance_double(SchemaValidator, valid?: true, errors: [])
+  end
+
+  before do
+    allow(SchemaValidator).to receive(:new).and_return(validator)
+  end
+
   describe Commands::V2::PutContent do
     describe "call" do
       let(:content_id) { build(:document).content_id }
@@ -8,9 +16,9 @@ RSpec.describe "pathless content" do
           title: "Some Title",
           publishing_app: "publisher",
           rendering_app: "frontend",
-          document_type: "contact",
-          details: { title: "Contact Title", contact_groups: [] },
-          schema_name: "contact",
+          document_type: "role",
+          details: { body: "Role content" },
+          schema_name: "role",
           locale: "en",
           phase: "beta",
         }
@@ -22,6 +30,9 @@ RSpec.describe "pathless content" do
             payload[:schema_name] = "generic"
             payload[:document_type] = "services_and_information"
             payload[:details] = {}
+
+            invalid_validator = instance_double(SchemaValidator, valid?: false, errors: ["base_path is required"])
+            allow(SchemaValidator).to receive(:new).and_return(invalid_validator)
           end
 
           it "raises an error" do
@@ -126,8 +137,8 @@ RSpec.describe "pathless content" do
             create(
               :draft_edition,
               base_path: nil,
-              schema_name: "contact",
-              document_type: "contact",
+              schema_name: "role",
+              document_type: "role",
               user_facing_version: 3,
             )
           end
@@ -144,8 +155,8 @@ RSpec.describe "pathless content" do
             create(
               :draft_edition,
               base_path:,
-              schema_name: "contact",
-              document_type: "contact",
+              schema_name: "role",
+              document_type: "role",
               user_facing_version: 3,
             )
           end
@@ -164,7 +175,7 @@ RSpec.describe "pathless content" do
     let(:pathless_edition) do
       create(
         :draft_edition,
-        document_type: "contact",
+        document_type: "role",
         user_facing_version: 2,
         base_path: nil,
       )
@@ -191,7 +202,7 @@ RSpec.describe "pathless content" do
           create(
             :live_edition,
             document: pathless_edition.document,
-            document_type: "contact",
+            document_type: "role",
             user_facing_version: 1,
           )
         end

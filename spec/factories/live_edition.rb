@@ -70,7 +70,7 @@ FactoryBot.define do
 
   factory :pathless_live_edition, parent: :live_edition do
     base_path { nil }
-    schema_name { "contact" }
-    document_type { "contact" }
+    schema_name { "role" }
+    document_type { "role" }
   end
 end

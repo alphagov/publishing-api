@@ -23,9 +23,9 @@
         "content_id": "5036b271-1f4b-499f-bf8e-50d8927d8702",
         "title": "General enquiries (England and Wales)",
         "locale": "en",
-        "document_type": "contact",
+        "document_type": "content_block_contact",
         "public_updated_at": "2019-04-29T07:52:41Z",
-        "schema_name": "contact",
+        "schema_name": "content_block_contact",
         "withdrawn": false,
         "details": {
           "description": null,
@@ -65,9 +65,9 @@
         "content_id": "286f3494-ac3b-488b-833e-b072765e4831",
         "title": "General enquiries (Scotland)",
         "locale": "en",
-        "document_type": "contact",
+        "document_type": "content_block_contact",
         "public_updated_at": "2019-02-27T10:38:53Z",
-        "schema_name": "contact",
+        "schema_name": "content_block_contact",
         "withdrawn": false,
         "details": {
           "description": null,

@@ -1,9 +1,9 @@
 RSpec.shared_examples "renders embedded content" do
   context "when there are live editions for the embedded content" do
     let(:expected_value) do
-      "<span class=\"content-embed content-embed__contact\"
+      "<span class=\"content-embed content-embed__content_block_contact\"
           data-content-block=\"\"
-          data-document-type=\"contact\"
+          data-document-type=\"content_block_contact\"
           data-content-id=\"#{embedded_content_id}\"
           data-embed-code=\"#{embed_code}\">VALUE</span>".squish
     end
@@ -21,7 +21,7 @@ RSpec.shared_examples "renders embedded content" do
 
     context "when body is a string" do
       context "when there is a mix of existing and not existing live editions" do
-        let(:details) { { body: "some string with a reference: #{embed_code} {{embed:contact:#{fake_content_id}}}" } }
+        let(:details) { { body: "some string with a reference: #{embed_code} {{embed:content_block_contact:#{fake_content_id}}}" } }
 
         it "alerts Sentry and returns the expected content" do
           expect(GovukError).to receive(:notify).with(CommandError.new(
@@ -29,7 +29,7 @@ RSpec.shared_examples "renders embedded content" do
                                                         message: "Could not find a live edition for embedded content ID: #{fake_content_id}",
                                                       ))
           expect(described_class.new(edition).render_embedded_content(details)).to eq({
-            body: "some string with a reference: #{expected_value} {{embed:contact:#{fake_content_id}}}",
+            body: "some string with a reference: #{expected_value} {{embed:content_block_contact:#{fake_content_id}}}",
           })
         end
       end
@@ -73,9 +73,9 @@ RSpec.shared_examples "renders embedded content" do
             }
           end
           let(:expected_value_2) do
-            "<span class=\"content-embed content-embed__contact\"
+            "<span class=\"content-embed content-embed__content_block_pension\"
           data-content-block=\"\"
-          data-document-type=\"contact\"
+          data-document-type=\"content_block_pension\"
           data-content-id=\"#{embedded_content_id_2}\"
           data-embed-code=\"#{embed_code_2}\">VALUE2</span>".squish
           end
@@ -167,7 +167,7 @@ RSpec.shared_examples "renders embedded content" do
 
     context "when multiple documents are embedded in different parts of the document" do
       let(:other_embedded_content_id) { SecureRandom.uuid }
-      let(:other_embed_code) { "{{embed:contact:#{other_embedded_content_id}}}" }
+      let(:other_embed_code) { "{{embed:content_block_contact:#{other_embedded_content_id}}}" }
 
       let!(:other_embedded_edition) do
         embedded_document = create(:document, content_id: other_embedded_content_id)
@@ -176,7 +176,7 @@ RSpec.shared_examples "renders embedded content" do
           document: embedded_document,
           state: "published",
           content_store: "live",
-          document_type: "contact",
+          document_type: "content_block_contact",
           title: "VALUE2",
         )
       end
@@ -202,7 +202,7 @@ RSpec.shared_examples "renders embedded content" do
 
       let(:details) do
         {
-          title: "title string with reference: {{embed:contact:#{other_embedded_content_id}}}",
+          title: "title string with reference: {{embed:content_block_contact:#{other_embedded_content_id}}}",
           body: "some string with a reference: #{embed_code}",
         }
       end
