@@ -11,6 +11,6 @@ namespace :temp_tidy_local_authority_editions do
 
   desc "Destroys all local authority editions"
   task all: :environment do
-    Edition.where(publishing_app: "local-links-manager", schema_name: "external_content").destroy_all
+    Edition.where(publishing_app: "local-links-manager", schema_name: "external_content").in_batches(of: 1000).destroy_all
   end
 end
