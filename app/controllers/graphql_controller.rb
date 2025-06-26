@@ -10,11 +10,17 @@ class GraphqlController < ApplicationController
 
   def content
     execute_in_read_replica do
-      result = PublishingApiSchema.execute(
-        base_path == "/government/ministers" ?
-          ministers_index_query :
-          news_article_query(base_path:),
-      ).to_hash
+      query = case find_schema_name(base_path)
+      when :news_article
+        news_article_query(base_path:) 
+      when :ministers_index
+        ministers_index_query
+      when :role
+      when :world_index
+      end
+      result = PublishingApiSchema.execute(query).to_hash
+
+      
 
       process_graphql_result(result)
 
@@ -57,6 +63,11 @@ private
 
   def base_path
     "/#{params[:path_without_root]}"
+  end
+
+  def find_schema_name(base_path)
+    #TODO: implement this method with a database lookup
+    base_path == "/government/ministers"
   end
 
   def process_graphql_result(result)
