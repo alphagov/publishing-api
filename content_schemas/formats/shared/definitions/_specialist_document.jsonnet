@@ -114,6 +114,9 @@
         "$ref": "#/definitions/traffic_commissioner_regulatory_decision_metadata",
       },
       {
+        "$ref": "#/definitions/ukhsa_chemical_hazard_metadata",
+      },
+      {
         "$ref": "#/definitions/ukhsa_data_access_approval_metadata",
       },
       {
@@ -1269,6 +1272,27 @@
       },
       hidden_indexable_content: {
         type: "string",
+      },
+    },
+  },
+  ukhsa_chemical_hazard_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      ukhsa_chemical_name: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+      ukhsa_product_category: {
+        type: "array",
+        items: {
+          type: "string",
+        },
       },
     },
   },
