@@ -376,7 +376,7 @@
       "required": [
         "body"
       ],
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "body": {
           "type": "string"

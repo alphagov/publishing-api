@@ -4,7 +4,7 @@
   definitions: {
     details: {
       type: "object",
-      additionalProperties: false,
+      additionalProperties: true,
       required: ["body"],
       properties: {
         body: { type: "string" },
