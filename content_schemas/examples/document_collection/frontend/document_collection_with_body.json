@@ -10,6 +10,25 @@
   "locale": "en",
   "details": {
     "body": "<div class=\"govspeak\"><p>Each regime page provides a current list of asset freeze targets designated by the United Nations (UN), European Union and United Kingdom, under legislation relating to current financial sanctions regimes.</p>\n\n<h2 id=\"consolidated-list\">Consolidated list</h2>\n\n<p>The <a rel=\"external\" href=\"https://www.gov.uk/government/publications/financial-sanctions-consolidated-list-of-targets\">current consolidated list of asset freeze targets</a> designated by the United Nations, European Union and United Kingdom, under legislation relating to current financial sanctions regimes, is also available.</p>\n\n<h3 id=\"subscribing-to-financial-sanctions-mailing-list\">Subscribing to financial sanctions mailing list</h3>\n\n<p><a rel=\"external\" href=\"http://engage.hm-treasury.gov.uk/fin-sanc-subscribe/\">Subscribe to our free e-mail alerts</a> for information on updates to the Treasury’s consolidated list of targets of financial sanctions in effect in the UK.</p>\n\n<p>Enquiries relating to asset freezing or other financial sanctions should be submitted to HM Treasury either by email to <a href=\"mailto:financialsanctions@hmtreasury.gsi.gov.uk\">financialsanctions@hmtreasury.gsi.gov.uk</a> or by post to Financial Sanctions, HM Treasury, 1 Horse Guards Road, London SW1A 2HQ.</p>\n\n<h3 id=\"further-information\">Further information</h3>\n\n<p>For further information on financial sanctions see the <a href=\"https://www.gov.uk/sanctions-embargoes-and-restrictions\">guide to sanctions, embargoes and restrictions.</a></p>\n</div>",
+    "headers": [
+      {
+        "text": "Consolidated list",
+        "level": 2,
+        "id": "consolidated-list",
+        "headers": [
+          {
+            "text": "Subscribing to financial sanctions mailing list",
+            "level": 3,
+            "id": "subscribing-to-financial-sanctions-mailing-list"
+          },
+          {
+            "text": "Further information",
+            "level": 3,
+            "id": "further-information"
+          }
+        ]
+      }
+    ],
     "collection_groups": [
       {
         "title": "Documents",
