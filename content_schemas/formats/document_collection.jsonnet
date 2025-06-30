@@ -12,6 +12,9 @@
         body: {
           "$ref": "#/definitions/body",
         },
+        headers: {
+          "$ref": "#/definitions/nested_headers",
+        },
         collection_groups: {
           description: "The ordered list of collection groups",
           type: "array",
