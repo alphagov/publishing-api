@@ -131,13 +131,6 @@
   :rendering_app: "frontend"
   :type: "prefix"
 
-- :base_path: "/humans.txt"
-  :content_id: "6e92af59-3a73-4db6-b58b-740a02b229d0"
-  :title: "humans.txt"
-  :description: "In opposition to robots.txt, humans.txt provides information about GOV.UK to interested readers, such as developers interested in joining GDS."
-  :rendering_app: "static"
-  :override_existing: true
-
 - :base_path: "/government/feed"
   :content_id: "725a346f-9e5b-486d-873d-2b050c126e09"
   :title: "Government feed"
@@ -167,7 +160,7 @@
   :title: "HM Passport Office webchat"
   :description: "Handles the webchat view for HM Passport Office"
   :rendering_app: "government-frontend"
- 
+
 - :base_path: "/government/uploads"
   :content_id: "5a0ca87e-0e91-4d4c-bd26-29feb24f98ab"
   :title: "Government Uploads"
