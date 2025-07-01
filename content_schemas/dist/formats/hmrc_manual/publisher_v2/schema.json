@@ -230,7 +230,6 @@
       "items": {
         "type": "object",
         "required": [
-          "section_id",
           "base_path",
           "title",
           "change_note",

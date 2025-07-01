@@ -6,7 +6,6 @@
       type: "object",
       additionalProperties: false,
       required: [
-        "section_id",
         "base_path",
         "title",
         "change_note",
