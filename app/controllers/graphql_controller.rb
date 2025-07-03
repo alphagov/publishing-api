@@ -19,6 +19,8 @@ class GraphqlController < ApplicationController
         role_query(base_path:)
       when :world_index
         world_index_query
+      # TODO handle missing, serve 404
+      # TODO handle unsupported schema_name
       end
       result = PublishingApiSchema.execute(query).to_hash
 
