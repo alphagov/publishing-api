@@ -28,6 +28,12 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
             description: {
               type: "string",
             },
+            subject: {
+              type: "string",
+            },
+            body: {
+              type: "string", 
+            },
           },
           ["email_address"],
         ),
