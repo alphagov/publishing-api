@@ -71,7 +71,7 @@ private
     elsif base_path == "/world"
       :world_index
     else
-      Edition.live.find_by(base_path: base_path).schema_name.to_sym
+      Edition.live.where(base_path:).pick(:schema_name)&.to_sym
     end
   end
 
