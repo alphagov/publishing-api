@@ -12,15 +12,15 @@ class GraphqlController < ApplicationController
     execute_in_read_replica do
       query = case find_schema_name(base_path)
       when :news_article
-        news_article_query(base_path:) 
+        news_article_query(base_path:)
       when :ministers_index
         ministers_index_query
       when :role
+        role_query(base_path:)
       when :world_index
+        raise "not good"
       end
       result = PublishingApiSchema.execute(query).to_hash
-
-      
 
       process_graphql_result(result)
 
@@ -71,7 +71,7 @@ private
     elsif base_path == "/world"
       :world_index
     else
-      Edition.live.find_by(base_path: base_path).schema_name.to_symx
+      Edition.live.find_by(base_path: base_path).schema_name.to_sym
     end
   end
 
@@ -423,6 +423,101 @@ private
           title
           web_url
         }
+    QUERY
+  end
+
+  def role_query(base_path:)
+    <<-QUERY
+      {
+        edition(base_path: "#{base_path}") {
+          ... on Edition {
+            base_path
+            content_id
+            document_type
+            first_published_at
+            locale
+            public_updated_at
+            publishing_app
+            rendering_app
+            schema_name
+            title
+            updated_at
+
+            details {
+              body
+              supports_historical_accounts
+            }
+
+            links {
+              available_translations {
+                base_path
+                locale
+              }
+
+              role_appointments {
+                details {
+                  current
+                  ended_on
+                  started_on
+                }
+
+                links {
+                  person {
+                    base_path
+                    title
+
+                    details {
+                      body
+                    }
+                  }
+                }
+              }
+
+              ordered_parent_organisations {
+                analytics_identifier
+                base_path
+                title
+              }
+
+              organisations {
+                analytics_identifier
+              }
+
+              taxons {
+                ...Taxon
+                links {
+                  parent_taxons {
+                    ...Taxon
+                    links {
+                      parent_taxons {
+                        ...Taxon
+                        links {
+                          parent_taxons {
+                            ...Taxon
+                            links {
+                              parent_taxons {
+                                ...Taxon
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      fragment Taxon on Edition {
+        base_path
+        content_id
+        document_type
+        phase
+        title
+      }
     QUERY
   end
 end
