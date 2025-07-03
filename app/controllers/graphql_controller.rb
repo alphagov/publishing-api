@@ -66,8 +66,13 @@ private
   end
 
   def find_schema_name(base_path)
-    #TODO: implement this method with a database lookup
-    base_path == "/government/ministers"
+    if base_path == "/government/ministers"
+      :ministers_index
+    elsif base_path == "/world"
+      :world_index
+    else
+      Edition.live.find_by(base_path: base_path).schema_name.to_symx
+    end
   end
 
   def process_graphql_result(result)
