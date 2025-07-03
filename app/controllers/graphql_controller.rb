@@ -18,7 +18,7 @@ class GraphqlController < ApplicationController
       when :role
         role_query(base_path:)
       when :world_index
-        raise "not good"
+        world_index_query
       end
       result = PublishingApiSchema.execute(query).to_hash
 
@@ -517,6 +517,43 @@ private
         document_type
         phase
         title
+      }
+    QUERY
+  end
+
+  def world_index_query
+    <<-QUERY
+      fragment worldLocationInfo on Edition {
+        active
+        name
+        slug
+      }
+
+      {
+        edition(base_path: "/world") {
+          ... on Edition {
+            content_id
+            document_type
+            first_published_at
+            locale
+            public_updated_at
+            publishing_app
+            rendering_app
+            schema_name
+            title
+            updated_at
+
+            details {
+              world_locations {
+                ...worldLocationInfo
+              }
+
+              international_delegations {
+                ...worldLocationInfo
+              }
+            }
+          }
+        }
       }
     QUERY
   end
