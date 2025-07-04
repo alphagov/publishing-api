@@ -98,6 +98,24 @@ RSpec.describe "GraphQL" do
       expect(request.env["govuk.prometheus_labels"]["schema_name"]).to eq(edition.schema_name)
     end
 
+    it "logs the base_path, document_type, schema_name and timings" do
+      allow(Rails.logger).to receive(:info)
+      expect(Rails.logger).to receive(:info).with(/
+        #{Regexp.escape("GraphQL response for #{edition.base_path}")}
+        .*
+        #{Regexp.escape('(generic / generic_type)')}
+        .*
+        timing:\ utime\ =.*,\ stime\ =.*,\ real\ =.*
+      /x)
+      post "/graphql", params: {
+        query: %({
+          edition(base_path: "#{edition.base_path}") {
+            ... on Edition { base_path, document_type, schema_name }
+          }
+        }),
+      }
+    end
+
     it "sets the contains_errors prometheus label if there is an error" do
       post "/graphql", params: {
         query: "{brokenQuery}",

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "benchmark"
+
 class GraphqlController < ApplicationController
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
@@ -17,21 +19,28 @@ class GraphqlController < ApplicationController
         # Query context goes here, for example:
         # current_user: current_user,
       }
-      result = PublishingApiSchema.execute(
-        query,
-        variables:,
-        context:,
-        operation_name:,
-      ).to_hash
+      result = nil
+      execution_time = Benchmark.measure do
+        result = PublishingApiSchema.execute(
+          query,
+          variables:,
+          context:,
+          operation_name:,
+        ).to_hash
+      end
+      raise "Failed to execute graphql query" if result.nil?
 
-      set_prometheus_labels(result.dig("data", "edition")&.slice("document_type", "schema_name"))
+      edition = result.dig("data", "edition")
+      document_type, schema_name, base_path = edition&.values_at("document_type", "schema_name", "base_path")
+      set_prometheus_labels(document_type:, schema_name:)
 
       if result.key?("errors")
         logger.warn("GraphQL query result contained errors: #{result['errors']}")
-        set_prometheus_labels("contains_errors" => true)
+        set_prometheus_labels(contains_errors: true)
       else
+        logger.info("GraphQL response for #{base_path} (#{schema_name} / #{document_type}) timing: #{format_benchmark(execution_time)}")
         logger.debug("GraphQL query result: #{result}")
-        set_prometheus_labels("contains_errors" => false)
+        set_prometheus_labels(contains_errors: false)
       end
 
       render json: result
@@ -82,10 +91,14 @@ private
   end
 
   def set_prometheus_labels(hash)
-    return unless hash
+    return unless hash && hash.compact.present?
 
     prometheus_labels = request.env.fetch("govuk.prometheus_labels", {})
 
-    request.env["govuk.prometheus_labels"] = prometheus_labels.merge(hash)
+    request.env["govuk.prometheus_labels"] = prometheus_labels.merge(hash.stringify_keys)
+  end
+
+  def format_benchmark(measurement)
+    "utime = #{measurement.utime}, stime = #{measurement.stime}, real = #{measurement.real}"
   end
 end
