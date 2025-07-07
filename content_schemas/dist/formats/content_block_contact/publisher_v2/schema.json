@@ -281,12 +281,18 @@
               ],
               "additionalProperties": false,
               "properties": {
+                "body": {
+                  "type": "string"
+                },
                 "description": {
                   "type": "string"
                 },
                 "email_address": {
                   "type": "string",
                   "format": "email"
+                },
+                "subject": {
+                  "type": "string"
                 },
                 "title": {
                   "type": "string"
