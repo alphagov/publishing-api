@@ -1,6 +1,7 @@
 RSpec.describe HostContentUpdateJob, :perform do
   let(:content_id) { SecureRandom.uuid }
   let(:document_type) { "content_block_pension" }
+  let(:change_note) { build(:change_note, note: "Something") }
   let(:edition) { build(:live_edition, document_type:) }
   let(:document) { build(:document, live: edition, content_id:) }
 
@@ -21,9 +22,18 @@ RSpec.describe HostContentUpdateJob, :perform do
     ]
   end
 
+  let(:latest_publish_event) { build(:event, content_id:, action: "Publish", user_uid: SecureRandom.uuid, created_at: Time.zone.now) }
+
   before do
     allow_any_instance_of(Queries::ContentDependencies).to receive(:call).and_return(dependencies)
     allow(Document).to receive(:find_by).with(content_id:).and_return(document)
+    allow(edition).to receive(:change_note).and_return(change_note)
+
+    allow(Event).to receive_message_chain(:where, :order, :first)
+                      .with(action: "Publish", content_id:)
+                      .with(created_at: :desc)
+                      .with(no_args)
+                      .and_return(latest_publish_event)
   end
 
   it "queues the Live host content for update" do
@@ -38,6 +48,14 @@ RSpec.describe HostContentUpdateJob, :perform do
         "source_command" => nil,
         "source_fields" => [],
         "update_dependencies" => false,
+        "source_block" => {
+          title: edition.title,
+          content_id: edition.content_id,
+          document_type: edition.document_type,
+          updated_by_user_uid: latest_publish_event.user_uid,
+          update_type: edition.update_type,
+          change_note: change_note.note,
+        },
       },
     )
     worker_perform
@@ -49,7 +67,6 @@ RSpec.describe HostContentUpdateJob, :perform do
     create(:event, content_id:, action: "Publish", created_at: 3.days.ago)
     create(:event, content_id:, action: "HostContentUpdateJob", created_at: 2.days.ago)
     create(:event, content_id:, action: "PutContent", created_at: 1.day.ago)
-    latest_publish_event = create(:event, content_id:, action: "Publish", user_uid: SecureRandom.uuid, created_at: Time.zone.now)
 
     expect { worker_perform }.to change(Event, :count).by(1)
 
