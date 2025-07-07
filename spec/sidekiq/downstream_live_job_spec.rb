@@ -119,6 +119,17 @@ RSpec.describe DownstreamLiveJob do
 
       subject.perform(arguments.merge("message_queue_event_type" => "minor"))
     end
+
+    describe "when a source block is provided" do
+      it "sends the source block to the message queue" do
+        source_block = double("source_block")
+
+        expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
+          .with(hash_including(source_block:), event_type: "major")
+
+        subject.perform(arguments.merge("source_block" => source_block))
+      end
+    end
   end
 
   describe "update dependencies" do
