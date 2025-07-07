@@ -1,10 +1,11 @@
 class DownstreamPayload
-  attr_reader :edition, :payload_version, :draft
+  attr_reader :edition, :payload_version, :draft, :source_block
 
-  def initialize(edition, payload_version, draft: false)
+  def initialize(edition, payload_version, draft: false, source_block: nil)
     @edition = edition
     @payload_version = payload_version
     @draft = draft
+    @source_block = source_block
   end
 
   delegate :state, to: :edition
@@ -41,7 +42,7 @@ private
   end
 
   def content_presenter
-    @content_presenter ||= Presenters::EditionPresenter.new(edition, draft:)
+    @content_presenter ||= Presenters::EditionPresenter.new(edition, draft:, source_block:)
   end
 
   def redirect_presenter
