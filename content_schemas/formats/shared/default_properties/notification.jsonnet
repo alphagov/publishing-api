@@ -50,4 +50,29 @@
     type: "string",
     description: "Document subgroup grouping documents by purpose. Narrows down the purpose defined in content_purpose_supergroup.",
   },
+  source_block: {
+    anyOf: [
+        {
+            type: "object",
+            properties: {
+                title: { type: "string" },
+                content_id: { type: "string" },
+                document_type: { type: "string" },
+                updated_by_user_uid: { type: "string" },
+                update_type: {
+                    type: "string",
+                    enum: [
+                      "major",
+                      "minor",
+                      "republish",
+                    ],
+                },
+                change_note: { type: ["string", "null"] },
+            }
+        },
+        {
+            type: "null",
+        },
+    ]
+  },
 }

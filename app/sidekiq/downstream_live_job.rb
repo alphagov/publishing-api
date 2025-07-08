@@ -34,7 +34,7 @@ class DownstreamLiveJob
       )
     end
 
-    payload = DownstreamPayload.new(edition, payload_version, draft: false)
+    payload = DownstreamPayload.new(edition, payload_version, draft: false, source_block: @source_block)
 
     update_expanded_links(payload)
     DownstreamService.update_live_content_store(payload) if edition.base_path
@@ -80,6 +80,7 @@ private
     )
     @source_command = attributes[:source_command]
     @source_fields = attributes.fetch(:source_fields, [])
+    @source_block = attributes.fetch(:source_block, nil)
   end
 
   def enqueue_dependencies

@@ -34,10 +34,11 @@ RSpec.describe Presenters::EditionPresenter do
         auth_bypass_ids: [],
       )
     end
+    let(:source_block) { nil }
 
     subject(:result) do
       described_class.new(
-        edition, draft: present_drafts
+        edition, draft: present_drafts, source_block:
       ).for_message_queue(payload_version)
     end
 
@@ -59,6 +60,27 @@ RSpec.describe Presenters::EditionPresenter do
 
     it "doesnt include auth_bypass_ids in message queue" do
       expect(subject).to_not include(auth_bypass_ids: [])
+    end
+
+    context "when a source block is provided" do
+      let(:source_block) do
+        {
+          title: "Some title",
+          content_id: SecureRandom.uuid,
+          document_type: "Document type",
+          updated_by_user_uid: SecureRandom.uuid,
+          update_type: "major",
+          change_note: "Some change note",
+        }
+      end
+
+      it "appends the source block to the response" do
+        expect(subject[:source_block]).to eq source_block
+      end
+
+      it "matches the notification schema" do
+        expect(subject).to be_valid_against_notification_schema("calendar")
+      end
     end
 
     context "when there are links" do

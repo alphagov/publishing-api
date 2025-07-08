@@ -361,6 +361,44 @@
       "description": "Document supertype grouping core and government documents",
       "type": "string"
     },
+    "source_block": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "change_note": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "content_id": {
+              "type": "string"
+            },
+            "document_type": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "update_type": {
+              "type": "string",
+              "enum": [
+                "major",
+                "minor",
+                "republish"
+              ]
+            },
+            "updated_by_user_uid": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "title": {
       "$ref": "#/definitions/title"
     },

@@ -5,11 +5,13 @@ RSpec.describe DownstreamPayload do
 
   let(:payload_version) { 1 }
   let(:draft) { false }
+  let(:source_block) { nil }
   subject(:downstream_payload) do
     DownstreamPayload.new(
       edition,
       payload_version,
       draft:,
+      source_block:,
     )
   end
 
@@ -190,9 +192,25 @@ RSpec.describe DownstreamPayload do
     context "a published edition" do
       let(:edition) { create_edition(:live_edition, update_type: "major") }
 
+      let(:payload) { double(:expected_payload) }
+      let(:presenter_double) { double(:edition_presenter) }
+
+      before do
+        expect(presenter_double).to receive(:for_message_queue).with(payload_version).and_return(payload)
+      end
+
       it "uses the edition presenter" do
-        expect_any_instance_of(Presenters::EditionPresenter).to receive(:for_message_queue).with(payload_version)
-        downstream_payload.message_queue_payload
+        expect(Presenters::EditionPresenter).to receive(:new).with(edition, draft: false, source_block: nil).and_return(presenter_double)
+        expect(downstream_payload.message_queue_payload).to eq(payload)
+      end
+
+      context "when source_block is set" do
+        let(:source_block) { double("source_block_hash") }
+
+        it "uses the edition presenter" do
+          expect(Presenters::EditionPresenter).to receive(:new).with(edition, draft: false, source_block:).and_return(presenter_double)
+          expect(downstream_payload.message_queue_payload).to eq(payload)
+        end
       end
     end
 

@@ -25,9 +25,10 @@ module Presenters
       withdrawn
     ].freeze
 
-    def initialize(edition, draft: false)
+    def initialize(edition, draft: false, source_block: nil)
       @edition = edition
       @draft = draft
+      @source_block = source_block
     end
 
     def for_content_store(payload_version)
@@ -39,6 +40,7 @@ module Presenters
         govuk_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
         links: unexpanded_links,
         payload_version:,
+        source_block:,
       )
     end
 
@@ -65,7 +67,7 @@ module Presenters
 
   private
 
-    attr_reader :draft, :edition
+    attr_reader :draft, :edition, :source_block
 
     def auth_bypass_ids
       return {} unless draft
