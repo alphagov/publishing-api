@@ -26,21 +26,50 @@ RSpec.describe HostContentUpdateJob, :perform do
     allow(Document).to receive(:find_by).with(content_id:).and_return(document)
   end
 
-  it "queues the Live host content for update" do
-    expect(DownstreamLiveJob).to receive(:perform_async_in_queue).with(
-      "downstream_high",
-      {
-        "content_id" => dependent_content_id,
-        "dependency_resolution_source_content_id" =>
-         content_id,
-        "locale" => "en",
-        "message_queue_event_type" => "host_content",
-        "source_command" => nil,
-        "source_fields" => [],
-        "update_dependencies" => false,
-      },
-    )
-    worker_perform
+  context "when the edition's update type is `major`" do
+    before do
+      edition.update_type = "major"
+    end
+
+    it "queues the Live host content for update" do
+      expect(DownstreamLiveJob).to receive(:perform_async_in_queue).with(
+        "downstream_high",
+        {
+          "content_id" => dependent_content_id,
+          "dependency_resolution_source_content_id" =>
+            content_id,
+          "locale" => "en",
+          "message_queue_event_type" => "major",
+          "source_command" => nil,
+          "source_fields" => [],
+          "update_dependencies" => false,
+        },
+      )
+      worker_perform
+    end
+  end
+
+  context "when the edition's update type is `minor`" do
+    before do
+      edition.update_type = "minor"
+    end
+
+    it "queues the Live host content for update" do
+      expect(DownstreamLiveJob).to receive(:perform_async_in_queue).with(
+        "downstream_high",
+        {
+          "content_id" => dependent_content_id,
+          "dependency_resolution_source_content_id" =>
+            content_id,
+          "locale" => "en",
+          "message_queue_event_type" => "minor",
+          "source_command" => nil,
+          "source_fields" => [],
+          "update_dependencies" => false,
+        },
+      )
+      worker_perform
+    end
   end
 
   it "creates an event" do
