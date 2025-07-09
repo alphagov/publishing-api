@@ -18,8 +18,32 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
           { public_timestamp: 2.days.ago.to_s, note: "note 2" },
         ] }
       end
+
       it "returns content_history from details hash" do
         expect(subject).to eq details[:change_history]
+      end
+
+      context "when linked documents have a change history" do
+        let(:change_notes) do
+          build_list(:change_note, 2) do |note, i|
+            note.note = "linked note #{i}"
+            note.public_timestamp = i.days.ago
+          end
+        end
+
+        before do
+          stub_history = double("Presenters::Queries::ChangeHistory", call: change_notes)
+          allow(Presenters::Queries::ChangeHistory).to receive(:new).with(edition, include_root_changes: false).and_return(stub_history)
+        end
+
+        it "should return the linked documents" do
+          expect(subject).to eq [
+            { public_timestamp: change_notes[0].public_timestamp.as_json, note: change_notes[0].note },
+            { public_timestamp: change_notes[1].public_timestamp.as_json, note: change_notes[1].note },
+            { public_timestamp: details[:change_history][0][:public_timestamp], note: details[:change_history][0][:note] },
+            { public_timestamp: details[:change_history][1][:public_timestamp], note: details[:change_history][1][:note] },
+          ]
+        end
       end
     end
 
