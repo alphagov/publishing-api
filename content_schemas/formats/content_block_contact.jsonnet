@@ -63,9 +63,22 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                         }
                    }
                 },
-                show_uk_call_charges: {
-                    type: "string",
-                    enum: ["true", "false"]
+                call_charges: {
+                  type: "object",
+                  properties: {
+                    show_call_charges_info_url: {
+                      type: "boolean",
+                      default: false,
+                    },
+                    label: {
+                      type: "string",
+                      default: "Find out about call charges",
+                    },
+                    call_charges_info_url: {
+                      type: "string",
+                      default: "https://gov.uk/call-charges"
+                    }
+                  },
                 },
                 description: {
                     type: "string",
@@ -99,7 +112,7 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                     }
                 },
              },
-             ["telephone_numbers", "show_uk_call_charges"],
+             ["telephone_numbers"],
         ),
         contact_forms: utils.embedded_object(
             {
