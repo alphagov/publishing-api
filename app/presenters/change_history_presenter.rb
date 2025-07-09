@@ -26,12 +26,7 @@ module Presenters
     end
 
     def change_notes
-      ChangeNote
-        .joins(:edition)
-        .where(editions: { document: })
-        .where("user_facing_version <= ?", version_number)
-        .where.not(public_timestamp: nil)
-        .order(:public_timestamp)
+      Presenters::Queries::ChangeHistory.new(edition).call
     end
 
     def version_number
