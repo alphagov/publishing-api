@@ -80,10 +80,11 @@ private
     )
     @source_command = attributes[:source_command]
     @source_fields = attributes.fetch(:source_fields, [])
+    @is_content_block = attributes.fetch(:is_content_block, false)
   end
 
   def enqueue_dependencies
-    dependency_job_klass = @message_queue_event_type == "content_block" ? HostContentUpdateJob : DependencyResolutionJob
+    dependency_job_klass = @is_content_block ? HostContentUpdateJob : DependencyResolutionJob
     dependency_job_klass.perform_async(
       "content_store" => "Adapters::ContentStore",
       "content_id" => content_id,

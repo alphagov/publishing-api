@@ -253,6 +253,7 @@ module Commands
         worker_params.merge(
           "message_queue_event_type" => update_type,
           "orphaned_content_ids" => orphaned_content_ids,
+          "is_content_block" => edition.is_content_block?,
         )
       end
 
