@@ -44,7 +44,7 @@ RSpec.describe HostContentUpdateJob, :perform do
           "source_fields" => [],
           "update_dependencies" => false,
         },
-        )
+      )
       worker_perform
     end
   end
@@ -53,7 +53,7 @@ RSpec.describe HostContentUpdateJob, :perform do
     before do
       edition.update_type = "minor"
     end
-    
+
     it "queues the Live host content for update" do
       expect(DownstreamLiveJob).to receive(:perform_async_in_queue).with(
         "downstream_high",
@@ -67,7 +67,7 @@ RSpec.describe HostContentUpdateJob, :perform do
           "source_fields" => [],
           "update_dependencies" => false,
         },
-        )
+      )
       worker_perform
     end
   end
