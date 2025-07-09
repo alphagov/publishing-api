@@ -7,8 +7,9 @@ module Presenters
         documents: Document.arel_table,
       }.freeze
 
-      def initialize(edition)
+      def initialize(edition, include_root_changes: true)
         @edition = edition
+        @include_root_changes = include_root_changes
       end
 
       def call
@@ -19,25 +20,33 @@ module Presenters
 
     private
 
-      attr_reader :edition
+      attr_reader :edition, :include_root_changes
 
       def subquery
-        query = TABLES[:editions][:document_id]
-                  .eq(edition.document_id)
-                  .and(TABLES[:editions][:user_facing_version].lteq(edition.user_facing_version))
-                  .and(TABLES[:change_notes][:public_timestamp].not_eq(nil))
+        if include_root_changes
+          query = TABLES[:editions][:document_id]
+            .eq(edition.document_id)
+            .and(TABLES[:editions][:user_facing_version].lteq(edition.user_facing_version))
+            .and(TABLES[:change_notes][:public_timestamp].not_eq(nil))
 
-        links.each do |link|
-          query = query.or(
-            TABLES[:change_notes].grouping(
-              TABLES[:documents][:content_id]
-                .eq(link.target_content_id)
-                .and(TABLES[:change_notes][:public_timestamp].gt(link.created_at)),
-            ),
-          )
+          link_queries.each do |q|
+            query = query.or(q)
+          end
+        else
+          query = link_queries.reduce(:or)
         end
 
-        arel_joins.where(query)
+        query ? arel_joins.where(query) : []
+      end
+
+      def link_queries
+        links.map do |link|
+          TABLES[:change_notes].grouping(
+            TABLES[:documents][:content_id]
+              .eq(link.target_content_id)
+              .and(TABLES[:change_notes][:public_timestamp].gt(link.created_at)),
+          )
+        end
       end
 
       def links

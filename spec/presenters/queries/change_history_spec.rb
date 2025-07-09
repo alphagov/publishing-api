@@ -30,7 +30,7 @@ RSpec.describe Presenters::Queries::ChangeHistory do
   end
 
   describe "when links exist" do
-    it "should include change notes that were created after the link was created" do
+    before do
       content_block = create(:edition, created_at: 2.weeks.ago)
       older_edition = create(:edition, document:, created_at: 2.days.ago, state: "superseded", user_facing_version: "1", content_store: nil)
 
@@ -56,8 +56,18 @@ RSpec.describe Presenters::Queries::ChangeHistory do
       # Create change notes for the editions
       create(:change_note, edition: older_edition, note: "note-2", public_timestamp: 3.days.ago)
       create(:change_note, edition:, note: "note-1", public_timestamp: 1.hour.ago)
+    end
 
+    it "should include change notes that were created after the link was created" do
       expect(subject.map(&:note)).to eq %w[note-2 linked-edition-note-1 linked-edition-note-2 note-1]
+    end
+
+    context "when include_root_changes is false" do
+      let(:subject) { described_class.new(edition, include_root_changes: false).call }
+
+      it "should not include the root changes" do
+        expect(subject.map(&:note)).to eq %w[linked-edition-note-1 linked-edition-note-2]
+      end
     end
   end
 end
