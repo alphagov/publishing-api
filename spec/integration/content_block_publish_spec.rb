@@ -1,9 +1,16 @@
+RSpec.configure do |config|
+  config.expect_with :rspec do |c|
+    c.max_formatted_output_length = 1_000_000
+  end
+end
+
 RSpec.describe "Content Block Publication" do
   let(:content_block_document) { create(:document) }
 
-  let!(:content_block_superseded_edition) { create(:edition, document: content_block_document, state: "superseded", content_store: nil, user_facing_version: 1) }
-  let!(:content_block_live_edition) { create(:edition, document: content_block_document, state: "published", content_store: "live", user_facing_version: 2) }
-  let(:content_block) { create(:draft_edition, update_type:, document: content_block_document, user_facing_version: 3) }
+  let(:document_type) { "content_block_pension" }
+  let!(:content_block_superseded_edition) { create(:edition, document: content_block_document, state: "superseded", content_store: nil, user_facing_version: 1, document_type:) }
+  let!(:content_block_live_edition) { create(:edition, document: content_block_document, state: "published", content_store: "live", user_facing_version: 2, document_type:) }
+  let(:content_block) { create(:draft_edition, update_type:, document: content_block_document, user_facing_version: 3, document_type:) }
 
   let!(:change_note) { create(:change_note, note: "Some note goes here", edition: content_block, created_at: 1.day.ago) }
 
@@ -25,7 +32,7 @@ RSpec.describe "Content Block Publication" do
 
     it "sends the correct messages to the message queue for all dependent content" do
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-                                                           .with(hash_including(content_id: content_block.content_id), event_type: "content_block")
+                                                           .with(hash_including(content_id: content_block.content_id), event_type: "major")
 
       dependent_content.each do |item|
         expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
@@ -36,9 +43,7 @@ RSpec.describe "Content Block Publication" do
       end
 
       post "/v2/content/#{content_block.content_id}/publish",
-           params: {
-             update_type: "content_block",
-           }.to_json,
+           params: {}.to_json,
            headers: {
              "X-GOVUK-AUTHENTICATED-USER" => user_uuid,
            }
@@ -50,12 +55,12 @@ RSpec.describe "Content Block Publication" do
   context "when the edition's update type is `minor`" do
     let(:update_type) { "minor" }
 
-    it "sends the correct messages to the message queue for all dependent content" do
+    it "should not send the change history payload to the queue" do
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-                                                           .with(hash_including(content_id: content_block.content_id), event_type: "content_block")
+                                                           .with(hash_including(content_id: content_block.content_id), event_type: "minor")
 
       dependent_content.each do |item|
-        expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
+        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
                                                              .with(
                                                                expected_message(item),
                                                                event_type: "minor",
@@ -63,9 +68,7 @@ RSpec.describe "Content Block Publication" do
       end
 
       post "/v2/content/#{content_block.content_id}/publish",
-           params: {
-             update_type: "content_block",
-           }.to_json,
+           params: {}.to_json,
            headers: {
              "X-GOVUK-AUTHENTICATED-USER" => user_uuid,
            }
