@@ -11,6 +11,7 @@ module Presenters
       last_edited_at
       last_edited_by_editor_id
       publishing_api_first_published_at
+      public_updated_at
       major_published_at
       published_at
       publishing_api_last_edited_at
@@ -25,9 +26,10 @@ module Presenters
       withdrawn
     ].freeze
 
-    def initialize(edition, draft: false)
+    def initialize(edition, draft: false, triggered_by_edition: nil)
       @edition = edition
       @draft = draft
+      @triggered_by_edition = triggered_by_edition
     end
 
     def for_content_store(payload_version)
@@ -53,6 +55,7 @@ module Presenters
         .merge(document_supertypes)
         .merge(withdrawal_notice)
         .merge(publishing_request_id)
+        .merge(public_updated_at)
     end
 
     def expanded_links
@@ -65,7 +68,7 @@ module Presenters
 
   private
 
-    attr_reader :draft, :edition
+    attr_reader :draft, :edition, :triggered_by_edition
 
     def auth_bypass_ids
       return {} unless draft
@@ -169,6 +172,12 @@ module Presenters
       else
         {}
       end
+    end
+
+    def public_updated_at
+      edition_to_use = triggered_by_edition&.is_content_block? ? triggered_by_edition : edition
+
+      { public_updated_at: edition_to_use.to_h[:public_updated_at] }
     end
   end
 end
