@@ -5,11 +5,14 @@ RSpec.describe DownstreamPayload do
 
   let(:payload_version) { 1 }
   let(:draft) { false }
+  let(:triggered_by_edition) { nil }
+
   subject(:downstream_payload) do
     DownstreamPayload.new(
       edition,
       payload_version,
       draft:,
+      triggered_by_edition:,
     )
   end
 
@@ -115,6 +118,18 @@ RSpec.describe DownstreamPayload do
         it "returns a content store payload" do
           expect(downstream_payload.content_store_payload).to include(content_store_payload_hash)
         end
+
+        context "when a triggered_by_edition is set" do
+          let(:triggered_by_edition) { build(:edition) }
+
+          it "passes triggered_by_edition to the content_presenter" do
+            content_store_response = double("response")
+            stub = double("Presenters::EditionPresenter", for_content_store: content_store_response)
+            expect(Presenters::EditionPresenter).to receive(:new).with(edition, draft:, triggered_by_edition:).and_return(stub)
+
+            expect(downstream_payload.content_store_payload).to eq(content_store_response)
+          end
+        end
       end
 
       context "redirect edition" do
@@ -134,6 +149,18 @@ RSpec.describe DownstreamPayload do
 
       it "returns a content store payload" do
         expect(downstream_payload.content_store_payload).to include(content_store_payload_hash)
+      end
+
+      context "when a triggered_by_edition is set" do
+        let(:triggered_by_edition) { build(:edition) }
+
+        it "passes triggered_by_edition to the content_presenter" do
+          content_store_response = double("response")
+          stub = double("Presenters::EditionPresenter", for_content_store: content_store_response)
+          expect(Presenters::EditionPresenter).to receive(:new).with(edition, draft:, triggered_by_edition:).and_return(stub)
+
+          expect(downstream_payload.content_store_payload).to eq(content_store_response)
+        end
       end
     end
 
@@ -193,6 +220,18 @@ RSpec.describe DownstreamPayload do
       it "uses the edition presenter" do
         expect_any_instance_of(Presenters::EditionPresenter).to receive(:for_message_queue).with(payload_version)
         downstream_payload.message_queue_payload
+      end
+
+      context "when a triggered_by_edition is set" do
+        let(:triggered_by_edition) { build(:edition) }
+
+        it "passes triggered_by_edition to the content_presenter" do
+          message_queue_response = double("response")
+          stub = double("Presenters::EditionPresenter", for_message_queue: message_queue_response)
+          expect(Presenters::EditionPresenter).to receive(:new).with(edition, draft:, triggered_by_edition:).and_return(stub)
+
+          expect(downstream_payload.message_queue_payload).to eq(message_queue_response)
+        end
       end
     end
 
