@@ -10,11 +10,11 @@ RSpec.describe "Content Block Publication" do
   let(:document_type) { "content_block_pension" }
   let!(:content_block_superseded_edition) { create(:edition, document: content_block_document, state: "superseded", content_store: nil, user_facing_version: 1, document_type:) }
   let!(:content_block_live_edition) { create(:edition, document: content_block_document, state: "published", content_store: "live", user_facing_version: 2, document_type:) }
-  let(:content_block) { create(:draft_edition, update_type:, document: content_block_document, user_facing_version: 3, document_type:) }
+  let(:content_block) { create(:draft_edition, update_type:, document: content_block_document, user_facing_version: 3, document_type:, public_updated_at: 1.minute.ago) }
 
   let!(:change_note) { create(:change_note, note: "Some note goes here", edition: content_block, created_at: 1.day.ago) }
 
-  let(:dependent_content) { create_list(:edition, 2, state: "published", content_store: "live") }
+  let(:dependent_content) { create_list(:edition, 2, state: "published", content_store: "live", public_updated_at: 5.days.ago) }
 
   let(:user_uuid) { SecureRandom.uuid }
 
@@ -80,6 +80,7 @@ RSpec.describe "Content Block Publication" do
   def expected_message(item)
     hash_including(
       content_id: item.content_id,
+      public_updated_at: content_block.to_h[:public_updated_at],
       details: hash_including(
         change_history: array_including(
           hash_including(
