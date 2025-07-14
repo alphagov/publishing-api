@@ -351,6 +351,30 @@ RSpec.describe Commands::V2::Publish do
 
         described_class.call(payload)
       end
+
+      context "and the edition is a content block" do
+        let!(:draft_item) do
+          create(
+            :draft_edition,
+            document:,
+            base_path:,
+            user_facing_version:,
+            document_type: "content_block_pension",
+          )
+        end
+
+        it "updates the dependencies" do
+          expect(DownstreamDraftJob)
+            .to receive(:perform_async_in_queue)
+                  .with("downstream_high", a_hash_including("update_dependencies" => true))
+
+          expect(DownstreamLiveJob)
+            .to receive(:perform_async_in_queue)
+                  .with("downstream_high", a_hash_including("update_dependencies" => true))
+
+          described_class.call(payload)
+        end
+      end
     end
 
     context "when the edition was previously published" do
