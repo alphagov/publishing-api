@@ -354,7 +354,7 @@ GEM
     mutex_m (0.3.0)
     net-http (0.6.0)
       uri
-    net-imap (0.5.8)
+    net-imap (0.5.9)
       date
       net-protocol
     net-pop (0.1.2)
@@ -702,9 +702,9 @@ GEM
     rails-html-sanitizer (1.6.2)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
-    rails-pg-extras (5.6.10)
+    rails-pg-extras (5.6.12)
       rails
-      ruby-pg-extras (= 5.6.10)
+      ruby-pg-extras (= 5.6.12)
     railties (8.0.2)
       actionpack (= 8.0.2)
       activesupport (= 8.0.2)
@@ -799,7 +799,7 @@ GEM
     rubocop-rspec (3.6.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
-    ruby-pg-extras (5.6.10)
+    ruby-pg-extras (5.6.12)
       pg
       terminal-table
     ruby-progressbar (1.13.0)
