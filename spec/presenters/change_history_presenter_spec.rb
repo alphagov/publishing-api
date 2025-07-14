@@ -11,27 +11,12 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
   subject { described_class.new(edition).change_history }
 
   describe "#change_history" do
-    context "details hash includes content_history" do
-      let(:details) do
-        { change_history: [
-          { public_timestamp: 1.day.ago.to_s, note: "note 1" },
-          { public_timestamp: 2.days.ago.to_s, note: "note 2" },
-        ] }
+    it "constructs content history from change notes" do
+      2.times do |i|
+        create(:change_note, edition:, note: i.to_s, public_timestamp: Time.zone.now.utc)
       end
-      it "returns content_history from details hash" do
-        expect(subject).to eq details[:change_history]
-      end
-    end
 
-    context "details hash doesn't include content_history" do
-      before do
-        2.times do |i|
-          create(:change_note, edition:, note: i.to_s, public_timestamp: Time.zone.now.utc)
-        end
-      end
-      it "constructs content history from change notes" do
-        expect(subject.map { |item| item[:note] }).to eq %w[0 1]
-      end
+      expect(subject.map { |item| item[:note] }).to eq %w[0 1]
     end
 
     it "orders change notes by public_timestamp (ascending)" do
