@@ -4,7 +4,7 @@
       patternProperties: {
         "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
             type: "object",
-            required: ["title"] + required,
+            required: required,
             additionalProperties: false,
             properties: {
               title: {

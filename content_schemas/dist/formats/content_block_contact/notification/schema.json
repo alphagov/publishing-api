@@ -386,7 +386,6 @@
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
               "required": [
-                "title",
                 "street_address",
                 "locality",
                 "postal_code",
@@ -425,7 +424,6 @@
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
               "required": [
-                "title",
                 "url"
               ],
               "additionalProperties": false,
@@ -459,7 +457,6 @@
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
               "required": [
-                "title",
                 "email_address"
               ],
               "additionalProperties": false,
@@ -490,7 +487,6 @@
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
               "required": [
-                "title",
                 "telephone_numbers",
                 "show_uk_call_charges"
               ],
