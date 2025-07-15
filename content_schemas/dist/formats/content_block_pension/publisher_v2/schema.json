@@ -206,7 +206,6 @@
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
               "required": [
-                "title",
                 "amount",
                 "frequency"
               ],
