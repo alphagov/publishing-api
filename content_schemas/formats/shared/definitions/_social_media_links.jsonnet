@@ -13,6 +13,7 @@
         type: "string",
         enum: [
           "blog",
+          "bluesky",
           "email",
           "facebook",
           "flickr",
@@ -22,6 +23,7 @@
           "linkedin",
           "other",
           "pinterest",
+          "threads",
           "twitter",
           "youtube",
         ],
