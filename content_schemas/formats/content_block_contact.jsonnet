@@ -128,10 +128,10 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                 street_address: {
                     type: "string",
                 },
-                locality: {
+                town_or_city: {
                     type: "string",
                 },
-                region: {
+                state_or_county: {
                     type: "string",
                 },
                 postal_code: {
@@ -140,8 +140,10 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                 country: {
                     type: "string",
                 },
+                description: {
+                    type: "string",
+                },
             },
-            ["street_address", "locality", "postal_code", "country"],
         ),
       },
       required: [ "contact_type" ]
