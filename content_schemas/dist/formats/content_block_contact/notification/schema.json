@@ -385,30 +385,27 @@
           "patternProperties": {
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
-              "required": [
-                "street_address",
-                "locality",
-                "postal_code",
-                "country"
-              ],
               "additionalProperties": false,
               "properties": {
                 "country": {
                   "type": "string"
                 },
-                "locality": {
+                "description": {
                   "type": "string"
                 },
                 "postal_code": {
                   "type": "string"
                 },
-                "region": {
+                "state_or_county": {
                   "type": "string"
                 },
                 "street_address": {
                   "type": "string"
                 },
                 "title": {
+                  "type": "string"
+                },
+                "town_or_city": {
                   "type": "string"
                 }
               }

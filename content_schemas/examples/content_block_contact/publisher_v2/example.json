@@ -25,6 +25,14 @@
         "description": "Another address"
       }
     },
+    "addresses": {
+      "address-1": {
+        "title": "Some address",
+        "street_address": "123 Fake Street",
+        "postal_code": "ABC 123"
+      },
+      "address-2": {}
+    },
     "telephones": {
       "telephone_numbers": [
         {
