@@ -31,7 +31,7 @@ module Queries
 
     def expand_edition(content_id)
       editions = all_related_editions[content_id]
-      editions && editions.first.slice(%w[title base_path content_id])
+      editions && editions.first.slice(%i[title base_path content_id]).symbolize_keys
     end
 
     def link_changes
