@@ -111,6 +111,19 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                         }
                     }
                 },
+                bsl_guidance: {
+                    type: "object",
+                    properties: {
+                        show: {
+                            type: "boolean",
+                            default: false,
+                        },
+                        value: {
+                            type: "string",
+                            default: "British Sign Language (BSL) [video relay service](https://connect.interpreterslive.co.uk/vrs?ilc=DWP) if you’re on a computer - find out how to [use the service on mobile or tablet](https://www.youtube.com/watch?v=oELNMfAvDxw)",
+                        },
+                    }
+                }
              },
              ["telephone_numbers"],
         ),
