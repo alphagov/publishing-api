@@ -17,14 +17,14 @@ RSpec.describe Queries::GetLinkChanges do
 
       expect(result[:link_changes]).to eq([{
         source: {
-          "title" => source_edition.title,
-          "base_path" => source_edition.base_path,
-          "content_id" => source_edition.content_id,
+          title: source_edition.title,
+          base_path: source_edition.base_path,
+          content_id: source_edition.content_id,
         },
         target: {
-          "title" => target_edition.title,
-          "base_path" => target_edition.base_path,
-          "content_id" => target_edition.content_id,
+          title: target_edition.title,
+          base_path: target_edition.base_path,
+          content_id: target_edition.content_id,
         },
         link_type: link_change.link_type,
         change: link_change.change,
