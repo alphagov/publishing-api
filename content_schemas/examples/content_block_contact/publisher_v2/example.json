@@ -54,7 +54,12 @@
           "type": "welsh_language",
           "show_uk_call_charges": "true"
         }
-      ]
+      ],
+      "call_charges": {
+        "label": "Find out about call charges",
+        "call_charges_info_url": "https://gov.uk/call-charges/overseas",
+        "show_call_charges_info_url": "on"
+      }
     }
   },
   "links": {
