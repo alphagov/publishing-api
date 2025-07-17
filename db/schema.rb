@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_07_112152) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_17_090305) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -141,6 +141,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_07_112152) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["created_at"], name: "index_link_changes_on_created_at", order: :desc
+    t.index ["link_type"], name: "index_link_changes_on_link_type"
+    t.index ["source_content_id"], name: "index_link_changes_on_source_content_id"
+    t.index ["target_content_id"], name: "index_link_changes_on_target_content_id"
   end
 
   create_table "link_sets", id: :serial, force: :cascade do |t|
