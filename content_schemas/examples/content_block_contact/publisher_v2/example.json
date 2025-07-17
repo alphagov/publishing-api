@@ -59,6 +59,10 @@
         "label": "Find out about call charges",
         "call_charges_info_url": "https://gov.uk/call-charges/overseas",
         "show_call_charges_info_url": "on"
+      },
+      "bsl_guidance": {
+        "show": true,
+        "value": "Some value"
       }
     }
   },
