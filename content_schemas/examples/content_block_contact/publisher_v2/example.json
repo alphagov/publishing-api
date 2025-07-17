@@ -55,6 +55,11 @@
           "show_uk_call_charges": "true"
         }
       ],
+      "video_relay_services": {
+        "show": true,
+        "prefix": "[Relay UK](https://example.com): 18001 then",
+        "telephone_number": "0800 328 5644"
+      },
       "call_charges": {
         "label": "Find out about call charges",
         "call_charges_info_url": "https://gov.uk/call-charges/overseas",
