@@ -579,6 +579,23 @@
                 },
                 "title": {
                   "type": "string"
+                },
+                "video_relay_service": {
+                  "type": "object",
+                  "properties": {
+                    "prefix": {
+                      "type": "string",
+                      "default": "[Relay UK](https://www.relayuk.bt.com) (if you cannot hear or speak on the phone): 18001 then"
+                    },
+                    "show": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "telephone_number": {
+                      "type": "string",
+                      "default": "0800 328 5644"
+                    }
+                  }
                 }
               }
             }

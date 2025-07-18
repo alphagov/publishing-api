@@ -63,6 +63,23 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                         }
                    }
                 },
+                video_relay_service: {
+                  type: "object",
+                  properties: {
+                    show: {
+                      type: "boolean",
+                      default: false,
+                    },
+                    prefix: {
+                      type: "string",
+                      default: "[Relay UK](https://www.relayuk.bt.com) (if you cannot hear or speak on the phone): 18001 then"
+                    },
+                    telephone_number: {
+                      type: "string",
+                      default: "0800 328 5644"
+                    },
+                  }
+                },
                 call_charges: {
                   type: "object",
                   properties: {
