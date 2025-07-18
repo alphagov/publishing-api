@@ -320,4 +320,26 @@ RSpec.describe Edition do
       expect { subject.unpublish(type: "substitute") }.to change { subject.state }.from("published").to("unpublished")
     end
   end
+
+  describe "#is_content_block?" do
+    GovukSchemas::Schema.schema_names.select { |schema| schema.start_with?(Edition::CONTENT_BLOCK_PREFIX) }.each do |document_type|
+      context "when the schema is `#{document_type}`" do
+        subject { build(:edition, document_type:) }
+
+        it "returns true" do
+          expect(subject.is_content_block?).to be true
+        end
+      end
+    end
+
+    GovukSchemas::Schema.schema_names.reject { |schema| schema.start_with?(Edition::CONTENT_BLOCK_PREFIX) }.each do |document_type|
+      context "when the schema is `#{document_type}`" do
+        subject { build(:edition, document_type:) }
+
+        it "returns false" do
+          expect(subject.is_content_block?).to be false
+        end
+      end
+    end
+  end
 end

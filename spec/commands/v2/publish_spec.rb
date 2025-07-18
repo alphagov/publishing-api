@@ -203,7 +203,6 @@ RSpec.describe Commands::V2::Publish do
 
     context "publishing a content block update" do
       before do
-        payload[:update_type] = "content_block"
         draft_item.update!(document_type: "content_block_pension")
         ChangeNote.create!(edition: draft_item)
       end
@@ -221,13 +220,14 @@ RSpec.describe Commands::V2::Publish do
                 .with(
                   "downstream_high",
                   {
-                    "message_queue_event_type" => "content_block",
+                    "message_queue_event_type" => "major",
                     "orphaned_content_ids" => [],
                     "content_id" => document.content_id,
                     "locale" => locale,
                     "update_dependencies" => true,
                     "source_command" => "publish",
                     "source_fields" => [],
+                    "is_content_block" => true,
                   },
                 )
 
@@ -350,6 +350,30 @@ RSpec.describe Commands::V2::Publish do
           .with("downstream_high", a_hash_including("update_dependencies" => false))
 
         described_class.call(payload)
+      end
+
+      context "and the edition is a content block" do
+        let!(:draft_item) do
+          create(
+            :draft_edition,
+            document:,
+            base_path:,
+            user_facing_version:,
+            document_type: "content_block_pension",
+          )
+        end
+
+        it "updates the dependencies" do
+          expect(DownstreamDraftJob)
+            .to receive(:perform_async_in_queue)
+                  .with("downstream_high", a_hash_including("update_dependencies" => true))
+
+          expect(DownstreamLiveJob)
+            .to receive(:perform_async_in_queue)
+                  .with("downstream_high", a_hash_including("update_dependencies" => true))
+
+          described_class.call(payload)
+        end
       end
     end
 
