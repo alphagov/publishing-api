@@ -137,7 +137,7 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                         },
                         value: {
                             type: "string",
-                            default: "British Sign Language (BSL) [video relay service](https://connect.interpreterslive.co.uk/vrs?ilc=DWP) if you’re on a computer - find out how to [use the service on mobile or tablet](https://www.youtube.com/watch?v=oELNMfAvDxw)",
+                            default: "British Sign Language (BSL) [video relay service](https://connect.interpreterslive.co.uk/vrs) if you’re on a computer - find out how to [use the service on mobile or tablet](https://www.youtube.com/watch?v=oELNMfAvDxw)",
                         },
                     }
                 }
