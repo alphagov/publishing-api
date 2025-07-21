@@ -75,7 +75,6 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                     },
                     telephone_number: {
                       type: "string",
-                      default: "0800 328 5644"
                     },
                   }
                 },

@@ -591,8 +591,7 @@
                       "default": false
                     },
                     "telephone_number": {
-                      "type": "string",
-                      "default": "0800 328 5644"
+                      "type": "string"
                     }
                   }
                 }
