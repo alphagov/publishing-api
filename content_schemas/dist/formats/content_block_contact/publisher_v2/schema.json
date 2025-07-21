@@ -398,6 +398,16 @@
                 },
                 "video_relay_service": {
                   "type": "object",
+                  "else": {
+                    "required": []
+                  },
+                  "if": {
+                    "properties": {
+                      "show": {
+                        "const": true
+                      }
+                    }
+                  },
                   "properties": {
                     "prefix": {
                       "type": "string",
@@ -410,6 +420,12 @@
                     "telephone_number": {
                       "type": "string"
                     }
+                  },
+                  "then": {
+                    "required": [
+                      "prefix",
+                      "telephone_number"
+                    ]
                   }
                 }
               }

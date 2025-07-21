@@ -76,7 +76,18 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                     telephone_number: {
                       type: "string",
                     },
-                  }
+                  },
+                  "if": {
+                    properties: {
+                        show: { const: true },
+                    },
+                  },
+                  "then": {
+                    required: ["prefix", "telephone_number"],
+                  },
+                  "else": {
+                    required: []
+                  },
                 },
                 call_charges: {
                   type: "object",
