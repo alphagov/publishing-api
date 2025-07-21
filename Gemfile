@@ -6,6 +6,7 @@ gem "aws-sdk-s3"
 gem "bootsnap", require: false
 gem "bunny"
 gem "content_block_tools"
+gem "csv"
 gem "dalli"
 gem "fuzzy_match"
 gem "gds-api-adapters"

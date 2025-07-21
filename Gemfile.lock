@@ -934,6 +934,7 @@ DEPENDENCIES
   byebug
   climate_control
   content_block_tools
+  csv
   dalli
   database_cleaner
   factory_bot_rails
