@@ -1,0 +1,78 @@
+{
+  "locale": "en",
+  "schema_name": "content_block_contact",
+  "document_type": "content_block_contact",
+  "title": "HMRC - Media enquiries",
+  "instructions_to_publishers": "Media and press contact email address for HMRC",
+  "content_id_alias": "hmrc-media",
+  "details": {
+    "description": "Description goes here",
+    "contact_type": "General",
+    "email_addresses": {
+      "email-1": {
+        "title": "Email 1",
+        "email_address": "hello@example.com",
+        "description": "General enquiries"
+      },
+      "email-2": {
+        "title": "Email 2",
+        "email_address": "hiagain@example.com",
+        "description": "More enquiries"
+      },
+      "email-3": {
+        "title": "Email 3",
+        "email_address": "bye@example.com",
+        "description": "Another address"
+      }
+    },
+    "addresses": {
+      "address-1": {
+        "title": "Some address",
+        "street_address": "123 Fake Street",
+        "postal_code": "ABC 123"
+      },
+      "address-2": {}
+    },
+    "telephones": {
+      "telephone_numbers": [
+        {
+          "label": "Telephone 1",
+          "telephone": "1234 567 89",
+          "type": "telephone",
+          "show_uk_call_charges": "false",
+          "description": "A Telephone line"
+        },
+        {
+          "label": "Telephone 2",
+          "telephone": "1234 567 89",
+          "type": "textphone",
+          "show_uk_call_charges": "true"
+        },
+        {
+          "label": "Telephone 3",
+          "telephone": "1234 567 89",
+          "type": "welsh_language",
+          "show_uk_call_charges": "true"
+        }
+      ],
+      "video_relay_services": {
+        "show": false
+      },
+      "call_charges": {
+        "label": "Find out about call charges",
+        "call_charges_info_url": "https://gov.uk/call-charges/overseas",
+        "show_call_charges_info_url": "on"
+      },
+      "bsl_guidance": {
+        "show": true,
+        "value": "Some value"
+      }
+    }
+  },
+  "links": {
+    "primary_publishing_organisation": [
+      "dcc907d6-433c-42df-9ffb-d9c68be5dc4d"
+    ]
+  },
+  "publishing_app": "whitehall"
+}
