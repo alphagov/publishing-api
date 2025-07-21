@@ -34,10 +34,13 @@ RSpec.describe Presenters::EditionPresenter do
         auth_bypass_ids: [],
       )
     end
+    let(:triggered_by_edition) { nil }
 
     subject(:result) do
       described_class.new(
-        edition, draft: present_drafts
+        edition,
+        draft: present_drafts,
+        triggered_by_edition:,
       ).for_message_queue(payload_version)
     end
 
@@ -88,12 +91,40 @@ RSpec.describe Presenters::EditionPresenter do
         )
       end
     end
+
+    context "when a triggered_by_edition is provided" do
+      let(:triggered_by_edition) { build(:edition, public_updated_at: 6.days.ago) }
+
+      before do
+        expect(triggered_by_edition).to receive(:is_content_block?).and_return(is_content_block?)
+      end
+
+      context "and the edition is a content block" do
+        let(:is_content_block?) { true }
+
+        it "returns the public_updated_at for the triggering edition" do
+          expect(subject[:public_updated_at]).to eq(triggered_by_edition.to_h[:public_updated_at])
+        end
+      end
+
+      context "and the edition is not a content block" do
+        let(:is_content_block?) { false }
+
+        it "returns the public_updated_at for the triggering edition" do
+          expect(subject[:public_updated_at]).to eq(edition.to_h[:public_updated_at])
+        end
+      end
+    end
   end
 
   describe "#for_content_store" do
+    let(:triggered_by_edition) { build(:edition, public_updated_at: 6.days.ago) }
+
     subject(:result) do
       described_class.new(
-        edition, draft: present_drafts
+        edition,
+        draft: present_drafts,
+        triggered_by_edition:,
       ).for_content_store(payload_version)
     end
 
@@ -136,6 +167,30 @@ RSpec.describe Presenters::EditionPresenter do
 
       it "adds the supertypes" do
         expect(result["user_journey_document_supertype"]).to be_present
+      end
+
+      context "when a triggered_by_edition is provided" do
+        let(:triggered_by_edition) { build(:edition, public_updated_at: 6.days.ago) }
+
+        before do
+          expect(triggered_by_edition).to receive(:is_content_block?).and_return(is_content_block?)
+        end
+
+        context "and the edition is a content block" do
+          let(:is_content_block?) { true }
+
+          it "returns the public_updated_at for the triggering edition" do
+            expect(subject[:public_updated_at]).to eq(triggered_by_edition.to_h[:public_updated_at])
+          end
+        end
+
+        context "and the edition is not a content block" do
+          let(:is_content_block?) { false }
+
+          it "returns the public_updated_at for the triggering edition" do
+            expect(subject[:public_updated_at]).to eq(edition.to_h[:public_updated_at])
+          end
+        end
       end
     end
 
