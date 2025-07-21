@@ -78,10 +78,20 @@
         introduction: {
           "$ref": "#/definitions/body_html_and_govspeak",
         },
+        cta_text: {
+          type: "string",
+          description: "What to show on the button if present",
+        },
         more_information: {
           "$ref": "#/definitions/body_html_and_govspeak",
         },
         need_to_know: {
+          "$ref": "#/definitions/body_html_and_govspeak",
+        },
+        before_results: {
+          "$ref": "#/definitions/body_html_and_govspeak",
+        },
+        after_results: {
           "$ref": "#/definitions/body_html_and_govspeak",
         },
         external_related_links: {
