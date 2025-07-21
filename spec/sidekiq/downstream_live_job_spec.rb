@@ -151,6 +151,17 @@ RSpec.describe DownstreamLiveJob do
       end
     end
 
+    context "when is_content_block is true" do
+      let(:arguments) do
+        base_arguments.merge("update_dependencies" => true, "source_command" => "command", "is_content_block" => true)
+      end
+
+      it "enqueues dependencies with HostContentUpdateJob" do
+        expect(HostContentUpdateJob).to receive(:perform_async)
+        subject.perform(arguments)
+      end
+    end
+
     context "can not update dependencies" do
       it "doesn't enqueue dependencies" do
         expect(DependencyResolutionJob).to_not receive(:perform_async)
