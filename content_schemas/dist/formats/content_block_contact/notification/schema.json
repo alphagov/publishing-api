@@ -570,7 +570,6 @@
                         "enum": [
                           "telephone",
                           "textphone",
-                          "relay_uk",
                           "welsh_language"
                         ]
                       }

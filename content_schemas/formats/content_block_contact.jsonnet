@@ -50,7 +50,6 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                                 enum: [
                                     "telephone",
                                     "textphone",
-                                    "relay_uk",
                                     "welsh_language"
                                 ]
                             },
