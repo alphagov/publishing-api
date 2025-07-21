@@ -34,7 +34,12 @@ class DownstreamLiveJob
       )
     end
 
-    payload = DownstreamPayload.new(edition, payload_version, draft: false)
+    payload = DownstreamPayload.new(
+      edition,
+      payload_version,
+      draft: false,
+      triggered_by_edition: dependency_resolution_source_edition,
+    )
 
     update_expanded_links(payload)
     DownstreamService.update_live_content_store(payload) if edition.base_path
@@ -108,5 +113,11 @@ private
       payload_version:,
       expanded_links: downstream_payload.expanded_links,
     )
+  end
+
+  def dependency_resolution_source_edition
+    @dependency_resolution_source_edition ||= if dependency_resolution_source_content_id
+                                                Document.find_by(content_id: dependency_resolution_source_content_id).live
+                                              end
   end
 end

@@ -194,4 +194,34 @@ RSpec.describe DownstreamLiveJob do
       subject.perform(arguments.merge("content_id" => SecureRandom.uuid))
     end
   end
+
+  describe "when dependency_resolution_source_content_id is set" do
+    let(:source_document) { build(:document) }
+    let(:source_edition) { build(:edition, document: source_document) }
+
+    before do
+      allow(Document).to receive_message_chain(:find_by, :live)
+                           .with(content_id: source_document.content_id)
+                           .with(no_args)
+                           .and_return(source_edition)
+    end
+
+    it "sends the edition to the DownstreamPayload" do
+      expect(DownstreamPayload).to receive(:new)
+                                     .with(edition, 0, draft: false, triggered_by_edition: source_edition)
+                                     .and_call_original
+
+      subject.perform(arguments.merge("dependency_resolution_source_content_id" => source_document.content_id))
+    end
+  end
+
+  describe "when dependency_resolution_source_content_id is not set" do
+    it "does not send the edition to the DownstreamPayload" do
+      expect(DownstreamPayload).to receive(:new)
+                                     .with(edition, 0, draft: false, triggered_by_edition: nil)
+                                     .and_call_original
+
+      subject.perform(arguments)
+    end
+  end
 end
