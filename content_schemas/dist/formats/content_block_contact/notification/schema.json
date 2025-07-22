@@ -581,6 +581,16 @@
                 },
                 "video_relay_service": {
                   "type": "object",
+                  "else": {
+                    "required": []
+                  },
+                  "if": {
+                    "properties": {
+                      "show": {
+                        "const": true
+                      }
+                    }
+                  },
                   "properties": {
                     "prefix": {
                       "type": "string",
@@ -591,9 +601,14 @@
                       "default": false
                     },
                     "telephone_number": {
-                      "type": "string",
-                      "default": "0800 328 5644"
+                      "type": "string"
                     }
+                  },
+                  "then": {
+                    "required": [
+                      "prefix",
+                      "telephone_number"
+                    ]
                   }
                 }
               }
