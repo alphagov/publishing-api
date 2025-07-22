@@ -387,8 +387,18 @@
       ],
       "additionalProperties": false,
       "properties": {
+        "after_results": {
+          "$ref": "#/definitions/body_html_and_govspeak"
+        },
+        "before_results": {
+          "$ref": "#/definitions/body_html_and_govspeak"
+        },
         "change_history": {
           "$ref": "#/definitions/change_history"
+        },
+        "cta_text": {
+          "description": "What to show on the button if present",
+          "type": "string"
         },
         "external_related_links": {
           "$ref": "#/definitions/external_related_links"
