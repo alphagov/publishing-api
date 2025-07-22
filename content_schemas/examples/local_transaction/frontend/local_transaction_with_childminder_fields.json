@@ -1,0 +1,252 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/find-registered-childminder",
+  "content_id": "2f2ee25a-30c8-4ded-a160-88783f978206",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-11-05T09:27:23+00:00",
+  "publishing_app": "publisher",
+  "publishing_request_id": "3592-1504182738.730-10.3.3.1-410",
+  "publishing_scheduled_at": null,
+  "rendering_app": "frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "local_transaction",
+  "title": "Find a registered childminder",
+  "updated_at": "2025-07-10T09:41:45+01:00",
+  "withdrawn_notice": {
+
+  },
+  "description": "Contact your local council to find a registered childminder - Family Information Service, early years education, childcare and family support in your area",
+  "details": {
+    "external_related_links": [],
+    "introduction": "<p>Contact your local council to find out about:</p>\n\n<ul>\n  <li>registered childminders in your area</li>\n  <li>becoming a childcare provider or childminder</li>\n  <li>early years education and family support</li>\n</ul>\n",
+    "lgil_code": 8,
+    "lgsl_code": 1579,
+    "cta_text": "Find now",
+    "more_information": "\n",
+    "need_to_know": "<ul>\n  <li>Available in England and Wales only</li>\n</ul>\n",
+    "before_results": "Before results text",
+    "after_results": "After results text",
+    "service_tiers": [
+      "county",
+      "unitary"
+    ]
+  },
+  "document_type": "local_transaction",
+  "first_published_at": "2012-01-24T10:08:54+00:00",
+  "links": {
+    "available_translations": [
+      {
+        "api_path": "/api/content/find-registered-childminder",
+        "api_url": "https://www.gov.uk/api/content/find-registered-childminder",
+        "base_path": "/find-registered-childminder",
+        "content_id": "2f2ee25a-30c8-4ded-a160-88783f978206",
+        "document_type": "local_transaction",
+        "links": {
+
+        },
+        "locale": "en",
+        "public_updated_at": "2015-11-05T09:27:23Z",
+        "schema_name": "local_transaction",
+        "title": "Find a registered childminder",
+        "web_url": "https://www.gov.uk/find-registered-childminder",
+        "withdrawn": false
+      }
+    ],
+    "mainstream_browse_pages": [
+      {
+        "api_path": "/api/content/browse/births-deaths-marriages/child-adoption",
+        "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages/child-adoption",
+        "base_path": "/browse/births-deaths-marriages/child-adoption",
+        "content_id": "932a86f4-4916-4d9f-99cb-dfd34d7ee5d1",
+        "description": "Legal rights, birth certificates, parental rights and child maintenance",
+        "document_type": "mainstream_browse_page",
+        "links": {
+
+        },
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:48Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Having a child, parenting and adoption",
+        "web_url": "https://www.gov.uk/browse/births-deaths-marriages/child-adoption",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/browse/childcare-parenting/childcare",
+        "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting/childcare",
+        "base_path": "/browse/childcare-parenting/childcare",
+        "content_id": "1159936b-be05-44cb-b52c-87b3c9153959",
+        "description": "Finding childcare, financial support for childcare and childcare for school-age children",
+        "document_type": "mainstream_browse_page",
+        "links": {
+
+        },
+        "locale": "en",
+        "public_updated_at": "2024-11-01T10:39:28Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Childcare",
+        "web_url": "https://www.gov.uk/browse/childcare-parenting/childcare",
+        "withdrawn": false
+      }
+    ],
+     "ordered_related_items": [
+      {
+        "api_path": "/api/content/after-school-holiday-club",
+        "api_url": "https://www.gov.uk/api/content/after-school-holiday-club",
+        "base_path": "/after-school-holiday-club",
+        "content_id": "b46636df-3d64-4693-a1a7-8fd3d7e840c9",
+        "document_type": "local_transaction",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "api_path": "/api/content/browse/childcare-parenting/childcare",
+              "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting/childcare",
+              "base_path": "/browse/childcare-parenting/childcare",
+              "content_id": "1159936b-be05-44cb-b52c-87b3c9153959",
+              "description": "Finding childcare, financial support for childcare and childcare for school-age children",
+              "document_type": "mainstream_browse_page",
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/childcare-parenting",
+                    "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting",
+                    "base_path": "/browse/childcare-parenting",
+                    "content_id": "451c8029-6fe3-41cf-80e8-717debd317bd",
+                    "description": "Includes giving birth, fostering, adopting, benefits for children, childcare and schools",
+                    "document_type": "mainstream_browse_page",
+                    "links": {
+
+                    },
+                    "locale": "en",
+                    "public_updated_at": "2015-07-15T11:40:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Childcare and parenting",
+                    "web_url": "https://www.gov.uk/browse/childcare-parenting",
+                    "withdrawn": false
+                  }
+                ]
+              },
+              "locale": "en",
+              "public_updated_at": "2024-11-01T10:39:28Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Childcare",
+              "web_url": "https://www.gov.uk/browse/childcare-parenting/childcare",
+              "withdrawn": false
+            },
+            {
+              "api_path": "/api/content/browse/childcare-parenting/schools-education",
+              "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting/schools-education",
+              "base_path": "/browse/childcare-parenting/schools-education",
+              "content_id": "6e3014fa-5bd1-48b9-9aab-f7b1241afdb6",
+              "description": "Sending a child to school, financial support, dealing with the school",
+              "document_type": "mainstream_browse_page",
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/childcare-parenting",
+                    "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting",
+                    "base_path": "/browse/childcare-parenting",
+                    "content_id": "451c8029-6fe3-41cf-80e8-717debd317bd",
+                    "description": "Includes giving birth, fostering, adopting, benefits for children, childcare and schools",
+                    "document_type": "mainstream_browse_page",
+                    "links": {
+
+                    },
+                    "locale": "en",
+                    "public_updated_at": "2015-07-15T11:40:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Childcare and parenting",
+                    "web_url": "https://www.gov.uk/browse/childcare-parenting",
+                    "withdrawn": false
+                  }
+                ]
+              },
+              "locale": "en",
+              "public_updated_at": "2022-12-21T09:01:34Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Schools and education",
+              "web_url": "https://www.gov.uk/browse/childcare-parenting/schools-education",
+              "withdrawn": false
+            },
+            {
+              "api_path": "/api/content/browse/education/school-life",
+              "api_url": "https://www.gov.uk/api/content/browse/education/school-life",
+              "base_path": "/browse/education/school-life",
+              "content_id": "99e2b248-baa4-4bf2-8a96-646fedd4d308",
+              "description": "Help with school costs, the curriculum and school attendance",
+              "document_type": "mainstream_browse_page",
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/education",
+                    "api_url": "https://www.gov.uk/api/content/browse/education",
+                    "base_path": "/browse/education",
+                    "content_id": "4ba04d39-1f8c-4117-89f5-73ec4f1b48e8",
+                    "description": "Includes student loans, admissions and apprenticeships",
+                    "document_type": "mainstream_browse_page",
+                    "links": {
+
+                    },
+                    "locale": "en",
+                    "public_updated_at": "2021-04-27T12:23:24Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Education and learning",
+                    "web_url": "https://www.gov.uk/browse/education",
+                    "withdrawn": false
+                  }
+                ]
+              },
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:50Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Schools and curriculum",
+              "web_url": "https://www.gov.uk/browse/education/school-life",
+              "withdrawn": false
+            }
+          ]
+        },
+          "locale": "en",
+        "public_updated_at": "2019-04-09T10:43:51Z",
+        "schema_name": "local_transaction",
+        "title": "Help with home to school transport ",
+        "web_url": "https://www.gov.uk/help-home-school-transport",
+        "withdrawn": false
+      }
+    ],
+     "organisations": [
+      {
+        "analytics_identifier": "D6",
+        "api_path": "/api/content/government/organisations/department-for-education",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-education",
+        "base_path": "/government/organisations/department-for-education",
+        "content_id": "ebd15ade-73b2-4eaf-b1c3-43034a42eb37",
+        "details": {
+          "acronym": "DfE",
+          "brand": "department-for-education",
+          "default_news_image": {
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/media/5a37db2e40f0b649cceb18c3/s960__K1E8325edit.jpg",
+            "url": "https://assets.publishing.service.gov.uk/media/5a37db2ee5274a7908e352f2/s300__K1E8325edit.jpg"
+          },
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Department \u003Cbr/\u003Efor Education"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {
+
+        },
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Department for Education",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-education",
+        "withdrawn": false
+      }
+    ]
+  }
+}
