@@ -210,7 +210,7 @@ RSpec.describe "GraphQL" do
             description: @edition.description,
             details: {
               body: @edition.details[:body],
-              change_history: [{ note: "Info", public_timestamp: "2025-01-01 00:01:00" }],
+              change_history: [{ note: "Info", public_timestamp: "2025-01-01 00:01:00 UTC" }],
               default_news_image: @edition.details[:default_news_image],
               display_date: @edition.details[:display_date],
               emphasised_organisations: @edition.details[:emphasised_organisations],
