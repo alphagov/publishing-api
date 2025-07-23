@@ -51,8 +51,8 @@ class GraphqlQueryBuilder
     "ministers" => "ministerial",
   }.freeze
 
-  def initialize(old_response, use_fragments)
-    @data = old_response
+  def initialize(base_path, use_fragments)
+    @data = fetch_content(base_path)
     @use_fragments = use_fragments
   end
 
@@ -62,18 +62,22 @@ class GraphqlQueryBuilder
                 "<%= render \"fragments/default_top_level_fields\" %>",
                 (@data["links"]&.keys&.map { FRAGMENT_NAME_OVERRIDES[it] }&.to_set & FRAGMENTS)&.sort&.map { |link_key| "<%= render \"fragments/#{link_key}\" %>" },
                 "",
-                "query #{@data['schema_name']}($base_path: String!, $locale: String!) {",
-                "  edition(base_path: $base_path, locale: $locale) {",
-                "    ...DefaultTopLevelFields",
-                "    #{build_fields(@data.except(*DEFAULT_TOP_LEVEL_FIELDS))}",
+                "{",
+                "  edition(base_path: \"#\{base_path\}\") {",
+                "    ... on Edition {",
+                "      ...DefaultTopLevelFields",
+                "      #{build_fields(@data.except(*DEFAULT_TOP_LEVEL_FIELDS))}",
+                "    }",
                 "  }",
                 "}",
               ]
             else
               [
-                "query #{@data['schema_name']}($base_path: String!, $locale: String!) {",
-                "edition(base_path: $base_path, locale: $locale) {",
-                "  #{build_fields(@data)}",
+                "{",
+                "  edition(base_path: \"\#\{base_path\}\") {",
+                "    ... on Edition {",
+                "      #{build_fields(@data)}",
+                "    }",
                 "  }",
                 "}",
               ]
@@ -122,10 +126,24 @@ private
       ].join("\n")
     else
       [
-        "#{key}: links_of_type(type: \"#{link_type}\"#{', reverse: true' if reverse}) {",
+        "#{key} {",
         " " * (indent + 2) + build_fields(array.first, indent + 2),
         "#{' ' * indent}}",
       ].join("\n")
+    end
+  end
+
+  def fetch_content(base_path)
+    url = URI("https://www.gov.uk/api/content#{base_path}".chomp("/"))
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    request = Net::HTTP::Get.new(url)
+    response = http.request(request)
+
+    if response.is_a?(Net::HTTPSuccess)
+      JSON.parse(response.body)
+    else
+      raise "HTTP request failed with status #{response.code} #{response.message}"
     end
   end
 end
