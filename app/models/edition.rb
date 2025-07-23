@@ -196,6 +196,7 @@ class Edition < ApplicationRecord
   def withdrawn?
     unpublished? && unpublishing.withdrawal?
   end
+  alias_method :withdrawn, :withdrawn?
 
   def substitute?
     unpublished? && unpublishing.substitute?
