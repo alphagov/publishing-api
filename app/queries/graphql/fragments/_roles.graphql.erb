@@ -1,0 +1,15 @@
+fragment Roles on Links {
+  roles: links_of_type(type: roles) {
+    content_id
+    details {
+      body
+      role_payment_type
+    }
+    document_type
+    locale
+    public_updated_at
+    schema_name
+    title
+    withdrawn
+  }
+}

@@ -1,0 +1,6 @@
+fragment RoleAppointments on Links {
+  # TODO: Role Appointments need special handling, as sometimes they go role -> person and sometimes person -> role
+  role_appointments: links_of_type(type: TODO, reverse: true) {
+    __typename
+  }
+}

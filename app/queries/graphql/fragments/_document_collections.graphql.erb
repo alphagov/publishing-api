@@ -1,0 +1,37 @@
+fragment DocumentCollections on Links {
+  document_collections: links_of_type(type: documents, reverse: true) {
+    api_path
+    api_url
+    base_path
+    content_id
+    document_type
+    <%#
+    Getting all of the documents in a collection would sometimes be prohibitively expensive.
+    Current link expansion behaviour special cases this so that only the grandparent document
+    is expanded. Nobody's quite sure why this behaviour is desirable though, so I'm not going
+    to reimplement it until we know why it's needed.
+
+    links {
+      documents: links_of_type(type: documents) {
+        api_path
+        api_url
+        base_path
+        content_id
+        document_type
+        locale
+        public_updated_at
+        schema_name
+        title
+        web_url
+        withdrawn
+      }
+    }
+    %>
+    locale
+    public_updated_at
+    schema_name
+    title
+    web_url
+    withdrawn
+  }
+}

@@ -1,0 +1,22 @@
+fragment WorldwideOrganisation on Links {
+  worldwide_organisation: links_of_type(type: worldwide_organisation) {
+    analytics_identifier
+    api_path
+    api_url
+    base_path
+    content_id
+    description
+    details {
+      default_news_image
+      logo
+      world_location_names
+    }
+    document_type
+    locale
+    public_updated_at
+    schema_name
+    title
+    web_url
+    withdrawn
+  }
+}

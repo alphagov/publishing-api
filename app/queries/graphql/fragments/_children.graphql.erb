@@ -1,0 +1,39 @@
+<%# TODO: this is used in ~10 places, but they all have different kinds of children so it's not really reusable %>
+fragment Children on Links {
+  children: links_of_type(type: parent, reverse: true) {
+    api_path
+    api_url
+    base_path
+    content_id
+    document_type
+    details {
+      access_and_opening_times
+    }
+    links {
+      <%#
+      The back link to parent is here for compatibility with current link-expansion behaviour,
+      but I'm reasonably sure it's accidental and unnecessary. Why would you want to link from
+      a document to its child, and then back up to the parent?
+      %>
+      parent: links_of_type(type: parent) {
+        api_path
+        api_url
+        base_path
+        content_id
+        document_type
+        locale
+        public_updated_at
+        schema_name
+        title
+        web_url
+        withdrawn
+      }
+    }
+    locale
+    public_updated_at
+    schema_name
+    title
+    web_url
+    withdrawn
+  }
+}
