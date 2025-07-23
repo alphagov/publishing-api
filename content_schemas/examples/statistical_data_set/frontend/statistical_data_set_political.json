@@ -16,6 +16,38 @@
       "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
       "title": "2010 to 2015 Conservative and Liberal Democrat coalition government"
     },
+    "headers": [
+      {
+        "text": "Olympics",
+        "level": 2,
+        "id": "olympics"
+      },
+      {
+        "text": "Table TSGB1001",
+        "level": 2,
+        "id": "table-tsgb1001"
+      },
+      {
+        "text": "Table TSGB1002",
+        "level": 2,
+        "id": "table-tsgb1002"
+      },
+      {
+        "text": "Table TSGB1003",
+        "level": 2,
+        "id": "table-tsgb1003"
+      },
+      {
+        "text": "Table TSGB1004",
+        "level": 2,
+        "id": "table-tsgb1004"
+      },
+      {
+        "text": "Table TSGB1005",
+        "level": 2,
+        "id": "table-tsgb1005"
+      }
+    ],
     "political": true,
     "tags": {
       "browse_pages": [

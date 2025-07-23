@@ -16,6 +16,33 @@
       "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
       "title": "2010 to 2015 Conservative and Liberal Democrat coalition government"
     },
+    "headers": [
+      {
+        "text": "About this data set",
+        "level": 2,
+        "id": "about-this-data-set"
+      },
+      {
+        "text": "MOT test results by class",
+        "level": 2,
+        "id": "mot-test-results-by-class"
+      },
+      {
+        "text": "Initial failures by defect category",
+        "level": 2,
+        "id": "initial-failures-by-defect-category"
+      },
+      {
+        "text": "MOT test stations and testers",
+        "level": 2,
+        "id": "mot-test-stations-and-testers"
+      },
+      {
+        "text": "Action against MOT authorised examiners and MOT testers",
+        "level": 2,
+        "id": "action-against-mot-authorised-examiners-and-mot-testers"
+      }
+    ],
     "political": false,
     "tags": {
       "browse_pages": [
