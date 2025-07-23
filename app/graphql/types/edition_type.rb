@@ -144,9 +144,12 @@ module Types
         field :sort_order, Integer
       end
 
+      field :acronym, String
       field :body, String
       field :brand, String
       field :change_history, GraphQL::Types::JSON
+      field :change_notes, GraphQL::Types::JSON
+      field :child_section_groups, GraphQL::Types::JSON
       field :current, Boolean
       field :default_news_image, Image
       field :display_date, Types::ContentApiDatetime
@@ -156,6 +159,7 @@ module Types
       field :image, Image
       field :international_delegations, [EditionType], null: false
       field :logo, Logo
+      field :organisation_govuk_status, GraphQL::Types::JSON
       field :political, Boolean
       field :privy_counsellor, Boolean
       field :reshuffle, GraphQL::Types::JSON
@@ -170,6 +174,8 @@ module Types
 
     field :active, Boolean, null: false
     field :analytics_identifier, String
+    field :api_path, String
+    field :api_url, String
     field :base_path, String
     field :change_history, GraphQL::Types::JSON
     field :content_id, ID
@@ -198,6 +204,7 @@ module Types
     field :title, String, null: false
     field :updated_at, Types::ContentApiDatetime
     field :web_url, String
+    field :withdrawn, Boolean
     field :withdrawn_notice, WithdrawnNotice
 
     def details(lookahead:)
