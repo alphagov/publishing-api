@@ -109,5 +109,3 @@ private
     )
   end
 end
-
-DownstreamLiveWorker = DownstreamLiveJob

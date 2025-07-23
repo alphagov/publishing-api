@@ -23,5 +23,3 @@ class PutPublishIntentJob
     notify_airbrake(e, args)
   end
 end
-
-PutPublishIntentWorker = PutPublishIntentJob
