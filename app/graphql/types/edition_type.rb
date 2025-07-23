@@ -154,17 +154,21 @@ module Types
       field :default_news_image, Image
       field :display_date, Types::ContentApiDatetime
       field :emphasised_organisations, GraphQL::Types::JSON
+      field :end_date, Types::ContentApiDatetime
       field :ended_on, Types::ContentApiDatetime
       field :first_public_at, Types::ContentApiDatetime
       field :image, Image
       field :international_delegations, [EditionType], null: false
       field :logo, Logo
+      field :ordered_featured_documents, GraphQL::Types::JSON
       field :organisation_govuk_status, GraphQL::Types::JSON
       field :political, Boolean
       field :privy_counsellor, Boolean
       field :reshuffle, GraphQL::Types::JSON
       field :role_payment_type, String
       field :seniority, Integer
+      field :social_media_links, GraphQL::Types::JSON
+      field :start_date, Types::ContentApiDatetime
       field :started_on, Types::ContentApiDatetime
       field :supports_historical_accounts, Boolean
       field :url_override, String
