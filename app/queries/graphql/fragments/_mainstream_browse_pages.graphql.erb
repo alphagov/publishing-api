@@ -1,0 +1,16 @@
+fragment MainstreamBrowsePages on Links {
+  mainstream_browse_pages: links_of_type(type: mainstream_browse_pages) {
+    api_path
+    api_url
+    base_path
+    content_id
+    description
+    document_type
+    locale
+    public_updated_at
+    schema_name
+    title
+    web_url
+    withdrawn
+  }
+}

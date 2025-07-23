@@ -1,0 +1,22 @@
+fragment OriginalPrimaryPublishingOrganisation on Links {
+  original_primary_publishing_organisation: links_of_type(type: original_primary_publishing_organisation) {
+    analytics_identifier
+    api_path
+    api_url
+    base_path
+    content_id
+    details {
+      acronym
+      brand
+      default_news_image
+      logo
+      organisation_govuk_status
+    }
+    document_type
+    locale
+    schema_name
+    title
+    web_url
+    withdrawn
+  }
+}
