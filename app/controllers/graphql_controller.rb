@@ -38,7 +38,11 @@ class GraphqlController < ApplicationController
                          result.dig("data", "edition")
                        end
 
-        http_status = if content_item["schema_name"] == "gone" && (content_item["details"].nil? || content_item["details"].values.reject(&:blank?).empty?)
+        # GovukError... is that a thing?
+
+        http_status = if content_item.nil?
+                        500
+                      elsif content_item["schema_name"] == "gone" && (content_item["details"].nil? || content_item["details"].values.reject(&:blank?).empty?)
                         410
                       else
                         200

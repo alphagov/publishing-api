@@ -125,6 +125,32 @@ module Types
     end
 
     class Details < Types::BaseObject
+      class Attachment < Types::BaseObject
+        field :accessible, Boolean
+        field :alternative_format_contact_email, String
+        field :attachment_type, String
+        field :content_type, String
+        field :file_size, Integer
+        field :filename, String
+        field :id, String
+        field :locale, String
+        field :number_of_pages, Integer
+        field :preview_url, String
+        field :title, String
+        field :url, String
+      end
+
+      class ChangeHistoryEntry < Types::BaseObject
+        field :note, String
+        field :public_timestamp, String
+      end
+
+      class Government < Types::BaseObject
+        field :current, Boolean
+        field :slug, String
+        field :title, String
+      end
+
       class Image < Types::BaseObject
         field :alt_text, String
         field :caption, String
@@ -138,23 +164,40 @@ module Types
         field :formatted_title, String
       end
 
+      class Tags < Types::BaseObject
+        field :browse_pages, [String]
+        field :policies, [String]
+        field :topics, [String]
+      end
+
       class WhipOrganisation < Types::BaseObject
         field :label, String
         field :sort_order, Integer
       end
 
+      class WorldLocationName < Types::BaseObject
+        field :content_id, String
+        field :name, String
+      end
+
+      field :acronym, String
+      field :attachments, [Attachment]
       field :body, String
       field :brand, String
-      field :change_history, GraphQL::Types::JSON
+      field :change_history, [ChangeHistoryEntry]
       field :current, Boolean
       field :default_news_image, Image
       field :display_date, Types::ContentApiDatetime
       field :emphasised_organisations, GraphQL::Types::JSON
       field :ended_on, Types::ContentApiDatetime
       field :first_public_at, Types::ContentApiDatetime
+      field :government, Government
       field :image, Image
+      field :internal_name, String
       field :international_delegations, [EditionType], null: false
       field :logo, Logo
+      field :notes_for_editors, String
+      field :organisation_govuk_status, String
       field :political, Boolean
       field :privy_counsellor, Boolean
       field :reshuffle, GraphQL::Types::JSON
@@ -162,13 +205,18 @@ module Types
       field :seniority, Integer
       field :started_on, Types::ContentApiDatetime
       field :supports_historical_accounts, Boolean
+      field :tags, Tags
       field :url_override, String
+      field :visible_to_departmental_editors, Boolean
       field :whip_organisation, WhipOrganisation
+      field :world_location_names, [WorldLocationName]
       field :world_locations, [EditionType], null: false
     end
 
     field :active, Boolean, null: false
     field :analytics_identifier, String
+    field :api_path, String
+    field :api_url, String
     field :base_path, String
     field :change_history, GraphQL::Types::JSON
     field :content_id, ID
@@ -197,6 +245,7 @@ module Types
     field :title, String, null: false
     field :updated_at, Types::ContentApiDatetime
     field :web_url, String
+    field :withdrawn, Boolean
     field :withdrawn_notice, WithdrawnNotice
 
     def details(lookahead:)
@@ -214,6 +263,10 @@ module Types
           locale: object.locale,
         ).details,
       )
+    end
+
+    def withdrawn
+      false
     end
 
     def withdrawn_notice
