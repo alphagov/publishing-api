@@ -1,5 +1,5 @@
 class Queries::Graphql::WorldIndexQuery
-  def self.query
+  def self.query(_base_path)
     <<-QUERY
       fragment worldLocationInfo on Edition {
         active

@@ -1,5 +1,5 @@
 class Queries::Graphql::MinistersIndexQuery
-  def self.query
+  def self.query(_base_path)
     <<-QUERY
       {
         edition(base_path: "/government/ministers") {

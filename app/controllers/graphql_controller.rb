@@ -10,24 +10,17 @@ class GraphqlController < ApplicationController
 
   def content
     execute_in_read_replica do
-      query = case find_schema_name(base_path)
-              when :news_article
-                Queries::Graphql::NewsArticleQuery.query(base_path:)
-              when :ministers_index
-                Queries::Graphql::MinistersIndexQuery.query
-              when :role
-                Queries::Graphql::RoleQuery.query(base_path:)
-              when :world_index
-                Queries::Graphql::WorldIndexQuery.query
-                # TODO: handle missing, serve 404
-                # TODO handle unsupported schema_name
-              end
-      result = PublishingApiSchema.execute(query).to_hash
+      schema_name = Edition.live.where(base_path:).pick(:schema_name)
 
-      process_graphql_result(result)
+      # TODO: handle unsupported schema_name
+      if schema_name && (class_name = "queries/graphql/#{schema_name}_query".camelize.constantize)
+        query = class_name.query(base_path:)
+        result = PublishingApiSchema.execute(query).to_hash
+        process_graphql_result(result)
+        # TODO: handle 404s
 
-      # what would be really good here is responding with 404s and the like
-      render json: result.dig("data", "edition")
+        render json: result.dig("data", "edition")
+      end
     rescue StandardError => e
       raise e unless Rails.env.development?
 
@@ -65,16 +58,6 @@ private
 
   def base_path
     "/#{params[:path_without_root]}"
-  end
-
-  def find_schema_name(base_path)
-    if base_path == "/government/ministers"
-      :ministers_index
-    elsif base_path == "/world"
-      :world_index
-    else
-      Edition.live.where(base_path:).pick(:schema_name)&.to_sym
-    end
   end
 
   def process_graphql_result(result)
