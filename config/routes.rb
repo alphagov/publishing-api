@@ -15,8 +15,8 @@ Rails.application.routes.draw do
 
     post "/lookup-by-base-path", to: "lookups#by_base_path"
 
+    get "/graphql/content/*path_without_root" => "graphql#content"
     post "/graphql", to: "graphql#execute"
-    get "/graphqlcontent/*path_without_root" => "graphql#content"
 
     namespace :v2 do
       get "/content", to: "content_items#index"
