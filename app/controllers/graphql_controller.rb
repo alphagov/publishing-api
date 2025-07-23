@@ -6,7 +6,46 @@ class GraphqlController < ApplicationController
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
 
-  skip_before_action :authenticate_user!, only: [:execute]
+  skip_before_action :authenticate_user!, only: %i[execute live_content]
+
+  DEFAULT_TTL = ENV.fetch("DEFAULT_TTL", 5.minutes).to_i.seconds
+  MINIMUM_TTL = [DEFAULT_TTL, 5.seconds].min
+
+  def live_content
+    execute_in_read_replica do
+      begin
+        encoded_base_path = Addressable::URI.encode("/#{params[:base_path]}")
+
+        schema_name = Edition.live.find_by(base_path: encoded_base_path)&.schema_name
+
+        unless schema_name
+          set_cache_headers
+          return head :not_found
+        end
+
+        begin
+          query = File.read(Rails.root.join("app/graphql/queries/#{schema_name}.graphql"))
+        rescue Errno::ENOENT
+          return head :not_found
+        end
+
+        result = PublishingApiSchema.execute(query, variables: { base_path: encoded_base_path }).to_hash
+        process_graphql_result(result)
+
+        content_item = result.dig("data", "edition")
+
+        set_cache_headers
+        render json: content_item
+      end
+    rescue Addressable::URI::InvalidURIError
+      Rails.logger.warn "Can't encode request_path '#{params[:base_path]}'"
+      return head :bad_request
+    rescue StandardError => e
+      raise e unless Rails.env.development?
+
+      handle_error_in_development(e)
+    end
+  end
 
   def execute
     execute_in_read_replica do
@@ -24,15 +63,7 @@ class GraphqlController < ApplicationController
         operation_name:,
       ).to_hash
 
-      set_prometheus_labels(result.dig("data", "edition")&.slice("document_type", "schema_name"))
-
-      if result.key?("errors")
-        logger.warn("GraphQL query result contained errors: #{result['errors']}")
-        set_prometheus_labels("contains_errors" => true)
-      else
-        logger.debug("GraphQL query result: #{result}")
-        set_prometheus_labels("contains_errors" => false)
-      end
+      process_graphql_result(result)
 
       render json: result
     rescue StandardError => e
@@ -43,6 +74,18 @@ class GraphqlController < ApplicationController
   end
 
 private
+
+  def process_graphql_result(result)
+    set_prometheus_labels(result.dig("data", "edition")&.slice("document_type", "schema_name"))
+
+    if result.key?("errors")
+      logger.warn("GraphQL query result contained errors: #{result['errors']}")
+      set_prometheus_labels("contains_errors" => true)
+    else
+      logger.debug("GraphQL query result: #{result}")
+      set_prometheus_labels("contains_errors" => false)
+    end
+  end
 
   def execute_in_read_replica(&block)
     if Rails.env.production_replica?
@@ -81,11 +124,29 @@ private
     render json: { errors: [{ message: error.message, backtrace: error.backtrace }], data: {} }, status: :internal_server_error
   end
 
+  # Constrain the cache time to be within the minimum_ttl and default_ttl.
+  def bounded_max_age(cache_time)
+    if cache_time > DEFAULT_TTL
+      DEFAULT_TTL
+    elsif cache_time < MINIMUM_TTL
+      MINIMUM_TTL
+    else
+      cache_time
+    end
+  end
+
   def set_prometheus_labels(hash)
     return unless hash
 
     prometheus_labels = request.env.fetch("govuk.prometheus_labels", {})
 
     request.env["govuk.prometheus_labels"] = prometheus_labels.merge(hash)
+  end
+
+  def set_cache_headers
+    # NOTE: this will need to support `max_cache_time` when schemas that have this field are available through GraphQL
+    cache_time = DEFAULT_TTL
+
+    expires_in bounded_max_age(cache_time), public: true
   end
 end

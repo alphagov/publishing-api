@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
     post "/lookup-by-base-path", to: "lookups#by_base_path"
 
+    get "/graphql/content(/*base_path)" => "graphql#live_content"
     post "/graphql", to: "graphql#execute"
 
     namespace :v2 do
