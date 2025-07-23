@@ -1,0 +1,9 @@
+fragment WorldLocations on Links {
+  world_locations: links_of_type(type: world_locations) {
+    analytics_identifier
+    content_id
+    locale
+    schema_name
+    title
+  }
+}

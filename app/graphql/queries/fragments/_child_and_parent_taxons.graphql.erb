@@ -1,0 +1,48 @@
+fragment Taxon on Edition {
+  api_path
+  api_url
+  base_path
+  content_id
+  description
+  details {
+    internal_name
+    notes_for_editors
+    visible_to_departmental_editors
+  }
+  document_type
+  locale
+  phase
+  public_updated_at
+  schema_name
+  title
+  web_url
+  withdrawn
+}
+
+<%# The deepest nodes in GOV.UK's taxonomy are 5 levels deep (i.e. the root, plus 4 child taxons) %>
+<%# For example https://www.gov.uk/api/content/transport/hs2-phase-2b %>
+<%# We don't expand the whole taxonomy when looking at the root, so we only need the 4 levels. %>
+<%# The first level expands the backlink to parent, but lower levels do not. %>
+fragment ChildAndParentTaxons on Links {
+  child_taxons: links_of_type(type: parent_taxons, reverse: true) {
+    ...Taxon
+    links {
+      child_taxons: links_of_type(type: parent_taxons, reverse: true) {
+        ...Taxon
+        links {
+          child_taxons: links_of_type(type: parent_taxons, reverse: true) {
+            ...Taxon
+            links {
+              child_taxons: links_of_type(type: parent_taxons, reverse: true) {
+                ...Taxon
+              }
+            }
+          }
+        }
+      }
+      parent_taxons: links_of_type(type: parent_taxons) {
+        ...Taxon
+      }
+    }
+  }
+}
