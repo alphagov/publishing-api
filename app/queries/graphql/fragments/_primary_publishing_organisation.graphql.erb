@@ -8,8 +8,14 @@ fragment PrimaryPublishingOrganisation on Links {
     details {
       acronym
       brand
-      default_news_image
-      logo
+      default_news_image {
+        alt_text
+        url
+      }
+      logo {
+        crest
+        formatted_title
+      }
       organisation_govuk_status
     }
     document_type

@@ -7,8 +7,14 @@ fragment WorldwideOrganisation on Links {
     content_id
     description
     details {
-      default_news_image
-      logo
+      default_news_image {
+        alt_text
+        url
+      }
+      logo {
+        crest
+        formatted_title
+      }
       world_location_names
     }
     document_type
