@@ -7,39 +7,44 @@ module Presenters
     end
 
     def change_history
-      details[:change_history] || presented_change_notes
+      SymbolizeJSON.symbolize(
+        change_notes.as_json,
+      )
     end
 
   private
 
-    def details
-      SymbolizeJSON.symbolize(edition.details)
-    end
-
-    def presented_change_notes
-      SymbolizeJSON.symbolize(
-        change_notes
-          .pluck(:note, :public_timestamp)
-          .map { |note, timestamp| { note:, public_timestamp: timestamp } }
-          .as_json,
-      )
-    end
-
     def change_notes
-      ChangeNote
-        .joins(:edition)
-        .where(editions: { document: })
-        .where("user_facing_version <= ?", version_number)
-        .where.not(public_timestamp: nil)
-        .order(:public_timestamp)
+      all_change_notes
+        .map { |h| format_change_note(h) }
+        .sort_by { |h| Time.zone.parse(h[:public_timestamp]) }
+        .reverse
     end
 
-    def version_number
-      edition.user_facing_version
+    def format_change_note(history)
+      {
+        note: history[:note],
+        public_timestamp: convert_timestamp_to_utc(history[:public_timestamp]).to_s,
+      }
     end
 
-    def document
-      edition.document
+    def all_change_notes
+      query_result + details_change_notes
+    end
+
+    def details_change_notes
+      @details_change_notes ||= edition.details.fetch(:change_history, [])
+    end
+
+    def query_result
+      Presenters::Queries::ChangeHistory.new(edition, include_edition_change_history: details_change_notes.blank?)
+                                        .call
+                                        .pluck(:note, :public_timestamp)
+                                        .map { |note, timestamp| { note:, public_timestamp: timestamp } }
+    end
+
+    def convert_timestamp_to_utc(timestamp)
+      timestamp.is_a?(String) ? Time.zone.parse(timestamp).utc : timestamp.utc
     end
   end
 end

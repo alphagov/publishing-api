@@ -223,6 +223,10 @@ class Edition < ApplicationRecord
     Plek.website_root + base_path
   end
 
+  def is_content_block?
+    document_type.start_with?(CONTENT_BLOCK_PREFIX)
+  end
+
 private
 
   def renderable_content?
@@ -231,9 +235,5 @@ private
 
   def requires_rendering_app?
     !is_content_block? && renderable_content? && NO_RENDERING_APP_FORMATS.exclude?(document_type)
-  end
-
-  def is_content_block?
-    document_type.start_with?(CONTENT_BLOCK_PREFIX)
   end
 end

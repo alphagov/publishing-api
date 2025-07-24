@@ -151,6 +151,17 @@ RSpec.describe DownstreamLiveJob do
       end
     end
 
+    context "when is_content_block is true" do
+      let(:arguments) do
+        base_arguments.merge("update_dependencies" => true, "source_command" => "command", "is_content_block" => true)
+      end
+
+      it "enqueues dependencies with HostContentUpdateJob" do
+        expect(HostContentUpdateJob).to receive(:perform_async)
+        subject.perform(arguments)
+      end
+    end
+
     context "can not update dependencies" do
       it "doesn't enqueue dependencies" do
         expect(DependencyResolutionJob).to_not receive(:perform_async)
@@ -181,6 +192,36 @@ RSpec.describe DownstreamLiveJob do
       expect(GovukError).to receive(:notify)
         .with(an_instance_of(AbortWorkerError), a_hash_including(:extra))
       subject.perform(arguments.merge("content_id" => SecureRandom.uuid))
+    end
+  end
+
+  describe "when dependency_resolution_source_content_id is set" do
+    let(:source_document) { build(:document) }
+    let(:source_edition) { build(:edition, document: source_document) }
+
+    before do
+      allow(Document).to receive_message_chain(:find_by, :live)
+                           .with(content_id: source_document.content_id)
+                           .with(no_args)
+                           .and_return(source_edition)
+    end
+
+    it "sends the edition to the DownstreamPayload" do
+      expect(DownstreamPayload).to receive(:new)
+                                     .with(edition, 0, draft: false, triggered_by_edition: source_edition)
+                                     .and_call_original
+
+      subject.perform(arguments.merge("dependency_resolution_source_content_id" => source_document.content_id))
+    end
+  end
+
+  describe "when dependency_resolution_source_content_id is not set" do
+    it "does not send the edition to the DownstreamPayload" do
+      expect(DownstreamPayload).to receive(:new)
+                                     .with(edition, 0, draft: false, triggered_by_edition: nil)
+                                     .and_call_original
+
+      subject.perform(arguments)
     end
   end
 end

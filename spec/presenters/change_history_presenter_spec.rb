@@ -1,83 +1,87 @@
 RSpec.describe Presenters::ChangeHistoryPresenter do
-  let(:document) { create(:document) }
+  let(:document) { build(:document) }
   let(:edition) do
-    create(
+    build(
       :edition,
       document:,
       details: details.deep_stringify_keys,
     )
   end
-  let(:details) { {} }
   subject { described_class.new(edition).change_history }
 
+  let(:change_history_stub) { double("Presenters::Queries::ChangeHistory", call: query_response) }
+
   describe "#change_history" do
-    context "details hash includes content_history" do
+    context "when the details hash does not have a change history" do
+      let(:details) { {} }
+      let(:change_notes) do
+        [
+          build(:change_note, note: "Note 1", public_timestamp: 3.days.ago),
+          build(:change_note, note: "Note 2", public_timestamp: 2.days.ago),
+          build(:change_note, note: "Note 3", public_timestamp: 1.day.ago),
+        ]
+      end
+
+      let(:query_response) { change_notes }
+
+      before do
+        expect(Presenters::Queries::ChangeHistory).to receive(:new)
+                                                        .with(edition, include_edition_change_history: true)
+                                                        .and_return(change_history_stub)
+      end
+
+      it "returns the change notes from the database sorted by date" do
+        expect(subject).to eq([
+          { public_timestamp: change_notes[2].public_timestamp.utc.to_s, note: change_notes[2].note },
+          { public_timestamp: change_notes[1].public_timestamp.utc.to_s, note: change_notes[1].note },
+          { public_timestamp: change_notes[0].public_timestamp.utc.to_s, note: change_notes[0].note },
+        ])
+      end
+    end
+
+    context "when the details hash has a change history" do
+      let(:one_day_ago) { 1.day.ago }
+      let(:two_days_ago) { 2.days.ago }
+
       let(:details) do
         { change_history: [
-          { public_timestamp: 1.day.ago.to_s, note: "note 1" },
-          { public_timestamp: 2.days.ago.to_s, note: "note 2" },
+          { public_timestamp: one_day_ago.in_time_zone("GMT").to_s, note: "note 1" },
+          { public_timestamp: two_days_ago.in_time_zone("GMT").to_s, note: "note 2" },
         ] }
       end
-      it "returns content_history from details hash" do
-        expect(subject).to eq details[:change_history]
-      end
-    end
 
-    context "details hash doesn't include content_history" do
       before do
-        2.times do |i|
-          create(:change_note, edition:, note: i.to_s, public_timestamp: Time.zone.now.utc)
-        end
-      end
-      it "constructs content history from change notes" do
-        expect(subject.map { |item| item[:note] }).to eq %w[0 1]
-      end
-    end
-
-    it "orders change notes by public_timestamp (ascending)" do
-      [1, 3, 2].to_a.each do |i|
-        create(:change_note, edition:, note: i.to_s, public_timestamp: i.days.ago)
-      end
-      expect(subject.map { |item| item[:note] }).to eq %w[3 2 1]
-    end
-
-    it "omits change notes that don't have a public timestamp" do
-      create(:change_note, edition:, note: "with-timestamp", public_timestamp: 1.day.ago)
-      create(:change_note, edition:, note: "without-timestamp", public_timestamp: nil)
-      expect(subject.map { |item| item[:note] }).to eq %w[with-timestamp]
-    end
-
-    context "multiple editions for a single content id" do
-      let(:item1) do
-        create(
-          :superseded_edition,
-          document:,
-          details:,
-          user_facing_version: 1,
-        )
-      end
-      let(:item2) do
-        create(
-          :live_edition,
-          document:,
-          details:,
-          user_facing_version: 2,
-        )
-      end
-      before do
-        create(:change_note, edition: item1)
-        create(:change_note, edition: item2)
+        expect(Presenters::Queries::ChangeHistory).to receive(:new)
+                                                        .with(edition, include_edition_change_history: false)
+                                                        .and_return(change_history_stub)
       end
 
-      context "reviewing latest version of a edition" do
-        it "constructs content history from all change notes for content id" do
-          expect(described_class.new(item2).change_history.count).to eq 2
+      context "when change notes do not exist for linked editions" do
+        let(:query_response) { [] }
+
+        it "returns content_history from details hash" do
+          expect(subject).to eq([
+            { public_timestamp: one_day_ago.utc.to_s, note: "note 1" },
+            { public_timestamp: two_days_ago.utc.to_s, note: "note 2" },
+          ])
         end
       end
 
-      context "reviewing older version of a edition" do
-        it "doesn't include change notes corresponding to newer versions" do
-          expect(described_class.new(item1).change_history.count).to eq 1
+      context "when change notes exist for linked editions" do
+        let(:query_response) do
+          [
+            build(:change_note, public_timestamp: 4.days.ago),
+            build(:change_note, public_timestamp: 1.hour.ago),
+          ]
+        end
+
+        it "merges the original change notes with the change notes from the linked editions in date order" do
+          expect(subject).to eq([
+            { public_timestamp: query_response[1].public_timestamp.utc.to_s, note: query_response[1].note },
+            { public_timestamp: one_day_ago.utc.to_s, note: "note 1" },
+            { public_timestamp: two_days_ago.utc.to_s, note: "note 2" },
+            { public_timestamp: query_response[0].public_timestamp.utc.to_s, note: query_response[0].note },
+          ])
         end
       end
     end
