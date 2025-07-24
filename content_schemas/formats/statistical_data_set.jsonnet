@@ -22,6 +22,9 @@
         first_public_at: {
           "$ref": "#/definitions/first_public_at",
         },
+        headers: {
+          "$ref": "#/definitions/nested_headers",
+        },
         change_history: {
           "$ref": "#/definitions/change_history",
         },
