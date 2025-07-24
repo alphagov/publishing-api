@@ -114,5 +114,3 @@ private
     )
   end
 end
-
-DownstreamDraftWorker = DownstreamDraftJob

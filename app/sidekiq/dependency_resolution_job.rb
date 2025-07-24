@@ -108,5 +108,3 @@ private
     )
   end
 end
-
-DependencyResolutionWorker = DependencyResolutionJob

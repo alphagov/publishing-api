@@ -80,5 +80,3 @@ private
     @downstream_payload ||= DownstreamPayload.new(edition, payload_version, draft: true)
   end
 end
-
-DownstreamDiscardDraftWorker = DownstreamDiscardDraftJob

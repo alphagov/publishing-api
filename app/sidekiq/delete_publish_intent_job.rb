@@ -23,5 +23,3 @@ class DeletePublishIntentJob
     notify_airbrake(e, args)
   end
 end
-
-DeletePublishIntentWorker = DeletePublishIntentJob
