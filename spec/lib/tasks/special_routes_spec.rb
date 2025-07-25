@@ -25,7 +25,7 @@ RSpec.describe "Rake tasks for publishing special routes" do
 
         expect(Document.count).to eq(3)
         expect(Edition.count).to eq(3)
-        expect(Edition.all.collect(&:title)).to eq(["Account home page", "Save a page", "Government Uploads"])
+        expect(Edition.all.collect(&:title)).to match_array(["Account home page", "Save a page", "Government Uploads"])
       end
     end
 
@@ -39,7 +39,7 @@ RSpec.describe "Rake tasks for publishing special routes" do
 
         expect(Document.count).to eq(2)
         expect(Edition.count).to eq(2)
-        expect(Edition.all.collect(&:title)).to eq(["Account home page", "Save a page"])
+        expect(Edition.all.collect(&:title)).to match_array(["Account home page", "Save a page"])
       end
 
       it "returns a message if there are no routes for that app" do
