@@ -33,6 +33,11 @@
       },
       "address-2": {}
     },
+    "contact_links": {
+      "contact-link-1": {
+        "url": "https://example.com"
+      }
+    },
     "telephones": {
       "telephone_numbers": [
         {
