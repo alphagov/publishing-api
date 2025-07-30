@@ -60,6 +60,10 @@
           "show_uk_call_charges": "true"
         }
       ],
+      "opening_hours": {
+        "show": true,
+        "value": "Monday to Friday, 8am to 6pm (except public holidays)"
+      },
       "video_relay_services": {
         "show": true,
         "prefix": "[Relay UK](https://example.com): 18001 then",
