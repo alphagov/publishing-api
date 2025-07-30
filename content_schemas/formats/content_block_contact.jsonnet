@@ -110,32 +110,27 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                     type: "string",
                 },
                 opening_hours: {
-                    type: "array",
-                    items: {
-                        type: "object",
-                        required: [
-                            "day_from",
-                            "day_to",
-                            "time_from",
-                            "time_to",
-                         ],
-                         properties: {
-                           day_from: {
-                             type: "string",
-                           },
-                           day_to: {
-                             type: "string",
-                           },
-                           time_from: {
-                             type: "string",
-                             pattern: "^[0-9]{1,2}:[0-9]{2}AM|PM$",
-                           },
-                           time_to: {
-                             type: "string",
-                             pattern: "^[0-9]{1,2}:[0-9]{2}AM|PM$",
-                           },
-                        }
-                    }
+                    type: "object",
+                    properties: {
+                        show_opening_hours: {
+                            type: "boolean",
+                            default: false,
+                        },
+                        opening_hours: {
+                            type: "string",
+                        },
+                    },
+                    "if": {
+                      properties: {
+                          show_opening_hours: { const: true },
+                      },
+                    },
+                    "then": {
+                      required: ["opening_hours"],
+                    },
+                    "else": {
+                      required: []
+                    },
                 },
                 bsl_guidance: {
                     type: "object",
