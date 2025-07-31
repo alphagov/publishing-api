@@ -160,6 +160,54 @@ RSpec.describe GraphqlController do
         expect(Time.iso8601(data.dig("withdrawn_notice", "withdrawn_at"))).to eq(withdrawn_at)
       end
     end
+
+    context "a gone content item without an explanation and without an alternative_path" do
+      let(:edition) do
+        create(
+          :gone_unpublished_edition_without_explanation,
+          schema_name: "news_article",
+        )
+      end
+
+      before do
+        get :live_content, params: { base_path: base_path_without_leading_slash(edition.base_path) }
+      end
+
+      it "responds with 410" do
+        expect(response.status).to eq(410)
+      end
+
+      it "sets cache headers to expire in the default TTL" do
+        expect(cache_control["max-age"]).to eq(default_ttl.to_s)
+      end
+
+      it "sets a cache-control directive of public" do
+        expect(cache_control["public"]).to eq(true)
+      end
+    end
+
+    context "a gone content item with an explantion and alternative_path" do
+      let(:edition) do
+        create(
+          :gone_unpublished_edition,
+          schema_name: "news_article",
+        )
+      end
+
+      before do
+        get :live_content, params: { base_path: base_path_without_leading_slash(edition.base_path) }
+      end
+
+      it "responds with 200" do
+        expect(response.status).to eq(200)
+      end
+
+      it "includes the details" do
+        details = JSON.parse(response.body)["details"]
+        expect(details["explanation"]).to eq(edition.unpublishing.explanation)
+        expect(details["alternative_path"]).to eq(edition.unpublishing.alternative_path)
+      end
+    end
   end
 
   def base_path_without_leading_slash(base_path)
