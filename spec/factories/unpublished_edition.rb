@@ -17,10 +17,18 @@ FactoryBot.define do
         edition:,
         created_at: evaluator.created_at || Time.zone.now,
         type: evaluator.unpublishing_type,
+        alternative_path: evaluator.alternative_path,
         explanation: evaluator.explanation,
         redirects: [{ path: edition.base_path, type: :exact, destination: evaluator.alternative_path }],
         unpublished_at: evaluator.unpublished_at,
       )
+    end
+  end
+
+  factory :gone_unpublished_edition_without_explanation, parent: :unpublished_edition do
+    transient do
+      alternative_path { nil }
+      explanation { nil }
     end
   end
 
