@@ -1,12 +1,6 @@
-#!/usr/bin/env ruby
-
 require "json"
 
 class GraphqlQueryBuilder
-  SPECIAL_LINK_TYPES = %w[
-    available_translations
-  ].freeze
-
   FRAGMENTS = Dir.glob(Rails.root.join("app/graphql/queries/fragments/_*.graphql.erb"))
                  .map { |file| file.match(/fragments\/_(.*)\.graphql\.erb\Z/)[1] }
                  .to_set
@@ -51,22 +45,29 @@ class GraphqlQueryBuilder
     "ministers" => "ministerial",
   }.freeze
 
-  def initialize(base_path, use_fragments)
-    @data = fetch_content(base_path)
-    @use_fragments = use_fragments
+  def initialize
+    SchemaService.all_schemas.each_key do |schema_name|
+      example_base_path = Edition.live.find_by(schema_name:, state: "published")&.base_path
+      next unless example_base_path
+
+      output_query_class = build_query(example_base_path, schema_name)
+      File.write("app/queries/graphql/#{schema_name}.rb", output_query_class)
+    end
   end
 
-  def build_query
+  def build_query(base_path, schema_name)
+    data = fetch_content(base_path)
+
     parts = if @use_fragments
               [
                 "<%= render \"fragments/default_top_level_fields\" %>",
-                (@data["links"]&.keys&.map { FRAGMENT_NAME_OVERRIDES[it] }&.to_set & FRAGMENTS)&.sort&.map { |link_key| "<%= render \"fragments/#{link_key}\" %>" },
+                (data["links"]&.keys&.map { FRAGMENT_NAME_OVERRIDES[it] }&.to_set & FRAGMENTS)&.sort&.map { |link_key| "<%= render \"fragments/#{link_key}\" %>" },
                 "",
                 "{",
                 "  edition(base_path: \"#\{base_path\}\") {",
                 "    ... on Edition {",
                 "      ...DefaultTopLevelFields",
-                "      #{build_fields(@data.except(*DEFAULT_TOP_LEVEL_FIELDS))}",
+                "      #{build_fields(data.except(*DEFAULT_TOP_LEVEL_FIELDS))}",
                 "    }",
                 "  }",
                 "}",
@@ -76,13 +77,25 @@ class GraphqlQueryBuilder
                 "{",
                 "  edition(base_path: \"\#\{base_path\}\") {",
                 "    ... on Edition {",
-                "      #{build_fields(@data)}",
+                "      #{build_fields(data)}",
                 "    }",
                 "  }",
                 "}",
               ]
             end
-    parts.join("\n")
+
+    class_name = "Queries::Graphql::#{schema_name.camelize}"
+    indented_query = parts.join("\n").indent(12)
+
+    <<~OUTPUT
+      class #{class_name}
+        def self.query(base_path:)
+          <<-QUERY
+            #{indented_query}
+          QUERY
+        end
+      end
+    OUTPUT
   end
 
 private
@@ -108,29 +121,18 @@ private
         key
       end
     end
-    fields.compact.join("\n#{' ' * indent}")
+    fields.compact.join("\n").indent(indent)
   end
 
   def build_links_query(key, array, indent)
     fragment_name = FRAGMENT_NAME_OVERRIDES[key]
     return "...#{fragment_name.camelize}" if @use_fragments && FRAGMENTS.include?(fragment_name)
 
-    link_type = REVERSE_LINK_TYPES[key] || key
-    reverse = REVERSE_LINK_TYPES.key?(key)
-
-    if SPECIAL_LINK_TYPES.include?(key)
-      [
-        "#{key} {",
-        " " * (indent + 2) + build_fields(array.first, indent + 2),
-        "#{' ' * indent}}",
-      ].join("\n")
-    else
-      [
-        "#{key} {",
-        " " * (indent + 2) + build_fields(array.first, indent + 2),
-        "#{' ' * indent}}",
-      ].join("\n")
-    end
+    [
+      "#{key} {",
+      " " * (indent + 2) + build_fields(array.first, indent + 2),
+      "#{' ' * indent}}",
+    ].join("\n")
   end
 
   def fetch_content(base_path)
