@@ -1263,13 +1263,10 @@
         "bulk_published": {
           "type": "boolean"
         },
-        "land_types": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "farming_grant_type": {
+          "type": "string"
         },
-        "payment_types": {
+        "land_types": {
           "type": "array",
           "items": {
             "type": "string"
