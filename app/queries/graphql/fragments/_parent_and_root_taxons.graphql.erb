@@ -1,0 +1,64 @@
+fragment RootTaxon on Edition {
+  api_path
+  api_url
+  base_path
+  content_id
+  description
+  document_type
+  locale
+  public_updated_at
+  schema_name
+  title
+  web_url
+  withdrawn
+}
+
+fragment ParentTaxon on Edition {
+  ...RootTaxon
+  details {
+    internal_name
+    notes_for_editors
+    visible_to_departmental_editors
+  }
+  phase
+}
+
+<%# The deepest nodes in GOV.UK's taxonomy are 5 levels deep (i.e. 4 parent taxons + 1 root) %>
+<%# For example https://www.gov.uk/api/content/transport/hs2-phase-2b %>
+fragment ParentAndRootTaxons on Links {
+  parent_taxons: links_of_type(type: parent_taxons) {
+    ...ParentTaxon
+    links {
+      parent_taxons: links_of_type(type: parent_taxons) {
+        ...ParentTaxon
+        links {
+          parent_taxons: links_of_type(type: parent_taxons) {
+            ...ParentTaxon
+            links {
+              parent_taxons: links_of_type(type: parent_taxons) {
+                ...ParentTaxon
+                links {
+                  root_taxon: links_of_type(type: root_taxon) {
+                    ...RootTaxon
+                  }
+                }
+              }
+              root_taxon: links_of_type(type: root_taxon) {
+                ...RootTaxon
+              }
+            }
+          }
+          root_taxon: links_of_type(type: root_taxon) {
+            ...RootTaxon
+          }
+        }
+      }
+      root_taxon: links_of_type(type: root_taxon) {
+        ...RootTaxon
+      }
+    }
+  }
+  root_taxon: links_of_type(type: root_taxon) {
+    ...RootTaxon
+  }
+}

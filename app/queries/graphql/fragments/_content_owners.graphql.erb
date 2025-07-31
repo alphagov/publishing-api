@@ -1,0 +1,15 @@
+fragment ContentOwners on Links {
+  content_owners: links_of_type(type: content_owners) {
+    api_path
+    api_url
+    base_path
+    content_id
+    document_type
+    locale
+    public_updated_at
+    schema_name
+    title
+    web_url
+    withdrawn
+  }
+}

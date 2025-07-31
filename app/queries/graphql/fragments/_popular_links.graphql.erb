@@ -1,0 +1,14 @@
+fragment PopularLinks on Links {
+  popular_links: links_of_type(type: popular_links) {
+    content_id
+    details {
+      link_items
+    }
+    document_type
+    locale
+    public_updated_at
+    schema_name
+    title
+    withdrawn
+  }
+}
