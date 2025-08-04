@@ -10,15 +10,6 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
         description: {
           type: "string"
         },
-        contact_type: {
-          type: "string",
-          enum: [
-            "General",
-            "Freedom of Information",
-            "Media enquiries",
-          ],
-          default: "General"
-        },
         email_addresses: utils.embedded_object(
           {
             email_address: {
@@ -183,7 +174,6 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
             },
         ),
       },
-      required: [ "contact_type" ]
     },
   },
 }
