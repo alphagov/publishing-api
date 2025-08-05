@@ -425,6 +425,9 @@
                 "description": {
                   "type": "string"
                 },
+                "label": {
+                  "type": "string"
+                },
                 "title": {
                   "type": "string"
                 },
@@ -458,6 +461,9 @@
                 "email_address": {
                   "type": "string",
                   "format": "email"
+                },
+                "label": {
+                  "type": "string"
                 },
                 "subject": {
                   "type": "string"

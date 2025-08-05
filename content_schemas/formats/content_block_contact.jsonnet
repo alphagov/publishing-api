@@ -15,6 +15,9 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
             title: {
               type: "string",
             },
+            label: {
+              type: "string",
+            },
             email_address: {
               type: "string",
               format: "email",
@@ -150,6 +153,9 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
         contact_links: utils.embedded_object(
             {
                 title: {
+                  type: "string",
+                },
+                label: {
                   type: "string",
                 },
                 url: {
