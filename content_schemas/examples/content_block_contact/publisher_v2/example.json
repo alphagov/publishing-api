@@ -10,6 +10,7 @@
     "email_addresses": {
       "email-1": {
         "title": "Email 1",
+        "label": "Email us",
         "email_address": "hello@example.com",
         "description": "General enquiries"
       },
@@ -33,7 +34,9 @@
       "address-2": {}
     },
     "contact_links": {
-      "contact-link-1": {
+      "webchat": {
+        "title": "Webchat",
+        "label": "Speak to an adviser now",
         "url": "https://example.com"
       }
     },
