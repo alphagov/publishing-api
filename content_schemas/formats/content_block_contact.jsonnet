@@ -79,6 +79,7 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                   "else": {
                     required: []
                   },
+                  'x-govspeak_enabled': ["prefix"],
                 },
                 call_charges: {
                   type: "object",
@@ -134,8 +135,9 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                             type: "string",
                             default: "British Sign Language (BSL) [video relay service](https://connect.interpreterslive.co.uk/vrs) if you’re on a computer - find out how to [use the service on mobile or tablet](https://www.youtube.com/watch?v=oELNMfAvDxw)",
                         },
-                    }
-                }
+                    },
+                    'x-govspeak_enabled': ["value"],
+                },
              },
              ["telephone_numbers"],
         ),
