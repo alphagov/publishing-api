@@ -12,6 +12,9 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
         },
         rates: utils.embedded_object(
           {
+            title: {
+                type: "string",
+            },
             amount: {
               type: "string",
               pattern: "^£{1}[1-9]{1,3}(,\\d{3})*(\\.\\d{2})?",

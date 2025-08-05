@@ -5,11 +5,7 @@
         "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
             type: "object",
             additionalProperties: false,
-            properties: {
-              title: {
-                type: "string"
-              }
-            } + properties,
+            properties: properties,
         } + (if required != null then { required: required } else {})
       }
    }
