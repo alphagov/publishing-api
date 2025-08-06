@@ -156,7 +156,7 @@ GEM
       railties (>= 6.1.0)
     faker (3.5.2)
       i18n (>= 1.8.11, < 2)
-    faraday (2.13.2)
+    faraday (2.13.4)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -179,11 +179,12 @@ GEM
       plek (>= 1.9.0)
       rack (>= 2.2.0)
       rest-client (~> 2.0)
-    gds-sso (20.0.0)
+    gds-sso (21.1.0)
       oauth2 (~> 2.0)
       omniauth (~> 2.1)
       omniauth-oauth2 (~> 1.8)
       plek (>= 5)
+      rack
       rails (>= 7)
       warden (~> 1.2)
       warden-oauth2 (~> 0.0.1)
