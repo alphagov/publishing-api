@@ -173,6 +173,9 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                 title: {
                     type: "string",
                 },
+                recipient: {
+                    type: "string",
+                },
                 street_address: {
                     type: "string",
                 },

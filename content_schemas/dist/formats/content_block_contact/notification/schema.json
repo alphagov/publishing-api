@@ -393,6 +393,9 @@
                 "postal_code": {
                   "type": "string"
                 },
+                "recipient": {
+                  "type": "string"
+                },
                 "state_or_county": {
                   "type": "string"
                 },
