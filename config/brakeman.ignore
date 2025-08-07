@@ -24,6 +24,29 @@
       "note": "The included SQL is a constant string with no user input."
     },
     {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "4d5a82ef2810283789804f7d7e47d40bbfefb81ada160378341a54939fb15a95",
+      "check_name": "FileAccess",
+      "message": "Model attribute used in file name",
+      "file": "app/controllers/graphql_controller.rb",
+      "line": 24,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.read(Rails.root.join(\"app/graphql/queries/#{Edition.live.find_by(:base_path => Addressable::URI.encode(\"/#{params[:base_path]}\")).schema_name}.graphql\"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "GraphqlController",
+        "method": "live_content"
+      },
+      "user_input": "Edition.live.find_by(:base_path => Addressable::URI.encode(\"/#{params[:base_path]}\"))",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "683209c49b28a5b8dcf1f540dbba77d2ef430831a7b3391c7484bd0418bba104",
@@ -93,6 +116,5 @@
       "note": "The SQL is generated only with valid locales and edition states, not with arbitrary user input"
     }
   ],
-  "updated": "2025-03-31 11:08:00 +0000",
-  "brakeman_version": "7.0.0"
+  "brakeman_version": "7.1.0"
 }
