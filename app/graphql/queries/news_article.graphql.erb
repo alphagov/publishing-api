@@ -1,0 +1,108 @@
+<%= render "fragments/default_top_level_fields" %>
+<%= render "fragments/available_translations" %>
+<%= render "fragments/document_collections" %>
+<%= render "fragments/government" %>
+<%= render "fragments/ordered_related_items" %>
+<%= render "fragments/organisations" %>
+<%= render "fragments/original_primary_publishing_organisation" %>
+<%= render "fragments/primary_publishing_organisation" %>
+<%= render "fragments/roles" %>
+<%= render "fragments/suggested_ordered_related_items" %>
+<%= render "fragments/taxons" %>
+<%= render "fragments/world_locations" %>
+
+query news_article($base_path: String!) {
+  edition(base_path: $base_path) {
+    ...DefaultTopLevelFields
+    details {
+      attachments
+      body
+      change_history
+      emphasised_organisations
+      first_public_at
+      image
+      political
+      tags
+      government
+    }
+    links {
+      ...AvailableTranslations
+      ...Government
+      ...Organisations
+      ...OriginalPrimaryPublishingOrganisation
+      ...PrimaryPublishingOrganisation
+      ...Taxons
+      people {
+        api_path
+        api_url
+        base_path
+        content_id
+        document_type
+        locale
+        public_updated_at
+        schema_name
+        title
+        web_url
+        withdrawn
+      }
+      ...Roles
+      ...SuggestedOrderedRelatedItems
+      ...DocumentCollections
+      ...WorldLocations
+      topical_events {
+        api_path
+        api_url
+        base_path
+        content_id
+        document_type
+        locale
+        public_updated_at
+        schema_name
+        title
+        web_url
+        withdrawn
+      }
+      worldwide_organisations {
+        analytics_identifier
+        api_path
+        api_url
+        base_path
+        content_id
+        description
+        details {
+          default_news_image
+          logo
+          world_location_names
+        }
+        document_type
+        locale
+        public_updated_at
+        schema_name
+        title
+        web_url
+        withdrawn
+      }
+      ...OrderedRelatedItems
+      ordered_related_items_overrides {
+        api_path
+        api_url
+        base_path
+        content_id
+        document_type
+        links {
+          ...Taxons
+        }
+        locale
+        public_updated_at
+        schema_name
+        title
+        web_url
+        withdrawn
+      }
+    }
+    withdrawn_notice {
+      explanation
+      withdrawn_at
+    }
+  }
+}
