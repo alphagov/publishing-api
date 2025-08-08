@@ -8,6 +8,26 @@ class GraphqlController < ApplicationController
 
   skip_before_action :authenticate_user!, only: [:execute]
 
+  def content
+    execute_in_read_replica do
+      schema_name = Edition.live.where(base_path:).pick(:schema_name)
+
+      # TODO: handle unsupported schema_name
+      if schema_name && (class_name = "queries/graphql/#{schema_name}_query".camelize.constantize)
+        query = class_name.query(base_path:)
+        result = PublishingApiSchema.execute(query).to_hash
+        process_graphql_result(result)
+        # TODO: handle 404s
+
+        render json: result.dig("data", "edition")
+      end
+    rescue StandardError => e
+      raise e unless Rails.env.development?
+
+      handle_error_in_development(e)
+    end
+  end
+
   def execute
     execute_in_read_replica do
       variables = prepare_variables(params[:variables])
@@ -24,15 +44,7 @@ class GraphqlController < ApplicationController
         operation_name:,
       ).to_hash
 
-      set_prometheus_labels(result.dig("data", "edition")&.slice("document_type", "schema_name"))
-
-      if result.key?("errors")
-        logger.warn("GraphQL query result contained errors: #{result['errors']}")
-        set_prometheus_labels("contains_errors" => true)
-      else
-        logger.debug("GraphQL query result: #{result}")
-        set_prometheus_labels("contains_errors" => false)
-      end
+      process_graphql_result(result)
 
       render json: result
     rescue StandardError => e
@@ -43,6 +55,22 @@ class GraphqlController < ApplicationController
   end
 
 private
+
+  def base_path
+    "/#{params[:path_without_root]}"
+  end
+
+  def process_graphql_result(result)
+    set_prometheus_labels(result.dig("data", "edition")&.slice("document_type", "schema_name"))
+
+    if result.key?("errors")
+      logger.warn("GraphQL query result contained errors: #{result['errors']}")
+      set_prometheus_labels("contains_errors" => true)
+    else
+      logger.debug("GraphQL query result: #{result}")
+      set_prometheus_labels("contains_errors" => false)
+    end
+  end
 
   def execute_in_read_replica(&block)
     if Rails.env.production_replica?

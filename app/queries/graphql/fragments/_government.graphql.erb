@@ -1,0 +1,17 @@
+fragment Government on Links {
+  government: links_of_type(type: government) {
+    api_path
+    api_url
+    base_path
+    content_id
+    details {
+      current
+      ended_on
+      started_on
+    }
+    document_type
+    locale
+    title
+    web_url
+  }
+}

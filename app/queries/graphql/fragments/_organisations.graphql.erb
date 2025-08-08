@@ -1,0 +1,28 @@
+fragment Organisations on Links {
+  organisations: links_of_type(type: organisations) {
+    analytics_identifier
+    api_path
+    api_url
+    base_path
+    content_id
+    details {
+      acronym
+      brand
+      default_news_image {
+        alt_text
+        url
+      }
+      logo {
+        crest
+        formatted_title
+      }
+      organisation_govuk_status
+    }
+    document_type
+    locale
+    schema_name
+    title
+    web_url
+    withdrawn
+  }
+}

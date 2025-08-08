@@ -1,0 +1,36 @@
+<%#
+The deepest child pages on GOV.UK have 3 generations of parents. Examples:
+- https://www.gov.uk/api/content/claim-rural-payments/sign-in
+- https://www.gov.uk/api/content/foreign-travel-advice/anguilla
+%>
+
+fragment Parent on Edition {
+  api_path
+  api_url
+  base_path
+  content_id
+  description
+  document_type
+  locale
+  public_updated_at
+  schema_name
+  title
+  web_url
+  withdrawn
+}
+
+fragment Parents on Links {
+  parent: links_of_type(type: parent) {
+    ...Parent
+    links {
+      parent: links_of_type(type: parent) {
+        ...Parent
+        links {
+          parent: links_of_type(type: parent) {
+            ...Parent
+          }
+        },
+      }
+    },
+  }
+}
