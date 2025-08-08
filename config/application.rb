@@ -77,6 +77,7 @@ module PublishingAPI
       ka
       kk
       ko
+      ky
       lt
       lv
       ms
