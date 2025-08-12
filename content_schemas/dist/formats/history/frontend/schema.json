@@ -249,6 +249,10 @@
         }
       ]
     },
+    "body": {
+      "description": "The main content provided as HTML rendered from govspeak",
+      "type": "string"
+    },
     "change_history": {
       "type": "array",
       "items": {
@@ -288,10 +292,16 @@
       "additionalProperties": false,
       "properties": {
         "body": {
-          "type": "string"
+          "$ref": "#/definitions/body"
         },
         "change_history": {
           "$ref": "#/definitions/change_history"
+        },
+        "headers": {
+          "$ref": "#/definitions/nested_headers"
+        },
+        "sidebar_image": {
+          "$ref": "#/definitions/image"
         }
       }
     },
@@ -437,6 +447,53 @@
       "type": "string",
       "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
     },
+    "image": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "alt_text": {
+          "type": "string"
+        },
+        "caption": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "credit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "high_resolution_url": {
+          "description": "URL to a high resolution version of the image, for use by third parties such as Twitter, Facebook or Slack. Used by the machine readable metadata component. Don't use this on user-facing web pages, as it might be very large.",
+          "type": "string",
+          "format": "uri"
+        },
+        "medium_resolution_url": {
+          "description": "URL to a medium resolution version of the image, for use by devices that have high pixel density such as iphone.",
+          "type": "string",
+          "format": "uri"
+        },
+        "url": {
+          "description": "URL to the image. The image should be in a suitable resolution for display on the page.",
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
     "locale": {
       "type": "string",
       "enum": [
@@ -508,6 +565,33 @@
         "zh-hk",
         "zh-tw"
       ]
+    },
+    "nested_headers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "text",
+          "level",
+          "id"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "headers": {
+            "$ref": "#/definitions/nested_headers"
+          },
+          "id": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "minItems": 1
     },
     "public_updated_at": {
       "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
