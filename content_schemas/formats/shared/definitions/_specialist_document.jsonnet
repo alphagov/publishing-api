@@ -15,6 +15,9 @@
         "$ref": "#/definitions/animal_disease_case_metadata",
       },
       {
+      "$ref": "#/definitions/armed_forces_covenant_business_metadata",
+      },
+      {
         "$ref": "#/definitions/asylum_support_decision_metadata",
       },
       {
@@ -287,6 +290,37 @@
       },
     },
   },
+  armed_forces_covenant_business_metadata: {
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        bulk_published: {
+          type: "boolean",
+        },
+        armed_forces_covenant_business_pledged: {
+          type: "array",
+          items: {
+            type: "string",
+          }
+        },
+        armed_forces_covenant_business_region: {
+          type: "string",
+        },
+        armed_forces_covenant_business_company_size: {
+          type: "string",
+        },
+        armed_forces_covenant_business_industry: {
+          type: "string",
+        },
+        armed_forces_covenant_business_ownership: {
+          type: "string",
+        },
+        armed_forces_covenant_business_date_signed: {
+          type: "string",
+          pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+        },
+      },
+    },
   asylum_support_decision_metadata: {
     type: "object",
     additionalProperties: false,
