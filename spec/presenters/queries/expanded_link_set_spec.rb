@@ -116,7 +116,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           },
           {
             content_type: "text/html",
-            content: "<p>#{presented_details_for(contact, embed_code)}</p>\n",
+            content: "#{presented_details_for(contact, embed_code)}\n",
           },
         ])
       end
@@ -137,7 +137,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
             },
             {
               content_type: "text/html",
-              content: "<p>#{presented_details_for(contact, embed_code)}</p>\n",
+              content: "#{presented_details_for(contact, embed_code)}\n",
             },
           ])
         end
