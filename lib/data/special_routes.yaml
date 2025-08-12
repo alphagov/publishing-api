@@ -19,6 +19,12 @@
   :title: "Account home page"
   :rendering_app: "frontend"
 
+- :base_path: "/api/batch_search.json"
+  :content_id: "5edd25bd-987f-45d3-8eca-5fb35cbf2978"
+  :title: "GOV.UK batch search results API"
+  :description: "Sitewide batch search results are displayed in JSON format here."
+  :rendering_app: "search-api"
+
 - :base_path: "/api/content"
   :content_id: "16ca5ac1-7df5-4137-9f83-0270fcfc8bb5"
   :title: "Content API"
@@ -45,6 +51,18 @@
   :title: "Account API - Check email Subscription"
   :description: "Personalisation API exposing email subscription data for progressive enhancement of GOV.UK pages"
   :rendering_app: "account-api"
+
+- :base_path: "/api/search.json"
+  :content_id: "0818867d-8026-482c-b797-306fb74f5a2d"
+  :title: "GOV.UK search results API"
+  :description: "Sitewide search results are displayed in JSON format here."
+  :rendering_app: "search-api"
+
+- :base_path: "/api/search/autocomplete.json"
+  :content_id: "5a17259f-1ddd-497a-9caf-866cddb662c6"
+  :title: "GOV.UK search autocomplete API"
+  :description: "Returns autocomplete suggestions for partial user queries for site search."
+  :rendering_app: "finder-frontend"
 
 - :base_path: '/apply-for-a-licence'
   :content_id: '2b4e10dd-26eb-4e67-bf0e-1c9f56e60388'
@@ -258,6 +276,26 @@
   :description: "This is GOV.UK's current roadmap. We plan to update it again in the new financial year."
   :rendering_app: "frontend"
 
+- :base_path: "/search"
+  :content_id: "84e0909c-f3e6-43ee-ba68-9e33213a3cdd"
+  :title: "GOV.UK search results"
+  :description: "Sitewide search results are displayed here."
+  :rendering_app: "finder-frontend"
+  :document_type: "search"
+
+- :base_path: "/search.json"
+  :content_id: "9f306cd5-1842-43e9-8408-2c13116f4717"
+  :title: "GOV.UK search results API"
+  :description: "Sitewide search results are displayed in JSON format here."
+  :rendering_app: "finder-frontend"
+  :document_type: "search"
+
+- :base_path: "/search/advanced"
+  :content_id: "3df77dea-00c5-43f0-8f31-d08b8bd2a4d6"
+  :title: "Latest on GOV.UK"
+  :description: "Sitewide search results with advanced filtering are displayed here."
+  :rendering_app: "finder-frontend"
+
 - :base_path: "/search/consultations"
   :content_id: "c3b020bf-bc77-4213-afa2-b45eac30f2dc"
   :title: "Policy papers and consultations"
@@ -266,6 +304,12 @@
 - :base_path: "/search/latest"
   :content_id: "eb56dbca-be0b-4381-8dac-0c9de8a3ed7e"
   :title: "Search"
+  :rendering_app: "finder-frontend"
+
+- :base_path: "/search/opensearch.xml"
+  :content_id: "ba750368-8001-4d01-bd57-cec589153fdd"
+  :title: "GOV.UK opensearch descriptor"
+  :description: "Provides the location and format of our search URL to browsers etc."
   :rendering_app: "finder-frontend"
 
 - :base_path: "/search/statistics-announcements"
@@ -293,6 +337,19 @@
   :content_id: "7ee16fff-900d-4f5d-bd0a-62fdaa1ad3b6"
   :title: "Sign Out from GOV.UK"
   :rendering_app: "frontend"
+
+- :base_path: "/sitemap.xml"
+  :content_id: "fee32a90-397a-4761-9f98-b06e47d2b798"
+  :title: "GOV.UK sitemap index"
+  :description: "Provides the locations of the GOV.UK sitemaps."
+  :rendering_app: "search-api"
+
+- :base_path: "/sitemaps"
+  :content_id: "c202c6a5-656c-40d1-ae55-36fab995709c"
+  :title: "GOV.UK sitemaps prefix"
+  :description: "The prefix URL under which our XML sitemaps are located."
+  :rendering_app: "search-api"
+  :type: "prefix"
 
 - :base_path: "/tour"
   :content_id: "caf90fb7-11e3-4f8e-9a5d-b83283c91533"
