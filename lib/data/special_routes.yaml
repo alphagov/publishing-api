@@ -33,6 +33,13 @@
   :type: "prefix"
   :rendering_app: "frontend"
 
+- :base_path: "/api/organisations"
+  :content_id: "6848a0b0-8cd0-4641-ac3f-5e70379be309"
+  :title: "Organisations API"
+  :description: "API exposing all organisations on GOV.UK."
+  :type: "prefix"
+  :rendering_app: "collections"
+
 - :base_path: "/api/personalisation/check-email-subscription"
   :content_id: "f8f91a56-2298-4365-9590-d7e80fe8c066"
   :title: "Account API - Check email Subscription"
