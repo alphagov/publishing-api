@@ -676,6 +676,9 @@
           type: "string",
         },
       },
+      farming_grant_type: {
+        type: "string",
+      },
     },
   },
   flood_and_coastal_erosion_risk_management_research_report: {

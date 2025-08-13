@@ -1109,6 +1109,9 @@
         "bulk_published": {
           "type": "boolean"
         },
+        "farming_grant_type": {
+          "type": "string"
+        },
         "land_types": {
           "type": "array",
           "items": {
