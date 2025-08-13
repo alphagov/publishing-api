@@ -22,10 +22,6 @@
           "description": "Powers the /browse section of the site. These are known as sections in some legacy apps.",
           "$ref": "#/definitions/guid_list"
         },
-        "meets_user_needs": {
-          "description": "The user needs this piece of content meets.",
-          "$ref": "#/definitions/guid_list"
-        },
         "ordered_board_members": {
           "description": "Board members primarily for use with Whitehall organisations.",
           "$ref": "#/definitions/guid_list"

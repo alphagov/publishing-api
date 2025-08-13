@@ -105,10 +105,6 @@
           "description": "Powers the /browse section of the site. These are known as sections in some legacy apps.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
-        "meets_user_needs": {
-          "description": "The user needs this piece of content meets.",
-          "$ref": "#/definitions/frontend_links_with_base_path"
-        },
         "ministers": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links"
@@ -235,10 +231,6 @@
           "description": "Powers the /browse section of the site. These are known as sections in some legacy apps.",
           "$ref": "#/definitions/guid_list"
         },
-        "meets_user_needs": {
-          "description": "The user needs this piece of content meets.",
-          "$ref": "#/definitions/guid_list"
-        },
         "ordered_also_attends_cabinet": {
           "description": "Links to the current ministers without a cabinet position who also attend cabinet in the correct order",
           "$ref": "#/definitions/guid_list"
@@ -317,12 +309,6 @@
     "navigation_document_supertype": {
       "description": "Document type grouping powering the new taxonomy-based navigation pages",
       "type": "string"
-    },
-    "need_ids": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
     },
     "payload_version": {
       "$ref": "#/definitions/payload_version"
@@ -709,7 +695,6 @@
         "hmrc-manuals-api",
         "local-links-manager",
         "manuals-publisher",
-        "maslow",
         "performanceplatform-big-screen-view",
         "publisher",
         "publishing-api",
