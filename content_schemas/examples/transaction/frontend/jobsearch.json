@@ -680,41 +680,6 @@
         "public_updated_at": "2015-11-05T09:27:23Z"
       }
     ],
-    "meets_user_needs": [
-      {
-        "web_url": "http://www.dev.gov.uk/needs/show-i-am-searching-for-a-job",
-        "api_url": "http://www.dev.gov.uk/api/content/needs/show-i-am-searching-for-a-job",
-        "links": {
-        },
-        "details": {
-          "need_id": "100001",
-          "applies_to_all_organisations": false,
-          "benefit": "I can find a job I can apply for, and continue to receive JSA during my jobsearch ",
-          "goal": "show I am searching for a job",
-          "impact": "Has consequences for the majority of your users",
-          "justifications": [
-            "There is clear demand for it from users",
-            "It's something the government provides/does/pays for"
-          ],
-          "met_when": [
-            "can access and sign in to Universal Jobmatch"
-          ],
-          "role": "unemployed jobseeker",
-          "yearly_user_contacts": 6504
-        },
-        "withdrawn": false,
-        "title": "As a unemployed jobseeker, I need to show I am searching for a job, so that I can find a job I can apply for, and continue to receive JSA during my jobsearch (100001)",
-        "schema_name": "need",
-        "analytics_identifier": null,
-        "api_path": "/api/content/needs/show-i-am-searching-for-a-job",
-        "base_path": "/needs/show-i-am-searching-for-a-job",
-        "content_id": "bf5665a4-e7f5-4141-96a3-3f46c77aec1b",
-        "description": null,
-        "document_type": "need",
-        "locale": "en",
-        "public_updated_at": "2015-06-24T13:56:43Z"
-      }
-    ],
     "mainstream_browse_pages": [
       {
         "web_url": "http://www.dev.gov.uk/browse/working/finding-job",

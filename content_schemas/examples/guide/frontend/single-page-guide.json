@@ -51,40 +51,6 @@
         "web_url": "http://www.dev.gov.uk/browse/visas-immigration/arriving-in-the-uk"
       }
     ],
-    "meets_user_needs": [
-      {
-        "analytics_identifier": null,
-        "api_path": "/api/content/needs/follow-the-pet-travel-rules",
-        "base_path": "/needs/follow-the-pet-travel-rules",
-        "content_id": "560cc525-39ac-48f2-94e0-841fceea9c21",
-        "description": null,
-        "document_type": "need",
-        "locale": "en",
-        "public_updated_at": "2015-06-24T13:56:39Z",
-        "schema_name": "need",
-        "title": "As a pet-owner travelling outside the EU or residing abroad, I need to follow the pet travel rules, so that my pet won't be quarantined or destroyed (103481)",
-        "withdrawn": false,
-        "details": {
-          "applies_to_all_organisations": false,
-          "benefit": "my pet won't be quarantined or destroyed ",
-          "goal": "follow the pet travel rules",
-          "justifications": [
-            "It's something only government does",
-            "It's something the government provides/does/pays for"
-          ],
-          "met_when": [
-            "knows to microchip an animal that is travelling if they get a rabies shot",
-            "knows how to report a bad reaction to a microchip"
-          ],
-          "role": "pet-owner travelling outside the EU or residing abroad",
-          "need_id": "103481"
-        },
-        "links": {
-        },
-        "api_url": "http://www.dev.gov.uk/api/content/needs/follow-the-pet-travel-rules",
-        "web_url": "http://www.dev.gov.uk/needs/follow-the-pet-travel-rules"
-      }
-    ],
     "ordered_related_items": [
       {
         "analytics_identifier": null,

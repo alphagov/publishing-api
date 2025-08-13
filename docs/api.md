@@ -831,7 +831,6 @@ normal.
 [iso-8601]: https://en.wikipedia.org/wiki/ISO_8601
 [to-time-docs]: http://apidock.com/rails/String/to_time
 [i18n-gem]: https://github.com/svenfuchs/rails-i18n
-[maslow-repo]: https://github.com/alphagov/maslow
 [link-set-links]: https://github.com/alphagov/publishing-api/blob/master/docs/link-expansion.md#patch-link-set---link-set-links
 [publish-pact]: https://govuk-pact-broker-6991351eca05.herokuapp.com/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_publish_request_for_version_3_given_the_content_item_bed722e6-db68-43e5-9079-063f623335a7_is_at_version_3
 [unpublish-pact]: https://govuk-pact-broker-6991351eca05.herokuapp.com/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#an_unpublish_request_given_a_published_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7

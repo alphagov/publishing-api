@@ -97,7 +97,6 @@ module_function
   GOVERNMENT_FIELDS = (MANDATORY_FIELDS + %i[api_path base_path document_type] + details_fields(:started_on, :ended_on, :current)).freeze
   ORGANISATION_FIELDS = (DEFAULT_FIELDS - [:public_updated_at] + details_fields(:acronym, :logo, :brand, :default_news_image, :organisation_govuk_status)).freeze
   TAXON_FIELDS = (DEFAULT_FIELDS + %i[description details phase]).freeze
-  NEED_FIELDS = (DEFAULT_FIELDS + details_fields(:role, :goal, :benefit, :met_when, :justifications)).freeze
   FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets, :show_metadata_block, :show_table_of_contents)).freeze
   FATALITY_NOTICE_FIELDS = (DEFAULT_FIELDS + details_fields(:roll_call_introduction, :casualties))
   HISTORIC_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:political_party, :dates_in_office))
@@ -172,8 +171,6 @@ module_function
         fields: ORGANISATION_FIELDS },
       { document_type: :taxon,
         fields: TAXON_FIELDS },
-      { document_type: :need,
-        fields: NEED_FIELDS },
       { document_type: :fatality_notice,
         fields: FATALITY_NOTICE_FIELDS },
       { document_type: :finder,

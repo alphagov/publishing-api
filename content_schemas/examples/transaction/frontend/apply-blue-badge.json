@@ -68,42 +68,6 @@
         "web_url": "http://www.dev.gov.uk/browse/driving/parking-public-transport-environment"
       }
     ],
-    "meets_user_needs": [
-      {
-        "analytics_identifier": null,
-        "api_path": "/api/content/needs/apply-renew-or-update-details-for-a-blue-badge",
-        "base_path": "/needs/apply-renew-or-update-details-for-a-blue-badge",
-        "content_id": "bafbf425-f024-47a7-90e0-dc1c1fa10098",
-        "description": null,
-        "document_type": "need",
-        "locale": "en",
-        "public_updated_at": "2016-11-14T18:52:32Z",
-        "schema_name": "need",
-        "title": "As a disabled person or carer, I need to apply, renew or update details for a Blue Badge, so that I can park nearer to my home or places I visit (100308)",
-        "withdrawn": false,
-        "details": {
-          "applies_to_all_organisations": false,
-          "benefit": "I can park nearer to my home or places I visit",
-          "goal": "apply, renew or update details for a Blue Badge",
-          "impact": "Has consequences for the majority of your users",
-          "justifications": [
-            "It's something only government does",
-            "There is clear demand for it from users"
-          ],
-          "met_when": [
-            "understands eligibility criteria"
-          ],
-          "role": "disabled person or carer",
-          "yearly_need_views": 2191175,
-          "yearly_user_contacts": 597,
-          "need_id": "100308"
-        },
-        "links": {
-        },
-        "api_url": "http://www.dev.gov.uk/api/content/needs/apply-renew-or-update-details-for-a-blue-badge",
-        "web_url": "http://www.dev.gov.uk/needs/apply-renew-or-update-details-for-a-blue-badge"
-      }
-    ],
     "ordered_related_items": [
       {
         "analytics_identifier": null,

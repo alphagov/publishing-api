@@ -278,52 +278,6 @@
         "web_url": "https://www.gov.uk/browse/driving/learning-to-drive"
       }
     ],
-    "meets_user_needs": [
-      {
-        "api_path": "/api/content/needs/know-how-the-driving-test-works",
-        "base_path": "/needs/know-how-the-driving-test-works",
-        "content_id": "3277dedc-50aa-493f-8818-2dfdd3f08139",
-        "document_type": "need",
-        "locale": "en",
-        "schema_name": "need",
-        "title": "As a learner driver, I need to know how the driving test works, so that I can prepare for and take the test to get my full driving licence (100673)",
-        "withdrawn": false,
-        "details": {
-          "applies_to_all_organisations": false,
-          "benefit": "I can prepare for and take the test to get my full driving licence",
-          "goal": "know how the driving test works",
-          "impact": "Noticed by the average member of the public",
-          "justifications": [
-            "It's something only government does",
-            "The government is legally obliged to provide it",
-            "It's inherent to a person's or an organisation's rights and obligations",
-            "It's something that people can do or it's something people need to know before they can do something that's regulated by/related to government",
-            "There is clear demand for it from users",
-            "It's something the government provides/does/pays for",
-            "It's straightforward advice that helps people to comply with their statutory obligations"
-          ],
-          "legislation": "http://www.legislation.gov.uk/ukpga/1988/52/section/89",
-          "met_when": [
-            "knows how to book and manage their driving test",
-            "knows what standard they need to meet to pass the test",
-            "takes the right documents to their test",
-            "understands how the different sections of the driving test works",
-            "knows the different types of faults that are assessed and the pass mark",
-            "can check if their test is going ahead if there's bad weather",
-            "can claim for out-of-pocket expenses if their test is cancelled at short notice",
-            "can give details of their disability, health condition or learning difficulty so reasonable adjustments can be made for them",
-            "takes a suitable car with them and evidence that it's safe if it's subject to a  recall"
-          ],
-          "role": "learner driver",
-          "yearly_need_views": 5100000,
-          "need_id": "100673"
-        },
-        "links": {
-        },
-        "api_url": "https://www.gov.uk/api/content/needs/know-how-the-driving-test-works",
-        "web_url": "https://www.gov.uk/needs/know-how-the-driving-test-works"
-      }
-    ],
     "ordered_related_items": [
       {
         "api_path": "/api/content/book-driving-test",
