@@ -670,6 +670,12 @@
           type: "string",
         }
       },
+      payment_types: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
       farming_grant_type: {
         type: "string",
       },

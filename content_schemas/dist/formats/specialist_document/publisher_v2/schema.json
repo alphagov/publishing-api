@@ -1117,6 +1117,12 @@
           "items": {
             "type": "string"
           }
+        },
+        "payment_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
