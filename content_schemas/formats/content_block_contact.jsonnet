@@ -11,9 +11,10 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
           type: "string"
         },
         email_addresses: utils.embedded_object(
-          {
+            {
             title: {
               type: "string",
+              default: "Email",
             },
             label: {
               type: "string",
@@ -32,128 +33,130 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
               type: "string", 
             },
           },
-          ["email_address"],
+            ["title", "email_address"],
         ),
         telephones: utils.embedded_object(
-             {
-                title: {
+            {
+            title: {
+              type: "string",
+              default: "Phone",
+            },
+            telephone_numbers: {
+               type: "array",
+               items: {
+                    type: "object",
+                    required: ["type", "label", "telephone_number"],
+                    properties: {
+                        "type": {
+                            type: "string",
+                            enum: [
+                                "telephone",
+                                "textphone",
+                                "welsh_language"
+                            ]
+                        },
+                        "label": {
+                            type: "string",
+                        },
+                        "telephone_number": {
+                            type: "string",
+                        }
+                    }
+               }
+            },
+            video_relay_service: {
+              type: "object",
+              properties: {
+                show: {
+                  type: "boolean",
+                  default: false,
+                },
+                prefix: {
+                  type: "string",
+                  default: "[Relay UK](https://www.relayuk.bt.com) (if you cannot hear or speak on the phone): 18001 then"
+                },
+                telephone_number: {
                   type: "string",
                 },
-                telephone_numbers: {
-                   type: "array",
-                   items: {
-                        type: "object",
-                        required: ["type", "label", "telephone_number"],
-                        properties: {
-                            "type": {
-                                type: "string",
-                                enum: [
-                                    "telephone",
-                                    "textphone",
-                                    "welsh_language"
-                                ]
-                            },
-                            "label": {
-                                type: "string",
-                            },
-                            "telephone_number": {
-                                type: "string",
-                            }
-                        }
-                   }
+              },
+              "if": {
+                properties: {
+                    show: { const: true },
                 },
-                video_relay_service: {
-                  type: "object",
+              },
+              "then": {
+                required: ["prefix", "telephone_number"],
+              },
+              "else": {
+                required: []
+              },
+              'x-govspeak_enabled': ["prefix"],
+            },
+            call_charges: {
+              type: "object",
+              properties: {
+                show_call_charges_info_url: {
+                  type: "boolean",
+                  default: false,
+                },
+                label: {
+                  type: "string",
+                  default: "Find out about call charges",
+                },
+                call_charges_info_url: {
+                  type: "string",
+                  default: "https://gov.uk/call-charges"
+                }
+              },
+            },
+            description: {
+                type: "string",
+            },
+            opening_hours: {
+                type: "object",
+                properties: {
+                    show_opening_hours: {
+                        type: "boolean",
+                        default: false,
+                    },
+                    opening_hours: {
+                        type: "string",
+                    },
+                },
+                "if": {
                   properties: {
+                      show_opening_hours: { const: true },
+                  },
+                },
+                "then": {
+                  required: ["opening_hours"],
+                },
+                "else": {
+                  required: []
+                },
+            },
+            bsl_guidance: {
+                type: "object",
+                properties: {
                     show: {
-                      type: "boolean",
-                      default: false,
+                        type: "boolean",
+                        default: false,
                     },
-                    prefix: {
-                      type: "string",
-                      default: "[Relay UK](https://www.relayuk.bt.com) (if you cannot hear or speak on the phone): 18001 then"
-                    },
-                    telephone_number: {
-                      type: "string",
-                    },
-                  },
-                  "if": {
-                    properties: {
-                        show: { const: true },
-                    },
-                  },
-                  "then": {
-                    required: ["prefix", "telephone_number"],
-                  },
-                  "else": {
-                    required: []
-                  },
-                  'x-govspeak_enabled': ["prefix"],
-                },
-                call_charges: {
-                  type: "object",
-                  properties: {
-                    show_call_charges_info_url: {
-                      type: "boolean",
-                      default: false,
-                    },
-                    label: {
-                      type: "string",
-                      default: "Find out about call charges",
-                    },
-                    call_charges_info_url: {
-                      type: "string",
-                      default: "https://gov.uk/call-charges"
-                    }
-                  },
-                },
-                description: {
-                    type: "string",
-                },
-                opening_hours: {
-                    type: "object",
-                    properties: {
-                        show_opening_hours: {
-                            type: "boolean",
-                            default: false,
-                        },
-                        opening_hours: {
-                            type: "string",
-                        },
-                    },
-                    "if": {
-                      properties: {
-                          show_opening_hours: { const: true },
-                      },
-                    },
-                    "then": {
-                      required: ["opening_hours"],
-                    },
-                    "else": {
-                      required: []
+                    value: {
+                        type: "string",
+                        default: "British Sign Language (BSL) [video relay service](https://connect.interpreterslive.co.uk/vrs) if you’re on a computer - find out how to [use the service on mobile or tablet](https://www.youtube.com/watch?v=oELNMfAvDxw)",
                     },
                 },
-                bsl_guidance: {
-                    type: "object",
-                    properties: {
-                        show: {
-                            type: "boolean",
-                            default: false,
-                        },
-                        value: {
-                            type: "string",
-                            default: "British Sign Language (BSL) [video relay service](https://connect.interpreterslive.co.uk/vrs) if you’re on a computer - find out how to [use the service on mobile or tablet](https://www.youtube.com/watch?v=oELNMfAvDxw)",
-                        },
-                    },
-                    'x-govspeak_enabled': ["value"],
-                },
-             },
-             ["telephone_numbers"],
+                'x-govspeak_enabled': ["value"],
+            },
+         },
+            ["title", "telephone_numbers"],
         ),
         contact_links: utils.embedded_object(
             {
                 title: {
                   type: "string",
+                  default: "Link",
                 },
                 label: {
                   type: "string",
@@ -166,12 +169,13 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                     type: "string",
                 },
             },
-            ["url"],
+            ["title", "url"],
         ),
         addresses: utils.embedded_object(
             {
                 title: {
                     type: "string",
+                    default: "Address",
                 },
                 recipient: {
                     type: "string",
@@ -195,6 +199,7 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
                     type: "string",
                 },
             },
+            ["title"],
         ),
       },
     },
