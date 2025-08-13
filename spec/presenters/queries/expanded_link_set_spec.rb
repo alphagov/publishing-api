@@ -109,6 +109,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       it "recursively calls the details presenter and embeds content inside expanded links" do
         b = expanded_links[:role_appointments].first
         c = b[:links][:role].first
+
         expect(c[:details][:body]).to match([
           {
             content_type: "text/govspeak",
@@ -116,7 +117,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           },
           {
             content_type: "text/html",
-            content: "#{presented_details_for(contact, embed_code)}\n",
+            content: Govspeak::Document.new(presented_details_for(contact, embed_code)).to_html,
           },
         ])
       end
@@ -137,7 +138,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
             },
             {
               content_type: "text/html",
-              content: "#{presented_details_for(contact, embed_code)}\n",
+              content: Govspeak::Document.new(presented_details_for(contact, embed_code)).to_html,
             },
           ])
         end
