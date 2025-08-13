@@ -382,6 +382,9 @@
           "patternProperties": {
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
+              "required": [
+                "title"
+              ],
               "additionalProperties": false,
               "properties": {
                 "country": {
@@ -403,7 +406,8 @@
                   "type": "string"
                 },
                 "title": {
-                  "type": "string"
+                  "type": "string",
+                  "default": "Address"
                 },
                 "town_or_city": {
                   "type": "string"
@@ -421,6 +425,7 @@
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
               "required": [
+                "title",
                 "url"
               ],
               "additionalProperties": false,
@@ -432,7 +437,8 @@
                   "type": "string"
                 },
                 "title": {
-                  "type": "string"
+                  "type": "string",
+                  "default": "Link"
                 },
                 "url": {
                   "type": "string",
@@ -451,6 +457,7 @@
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
               "required": [
+                "title",
                 "email_address"
               ],
               "additionalProperties": false,
@@ -472,7 +479,8 @@
                   "type": "string"
                 },
                 "title": {
-                  "type": "string"
+                  "type": "string",
+                  "default": "Email"
                 }
               }
             }
@@ -484,6 +492,7 @@
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
               "required": [
+                "title",
                 "telephone_numbers"
               ],
               "additionalProperties": false,
@@ -579,7 +588,8 @@
                   }
                 },
                 "title": {
-                  "type": "string"
+                  "type": "string",
+                  "default": "Phone"
                 },
                 "video_relay_service": {
                   "type": "object",

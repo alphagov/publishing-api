@@ -30,7 +30,9 @@
         "street_address": "123 Fake Street",
         "postal_code": "ABC 123"
       },
-      "address-2": {}
+      "address-2": {
+        "title": "Address"
+      }
     },
     "telephones": {
       "telephone_numbers": [
