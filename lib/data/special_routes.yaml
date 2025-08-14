@@ -19,6 +19,12 @@
   :title: "Account home page"
   :rendering_app: "frontend"
 
+- :base_path: "/api/batch_search.json"
+  :content_id: "5edd25bd-987f-45d3-8eca-5fb35cbf2978"
+  :title: "GOV.UK batch search results API"
+  :description: "Sitewide batch search results are displayed in JSON format here."
+  :rendering_app: "search-api"
+
 - :base_path: "/api/content"
   :content_id: "16ca5ac1-7df5-4137-9f83-0270fcfc8bb5"
   :title: "Content API"
@@ -33,11 +39,37 @@
   :type: "prefix"
   :rendering_app: "frontend"
 
+- :base_path: "/api/organisations"
+  :content_id: "6848a0b0-8cd0-4641-ac3f-5e70379be309"
+  :title: "Organisations API"
+  :description: "API exposing all organisations on GOV.UK."
+  :type: "prefix"
+  :rendering_app: "collections"
+
 - :base_path: "/api/personalisation/check-email-subscription"
   :content_id: "f8f91a56-2298-4365-9590-d7e80fe8c066"
   :title: "Account API - Check email Subscription"
   :description: "Personalisation API exposing email subscription data for progressive enhancement of GOV.UK pages"
   :rendering_app: "account-api"
+
+- :base_path: "/api/search.json"
+  :content_id: "0818867d-8026-482c-b797-306fb74f5a2d"
+  :title: "GOV.UK search results API"
+  :description: "Sitewide search results are displayed in JSON format here."
+  :rendering_app: "search-api"
+
+- :base_path: "/api/search/autocomplete.json"
+  :content_id: "5a17259f-1ddd-497a-9caf-866cddb662c6"
+  :title: "GOV.UK search autocomplete API"
+  :description: "Returns autocomplete suggestions for partial user queries for site search."
+  :rendering_app: "finder-frontend"
+
+- :base_path: '/apply-for-a-licence'
+  :content_id: '2b4e10dd-26eb-4e67-bf0e-1c9f56e60388'
+  :type: "prefix"
+  :title: 'Apply for a licence'
+  :rendering_app: 'licensify'
+  :override_existing: true
 
 - :base_path: "/bank-holidays"
   :content_id: "58f79dbd-e57f-4ab2-ae96-96df5767d1b2"
@@ -55,6 +87,18 @@
   :additional_routes:
     - :base_path: "/bank-holidays.json"
       :type: "exact"
+
+- :base_path: "/chat"
+  :content_id: "62256aa9-f0e8-463a-8483-2f03be24287d"
+  :document_type: "gone"
+  # title and description are required to be null for a gone schema
+  :title: ~
+  :description: ~
+  :additional_routes:
+    - :base_path: "/chat/about"
+    - :base_path: "/chat/support"
+    - :base_path: "/chat/privacy"
+    - :base_path: "/chat/accessibility"
 
 - :base_path: "/contact"
   :content_id: "58b05bc2-fde5-4a0b-af73-8edc532674f8"
@@ -232,19 +276,45 @@
   :description: "This is GOV.UK's current roadmap. We plan to update it again in the new financial year."
   :rendering_app: "frontend"
 
+- :base_path: "/search"
+  :content_id: "84e0909c-f3e6-43ee-ba68-9e33213a3cdd"
+  :title: "GOV.UK search results"
+  :description: "Sitewide search results are displayed here."
+  :rendering_app: "finder-frontend"
+  :document_type: "search"
+
+- :base_path: "/search.json"
+  :content_id: "9f306cd5-1842-43e9-8408-2c13116f4717"
+  :title: "GOV.UK search results API"
+  :description: "Sitewide search results are displayed in JSON format here."
+  :rendering_app: "finder-frontend"
+  :document_type: "search"
+
+- :base_path: "/search/advanced"
+  :content_id: "3df77dea-00c5-43f0-8f31-d08b8bd2a4d6"
+  :title: "Latest on GOV.UK"
+  :description: "Sitewide search results with advanced filtering are displayed here."
+  :rendering_app: "finder-frontend"
+
 - :base_path: "/search/consultations"
   :content_id: "c3b020bf-bc77-4213-afa2-b45eac30f2dc"
   :title: "Policy papers and consultations"
   :rendering_app: "finder-frontend"
 
-- :base_path: "/search/statistics-announcements"
-  :content_id: "e38cc2da-cea5-4585-9aaa-454c109a51e0"
-  :title: "Research and statistics"
-  :rendering_app: "finder-frontend"
-
 - :base_path: "/search/latest"
   :content_id: "eb56dbca-be0b-4381-8dac-0c9de8a3ed7e"
   :title: "Search"
+  :rendering_app: "finder-frontend"
+
+- :base_path: "/search/opensearch.xml"
+  :content_id: "ba750368-8001-4d01-bd57-cec589153fdd"
+  :title: "GOV.UK opensearch descriptor"
+  :description: "Provides the location and format of our search URL to browsers etc."
+  :rendering_app: "finder-frontend"
+
+- :base_path: "/search/statistics-announcements"
+  :content_id: "e38cc2da-cea5-4585-9aaa-454c109a51e0"
+  :title: "Research and statistics"
   :rendering_app: "finder-frontend"
 
 - :base_path: "/sign-in"
@@ -253,13 +323,13 @@
   :description: "Find the government service you need to sign in to. At the moment, there are separate accounts for different government services."
   :rendering_app: "frontend"
 
-- :base_path: "/sign-in/redirect"
-  :content_id: "49ecdc1f-c98b-430e-8256-7a402239daf8"
+- :base_path: "/sign-in/callback"
+  :content_id: "f04c45a7-c20b-4f66-a485-dc997a6a3b6d"
   :title: "Sign In to GOV.UK (OAuth Callback)"
   :rendering_app: "frontend"
 
-- :base_path: "/sign-in/callback"
-  :content_id: "f04c45a7-c20b-4f66-a485-dc997a6a3b6d"
+- :base_path: "/sign-in/redirect"
+  :content_id: "49ecdc1f-c98b-430e-8256-7a402239daf8"
   :title: "Sign In to GOV.UK (OAuth Callback)"
   :rendering_app: "frontend"
 
@@ -267,6 +337,19 @@
   :content_id: "7ee16fff-900d-4f5d-bd0a-62fdaa1ad3b6"
   :title: "Sign Out from GOV.UK"
   :rendering_app: "frontend"
+
+- :base_path: "/sitemap.xml"
+  :content_id: "fee32a90-397a-4761-9f98-b06e47d2b798"
+  :title: "GOV.UK sitemap index"
+  :description: "Provides the locations of the GOV.UK sitemaps."
+  :rendering_app: "search-api"
+
+- :base_path: "/sitemaps"
+  :content_id: "c202c6a5-656c-40d1-ae55-36fab995709c"
+  :title: "GOV.UK sitemaps prefix"
+  :description: "The prefix URL under which our XML sitemaps are located."
+  :rendering_app: "search-api"
+  :type: "prefix"
 
 - :base_path: "/tour"
   :content_id: "caf90fb7-11e3-4f8e-9a5d-b83283c91533"
@@ -290,47 +373,3 @@
   :additional_routes:
     - :base_path: "/when-do-the-clocks-change.json"
       :type: "exact"
-
-- :content_id: "5fc8b4bc-f899-4d4e-ae10-f9beeb172f50"
-  :base_path: "/favicon.ico"
-  :title: "Favicon"
-  :rendering_app: "frontend"
-  :description: "The favicon is the image displayed in locations such as the browser tabs."
-  :override_existing: true
-
-- :content_id: '2b4e10dd-26eb-4e67-bf0e-1c9f56e60388'
-  :base_path: '/apply-for-a-licence'
-  :type: "prefix"
-  :title: 'Apply for a licence'
-  :rendering_app: 'licensify'
-  :override_existing: true
-
-- :base_path: "/chat"
-  :content_id: "62256aa9-f0e8-463a-8483-2f03be24287d"
-  :document_type: "gone"
-  # title and description are required to be null for a gone schema
-  :title: ~
-  :description: ~
-  :additional_routes:
-    - :base_path: "/chat/about"
-    - :base_path: "/chat/support"
-    - :base_path: "/chat/privacy"
-    - :base_path: "/chat/accessibility"
-
-# These are being added solely so they can be unpublished correctly, after which they'll be removed
-
-- :base_path: "/robots.txt"
-  :content_id: "c5dad62e-c21a-4fe4-841b-7bcb8a901e52"
-  :title: "robots.txt"
-  :description: "Provides rules for which parts of GOV.UK are permitted to be crawled by different bots."
-  :rendering_app: "static"
-
-- :base_path: "/account/cookies-and-feedback"
-  :content_id: "19c4cef8-d0ad-483b-93ea-e07f7ed4734a"
-  :title: "Cookie and feedback settings"
-  :rendering_app: "frontend"
-
-- :base_path: "/sign-in/first-time"
-  :content_id: "ff675fc1-2f0b-4f07-8dd3-bfe24d4318f8"
-  :title: "Control how we use information about you"
-  :rendering_app: "frontend"
