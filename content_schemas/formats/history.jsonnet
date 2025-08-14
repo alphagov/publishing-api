@@ -1,13 +1,20 @@
 (import "shared/default_format.jsonnet") + {
   document_type: "history",
-
-  definitions: {
+  definitions: (import "shared/definitions/_whitehall.jsonnet") + {
     details: {
       type: "object",
       additionalProperties: false,
       required: ["body"],
       properties: {
-        body: { type: "string" },
+        body: {
+          "$ref": "#/definitions/body"
+        },
+        sidebar_image: {
+          "$ref": "#/definitions/image"
+        },
+        headers: {
+          "$ref": "#/definitions/nested_headers"
+        }
       },
     },
   },
