@@ -109,10 +109,6 @@
           "description": "Powers the /browse section of the site. These are known as sections in some legacy apps.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
-        "meets_user_needs": {
-          "description": "The user needs this piece of content meets.",
-          "$ref": "#/definitions/frontend_links_with_base_path"
-        },
         "ministers": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links"
@@ -206,10 +202,6 @@
           "description": "Powers the /browse section of the site. These are known as sections in some legacy apps.",
           "$ref": "#/definitions/guid_list"
         },
-        "meets_user_needs": {
-          "description": "The user needs this piece of content meets.",
-          "$ref": "#/definitions/guid_list"
-        },
         "ordered_related_items": {
           "description": "Related items, can be any page on GOV.UK. Mostly used for mainstream content to power the sidebar. Ordering of the links is determined by the editor in Content Tagger.",
           "$ref": "#/definitions/guid_list"
@@ -255,12 +247,6 @@
     "navigation_document_supertype": {
       "description": "Document type grouping powering the new taxonomy-based navigation pages",
       "type": "string"
-    },
-    "need_ids": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
     },
     "payload_version": {
       "$ref": "#/definitions/payload_version"
@@ -673,7 +659,6 @@
         "hmrc-manuals-api",
         "local-links-manager",
         "manuals-publisher",
-        "maslow",
         "performanceplatform-big-screen-view",
         "publisher",
         "publishing-api",

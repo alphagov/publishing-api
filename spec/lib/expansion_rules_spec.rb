@@ -45,7 +45,6 @@ RSpec.describe ExpansionRules do
     let(:organisation_fields) { default_fields - [:public_updated_at] + [%i[details acronym], %i[details logo], %i[details brand], %i[details default_news_image], %i[details organisation_govuk_status]] }
     let(:taxon_fields) { default_fields + %i[description details phase] }
     let(:default_fields_and_description) { default_fields + %i[description] }
-    let(:need_fields) { default_fields + [%i[details role], %i[details goal], %i[details benefit], %i[details met_when], %i[details justifications]] }
     let(:fatality_notice_fields) { default_fields + [%i[details roll_call_introduction], %i[details casualties]] }
     let(:finder_fields) { default_fields + [%i[details facets], %i[details show_metadata_block], %i[details show_table_of_contents]] }
     let(:historic_appointment_fields) { default_fields + [%i[details political_party], %i[details dates_in_office]] }
@@ -73,7 +72,6 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:historic_appointment)).to eq(historic_appointment_fields) }
     specify { expect(rules.expansion_fields(:fatality_notice)).to eq(fatality_notice_fields) }
     specify { expect(rules.expansion_fields(:mainstream_browse_page)).to eq(default_fields_and_description) }
-    specify { expect(rules.expansion_fields(:need)).to eq(need_fields) }
     specify { expect(rules.expansion_fields(:organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :people)).to eq(default_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :person)).to eq(person_fields) }

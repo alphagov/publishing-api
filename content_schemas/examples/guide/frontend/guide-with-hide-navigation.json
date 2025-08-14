@@ -36,48 +36,6 @@
         "web_url": "https://www.gov.uk/browse/abroad/passports"
       }
     ],
-    "meets_user_needs": [
-      {
-        "api_path": "/api/content/needs/apply-for-or-renew-a-passport",
-        "base_path": "/needs/apply-for-or-renew-a-passport",
-        "content_id": "add6e7e9-9e49-40ea-b230-316197d43b70",
-        "document_type": "need",
-        "locale": "en",
-        "schema_name": "need",
-        "title": "As a British person, I need to apply for or renew a passport, so that I can travel across borders (100129)",
-        "withdrawn": false,
-        "details": {
-          "applies_to_all_organisations": false,
-          "benefit": "I can travel across borders ",
-          "goal": "apply for or renew a passport",
-          "impact": "Has serious consequences for your users and/or their customers",
-          "justifications": [
-            "It's something only government does",
-            "There is clear demand for it from users",
-            "It's something the government provides/does/pays for"
-          ],
-          "met_when": [
-            "the user knows the rules about passport photos",
-            "the user knows how long it takes to get a passport",
-            "the user knows the different ways they can apply for a passport, including Check and Send",
-            "understands the eligibility criteria to get a passport",
-            "the user knows the rules about when their passport may be taken away",
-            "knows what to do if they are abroad",
-            "knows how to get dual citizenship if they already have a passport from another country",
-            "knows how to renew a passport",
-            "as a British national born before 2 September 1929, knows how to get a free passport"
-          ],
-          "role": "British person ",
-          "yearly_need_views": 13164031,
-          "yearly_user_contacts": 1028,
-          "need_id": "100129"
-        },
-        "links": {
-        },
-        "api_url": "https://www.gov.uk/api/content/needs/apply-for-or-renew-a-passport",
-        "web_url": "https://www.gov.uk/needs/apply-for-or-renew-a-passport"
-      }
-    ],
     "ordered_related_items": [
       {
         "api_path": "/api/content/report-a-lost-or-stolen-passport",

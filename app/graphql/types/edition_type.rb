@@ -31,7 +31,6 @@ module Types
       links_field :main_office, [EditionType]
       links_field :mainstream_browse_pages, [EditionType]
       links_field :manual, [EditionType]
-      links_field :meets_user_needs, [EditionType]
       links_field :ministerial, [EditionType]
       links_field :office_staff, [EditionType]
       links_field :ordered_board_members, [EditionType]

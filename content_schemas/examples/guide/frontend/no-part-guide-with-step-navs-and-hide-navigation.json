@@ -276,44 +276,6 @@
         "web_url": "http://www.dev.gov.uk/browse/births-deaths-marriages/register-offices"
       }
     ],
-    "meets_user_needs": [
-      {
-        "analytics_identifier": null,
-        "api_path": "/api/content/needs/apply-to-correct-a-marriage-certificate",
-        "base_path": "/needs/apply-to-correct-a-marriage-certificate",
-        "content_id": "138ec0d6-2962-4cff-a465-ffad48ee00bf",
-        "description": null,
-        "document_type": "need",
-        "locale": "en",
-        "public_updated_at": "2015-06-24T13:56:39Z",
-        "schema_name": "need",
-        "title": "As a citizen, I need to apply to correct a marriage certificate, so that it is an accurate record (102183)",
-        "withdrawn": false,
-        "details": {
-          "applies_to_all_organisations": false,
-          "benefit": "it is an accurate record",
-          "goal": "apply to correct a marriage certificate",
-          "justifications": [
-            "It's something only government does",
-            "The government is legally obliged to provide it",
-            "It's inherent to a person's or an organisation's rights and obligations",
-            "It's something that people can do or it's something people need to know before they can do something that's regulated by/related to government"
-          ],
-          "met_when": [
-            "knows who can apply",
-            "knows how to apply",
-            "knows how much it costs",
-            "knows how long it will take"
-          ],
-          "role": "citizen",
-          "need_id": "102183"
-        },
-        "links": {
-        },
-        "api_url": "http://www.dev.gov.uk/api/content/needs/apply-to-correct-a-marriage-certificate",
-        "web_url": "http://www.dev.gov.uk/needs/apply-to-correct-a-marriage-certificate"
-      }
-    ],
     "ordered_related_items": [
       {
         "analytics_identifier": null,

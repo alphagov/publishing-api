@@ -153,7 +153,6 @@
         "national",
         "national_statistics",
         "national_statistics_announcement",
-        "need",
         "news_story",
         "notice",
         "official",
@@ -280,12 +279,6 @@
     },
     "locale": {
       "$ref": "#/definitions/locale"
-    },
-    "need_ids": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
     },
     "phase": {
       "description": "The service design phase of this content item - https://www.gov.uk/service-manual/phases",
@@ -1606,7 +1599,6 @@
         "hmrc-manuals-api",
         "local-links-manager",
         "manuals-publisher",
-        "maslow",
         "performanceplatform-big-screen-view",
         "publisher",
         "publishing-api",

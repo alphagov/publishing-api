@@ -18,7 +18,6 @@
       "hmrc-manuals-api",
       "local-links-manager",
       "manuals-publisher",
-      "maslow",
       "performanceplatform-big-screen-view",
       "publisher",
       "publishing-api",

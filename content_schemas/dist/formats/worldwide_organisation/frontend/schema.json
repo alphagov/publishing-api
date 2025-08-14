@@ -103,10 +103,6 @@
           "description": "Powers the /browse section of the site. These are known as sections in some legacy apps.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
-        "meets_user_needs": {
-          "description": "The user needs this piece of content meets.",
-          "$ref": "#/definitions/frontend_links_with_base_path"
-        },
         "ministers": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links"
@@ -197,12 +193,6 @@
     },
     "locale": {
       "$ref": "#/definitions/locale"
-    },
-    "need_ids": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
     },
     "phase": {
       "description": "The service design phase of this content item - https://www.gov.uk/service-manual/phases",
@@ -797,7 +787,6 @@
         "hmrc-manuals-api",
         "local-links-manager",
         "manuals-publisher",
-        "maslow",
         "performanceplatform-big-screen-view",
         "publisher",
         "publishing-api",

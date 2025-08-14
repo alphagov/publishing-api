@@ -68,29 +68,6 @@
         "web_url": "https://www.gov.uk/browse/employing-people/trade-unions"
       }
     ],
-    "meets_user_needs": [
-      {
-        "api_path": "/api/content/needs/employ-someone-fairly-and-legally",
-        "base_path": "/needs/employ-someone-fairly-and-legally",
-        "content_id": "ebf28357-9669-41a9-9bfb-dd8dc3e7044e",
-        "document_type": "need",
-        "locale": "en",
-        "schema_name": "need",
-        "title": "As a employer, I need to employ someone fairly and legally, so that I can hire the best employee and run a fair and legal recruitment exercise (102257)",
-        "withdrawn": false,
-        "details": {
-          "applies_to_all_organisations": false,
-          "benefit": "I can hire the best employee and run a fair and legal recruitment exercise",
-          "goal": "employ someone fairly and legally",
-          "role": "employer",
-          "need_id": "102257"
-        },
-        "links": {
-        },
-        "api_url": "https://www.gov.uk/api/content/needs/employ-someone-fairly-and-legally",
-        "web_url": "https://www.gov.uk/needs/employ-someone-fairly-and-legally"
-      }
-    ],
     "ordered_related_items": [
       {
         "api_path": "/api/content/definition-of-disability-under-equality-act-2010",
