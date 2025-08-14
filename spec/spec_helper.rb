@@ -37,7 +37,8 @@ end
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 
 RSpec.configure do |config|
-  puts "Random seed: #{config.seed}"
+  puts "Random seed (for srand) #{config.seed}"
+  srand config.seed
 
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4.

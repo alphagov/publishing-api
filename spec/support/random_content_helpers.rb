@@ -3,7 +3,7 @@ require "govuk_schemas"
 module RandomContentHelpers
   def generate_random_edition(base_path)
     schema = GovukSchemas::Schema.find(publisher_schema: "generic")
-    GovukSchemas::RandomExample.new(schema:, seed: RSpec.configuration.seed).payload do |content|
+    GovukSchemas::RandomExample.new(schema:, seed: rand(1e12)).payload do |content|
       content.merge(
         base_path:,
         update_type: "major",
