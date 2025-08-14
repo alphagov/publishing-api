@@ -1,6 +1,7 @@
 - :base_path: "/"
   :content_id: "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a"
   :document_type: "homepage"
+  :schema_name: "homepage"
   :title: "GOV.UK homepage"
   :rendering_app: "frontend"
   :links:
@@ -74,7 +75,7 @@
 - :base_path: "/bank-holidays"
   :content_id: "58f79dbd-e57f-4ab2-ae96-96df5767d1b2"
   :document_type: "calendar"
-  :schema: "calendar"
+  :schema_name: "calendar"
   :title: "UK bank holidays"
   :description: "Find out when bank holidays are in England, Wales, Scotland and Northern Ireland - including past and future bank holidays"
   :rendering_app: "frontend"
@@ -91,6 +92,7 @@
 - :base_path: "/chat"
   :content_id: "62256aa9-f0e8-463a-8483-2f03be24287d"
   :document_type: "gone"
+  :schema_name: "gone"
   # title and description are required to be null for a gone schema
   :title: ~
   :description: ~
@@ -222,6 +224,7 @@
 - :base_path: "/gwyliau-banc"
   :content_id: "58f79dbd-e57f-4ab2-ae96-96df5767d1b2"
   :document_type: "calendar"
+  :schema_name: "calendar"
   :schema: "calendar"
   :locale: "cy"
   :title: "Gwyliau banc y DU"
@@ -360,7 +363,7 @@
 - :base_path: "/when-do-the-clocks-change"
   :content_id: "41c78b38-f70e-4729-815b-680f9b90db30"
   :document_type: "calendar"
-  :schema: "calendar"
+  :schema_name: "calendar"
   :title: "When do the clocks change?"
   :description: "Dates when the clocks go back or forward - includes British Summer Time, Greenwich Mean Time"
   :rendering_app: "frontend"
