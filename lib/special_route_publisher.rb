@@ -61,7 +61,7 @@ class SpecialRoutePublisher
       content_id:,
       base_path: route.fetch(:base_path),
       document_type: route.fetch(:document_type, "special_route"),
-      schema_name: route.fetch(:document_type, "special_route"),
+      schema_name: route.fetch(:schema_name, "special_route"),
       title: route.fetch(:title),
       description: route.fetch(:description, ""),
       locale: route.fetch(:locale, "en"),
