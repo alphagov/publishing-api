@@ -1,6 +1,6 @@
 RSpec.describe Presenters::EditionPresenter do
   let(:present_drafts) { false }
-  let(:change_history) { { note: "Note", public_timestamp: 1.day.ago.to_s } }
+  let(:change_history) { { note: "Note", public_timestamp: 1.day.ago.iso8601 } }
   let(:details) { { body: "<p>Text</p>\n", change_history: [change_history] } }
   let(:payload_version) { 1 }
 
