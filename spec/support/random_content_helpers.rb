@@ -4,14 +4,14 @@ module RandomContentHelpers
   def generate_random_edition(base_path)
     GovukSchemas::RandomExample.for_schema(publisher_schema: "generic") do |content|
       content.merge(
-        base_path:,
-        update_type: "major",
+        "base_path" => base_path,
+        "update_type" => "major",
 
-        title: "Something not empty", # TODO: make schemas validate title length
-        routes: [
-          { path: base_path, type: "prefix" },
+        "title" => "Something not empty", # TODO: make schemas validate title length
+        "routes" => [
+          { "path" => base_path, "type" => "prefix" },
         ],
-        redirects: [],
+        "redirects" => [],
       )
     end
   end
