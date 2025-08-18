@@ -32,9 +32,9 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
 
       it "returns the change notes from the database sorted by date" do
         expect(subject).to eq([
-          { public_timestamp: change_notes[2].public_timestamp.utc.to_s, note: change_notes[2].note },
-          { public_timestamp: change_notes[1].public_timestamp.utc.to_s, note: change_notes[1].note },
-          { public_timestamp: change_notes[0].public_timestamp.utc.to_s, note: change_notes[0].note },
+          { public_timestamp: change_notes[2].public_timestamp.utc.iso8601, note: change_notes[2].note },
+          { public_timestamp: change_notes[1].public_timestamp.utc.iso8601, note: change_notes[1].note },
+          { public_timestamp: change_notes[0].public_timestamp.utc.iso8601, note: change_notes[0].note },
         ])
       end
     end
@@ -61,8 +61,8 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
 
         it "returns content_history from details hash" do
           expect(subject).to eq([
-            { public_timestamp: one_day_ago.utc.to_s, note: "note 1" },
-            { public_timestamp: two_days_ago.utc.to_s, note: "note 2" },
+            { public_timestamp: one_day_ago.utc.iso8601, note: "note 1" },
+            { public_timestamp: two_days_ago.utc.iso8601, note: "note 2" },
           ])
         end
       end
@@ -77,10 +77,10 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
 
         it "merges the original change notes with the change notes from the linked editions in date order" do
           expect(subject).to eq([
-            { public_timestamp: query_response[1].public_timestamp.utc.to_s, note: query_response[1].note },
-            { public_timestamp: one_day_ago.utc.to_s, note: "note 1" },
-            { public_timestamp: two_days_ago.utc.to_s, note: "note 2" },
-            { public_timestamp: query_response[0].public_timestamp.utc.to_s, note: query_response[0].note },
+            { public_timestamp: query_response[1].public_timestamp.utc.iso8601, note: query_response[1].note },
+            { public_timestamp: one_day_ago.utc.iso8601, note: "note 1" },
+            { public_timestamp: two_days_ago.utc.iso8601, note: "note 2" },
+            { public_timestamp: query_response[0].public_timestamp.utc.iso8601, note: query_response[0].note },
           ])
         end
       end
