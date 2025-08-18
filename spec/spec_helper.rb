@@ -37,6 +37,8 @@ end
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 
 RSpec.configure do |config|
+  puts "Using seed #{config.seed} for some random number generators"
+
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4.
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
