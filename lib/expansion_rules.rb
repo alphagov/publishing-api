@@ -114,46 +114,42 @@ module_function
   WORLDWIDE_ORGANISATION_FIELDS = (DEFAULT_FIELDS_AND_DESCRIPTION + details_fields(:logo, :world_location_names, :default_news_image)).freeze
   LINK_COLLECTION_FIELDS = (DEFAULT_FIELDS + details_fields(:link_items)).freeze
 
-  CUSTOM_EXPANSION_FIELDS_FOR_PEOPLE = (
-    %i[
-      current_prime_minister
-      ordered_also_attends_cabinet
-      ordered_assistant_whips
-      ordered_baronesses_and_lords_in_waiting_whips
-      ordered_board_members
-      ordered_cabinet_ministers
-      ordered_chief_professional_officers
-      ordered_house_lords_whips
-      ordered_house_of_commons_whips
-      ordered_junior_lords_of_the_treasury_whips
-      ordered_military_personnel
-      ordered_ministers
-      ordered_special_representatives
-      ordered_traffic_commissioners
-      primary_role_person
-    ].map do |link_type|
-      { document_type: :person, link_type:, fields: PERSON_FIELDS_WITH_IMAGE }
-    end
-  ).freeze
+  CUSTOM_EXPANSION_FIELDS_FOR_PEOPLE = %i[
+    current_prime_minister
+    ordered_also_attends_cabinet
+    ordered_assistant_whips
+    ordered_baronesses_and_lords_in_waiting_whips
+    ordered_board_members
+    ordered_cabinet_ministers
+    ordered_chief_professional_officers
+    ordered_house_lords_whips
+    ordered_house_of_commons_whips
+    ordered_junior_lords_of_the_treasury_whips
+    ordered_military_personnel
+    ordered_ministers
+    ordered_special_representatives
+    ordered_traffic_commissioners
+    primary_role_person
+  ].map { |link_type|
+    { document_type: :person, link_type:, fields: PERSON_FIELDS_WITH_IMAGE }
+  }.freeze
 
-  CUSTOM_EXPANSION_FIELDS_FOR_ROLES = (
-    %i[
-      ambassador_role
-      board_member_role
-      chief_professional_officer_role
-      chief_scientific_advisor_role
-      chief_scientific_officer_role
-      deputy_head_of_mission_role
-      governor_role
-      high_commissioner_role
-      military_role
-      special_representative_role
-      traffic_commissioner_role
-      worldwide_office_staff_role
-    ].map do |document_type|
-      { document_type:, fields: ROLE_FIELDS }
-    end
-  ).freeze
+  CUSTOM_EXPANSION_FIELDS_FOR_ROLES = %i[
+    ambassador_role
+    board_member_role
+    chief_professional_officer_role
+    chief_scientific_advisor_role
+    chief_scientific_officer_role
+    deputy_head_of_mission_role
+    governor_role
+    high_commissioner_role
+    military_role
+    special_representative_role
+    traffic_commissioner_role
+    worldwide_office_staff_role
+  ].map { |document_type|
+    { document_type:, fields: ROLE_FIELDS }
+  }.freeze
 
   CUSTOM_EXPANSION_FIELDS = (
     [
