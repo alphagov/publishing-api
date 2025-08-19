@@ -17,6 +17,7 @@
         "locale": "en",
         "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
         "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "schema_name": "government",
         "document_type": "government",
         "details": {
           "started_on": "2010-05-12T00:00:00+00:00",

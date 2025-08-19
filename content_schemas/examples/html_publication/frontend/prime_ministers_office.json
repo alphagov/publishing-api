@@ -26,6 +26,8 @@
     "organisations": [
       {
         "content_id": "90c1be18-70a4-476b-9244-ef4c36e1a042",
+        "schema_name": "organisation",
+        "document_type": "organisation",
         "title": "Department for Business, Innovation &amp; Skills",
         "details": {
           "brand": "department-for-business-innovation-skills",
@@ -43,6 +45,8 @@
       },
       {
         "content_id": "83c1be18-70a4-476b-9244-ef4c36e1a042",
+        "schema_name": "organisation",
+        "document_type": "organisation",
         "title": "Foreign & Commonwealth Office",
         "details": {
           "brand": "foreign-commonwealth-office",
@@ -60,6 +64,8 @@
       },
       {
         "content_id": "d994e55c-48c9-4795-b872-58d8ec98af12",
+        "schema_name": "organisation",
+        "document_type": "organisation",
         "title": "Ministry of Defence",
         "details": {
           "brand": "ministry-of-defence",
@@ -77,6 +83,8 @@
       },
       {
         "content_id": "705dbea4-8bd7-422e-ba9c-254557f77f81",
+        "schema_name": "organisation",
+        "document_type": "organisation",
         "title": "Prime Minister's Office, 10 Downing Street",
         "details": {
           "brand": "cabinet-office",
@@ -94,6 +102,8 @@
       },
       {
         "content_id": "90c1be18-70a4-476b-9244-ef4c36e1a042",
+        "schema_name": "organisation",
+        "document_type": "organisation",
         "title": "UK Trade & Investment",
         "details": {
           "brand": "uk-trade-investment",
