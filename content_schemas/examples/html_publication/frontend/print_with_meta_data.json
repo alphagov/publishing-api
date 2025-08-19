@@ -27,6 +27,8 @@
     "organisations": [
       {
         "content_id": "2e7868a8-38f5-4ff6-b62f-9a15d1c22d28",
+        "schema_name": "organisation",
+        "document_type": "organisation",
         "title": "Department for Communities and Local Government",
         "details": {
           "logo": {
