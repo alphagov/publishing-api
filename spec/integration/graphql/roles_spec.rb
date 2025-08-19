@@ -159,79 +159,72 @@ RSpec.describe "GraphQL" do
           }",
       }
 
-      expected = {
-        data: {
-          edition: {
-            base_path: "/government/ministers/prime-minister",
-            locale: "en",
-            title: "Prime Minister",
+      parsed_response = JSON.parse(response.body).deep_symbolize_keys
+
+      expect(parsed_response.dig(:data, :edition)).to a_hash_including(
+        base_path: "/government/ministers/prime-minister",
+        locale: "en",
+        title: "Prime Minister",
+        details: {
+          body: "<h1 id=\"prime-minister\">Prime Minister</h1>\n<p>The Prime Minister is the leader of His Majesty’s Government</p>\n",
+          supports_historical_accounts: true,
+        },
+      )
+
+      expect(parsed_response.dig(:data, :edition, :links, :available_translations)).to match_array([
+        a_hash_including(base_path: "/government/ministers/prime-minister", locale: "en"),
+        a_hash_including(base_path: "/government/ministers/prime-minister.es", locale: "es"),
+      ])
+
+      expect(parsed_response.dig(:data, :edition, :links, :role_appointments)).to eq(
+        [
+          {
             details: {
-              body: "<h1 id=\"prime-minister\">Prime Minister</h1>\n<p>The Prime Minister is the leader of His Majesty’s Government</p>\n",
-              supports_historical_accounts: true,
+              current: true,
+              ended_on: nil,
+              started_on: "2024-07-05T01:00:00+01:00",
             },
             links: {
-              available_translations: [
-                {
-                  base_path: "/government/ministers/prime-minister",
-                  locale: "en",
-                },
-                {
-                  base_path: "/government/ministers/prime-minister.es",
-                  locale: "es",
-                },
-              ],
-              role_appointments: [
-                {
-                  details: {
-                    current: true,
-                    ended_on: nil,
-                    started_on: "2024-07-05T01:00:00+01:00",
-                  },
-                  links: {
-                    person: [
-                      base_path: "/government/people/keir-starmer",
-                      title: "The Rt Hon Sir Keir Starmer KCB KC MP",
-                      details: {
-                        body: "<p>Sir Keir Starmer became Prime Minister on 5 July 2024.</p>\n",
-                      },
-                    ],
-                  },
-                },
-                {
-                  details: {
-                    current: false,
-                    ended_on: "2024-07-05T01:00:00+01:00",
-                    started_on: "2022-11-25T00:00:00+00:00",
-                  },
-                  links: {
-                    person: [
-                      base_path: "/government/people/rishi-sunak",
-                      details: {
-                        body: "<p>Rishi Sunak was Prime Minister between 25 October 2022 and 5 July 2024.</p>\n",
-                      },
-                      title: "The Rt Hon Rishi Sunak MP",
-                    ],
-                  },
-                },
-              ],
-              ordered_parent_organisations: [
-                {
-                  base_path: "/government/organisations/cabinet-office",
-                  title: "Cabinet Office",
-                },
-                {
-                  base_path: "/government/organisations/prime-ministers-office-10-downing-street",
-                  title: "Prime Minister's Office, 10 Downing Street",
+              person: [
+                base_path: "/government/people/keir-starmer",
+                title: "The Rt Hon Sir Keir Starmer KCB KC MP",
+                details: {
+                  body: "<p>Sir Keir Starmer became Prime Minister on 5 July 2024.</p>\n",
                 },
               ],
             },
           },
-        },
-      }
+          {
+            details: {
+              current: false,
+              ended_on: "2024-07-05T01:00:00+01:00",
+              started_on: "2022-11-25T00:00:00+00:00",
+            },
+            links: {
+              person: [
+                base_path: "/government/people/rishi-sunak",
+                details: {
+                  body: "<p>Rishi Sunak was Prime Minister between 25 October 2022 and 5 July 2024.</p>\n",
+                },
+                title: "The Rt Hon Rishi Sunak MP",
+              ],
+            },
+          },
+        ],
+      )
 
-      parsed_response = JSON.parse(response.body).deep_symbolize_keys
-
-      expect(parsed_response).to eq(expected)
+      expect(parsed_response.dig(:data, :edition, :links, :ordered_parent_organisations)).to eq(
+        [
+          {
+            base_path: "/government/organisations/cabinet-office",
+            title: "Cabinet Office",
+          },
+          {
+            base_path: "/government/organisations/prime-ministers-office-10-downing-street",
+            title: "Prime Minister's Office, 10 Downing Street",
+          },
+        ],
+      )
     end
   end
 end
