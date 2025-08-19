@@ -24,7 +24,7 @@ module Presenters
     def format_change_note(history)
       {
         note: history[:note],
-        public_timestamp: convert_timestamp_to_utc(history[:public_timestamp]).to_s,
+        public_timestamp: convert_timestamp_to_utc(history[:public_timestamp]).iso8601,
       }
     end
 
