@@ -1,7 +1,7 @@
 RSpec.describe Commands::V2::PutContent do
   include_context "PutContent call"
 
-  describe "race conditions", skip_cleaning: true do
+  describe "race conditions" do
     let(:document) do
       create(
         :document,
@@ -18,10 +18,6 @@ RSpec.describe Commands::V2::PutContent do
         first_published_at: 1.year.ago,
         base_path:,
       )
-    end
-
-    after do
-      DatabaseCleaner.clean_with :truncation
     end
 
     it "copes with race conditions" do
