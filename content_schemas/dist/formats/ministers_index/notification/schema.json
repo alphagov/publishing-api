@@ -436,7 +436,12 @@
           "$ref": "#/definitions/change_history"
         },
         "reshuffle": {
-          "message": "string"
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          }
         }
       }
     },
