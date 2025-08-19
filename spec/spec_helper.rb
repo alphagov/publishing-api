@@ -60,6 +60,8 @@ RSpec.configure do |config|
   config.include AuthenticationHelper::RequestMixin, type: :request
   config.include AuthenticationHelper::ControllerMixin, type: :controller
 
+  config.use_transactional_fixtures = true
+
   config.after do
     Timecop.return
     GDS::SSO.test_user = nil
@@ -67,16 +69,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     Rails.application.load_tasks
-    DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.around(:each) do |example|
-    if example.metadata[:skip_cleaning]
-      example.run
-    else
-      DatabaseCleaner.cleaning { example.run }
-    end
   end
 
   %i[controller request].each do |spec_type|
