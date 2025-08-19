@@ -7,7 +7,12 @@
       optional: ['reshuffle'],
       properties: {
         reshuffle: {
-          message: "string",
+          type: "object",
+          properties: {
+            message: {
+              type: "string",
+            },
+          },
         },
         body: {
           description: "The main text to show on the page",

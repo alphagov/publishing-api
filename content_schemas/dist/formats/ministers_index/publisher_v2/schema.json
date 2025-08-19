@@ -186,7 +186,12 @@
           "type": "string"
         },
         "reshuffle": {
-          "message": "string"
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          }
         }
       }
     },
