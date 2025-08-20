@@ -53,6 +53,11 @@ SidekiqUniqueJobs.reflect do |on|
     Sidekiq.logger.warn(message)
   end
 
+  on.locked do |job_hash|
+    message = extract_log_from_job("Locked", job_hash)
+    Sidekiq.logger.info(message)
+  end
+
   on.reschedule_failed do |job_hash|
     message = extract_log_from_job("Reschedule failed", job_hash)
     Sidekiq.logger.debug(message)
@@ -71,5 +76,10 @@ SidekiqUniqueJobs.reflect do |on|
   on.unlock_failed do |job_hash|
     message = extract_log_from_job("Unlock failed", job_hash)
     Sidekiq.logger.warn(message)
+  end
+
+  on.unlocked do |job_hash|
+    message = extract_log_from_job("Unlocked", job_hash)
+    Sidekiq.logger.info(message)
   end
 end
