@@ -4,7 +4,8 @@ RSpec.describe "Message queue publishing" do
   it "puts the correct message on the queue" do
     base_path = "/#{SecureRandom.hex}"
     stub_content_store_calls(base_path)
-    edition = generate_random_edition(base_path)
+    random_example = build_random_example(RSpec.configuration.seed)
+    edition = generate_random_edition(random_example, base_path)
 
     put "/v2/content/#{content_id}", params: edition.to_json
     expect(response).to be_ok, random_content_failure_message(response, edition)

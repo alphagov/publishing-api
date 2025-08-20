@@ -1,8 +1,15 @@
 require "govuk_schemas"
 
 module RandomContentHelpers
-  def generate_random_edition(base_path)
-    GovukSchemas::RandomExample.for_schema(publisher_schema: "generic") do |content|
+  def build_random_example(seed)
+    GovukSchemas::RandomExample.new(
+      schema: GovukSchemas::Schema.find(publisher_schema: "generic"),
+      seed:,
+    )
+  end
+
+  def generate_random_edition(random_example, base_path)
+    random_example.payload do |content|
       content.merge(
         "base_path" => base_path,
         "update_type" => "major",
