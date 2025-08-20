@@ -164,6 +164,10 @@ module Types
         field :formatted_title, String
       end
 
+      class Reshuffle < Types::BaseObject
+        field :message, String
+      end
+
       class Tags < Types::BaseObject
         field :browse_pages, [String]
         field :policies, [String]
@@ -200,7 +204,7 @@ module Types
       field :organisation_govuk_status, String
       field :political, Boolean
       field :privy_counsellor, Boolean
-      field :reshuffle, GraphQL::Types::JSON
+      field :reshuffle, Reshuffle
       field :role_payment_type, String
       field :seniority, Integer
       field :started_on, Types::ContentApiDatetime

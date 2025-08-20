@@ -71,6 +71,8 @@ module Types
         end
       end
 
+      field :analytics_identifier, String
+      field :api_path, String
       field :base_path, String
       field :details, MinistersIndexPersonDetails
       field :links, MinistersIndexPersonLinks, method: :itself
@@ -101,6 +103,19 @@ module Types
     end
 
     class MinistersIndexLinks < Types::BaseObject
+      field :available_translations, [EditionType]
+
+      reverse_links_field :child_taxons, :parent_taxons, [EditionType]
+      reverse_links_field :children, :parent, [EditionType]
+      reverse_links_field :document_collections, :documents, [EditionType]
+      reverse_links_field :level_one_taxons, :root_taxon, [EditionType]
+      reverse_links_field :ministers, :ministerial, [EditionType]
+
+      links_field :embed, [EditionType]
+      links_field :finder, [EditionType]
+      links_field :lead_organisations, [EditionType]
+      links_field :mainstream_browse_pages, [EditionType]
+
       links_field :ordered_also_attends_cabinet, [MinistersIndexPerson]
       links_field :ordered_assistant_whips, [MinistersIndexPerson]
       links_field :ordered_baronesses_and_lords_in_waiting_whips, [MinistersIndexPerson]
