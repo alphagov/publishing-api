@@ -23,6 +23,7 @@ RSpec.describe GraphqlController do
           data,
           errors_as_objects: true,
         )
+        binding.irb
         expect(errors).to eql([])
       end
 
