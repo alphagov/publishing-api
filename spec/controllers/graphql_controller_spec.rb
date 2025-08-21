@@ -16,6 +16,8 @@ RSpec.describe GraphqlController do
         get :live_content, params: { base_path: base_path_without_leading_slash(edition.base_path) }
       end
 
+      it "should compact graphql responses"
+
       it "produces responses valid against the schema" do
         data = JSON.parse(response.body)
         errors = JSON::Validator.fully_validate(
