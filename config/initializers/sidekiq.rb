@@ -28,6 +28,7 @@ def extract_log_from_job(message, job_hash)
   {
     message: message,
     args: job_hash["args"],
+    jid: job_hash["jid"],
     lock_args: job_hash["lock_args"],
     queue: job_hash["queue"],
     worker: job_hash["class"],
