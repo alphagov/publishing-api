@@ -16,6 +16,16 @@ RSpec.describe GraphqlController do
         get :live_content, params: { base_path: base_path_without_leading_slash(edition.base_path) }
       end
 
+      it "schema valid" do
+        data = JSON.parse(response.body)
+        errors = JSON::Validator.fully_validate(
+          GovukSchemas::Schema.find(frontend_schema: "news_article"),
+          data,
+          errors_as_objects: true,
+        )
+        expect(errors).to eql([])
+      end
+
       it "returns a 200 OK response" do
         expect(response.status).to eq(200)
       end
