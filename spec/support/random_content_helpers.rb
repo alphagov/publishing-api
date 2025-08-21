@@ -2,10 +2,15 @@ require "govuk_schemas"
 
 module RandomContentHelpers
   def build_random_example(seed)
-    GovukSchemas::RandomExample.new(
-      schema: GovukSchemas::Schema.find(publisher_schema: "generic"),
-      seed:,
-    )
+    schema = GovukSchemas::Schema.find(publisher_schema: "generic")
+
+    # The "generic" schema includes ALL document types.
+    #
+    # We don't want to generate editions with special document_type values like "redirect"
+    # as these may be handled by publishing API in special ways which confuse some tests
+    schema["properties"]["document_type"]["enum"] -= %w[gone redirect vanish]
+
+    GovukSchemas::RandomExample.new(schema:, seed:)
   end
 
   def generate_random_edition(random_example, base_path)
