@@ -24,35 +24,63 @@ Sidekiq.configure_server do |config|
 end
 
 # Logging for SidekiqUniqueJobs
-# Somewhat copied from https://github.com/mhenrixon/sidekiq-unique-jobs/blob/36ffe8f95b01ab059a34c8093c2410a64ca191b9/UPGRADING.md?plain=1
+def extract_log_from_job(message, job_hash)
+  {
+    message: message,
+    args: job_hash["args"],
+    jid: job_hash["jid"],
+    lock_args: job_hash["lock_args"],
+    queue: job_hash["queue"],
+    worker: job_hash["class"],
+  }
+end
+
 SidekiqUniqueJobs.reflect do |on|
   on.duplicate do |job_hash|
-    logger.warn(job_hash.merge(message: "Duplicate Job"))
+    message = extract_log_from_job("Duplicate Job", job_hash)
+    Sidekiq.logger.warn(message)
   end
 
   on.execution_failed do |job_hash, exception = nil|
-    message = "Execution failed"
-    message += " (#{exception.message})" if exception
-    logger.warn(job_hash.merge(message:))
+    exception_message = "Execution failed"
+    exception_message += " (#{exception.message})" if exception
+
+    message = extract_log_from_job(exception_message, job_hash)
+    Sidekiq.logger.warn(message)
   end
 
   on.lock_failed do |job_hash|
-    logger.warn(job_hash.merge(message: "Lock failed to be acquired"))
+    message = extract_log_from_job("Lock failed to be acquired", job_hash)
+    Sidekiq.logger.warn(message)
+  end
+
+  on.locked do |job_hash|
+    message = extract_log_from_job("Locked", job_hash)
+    Sidekiq.logger.info(message)
   end
 
   on.reschedule_failed do |job_hash|
-    logger.debug(job_hash.merge(message: "Reschedule failed"))
+    message = extract_log_from_job("Reschedule failed", job_hash)
+    Sidekiq.logger.debug(message)
   end
 
   on.timeout do |job_hash|
-    logger.warn(job_hash.merge(message: "Lock acquisition timed out"))
+    message = extract_log_from_job("Lock acquisition timed out", job_hash)
+    Sidekiq.logger.warn(message)
   end
 
   on.unknown_sidekiq_worker do |job_hash|
-    logger.warn(job_hash.merge(message: "Unknown Sidekiq worker"))
+    message = extract_log_from_job("Unknown Sidekiq worker", job_hash)
+    Sidekiq.logger.warn(message)
   end
 
   on.unlock_failed do |job_hash|
-    logger.warn(job_hash.merge(message: "Unlock failed"))
+    message = extract_log_from_job("Unlock failed", job_hash)
+    Sidekiq.logger.warn(message)
+  end
+
+  on.unlocked do |job_hash|
+    message = extract_log_from_job("Unlocked", job_hash)
+    Sidekiq.logger.info(message)
   end
 end
