@@ -32,11 +32,14 @@ class GraphqlController < ApplicationController
         result = PublishingApiSchema.execute(query, variables: { base_path: encoded_base_path }).to_hash
         process_graphql_result(result)
 
+        # TODO: handle the case where there's no content item in the result
         content_item = if result["errors"] && (unpublished_error = result["errors"].find { |error| error["message"] == "Edition has been unpublished" })
                          unpublished_error["extensions"]
                        else
                          result.dig("data", "edition")
                        end
+
+        process_content_item!(content_item)
 
         http_status = if content_item["schema_name"] == "gone" && (content_item["details"].nil? || content_item["details"].values.reject(&:blank?).empty?)
                         410
@@ -95,6 +98,11 @@ private
       logger.debug("GraphQL query result: #{result}")
       set_prometheus_labels("contains_errors" => false)
     end
+  end
+
+  def process_content_item!(content_item)
+    content_item.compact!
+    content_item["details"].compact!
   end
 
   def execute_in_read_replica(&block)
