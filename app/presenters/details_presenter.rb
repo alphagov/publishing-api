@@ -2,9 +2,9 @@ require "govspeak"
 
 module Presenters
   class DetailsPresenter
-    attr_reader :content_item_details, :change_history_presenter, :content_embed_presenter, :locale
+    attr_reader :content_item_details, :change_history_presenter, :content_embed_presenter, :expanded_link_set_presenter, :locale
 
-    def initialize(content_item_details, change_history_presenter, content_embed_presenter, locale: nil)
+    def initialize(content_item_details, change_history_presenter, content_embed_presenter, expanded_link_set_presenter, locale: nil)
       @content_item_details = SymbolizeJSON.symbolize(content_item_details)
       @change_history_presenter = change_history_presenter
       @content_embed_presenter = content_embed_presenter
@@ -68,9 +68,25 @@ module Presenters
     end
 
     def govspeak_attributes
+      byebug
       {
         attachments: content_item_details[:attachments],
         locale:,
+        contacts: "foo", # TODO - figure out how to derive the below content from `expanded_link_set_presenter`
+        # contacts: [{
+        #   content_id: "27354c11-eca4-40c2-866f-db097d7f0a5d",
+        #   title: "Ryan",
+        #   locale: "en",
+        #   analytics_identifier: nil,
+        #   api_path: nil,
+        #   base_path: nil,
+        #   document_type: "contact",
+        #   public_updated_at: "2025-08-21T15:39:58Z",
+        #   schema_name: "contact",
+        #   withdrawn: false,
+        #   details: {description: "Test", title: "Ryan", contact_form_links: nil, post_addresses: [], email_addresses: [{email: "ryan@example.com"}], phone_numbers: nil},
+        #   links: {}
+        # }],
       }
     end
   end
