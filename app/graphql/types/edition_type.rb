@@ -125,96 +125,37 @@ module Types
     end
 
     class Details < Types::BaseObject
-      class Attachment < Types::BaseObject
-        field :accessible, Boolean
-        field :alternative_format_contact_email, String
-        field :attachment_type, String
-        field :content_type, String
-        field :file_size, Integer
-        field :filename, String
-        field :id, String
-        field :locale, String
-        field :number_of_pages, Integer
-        field :preview_url, String
-        field :title, String
-        field :url, String
-      end
-
-      class ChangeHistoryEntry < Types::BaseObject
-        field :note, String
-        field :public_timestamp, String
-      end
-
-      class Government < Types::BaseObject
-        field :current, Boolean
-        field :slug, String
-        field :title, String
-      end
-
-      class Image < Types::BaseObject
-        field :alt_text, String
-        field :caption, String
-        field :credit, String
-        field :high_resolution_url, String
-        field :url, String
-      end
-
-      class Logo < Types::BaseObject
-        field :crest, String
-        field :formatted_title, String
-      end
-
-      class Reshuffle < Types::BaseObject
-        field :message, String
-      end
-
-      class Tags < Types::BaseObject
-        field :browse_pages, [String]
-        field :policies, [String]
-        field :topics, [String]
-      end
-
-      class WhipOrganisation < Types::BaseObject
-        field :label, String
-        field :sort_order, Integer
-      end
-
-      class WorldLocationName < Types::BaseObject
-        field :content_id, String
-        field :name, String
-      end
-
       field :acronym, String
-      field :attachments, [Attachment]
+      field :attachments, [GraphQL::Types::JSON]
       field :body, String
       field :brand, String
-      field :change_history, [ChangeHistoryEntry]
+      field :change_history, [GraphQL::Types::JSON]
       field :current, Boolean
-      field :default_news_image, Image
+      field :default_news_image, GraphQL::Types::JSON
       field :display_date, Types::ContentApiDatetime
       field :emphasised_organisations, GraphQL::Types::JSON
       field :ended_on, Types::ContentApiDatetime
       field :first_public_at, Types::ContentApiDatetime
-      field :government, Government
-      field :image, Image
+      field :government, GraphQL::Types::JSON
+      field :image, GraphQL::Types::JSON
       field :internal_name, String
-      field :international_delegations, [EditionType], null: false
-      field :logo, Logo
+      field :international_delegations, [GraphQL::Types::JSON], null: false
+      field :logo, GraphQL::Types::JSON
       field :notes_for_editors, String
       field :organisation_govuk_status, String
       field :political, Boolean
       field :privy_counsellor, Boolean
-      field :reshuffle, Reshuffle
+      field :reshuffle, GraphQL::Types::JSON
       field :role_payment_type, String
       field :seniority, Integer
       field :started_on, Types::ContentApiDatetime
       field :supports_historical_accounts, Boolean
-      field :tags, Tags
+      field :tags, GraphQL::Types::JSON
       field :url_override, String
       field :visible_to_departmental_editors, Boolean
-      field :whip_organisation, WhipOrganisation
-      field :world_location_names, [WorldLocationName]
-      field :world_locations, [EditionType], null: false
+      field :whip_organisation, GraphQL::Types::JSON
+      field :world_location_names, [GraphQL::Types::JSON]
+      field :world_locations, [GraphQL::Types::JSON], null: false
     end
 
     field :active, Boolean, null: false

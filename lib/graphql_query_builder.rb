@@ -34,6 +34,12 @@ private
         nil
       in [String, {} | []]
         nil
+      in ["details", Hash => details]
+        [
+          "details {",
+          details.map { |details_key, _| "  #{details_key}" },
+          "}",
+        ]
       in ["links", Hash => links]
         [
           "links {",
