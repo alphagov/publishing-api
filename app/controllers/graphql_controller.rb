@@ -30,7 +30,7 @@ class GraphqlController < ApplicationController
         end
 
         result = PublishingApiSchema.execute(query, variables: { base_path: encoded_base_path }).to_hash
-        process_graphql_result(result)
+        report_result(result)
 
         content_item = if result["errors"] && (unpublished_error = result["errors"].find { |error| error["message"] == "Edition has been unpublished" })
                          unpublished_error["extensions"]
@@ -73,7 +73,7 @@ class GraphqlController < ApplicationController
         operation_name:,
       ).to_hash
 
-      process_graphql_result(result)
+      report_result(result)
 
       render json: result
     rescue StandardError => e
@@ -85,7 +85,7 @@ class GraphqlController < ApplicationController
 
 private
 
-  def process_graphql_result(result)
+  def report_result(result)
     set_prometheus_labels(result.dig("data", "edition")&.slice("document_type", "schema_name"))
 
     if result.key?("errors")
