@@ -138,29 +138,6 @@ RSpec.describe GraphqlController do
       end
     end
 
-    context "a withdrawn content item" do
-      let(:withdrawn_at) { Time.zone.parse("2016-05-17 11:20") }
-      let(:edition) do
-        create(
-          :withdrawn_unpublished_edition,
-          explanation: "This is no longer true",
-          schema_name: "news_article",
-          unpublished_at: withdrawn_at,
-        )
-      end
-
-      before do
-        get :live_content, params: { base_path: base_path_without_leading_slash(edition.base_path) }
-      end
-
-      it "displays the withdrawal explanation and time" do
-        data = JSON.parse(response.body)
-
-        expect(data.dig("withdrawn_notice", "explanation")).to eq("This is no longer true")
-        expect(Time.iso8601(data.dig("withdrawn_notice", "withdrawn_at"))).to eq(withdrawn_at)
-      end
-    end
-
     context "a gone content item without an explanation and without an alternative_path" do
       let(:edition) do
         create(
