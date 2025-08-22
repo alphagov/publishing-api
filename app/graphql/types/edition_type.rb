@@ -157,6 +157,7 @@ module Types
       field :contact_groups, GraphQL::Types::JSON
       field :contact_type, GraphQL::Types::JSON
       field :corporate_information_groups, GraphQL::Types::JSON
+      field :country, GraphQL::Types::JSON
       field :current, Boolean
       field :dates_in_office, GraphQL::Types::JSON
       field :default_documents_per_page, GraphQL::Types::JSON
@@ -289,6 +290,7 @@ module Types
       field :public_timestamp, GraphQL::Types::JSON
       field :query_response_time, GraphQL::Types::JSON
       field :quick_links, GraphQL::Types::JSON
+      field :rates, GraphQL::Types::JSON
       field :read_more, GraphQL::Types::JSON
       field :reject, GraphQL::Types::JSON
       field :related_mainstream_content, GraphQL::Types::JSON
@@ -306,7 +308,9 @@ module Types
       field :services, GraphQL::Types::JSON
       field :short_name, GraphQL::Types::JSON
       field :show_description, GraphQL::Types::JSON
+      field :show_metadata_block, GraphQL::Types::JSON
       field :show_summaries, GraphQL::Types::JSON
+      field :show_table_of_contents, GraphQL::Types::JSON
       field :signup_link, GraphQL::Types::JSON
       field :slug, GraphQL::Types::JSON
       field :social_media_links, GraphQL::Types::JSON
