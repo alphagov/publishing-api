@@ -132,6 +132,7 @@ module Types
       field :change_history, [GraphQL::Types::JSON]
       field :current, Boolean
       field :default_news_image, GraphQL::Types::JSON
+      field :description, String
       field :display_date, Types::ContentApiDatetime
       field :emphasised_organisations, GraphQL::Types::JSON
       field :ended_on, Types::ContentApiDatetime
@@ -151,6 +152,7 @@ module Types
       field :started_on, Types::ContentApiDatetime
       field :supports_historical_accounts, Boolean
       field :tags, GraphQL::Types::JSON
+      field :title, String
       field :url_override, String
       field :visible_to_departmental_editors, Boolean
       field :whip_organisation, GraphQL::Types::JSON
