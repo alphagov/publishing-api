@@ -212,7 +212,7 @@ module Types
       field :important_board_members, GraphQL::Types::JSON
       field :interesting_facts, GraphQL::Types::JSON
       field :internal_name, String
-      field :international_delegations, [GraphQL::Types::JSON], null: false
+      field :international_delegations, [GraphQL::Types::JSON]
       field :introduction, GraphQL::Types::JSON
       field :introductory_paragraph, GraphQL::Types::JSON
       field :key, GraphQL::Types::JSON
@@ -346,7 +346,7 @@ module Types
       field :will_continue_on, GraphQL::Types::JSON
       field :world_location_names, [GraphQL::Types::JSON]
       field :world_location_news_type, GraphQL::Types::JSON
-      field :world_locations, [GraphQL::Types::JSON], null: false
+      field :world_locations, [GraphQL::Types::JSON]
     end
 
     field :active, Boolean, null: false
