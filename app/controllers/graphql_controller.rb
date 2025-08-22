@@ -32,11 +32,7 @@ class GraphqlController < ApplicationController
         result = PublishingApiSchema.execute(query, variables: { base_path: encoded_base_path }).to_hash
         report_result(result)
 
-        content_item = if result["errors"] && (unpublished_error = result["errors"].find { |error| error["message"] == "Edition has been unpublished" })
-                         unpublished_error["extensions"]
-                       else
-                         result.dig("data", "edition")
-                       end
+        content_item = GraphqlContentItemService.new(result).process
 
         http_status = if content_item["schema_name"] == "gone" && (content_item["details"].nil? || content_item["details"].values.reject(&:blank?).empty?)
                         410
