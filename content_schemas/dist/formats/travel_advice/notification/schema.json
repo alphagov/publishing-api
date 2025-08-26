@@ -436,9 +436,6 @@
         "parts": {
           "$ref": "#/definitions/parts"
         },
-        "publishing_request_id": {
-          "$ref": "#/definitions/publishing_request_id"
-        },
         "reviewed_at": {
           "type": "string",
           "format": "date-time"
