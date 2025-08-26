@@ -69,7 +69,6 @@ RSpec.describe GraphqlContentItemService do
     it "returns unpublishing data from the error extensions" do
       result = {
         "errors" => [
-          { "message" => "something unrelated" },
           {
             "message" => "Edition has been unpublished",
             "extensions" => "presented unpublishing data",
@@ -80,6 +79,38 @@ RSpec.describe GraphqlContentItemService do
 
       expect(GraphqlContentItemService.new(result).process)
         .to eq("presented unpublishing data")
+    end
+  end
+
+  context "when there are genuine errors" do
+    it "raises" do
+      result = {
+        "errors" => [
+          { "message" => "Field 'bananas' doesn't exist on type 'Edition'" },
+        ],
+      }
+
+      expect { GraphqlContentItemService.new(result).process }
+        .to raise_error(GraphqlContentItemService::QueryResultError) do |error|
+          expect(error.message).to eq(
+            "Field 'bananas' doesn't exist on type 'Edition'",
+          )
+        end
+    end
+
+    it "raises with all error messages when there are multiple" do
+      result = {
+        "errors" => [
+          { "message" => "Field 'bananas' doesn't exist on type 'Edition'" },
+          { "message" => "Field 'kiwi' doesn't exist on type 'Details'" },
+        ],
+      }
+      expected_error_message = "Field 'bananas' doesn't exist on type 'Edition'\nField 'kiwi' doesn't exist on type 'Details'"
+
+      expect { GraphqlContentItemService.new(result).process }
+        .to raise_error(GraphqlContentItemService::QueryResultError) do |error|
+          expect(error.message).to eq(expected_error_message)
+        end
     end
   end
 end
