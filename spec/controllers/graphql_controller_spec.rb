@@ -19,46 +19,9 @@ RSpec.describe GraphqlController do
       it "returns a 200 OK response" do
         expect(response.status).to eq(200)
       end
+
       it "returns the content item as JSON data" do
         expect(response.media_type).to eq("application/json")
-        data = JSON.parse(response.body)
-
-        expect(data.keys).to match_array(%w[
-          base_path
-          content_id
-          description
-          details
-          document_type
-          first_published_at
-          links
-          locale
-          public_updated_at
-          publishing_app
-          rendering_app
-          schema_name
-          title
-          updated_at
-          withdrawn_notice
-        ])
-
-        expect(data).to include(
-          "base_path" => edition.base_path,
-          "content_id" => edition.content_id,
-          "description" => edition.description,
-          "document_type" => edition.document_type,
-          "locale" => edition.locale,
-          "schema_name" => edition.schema_name,
-          "title" => edition.title,
-        )
-        expect(data["details"]).to eq(
-          "body" => "Some content",
-          "change_history" => nil,
-          "display_date" => nil,
-          "emphasised_organisations" => nil,
-          "first_public_at" => nil,
-          "image" => nil,
-          "political" => nil,
-        )
       end
 
       it "sets document_type and schema_type as prometheus labels" do
@@ -138,29 +101,6 @@ RSpec.describe GraphqlController do
       end
     end
 
-    context "a withdrawn content item" do
-      let(:withdrawn_at) { Time.zone.parse("2016-05-17 11:20") }
-      let(:edition) do
-        create(
-          :withdrawn_unpublished_edition,
-          explanation: "This is no longer true",
-          schema_name: "news_article",
-          unpublished_at: withdrawn_at,
-        )
-      end
-
-      before do
-        get :live_content, params: { base_path: base_path_without_leading_slash(edition.base_path) }
-      end
-
-      it "displays the withdrawal explanation and time" do
-        data = JSON.parse(response.body)
-
-        expect(data.dig("withdrawn_notice", "explanation")).to eq("This is no longer true")
-        expect(Time.iso8601(data.dig("withdrawn_notice", "withdrawn_at"))).to eq(withdrawn_at)
-      end
-    end
-
     context "a gone content item without an explanation and without an alternative_path" do
       let(:edition) do
         create(
@@ -207,6 +147,27 @@ RSpec.describe GraphqlController do
         expect(details["explanation"]).to eq(edition.unpublishing.explanation)
         expect(details["alternative_path"]).to eq(edition.unpublishing.alternative_path)
       end
+    end
+
+    it "defers to a service to process the result into a content item" do
+      edition = create(:live_edition,
+                       schema_name: "news_article",
+                       document_type: "news_story",
+                       details: {
+                         "body" => "Some content",
+                       })
+
+      allow_any_instance_of(GraphqlContentItemService)
+        .to receive(:process)
+        .and_return({ "details" => { "something" => "jason!" } })
+
+      get :live_content, params: {
+        base_path: base_path_without_leading_slash(edition.base_path),
+      }
+
+      expect(JSON.parse(response.body)).to eq({
+        "details" => { "something" => "jason!" },
+      })
     end
   end
 
