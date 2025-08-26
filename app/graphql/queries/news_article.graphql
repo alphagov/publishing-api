@@ -10,7 +10,6 @@ query news_article($base_path: String!) {
       details {
         body
         change_history
-        display_date
         emphasised_organisations
         first_public_at
         image {
@@ -27,7 +26,9 @@ query news_article($base_path: String!) {
       links {
         available_translations {
           base_path
+          content_id
           locale
+          title
         }
         document_collections {
           ...RelatedItem
@@ -77,18 +78,6 @@ query news_article($base_path: String!) {
             }
           }
           title
-        }
-        related {
-          ...RelatedItem
-        }
-        related_guides {
-          ...RelatedItem
-        }
-        related_mainstream_content {
-          ...RelatedItem
-        }
-        related_statistical_data_sets {
-          ...RelatedItem
         }
         suggested_ordered_related_items {
           ...RelatedItem

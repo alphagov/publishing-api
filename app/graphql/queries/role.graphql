@@ -3,6 +3,7 @@ query role($base_path: String!) {
     ... on Edition {
       base_path
       content_id
+      description
       document_type
       first_published_at
       locale
@@ -21,7 +22,9 @@ query role($base_path: String!) {
       links {
         available_translations {
           base_path
+          content_id
           locale
+          title
         }
 
         role_appointments {
