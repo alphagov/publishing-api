@@ -3,6 +3,7 @@ query ministers_index($base_path: String!) {
     ... on MinistersIndex {
       base_path
       content_id
+      description
       document_type
       first_published_at
       locale
@@ -10,6 +11,7 @@ query ministers_index($base_path: String!) {
       publishing_app
       rendering_app
       schema_name
+      title
       updated_at
 
       details {

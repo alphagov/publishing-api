@@ -1,7 +1,9 @@
 query world_index($base_path: String!) {
   edition(base_path: $base_path) {
     ... on Edition {
+      base_path
       content_id
+      description
       document_type
       first_published_at
       locale
@@ -19,6 +21,15 @@ query world_index($base_path: String!) {
 
         international_delegations {
           ...worldLocationInfo
+        }
+      }
+
+      links {
+        available_translations {
+          base_path
+          content_id
+          locale
+          title
         }
       }
     }
