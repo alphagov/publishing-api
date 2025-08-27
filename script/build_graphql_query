@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path("../", File.dirname(__FILE__))
+
+require "config/environment"
+
+def usage_and_abort
+  abort("Usage:\n\t#{$PROGRAM_NAME} a_schema_name")
+end
+
+def validate_schema_name!(schema_name)
+  GovukSchemas::Schema.find(publisher_schema: schema_name)
+rescue Errno::ENOENT
+  warn("Error: is that meant to be a schema name?")
+  usage_and_abort
+end
+
+schema_name = ARGV[0]
+
+validate_schema_name!(schema_name)
+
+query_filename = "app/graphql/queries/#{schema_name}.graphql"
+
+query_builder = GraphqlQueryBuilder.new(schema_name)
+query = query_builder.build_query
+
+File.open(query_filename, "w") { |f| f.puts(query) }
+
+puts("👍")
