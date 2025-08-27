@@ -77,6 +77,7 @@ module PublishingAPI
       ka
       kk
       ko
+      ku
       ky
       lt
       lv
@@ -102,6 +103,7 @@ module PublishingAPI
       sw
       ta
       th
+      ti
       tk
       tr
       uk
