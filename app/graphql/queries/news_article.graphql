@@ -12,13 +12,7 @@ query news_article($base_path: String!) {
         change_history
         emphasised_organisations
         first_public_at
-        image {
-          alt_text
-          caption
-          credit
-          high_resolution_url
-          url
-        }
+        image
         political
       }
       document_type
@@ -72,10 +66,7 @@ query news_article($base_path: String!) {
         primary_publishing_organisation {
           base_path
           details {
-            default_news_image {
-              alt_text
-              url
-            }
+            default_news_image
           }
           title
         }

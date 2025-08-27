@@ -15,13 +15,8 @@ query world_index($base_path: String!) {
       updated_at
 
       details {
-        world_locations {
-          ...worldLocationInfo
-        }
-
-        international_delegations {
-          ...worldLocationInfo
-        }
+        world_locations
+        international_delegations
       }
 
       links {
@@ -34,10 +29,4 @@ query world_index($base_path: String!) {
       }
     }
   }
-}
-
-fragment worldLocationInfo on Edition {
-  active
-  name
-  slug
 }

@@ -17,14 +17,9 @@ module Types
         class MinistersIndexRoleAppointmentLinks < Types::BaseObject
           class MinistersIndexRole < Types::BaseObject
             class MinistersIndexRoleDetails < Types::BaseObject
-              class MinistersIndexRoleDetailsWhipOrganisation < Types::BaseObject
-                field :label, String
-                field :sort_order, Integer
-              end
-
               field :role_payment_type, String
               field :seniority, Integer
-              field :whip_organisation, MinistersIndexRoleDetailsWhipOrganisation
+              field :whip_organisation, GraphQL::Types::JSON
             end
 
             class MinistersIndexRoleLinks < Types::BaseObject
@@ -58,7 +53,7 @@ module Types
       end
 
       class MinistersIndexPersonDetails < Types::BaseObject
-        field :image, EditionType::Details::Image
+        field :image, GraphQL::Types::JSON
         field :privy_counsellor, Boolean
       end
 
@@ -85,7 +80,7 @@ module Types
 
       class DepartmentDetails < Types::BaseObject
         field :brand, String
-        field :logo, EditionType::Details::Logo
+        field :logo, GraphQL::Types::JSON
       end
 
       class DepartmentLinks < Types::BaseObject

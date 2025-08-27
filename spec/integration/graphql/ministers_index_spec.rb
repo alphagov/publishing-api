@@ -69,10 +69,7 @@ RSpec.describe "GraphQL" do
                   details {
                     brand
 
-                    logo {
-                      crest
-                      formatted_title
-                    }
+                    logo
                   }
 
                   links {
@@ -98,10 +95,7 @@ RSpec.describe "GraphQL" do
           details {
             privy_counsellor
 
-            image {
-              url
-              alt_text
-            }
+            image
           }
 
           links {
@@ -119,10 +113,7 @@ RSpec.describe "GraphQL" do
                   details {
                     role_payment_type
                     seniority
-                    whip_organisation {
-                      label
-                      sort_order
-                    }
+                    whip_organisation
                   }
                 }
               }

@@ -125,36 +125,18 @@ module Types
     end
 
     class Details < Types::BaseObject
-      class Image < Types::BaseObject
-        field :alt_text, String
-        field :caption, String
-        field :credit, String
-        field :high_resolution_url, String
-        field :url, String
-      end
-
-      class Logo < Types::BaseObject
-        field :crest, String
-        field :formatted_title, String
-      end
-
-      class WhipOrganisation < Types::BaseObject
-        field :label, String
-        field :sort_order, Integer
-      end
-
       field :body, String
       field :brand, String
       field :change_history, GraphQL::Types::JSON
       field :current, Boolean
-      field :default_news_image, Image
+      field :default_news_image, GraphQL::Types::JSON
       field :display_date, Types::ContentApiDatetime
       field :emphasised_organisations, GraphQL::Types::JSON
       field :ended_on, Types::ContentApiDatetime
       field :first_public_at, Types::ContentApiDatetime
-      field :image, Image
-      field :international_delegations, [EditionType], null: false
-      field :logo, Logo
+      field :image, GraphQL::Types::JSON
+      field :international_delegations, [GraphQL::Types::JSON], null: false
+      field :logo, GraphQL::Types::JSON
       field :political, Boolean
       field :privy_counsellor, Boolean
       field :reshuffle, GraphQL::Types::JSON
@@ -163,8 +145,8 @@ module Types
       field :started_on, Types::ContentApiDatetime
       field :supports_historical_accounts, Boolean
       field :url_override, String
-      field :whip_organisation, WhipOrganisation
-      field :world_locations, [EditionType], null: false
+      field :whip_organisation, GraphQL::Types::JSON
+      field :world_locations, [GraphQL::Types::JSON], null: false
     end
 
     field :active, Boolean, null: false

@@ -55,10 +55,7 @@ query ministers_index($base_path: String!) {
           details {
             brand
 
-            logo {
-              crest
-              formatted_title
-            }
+            logo
           }
 
           links {
@@ -84,10 +81,7 @@ fragment basePersonInfo on MinistersIndexPerson {
   details {
     privy_counsellor
 
-    image {
-      url
-      alt_text
-    }
+    image
   }
 
   links {
@@ -105,10 +99,7 @@ fragment basePersonInfo on MinistersIndexPerson {
           details {
             role_payment_type
             seniority
-            whip_organisation {
-              label
-              sort_order
-            }
+            whip_organisation
           }
         }
       }
