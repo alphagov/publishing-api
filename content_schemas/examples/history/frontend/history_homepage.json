@@ -1,0 +1,207 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/history/history-of-the-uk-government",
+  "content_id": "3ac5d7e0-87f3-48dd-8822-13d67454e6a4",
+  "description": "You can read short biographies of notable people and the history of government buildings, or search our online records and read articles by historians.",
+  "details": {
+    "lead_paragraph": "In this section you can read short biographies of <a href=\"#notable-people\" class=\"govuk-link\">notable people</a> and explore the history of <a href=\"#government-buildings\" class=\"govuk-link\">government buildings</a>. You can also search our <a href=\"#documents-records\" class=\"govuk-link\">online records</a> and read <a href=\"#articles-and-blog-posts\" class= \"govuk-link\">articles and blog posts</a> by historians.",
+    "body": "<div class=\"govspeak\"><h2 id=\"why-is-history-important\">Why is history important?</h2> \n \n<figure class=\"image embedded\"><div class=\"img\"><img src=\"https://assets.integration.publishing.service.gov.uk/media/68add4c217fa95bc3a35a5a3/shotter-boys.jpg\" alt=\"\"></div> \n<figcaption><p>Thomas Shotter Boys – A View of the Horse Guards from Whitehall. Government Art Collection.</p></figcaption></figure> \n \n<p>Governments are remembered for their leaders and the course they set for their country. The British government has a long and fascinating history, and exploring its past can help us understand how it is run today.</p> \n \n<p>The information here provides a starting point for research. It includes objective factual content and research carried out by independent and civil service historians.</p> \n \n<h2 id=\"notable-people\">Notable people</h2> \n \n<figure class=\"image embedded\"><div class=\"img\"><img src=\"https://assets.integration.publishing.service.gov.uk/media/68add4d517fa95bc3a35a5a9/churchill.jpg\" alt=\"\"></div></figure> \n \n<p>You can find out about the life and achievements of those who have led the government as Prime Minister, alongside those who have held the roles of Chancellor and Foreign Secretary.</p> \n \n<ul> \n  <li><a href=\"/government/history/past-prime-ministers\">Prime Ministers</a></li> \n  <li><a href=\"/government/history/past-chancellors\">Chancellors</a></li> \n  <li><a href=\"/government/history/past-foreign-secretaries\">Foreign Secretaries</a></li> \n</ul> \n \n<h2 id=\"government-buildings\">Government buildings</h2> \n \n<figure class=\"image embedded\"><div class=\"img\"><img src=\"https://assets.integration.publishing.service.gov.uk/media/68add4e0dea050834e35a5a8/government-buildings.jpg\" alt=\"\"></div></figure> \n \n<p>Number 10 Downing Street is the best known government building, but there are others that play a role in the day-to-day business of government and have had a significant role in our history.</p> \n \n<p>You can learn more about the background and take tours of several of the buildings used by government on Whitehall and around the UK.</p> \n \n<ul> \n  <li><a href=\"/government/history/10-downing-street\">10 Downing Street</a></li> \n  <li><a href=\"/government/history/11-downing-street\">11 Downing Street</a></li> \n  <li><a href=\"/government/history/king-charles-street\">King Charles Street (FCDO)</a></li> \n  <li><a href=\"/government/history/lancaster-house\">Lancaster House (FCDO)</a></li> \n  <li><a href=\"/government/publications/history-of-the-ministry-of-defence\">Ministry of Defence, Whitehall</a></li> \n  <li><a href=\"/government/history/1-horse-guards-road\">1 Horse Guards Road</a></li> \n  <li><a href=\"/hillsborough-castle\">Hillsborough Castle</a></li> \n</ul> \n \n<h2 id=\"documents-and-records\">Documents and records</h2> \n \n<figure class=\"image embedded\"><div class=\"img\"><img src=\"https://assets.integration.publishing.service.gov.uk/media/68add4eadea050834e35a5ab/historical-documents.jpg\" alt=\"\"></div></figure> \n \n<p>The National Archives is preserving UK government information from letters and treaties to web pages Cabinet papers. You can search the archive, or browse the themed collections.</p> \n \n<p>You can also explore the Government Art Collection online, which contains over 13,500 works of art, mainly from British artists.</p> \n \n<ul> \n  <li><a rel=\"external\" href=\"http://www.nationalarchives.gov.uk/webarchive/\">The National Archives: UK Government Web Archive</a></li> \n  <li><a rel=\"external\" href=\"http://www.number10.gov.uk/history-and-tour/government-art-collection-at-number-10/\">Government Art Collection</a></li> \n</ul> \n \n<h2 id=\"articles-and-blog-posts\">Articles and blog posts</h2> \n \n<p>Some government departments, including Number 10 and the Foreign, Commonwealth &amp; Development Office, write or commission articles and research to improve our knowledge of the history of the British government.</p> \n \n<p>Find out more on the <a rel=\"external\" href=\"http://history.blog.gov.uk/\">history of government blog</a>.</p> \n \n<h2 id=\"more-sources\">More sources</h2> \n \n<p>Many institutions in the UK, including universities, museums and libraries, hold information about the history of our government. The following websites may be useful for further research:</p> \n \n<ul> \n  <li><a rel=\"external\" href=\"https://www.parliament.uk/about/living-heritage/\">Parliament - Living Heritage</a></li> \n  <li><a rel=\"external\" href=\"https://www.bl.uk/\">The British Library</a></li> \n</ul> \n</div>",
+    "headers": [
+      {
+        "id": "why-is-history-important",
+        "level": 2,
+        "text": "Why is history important?"
+      },
+      {
+        "id": "notable-people",
+        "level": 2,
+        "text": "Notable people"
+      },
+      {
+        "id": "government-buildings",
+        "level": 2,
+        "text": "Government buildings"
+      },
+      {
+        "id": "documents-and-records",
+        "level": 2,
+        "text": "Documents and records"
+      },
+      {
+        "id": "articles-and-blog-posts",
+        "level": 2,
+        "text": "Articles and blog posts"
+      },
+      {
+        "id": "more-sources",
+        "level": 2,
+        "text": "More sources"
+      }
+    ]
+  },
+  "document_type": "history",
+  "first_published_at": "2016-07-27T10:24:31+01:00",
+  "links": {
+    "available_translations": [
+      {
+        "api_path": "/api/content/government/history/history-of-the-uk-government",
+        "api_url": "https://www.gov.uk/api/content/government/history/history-of-the-uk-government",
+        "base_path": "/government/history/history-of-the-uk-government",
+        "content_id": "3ac5d7e0-87f3-48dd-8822-13d67454e6a4",
+        "document_type": "history",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-02-09T10:32:48Z",
+        "schema_name": "history",
+        "title": "History of the UK government",
+        "web_url": "https://www.gov.uk/government/history/history-of-the-uk-government",
+        "withdrawn": false
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "details": {
+          "acronym": "GDS",
+          "brand": "government-digital-service",
+          "default_news_image": null,
+          "logo": {
+            "crest": "gds",
+            "formatted_title": "Government\u003Cbr/\u003EDigital Service"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Government Digital Service",
+        "web_url": "https://www.gov.uk/government/organisations/government-digital-service",
+        "withdrawn": false
+      },
+      {
+        "analytics_identifier": "OT532",
+        "api_path": "/api/content/government/organisations/prime-ministers-office-10-downing-street",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/prime-ministers-office-10-downing-street",
+        "base_path": "/government/organisations/prime-ministers-office-10-downing-street",
+        "content_id": "705dbea4-8bd7-422e-ba9c-254557f77f81",
+        "details": {
+          "acronym": "Number 10",
+          "brand": "prime-ministers-office-10-downing-street",
+          "default_news_image": {
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/media/5a37daeaed915d5a5f96602b/s960_number10.jpg",
+            "url": "https://assets.publishing.service.gov.uk/media/5a37dae940f0b649cceb1841/s300_number10.jpg"
+          },
+          "logo": {
+            "crest": "eo",
+            "formatted_title": "Prime Minister&#39;s Office \u003Cbr/\u003E10 Downing Street"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Prime Minister's Office, 10 Downing Street",
+        "web_url": "https://www.gov.uk/government/organisations/prime-ministers-office-10-downing-street",
+        "withdrawn": false
+      }
+    ],
+    "suggested_ordered_related_items": [
+      {
+        "api_path": "/api/content/government/history/11-downing-street",
+        "api_url": "https://www.gov.uk/api/content/government/history/11-downing-street",
+        "base_path": "/government/history/11-downing-street",
+        "content_id": "9bdb6017-48c9-4590-b795-3c19d5e59320",
+        "document_type": "history",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-02-09T10:32:48Z",
+        "schema_name": "history",
+        "title": "History of 11 Downing Street",
+        "web_url": "https://www.gov.uk/government/history/11-downing-street",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/history",
+        "api_url": "https://www.gov.uk/api/content/government/history",
+        "base_path": "/government/history",
+        "content_id": "db95a864-874f-4f50-a483-352a5bc7ba18",
+        "document_type": "history",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-02-09T10:32:49Z",
+        "schema_name": "history",
+        "title": "History of the UK government",
+        "web_url": "https://www.gov.uk/government/history",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/guidance/hillsborough-castle",
+        "api_url": "https://www.gov.uk/api/content/guidance/hillsborough-castle",
+        "base_path": "/guidance/hillsborough-castle",
+        "content_id": "5d602a38-7631-11e4-a3cb-005056011aef",
+        "document_type": "detailed_guide",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2015-03-26T14:46:24Z",
+        "schema_name": "detailed_guide",
+        "title": "Guide to Hillsborough Castle",
+        "web_url": "https://www.gov.uk/guidance/hillsborough-castle",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/history/king-charles-street",
+        "api_url": "https://www.gov.uk/api/content/government/history/king-charles-street",
+        "base_path": "/government/history/king-charles-street",
+        "content_id": "bd216990-c550-4d28-ac05-649329298601",
+        "document_type": "history",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-02-09T10:32:49Z",
+        "schema_name": "history",
+        "title": "History of King Charles Street (FCDO)",
+        "web_url": "https://www.gov.uk/government/history/king-charles-street",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/government/publications/public-service-vehicle-fees",
+        "api_url": "https://www.gov.uk/api/content/government/publications/public-service-vehicle-fees",
+        "base_path": "/government/publications/public-service-vehicle-fees",
+        "content_id": "5e2a3f19-7631-11e4-a3cb-005056011aef",
+        "document_type": "guidance",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-08-01T12:46:37Z",
+        "schema_name": "publication",
+        "title": "Vehicle test and certificate costs: buses and coaches",
+        "web_url": "https://www.gov.uk/government/publications/public-service-vehicle-fees",
+        "withdrawn": false
+      }
+    ]
+  },
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2024-02-09T10:32:48+00:00",
+  "publishing_app": "whitehall",
+  "publishing_request_id": "21-1707474768.850-10.13.35.253-617",
+  "publishing_scheduled_at": null,
+  "rendering_app": "frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "history",
+  "title": "History of the UK government",
+  "updated_at": "2025-06-25T10:49:57+01:00",
+  "withdrawn_notice": {}
+}

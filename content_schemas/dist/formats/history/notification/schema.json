@@ -377,6 +377,10 @@
         "headers": {
           "$ref": "#/definitions/nested_headers"
         },
+        "lead_paragraph": {
+          "description": "Optional text that appears above the main content",
+          "type": "string"
+        },
         "sidebar_image": {
           "$ref": "#/definitions/image"
         }
