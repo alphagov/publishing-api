@@ -6,6 +6,10 @@
       additionalProperties: false,
       required: ["body"],
       properties: {
+        lead_paragraph: {
+          description: "Optional text that appears above the main content",
+          type: "string",
+        },
         body: {
           "$ref": "#/definitions/body"
         },
