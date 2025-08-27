@@ -9,7 +9,7 @@ module Queries
       result = result.where("created_at >= ?", from) if from.present?
       result = result.where("created_at <= ?", to) if to.present?
 
-      result
+      result.order(:id)
     end
 
   private
