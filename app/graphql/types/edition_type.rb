@@ -125,32 +125,237 @@ module Types
     end
 
     class Details < Types::BaseObject
+      field :about_page_link_text, GraphQL::Types::JSON
+      field :access_and_opening_times, GraphQL::Types::JSON
+      field :acronym, String
+      field :alert_status, GraphQL::Types::JSON
+      field :alternative_format_contact_email, GraphQL::Types::JSON
+      field :appointments_without_historical_accounts, GraphQL::Types::JSON
+      field :attachments, [GraphQL::Types::JSON]
+      field :attends_cabinet_type, GraphQL::Types::JSON
+      field :beta_message, GraphQL::Types::JSON
+      field :beta, GraphQL::Types::JSON
+      field :blocks, GraphQL::Types::JSON
       field :body, String
+      field :born, GraphQL::Types::JSON
       field :brand, String
+      field :breadcrumbs, GraphQL::Types::JSON
+      field :brexit_no_deal_notice, GraphQL::Types::JSON
+      field :cancellation_reason, GraphQL::Types::JSON
+      field :cancelled_at, GraphQL::Types::JSON
+      field :casualties, GraphQL::Types::JSON
+      field :change_description, GraphQL::Types::JSON
       field :change_history, GraphQL::Types::JSON
+      field :change_note, GraphQL::Types::JSON
+      field :change_notes, GraphQL::Types::JSON
+      field :child_section_groups, GraphQL::Types::JSON
+      field :choose_sign_in, GraphQL::Types::JSON
+      field :closing_date, GraphQL::Types::JSON
+      field :collection_groups, GraphQL::Types::JSON
+      field :collections, GraphQL::Types::JSON
+      field :combine_mode, GraphQL::Types::JSON
+      field :contact_form_links, [GraphQL::Types::JSON]
+      field :contact_groups, GraphQL::Types::JSON
+      field :contact_type, GraphQL::Types::JSON
+      field :corporate_information_groups, GraphQL::Types::JSON
+      field :country, GraphQL::Types::JSON
       field :current, Boolean
+      field :dates_in_office, GraphQL::Types::JSON
+      field :default_documents_per_page, GraphQL::Types::JSON
       field :default_news_image, GraphQL::Types::JSON
+      field :default_order, GraphQL::Types::JSON
+      field :delivered_on, GraphQL::Types::JSON
+      field :department_analytics_profile, GraphQL::Types::JSON
+      field :department_counts, GraphQL::Types::JSON
+      field :description, String
+      field :died, GraphQL::Types::JSON
+      field :display_as_result_metadata, GraphQL::Types::JSON
       field :display_date, Types::ContentApiDatetime
+      field :document_noun, GraphQL::Types::JSON
+      field :document, GraphQL::Types::JSON
+      field :document_type_label, GraphQL::Types::JSON
+      field :documents, GraphQL::Types::JSON
+      field :downtime_message, String
+      field :email_address, GraphQL::Types::JSON
+      field :email_addresses, [GraphQL::Types::JSON]
+      field :email_filter_by, GraphQL::Types::JSON
+      field :email_filter_facets, GraphQL::Types::JSON
+      field :email_signup_link, GraphQL::Types::JSON
+      field :email, GraphQL::Types::JSON
       field :emphasised_organisations, GraphQL::Types::JSON
+      field :end_date, GraphQL::Types::JSON
       field :ended_on, Types::ContentApiDatetime
+      field :external_related_links, GraphQL::Types::JSON
+      field :facets, GraphQL::Types::JSON
+      field :featured_attachments, GraphQL::Types::JSON
+      field :filter_key, GraphQL::Types::JSON
+      field :filter, GraphQL::Types::JSON
+      field :filterable, GraphQL::Types::JSON
+      field :final_outcome_attachments, GraphQL::Types::JSON
+      field :final_outcome_detail, GraphQL::Types::JSON
+      field :final_outcome_documents, GraphQL::Types::JSON
       field :first_public_at, Types::ContentApiDatetime
+      field :first_published_version, GraphQL::Types::JSON
+      field :foi_exempt, GraphQL::Types::JSON
+      field :format_display_type, GraphQL::Types::JSON
+      field :format_name, GraphQL::Types::JSON
+      field :format_sub_type, GraphQL::Types::JSON
+      field :full_name, GraphQL::Types::JSON
+      field :govdelivery_title, GraphQL::Types::JSON
+      field :government, GraphQL::Types::JSON
+      field :groups, GraphQL::Types::JSON
+      field :header_links, GraphQL::Types::JSON
+      field :header_section, GraphQL::Types::JSON
+      field :headers, GraphQL::Types::JSON
+      field :headings, GraphQL::Types::JSON
+      field :held_on_another_website_url, GraphQL::Types::JSON
+      field :hidden_search_terms, GraphQL::Types::JSON
+      field :hide_chapter_navigation, GraphQL::Types::JSON
       field :image, GraphQL::Types::JSON
+      field :important_board_members, GraphQL::Types::JSON
+      field :interesting_facts, GraphQL::Types::JSON
+      field :internal_name, String
       field :international_delegations, [GraphQL::Types::JSON], null: false
+      field :introduction, GraphQL::Types::JSON
+      field :introductory_paragraph, GraphQL::Types::JSON
+      field :key, GraphQL::Types::JSON
+      field :label_text, GraphQL::Types::JSON
+      field :label, GraphQL::Types::JSON
+      field :language, GraphQL::Types::JSON
+      field :latest_change_note, GraphQL::Types::JSON
+      field :lgil_code, GraphQL::Types::JSON
+      field :lgsl_code, GraphQL::Types::JSON
+      field :link_items, GraphQL::Types::JSON
+      field :location, GraphQL::Types::JSON
       field :logo, GraphQL::Types::JSON
+      field :major_acts, GraphQL::Types::JSON
+      field :manual, GraphQL::Types::JSON
+      field :mapped_specialist_topic_content_id, GraphQL::Types::JSON
+      field :max_cache_time, GraphQL::Types::JSON
+      field :metadata, GraphQL::Types::JSON
+      field :ministerial_role_counts, GraphQL::Types::JSON
+      field :mission_statement, GraphQL::Types::JSON
+      field :more_info_contact_form, GraphQL::Types::JSON
+      field :more_info_email_address, GraphQL::Types::JSON
+      field :more_info_phone_number, GraphQL::Types::JSON
+      field :more_info_post_address, GraphQL::Types::JSON
+      field :more_info_webchat, GraphQL::Types::JSON
+      field :more_information, GraphQL::Types::JSON
+      field :name, GraphQL::Types::JSON
+      field :national_applicability, GraphQL::Types::JSON
+      field :navigation_groups, GraphQL::Types::JSON
+      field :need_to_know, GraphQL::Types::JSON
+      field :nodes, GraphQL::Types::JSON
+      field :northern_ireland_availability, GraphQL::Types::JSON
+      field :notes_for_editors, String
+      field :office_contact_associations, GraphQL::Types::JSON
+      field :open_filter_on_load, GraphQL::Types::JSON
+      field :opening_date, GraphQL::Types::JSON
+      field :ordered_agencies_and_other_public_bodies, GraphQL::Types::JSON
+      field :ordered_corporate_information_pages, GraphQL::Types::JSON
+      field :ordered_devolved_administrations, GraphQL::Types::JSON
+      field :ordered_executive_offices, GraphQL::Types::JSON
+      field :ordered_featured_documents, GraphQL::Types::JSON
+      field :ordered_featured_links, GraphQL::Types::JSON
+      field :ordered_high_profile_groups, GraphQL::Types::JSON
+      field :ordered_ministerial_departments, GraphQL::Types::JSON
+      field :ordered_non_ministerial_departments, GraphQL::Types::JSON
+      field :ordered_promotional_features, GraphQL::Types::JSON
+      field :ordered_public_corporations, GraphQL::Types::JSON
+      field :ordered_second_level_browse_pages, GraphQL::Types::JSON
+      field :ordering, GraphQL::Types::JSON
+      field :organisation_featuring_priority, GraphQL::Types::JSON
+      field :organisation_govuk_status, String
+      field :organisation_political, GraphQL::Types::JSON
+      field :organisation_type, GraphQL::Types::JSON
+      field :organisation, GraphQL::Types::JSON
+      field :organisations, GraphQL::Types::JSON
+      field :other_ways_to_apply, GraphQL::Types::JSON
+      field :outcome_attachments, GraphQL::Types::JSON
+      field :outcome_detail, GraphQL::Types::JSON
+      field :outcome_documents, GraphQL::Types::JSON
+      field :parts, GraphQL::Types::JSON
+      field :people_role_associations, GraphQL::Types::JSON
+      field :person_appointment_order, GraphQL::Types::JSON
+      field :phone_numbers, [GraphQL::Types::JSON]
+      field :place_type, GraphQL::Types::JSON
+      field :political_party, GraphQL::Types::JSON
       field :political, Boolean
+      field :post_addresses, [GraphQL::Types::JSON]
+      field :preposition, GraphQL::Types::JSON
+      field :previous_display_date, GraphQL::Types::JSON
       field :privy_counsellor, Boolean
+      field :promotion, GraphQL::Types::JSON
+      field :public_feedback_attachments, GraphQL::Types::JSON
+      field :public_feedback_detail, GraphQL::Types::JSON
+      field :public_feedback_documents, GraphQL::Types::JSON
+      field :public_feedback_publication_date, GraphQL::Types::JSON
+      field :public_timestamp, GraphQL::Types::JSON
+      field :query_response_time, GraphQL::Types::JSON
+      field :quick_links, GraphQL::Types::JSON
+      field :rates, GraphQL::Types::JSON
+      field :read_more, GraphQL::Types::JSON
+      field :reject, GraphQL::Types::JSON
+      field :related_mainstream_content, GraphQL::Types::JSON
+      field :reshuffle_in_progress, GraphQL::Types::JSON
       field :reshuffle, GraphQL::Types::JSON
+      field :reviewed_at, GraphQL::Types::JSON
       field :role_payment_type, String
+      field :roll_call_introduction, GraphQL::Types::JSON
+      field :second_level_ordering, GraphQL::Types::JSON
+      field :secondary_corporate_information_pages, GraphQL::Types::JSON
+      field :section_id, GraphQL::Types::JSON
+      field :sections, GraphQL::Types::JSON
       field :seniority, Integer
+      field :service_tiers, GraphQL::Types::JSON
+      field :services, GraphQL::Types::JSON
+      field :short_name, GraphQL::Types::JSON
+      field :show_description, GraphQL::Types::JSON
+      field :show_metadata_block, GraphQL::Types::JSON
+      field :show_summaries, GraphQL::Types::JSON
+      field :show_table_of_contents, GraphQL::Types::JSON
+      field :signup_link, GraphQL::Types::JSON
+      field :slug, GraphQL::Types::JSON
+      field :social_media_links, GraphQL::Types::JSON
+      field :sort, GraphQL::Types::JSON
+      field :speaker_without_profile, GraphQL::Types::JSON
+      field :speech_type_explanation, GraphQL::Types::JSON
+      field :start_button_text, GraphQL::Types::JSON
+      field :start_date, GraphQL::Types::JSON
       field :started_on, Types::ContentApiDatetime
+      field :state, GraphQL::Types::JSON
+      field :step_by_step_nav, GraphQL::Types::JSON
+      field :subscriber_list, GraphQL::Types::JSON
+      field :subscription_list_title_prefix, GraphQL::Types::JSON
+      field :summary, GraphQL::Types::JSON
       field :supports_historical_accounts, Boolean
+      field :tags, GraphQL::Types::JSON
+      field :temporary_update_type, GraphQL::Types::JSON
+      field :theme, GraphQL::Types::JSON
+      field :title, String
+      field :transaction_start_link, GraphQL::Types::JSON
+      field :type, GraphQL::Types::JSON
+      field :updated_at, GraphQL::Types::JSON
       field :url_override, String
+      field :url, GraphQL::Types::JSON
+      field :value, GraphQL::Types::JSON
+      field :variants, GraphQL::Types::JSON
+      field :visible_to_departmental_editors, Boolean
+      field :visually_collapsed, GraphQL::Types::JSON
+      field :visually_expanded, GraphQL::Types::JSON
+      field :ways_to_respond, GraphQL::Types::JSON
+      field :what_you_need_to_know, GraphQL::Types::JSON
       field :whip_organisation, GraphQL::Types::JSON
+      field :will_continue_on, GraphQL::Types::JSON
+      field :world_location_names, [GraphQL::Types::JSON]
+      field :world_location_news_type, GraphQL::Types::JSON
       field :world_locations, [GraphQL::Types::JSON], null: false
     end
 
     field :active, Boolean, null: false
     field :analytics_identifier, String
+    field :api_path, String
+    field :api_url, String
     field :base_path, String
     field :change_history, GraphQL::Types::JSON
     field :content_id, ID
