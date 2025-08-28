@@ -191,6 +191,13 @@
   :rendering_app: "frontend"
   :override_existing: true
 
+- :base_path: "/government/history"
+  :content_id: "db95a864-874f-4f50-a483-352a5bc7ba18"
+  :title: "History of the UK government"
+  :description: "In this section you can read short biographies of notable people and explore the history of government buildings. You can also search our online records and read articles and blog posts by historians."
+  :rendering_app: "frontend"
+  :override_existing: true
+
 - :base_path: "/government/history/past-chancellors"
   :content_id: "ac47f738-b6c3-4369-8d22-ce143c947442"
   :title: "Past Chancellors of the Exchequer"
