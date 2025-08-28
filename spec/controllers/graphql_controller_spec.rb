@@ -171,6 +171,52 @@ RSpec.describe GraphqlController do
     end
   end
 
+  context "when requesting an exact route within a base_path" do
+    let!(:edition) do
+      create(
+        :live_edition,
+        base_path: "/base-path",
+        routes: [
+          { path: "/base-path", type: "exact" },
+          { path: "/base-path/exact", type: "exact" },
+        ],
+      )
+    end
+
+    let(:requested_path) { "/base-path/exact" }
+    let(:colliding_path) { "/does-not-collide" }
+
+    let!(:colliding_edition) do
+      create(
+        :live_edition,
+        base_path: colliding_path,
+      )
+    end
+
+    before do
+      get :live_content, params: { base_path: base_path_without_leading_slash(requested_path) }
+    end
+
+    it "returns a 303 See Other response" do
+      expect(response.status).to eq(303)
+    end
+
+    it "returns a redirect to the item by base_path" do
+      expect(response).to redirect_to("/graphql/content/base-path")
+    end
+
+    ## TODO: This doesn't seem possible in Publishing API, since there must be a route that matches the base path
+    context "and a different content item has the base_path of the route" do
+      let(:colliding_path) { "/base-path/exact" }
+      it "returns the colliding content item" do
+        expect(response.media_type).to eq("application/json")
+        expect(response.body).to eq(present(colliding_edition))
+      end
+    end
+
+    ## TODO: add tests for prefix routes
+  end
+
   def base_path_without_leading_slash(base_path)
     base_path.gsub(/^\//, "")
   end
