@@ -118,6 +118,7 @@ module Presenters
         edition.to_h[:details],
         change_history_presenter,
         content_embed_presenter,
+        expanded_link_set_presenter,
         locale: edition.locale,
       )
     end
