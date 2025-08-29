@@ -8,6 +8,7 @@
   "phase": "live",
   "public_updated_at": "2017-02-14T15:33:43.000+00:00",
   "publishing_app": "travel-advice-publisher",
+  "publishing_request_id": "30560-1487285522.281-51.6.236.25-42152",
   "schema_name": "travel_advice",
   "title": "Turkey travel advice",
   "updated_at": "2017-02-17T12:52:44.142Z",
@@ -513,7 +514,6 @@
       "id": "eafa9819-f395-4f2d-9236-4e5d573f9f1e",
       "url": "https://assets.publishing.service.gov.uk/media/57909c3ded915d3cfd00018d/FCO_311_-_Turkey_Travel_Advice_Ed6.pdf",
       "content_type": "application/pdf"
-    },
-    "publishing_request_id": "30560-1487285522.281-51.6.236.25-42152"
+    }
   }
 }

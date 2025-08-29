@@ -113,20 +113,11 @@ RSpec.describe "GraphQL" do
                 details {
                   body
                   change_history
-                  default_news_image {
-                    alt_text
-                    url
-                  }
+                  default_news_image
                   display_date
                   emphasised_organisations
                   first_public_at
-                  image {
-                    alt_text
-                    caption
-                    credit
-                    high_resolution_url
-                    url
-                  }
+                  image
                   political
                 }
                 document_type

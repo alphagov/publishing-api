@@ -244,9 +244,6 @@
         "parts": {
           "$ref": "#/definitions/parts"
         },
-        "publishing_request_id": {
-          "$ref": "#/definitions/publishing_request_id"
-        },
         "reviewed_at": {
           "type": "string",
           "format": "date-time"
@@ -536,17 +533,6 @@
         "tariff",
         "travel-advice-publisher",
         "whitehall"
-      ]
-    },
-    "publishing_request_id": {
-      "description": "A unique identifier used to track publishing requests to rendered content",
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
       ]
     },
     "rendering_app": {
