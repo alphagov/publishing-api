@@ -61,11 +61,31 @@ private
     ExpansionRules.is_reverse_link_type?(link_type)
   end
 
+  def is_a_top_level_link?(link_path)
+    link_path.size == 1
+  end
+
+  def any_of_these_exist_in_the_database?(direct_link_types)
+    direct_link_types.map { |direct_link_type|
+      Link.joins(target_documents: :live)
+        .where(
+          editions: { schema_name: @schema_name },
+          links: { link_type: direct_link_type },
+        ).exists?
+    }.inject(false) { |result, boolean| result || boolean }
+  end
+
   def build_links_query(link_path, links)
     link_type = link_path.last
 
     document_types = if is_reverse_link_type?(link_path)
                        flip_reversed_link_types = ExpansionRules.reverse_to_direct_link_type(link_type)
+
+                       # Content Schemas include a lot of irrelevant top-level
+                       # link types that all happen to be reverse link types
+                       if is_a_top_level_link?(link_path)
+                         return unless any_of_these_exist_in_the_database?(flip_reversed_link_types)
+                       end
 
                        flip_reversed_link_types
                          .flat_map {
