@@ -36,139 +36,6 @@ query transaction($base_path: String!) {
           title
           web_url
         }
-        child_taxons {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          description
-          document_type
-          links {
-            associated_taxons {
-              analytics_identifier
-              api_path
-              base_path
-              content_id
-              description
-              document_type
-              links {
-                associated_taxons {
-                  analytics_identifier
-                  api_path
-                  base_path
-                  content_id
-                  description
-                  document_type
-                  links {
-                    associated_taxons {
-                      analytics_identifier
-                      api_path
-                      base_path
-                      content_id
-                      description
-                      document_type
-                      links {
-                        associated_taxons {
-                          analytics_identifier
-                          api_path
-                          base_path
-                          content_id
-                          description
-                          document_type
-                          locale
-                          phase
-                          public_updated_at
-                          schema_name
-                          title
-                        }
-                      }
-                      locale
-                      phase
-                      public_updated_at
-                      schema_name
-                      title
-                    }
-                  }
-                  locale
-                  phase
-                  public_updated_at
-                  schema_name
-                  title
-                }
-              }
-              locale
-              phase
-              public_updated_at
-              schema_name
-              title
-            }
-            child_taxons {
-              analytics_identifier
-              api_path
-              base_path
-              content_id
-              description
-              document_type
-              links {
-                child_taxons {
-                  analytics_identifier
-                  api_path
-                  base_path
-                  content_id
-                  description
-                  document_type
-                  links {
-                    child_taxons {
-                      analytics_identifier
-                      api_path
-                      base_path
-                      content_id
-                      description
-                      document_type
-                      links {
-                        child_taxons {
-                          analytics_identifier
-                          api_path
-                          base_path
-                          content_id
-                          description
-                          document_type
-                          locale
-                          phase
-                          public_updated_at
-                          schema_name
-                          title
-                        }
-                      }
-                      locale
-                      phase
-                      public_updated_at
-                      schema_name
-                      title
-                    }
-                  }
-                  locale
-                  phase
-                  public_updated_at
-                  schema_name
-                  title
-                }
-              }
-              locale
-              phase
-              public_updated_at
-              schema_name
-              title
-            }
-          }
-          locale
-          phase
-          public_updated_at
-          schema_name
-          title
-          web_url
-        }
         children {
           analytics_identifier
           api_path
@@ -265,21 +132,6 @@ query transaction($base_path: String!) {
           title
           web_url
         }
-        level_one_taxons {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          description
-          document_type
-          locale
-          phase
-          public_updated_at
-          schema_name
-          title
-          web_url
-        }
         mainstream_browse_pages {
           analytics_identifier
           api_path
@@ -288,63 +140,6 @@ query transaction($base_path: String!) {
           content_id
           description
           document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
-        }
-        ministers {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          details {
-            body
-            role_payment_type
-            seniority
-            whip_organisation
-          }
-          document_type
-          links {
-            role_appointments {
-              analytics_identifier
-              api_path
-              base_path
-              content_id
-              details {
-                started_on
-                ended_on
-                current
-                person_appointment_order
-                political_party
-                dates_in_office
-              }
-              document_type
-              links {
-                person {
-                  analytics_identifier
-                  api_path
-                  base_path
-                  content_id
-                  details {
-                    body
-                    image
-                  }
-                  document_type
-                  locale
-                  public_updated_at
-                  schema_name
-                  title
-                }
-              }
-              locale
-              public_updated_at
-              schema_name
-              title
-            }
-          }
           locale
           public_updated_at
           schema_name
@@ -657,19 +452,6 @@ query transaction($base_path: String!) {
           details {
             step_by_step_nav
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
-        }
-        policies {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
           document_type
           locale
           public_updated_at
