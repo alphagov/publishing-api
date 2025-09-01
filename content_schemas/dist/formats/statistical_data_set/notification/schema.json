@@ -788,10 +788,6 @@
             "parliamentary_session": {
               "type": "string"
             },
-            "preview_url": {
-              "type": "string",
-              "format": "uri"
-            },
             "title": {
               "type": "string"
             },
