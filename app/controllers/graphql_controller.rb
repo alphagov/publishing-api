@@ -14,17 +14,18 @@ class GraphqlController < ApplicationController
   def live_content
     execute_in_read_replica do
       begin
+        set_cache_headers
+
         encoded_base_path = Addressable::URI.encode("/#{params[:base_path]}")
+        edition = EditionFinderService.new(Edition.live).find(encoded_base_path)
+        return head :not_found unless edition
 
-        schema_name = Edition.live.find_by(base_path: encoded_base_path)&.schema_name
-
-        unless schema_name
-          set_cache_headers
-          return head :not_found
+        if edition.base_path != encoded_base_path
+          return redirect_to graphql_live_content_path(base_path: edition.base_path.gsub(/^\//, "")), status: :see_other
         end
 
         begin
-          query = File.read(Rails.root.join("app/graphql/queries/#{schema_name}.graphql"))
+          query = File.read(Rails.root.join("app/graphql/queries/#{edition.schema_name}.graphql"))
         rescue Errno::ENOENT
           return head :not_found
         end
@@ -40,7 +41,6 @@ class GraphqlController < ApplicationController
                         200
                       end
 
-        set_cache_headers
         render json: content_item, status: http_status
       end
     rescue Addressable::URI::InvalidURIError

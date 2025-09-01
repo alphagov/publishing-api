@@ -12,8 +12,10 @@ RSpec.describe GraphqlController do
         )
       end
 
+      let(:request_path) { base_path_without_leading_slash(edition.base_path) }
+
       before do
-        get :live_content, params: { base_path: base_path_without_leading_slash(edition.base_path) }
+        get :live_content, params: { base_path: request_path }
       end
 
       it "returns a 200 OK response" do
@@ -35,6 +37,31 @@ RSpec.describe GraphqlController do
 
       it "sets a cache-control directive of public" do
         expect(cache_control["public"]).to eq(true)
+      end
+
+      context "but the requested route does not match the base_path" do
+        let(:edition) do
+          create(
+            :live_edition,
+            base_path: "/base-path",
+            document_type: "news_story",
+            routes: [
+              { path: "/base-path", type: "exact" },
+              { path: "/base-path/exact", type: "exact" },
+            ],
+            schema_name: "news_article",
+          )
+        end
+
+        let(:request_path) { base_path_without_leading_slash(edition.routes.second[:path]) }
+
+        it "returns a 303 See Other response" do
+          expect(response.status).to eq(303)
+        end
+
+        it "returns a redirect to the item by base_path" do
+          expect(response).to redirect_to("/graphql/content/base-path")
+        end
       end
     end
 
@@ -168,6 +195,14 @@ RSpec.describe GraphqlController do
       expect(JSON.parse(response.body)).to eq({
         "details" => { "something" => "jason!" },
       })
+    end
+
+    it "defers to a service to find the correct edition" do
+      expect_any_instance_of(EditionFinderService).to receive(:find)
+
+      get :live_content, params: {
+        base_path: base_path_without_leading_slash("/base-path"),
+      }
     end
   end
 
