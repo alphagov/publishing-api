@@ -23,7 +23,6 @@ local FileAttachmentAssetProperties = {
   id: { type: "string" },
   locale: { "$ref": "#/definitions/locale", },
   number_of_pages: { type: "integer", },
-  preview_url: { type: "string", format: "uri", },
   title: { type: "string", },
   url: { type: "string", format: "uri", },
 };
