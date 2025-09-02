@@ -77,6 +77,8 @@ function prepare_html() {
     esac
   done
 
+  # TODO: use graphql=false to ensure we're not hitting GraphQL through the A/B
+  # test
   curl_and_strip_hashes \
     --curl-path "$base_path" \
     --output-path tmp/diff_graphql/content_store_response.html \
