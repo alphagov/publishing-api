@@ -6,6 +6,8 @@ function curl_and_strip_hashes() {
       --curl-path) local curl_path=$2; shift 2;;
       --environment)
         case $2 in
+          # TODO: support development (for HTML diffs) - we'll need to add
+          # support for specifying a frontend app in development
           i|integration) local domain='https://www.integration.publishing.service.gov.uk';;
           p|production) local domain='https://www.gov.uk';;
           s|staging) local domain='https://www.staging.publishing.service.gov.uk';;
