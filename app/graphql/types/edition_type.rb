@@ -265,7 +265,7 @@ module Types
       field :ordered_second_level_browse_pages, GraphQL::Types::JSON
       field :ordering, GraphQL::Types::JSON
       field :organisation_featuring_priority, GraphQL::Types::JSON
-      field :organisation_govuk_status, String
+      field :organisation_govuk_status, GraphQL::Types::JSON
       field :organisation_political, GraphQL::Types::JSON
       field :organisation_type, GraphQL::Types::JSON
       field :organisation, GraphQL::Types::JSON
