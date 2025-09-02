@@ -169,6 +169,32 @@ RSpec.describe GraphqlController do
         "details" => { "something" => "jason!" },
       })
     end
+
+    context "a withdrawn content item" do
+      let(:withdrawn_at) { Time.zone.parse("2016-05-17 11:20") }
+      let!(:edition) do
+        create(
+          :withdrawn_unpublished_edition,
+          base_path: "/base-path",
+          document_type: "news_story",
+          explanation: "This is no longer true",
+          routes: [
+            { path: "/base-path", type: "exact" },
+          ],
+          schema_name: "news_article",
+          unpublished_at: withdrawn_at,
+        )
+      end
+
+      it "displays the withdrawal explanation and time" do
+        get :live_content, params: { base_path: "base-path" }
+
+        data = JSON.parse(response.body)
+
+        expect(data["withdrawn_notice"]["explanation"]).to eq("This is no longer true")
+        expect(Time.iso8601(data["withdrawn_notice"]["withdrawn_at"])).to eq(withdrawn_at)
+      end
+    end
   end
 
   def base_path_without_leading_slash(base_path)
