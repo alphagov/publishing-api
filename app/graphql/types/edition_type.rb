@@ -352,7 +352,7 @@ module Types
       field :world_locations, [GraphQL::Types::JSON]
     end
 
-    field :active, Boolean, null: false
+    field :active, Boolean
     field :analytics_identifier, String
     field :api_path, String
     field :api_url, String
@@ -364,24 +364,24 @@ module Types
     field :details, Details, extras: [:lookahead]
     field :document_type, String
     field :ended_on, Types::ContentApiDatetime
-    field :first_published_at, Types::ContentApiDatetime, null: false
+    field :first_published_at, Types::ContentApiDatetime
     field :iso2, String
     field :links, EditionLinks, method: :itself
-    field :locale, String, null: false
-    field :name, String, null: false
-    field :phase, String, null: false
-    field :public_updated_at, Types::ContentApiDatetime, null: false
+    field :locale, String
+    field :name, String
+    field :phase, String
+    field :public_updated_at, Types::ContentApiDatetime
     field :publishing_app, String
     field :publishing_request_id, String
     field :publishing_scheduled_at, Types::ContentApiDatetime
     field :rendering_app, String
     field :scheduled_publishing_delay_seconds, Int
     field :schema_name, String
-    field :slug, String, null: false
+    field :slug, String
     field :started_on, Types::ContentApiDatetime
     field :state, String
     field :supports_historical_accounts, Boolean
-    field :title, String, null: false
+    field :title, String
     field :updated_at, Types::ContentApiDatetime
     field :web_url, String
     field :withdrawn_notice, WithdrawnNotice
