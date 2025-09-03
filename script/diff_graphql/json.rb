@@ -16,6 +16,8 @@ def usage
   abort("Usage:\n\t#{$PROGRAM_NAME} a_base_path")
 end
 
+DATE_PATTERN = /^\d{4}-\d{2}-\d{2}/
+
 base_path = ARGV.fetch(0) { usage }
 
 publishing_api_uri = URI("http://publishing-api.dev.gov.uk/graphql/content#{base_path}")
@@ -31,11 +33,29 @@ def deep_sort(value)
   end
 end
 
+def deep_prune_hash(hash)
+  hash.map { deep_prune(_1, _2) }.compact.to_h
+end
+
+def deep_prune(key, value)
+  case [key, value]
+  in [String, Hash]
+    [key, deep_prune_hash(value)]
+  in [String, [Hash]]
+    [key, value.map(&method(:deep_prune_hash))]
+  in ["withdrawn", *]
+    nil
+  in [String, DATE_PATTERN]
+    [key, value.sub(/(#{DATE_PATTERN}).*/, '\1')]
+  else
+    [key, value]
+  end
+end
+
 def get_json(uri)
   JSON
-    .pretty_generate(deep_sort(JSON.parse(Net::HTTP.get(uri))))
+    .pretty_generate(deep_prune_hash(deep_sort(JSON.parse(Net::HTTP.get(uri)))))
     .gsub(/,$/, "")
-    .gsub(/"(\d{4}-\d{2}-\d{2}).*?"/, '"\1"')
 end
 
 publishing_api_json = get_json(publishing_api_uri)
