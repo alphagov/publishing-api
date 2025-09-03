@@ -78,6 +78,22 @@ private
     end
   end
 
+  def expand_fields(document_type:)
+    case document_type
+    when "taxon"
+      {
+        "details" => {
+          "internal_name" => nil,
+          "notes_for_editors" => nil,
+          "url_override" => nil,
+          "visible_to_departmental_editors" => nil,
+        },
+      }
+    else
+      {}
+    end
+  end
+
   def build_links_query(link_path, links)
     link_type = link_path.last
 
@@ -110,7 +126,7 @@ private
                #
                # { base_path: nil, content_id: nil }
                ExpansionRules.expand_fields({ document_type: }, link_type:, draft: false)
-                 .deep_stringify_keys
+                 .deep_stringify_keys.deep_merge(expand_fields(document_type:))
              }
                .inject(link) do |link, expanded_fields_item|
                  expanded_fields_item.deep_merge(link)
