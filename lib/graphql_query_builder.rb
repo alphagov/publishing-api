@@ -38,6 +38,8 @@ private
           hash.map { |hash_key, _| "  #{hash_key}" },
           "}",
         ]
+      in ["details", nil]
+        "details: details_json"
       in ["links", Hash => links]
         [
           "links {",
@@ -78,22 +80,6 @@ private
     end
   end
 
-  def expand_fields(document_type:)
-    case document_type
-    when "taxon"
-      {
-        "details" => {
-          "internal_name" => nil,
-          "notes_for_editors" => nil,
-          "url_override" => nil,
-          "visible_to_departmental_editors" => nil,
-        },
-      }
-    else
-      {}
-    end
-  end
-
   def build_links_query(link_path, links)
     link_type = link_path.last
 
@@ -126,14 +112,13 @@ private
                #
                # { base_path: nil, content_id: nil }
                ExpansionRules.expand_fields({ document_type: }, link_type:, draft: false)
-                 .deep_stringify_keys.deep_merge(expand_fields(document_type:))
+                 .deep_stringify_keys
              }
                .inject(link) do |link, expanded_fields_item|
                  expanded_fields_item.deep_merge(link)
                end
     end
 
-    link.delete("details") if link["details"].blank?
     link.delete("links") if link["links"].blank?
 
     if link_path.size < MAX_LINK_DEPTH

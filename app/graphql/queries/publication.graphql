@@ -174,10 +174,6 @@ query publication($base_path: String!) {
           details {
             country
             change_description
-            internal_name
-            notes_for_editors
-            url_override
-            visible_to_departmental_editors
             step_by_step_nav
             political_party
             dates_in_office
@@ -283,12 +279,7 @@ query publication($base_path: String!) {
           base_path
           content_id
           description
-          details {
-            internal_name
-            notes_for_editors
-            url_override
-            visible_to_departmental_editors
-          }
+          details: details_json
           document_type
           links {
             taxons {
@@ -297,12 +288,7 @@ query publication($base_path: String!) {
               base_path
               content_id
               description
-              details {
-                internal_name
-                notes_for_editors
-                url_override
-                visible_to_departmental_editors
-              }
+              details: details_json
               document_type
               locale
               phase
@@ -714,12 +700,7 @@ query publication($base_path: String!) {
           base_path
           content_id
           description
-          details {
-            internal_name
-            notes_for_editors
-            url_override
-            visible_to_departmental_editors
-          }
+          details: details_json
           document_type
           links {
             root_taxon {
@@ -739,12 +720,7 @@ query publication($base_path: String!) {
               base_path
               content_id
               description
-              details {
-                internal_name
-                notes_for_editors
-                url_override
-                visible_to_departmental_editors
-              }
+              details: details_json
               document_type
               links {
                 parent_taxons {
@@ -753,12 +729,7 @@ query publication($base_path: String!) {
                   base_path
                   content_id
                   description
-                  details {
-                    internal_name
-                    notes_for_editors
-                    url_override
-                    visible_to_departmental_editors
-                  }
+                  details: details_json
                   document_type
                   links {
                     parent_taxons {
@@ -767,12 +738,7 @@ query publication($base_path: String!) {
                       base_path
                       content_id
                       description
-                      details {
-                        internal_name
-                        notes_for_editors
-                        url_override
-                        visible_to_departmental_editors
-                      }
+                      details: details_json
                       document_type
                       links {
                         parent_taxons {
@@ -781,12 +747,7 @@ query publication($base_path: String!) {
                           base_path
                           content_id
                           description
-                          details {
-                            internal_name
-                            notes_for_editors
-                            url_override
-                            visible_to_departmental_editors
-                          }
+                          details: details_json
                           document_type
                           locale
                           phase
