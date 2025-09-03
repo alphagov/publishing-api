@@ -38,6 +38,8 @@ private
           hash.map { |hash_key, _| "  #{hash_key}" },
           "}",
         ]
+      in ["details", nil]
+        "details: details_json"
       in ["links", Hash => links]
         [
           "links {",
@@ -117,7 +119,6 @@ private
                end
     end
 
-    link.delete("details") if link["details"].blank?
     link.delete("links") if link["links"].blank?
 
     if link_path.size < MAX_LINK_DEPTH
