@@ -21,8 +21,25 @@ base_path = ARGV.fetch(0) { usage }
 publishing_api_uri = URI("http://publishing-api.dev.gov.uk/graphql/content#{base_path}")
 content_store_uri = URI("http://content-store.dev.gov.uk/content#{base_path}")
 
-publishing_api_json = JSON.pretty_generate(JSON.parse(Net::HTTP.get(publishing_api_uri)))
-content_store_json = JSON.pretty_generate(JSON.parse(Net::HTTP.get(content_store_uri)))
+def deep_sort(value)
+  if value.is_a?(Hash)
+    value.transform_values { deep_sort(_1) }.sort.to_h
+  elsif value.is_a?(Array)
+    value.map(&method(:deep_sort))
+  else
+    value
+  end
+end
+
+def get_json(uri)
+  JSON
+    .pretty_generate(deep_sort(JSON.parse(Net::HTTP.get(uri))))
+    .gsub(/,$/, "")
+    .gsub(/"(\d{4}-\d{2}-\d{2}).*?"/, '"\1"')
+end
+
+publishing_api_json = get_json(publishing_api_uri)
+content_store_json = get_json(content_store_uri)
 
 publishing_api_file_path = File.join(OUTPUT_DIR, "publishing_api_response.json")
 content_store_file_path = File.join(OUTPUT_DIR, "content_store_response.json")
