@@ -1,6 +1,4 @@
 RSpec.describe EditionFinderService do
-  let(:scope) { Edition }
-
   let(:base_path) { "/base-path" }
   let(:exact_routes) { [] }
   let(:prefix_routes) { [] }
@@ -16,7 +14,7 @@ RSpec.describe EditionFinderService do
   end
 
   describe ".find" do
-    subject { described_class.new(scope).find(request_path) }
+    subject { described_class.new(request_path, "live").find }
 
     context "when there isn't an item matching the path" do
       let(:request_path) { "/path" }
