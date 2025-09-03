@@ -8,7 +8,9 @@ module RandomContentHelpers
     #
     # We don't want to generate editions with special document_type values like "redirect"
     # as these may be handled by publishing API in special ways which confuse some tests
-    schema["properties"]["document_type"]["enum"] -= %w[gone redirect vanish]
+    schema["properties"]["document_type"]["enum"].reject! do |document_type|
+      %w[gone redirect vanish].include?(document_type) || document_type.start_with?("content_block_")
+    end
 
     GovukSchemas::RandomExample.new(schema:, seed:)
   end
