@@ -20,6 +20,10 @@ module Presenters
         { available_translations: expanded_translations }
       end
 
+      def editions
+        Edition.where(id: grouped_translations.values)
+      end
+
     private
 
       attr_reader :options, :with_drafts
