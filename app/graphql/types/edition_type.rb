@@ -362,6 +362,7 @@ module Types
     field :current, Boolean
     field :description, String
     field :details, Details, extras: [:lookahead]
+    field :details_json, GraphQL::Types::JSON
     field :document_type, String
     field :ended_on, Types::ContentApiDatetime
     field :first_published_at, Types::ContentApiDatetime, null: false
@@ -401,6 +402,10 @@ module Types
           locale: object.locale,
         ).details,
       )
+    end
+
+    def details_json
+      object.details
     end
 
     def withdrawn_notice
