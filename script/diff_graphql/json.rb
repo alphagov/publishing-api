@@ -47,4 +47,4 @@ content_store_file_path = File.join(OUTPUT_DIR, "content_store_response.json")
 File.write(publishing_api_file_path, publishing_api_json)
 File.write(content_store_file_path, content_store_json)
 
-puts(`diff #{publishing_api_file_path} #{content_store_file_path}`)
+puts `diff --color=always -u #{content_store_file_path} #{publishing_api_file_path}`
