@@ -18,7 +18,9 @@ class GraphqlContentItemService
 private
 
   def edition
+    #TODO Compact recursively on links to include deep nested details hashes etc
     query_result.dig("data", "edition").tap do |content_item|
+      #TODO Remove empty array link types
       content_item.compact!
       content_item["details"].compact!
     end
