@@ -451,4 +451,30 @@ RSpec.describe Sources::LinkedToEditionsSource do
       end
     end
   end
+
+  it "doesn't include non-renderable links" do
+    renderable_edition_1 = create(:edition)
+    renderable_edition_2 = create(:edition)
+
+    source_edition = create(
+      :edition,
+      links_hash: {
+        "test_link" => [renderable_edition_1.content_id, create(:redirect_edition).content_id],
+      },
+    )
+
+    link_set = create(:link_set, content_id: source_edition.content_id)
+    create(:link, link_set:, target_content_id: renderable_edition_2.content_id, link_type: "test_link")
+    create(:link, link_set:, target_content_id: create(:gone_edition).content_id, link_type: "test_link")
+
+    GraphQL::Dataloader.with_dataloading do |dataloader|
+      request = dataloader.with(
+        described_class,
+        content_store: source_edition.content_store,
+        locale: "en",
+      ).request([source_edition, "test_link"])
+
+      expect(request.load).to match_array([renderable_edition_1, renderable_edition_2])
+    end
+  end
 end

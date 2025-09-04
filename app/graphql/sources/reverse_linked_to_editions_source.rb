@@ -42,6 +42,7 @@ module Sources
           editions: { content_store: @content_store },
           documents: { locale: @locale_with_fallback },
         )
+        .where.not(editions: { document_type: Edition::NON_RENDERABLE_FORMATS })
         .where(
           '("links"."target_content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),
@@ -62,6 +63,7 @@ module Sources
           editions: { content_store: @content_store },
           documents: { locale: @locale_with_fallback },
         )
+        .where.not(editions: { document_type: Edition::NON_RENDERABLE_FORMATS })
         .where(
           '("links"."target_content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),

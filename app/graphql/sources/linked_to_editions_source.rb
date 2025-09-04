@@ -33,6 +33,7 @@ module Sources
           editions: { content_store: @content_store },
           documents: { locale: @locale_with_fallback },
         )
+        .where.not(editions: { document_type: Edition::NON_RENDERABLE_FORMATS })
         .where(
           %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
           Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
@@ -79,6 +80,7 @@ module Sources
           editions: { content_store: @content_store },
           documents: { locale: @locale_with_fallback },
         )
+        .where.not(editions: { document_type: Edition::NON_RENDERABLE_FORMATS })
         .where(
           %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
           Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
