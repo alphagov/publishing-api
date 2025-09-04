@@ -41,7 +41,7 @@ def deep_prune(key, value)
   case [key, value]
   in [String, Hash]
     [key, deep_prune_hash(value)]
-  in [String, [Hash]]
+  in [String, [Hash, *]]
     [key, value.map(&method(:deep_prune_hash))]
   in ["withdrawn", *]
     nil
