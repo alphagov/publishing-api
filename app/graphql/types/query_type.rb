@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Types
   class QueryType < Types::BaseObject
     field :edition, EditionTypeOrSubtype, description: "An edition or one of its subtypes" do

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class PublishingApiSchema < GraphQL::Schema
   query(Types::QueryType)
 

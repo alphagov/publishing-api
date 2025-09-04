@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Types
   class MinistersIndexType < Types::EditionType
     def self.document_types = %w[ministers_index]
