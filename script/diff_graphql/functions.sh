@@ -76,7 +76,7 @@ function prepare_html() {
   done
 
   curl_and_strip_hashes \
-    --curl-path "$base_path" \
+    --curl-path "$base_path?graphql=false" \
     --output-path tmp/diff_graphql/content_store_response.html \
     --environment "$environment" \
     --username "$username" \
