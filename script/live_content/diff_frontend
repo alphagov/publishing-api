@@ -3,7 +3,7 @@
 # Diff a rendered page in production when the data source is Content Store vs
 # when the data source is Publishing API's GraphQL endpoint.
 
-source script/diff_graphql/functions.sh
+source script/live_content/diff_frontend_functions.sh
 
 while [[ "$download_html" != @(y|yes|n|no) ]]; do
   read -p 'Download HTML (y[es]/n[o])? ' download_html

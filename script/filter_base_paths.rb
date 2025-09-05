@@ -2,7 +2,7 @@ schema_name = ARGV
 batch_size = 50_000
 
 unfiltered_base_paths = File
-  .readlines("script/diff_graphql/unfiltered_base_paths")
+  .readlines("script/unfiltered_base_paths")
   .map(&:chomp)
 batch_count = (unfiltered_base_paths.count.to_f / batch_size).ceil
 filtered_base_paths = []
@@ -48,7 +48,7 @@ unfiltered_base_paths
   filtered_base_paths += query(unfiltered_base_paths_slice, schema_name)
 end
 
-File.open("script/diff_graphql/filtered_base_paths", "w") do |file|
+File.open("script/filtered_base_paths", "w") do |file|
   file.write("#{filtered_base_paths.join("\n")}\n")
 end
 
