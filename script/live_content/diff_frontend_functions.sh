@@ -3,9 +3,13 @@
 function curl_and_strip_hashes() {
   while [ $# -gt 0 ]; do
     case $1 in
+      --app) { is_option_name $2 && shift; } || { local app=$2; shift 2; };;
       --curl-path) local curl_path=$2; shift 2;;
       --environment)
         case $2 in
+          # this means we now need to specify the curl path before the
+          # environment when using the dev environment
+          d|development) local domain="http://dev.gov.uk";;
           i|integration) local domain='https://www.integration.publishing.service.gov.uk';;
           p|production) local domain='https://www.gov.uk';;
           s|staging) local domain='https://www.staging.publishing.service.gov.uk';;
@@ -18,6 +22,10 @@ function curl_and_strip_hashes() {
       --username) { is_option_name $2 && shift; } || { local username=$2; shift 2; };;
     esac
   done
+
+  if [[ -n $app ]]; then
+    local domain=$(echo $domain | sed "s;\(http://\);\1$app.;")
+  fi
 
   local response
   response=$(curl -u "$username:$password" "$domain$curl_path") || exit 1
@@ -77,19 +85,26 @@ function prepare_html() {
     esac
   done
 
+  case $environment in
+    --d|development) local app=$(govuk-docker-run bundle exec rails runner \
+      script/live_content/rendering_app.rb "$base_path")
+  esac
+
   mkdir -p "tmp/diffs/frontend"
 
   curl_and_strip_hashes \
-    --curl-path "$base_path?graphql=false" \
     --output-path tmp/diffs/frontend/content_store_response.html \
+    --app "$app" \
     --environment "$environment" \
+    --curl-path "$base_path?graphql=false" \
     --username "$username" \
     --password "$password"
 
   curl_and_strip_hashes \
-    --curl-path "$base_path?graphql=true" \
     --output-path tmp/diffs/frontend/publishing_api_response.html \
+    --app "$app" \
     --environment "$environment" \
+    --curl-path "$base_path?graphql=true" \
     --username "$username" \
     --password "$password"
 }

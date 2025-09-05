@@ -15,6 +15,11 @@ Store responses:
   Diffs will be output to `tmp/diffs` by default. Run the script
   with `--help` for information on all the required and optional arguments.
 
+If diffing in the development environment, you'll need to start all the relevant
+servers in GOV.UK Docker: Publishing API, Content Store, plus any required
+frontend apps and their depenedencies (e.g. Collections, Frontend, Government
+Frontend, Static).
+
 ## Issue with Bash version
 
 If you get a syntax error when running the diffing scripts, you might be using

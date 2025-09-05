@@ -14,8 +14,8 @@ if [[ $download_html == @(y|yes) ]]; then
     read -p 'Enter base path (e.g. "/world"): ' base_path
   done
 
-  while [[ $environment != @(i|integration|s|staging|p|production) ]]; do
-    read -p 'Enter environment (i[ntegration]/s[taging]/p[roduction]): ' environment
+  while [[ $environment != @(d|development|i|integration|s|staging|p|production) ]]; do
+    read -p 'Enter environment (d[evelopment]/i[ntegration]/s[taging]/p[roduction]): ' environment
   done
 
   if [[ $environment == @(i|integration) ]]; then
