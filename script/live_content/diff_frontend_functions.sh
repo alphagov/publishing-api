@@ -54,14 +54,14 @@ function diff_html() {
     git diff \
       --no-index \
       --word-diff=color \
-      tmp/diff_graphql/content_store_response.html \
-      tmp/diff_graphql/graphql_response.html
+      tmp/diffs/frontend/content_store_response.html \
+      tmp/diffs/frontend/publishing_api_response.html
   else
     diff \
       --color=always \
       ${style_flags:+"$style_flags"} \
-      tmp/diff_graphql/content_store_response.html \
-      tmp/diff_graphql/graphql_response.html
+      tmp/diffs/frontend/content_store_response.html \
+      tmp/diffs/frontend/publishing_api_response.html
   fi
 }
 
@@ -75,16 +75,18 @@ function prepare_html() {
     esac
   done
 
+  mkdir -p "tmp/diffs/frontend"
+
   curl_and_strip_hashes \
     --curl-path "$base_path?graphql=false" \
-    --output-path tmp/diff_graphql/content_store_response.html \
+    --output-path tmp/diffs/frontend/content_store_response.html \
     --environment "$environment" \
     --username "$username" \
     --password "$password"
 
   curl_and_strip_hashes \
     --curl-path "$base_path?graphql=true" \
-    --output-path tmp/diff_graphql/graphql_response.html \
+    --output-path tmp/diffs/frontend/publishing_api_response.html \
     --environment "$environment" \
     --username "$username" \
     --password "$password"

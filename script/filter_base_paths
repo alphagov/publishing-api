@@ -2,9 +2,9 @@
 
 # Filter a list of base paths by one or more given schema names.
 
-data_dir='tmp/diff_graphql'
+data_dir='tmp/base_paths'
 schema_names=()
-help_text="script/diff_graphql/filter_base_paths.sh
+help_text="script/filter_base_paths
 
 DESCRIPTION
      Filter a list of base paths by one or more given schema names.
@@ -24,9 +24,10 @@ ARGUMENTS
      --with-content-store
              Filter base paths using Content Store instead of Publishing API."
 usage_text="
-usage: script/diff_graphql/filter_base_paths.sh [--data-dir path/to/data/dir]
-                                                --schema_names schema_name_1
-                                                [scema_name_2...]"
+usage: script/live_content/frontend/filter_base_paths
+             [--data-dir path/to/data/dir]
+             --schema_names schema_name_1
+             [scema_name_2...]"
 
 while [ $# -gt 0 ]; do
   case $1 in
@@ -63,26 +64,26 @@ echo "Unfiltered base paths: $(grep -c '^' "$data_dir/unfiltered_base_paths")"
 
 if [[ $translated_only = true ]]; then
   echo -e '\nFiltering out untranslated content'
-  grep -E '^.+\.[a-zA-Z]{2}(-[a-zA-Z0-9]{2,3})?$' "$data_dir/unfiltered_base_paths" > script/diff_graphql/unfiltered_base_paths
+  grep -E '^.+\.[a-zA-Z]{2}(-[a-zA-Z0-9]{2,3})?$' "$data_dir/unfiltered_base_paths" > script/unfiltered_base_paths
 else
-  cp "$data_dir/unfiltered_base_paths" script/diff_graphql/unfiltered_base_paths
+  cp "$data_dir/unfiltered_base_paths" script/unfiltered_base_paths
 fi
 
 if [[ $with_content_store = true ]]; then
-  mkdir -p ../content-store/script/diff_graphql
-  cp script/diff_graphql/{unfiltered_base_paths,filter_base_paths.rb} ../content-store/script/diff_graphql
+  mkdir -p ../content-store/script/filter_base_paths
+  cp script/{unfiltered_base_paths,filter_base_paths.rb} ../content-store/script
 
   cd ../content-store || exit 1
-  govuk-docker-run bundle exec rails runner script/diff_graphql/filter_base_paths.rb "${schema_names[@]}"
+  govuk-docker-run bundle exec rails runner script/filter_base_paths.rb "${schema_names[@]}"
   cd - > /dev/null || exit 1
 
-  mv ../content-store/script/diff_graphql/filtered_base_paths script/diff_graphql/filtered_base_paths
-  rm -rf ../content-store/script/diff_graphql
+  mv ../content-store/script/filtered_base_paths script/filtered_base_paths
+  rm ../content-store/script/{unfiltered_base_paths,filter_base_paths.rb}
 else
-  govuk-docker-run bundle exec rails runner script/diff_graphql/filter_base_paths.rb "${schema_names[@]}"
+  govuk-docker-run bundle exec rails runner script/filter_base_paths.rb "${schema_names[@]}"
 fi
 
-mv script/diff_graphql/filtered_base_paths "$data_dir/filtered_base_paths"
-rm script/diff_graphql/unfiltered_base_paths
+mv script/filtered_base_paths "$data_dir/filtered_base_paths"
+rm script/unfiltered_base_paths
 
 echo -e "\nFiltered base paths written to $data_dir/filtered_base_paths"

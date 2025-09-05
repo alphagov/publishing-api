@@ -3,12 +3,12 @@
 # Using a list of base paths, render each page with Content Store and Publishing
 # API's GraphQL endpoint as the data source and diff the results.
 
-source script/diff_graphql/functions.sh
+source script/live_content/diff_frontend_functions.sh
 
 diff_style='normal'
 max_diffs=0
-output_dir='tmp/diff_graphql/diffs'
-help_text="script/diff_graphql/bulk.sh
+output_dir='tmp/diffs'
+help_text="script/live_content/bulk_diff_frontend
 
 DESCRIPTION
      Using a list of base paths, render each page with Content Store and
@@ -51,7 +51,7 @@ ARGUMENTS
 
      --output-dir
              Where to save the diff files. The script will output one diff file
-             per provided base path. By default this is tmp/diff_graphql.
+             per provided base path. By default this is tmp/diffs.
 
      --password (required when environment is integration or staging)
              The password required to access the publishing service on the given
@@ -61,19 +61,19 @@ ARGUMENTS
              The username required to access the publishing service on the given
              environment."
 usage_text="
-usage: script/diff_graphql/bulk.sh [--diff-style style]
+usage: script/live_content/bulk_diff_frontend [--diff-style style]
                                    [--max-diffs number]
                                    [--output-dir path/to/dir]
                                    --base-paths-file-path path/to/file
                                    --environment p
-       script/diff_graphql/bulk.sh [--diff-style style]
+       script/live_content/bulk_diff_frontend [--diff-style style]
                                    [--max-diffs number]
                                    [--output-dir path/to/dir]
                                    --base-paths-file-path path/to/file
                                    --environment i
                                    --username username
                                    --password password
-       script/diff_graphql/bulk.sh --help"
+       script/live_content/bulk_diff_frontend --help"
 
 while [ $# -gt 0 ]; do
   case $1 in
