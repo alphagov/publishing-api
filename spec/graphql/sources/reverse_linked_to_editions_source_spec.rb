@@ -127,6 +127,41 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
     end
   end
 
+  it "doesn't include non-renderable reverse links" do
+    target_edition = create(:edition)
+
+    renderable_edition_1 = create(
+      :edition,
+      links_hash: { "test_link" => [target_edition.content_id] },
+    )
+    create(
+      :redirect_edition,
+      links_hash: { "test_link" => [target_edition.content_id] },
+    )
+
+    renderable_edition_2 = create(:edition)
+    create(
+      :link_set,
+      content_id: renderable_edition_2.content_id,
+      links_hash: { "test_link" => [target_edition.content_id] },
+    )
+    create(
+      :link_set,
+      content_id: create(:gone_edition).content_id,
+      links_hash: { "test_link" => [target_edition.content_id] },
+    )
+
+    GraphQL::Dataloader.with_dataloading do |dataloader|
+      request = dataloader.with(
+        described_class,
+        content_store: target_edition.content_store,
+        locale: "en",
+      ).request([target_edition, "test_link"])
+
+      expect(request.load).to match_array([renderable_edition_1, renderable_edition_2])
+    end
+  end
+
   describe "links between documents with different locales" do
     it "includes reverse links matching the specified locale" do
       target_edition = create(:edition)
