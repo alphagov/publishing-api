@@ -14,8 +14,8 @@ function curl_and_strip_hashes() {
         shift 2
         ;;
       --output-path) local output_path=$2; shift 2;;
-      --password) local password=$2; shift 2;;
-      --username) local username=$2; shift 2;;
+      --password) { is_option_name $2 && shift; } || { local password=$2; shift 2; };;
+      --username) { is_option_name $2 && shift; } || { local username=$2; shift 2; };;
     esac
   done
 
@@ -70,8 +70,8 @@ function prepare_html() {
     case $1 in
       --base-path) local base_path=$2; shift 2;;
       --environment) local environment=$2; shift 2;;
-      --password) local password=$2; shift 2;;
-      --username) local username=$2; shift 2;;
+      --password) { is_option_name $2 && shift; } || { local password=$2 && shift 2; };;
+      --username) { is_option_name $2 && shift; } || { local username=$2 && shift 2; };;
     esac
   done
 
@@ -90,4 +90,8 @@ function prepare_html() {
     --environment "$environment" \
     --username "$username" \
     --password "$password"
+}
+
+function is_option_name() {
+  echo $1 | grep "^--[^-]"
 }
