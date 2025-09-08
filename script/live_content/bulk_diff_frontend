@@ -112,7 +112,7 @@ while read -r base_path; do
   {
     output_path="$output_dir/$(echo "$base_path" | sed 's/^\///' | sed 's/\//__/g')"
     echo -n "" > "$output_path"
-    echo -e "Processing $base_path\n"
+    echo "Processing $base_path"
     prepare_html \
       --base-path "$base_path" \
       --environment "$environment" \
