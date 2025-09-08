@@ -53,7 +53,7 @@ module Presenters
       end
 
       def expanded_translations
-        @expanded_translations ||= grouped_translations.map do |_, (id)|
+        @expanded_translations ||= grouped_translations.map do |_, (id, _, _)|
           expand_translation(id)
         end
       end
