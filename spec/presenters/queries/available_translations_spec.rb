@@ -11,6 +11,10 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
       .translations[:available_translations]
   end
 
+  subject(:translation_editions_by_edition) do
+    described_class.by_edition(edition).translation_editions
+  end
+
   let(:content_id) { link_set.content_id }
   let(:edition) { nil }
 
@@ -29,9 +33,9 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
 
   context "with items in a matching state" do
     let(:with_drafts) { false }
+    let!(:edition) { create_edition("/a", "published") }
 
     before do
-      create_edition("/a", "published")
       create_edition("/a.ar", "published", "ar")
       create_edition("/a.es", "published", "es")
     end
@@ -41,6 +45,14 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
         a_hash_including(base_path: "/a", locale: "en"),
         a_hash_including(base_path: "/a.ar", locale: "ar"),
         a_hash_including(base_path: "/a.es", locale: "es"),
+      ])
+    end
+
+    it "returns all the items as Editions from #translation_editions" do
+      expect(translation_editions_by_edition).to match_array([
+        have_attributes(class: Edition, base_path: "/a", locale: "en"),
+        have_attributes(class: Edition, base_path: "/a.ar", locale: "ar"),
+        have_attributes(class: Edition, base_path: "/a.es", locale: "es"),
       ])
     end
   end
@@ -83,6 +95,11 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
         expect(translations_by_edition).to match_array([
           a_hash_including(base_path: "/a", locale: "en", title: "VAT rates"),
           a_hash_including(base_path: "/a.fr", locale: "fr"),
+        ])
+
+        expect(translation_editions_by_edition).to match_array([
+          have_attributes(base_path: "/a", locale: "en", title: "VAT rates"),
+          have_attributes(base_path: "/a.fr", locale: "fr"),
         ])
       end
     end
