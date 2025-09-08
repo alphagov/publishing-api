@@ -84,8 +84,8 @@ function prepare_html() {
   done
 
   case $environment in
-    --d|development) local app=$(govuk-docker-run bundle exec rails runner \
-      script/live_content/rendering_app.rb "$base_path")
+    d|development) local app=$(govuk-docker-run bundle exec rails runner \
+      script/live_content/rendering_app.rb "$base_path");;
   esac
 
   mkdir -p "tmp/diffs/frontend"
