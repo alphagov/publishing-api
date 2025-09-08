@@ -9,11 +9,16 @@ Store responses:
   pages in one process.
 
   For the bulk script, you'll need to prepare a file with a list of base paths
-  (e.g. `/world`) and an empty line at the end. See the "Retrieving base paths
-  from logs using Athena" section for one way to do this.
+  (e.g. `/world`) and an empty line at the end. See the "Retrieving base paths"
+  section for two ways to do this.
 
   Diffs will be output to `tmp/diffs` by default. Run the script
   with `--help` for information on all the required and optional arguments.
+
+If diffing in the development environment, you'll need to start all the relevant
+servers in GOV.UK Docker: Publishing API, Content Store, plus any required
+frontend apps and their depenedencies (e.g. Collections, Frontend, Government
+Frontend, Static).
 
 ## Issue with Bash version
 
@@ -23,7 +28,21 @@ macOS is two major versions behind the latest release and missing some features
 used in the scripts. You can
 [install a modern version via Homebrew](https://formulae.brew.sh/formula/bash).
 
-## Retrieving base paths from logs using Athena
+## Retrieving base paths
+
+### From a local Publishing API database
+
+If you have a replicated database locally (including in GOV.UK Docker), you can
+use a script to generate a list of one base path per document type per existing
+GraphQL query (i.e. per schema name). This approach is useful for a quick
+diff or to test changes to the diffing scripts
+
+```rb
+# prepend with govuk-docker-run for GOV.UK Docker
+bundle exec rails runner script/live_content/generate_base_paths.rb
+```
+
+### From logs using Athena
 
 You can use
 [Athena](https://docs.publishing.service.gov.uk/manual/query-cdn-logs.html) to
