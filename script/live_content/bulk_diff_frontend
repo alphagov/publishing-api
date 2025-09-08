@@ -132,8 +132,14 @@ while read -r base_path; do
       fi
     fi
 
-    echo -e "\nProcessed $base_path\nJust a second...\n"
-    sleep 1
+    echo "Processed $base_path"
+
+    if [[ $environment != @(d|development) ]]; then
+      echo "Just a second..."
+      sleep 1
+    fi
+
+    echo
   } < /dev/null
 done < "$base_paths_file_path"
 
