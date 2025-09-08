@@ -38,6 +38,8 @@ private
           hash.map { |hash_key, _| "  #{hash_key}" },
           "}",
         ]
+      in ["details", nil]
+        "details: details_json"
       in ["links", Hash => links]
         [
           "links {",
@@ -61,10 +63,33 @@ private
     ExpansionRules.is_reverse_link_type?(link_type)
   end
 
+  def is_a_top_level_link?(link_path)
+    link_path.size == 1
+  end
+
+  def supported_top_level_reverse_link_type?(reverse_link_type)
+    case reverse_link_type
+    when :child_taxons
+      @schema_name == "taxon"
+    when :level_one_taxons
+      @schema_name == "homepage"
+    when :ministers, :policies
+      false
+    else
+      true
+    end
+  end
+
   def build_links_query(link_path, links)
     link_type = link_path.last
 
     document_types = if is_reverse_link_type?(link_path)
+                       # Content Schemas include a few irrelevant-looking
+                       # top-level link types that all happen to be reverse
+                       # link types
+                       return if is_a_top_level_link?(link_path) &&
+                         !supported_top_level_reverse_link_type?(link_type)
+
                        flip_reversed_link_types = ExpansionRules.reverse_to_direct_link_type(link_type)
 
                        flip_reversed_link_types
@@ -94,7 +119,6 @@ private
                end
     end
 
-    link.delete("details") if link["details"].blank?
     link.delete("links") if link["links"].blank?
 
     if link_path.size < MAX_LINK_DEPTH

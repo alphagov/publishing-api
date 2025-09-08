@@ -265,7 +265,7 @@ module Types
       field :ordered_second_level_browse_pages, GraphQL::Types::JSON
       field :ordering, GraphQL::Types::JSON
       field :organisation_featuring_priority, GraphQL::Types::JSON
-      field :organisation_govuk_status, String
+      field :organisation_govuk_status, GraphQL::Types::JSON
       field :organisation_political, GraphQL::Types::JSON
       field :organisation_type, GraphQL::Types::JSON
       field :organisation, GraphQL::Types::JSON
@@ -362,6 +362,7 @@ module Types
     field :current, Boolean
     field :description, String
     field :details, Details, extras: [:lookahead]
+    field :details_json, GraphQL::Types::JSON
     field :document_type, String
     field :ended_on, Types::ContentApiDatetime
     field :first_published_at, Types::ContentApiDatetime, null: false
@@ -401,6 +402,10 @@ module Types
           locale: object.locale,
         ).details,
       )
+    end
+
+    def details_json
+      object.details
     end
 
     def withdrawn_notice

@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require "json"
+require "net/http"
+require "uri"
+
+require "govuk_schemas"
+
+def usage
+  abort("Usage:\n\t#{$PROGRAM_NAME} a_base_path")
+end
+
+base_path = ARGV.fetch(0) { usage }
+
+uri = URI("http://publishing-api.dev.gov.uk/graphql/content#{base_path}")
+content_item = JSON.parse(Net::HTTP.get(uri))
+schema_name = content_item.fetch("schema_name")
+
+schema = GovukSchemas::Schema.find(frontend_schema: schema_name)
+
+errors = JSON::Validator.fully_validate(schema, content_item)
+
+if errors.empty?
+  puts("OK")
+else
+  puts("Errors:")
+  errors.each(&method(:puts))
+end
