@@ -29,7 +29,7 @@ function curl_and_strip_hashes() {
   response=$(curl -u "$username:$password" "$domain$curl_path") || exit 1
 
   echo "$response" | sed -r \
-    -e 's/\?graphql=true//g' \
+    -e 's/\?graphql=(true|false)//g' \
     -e 's/nonce="[^"]{22}=="/nonce="HASH=="/g' \
     -e 's/ (aria-labelledby|for|id)="([^"]+)-[a-z0-9]{8}"/ \1="\2-HASH"/g' \
     -e 's/<(meta name="govuk:updated-at" content=)"[^"]+">/<\1"TIMESTAMP">/' \
