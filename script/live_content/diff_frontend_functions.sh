@@ -83,10 +83,9 @@ function prepare_html() {
     esac
   done
 
-  case $environment in
-    d|development) local app=$(govuk-docker-run bundle exec rails runner \
-      script/live_content/rendering_app.rb "$base_path");;
-  esac
+  if [[ $environment = @(d|development) ]]; then
+    local app=$(rendering_app_from_base_path $base_path)
+  fi
 
   mkdir -p "tmp/diffs/frontend"
 
@@ -105,6 +104,18 @@ function prepare_html() {
     --curl-path "$base_path?graphql=true" \
     --username "$username" \
     --password "$password"
+}
+
+function rendering_app_from_base_path() {
+  local base_path=$1
+
+  curl http://publishing-api.dev.gov.uk/graphql \
+    -H 'Accept: application/json' \
+    -H 'Content-Type: application/json' \
+    -X POST \
+    -d '{"query":"{ edition(base_path: \"'$base_path'\", content_store: \"live\") { ... on Edition { rendering_app } } }"}' \
+    | jq '.data.edition.rendering_app' \
+    | sed -r 's/"//g'
 }
 
 function is_option_name() {
