@@ -7,8 +7,6 @@ function curl_and_strip_hashes() {
       --curl-path) local curl_path=$2; shift 2;;
       --environment)
         case $2 in
-          # this means we now need to specify the curl path before the
-          # environment when using the dev environment
           d|development) local domain="http://dev.gov.uk";;
           i|integration) local domain='https://www.integration.publishing.service.gov.uk';;
           p|production) local domain='https://www.gov.uk';;
