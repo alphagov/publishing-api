@@ -1,6 +1,54 @@
 RSpec.describe "Types::EditionType" do
   include GraphQL::Testing::Helpers
 
+  describe "available_translations links" do
+    it "returns available_translations as Editions" do
+      content_id = SecureRandom.uuid
+      edition = create(
+        :live_edition,
+        base_path: "/a",
+        document: create(:document, locale: "en", content_id:),
+      )
+      create(
+        :live_edition,
+        base_path: "/a.ar",
+        document: create(:document, locale: "ar", content_id:),
+      )
+      create(
+        :live_edition,
+        base_path: "/a.es",
+        document: create(:document, locale: "es", content_id:),
+      )
+
+      expect(
+        run_graphql_field(
+          PublishingApiSchema,
+          "Edition.links.available_translations",
+          edition,
+        ),
+      ).to match_array([
+        have_attributes(
+          class: Edition,
+          base_path: "/a",
+          locale: "en",
+          web_url: "http://www.dev.gov.uk/a",
+        ),
+        have_attributes(
+          class: Edition,
+          base_path: "/a.ar",
+          locale: "ar",
+          web_url: "http://www.dev.gov.uk/a.ar",
+        ),
+        have_attributes(
+          class: Edition,
+          base_path: "/a.es",
+          locale: "es",
+          web_url: "http://www.dev.gov.uk/a.es",
+        ),
+      ])
+    end
+  end
+
   describe "#withdrawn_notice" do
     context "when the edition is withdrawn" do
       it "returns a withdrawal notice" do
