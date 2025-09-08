@@ -3,16 +3,16 @@
 A couple of scripts are available to check the parity of GraphQL and Content
 Store responses:
 
-- `script/diff_graphql/run.sh` - this will guide you through diffing the
+- `script/live_content/diff_frontend` - this will guide you through diffing the
   responses for one page.
-- `script/diff_graphql/bulk.sh` - this allows you to diff multiple pages in one
-  process.
+- `script/live_content/bulk_diff_frontend` - this allows you to diff multiple
+  pages in one process.
 
   For the bulk script, you'll need to prepare a file with a list of base paths
   (e.g. `/world`) and an empty line at the end. See the "Retrieving base paths
   from logs using Athena" section for one way to do this.
 
-  Diffs will be output to `tmp/diff_graphql/diffs` by default. Run the script
+  Diffs will be output to `tmp/diffs` by default. Run the script
   with `--help` for information on all the required and optional arguments.
 
 ## Issue with Bash version
@@ -30,12 +30,11 @@ You can use
 retrieve base paths of cache misses over a given time period. Below is an
 example Trino SQL query. You just need to edit the dates.
 
-Save the output to `tmp/diff_graphql/unfiltered_base_paths` and then run the
-`script/diff_graphql/filter_base_paths.sh` script to filter the base paths by
-one or more schema names in preparation for running the bulk script. You will
-need a replicated Publishing API or Content Store database for this script to
-work properly. If using Content Store, pass the `--with-content-store` flag to
-the script.
+Save the output to `tmp/base_paths/unfiltered_base_paths` and then run the
+`script/filter_base_paths` script to filter the base paths by one or more schema
+names in preparation for running the bulk script. You will need a replicated
+Publishing API or Content Store database for this script to work properly. If
+using Content Store, pass the `--with-content-store` flag to the script.
 
 ```sql
 SELECT DISTINCT

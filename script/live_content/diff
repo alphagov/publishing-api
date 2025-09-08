@@ -8,7 +8,7 @@ require "uri"
 # Using a list of base paths, render each page with Content Store and Publishing
 # API's GraphQL endpoint as the data source and diff the results.
 
-OUTPUT_DIR = "tmp/diff_graphql/content_items".freeze
+OUTPUT_DIR = "tmp/diffs/content_items".freeze
 
 FileUtils.mkdir_p(OUTPUT_DIR)
 
