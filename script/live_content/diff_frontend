@@ -28,15 +28,15 @@ if [[ $download_html == @(y|yes) ]]; then
     done
   fi
 
-  mkdir -p tmp/diff_graphql
+  mkdir -p 'tmp/diffs'
 
-  echo ''
+  echo
   prepare_html \
     --base-path "$base_path" \
     --environment "$environment" \
     --username "$username" \
     --password "$password"
-  echo ''
+  echo
 fi
 
 diff_html --interactive

@@ -7,8 +7,6 @@ function curl_and_strip_hashes() {
       --curl-path) local curl_path=$2; shift 2;;
       --environment)
         case $2 in
-          # this means we now need to specify the curl path before the
-          # environment when using the dev environment
           d|development) local domain="http://dev.gov.uk";;
           i|integration) local domain='https://www.integration.publishing.service.gov.uk';;
           p|production) local domain='https://www.gov.uk';;
@@ -30,8 +28,8 @@ function curl_and_strip_hashes() {
   local response
   response=$(curl -u "$username:$password" "$domain$curl_path") || exit 1
 
-  echo $response | sed -r \
-    -e 's/\?graphql=true//g' \
+  echo "$response" | sed -r \
+    -e 's/\?graphql=(true|false)//g' \
     -e 's/nonce="[^"]{22}=="/nonce="HASH=="/g' \
     -e 's/ (aria-labelledby|for|id)="([^"]+)-[a-z0-9]{8}"/ \1="\2-HASH"/g' \
     -e 's/<(meta name="govuk:updated-at" content=)"[^"]+">/<\1"TIMESTAMP">/' \
@@ -85,10 +83,9 @@ function prepare_html() {
     esac
   done
 
-  case $environment in
-    --d|development) local app=$(govuk-docker-run bundle exec rails runner \
-      script/live_content/rendering_app.rb "$base_path")
-  esac
+  if [[ $environment = @(d|development) ]]; then
+    local app=$(rendering_app_from_base_path $base_path)
+  fi
 
   mkdir -p "tmp/diffs/frontend"
 
@@ -107,6 +104,18 @@ function prepare_html() {
     --curl-path "$base_path?graphql=true" \
     --username "$username" \
     --password "$password"
+}
+
+function rendering_app_from_base_path() {
+  local base_path=$1
+
+  curl http://publishing-api.dev.gov.uk/graphql \
+    -H 'Accept: application/json' \
+    -H 'Content-Type: application/json' \
+    -X POST \
+    -d '{"query":"{ edition(base_path: \"'$base_path'\", content_store: \"live\") { ... on Edition { rendering_app } } }"}' \
+    | jq '.data.edition.rendering_app' \
+    | sed -r 's/"//g'
 }
 
 function is_option_name() {
