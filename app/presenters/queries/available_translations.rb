@@ -20,6 +20,15 @@ module Presenters
         { available_translations: expanded_translations }
       end
 
+      def translation_editions
+        exclude_ids = [edition&.id].compact
+
+        Edition.strict_loading
+          .includes(:document)
+          .where(id: edition_ids - exclude_ids) +
+          [edition].compact
+      end
+
     private
 
       attr_reader :options, :with_drafts
@@ -52,8 +61,12 @@ module Presenters
         edition_for_id(id).to_h
       end
 
+      def edition_ids
+        @edition_ids ||= grouped_translations.map { |_, (id, _, _)| id }
+      end
+
       def expanded_translations
-        @expanded_translations ||= grouped_translations.map do |_, (id)|
+        @expanded_translations ||= edition_ids.map do |id|
           expand_translation(id)
         end
       end

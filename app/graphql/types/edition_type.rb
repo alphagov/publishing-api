@@ -120,7 +120,7 @@ module Types
 
       def available_translations
         Presenters::Queries::AvailableTranslations.by_edition(object)
-          .translations.fetch(:available_translations, [])
+          .translation_editions
       end
     end
 

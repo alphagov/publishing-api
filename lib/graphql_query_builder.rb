@@ -1,6 +1,11 @@
 class GraphqlQueryBuilder
   MAX_LINK_DEPTH = 5
 
+  DEFAULT_LINK_FIELDS = %w[
+    api_url
+    web_url
+  ].index_with(nil)
+
   def initialize(schema_name)
     @schema_name = schema_name
     @content_item = GovukSchemas::RandomExample.for_schema(
@@ -80,6 +85,17 @@ private
     end
   end
 
+  def expand_fields(document_type:, link_type:)
+    # ExpansionRules.expand_fields returns its fields in the form of
+    # a hash that looks like a content item, but with null values,
+    # e.g.
+    #
+    # { base_path: nil, content_id: nil }
+    ExpansionRules.expand_fields({ document_type: }, link_type:, draft: false)
+      .deep_stringify_keys
+      .merge(DEFAULT_LINK_FIELDS)
+  end
+
   def build_links_query(link_path, links)
     link_type = link_path.last
 
@@ -106,13 +122,7 @@ private
 
     unless document_types.empty?
       link = document_types.map { |document_type|
-               # ExpansionRules.expand_fields returns its fields in the form of
-               # a hash that looks like a content item, but with null values,
-               # e.g.
-               #
-               # { base_path: nil, content_id: nil }
-               ExpansionRules.expand_fields({ document_type: }, link_type:, draft: false)
-                 .deep_stringify_keys
+               expand_fields(document_type:, link_type:)
              }
                .inject(link) do |link, expanded_fields_item|
                  expanded_fields_item.deep_merge(link)
