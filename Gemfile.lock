@@ -982,7 +982,7 @@ DEPENDENCIES
   rubocop-govuk
   sentry-sidekiq
   sidekiq-scheduler
-  sidekiq-unique-jobs (< 8.0.12)
+  sidekiq-unique-jobs
   simplecov
   strong_migrations
   timecop

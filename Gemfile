@@ -28,7 +28,7 @@ gem "rack-cache"
 gem "rails-pg-extras"
 gem "sentry-sidekiq"
 gem "sidekiq-scheduler"
-gem "sidekiq-unique-jobs", "< 8.0.12"
+gem "sidekiq-unique-jobs"
 gem "strong_migrations"
 gem "with_advisory_lock"
 
