@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require "English"
+
+base_paths_file_path = "tmp/base_paths/filtered_base_paths"
+base_paths = File.read(base_paths_file_path).split("\n")
+total_base_paths = base_paths.count
+
+base_paths.each_with_index do |base_path, index|
+  info = "#{index + 1}/#{total_base_paths}: #{base_path}"
+  puts "Processing #{info}"
+  puts `script/live_content/validate #{base_path}`
+  puts "Processed #{info}\n\n"
+
+  next if $CHILD_STATUS.success?
+
+  print "Continue? (Y/n) "
+
+  continue = nil
+  continue = gets.chomp.downcase until ["", "y", "n"].include?(continue)
+
+  abort if continue == "n"
+
+  puts
+end

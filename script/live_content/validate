@@ -25,4 +25,5 @@ if errors.empty?
 else
   puts("Errors:")
   errors.each(&method(:puts))
+  exit 1
 end
