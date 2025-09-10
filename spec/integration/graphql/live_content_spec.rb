@@ -1,6 +1,19 @@
 RSpec.describe "Requesting live content by base path" do
   schema_specific_fields = {
-    news_article: { details: { body: "" } },
+    ministers_index: {
+      details: { body: "", reshuffle: {} },
+    },
+    news_article: {
+      details: {
+        body: "",
+        change_history: [],
+        emphasised_organisations: [],
+        first_public_at: "2016-04-11T10:52:00.000+01:00",
+        image: { url: "" },
+        political: false,
+      },
+    },
+    role: { details: { body: "", supports_historical_accounts: false } },
     world_index: {
       details: { world_locations: [], international_delegations: [] },
     },
