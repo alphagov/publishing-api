@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
+# Start Content Store and Publishing API before running this script
 
 script/live_content/bulk_check "script/live_content/diff"

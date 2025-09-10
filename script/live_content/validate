@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# Start Publishing API before running this script
+
 require "json"
 require "net/http"
 require "uri"

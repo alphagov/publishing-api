@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# Start Content Store and Publishing API before running this script
+
 require "English"
 require "fileutils"
 require "json"
