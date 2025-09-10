@@ -18,7 +18,9 @@ class GraphqlContentItemService
 private
 
   def edition
-    query_result.dig("data", "edition")
+    query_result.dig("data", "edition").tap do |content_item|
+      content_item["withdrawn_notice"] ||= {}
+    end
   end
 
   def unpublishing
