@@ -28,7 +28,7 @@ RSpec.describe "Requesting live content by base path" do
         parsed_response = JSON.parse(response.body)
         errors = JSON::Validator.fully_validate(schema, parsed_response)
 
-        expect(errors).to eql([])
+        expect(errors).to eql([]), errors.join("\n")
       end
     end
   end
