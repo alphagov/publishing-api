@@ -9,9 +9,27 @@ RSpec.describe GraphqlContentItemService do
       },
     }
 
-    expect(GraphqlContentItemService.new(result).process).to eq({
+    expect(GraphqlContentItemService.new("answer", result).process).to eq({
       "details" => {},
       "title" => "The best edition yet!",
+    })
+  end
+
+  it "doesn't remove required fields when value is nil" do
+    result = {
+      "data" => {
+        "edition" => {
+          "title" => "The best edition yet!",
+          "details" => {},
+          "description" => nil,
+        },
+      },
+    }
+
+    expect(GraphqlContentItemService.new("publication", result).process).to eq({
+      "details" => {},
+      "title" => "The best edition yet!",
+      "description" => nil,
     })
   end
 
@@ -30,7 +48,7 @@ RSpec.describe GraphqlContentItemService do
       },
     }
 
-    expect(GraphqlContentItemService.new(result).process).to eq({
+    expect(GraphqlContentItemService.new("answer", result).process).to eq({
       "array" => [1, 2, 3],
       "boolean" => true,
       "details" => {},
@@ -56,7 +74,7 @@ RSpec.describe GraphqlContentItemService do
       },
     }
 
-    expect(GraphqlContentItemService.new(result).process).to eq({ "details" => {
+    expect(GraphqlContentItemService.new("answer", result).process).to eq({ "details" => {
       "array" => [1, 2, 3],
       "boolean" => true,
       "hash" => { "a": 1 },
@@ -77,7 +95,7 @@ RSpec.describe GraphqlContentItemService do
         "data" => { "edition" => nil },
       }
 
-      expect(GraphqlContentItemService.new(result).process)
+      expect(GraphqlContentItemService.new("answer", result).process)
         .to eq("presented unpublishing data")
     end
   end
@@ -90,7 +108,7 @@ RSpec.describe GraphqlContentItemService do
         ],
       }
 
-      expect { GraphqlContentItemService.new(result).process }
+      expect { GraphqlContentItemService.new("answer", result).process }
         .to raise_error(GraphqlContentItemService::QueryResultError) do |error|
           expect(error.message).to eq(
             "Field 'bananas' doesn't exist on type 'Edition'",
@@ -107,7 +125,7 @@ RSpec.describe GraphqlContentItemService do
       }
       expected_error_message = "Field 'bananas' doesn't exist on type 'Edition'\nField 'kiwi' doesn't exist on type 'Details'"
 
-      expect { GraphqlContentItemService.new(result).process }
+      expect { GraphqlContentItemService.new("answer", result).process }
         .to raise_error(GraphqlContentItemService::QueryResultError) do |error|
           expect(error.message).to eq(expected_error_message)
         end

@@ -3,7 +3,8 @@ class GraphqlContentItemService
 
   attr_reader :query_result
 
-  def initialize(query_result)
+  def initialize(schema_name, query_result)
+    @schema = GovukSchemas::Schema.find(frontend_schema: schema_name)
     @query_result = query_result
   end
 
@@ -18,9 +19,28 @@ class GraphqlContentItemService
 private
 
   def edition
-    query_result.dig("data", "edition").tap do |content_item|
-      content_item.compact!
-      content_item["details"].compact!
+    content_item = query_result.dig("data", "edition")
+    schema_aware_compact!(content_item, @schema)
+    schema_aware_compact!(content_item["details"], @schema.dig(
+      "definitions",
+      "details"
+    ))
+
+    content_item
+  end
+
+  def schema_aware_compact!(content_item, schema)
+    required_fields = @schema.fetch("required")
+    content_item.each do |key, value|
+      next unless value.nil?
+
+      if required_fields.include?(key)
+        next
+        # next if it can be nil
+        # raise if not
+      end
+
+      content_item.delete(key)
     end
   end
 
