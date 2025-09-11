@@ -4,65 +4,108 @@ RSpec.describe GraphqlContentItemService do
       "data" => {
         "edition" => {
           "title" => "The best edition yet!",
-          "details" => {},
+          "details" => { "something" => "great" },
         },
       },
     }
 
     expect(GraphqlContentItemService.new(result).process).to eq({
-      "details" => {},
+      "details" => { "something" => "great" },
       "title" => "The best edition yet!",
     })
   end
 
-  it "removes null top-level fields" do
+  it "removes empty top-level fields (excluding false)" do
     result = {
       "data" => {
         "edition" => {
-          "array" => [1, 2, 3],
-          "boolean" => true,
-          "details" => {},
-          "hash" => { "a": 1 },
+          "non_empty_array" => [1, 2, 3],
+          "empty_array" => [],
+          "true" => true,
+          "false" => false,
+          "non_empty_hash" => { "a" => 1 },
+          "empty_hash" => {},
           "null" => nil,
           "number" => 1,
-          "string" => "howdy",
+          "non_empty_string" => "howdy",
+          "empty_string" => "",
         },
       },
     }
 
     expect(GraphqlContentItemService.new(result).process).to eq({
-      "array" => [1, 2, 3],
-      "boolean" => true,
-      "details" => {},
-      "hash" => { "a": 1 },
+      "non_empty_array" => [1, 2, 3],
+      "true" => true,
+      "false" => false,
+      "non_empty_hash" => { "a" => 1 },
       "number" => 1,
-      "string" => "howdy",
+      "non_empty_string" => "howdy",
     })
   end
 
-  it "removes null fields from the details hash" do
+  it "removes empty nested fields (excluding false)" do
     result = {
       "data" => {
         "edition" => {
           "details" => {
-            "array" => [1, 2, 3],
-            "boolean" => true,
-            "hash" => { "a": 1 },
+            "non_empty_array" => [1, 2, 3],
+            "empty_array" => [],
+            "true" => true,
+            "false" => false,
+            "non_empty_hash" => { "a" => 1 },
+            "empty_hash" => {},
             "null" => nil,
             "number" => 1,
-            "string" => "howdy",
+            "non_empty_string" => "howdy",
+            "empty_string" => "",
           },
         },
       },
     }
 
     expect(GraphqlContentItemService.new(result).process).to eq({ "details" => {
-      "array" => [1, 2, 3],
-      "boolean" => true,
-      "hash" => { "a": 1 },
+      "non_empty_array" => [1, 2, 3],
+      "true" => true,
+      "false" => false,
+      "non_empty_hash" => { "a" => 1 },
       "number" => 1,
-      "string" => "howdy",
+      "non_empty_string" => "howdy",
     } })
+  end
+
+  it "removes fields if all descendent leaf nodes are empty" do
+    result = {
+      "data" => {
+        "edition" => {
+          "not_yet_empty_hash" => {
+            "empty" => nil
+          },
+          "not_yet_empty_array" => [
+            { "empty" => nil }
+          ]
+        }
+      }
+    }
+
+    expect(GraphqlContentItemService.new(result).process).to eq({})
+  end
+
+  it "transforms symbol keys to strings" do
+    result = {
+      "data" => {
+        "edition" => {
+          "details" => {
+            "my_detail" => {
+              symbolic: true
+            }
+          }
+        }
+      }
+    }
+
+    expect(GraphqlContentItemService.new(result).process).to eq(
+      { "details" => { "my_detail" => { "symbolic" => true } } }
+    )
   end
 
   context "when the edition has been unpublished" do

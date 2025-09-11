@@ -18,9 +18,25 @@ class GraphqlContentItemService
 private
 
   def edition
-    query_result.dig("data", "edition").tap do |content_item|
-      content_item.compact!
-      content_item["details"].compact!
+    deep_transform_hash(query_result.dig("data", "edition"))
+  end
+
+  def deep_transform_hash(hash)
+    hash.map { deep_transform(_1.to_s, _2) }.compact.to_h
+  end
+
+  def deep_transform(key, value)
+    case [key, value]
+    in [String, Hash]
+      new_value = deep_transform_hash(value)
+      [key, new_value] unless new_value == {}
+    in [String, [Hash, *]]
+      new_value = value.map(&method(:deep_transform_hash))
+      [key, new_value] unless new_value == []
+    in [String, nil | "" | [] | {}]
+      nil
+    else
+      [key, value]
     end
   end
 
