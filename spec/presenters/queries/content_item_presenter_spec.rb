@@ -145,6 +145,19 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       end
     end
 
+    context "when we have a content_id_alias" do
+      let!(:content_id_alias) { create(:content_id_alias, content_id: content_id) }
+
+      it "presents the item including the content_id_alias" do
+        expected = expected_output.merge(
+          "content_id_aliases" => [
+            { "content_id" => content_id, "name" => content_id_alias.name },
+          ],
+        )
+        expect(result).to eq expected
+      end
+    end
+
     context "when we have multiple links" do
       let(:other_content_id) { SecureRandom.uuid }
       let(:and_another_content_id) { SecureRandom.uuid }

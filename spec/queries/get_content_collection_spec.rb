@@ -7,7 +7,7 @@ RSpec.describe Queries::GetContentCollection do
         document_type: "taxon",
         schema_name: "taxon",
       )
-      create(
+      draft_b = create(
         :draft_edition,
         base_path: "/b",
         document_type: "taxon",
@@ -30,6 +30,7 @@ RSpec.describe Queries::GetContentCollection do
         content_id: draft_d.content_id,
         links_hash: { organisations: %w[af07d5a5-df63-4ddc-9383-6a666845ebe9] },
       )
+      create(:content_id_alias, content_id: draft_b.content_id, name: "draft-b-content-alias")
     end
 
     it "returns the requested fields for all editions" do
@@ -58,6 +59,16 @@ RSpec.describe Queries::GetContentCollection do
         fields: %w[base_path locale publication_state],
       ).call).to match_array([
         hash_including("base_path" => "/a", "publication_state" => "draft", "locale" => "en"),
+        hash_including("base_path" => "/b", "publication_state" => "draft", "locale" => "en"),
+      ])
+    end
+
+    it "returns the editions matching the content ID alias" do
+      expect(Queries::GetContentCollection.new(
+        document_types: "taxon",
+        fields: %w[base_path locale publication_state],
+        content_id_aliases: ["draft-b-content-alias"],
+      ).call).to match_array([
         hash_including("base_path" => "/b", "publication_state" => "draft", "locale" => "en"),
       ])
     end

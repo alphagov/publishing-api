@@ -10,6 +10,7 @@ module V2
         pagination:,
         search_query: query_params.fetch("q", ""),
         search_in: query_params[:search_in],
+        content_id_aliases: query_params[:content_id_aliases],
       )
 
       render json: Presenters::ResultsPresenter.new(results, pagination, request.original_url).present

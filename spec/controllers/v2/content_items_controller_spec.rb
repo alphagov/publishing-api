@@ -361,6 +361,17 @@ RSpec.describe V2::ContentItemsController do
         expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
       end
     end
+
+    context "with content_id_alias params" do
+      let!(:content_id_alias) { create(:content_id_alias, content_id: document_en.content_id) }
+
+      it "filters by alias" do
+        get :index, params: { fields: %w[content_id], content_id_aliases: [content_id_alias.name] }
+
+        parsed_response_body = parsed_response["results"]
+        expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
+      end
+    end
   end
 
   describe "show" do
