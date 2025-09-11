@@ -22,6 +22,7 @@ module Presenters
         :state_history,
         :change_note,
         :links,
+        :content_id_aliases,
       ] - [:state]).freeze # state appears as 'publication_state'
 
       DEFAULT_SEARCH_FIELDS = %w[title base_path].freeze
@@ -148,6 +149,8 @@ module Presenters
           nil
         when :links
           nil
+        when :content_id_aliases
+          nil
         when :total
           nil
         else
@@ -184,9 +187,24 @@ module Presenters
         ) links_subquery
       SQL
 
+      CONTENT_ID_ALIAS_SQL = <<-SQL.freeze
+        (
+          SELECT json_agg(
+            json_build_object(
+              'content_id',content_id_aliases.content_id,
+              'name',content_id_aliases.name
+            )
+          ) AS content_id_aliases
+          FROM content_id_aliases
+          LEFT JOIN documents ON documents.id = subquery.document_id
+          WHERE content_id_aliases.content_id = documents.content_id
+        ) content_id_aliases_subquery
+      SQL
+
       LATERAL_AGGREGATES = {
         state_history: STATE_HISTORY_SQL,
         links: LINKS_SQL,
+        content_id_aliases: CONTENT_ID_ALIAS_SQL,
       }.freeze
 
       def join_lateral_aggregates(scope)
@@ -230,7 +248,7 @@ module Presenters
       SQL
 
       def parse_results(results)
-        json_columns = %w[details routes redirects state_history unpublishing links]
+        json_columns = %w[details routes redirects state_history unpublishing links content_id_aliases]
         int_columns = %w[user_facing_version lock_version]
 
         Enumerator.new do |yielder|
