@@ -21,7 +21,7 @@
           },
         },
         body: {
-          "$ref": "#/definitions/body",
+          "$ref": "#/definitions/multiple_content_types",
         },
         image: {
           "$ref": "#/definitions/image",

@@ -399,6 +399,7 @@ module Types
           object.details,
           change_history_presenter,
           content_embed_presenter,
+          nil,
           locale: object.locale,
         ).details,
       )
