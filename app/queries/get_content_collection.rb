@@ -9,9 +9,18 @@ module Queries
       :search_query,
       :search_in,
       :states,
+      :content_id_aliases,
     )
 
-    def initialize(fields:, document_types: @document_types, filters: {}, pagination: Pagination.new, search_query: "", search_in: nil)
+    def initialize(
+      fields:,
+      document_types: @document_types,
+      filters: {},
+      pagination: Pagination.new,
+      search_query: "",
+      search_in: nil,
+      content_id_aliases: nil
+    )
       self.document_types = Array(document_types)
       self.fields = (fields || default_fields) + %w[total]
       self.publishing_app = filters[:publishing_app]
@@ -21,6 +30,7 @@ module Queries
       self.pagination = pagination
       self.search_query = search_query.strip
       self.search_in = search_in
+      self.content_id_aliases = content_id_aliases
 
       validate_fields!
     end
@@ -43,6 +53,7 @@ module Queries
       :search_query,
       :search_in,
       :states,
+      :content_id_aliases,
     )
 
     def editions
@@ -50,6 +61,7 @@ module Queries
       scope = scope.where(document_type: @document_types) if @document_types.any?
       scope = scope.where(publishing_app:) if publishing_app
       scope = scope.where("documents.locale": locale) unless locale == "all"
+      scope = scope.where("documents.content_id": content_ids_for_aliases) if content_id_aliases.present?
       scope = Link.filter_editions(scope, link_filters) if link_filters.present?
       scope
     end
@@ -106,6 +118,10 @@ module Queries
 
     def escape_nested_field(field)
       ActiveRecord::Base.connection.quote_string(field)
+    end
+
+    def content_ids_for_aliases
+      ContentIdAlias.where(name: content_id_aliases).pluck(:content_id)
     end
 
     def query
