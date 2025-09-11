@@ -12,57 +12,59 @@ RSpec.describe GraphqlContentItemService do
     expect(GraphqlContentItemService.new(result).process).to eq({
       "details" => {},
       "title" => "The best edition yet!",
+      "withdrawn_notice" => {},
     })
   end
 
-  it "removes null top-level fields" do
-    result = {
-      "data" => {
-        "edition" => {
-          "array" => [1, 2, 3],
-          "boolean" => true,
-          "details" => {},
-          "hash" => { "a": 1 },
-          "null" => nil,
-          "number" => 1,
-          "string" => "howdy",
-        },
-      },
-    }
-
-    expect(GraphqlContentItemService.new(result).process).to eq({
-      "array" => [1, 2, 3],
-      "boolean" => true,
-      "details" => {},
-      "hash" => { "a": 1 },
-      "number" => 1,
-      "string" => "howdy",
-    })
-  end
-
-  it "removes null fields from the details hash" do
-    result = {
-      "data" => {
-        "edition" => {
-          "details" => {
-            "array" => [1, 2, 3],
-            "boolean" => true,
-            "hash" => { "a": 1 },
-            "null" => nil,
-            "number" => 1,
-            "string" => "howdy",
+  context "withdrawn_notice" do
+    it "sets the withdrawn notice to an empty hash when not in the result" do
+      result = {
+        "data" => {
+          "edition" => {
+            "title" => "The best edition yet!",
+            "details" => {},
           },
         },
-      },
-    }
+      }
 
-    expect(GraphqlContentItemService.new(result).process).to eq({ "details" => {
-      "array" => [1, 2, 3],
-      "boolean" => true,
-      "hash" => { "a": 1 },
-      "number" => 1,
-      "string" => "howdy",
-    } })
+      expect(GraphqlContentItemService
+        .new(result)
+        .process["withdrawn_notice"]).to eq({})
+    end
+
+    it "sets the withdrawn notice to an empty hash when nil" do
+      result = {
+        "data" => {
+          "edition" => {
+            "title" => "The best edition yet!",
+            "details" => {},
+            "withdrawn_notice" => nil,
+          },
+        },
+      }
+
+      expect(GraphqlContentItemService.new(result).process["withdrawn_notice"])
+        .to eq({})
+    end
+
+    it "doesn't touch a non-nil withdrawn notice" do
+      withdrawn_notice = {
+        explanation: "my explanation",
+        withdrawn_at: "2016-04-11T10:52:00.000+01:00",
+      }
+      result = {
+        "data" => {
+          "edition" => {
+            "title" => "The best edition yet!",
+            "details" => {},
+            "withdrawn_notice" => withdrawn_notice,
+          },
+        },
+      }
+
+      expect(GraphqlContentItemService.new(result).process["withdrawn_notice"])
+        .to eq(withdrawn_notice)
+    end
   end
 
   context "when the edition has been unpublished" do

@@ -19,8 +19,7 @@ private
 
   def edition
     query_result.dig("data", "edition").tap do |content_item|
-      content_item.compact!
-      content_item["details"].compact!
+      content_item["withdrawn_notice"] ||= {}
     end
   end
 
