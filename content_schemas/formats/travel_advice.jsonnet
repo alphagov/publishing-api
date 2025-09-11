@@ -76,5 +76,6 @@
   },
   links: (import "shared/base_links.jsonnet") + {
     related: "",
+    topical_events: "The topical events this content item relates to.",
   },
 }
