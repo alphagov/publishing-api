@@ -99,7 +99,7 @@ RSpec.describe GraphqlController do
       let(:edition) do
         create(
           :live_edition,
-          schema_name: "travel_advice",
+          schema_name: "travel_advice_index",
         )
       end
 
