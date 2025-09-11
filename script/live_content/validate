@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# Start Publishing API before running this script
+
 require "json"
 require "net/http"
 require "uri"
@@ -25,4 +27,5 @@ if errors.empty?
 else
   puts("Errors:")
   errors.each(&method(:puts))
+  exit 1
 end
