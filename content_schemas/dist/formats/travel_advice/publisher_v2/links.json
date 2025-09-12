@@ -62,6 +62,10 @@
         "taxons": {
           "description": "Prototype-stage taxonomy label for this content item",
           "$ref": "#/definitions/guid_list"
+        },
+        "topical_events": {
+          "description": "The topical events this content item relates to.",
+          "$ref": "#/definitions/guid_list"
         }
       }
     },

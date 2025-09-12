@@ -151,6 +151,10 @@
         "taxons": {
           "description": "Prototype-stage taxonomy label for this content item",
           "$ref": "#/definitions/frontend_links_with_base_path"
+        },
+        "topical_events": {
+          "description": "The topical events this content item relates to.",
+          "$ref": "#/definitions/frontend_links_with_base_path"
         }
       }
     },
