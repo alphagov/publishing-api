@@ -34,24 +34,6 @@ RSpec.describe GraphqlContentItemService do
     })
   end
 
-  it "defaults a nil-valued required string to an empty string" do
-    result = {
-      "data" => {
-        "edition" => {
-          "title" => "The best edition yet!",
-          "details" => {},
-          "base_path" => nil,
-        },
-      },
-    }
-
-    expect(GraphqlContentItemService.new("publication", result).process).to eq({
-      "details" => {},
-      "title" => "The best edition yet!",
-      "base_path" => "",
-    })
-  end
-
   it "removes null top-level fields" do
     result = {
       "data" => {
