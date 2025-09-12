@@ -1,6 +1,7 @@
 RSpec.describe "Requesting live content by base path" do
   schema_specific_fields = {
     news_article: { details: { body: "" } },
+    publication: { details: { body: "", documents: [], political: false } },
     world_index: {
       details: { world_locations: [], international_delegations: [] },
     },
