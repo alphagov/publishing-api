@@ -1,4 +1,8 @@
 RSpec.describe GraphqlContentItemService do
+  let(:compactor) { instance_double(Graphql::ContentItemCompactor) }
+  let(:graphql_content_item_service) { GraphqlContentItemService.new(compactor) }
+  before { allow(compactor).to receive(:compact).and_invoke(->(graphql_response) { graphql_response }) }
+
   it "returns the edition from the query result" do
     result = {
       "data" => {
@@ -9,8 +13,7 @@ RSpec.describe GraphqlContentItemService do
       },
     }
 
-    # TODO - don't pass "answer" in - maybe inject a compactor into this service?
-    expect(GraphqlContentItemService.new("answer", result).process).to eq({
+    expect(graphql_content_item_service.process(result)).to eq({
       "details" => {},
       "title" => "The best edition yet!",
     })
@@ -27,61 +30,11 @@ RSpec.describe GraphqlContentItemService do
       },
     }
 
-    expect(GraphqlContentItemService.new("publication", result).process).to eq({
+    expect(graphql_content_item_service.process(result)).to eq({
       "details" => {},
       "title" => "The best edition yet!",
       "description" => nil,
     })
-  end
-
-  it "removes null top-level fields" do
-    result = {
-      "data" => {
-        "edition" => {
-          "array" => [1, 2, 3],
-          "boolean" => true,
-          "details" => {},
-          "hash" => { "a": 1 },
-          "null" => nil,
-          "number" => 1,
-          "string" => "howdy",
-        },
-      },
-    }
-
-    expect(GraphqlContentItemService.new("answer", result).process).to eq({
-      "array" => [1, 2, 3],
-      "boolean" => true,
-      "details" => {},
-      "hash" => { "a": 1 },
-      "number" => 1,
-      "string" => "howdy",
-    })
-  end
-
-  it "removes null fields from the details hash" do
-    result = {
-      "data" => {
-        "edition" => {
-          "details" => {
-            "array" => [1, 2, 3],
-            "boolean" => true,
-            "hash" => { "a": 1 },
-            "null" => nil,
-            "number" => 1,
-            "string" => "howdy",
-          },
-        },
-      },
-    }
-
-    expect(GraphqlContentItemService.new("answer", result).process).to eq({ "details" => {
-      "array" => [1, 2, 3],
-      "boolean" => true,
-      "hash" => { "a": 1 },
-      "number" => 1,
-      "string" => "howdy",
-    } })
   end
 
   context "when the edition has been unpublished" do
@@ -96,7 +49,7 @@ RSpec.describe GraphqlContentItemService do
         "data" => { "edition" => nil },
       }
 
-      expect(GraphqlContentItemService.new("answer", result).process)
+      expect(graphql_content_item_service.process(result))
         .to eq("presented unpublishing data")
     end
   end
@@ -109,7 +62,7 @@ RSpec.describe GraphqlContentItemService do
         ],
       }
 
-      expect { GraphqlContentItemService.new("answer", result).process }
+      expect { graphql_content_item_service.process(result) }
         .to raise_error(GraphqlContentItemService::QueryResultError) do |error|
           expect(error.message).to eq(
             "Field 'bananas' doesn't exist on type 'Edition'",
@@ -126,7 +79,7 @@ RSpec.describe GraphqlContentItemService do
       }
       expected_error_message = "Field 'bananas' doesn't exist on type 'Edition'\nField 'kiwi' doesn't exist on type 'Details'"
 
-      expect { GraphqlContentItemService.new("answer", result).process }
+      expect { graphql_content_item_service.process(result) }
         .to raise_error(GraphqlContentItemService::QueryResultError) do |error|
           expect(error.message).to eq(expected_error_message)
         end
