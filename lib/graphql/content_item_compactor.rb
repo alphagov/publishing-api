@@ -10,7 +10,7 @@ class Graphql::ContentItemCompactor
       graphql_response["details"] = compact_by_schema(
         details,
         details_required_fields,
-        "#/properties/details/properties"
+        "#/properties/details/properties",
       )
     end
     required_fields = @schema.fetch("required", [])
@@ -27,7 +27,7 @@ private
       item["links"] = links.reject { |_key, linked_items| linked_items == [] }
 
       # Recurse through each of the linked items, compacting their links too
-      item["links"].each do |_key, linked_items|
+      item["links"].each_value do |linked_items|
         linked_items.each do |linked_item|
           compact_empty_links!(linked_item)
         end
@@ -41,7 +41,7 @@ private
       next true unless value.nil?
 
       if required_fields.include?(key)
-        # TODO check the performance cost of doing this for every required nil field
+        # TODO: check the performance cost of doing this for every required nil field
         begin
           # Check if nil is a valid value for this property
           JSON::Validator.validate!(@schema, nil, fragment: "#{fragment}/#{key}")
