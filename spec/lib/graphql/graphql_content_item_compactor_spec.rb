@@ -51,7 +51,7 @@ RSpec.describe Graphql::ContentItemCompactor do
 
       it "should remove optional fields with nil values" do
         compactor = described_class.new(
-          "properties" => {
+          "definitions" => {
             "details" => {
               "properties" => {
                 "some_nullable_property" => { "anyOf" => [{ "type" => "null" }] },
@@ -69,10 +69,6 @@ RSpec.describe Graphql::ContentItemCompactor do
           "definitions" => {
             "details" => {
               "required" => %w[some_non_nullable_property],
-            },
-          },
-          "properties" => {
-            "details" => {
               "properties" => {
                 "some_non_nullable_property" => { "type" => "string" },
               },
@@ -89,10 +85,6 @@ RSpec.describe Graphql::ContentItemCompactor do
           "definitions" => {
             "details" => {
               "required" => %w[some_nullable_property],
-            },
-          },
-          "properties" => {
-            "details" => {
               "properties" => {
                 "some_nullable_property" => { "anyOf" => [{ "type" => "null" }] },
               },

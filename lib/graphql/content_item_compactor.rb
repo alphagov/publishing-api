@@ -10,7 +10,7 @@ class Graphql::ContentItemCompactor
       graphql_response["details"] = compact_by_schema(
         details,
         details_required_fields,
-        "#/properties/details/properties",
+        "#/definitions/details/properties",
       )
     end
     required_fields = @schema.fetch("required", [])
