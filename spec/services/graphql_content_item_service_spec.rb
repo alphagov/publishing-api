@@ -9,6 +9,7 @@ RSpec.describe GraphqlContentItemService do
       },
     }
 
+    # TODO - don't pass "answer" in - maybe inject a compactor into this service?
     expect(GraphqlContentItemService.new("answer", result).process).to eq({
       "details" => {},
       "title" => "The best edition yet!",

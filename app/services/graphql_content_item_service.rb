@@ -30,7 +30,7 @@ private
   end
 
   def schema_aware_compact!(content_item, schema)
-    required_fields = @schema.fetch("required")
+    required_fields = schema.fetch("required")
     content_item.each do |key, value|
       next unless value.nil?
 
