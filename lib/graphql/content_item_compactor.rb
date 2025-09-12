@@ -24,10 +24,10 @@ private
   def compact_empty_links!(item)
     links = item["links"]
     if links.present?
-      item["links"] = links.reject { |_key, linked_items| linked_items == [] }
+      links.reject! { |_key, linked_items| linked_items == [] }
 
       # Recurse through each of the linked items, compacting their links too
-      item["links"].each_value do |linked_items|
+      links.each_value do |linked_items|
         linked_items.each do |linked_item|
           compact_empty_links!(linked_item)
         end
