@@ -17,7 +17,8 @@ class GraphqlContentItemService
 private
 
   def get_edition(query_result)
-    query_result.dig("data", "edition").tap { @compactor.compact!(_1) }
+    edition = query_result.dig("data", "edition")
+    @compactor.compact(edition)
   end
 
   def get_unpublishing(query_result)

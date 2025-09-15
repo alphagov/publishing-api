@@ -11,9 +11,9 @@ RSpec.describe Graphql::ContentItemCompactor do
         "string" => "howdy",
       }
 
-      described_class.new.compact!(result)
+      compact_result = described_class.new.compact(result)
 
-      expect(result).to eq({
+      expect(compact_result).to eq({
         "array" => [1, 2, 3],
         "boolean" => true,
         "details" => {},
@@ -35,8 +35,9 @@ RSpec.describe Graphql::ContentItemCompactor do
         },
       }
 
-      described_class.new.compact!(result)
-      expect(result).to eq({ "details" => {
+      compact_result = described_class.new.compact(result)
+
+      expect(compact_result).to eq({ "details" => {
         "array" => [1, 2, 3],
         "boolean" => true,
         "hash" => { "a": 1 },
