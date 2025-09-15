@@ -1,6 +1,10 @@
 class GraphqlContentItemService
   class QueryResultError < StandardError; end
 
+  def initialize
+    @compactor = Graphql::ContentItemCompactor.new
+  end
+
   def process(query_result)
     error_messages = get_error_messages(query_result)
     if error_messages.present?
@@ -13,10 +17,7 @@ class GraphqlContentItemService
 private
 
   def get_edition(query_result)
-    query_result.dig("data", "edition").tap do |content_item|
-      content_item.compact!
-      content_item["details"].compact!
-    end
+    query_result.dig("data", "edition").tap { @compactor.compact!(_1) }
   end
 
   def get_unpublishing(query_result)
