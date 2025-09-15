@@ -22,7 +22,7 @@ RSpec.describe GraphqlContentItemService do
           "array" => [1, 2, 3],
           "boolean" => true,
           "details" => {},
-          "hash" => { "a": 1 },
+          "hash" => { "a" => 1 },
           "null" => nil,
           "number" => 1,
           "string" => "howdy",
@@ -34,7 +34,7 @@ RSpec.describe GraphqlContentItemService do
       "array" => [1, 2, 3],
       "boolean" => true,
       "details" => {},
-      "hash" => { "a": 1 },
+      "hash" => { "a" => 1 },
       "number" => 1,
       "string" => "howdy",
     })
@@ -47,7 +47,7 @@ RSpec.describe GraphqlContentItemService do
           "details" => {
             "array" => [1, 2, 3],
             "boolean" => true,
-            "hash" => { "a": 1 },
+            "hash" => { "a" => 1 },
             "null" => nil,
             "number" => 1,
             "string" => "howdy",
@@ -59,7 +59,7 @@ RSpec.describe GraphqlContentItemService do
     expect(GraphqlContentItemService.new(result).process).to eq({ "details" => {
       "array" => [1, 2, 3],
       "boolean" => true,
-      "hash" => { "a": 1 },
+      "hash" => { "a" => 1 },
       "number" => 1,
       "string" => "howdy",
     } })
