@@ -237,6 +237,9 @@
         "first_published_version": {
           "type": "boolean"
         },
+        "headers": {
+          "$ref": "#/definitions/nested_headers"
+        },
         "isbn": {
           "description": "Identifies the Print ISBN to be displayed when printing an HTML Publication",
           "type": "string"
@@ -380,6 +383,33 @@
           "$ref": "#/definitions/nation_applicability"
         }
       }
+    },
+    "nested_headers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "text",
+          "level",
+          "id"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "headers": {
+            "$ref": "#/definitions/nested_headers"
+          },
+          "id": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "minItems": 1
     },
     "political": {
       "description": "If the content is considered political in nature, reflecting views of the government it was published under.",
