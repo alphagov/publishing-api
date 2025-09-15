@@ -14,9 +14,8 @@
         body: {
           "$ref": "#/definitions/body",
         },
-        headings: {
-          description: "DEPRECATED. A list of headings used to display a contents list. Superceded in https://github.com/alphagov/government-frontend/pull/384",
-          type: "string",
+        headers: {
+          "$ref": "#/definitions/nested_headers",
         },
         public_timestamp: {
           type: "string",
