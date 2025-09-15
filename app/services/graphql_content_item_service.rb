@@ -1,8 +1,16 @@
 class GraphqlContentItemService
   class QueryResultError < StandardError; end
 
-  def initialize
-    @compactor = Graphql::ContentItemCompactor.new
+  def initialize(compactor)
+    @compactor = compactor
+  end
+
+  def self.for_schema(schema_name)
+    schema = GovukSchemas::Schema.find(frontend_schema: schema_name)
+
+    new(
+      Graphql::ContentItemCompactor.new(schema),
+    )
   end
 
   def process(query_result)

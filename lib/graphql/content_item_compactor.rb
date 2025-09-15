@@ -1,4 +1,8 @@
 class Graphql::ContentItemCompactor
+  def initialize(schema)
+    @schema = schema
+  end
+
   def compact(graphql_response)
     compact_response = compact_non_required_fields(graphql_response, required_top_level_fields)
 

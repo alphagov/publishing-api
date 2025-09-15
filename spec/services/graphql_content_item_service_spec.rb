@@ -1,4 +1,11 @@
 RSpec.describe GraphqlContentItemService do
+  let(:compactor) { instance_double(Graphql::ContentItemCompactor) }
+  let(:graphql_content_item_service) { GraphqlContentItemService.new(compactor) }
+  before do
+    # For the purposes of these tests, the compact method can just pass through its input
+    allow(compactor).to receive(:compact).and_invoke(-> { _1 })
+  end
+
   it "returns the edition from the query result" do
     result = {
       "data" => {
@@ -9,7 +16,7 @@ RSpec.describe GraphqlContentItemService do
       },
     }
 
-    expect(GraphqlContentItemService.new.process(result)).to eq({
+    expect(graphql_content_item_service.process(result)).to eq({
       "details" => {},
       "title" => "The best edition yet!",
     })
@@ -27,7 +34,7 @@ RSpec.describe GraphqlContentItemService do
         "data" => { "edition" => nil },
       }
 
-      expect(GraphqlContentItemService.new.process(result))
+      expect(graphql_content_item_service.process(result))
         .to eq("presented unpublishing data")
     end
   end
@@ -40,7 +47,7 @@ RSpec.describe GraphqlContentItemService do
         ],
       }
 
-      expect { GraphqlContentItemService.new.process(result) }
+      expect { graphql_content_item_service.process(result) }
         .to raise_error(GraphqlContentItemService::QueryResultError) do |error|
           expect(error.message).to eq(
             "Field 'bananas' doesn't exist on type 'Edition'",
@@ -57,7 +64,7 @@ RSpec.describe GraphqlContentItemService do
       }
       expected_error_message = "Field 'bananas' doesn't exist on type 'Edition'\nField 'kiwi' doesn't exist on type 'Details'"
 
-      expect { GraphqlContentItemService.new.process(result) }
+      expect { graphql_content_item_service.process(result) }
         .to raise_error(GraphqlContentItemService::QueryResultError) do |error|
           expect(error.message).to eq(expected_error_message)
         end

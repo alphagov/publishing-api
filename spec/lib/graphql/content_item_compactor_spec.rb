@@ -1,4 +1,8 @@
 RSpec.describe Graphql::ContentItemCompactor do
+  let(:schema) do
+    {}
+  end
+
   describe "#compact" do
     it "removes null top-level fields" do
       result = {
@@ -11,7 +15,7 @@ RSpec.describe Graphql::ContentItemCompactor do
         "string" => "howdy",
       }
 
-      compact_result = described_class.new.compact(result)
+      compact_result = described_class.new(schema).compact(result)
 
       expect(compact_result).to eq({
         "array" => [1, 2, 3],
@@ -35,7 +39,7 @@ RSpec.describe Graphql::ContentItemCompactor do
         },
       }
 
-      compact_result = described_class.new.compact(result)
+      compact_result = described_class.new(schema).compact(result)
 
       expect(compact_result).to eq({ "details" => {
         "array" => [1, 2, 3],
