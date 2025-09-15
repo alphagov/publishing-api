@@ -14,6 +14,9 @@
         body: {
           "$ref": "#/definitions/body",
         },
+        headers: {
+          "$ref": "#/definitions/nested_headers",
+        },
         public_timestamp: {
           type: "string",
           format: "date-time",
