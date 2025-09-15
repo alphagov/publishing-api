@@ -71,14 +71,14 @@ RSpec.describe GraphqlContentItemService do
         "errors" => [
           {
             "message" => "Edition has been unpublished",
-            "extensions" => "presented unpublishing data",
+            "extensions" => { "a" => "hash" },
           },
         ],
         "data" => { "edition" => nil },
       }
 
       expect(GraphqlContentItemService.new(result).process)
-        .to eq("presented unpublishing data")
+        .to eq({ "a" => "hash" })
     end
   end
 
