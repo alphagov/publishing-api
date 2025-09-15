@@ -95,7 +95,7 @@ module Types
       reverse_links_field :part_of_step_navs, :pages_part_of_step_nav, [EditionType]
       reverse_links_field :policies, :working_groups, [EditionType]
       reverse_links_field :related_to_step_navs, :pages_related_to_step_nav, [EditionType]
-      reverse_links_field :secondary_to_step_navs, :secondary_to_step_navs, [EditionType]
+      reverse_links_field :secondary_to_step_navs, :pages_secondary_to_step_nav, [EditionType]
 
       field :available_translations, [EditionType]
       field :role_appointments, [EditionType]
