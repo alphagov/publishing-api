@@ -65,6 +65,34 @@ RSpec.describe GraphqlContentItemService do
     } })
   end
 
+  it "deep sorts and stringifies the keys" do
+    result = {
+      "data" => {
+        "edition" => {
+          "details" => {
+            "def" => 123,
+            "abc" => {
+              initially_a_sybol_key: "value",
+            },
+            "xyz" => false,
+          },
+          "base_path" => "/world",
+        },
+      },
+    }
+
+    expect(GraphqlContentItemService.new(result).process).to eq({
+      "base_path" => "/world",
+      "details" => {
+        "abc" => {
+          "initially_a_sybol_key" => "value",
+        },
+        "def" => 123,
+        "xyz" => false,
+      },
+    })
+  end
+
   context "when the edition has been unpublished" do
     it "returns unpublishing data from the error extensions" do
       result = {

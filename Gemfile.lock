@@ -140,6 +140,7 @@ GEM
     database_cleaner-core (2.0.1)
     date (3.4.1)
     declarative (0.0.20)
+    deepsort (0.5.0)
     diff-lcs (1.6.2)
     dig_rb (1.0.1)
     docile (1.4.1)
@@ -954,6 +955,7 @@ DEPENDENCIES
   csv
   dalli
   database_cleaner
+  deepsort (~> 0.5.0)
   factory_bot_rails
   fuzzy_match
   gds-api-adapters

@@ -1,3 +1,5 @@
+require "deepsort"
+
 class GraphqlContentItemService
   class QueryResultError < StandardError; end
 
@@ -12,7 +14,9 @@ class GraphqlContentItemService
       raise QueryResultError, error_messages.join("\n")
     end
 
-    unpublishing || edition
+    (unpublishing || edition)
+      .deep_stringify_keys
+      .deep_sort(array: false)
   end
 
 private
