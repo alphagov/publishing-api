@@ -83,6 +83,7 @@ module Types
       links_field :taxons, [EditionType]
       links_field :top_level_browse_pages, [EditionType]
       links_field :topical_events, [EditionType]
+      links_field :world_location_news, [EditionType]
       links_field :world_locations, [EditionType]
       links_field :worldwide_organisation, [EditionType]
       links_field :worldwide_organisations, [EditionType]

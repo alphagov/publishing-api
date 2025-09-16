@@ -106,6 +106,16 @@ query news_article($base_path: String!) {
           content_id
           locale
           title
+          links {
+            world_location_news {
+              analytics_identifier
+              base_path
+              content_id
+              locale
+              title
+              description
+            }
+          }
         }
         worldwide_organisations {
           analytics_identifier
