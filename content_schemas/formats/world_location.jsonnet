@@ -25,5 +25,8 @@
   edition_links: (import "shared/base_edition_links.jsonnet") + {
     featured_policies: "Featured policies primarily for use with Whitehall organisations",
   },
+  links: (import "shared/base_links.jsonnet") + {
+    world_location_news: "Updates, news and events from the UK government in this world location"
+  },
   rendering_app: "optional",
 }
