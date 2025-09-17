@@ -20,6 +20,6 @@ class Graphql::ContentItemCompactor
 private
 
   def compact_non_required_fields(hash, required_fields)
-    hash.reject { |key, value| value.nil? && !required_fields.include?(key) }
+    hash.reject { |key, value| value.nil? && required_fields.exclude?(key) }
   end
 end
