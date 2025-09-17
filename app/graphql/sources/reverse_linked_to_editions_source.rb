@@ -10,7 +10,7 @@ module Sources
 
     def fetch(editions_and_link_types)
       all_selections = {
-        links: %i[target_content_id link_type edition_id],
+        links: %i[target_content_id link_type edition_id position],
         documents: %i[content_id],
       }
       row_number_selection = Arel.sql(
@@ -88,7 +88,7 @@ module Sources
         SQL
       )
         .where(editions: { row_number: 1 })
-        .order("editions.id")
+        .order(link_type: :asc, position: :asc, id: :asc)
 
       all_editions.each_with_object(link_types_map) { |edition, hash|
         unless hash[[edition.target_content_id, edition.link_type]].include?(edition)
