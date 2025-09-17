@@ -35,38 +35,38 @@
       }
     },
     "telephones": {
-      "telephone_numbers": [
-        {
-          "label": "Telephone 1",
-          "telephone": "1234 567 89",
-          "type": "telephone",
-          "show_uk_call_charges": "false",
-          "description": "A Telephone line"
+      "telephone-1": {
+        "title": "Telephone",
+        "telephone_numbers": [
+          {
+            "label": "Telephone 1",
+            "telephone_number": "1234 567 89",
+            "type": "telephone"
+          },
+          {
+            "label": "Telephone 2",
+            "telephone_number": "1234 567 89",
+            "type": "textphone"
+          },
+          {
+            "label": "Telephone 3",
+            "telephone_number": "1234 567 89",
+            "type": "welsh_language"
+          }
+        ],
+        "opening_hours": {
+          "show": true,
+          "value": "Monday to Friday, 8am to 6pm (except public holidays)"
         },
-        {
-          "label": "Telephone 2",
-          "telephone": "1234 567 89",
-          "type": "textphone",
-          "show_uk_call_charges": "true"
+        "call_charges": {
+          "label": "Find out about call charges",
+          "call_charges_info_url": "https://gov.uk/call-charges/overseas",
+          "show_call_charges_info_url": true
         },
-        {
-          "label": "Telephone 3",
-          "telephone": "1234 567 89",
-          "type": "welsh_language",
-          "show_uk_call_charges": "true"
+        "bsl_guidance": {
+          "show": true,
+          "value": "Some value"
         }
-      ],
-      "video_relay_services": {
-        "show": false
-      },
-      "call_charges": {
-        "label": "Find out about call charges",
-        "call_charges_info_url": "https://gov.uk/call-charges/overseas",
-        "show_call_charges_info_url": "on"
-      },
-      "bsl_guidance": {
-        "show": true,
-        "value": "Some value"
       }
     }
   },
