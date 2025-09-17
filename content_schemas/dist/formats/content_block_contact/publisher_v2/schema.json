@@ -297,6 +297,13 @@
             }
           }
         },
+        "order": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^addresses|contact_links|email_addresses|telephones.[a-z0-9]+(?:-[a-z0-9]+)*$"
+          }
+        },
         "telephones": {
           "type": "object",
           "patternProperties": {

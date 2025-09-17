@@ -7,6 +7,15 @@
   "content_id_alias": "hmrc-media",
   "details": {
     "description": "Description goes here",
+    "order": [
+      "email_addresses.email-1",
+      "addresses.address-1",
+      "addresses.address-2",
+      "email_addresses.email-2",
+      "telephones.telephone-1",
+      "email_addresses.email-2",
+      "contact_links.webchat"
+    ],
     "email_addresses": {
       "email-1": {
         "title": "Email 1",
