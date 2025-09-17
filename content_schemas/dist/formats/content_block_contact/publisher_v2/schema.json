@@ -193,6 +193,7 @@
       "properties": {
         "addresses": {
           "type": "object",
+          "additionalProperties": false,
           "patternProperties": {
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
@@ -232,6 +233,7 @@
         },
         "contact_links": {
           "type": "object",
+          "additionalProperties": false,
           "patternProperties": {
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
@@ -264,6 +266,7 @@
         },
         "email_addresses": {
           "type": "object",
+          "additionalProperties": false,
           "patternProperties": {
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
@@ -306,6 +309,7 @@
         },
         "telephones": {
           "type": "object",
+          "additionalProperties": false,
           "patternProperties": {
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
