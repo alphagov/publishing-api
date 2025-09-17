@@ -268,6 +268,13 @@
   :description: "You can choose which cookies you're happy for GOV.UK to use."
   :rendering_app: "frontend"
 
+- :base_path: "/media"
+  :content_id: "cdcad470-21c6-4e19-b644-9e499de1ad12"
+  :title: "Government Uploads"
+  :description: "Handles redirects for /media/:id/:filename path for asset manager"
+  :type: "prefix"
+  :rendering_app: "government-frontend"
+
 - :base_path: "/random"
   :content_id: "3c991cea-cdee-4e58-b8d1-d38e7c0e6327"
   :title: "GOV.UK random page"
