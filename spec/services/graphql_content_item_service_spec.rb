@@ -22,7 +22,7 @@ RSpec.describe GraphqlContentItemService do
           "array" => [1, 2, 3],
           "boolean" => true,
           "details" => {},
-          "hash" => { "a": 1 },
+          "hash" => { "a" => 1 },
           "null" => nil,
           "number" => 1,
           "string" => "howdy",
@@ -34,7 +34,7 @@ RSpec.describe GraphqlContentItemService do
       "array" => [1, 2, 3],
       "boolean" => true,
       "details" => {},
-      "hash" => { "a": 1 },
+      "hash" => { "a" => 1 },
       "number" => 1,
       "string" => "howdy",
     })
@@ -47,7 +47,7 @@ RSpec.describe GraphqlContentItemService do
           "details" => {
             "array" => [1, 2, 3],
             "boolean" => true,
-            "hash" => { "a": 1 },
+            "hash" => { "a" => 1 },
             "null" => nil,
             "number" => 1,
             "string" => "howdy",
@@ -59,10 +59,38 @@ RSpec.describe GraphqlContentItemService do
     expect(GraphqlContentItemService.new(result).process).to eq({ "details" => {
       "array" => [1, 2, 3],
       "boolean" => true,
-      "hash" => { "a": 1 },
+      "hash" => { "a" => 1 },
       "number" => 1,
       "string" => "howdy",
     } })
+  end
+
+  it "deep sorts and stringifies the keys" do
+    result = {
+      "data" => {
+        "edition" => {
+          "details" => {
+            "def" => 123,
+            "abc" => {
+              initially_a_sybol_key: "value",
+            },
+            "xyz" => false,
+          },
+          "base_path" => "/world",
+        },
+      },
+    }
+
+    expect(GraphqlContentItemService.new(result).process).to eq({
+      "base_path" => "/world",
+      "details" => {
+        "abc" => {
+          "initially_a_sybol_key" => "value",
+        },
+        "def" => 123,
+        "xyz" => false,
+      },
+    })
   end
 
   context "when the edition has been unpublished" do
@@ -71,14 +99,14 @@ RSpec.describe GraphqlContentItemService do
         "errors" => [
           {
             "message" => "Edition has been unpublished",
-            "extensions" => "presented unpublishing data",
+            "extensions" => { "a" => "hash" },
           },
         ],
         "data" => { "edition" => nil },
       }
 
       expect(GraphqlContentItemService.new(result).process)
-        .to eq("presented unpublishing data")
+        .to eq({ "a" => "hash" })
     end
   end
 

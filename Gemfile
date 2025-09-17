@@ -52,3 +52,5 @@ group :development, :test do
   gem "timecop"
   gem "webmock", require: false
 end
+
+gem "deepsort", "~> 0.5.0"
