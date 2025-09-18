@@ -1,5 +1,3 @@
-require "deepsort"
-
 class GraphqlContentItemService
   class QueryResultError < StandardError; end
 
@@ -14,12 +12,26 @@ class GraphqlContentItemService
       raise QueryResultError, error_messages.join("\n")
     end
 
-    (unpublishing || edition)
-      .deep_stringify_keys
-      .deep_sort(array: false)
+    # commit deep stringify then deep sort
+    deep_sort_hash_keys((unpublishing || edition).deep_stringify_keys)
   end
 
 private
+
+  # move to separate class
+  # requires pre-stringified (or consistently classed) keys
+  def deep_sort_hash_keys(hash)
+    hash.map { |key, value|
+      case value
+      in Hash
+        [key, deep_sort_hash_keys(value)]
+      in [Hash, *]
+        [key, value.map(&method(:deep_sort_hash_keys))]
+      else
+        [key, value]
+      end
+    }.sort.to_h
+  end
 
   def edition
     query_result.dig("data", "edition").tap do |content_item|
