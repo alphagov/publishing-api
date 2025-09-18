@@ -10,7 +10,11 @@ module Sources
 
     def fetch(editions_and_link_types)
       all_selections = {
-        links: %i[link_type position],
+        links: {
+          link_type: :link_type,
+          position: :position,
+          id: :link_id,
+        },
         documents: %i[content_id],
       }
       edition_id_tuples = []
@@ -116,7 +120,7 @@ module Sources
           SQL
         )
         .where(editions: { row_number: 1 })
-        .order(link_type: :asc, position: :asc)
+        .order(link_type: :asc, position: :asc, link_id: :desc)
 
       all_editions.each_with_object(link_types_map) { |edition, hash|
         hash[[edition.source_content_id, edition.link_type]] << edition

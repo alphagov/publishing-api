@@ -53,7 +53,7 @@ module Queries
     def links_results
       query = Link.left_joins(edition: :document)
       where(query)
-        .order(link_type: :asc, position: :asc)
+        .order(link_type: :asc, position: :asc, id: :desc)
         .pluck(:link_type, link_field, "documents.locale", "editions.id")
     end
 
