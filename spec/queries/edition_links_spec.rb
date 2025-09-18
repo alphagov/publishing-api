@@ -21,6 +21,19 @@ RSpec.describe Queries::EditionLinks do
           ]
         end
       end
+
+      context "and they have the same position" do
+        let(:edition) { create(:live_edition, document: create(:document, content_id:)) }
+        let!(:first_link) { create(:link, link_type:, edition:, position: 0) }
+        let!(:second_link) { create(:link, link_type:, edition:, position: 0) }
+
+        it "reverse orders by link ID" do
+          expect(result[:organisations].map { _1[:content_id] }).to eq [
+            second_link.target_content_id,
+            first_link.target_content_id,
+          ]
+        end
+      end
     end
   end
 
@@ -56,6 +69,34 @@ RSpec.describe Queries::EditionLinks do
           expect(result[:organisations].map { _1[:content_id] }).to eq [
             first_link.edition.content_id,
             second_link.edition.content_id,
+          ]
+        end
+      end
+
+      context "and they have the same position" do
+        let!(:first_link) do
+          create(
+            :link,
+            edition: create(:live_edition),
+            link_type:,
+            target_content_id: content_id,
+            position: 0,
+          )
+        end
+        let!(:second_link) do
+          create(
+            :link,
+            edition: create(:live_edition),
+            link_type:,
+            target_content_id: content_id,
+            position: 0,
+          )
+        end
+
+        it "reverse orders by link ID" do
+          expect(result[:organisations].map { _1[:content_id] }).to eq [
+            second_link.edition.content_id,
+            first_link.edition.content_id,
           ]
         end
       end

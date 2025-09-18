@@ -24,36 +24,6 @@ RSpec.describe "GraphQL" do
         base_path: "/government/ministers/prime-minister.es",
       )
 
-      role_appointment1 = create(
-        :live_edition,
-        title: "The Rt Hon Keir Starmer - Prime Minister",
-        document_type: "role_appointment",
-        schema_name: "role_appointment",
-        details: {
-          current: true,
-          started_on: Time.utc(2024, 7, 5),
-        },
-      ).tap do |role_appointment|
-        person = create(
-          :live_edition,
-          title: "The Rt Hon Sir Keir Starmer KCB KC MP",
-          document_type: "person",
-          schema_name: "person",
-          base_path: "/government/people/keir-starmer",
-          details: {
-            body: [{
-              content: "Sir Keir Starmer became Prime Minister on 5 July 2024.",
-              content_type: "text/govspeak",
-            }],
-          },
-        )
-        create(
-          :link_set,
-          content_id: role_appointment.content_id,
-          links_hash: { person: [person.content_id], role: [role.content_id] },
-        )
-      end
-
       role_appointment2 = create(
         :live_edition,
         title: "The Rt Hon Rishi Sunak - Prime Minister",
@@ -74,6 +44,36 @@ RSpec.describe "GraphQL" do
           details: {
             body: [{
               content: "Rishi Sunak was Prime Minister between 25 October 2022 and 5 July 2024.",
+              content_type: "text/govspeak",
+            }],
+          },
+        )
+        create(
+          :link_set,
+          content_id: role_appointment.content_id,
+          links_hash: { person: [person.content_id], role: [role.content_id] },
+        )
+      end
+
+      role_appointment1 = create(
+        :live_edition,
+        title: "The Rt Hon Keir Starmer - Prime Minister",
+        document_type: "role_appointment",
+        schema_name: "role_appointment",
+        details: {
+          current: true,
+          started_on: Time.utc(2024, 7, 5),
+        },
+      ).tap do |role_appointment|
+        person = create(
+          :live_edition,
+          title: "The Rt Hon Sir Keir Starmer KCB KC MP",
+          document_type: "person",
+          schema_name: "person",
+          base_path: "/government/people/keir-starmer",
+          details: {
+            body: [{
+              content: "Sir Keir Starmer became Prime Minister on 5 July 2024.",
               content_type: "text/govspeak",
             }],
           },

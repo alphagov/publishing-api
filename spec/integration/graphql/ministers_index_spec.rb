@@ -159,8 +159,8 @@ RSpec.describe "GraphQL" do
 
     describe "ordered_cabinet_ministers links" do
       before do
-        person1 = create_person_with_role_appointment("Keir Starmer 1", "1st Minister")
-        extra_role = create_role("First Lord of The Treasury")
+        person1 = create_person_with_role_appointment("Keir Starmer 1", "First Lord of The Treasury")
+        extra_role = create_role("1st Minister")
         appoint_person_to_role(person1, extra_role)
         add_link(person1, link_type: "ordered_cabinet_ministers", link_set: index_page_link_set, position: 0)
 
@@ -608,11 +608,12 @@ RSpec.describe "GraphQL" do
         add_link(cabinet_office, link_type: "ordered_ministerial_departments", link_set: index_page_link_set)
 
         person = create_person("Keir Starmer")
-        role = create_role("Prime Minister")
-        appoint_person_to_role(person, role)
 
         extra_role = create_role("First Lord of The Treasury")
         appoint_person_to_role(person, extra_role)
+
+        role = create_role("Prime Minister")
+        appoint_person_to_role(person, role)
 
         add_department_link(cabinet_office, person, link_type: "ordered_ministers")
 

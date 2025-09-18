@@ -132,8 +132,8 @@ RSpec.describe "Link Expansion" do
 
     context "multiple parent taxons" do
       it "expands all the parents" do
-        create_link(a, b, "parent_taxons")
         create_link(a, c, "parent_taxons")
+        create_link(a, b, "parent_taxons")
         create_link(b, d, "parent_taxons")
         create_link(c, d, "parent_taxons")
 
@@ -258,8 +258,8 @@ RSpec.describe "Link Expansion" do
   describe "editions in different states" do
     context "when a edition is in a state that does not match the provided state" do
       before do
-        create_link(a, b, "related")
         create_link(a, c, "related")
+        create_link(a, b, "related")
 
         create_edition(a, "/a", factory: :draft_edition)
         create_edition(b, "/b", factory: :draft_edition)

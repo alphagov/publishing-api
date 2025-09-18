@@ -504,13 +504,9 @@ RSpec.describe "GraphQL" do
 
       create(
         :link_set,
-        content_id: organisation_edition.content_id,
+        content_id: related_edition2.content_id,
         links_hash: {
-          "parent_taxons" => [
-            target_edition.content_id,
-            related_edition1.content_id,
-            related_edition2.content_id,
-          ],
+          "parent_taxons" => [target_edition.content_id],
         },
       )
 
@@ -524,9 +520,13 @@ RSpec.describe "GraphQL" do
 
       create(
         :link_set,
-        content_id: related_edition2.content_id,
+        content_id: organisation_edition.content_id,
         links_hash: {
-          "parent_taxons" => [target_edition.content_id],
+          "parent_taxons" => [
+            target_edition.content_id,
+            related_edition1.content_id,
+            related_edition2.content_id,
+          ],
         },
       )
 
@@ -595,17 +595,17 @@ RSpec.describe "GraphQL" do
     it "handles multiple copies of the same reverse Edition Link for distinct target Editions" do
       target_edition = create(:live_edition, title: "News Article")
 
-      related_edition1 = create(
+      related_edition2 = create(
         :live_edition,
-        title: "Related Article 1",
+        title: "Related Article 2",
         links_hash: {
           "parent_taxons" => [target_edition.content_id],
         },
       )
 
-      related_edition2 = create(
+      related_edition1 = create(
         :live_edition,
-        title: "Related Article 2",
+        title: "Related Article 1",
         links_hash: {
           "parent_taxons" => [target_edition.content_id],
         },
@@ -653,6 +653,12 @@ RSpec.describe "GraphQL" do
             links: {
               child_taxons: [
                 {
+                  title: "News Office",
+                  links: {
+                    child_taxons: [],
+                  },
+                },
+                {
                   title: "Related Article 1",
                   links: {
                     child_taxons: [
@@ -666,12 +672,6 @@ RSpec.describe "GraphQL" do
                     child_taxons: [
                       { title: "News Office" },
                     ],
-                  },
-                },
-                {
-                  title: "News Office",
-                  links: {
-                    child_taxons: [],
                   },
                 },
               ],
