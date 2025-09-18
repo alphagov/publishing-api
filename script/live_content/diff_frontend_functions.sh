@@ -28,6 +28,9 @@ function curl_and_strip_hashes() {
   local response
   response=$(curl -u "$username:$password" "$domain$curl_path") || exit 1
 
+  local time_regex='[0-9]{2}:[0-9]{2}:[0-9]{2}'
+  local date_regex='[0-9]{4}-[0-9]{2}-[0-9]{2}'
+
   echo "$response" | sed -r \
     -e 's/\?graphql=(true|false)//g' \
     -e 's/nonce="[^"]{22}=="/nonce="HASH=="/g' \
@@ -36,6 +39,7 @@ function curl_and_strip_hashes() {
     -e '/<meta name="govuk:content-has-history" content=".*">/d' \
     -e 's/(This news article was withdrawn on &lt;time datetime=)"[^"]+"/\1"TIMESTAMP"/' \
     -e 's/(This news article was withdrawn on <time datetime=)"[^"]+"/\1"TIMESTAMP"/' \
+    -e 's/(datetime=")('"$date_regex"')[ T]('"$time_regex"')[ Z](UTC|\+01:00)?"/\1\2\3"/' \
     > "$output_path"
 }
 

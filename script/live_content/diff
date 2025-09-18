@@ -49,7 +49,7 @@ def deep_prune(key, value)
   in ["withdrawn", *]
     nil
   in [String, DATE_PATTERN]
-    [key, value.sub(/(#{DATE_PATTERN}).*/, '\1')]
+    [key, value.sub(/(#{DATE_PATTERN}) .*/, '\1')]
   else
     [key, value]
   end
