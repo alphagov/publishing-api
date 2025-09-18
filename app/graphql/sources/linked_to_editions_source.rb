@@ -11,7 +11,7 @@ module Sources
     def fetch(editions_and_link_types)
       all_selections = {
         links: %i[link_type position],
-        documents: %i[content_id],
+        documents: %i[content_id locale],
       }
       edition_id_tuples = []
       content_id_tuples = []
