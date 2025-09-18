@@ -11,7 +11,7 @@ module Sources
     def fetch(editions_and_link_types)
       all_selections = {
         links: %i[target_content_id link_type edition_id position],
-        documents: %i[content_id],
+        documents: %i[content_id locale],
       }
       row_number_selection = Arel.sql(
         <<~SQL,
