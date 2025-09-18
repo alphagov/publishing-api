@@ -41,6 +41,19 @@ RSpec.describe Queries::Links do
           ]
         end
       end
+
+      context "and they have the same position" do
+        let(:link_set) { create(:link_set, content_id:) }
+        let!(:first_link) { create(:link, link_type:, link_set:, position: 0) }
+        let!(:second_link) { create(:link, link_type:, link_set:, position: 0) }
+
+        it "reverse orders by link ID" do
+          expect(result[:organisations].map { _1[:content_id] }).to eq [
+            second_link.target_content_id,
+            first_link.target_content_id,
+          ]
+        end
+      end
     end
 
     describe "allowed_link_types option" do
@@ -233,6 +246,32 @@ RSpec.describe Queries::Links do
             first_link.link_set_content_id,
             second_link.link_set_content_id,
             third_link.link_set_content_id,
+          ]
+        end
+      end
+
+      context "and they have the same position" do
+        let!(:first_link) do
+          create(
+            :link,
+            link_type:,
+            target_content_id: content_id,
+            position: 0,
+          )
+        end
+        let!(:second_link) do
+          create(
+            :link,
+            link_type:,
+            target_content_id: content_id,
+            position: 0,
+          )
+        end
+
+        it "reverse orders by link ID" do
+          expect(result[:organisations].map { _1[:content_id] }).to eq [
+            second_link.link_set_content_id,
+            first_link.link_set_content_id,
           ]
         end
       end

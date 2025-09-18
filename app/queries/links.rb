@@ -107,7 +107,7 @@ module Queries
         .link_set_links
         .where(where)
         .where.not(where_not)
-        .order(link_type: :asc, position: :asc)
+        .order(link_type: :asc, position: :asc, id: :desc)
         .pluck(*fields)
     end
 
