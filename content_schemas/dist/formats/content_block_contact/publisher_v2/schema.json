@@ -319,10 +319,7 @@
                       "type": "string",
                       "default": "British Sign Language (BSL) [video relay service](https://connect.interpreterslive.co.uk/vrs) if you’re on a computer - find out how to [use the service on mobile or tablet](https://www.youtube.com/watch?v=oELNMfAvDxw)"
                     }
-                  },
-                  "x-govspeak_enabled": [
-                    "value"
-                  ]
+                  }
                 },
                 "call_charges": {
                   "type": "object",
@@ -432,10 +429,7 @@
                       "prefix",
                       "telephone_number"
                     ]
-                  },
-                  "x-govspeak_enabled": [
-                    "prefix"
-                  ]
+                  }
                 }
               }
             }
