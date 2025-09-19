@@ -24,6 +24,25 @@ RSpec.describe Queries::Links do
       end
     end
 
+    context "when there are multiple links of the same type" do
+      let(:link_type) { "organisations" }
+
+      context "and they have different positions" do
+        let(:link_set) { create(:link_set, content_id:) }
+        let!(:first_link) { create(:link, link_type:, link_set:, position: 1) }
+        let!(:third_link) { create(:link, link_type:, link_set:, position: 3) }
+        let!(:second_link) { create(:link, link_type:, link_set:, position: 2) }
+
+        it "orders by position" do
+          expect(result[:organisations].map { _1[:content_id] }).to eq [
+            first_link.target_content_id,
+            second_link.target_content_id,
+            third_link.target_content_id,
+          ]
+        end
+      end
+    end
+
     describe "allowed_link_types option" do
       let(:link_content_id) { SecureRandom.uuid }
       let(:link_type) { :organisations }
@@ -177,6 +196,45 @@ RSpec.describe Queries::Links do
         expect(result).to match(
           link_type => [a_hash_including(content_id: link_content_id)],
         )
+      end
+    end
+
+    context "when there are multiple links of the same type" do
+      let(:link_type) { "organisations" }
+
+      context "and they have different positions" do
+        let!(:first_link) do
+          create(
+            :link,
+            link_type:,
+            target_content_id: content_id,
+            position: 1,
+          )
+        end
+        let!(:third_link) do
+          create(
+            :link,
+            link_type:,
+            target_content_id: content_id,
+            position: 3,
+          )
+        end
+        let!(:second_link) do
+          create(
+            :link,
+            link_type:,
+            target_content_id: content_id,
+            position: 2,
+          )
+        end
+
+        it "orders by position" do
+          expect(result[:organisations].map { _1[:content_id] }).to eq [
+            first_link.link_set_content_id,
+            second_link.link_set_content_id,
+            third_link.link_set_content_id,
+          ]
+        end
       end
     end
 
