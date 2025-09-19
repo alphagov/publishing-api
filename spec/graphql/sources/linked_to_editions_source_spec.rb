@@ -163,6 +163,10 @@ RSpec.describe Sources::LinkedToEditionsSource do
     end
   end
 
+  context "when the same document is both a link set link and an edition link" do
+    it "only returns the document once"
+  end
+
   context "when the linked item is unpublished" do
     Link::PERMITTED_UNPUBLISHED_LINK_TYPES.each do |link_type|
       it "includes unpublished links when they are of the permitted type #{link_type}" do
