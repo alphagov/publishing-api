@@ -153,6 +153,37 @@ RSpec.describe Sources::LinkedToEditionsSource do
     end
   end
 
+  context "when the same document is both a link set link and an edition link" do
+    it "only returns the document once" do
+      source_edition = create(:live_edition)
+      target_edition = create(:live_edition)
+
+      create(
+        :link,
+        edition: source_edition,
+        target_content_id: target_edition.content_id,
+        link_type: "test_link",
+      )
+
+      create(
+        :link,
+        link_set: create(:link_set, content_id: source_edition.content_id),
+        target_content_id: target_edition.content_id,
+        link_type: "test_link",
+      )
+
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: "en",
+        ).request([source_edition, "test_link"])
+
+        expect(request.load).to eq([target_edition])
+      end
+    end
+  end
+
   context "when the linked item is unpublished" do
     Link::PERMITTED_UNPUBLISHED_LINK_TYPES.each do |link_type|
       it "includes unpublished links when they are of the permitted type #{link_type}" do

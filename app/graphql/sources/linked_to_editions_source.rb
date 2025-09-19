@@ -123,7 +123,9 @@ module Sources
         .order(link_type: :asc, position: :asc, link_id: :desc)
 
       all_editions.each_with_object(link_types_map) { |edition, hash|
-        hash[[edition.source_content_id, edition.link_type]] << edition
+        unless hash[[edition.source_content_id, edition.link_type]].include?(edition)
+          hash[[edition.source_content_id, edition.link_type]] << edition
+        end
       }.values
     end
   end
