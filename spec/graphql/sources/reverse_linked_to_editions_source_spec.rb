@@ -51,6 +51,31 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
     end
   end
 
+  it "returns editions ordered by their reverse links' `position`" do
+    target_edition = create(:edition)
+
+    source_edition_0 = create(:edition)
+    source_edition_1 = create(:edition)
+    source_edition_2 = create(:edition)
+
+    link_set_0 = create(:link_set, content_id: source_edition_0.content_id)
+    link_set_1 = create(:link_set, content_id: source_edition_1.content_id)
+
+    create(:link, position: 0, link_set: link_set_0, target_content_id: target_edition.content_id, link_type: "test_link")
+    create(:link, position: 2, edition: source_edition_2, target_content_id: target_edition.content_id, link_type: "test_link")
+    create(:link, position: 1, link_set: link_set_1, target_content_id: target_edition.content_id, link_type: "test_link")
+
+    GraphQL::Dataloader.with_dataloading do |dataloader|
+      request = dataloader.with(
+        described_class,
+        content_store: target_edition.content_store,
+        locale: "en",
+      ).request([target_edition, "test_link"])
+
+      expect(request.load).to match_array([source_edition_0, source_edition_1, source_edition_2])
+    end
+  end
+
   context "when the same document is both a link set link and an edition link" do
     it "only returns the document once" do
       target_edition = create(:edition)
