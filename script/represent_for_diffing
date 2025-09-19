@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+# you might need to disable the lock availability check in Content Store (in
+# ContentItem or UpdateLock) before running this
+
+$LOAD_PATH << File.expand_path(".")
+require "config/environment"
+
+content_ids_and_locales = File
+  .readlines("script/good_unpublished_publications_sample_content_ids_with_locale")
+  .map { _1.chomp.split(" ") }
+count = content_ids_and_locales.count
+puts content_ids_and_locales.inspect
+
+content_ids_and_locales.each_with_index do |(content_id, locale), index|
+  puts "\nProcessing #{index + 1} of #{count}", content_id, locale
+  edition = Queries::GetEditionForContentStore.call(content_id, locale, include_draft: false)
+  next unless edition
+
+  puts edition.id
+
+  payload = DownstreamPayload.new(
+    edition,
+    Event.maximum_id,
+    draft: false,
+  )
+
+  DownstreamService.update_live_content_store(payload)
+end

@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+base_query = Edition
+  .live
+  .joins(:document)
+  .where(schema_name: "publication")
+
+not_unpublished_publications = base_query
+  .where.not(state: "unpublished")
+  .pluck(:base_path, :content_id, :locale)
+
+gone_redirect_edition_ids = Unpublishing
+  .where(type: %w[gone redirect])
+  .pluck(:edition_id)
+
+good_unpublished_publications = base_query
+  .where(state: "unpublished")
+  .where.not(id: gone_redirect_edition_ids)
+  .pluck(:base_path, :content_id, :locale)
+
+def save_sample(collection, prefix)
+  sample_size = (collection.count * 0.02).ceil
+  sample = collection.sample(sample_size)
+  collection_sample_string = "#{sample_size} #{prefix.gsub("_", " ")}"
+
+  puts "Saving content IDs with locale for #{collection_sample_string}"
+  File.write(
+    "script/#{prefix}_sample_content_ids_with_locale",
+    sample.map { "#{_1.second} #{_1.third}" }.join("\n"),
+  )
+
+  puts "Saving base paths for #{collection_sample_string}"
+  File.write(
+    "script/#{prefix}_sample_base_paths",
+    sample.map(&:first).join("\n"),
+  )
+end
+
+save_sample(not_unpublished_publications, "not_unpublished_publications")
+save_sample(good_unpublished_publications, "good_unpublished_publications")
+
+puts "Done!"
