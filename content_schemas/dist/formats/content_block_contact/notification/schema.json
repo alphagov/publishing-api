@@ -365,6 +365,7 @@
       "properties": {
         "addresses": {
           "type": "object",
+          "additionalProperties": false,
           "patternProperties": {
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
@@ -407,6 +408,7 @@
         },
         "contact_links": {
           "type": "object",
+          "additionalProperties": false,
           "patternProperties": {
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
@@ -439,6 +441,7 @@
         },
         "email_addresses": {
           "type": "object",
+          "additionalProperties": false,
           "patternProperties": {
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
@@ -472,8 +475,16 @@
             }
           }
         },
+        "order": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^addresses|contact_links|email_addresses|telephones.[a-z0-9]+(?:-[a-z0-9]+)*$"
+          }
+        },
         "telephones": {
           "type": "object",
+          "additionalProperties": false,
           "patternProperties": {
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
