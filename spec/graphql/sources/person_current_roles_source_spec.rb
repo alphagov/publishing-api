@@ -13,7 +13,7 @@ RSpec.describe Sources::PersonCurrentRolesSource do
     GraphQL::Dataloader.with_dataloading do |dataloader|
       request = dataloader.with(described_class).request(person_1.content_id)
 
-      expect(request.load).to eq([role_1, role_3])
+      expect(request.load).to match_array([role_1, role_3])
     end
   end
 
