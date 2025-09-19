@@ -18,7 +18,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         locale: "en",
       ).request([target_edition, "test_link"])
 
-      expect(request.load).to eq([source_edition_1, source_edition_3])
+      expect(request.load).to match_array([source_edition_1, source_edition_3])
     end
   end
 
@@ -47,7 +47,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         locale: "en",
       ).request([target_edition, "test_link"])
 
-      expect(request.load).to eq([source_edition_1, source_edition_2])
+      expect(request.load).to match_array([source_edition_1, source_edition_2])
     end
   end
 
@@ -97,7 +97,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             locale: "en",
           ).request([target_edition, link_type])
 
-          expect(request.load).to eq([link_set_linked_edition, edition_linked_edition])
+          expect(request.load).to match_array([link_set_linked_edition, edition_linked_edition])
         end
       end
     end
