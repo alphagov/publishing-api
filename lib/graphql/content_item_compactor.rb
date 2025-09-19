@@ -25,13 +25,18 @@ private
 
   def compact_links(hash)
     links = hash["links"]
-    return hash if links.blank?
-
-    hash.merge(
-      "links" =>
-        links
-          .reject { |_link_type, content_items| content_items.empty? }
-          .transform_values { |content_items| content_items.map(&method(:compact_links)) },
-    )
+    if links.nil?
+      # In content-store all content-items have a links field, if they're empty then they're empty hashes:
+      hash.merge("links" => {})
+    else
+      # If there are no links for a particular link type, content-store doesn't include it in the response
+      # so we should remove any empty arrays:
+      hash.merge(
+        "links" =>
+          links
+            .reject { |_link_type, content_items| content_items.empty? }
+            .transform_values { |content_items| content_items.map(&method(:compact_links)) },
+      )
+    end
   end
 end
