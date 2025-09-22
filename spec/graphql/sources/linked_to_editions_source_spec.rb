@@ -113,11 +113,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
         described_class,
         content_store: source_edition.content_store,
         locale: "en",
-      ).request([
-        source_edition,
-        "test_link",
-        %i[id base_path title document_id],
-      ])
+      ).request([source_edition, "test_link"])
 
       expect(request.load).to eq([target_edition_0, target_edition_1, target_edition_2, target_edition_3])
     end
