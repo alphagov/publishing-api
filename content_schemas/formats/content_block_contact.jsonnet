@@ -99,6 +99,17 @@ local embedded_objects = {
             default: "https://gov.uk/call-charges",
           },
         },
+        "if": {
+          properties: {
+            show_call_charges_info_url: { const: true },
+          },
+        },
+        "then": {
+          required: ["label", "call_charges_info_url"],
+        },
+        "else": {
+          required: [],
+        },
       },
       description: {
         type: "string",
