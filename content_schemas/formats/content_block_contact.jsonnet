@@ -88,7 +88,7 @@ local embedded_objects = {
         properties: {
           show_call_charges_info_url: {
             type: "boolean",
-            default: false,
+            default: true,
           },
           label: {
             type: "string",
