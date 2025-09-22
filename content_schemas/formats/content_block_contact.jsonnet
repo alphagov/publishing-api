@@ -37,16 +37,8 @@ local embedded_objects = {
         type: "array",
         items: {
           type: "object",
-          required: ["type", "label", "telephone_number"],
+          required: ["label", "telephone_number"],
           properties: {
-            type: {
-              type: "string",
-              enum: [
-                "telephone",
-                "textphone",
-                "welsh_language",
-              ],
-            },
             label: {
               type: "string",
             },
