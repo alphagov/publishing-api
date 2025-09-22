@@ -21,7 +21,7 @@ local embedded_objects = {
         type: "string",
       },
     },
-    ["title", "email_address"],
+    ["email_address"],
   ),
 
   telephones: utils.embedded_object(
@@ -140,7 +140,7 @@ local embedded_objects = {
         },
       },
     },
-    ["title", "telephone_numbers"],
+    ["telephone_numbers"],
   ),
 
   contact_links: utils.embedded_object(
@@ -160,7 +160,7 @@ local embedded_objects = {
         type: "string",
       },
     },
-    ["title", "label", "url"],
+    ["label", "url"],
   ),
 
   addresses: utils.embedded_object(
@@ -191,7 +191,6 @@ local embedded_objects = {
         type: "string",
       },
     },
-    ["title", "country"],
   ),
 };
 
