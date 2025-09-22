@@ -7,9 +7,6 @@ local embedded_objects = {
         type: "string",
         default: "Email",
       },
-      label: {
-        type: "string",
-      },
       email_address: {
         type: "string",
         format: "email",
