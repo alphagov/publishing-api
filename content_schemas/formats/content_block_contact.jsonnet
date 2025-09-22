@@ -160,7 +160,7 @@ local embedded_objects = {
         type: "string",
       },
     },
-    ["title", "url"],
+    ["title", "label", "url"],
   ),
 
   addresses: utils.embedded_object(
