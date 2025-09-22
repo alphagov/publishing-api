@@ -19,7 +19,6 @@
     "email_addresses": {
       "email-1": {
         "title": "Email 1",
-        "label": "Email us",
         "email_address": "hello@example.com",
         "description": "General enquiries"
       },
