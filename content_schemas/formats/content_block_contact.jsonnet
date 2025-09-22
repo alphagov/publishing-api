@@ -147,7 +147,7 @@ local embedded_objects = {
     {
       title: {
         type: "string",
-        default: "Link",
+        default: "Contact link",
       },
       label: {
         type: "string",
