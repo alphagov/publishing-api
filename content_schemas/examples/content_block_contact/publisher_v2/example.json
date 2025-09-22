@@ -7,6 +7,15 @@
   "content_id_alias": "hmrc-media",
   "details": {
     "description": "Description goes here",
+    "order": [
+      "email_addresses.email-1",
+      "addresses.address-1",
+      "addresses.address-2",
+      "email_addresses.email-2",
+      "telephones.telephone-1",
+      "email_addresses.email-2",
+      "contact_links.webchat"
+    ],
     "email_addresses": {
       "email-1": {
         "title": "Email 1",
@@ -43,44 +52,43 @@
       }
     },
     "telephones": {
-      "telephone_numbers": [
-        {
-          "label": "Telephone 1",
-          "telephone": "1234 567 89",
-          "type": "telephone",
-          "show_uk_call_charges": "false",
-          "description": "A Telephone line"
+      "telephone-1": {
+        "title": "Telephone",
+        "telephone_numbers": [
+          {
+            "label": "Telephone 1",
+            "telephone_number": "1234 567 89",
+            "type": "telephone"
+          },
+          {
+            "label": "Telephone 2",
+            "telephone_number": "1234 567 89",
+            "type": "textphone"
+          },
+          {
+            "label": "Telephone 3",
+            "telephone_number": "1234 567 89",
+            "type": "welsh_language"
+          }
+        ],
+        "opening_hours": {
+          "show": true,
+          "value": "Monday to Friday, 8am to 6pm (except public holidays)"
         },
-        {
-          "label": "Telephone 2",
-          "telephone": "1234 567 89",
-          "type": "textphone",
-          "show_uk_call_charges": "true"
+        "video_relay_service": {
+          "show": true,
+          "prefix": "[Relay UK](https://example.com): 18001 then",
+          "telephone_number": "0800 328 5644"
         },
-        {
-          "label": "Telephone 3",
-          "telephone": "1234 567 89",
-          "type": "welsh_language",
-          "show_uk_call_charges": "true"
+        "call_charges": {
+          "label": "Find out about call charges",
+          "call_charges_info_url": "https://gov.uk/call-charges/overseas",
+          "show_call_charges_info_url": true
+        },
+        "bsl_guidance": {
+          "show": true,
+          "value": "Some value"
         }
-      ],
-      "opening_hours": {
-        "show": true,
-        "value": "Monday to Friday, 8am to 6pm (except public holidays)"
-      },
-      "video_relay_services": {
-        "show": true,
-        "prefix": "[Relay UK](https://example.com): 18001 then",
-        "telephone_number": "0800 328 5644"
-      },
-      "call_charges": {
-        "label": "Find out about call charges",
-        "call_charges_info_url": "https://gov.uk/call-charges/overseas",
-        "show_call_charges_info_url": "on"
-      },
-      "bsl_guidance": {
-        "show": true,
-        "value": "Some value"
       }
     }
   },
