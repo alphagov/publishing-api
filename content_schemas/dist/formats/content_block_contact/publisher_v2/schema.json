@@ -197,9 +197,6 @@
           "patternProperties": {
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
-              "required": [
-                "title"
-              ],
               "additionalProperties": false,
               "properties": {
                 "country": {
@@ -238,7 +235,7 @@
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
               "required": [
-                "title",
+                "label",
                 "url"
               ],
               "additionalProperties": false,
@@ -251,7 +248,7 @@
                 },
                 "title": {
                   "type": "string",
-                  "default": "Link"
+                  "default": "Contact link"
                 },
                 "url": {
                   "type": "string",
@@ -271,7 +268,6 @@
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
               "required": [
-                "title",
                 "email_address"
               ],
               "additionalProperties": false,
@@ -285,9 +281,6 @@
                 "email_address": {
                   "type": "string",
                   "format": "email"
-                },
-                "label": {
-                  "type": "string"
                 },
                 "subject": {
                   "type": "string"
@@ -314,7 +307,6 @@
             "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
               "type": "object",
               "required": [
-                "title",
                 "telephone_numbers"
               ],
               "additionalProperties": false,
@@ -334,6 +326,16 @@
                 },
                 "call_charges": {
                   "type": "object",
+                  "else": {
+                    "required": []
+                  },
+                  "if": {
+                    "properties": {
+                      "show_call_charges_info_url": {
+                        "const": true
+                      }
+                    }
+                  },
                   "properties": {
                     "call_charges_info_url": {
                       "type": "string",
@@ -345,8 +347,14 @@
                     },
                     "show_call_charges_info_url": {
                       "type": "boolean",
-                      "default": false
+                      "default": true
                     }
+                  },
+                  "then": {
+                    "required": [
+                      "label",
+                      "call_charges_info_url"
+                    ]
                   }
                 },
                 "description": {
@@ -384,7 +392,6 @@
                   "items": {
                     "type": "object",
                     "required": [
-                      "type",
                       "label",
                       "telephone_number"
                     ],
@@ -394,21 +401,13 @@
                       },
                       "telephone_number": {
                         "type": "string"
-                      },
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "telephone",
-                          "textphone",
-                          "welsh_language"
-                        ]
                       }
                     }
                   }
                 },
                 "title": {
                   "type": "string",
-                  "default": "Phone"
+                  "default": "Telephone"
                 },
                 "video_relay_service": {
                   "type": "object",
