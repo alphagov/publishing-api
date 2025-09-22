@@ -31,7 +31,7 @@ local embedded_objects = {
     {
       title: {
         type: "string",
-        default: "Phone",
+        default: "Telephone",
       },
       telephone_numbers: {
         type: "array",
