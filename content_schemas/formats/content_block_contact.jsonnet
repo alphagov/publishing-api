@@ -191,7 +191,7 @@ local embedded_objects = {
         type: "string",
       },
     },
-    ["title"],
+    ["title", "country"],
   ),
 };
 
