@@ -7,9 +7,6 @@ local embedded_objects = {
         type: "string",
         default: "Email",
       },
-      label: {
-        type: "string",
-      },
       email_address: {
         type: "string",
         format: "email",
@@ -24,29 +21,21 @@ local embedded_objects = {
         type: "string",
       },
     },
-    ["title", "email_address"],
+    ["email_address"],
   ),
 
   telephones: utils.embedded_object(
     {
       title: {
         type: "string",
-        default: "Phone",
+        default: "Telephone",
       },
       telephone_numbers: {
         type: "array",
         items: {
           type: "object",
-          required: ["type", "label", "telephone_number"],
+          required: ["label", "telephone_number"],
           properties: {
-            type: {
-              type: "string",
-              enum: [
-                "telephone",
-                "textphone",
-                "welsh_language",
-              ],
-            },
             label: {
               type: "string",
             },
@@ -88,7 +77,7 @@ local embedded_objects = {
         properties: {
           show_call_charges_info_url: {
             type: "boolean",
-            default: false,
+            default: true,
           },
           label: {
             type: "string",
@@ -98,6 +87,17 @@ local embedded_objects = {
             type: "string",
             default: "https://gov.uk/call-charges",
           },
+        },
+        "if": {
+          properties: {
+            show_call_charges_info_url: { const: true },
+          },
+        },
+        "then": {
+          required: ["label", "call_charges_info_url"],
+        },
+        "else": {
+          required: [],
         },
       },
       description: {
@@ -140,14 +140,14 @@ local embedded_objects = {
         },
       },
     },
-    ["title", "telephone_numbers"],
+    ["telephone_numbers"],
   ),
 
   contact_links: utils.embedded_object(
     {
       title: {
         type: "string",
-        default: "Link",
+        default: "Contact link",
       },
       label: {
         type: "string",
@@ -160,7 +160,7 @@ local embedded_objects = {
         type: "string",
       },
     },
-    ["title", "url"],
+    ["label", "url"],
   ),
 
   addresses: utils.embedded_object(
@@ -191,7 +191,6 @@ local embedded_objects = {
         type: "string",
       },
     },
-    ["title"],
   ),
 };
 
