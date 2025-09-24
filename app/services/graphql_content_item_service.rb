@@ -19,7 +19,7 @@ class GraphqlContentItemService
       raise QueryResultError, error_messages.join("\n")
     end
 
-    get_unpublishing(query_result) || get_edition(query_result)
+    deep_sort(get_unpublishing(query_result) || get_edition(query_result))
   end
 
 private
@@ -39,5 +39,18 @@ private
     query_result["errors"]
       &.map { _1["message"] }
       &.reject { _1 == "Edition has been unpublished" }
+  end
+
+  def deep_sort(content_item)
+    content_item.deep_stringify_keys.map { |key, value|
+      case value
+      in Hash
+        [key, deep_sort(value)]
+      in [Hash, *]
+        [key, value.map(&method(:deep_sort))]
+      else
+        [key, value]
+      end
+    }.sort.to_h
   end
 end
