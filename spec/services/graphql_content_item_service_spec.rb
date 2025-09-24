@@ -22,20 +22,58 @@ RSpec.describe GraphqlContentItemService do
     })
   end
 
+  it "deep sorts the hash, stringifying keys in the process" do
+    result = {
+      "data" => {
+        "edition" => {
+          "links" => {
+            "organisations" => [
+              { title: "The Big Dogs", base_path: "/government/big-dogs" },
+            ],
+          },
+          "title" => "The best edition yet!",
+          "details" => {
+            "zeta" => {
+              b: false,
+              a: false,
+            },
+            "beta" => 123,
+          },
+        },
+      },
+    }
+
+    expect(graphql_content_item_service.process(result)).to eq({
+      "details" => {
+        "beta" => 123,
+        "zeta" => {
+          "a" => false,
+          "b" => false,
+        },
+      },
+      "links" => {
+        "organisations" => [
+          { "base_path" => "/government/big-dogs", "title" => "The Big Dogs" },
+        ],
+      },
+      "title" => "The best edition yet!",
+    })
+  end
+
   context "when the edition has been unpublished" do
     it "returns unpublishing data from the error extensions" do
       result = {
         "errors" => [
           {
             "message" => "Edition has been unpublished",
-            "extensions" => "presented unpublishing data",
+            "extensions" => { "a" => "hash" },
           },
         ],
         "data" => { "edition" => nil },
       }
 
       expect(graphql_content_item_service.process(result))
-        .to eq("presented unpublishing data")
+        .to eq({ "a" => "hash" })
     end
   end
 
