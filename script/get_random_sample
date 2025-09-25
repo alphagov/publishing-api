@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path("../", File.dirname(__FILE__))
+
+require "config/environment"
+
+schema_name = ARGV.fetch(0)
+
+base_query = Edition
+  .live
+  .joins(:document)
+  .where(schema_name:)
+
+not_unpublished_editions = base_query
+  .where.not(state: "unpublished")
+  .pluck(:base_path, :content_id, :locale)
+  .sample(10)
+
+gone_redirect_edition_ids = Unpublishing
+  .where(type: %w[gone redirect])
+  .pluck(:edition_id)
+
+good_unpublished_editions = base_query
+  .where(state: "unpublished")
+  .where.not(id: gone_redirect_edition_ids)
+  .pluck(:base_path, :content_id, :locale)
+  .sample(10)
+
+def save_sample(sample, prefix)
+  collection_sample_string = "#{sample.size} #{prefix.gsub("_", " ")}"
+
+  puts "Saving content IDs with locale for #{collection_sample_string}"
+  File.write(
+    "script/#{prefix}_sample_content_ids_with_locale",
+    sample.map { "#{_1.second} #{_1.third}" }.join("\n"),
+  )
+
+  puts "Saving base paths for #{collection_sample_string}"
+  File.write(
+    "script/#{prefix}_sample_base_paths",
+    sample.map(&:first).join("\n"),
+  )
+end
+
+save_sample(not_unpublished_editions, "not_unpublished_editions")
+save_sample(good_unpublished_editions, "good_unpublished_editions")
+
+puts "Done!"
