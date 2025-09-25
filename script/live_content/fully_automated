@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path("../../", File.dirname(__FILE__))
+
+require "config/environment"
+
+schema_name = ARGV.fetch(0)
+
+`./script/get_random_sample #{schema_name}`
