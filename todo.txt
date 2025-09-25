@@ -1,0 +1,8 @@
+get schema
+get good sample of live content items
+re-present the sample to content store
+build query
+commit query
+bulk diff the sample (content item json)
+  record a score from the diffing
+  record a performance score from the diffing's requests
