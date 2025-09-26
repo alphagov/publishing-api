@@ -26,7 +26,7 @@ module Sources
           link_set_links: { target_content_id: person_content_ids, link_type: "person" },
         )
         .where("editions_documents.details ->> 'current' = 'true'") # editions_documents is the alias that Active Record gives to the role_appointment Editions in the SQL query
-        .order(reverse_links: { position: :asc })
+        .order("reverse_links.position ASC, reverse_links.id DESC")
 
       ids_map = person_content_ids.index_with { [] }
 

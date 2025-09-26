@@ -113,13 +113,74 @@ RSpec.describe Sources::LinkedToEditionsSource do
         described_class,
         content_store: source_edition.content_store,
         locale: "en",
-      ).request([
-        source_edition,
-        "test_link",
-        %i[id base_path title document_id],
-      ])
+      ).request([source_edition, "test_link"])
 
       expect(request.load).to eq([target_edition_0, target_edition_1, target_edition_2, target_edition_3])
+    end
+  end
+
+  context "when links have the same `position`" do
+    it "returns editions reverse-ordered by their associated links' `id`" do
+      position = 0
+
+      third_link_target_edition = create(:edition)
+      first_link_target_edition = create(:edition)
+      second_link_target_edition = create(:edition)
+      fourth_link_target_edition = create(:edition)
+
+      source_edition = create(:edition, content_store: "draft")
+      create(:link, edition: source_edition, target_content_id: first_link_target_edition.content_id, position:, link_type: "test_link")
+      create(:link, edition: source_edition, target_content_id: second_link_target_edition.content_id, position:, link_type: "test_link")
+
+      link_set = create(:link_set, content_id: source_edition.content_id)
+      create(:link, link_set:, target_content_id: third_link_target_edition.content_id, position:, link_type: "test_link")
+      create(:link, link_set:, target_content_id: fourth_link_target_edition.content_id, position:, link_type: "test_link")
+
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: "en",
+        ).request([source_edition, "test_link"])
+
+        expect(request.load).to eq([
+          fourth_link_target_edition,
+          third_link_target_edition,
+          second_link_target_edition,
+          first_link_target_edition,
+        ])
+      end
+    end
+  end
+
+  context "when the same document is both a link set link and an edition link" do
+    it "only returns the document once" do
+      source_edition = create(:live_edition)
+      target_edition = create(:live_edition)
+
+      create(
+        :link,
+        edition: source_edition,
+        target_content_id: target_edition.content_id,
+        link_type: "test_link",
+      )
+
+      create(
+        :link,
+        link_set: create(:link_set, content_id: source_edition.content_id),
+        target_content_id: target_edition.content_id,
+        link_type: "test_link",
+      )
+
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: "en",
+        ).request([source_edition, "test_link"])
+
+        expect(request.load).to eq([target_edition])
+      end
     end
   end
 
