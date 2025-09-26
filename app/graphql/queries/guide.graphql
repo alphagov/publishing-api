@@ -124,6 +124,35 @@ query guide($base_path: String!) {
           title
           web_url
         }
+        ordered_related_items_overrides {
+          api_path
+          api_url
+          base_path
+          content_id
+          document_type
+          links {
+            taxons {
+              api_path
+              api_url
+              base_path
+              content_id
+              description
+              details: details_json
+              document_type
+              locale
+              phase
+              public_updated_at
+              schema_name
+              title
+              web_url
+            }
+          }
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
         organisations {
           analytics_identifier
           api_path
