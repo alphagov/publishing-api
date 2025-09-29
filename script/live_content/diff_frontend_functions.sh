@@ -28,7 +28,8 @@ function curl_and_strip_hashes() {
   local response
   response=$(curl -u "$username:$password" "$domain$curl_path") || exit 1
 
-  local time_regex='[0-9]{2}:[0-9]{2}:[0-9]{2}'
+  local hour_regex='[0-9]{2}:'
+  local minute_second_regex='[0-9]{2}:[0-9]{2}'
   local date_regex='[0-9]{4}-[0-9]{2}-[0-9]{2}'
 
   echo "$response" | sed -r \
@@ -37,9 +38,7 @@ function curl_and_strip_hashes() {
     -e 's/ (aria-labelledby|data-controls|for|id)="([^"]+)-[a-z0-9]{8}"/ \1="\2-HASH"/g' \
     -e 's/<(meta name="govuk:updated-at" content=)"[^"]+">/<\1"TIMESTAMP">/' \
     -e '/<meta name="govuk:content-has-history" content=".*">/d' \
-    -e 's/(This news article was withdrawn on &lt;time datetime=)"[^"]+"/\1"TIMESTAMP"/' \
-    -e 's/(This news article was withdrawn on <time datetime=)"[^"]+"/\1"TIMESTAMP"/' \
-    -e 's/(datetime=")('"$date_regex"')[ T]('"$time_regex"')[ Z](UTC|\+01:00|\+00:00)?"/\1\2\3"/' \
+    -e 's/(datetime=")('"$date_regex"')[ T]'"$hour_regex"'('"$minute_second_regex"')[ Z]?(UTC|\+01:00|\+00:00)?"/\1\2HH:\3"/' \
     > "$output_path"
 }
 
