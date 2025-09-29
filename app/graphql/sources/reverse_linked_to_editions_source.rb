@@ -16,7 +16,7 @@ module Sources
       row_number_selection = Arel.sql(
         <<~SQL,
           row_number() OVER (
-            PARTITION BY "documents"."content_id", "links"."link_type", "links"."target_content_id"
+            PARTITION BY "links"."link_type", "links"."target_content_id"
             ORDER BY (
               CASE
                 WHEN ("documents"."locale" = ?) THEN 0
