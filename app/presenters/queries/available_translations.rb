@@ -23,10 +23,12 @@ module Presenters
       def translation_editions
         exclude_ids = [edition&.id].compact
 
-        Edition.strict_loading
-          .includes(:document)
-          .where(id: edition_ids - exclude_ids) +
-          [edition].compact
+        (
+          [edition] +
+          Edition.strict_loading
+            .includes(:document)
+            .where(id: edition_ids - exclude_ids)
+        ).compact
       end
 
     private
