@@ -43,17 +43,17 @@ query travel_advice($base_path: String!) {
           description
           details {
             access_and_opening_times
-            country
             change_description
-            step_by_step_nav
-            political_party
+            contact_form_links
+            country
             dates_in_office
             description
-            title
-            contact_form_links
-            post_addresses
             email_addresses
             phone_numbers
+            political_party
+            post_addresses
+            step_by_step_nav
+            title
           }
           document_type
           locale
@@ -118,9 +118,9 @@ query travel_advice($base_path: String!) {
           content_id
           details {
             acronym
-            logo
             brand
             default_news_image
+            logo
             organisation_govuk_status
           }
           document_type
@@ -152,17 +152,17 @@ query travel_advice($base_path: String!) {
           content_id
           description
           details {
-            country
             change_description
-            step_by_step_nav
-            political_party
+            contact_form_links
+            country
             dates_in_office
             description
-            title
-            contact_form_links
-            post_addresses
             email_addresses
             phone_numbers
+            political_party
+            post_addresses
+            step_by_step_nav
+            title
           }
           document_type
           links {
@@ -183,12 +183,12 @@ query travel_advice($base_path: String!) {
                   content_id
                   description
                   details {
-                    logo
-                    world_location_names
-                    default_news_image
                     acronym
                     brand
+                    default_news_image
+                    logo
                     organisation_govuk_status
+                    world_location_names
                   }
                   document_type
                   links {
@@ -200,12 +200,12 @@ query travel_advice($base_path: String!) {
                       content_id
                       description
                       details {
-                        logo
-                        world_location_names
-                        default_news_image
                         acronym
                         brand
+                        default_news_image
+                        logo
                         organisation_govuk_status
+                        world_location_names
                       }
                       document_type
                       links {
@@ -217,12 +217,12 @@ query travel_advice($base_path: String!) {
                           content_id
                           description
                           details {
-                            logo
-                            world_location_names
-                            default_news_image
                             acronym
                             brand
+                            default_news_image
+                            logo
                             organisation_govuk_status
+                            world_location_names
                           }
                           document_type
                           locale
@@ -302,19 +302,19 @@ query travel_advice($base_path: String!) {
           content_id
           description
           details {
-            logo
-            world_location_names
-            default_news_image
             access_and_opening_times
             acronym
             brand
-            organisation_govuk_status
-            description
-            title
             contact_form_links
-            post_addresses
+            default_news_image
+            description
             email_addresses
+            logo
+            organisation_govuk_status
             phone_numbers
+            post_addresses
+            title
+            world_location_names
           }
           document_type
           locale
@@ -331,9 +331,9 @@ query travel_advice($base_path: String!) {
           content_id
           details {
             acronym
-            logo
             brand
             default_news_image
+            logo
             organisation_govuk_status
           }
           document_type
@@ -351,12 +351,12 @@ query travel_advice($base_path: String!) {
           content_id
           description
           details {
-            logo
-            world_location_names
-            default_news_image
             acronym
             brand
+            default_news_image
+            logo
             organisation_govuk_status
+            world_location_names
           }
           document_type
           links {
@@ -368,12 +368,12 @@ query travel_advice($base_path: String!) {
               content_id
               description
               details {
-                logo
-                world_location_names
-                default_news_image
                 acronym
                 brand
+                default_news_image
+                logo
                 organisation_govuk_status
+                world_location_names
               }
               document_type
               links {
@@ -385,12 +385,12 @@ query travel_advice($base_path: String!) {
                   content_id
                   description
                   details {
-                    logo
-                    world_location_names
-                    default_news_image
                     acronym
                     brand
+                    default_news_image
+                    logo
                     organisation_govuk_status
+                    world_location_names
                   }
                   document_type
                   links {
@@ -402,12 +402,12 @@ query travel_advice($base_path: String!) {
                       content_id
                       description
                       details {
-                        logo
-                        world_location_names
-                        default_news_image
                         acronym
                         brand
+                        default_news_image
+                        logo
                         organisation_govuk_status
+                        world_location_names
                       }
                       document_type
                       links {
@@ -419,12 +419,12 @@ query travel_advice($base_path: String!) {
                           content_id
                           description
                           details {
-                            logo
-                            world_location_names
-                            default_news_image
                             acronym
                             brand
+                            default_news_image
+                            logo
                             organisation_govuk_status
+                            world_location_names
                           }
                           document_type
                           locale
@@ -498,9 +498,9 @@ query travel_advice($base_path: String!) {
           content_id
           details {
             acronym
-            logo
             brand
             default_news_image
+            logo
             organisation_govuk_status
           }
           document_type
@@ -518,12 +518,12 @@ query travel_advice($base_path: String!) {
           content_id
           description
           details {
-            description
-            title
             contact_form_links
-            post_addresses
+            description
             email_addresses
             phone_numbers
+            post_addresses
+            title
           }
           document_type
           locale
@@ -555,10 +555,10 @@ query travel_advice($base_path: String!) {
           base_path
           content_id
           details {
-            started_on
-            ended_on
             current
+            ended_on
             person_appointment_order
+            started_on
           }
           document_type
           links {
@@ -601,9 +601,9 @@ query travel_advice($base_path: String!) {
                   content_id
                   details {
                     acronym
-                    logo
                     brand
                     default_news_image
+                    logo
                     organisation_govuk_status
                   }
                   document_type
@@ -650,8 +650,8 @@ query travel_advice($base_path: String!) {
           content_id
           description
           details {
-            country
             change_description
+            country
             step_by_step_nav
           }
           document_type
@@ -671,19 +671,6 @@ query travel_advice($base_path: String!) {
           details: details_json
           document_type
           links {
-            root_taxon {
-              analytics_identifier
-              api_path
-              api_url
-              base_path
-              content_id
-              document_type
-              locale
-              public_updated_at
-              schema_name
-              title
-              web_url
-            }
             parent_taxons {
               analytics_identifier
               api_path
@@ -788,6 +775,19 @@ query travel_advice($base_path: String!) {
               }
               locale
               phase
+              public_updated_at
+              schema_name
+              title
+              web_url
+            }
+            root_taxon {
+              analytics_identifier
+              api_path
+              api_url
+              base_path
+              content_id
+              document_type
+              locale
               public_updated_at
               schema_name
               title
