@@ -152,7 +152,6 @@ query transaction($base_path: String!) {
           api_url
           base_path
           content_id
-          description
           details {
             country
             change_description
@@ -268,7 +267,6 @@ query transaction($base_path: String!) {
           api_url
           base_path
           content_id
-          description
           details: details_json
           document_type
           links {
@@ -302,7 +300,6 @@ query transaction($base_path: String!) {
           api_url
           base_path
           content_id
-          description
           details {
             logo
             world_location_names
@@ -628,7 +625,6 @@ query transaction($base_path: String!) {
           api_url
           base_path
           content_id
-          description
           details {
             country
             change_description
