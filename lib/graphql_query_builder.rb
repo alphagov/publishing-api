@@ -31,7 +31,7 @@ class GraphqlQueryBuilder
 private
 
   def build_fields(data, indent: 2, link_path: [])
-    fields = data.sort_by(&:first).flat_map do |entry|
+    fields = data.sort.flat_map do |entry|
       case entry
       in ["withdrawn", *]
         nil
