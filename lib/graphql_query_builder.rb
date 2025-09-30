@@ -31,7 +31,7 @@ class GraphqlQueryBuilder
 private
 
   def build_fields(data, indent: 2, link_path: [])
-    fields = data.sort_by(&:first).flat_map do |entry|
+    fields = data.sort.flat_map do |entry|
       case entry
       in ["withdrawn", *]
         nil
@@ -40,7 +40,7 @@ private
       in ["details" | "withdrawn_notice" => key, Hash => hash]
         [
           "#{key} {",
-          hash.map { |hash_key, _| "  #{hash_key}" },
+          hash.sort.map { |hash_key, _| "  #{hash_key}" },
           "}",
         ]
       in ["details", nil]
@@ -48,7 +48,9 @@ private
       in ["links", Hash => links]
         [
           "links {",
-          links.map { |link_key, array| build_links_query(link_path + [link_key.to_sym], array) }.compact,
+          links.sort.map { |link_key, array|
+            build_links_query(link_path + [link_key.to_sym], array)
+          }.compact,
           "}",
         ]
       in [String => key, String | Numeric | true | false | nil]
