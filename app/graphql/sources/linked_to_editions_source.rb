@@ -9,10 +9,13 @@ module Sources
     # rubocop:enable Lint/MissingSuper
 
     def fetch(editions_and_link_types)
-      all_selections = {
-        links: %i[link_type position],
-        documents: %i[content_id locale],
-      }
+      all_selections = [
+        "editions.*",
+        {
+          links: %i[link_type position],
+          documents: %i[content_id locale],
+        },
+      ]
       edition_id_tuples = []
       content_id_tuples = []
       link_types_map = {}
@@ -23,25 +26,14 @@ module Sources
         link_types_map[[edition.content_id, link_type]] = []
       end
 
-      link_set_links_target_editions = Edition
+      link_set_links_target_editions = edition_scope
         .joins(document: { reverse_links: :link_set })
-        .left_joins(:unpublishing)
         .where(
           '("link_sets"."content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),
         )
-        .where(
-          editions: { content_store: @content_store },
-          documents: { locale: @locale_with_fallback },
-        )
-        .where.not(editions: { document_type: Edition::NON_RENDERABLE_FORMATS })
-        .where(
-          %["editions"."state" != 'unpublished' OR ("links"."link_type" IN (?) AND "unpublishings"."type" = 'withdrawal')],
-          Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
-        )
         .select(
-          "editions.*",
-          all_selections,
+          *all_selections,
           { link_sets: { content_id: :source_content_id } },
           Arel.sql(
             <<~SQL,
@@ -59,9 +51,7 @@ module Sources
           ),
         )
 
-      edition_links_target_editions = Edition
-        .joins(document: :reverse_links)
-        .left_joins(:unpublishing)
+      edition_links_target_editions = edition_scope
         .joins(
           <<~SQL,
             INNER JOIN editions source_editions
@@ -78,18 +68,8 @@ module Sources
           '("source_editions"."id", "links"."link_type") IN (?)',
           Arel.sql(edition_id_tuples.join(",")),
         )
-        .where(
-          editions: { content_store: @content_store },
-          documents: { locale: @locale_with_fallback },
-        )
-        .where.not(editions: { document_type: Edition::NON_RENDERABLE_FORMATS })
-        .where(
-          %["editions"."state" != 'unpublished' OR ("links"."link_type" IN (?) AND "unpublishings"."type" = 'withdrawal')],
-          Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
-        )
         .select(
-          "editions.*",
-          all_selections,
+          *all_selections,
           { source_documents: { content_id: :source_content_id } },
           Arel.sql(
             <<~SQL,
@@ -123,6 +103,21 @@ module Sources
       all_editions.each_with_object(link_types_map) { |edition, hash|
         hash[[edition.source_content_id, edition.link_type]] << edition
       }.values
+    end
+
+    def edition_scope
+      Edition
+        .joins(document: :reverse_links)
+        .left_joins(:unpublishing)
+        .where(
+          editions: { content_store: @content_store },
+          documents: { locale: @locale_with_fallback },
+        )
+        .where.not(editions: { document_type: Edition::NON_RENDERABLE_FORMATS })
+        .where(
+          %["editions"."state" != 'unpublished' OR ("links"."link_type" IN (?) AND "unpublishings"."type" = 'withdrawal')],
+          Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
+        )
     end
   end
 end
