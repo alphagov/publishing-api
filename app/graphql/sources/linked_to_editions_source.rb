@@ -25,6 +25,7 @@ module Sources
 
       link_set_links_target_editions = Edition
         .joins(document: { reverse_links: :link_set })
+        .left_joins(:unpublishing)
         .where(
           '("link_sets"."content_id", "links"."link_type") IN (?)',
           Arel.sql(content_id_tuples.join(",")),
@@ -35,7 +36,7 @@ module Sources
         )
         .where.not(editions: { document_type: Edition::NON_RENDERABLE_FORMATS })
         .where(
-          %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
+          %["editions"."state" != 'unpublished' OR ("links"."link_type" IN (?) AND "unpublishings"."type" = 'withdrawal')],
           Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
         )
         .select(
@@ -60,6 +61,7 @@ module Sources
 
       edition_links_target_editions = Edition
         .joins(document: :reverse_links)
+        .left_joins(:unpublishing)
         .joins(
           <<~SQL,
             INNER JOIN editions source_editions
@@ -82,7 +84,7 @@ module Sources
         )
         .where.not(editions: { document_type: Edition::NON_RENDERABLE_FORMATS })
         .where(
-          %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
+          %["editions"."state" != 'unpublished' OR ("links"."link_type" IN (?) AND "unpublishings"."type" = 'withdrawal')],
           Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
         )
         .select(
