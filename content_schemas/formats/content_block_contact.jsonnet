@@ -112,6 +112,7 @@ local embedded_objects = {
           },
           opening_hours: {
             type: "string",
+            default: "For example, ‘Monday to Friday, 9am to midday and 2pm to 4:30pm (closed on [bank holidays](https://www.gov.uk/bank-holidays))’ or ‘24-hour service’.",
           },
         },
         "if": {
