@@ -549,7 +549,8 @@
                   },
                   "properties": {
                     "opening_hours": {
-                      "type": "string"
+                      "type": "string",
+                      "default": "For example, ‘Monday to Friday, 9am to midday and 2pm to 4:30pm (closed on [bank holidays](https://www.gov.uk/bank-holidays))’ or ‘24-hour service’."
                     },
                     "show_opening_hours": {
                       "type": "boolean",
