@@ -38,6 +38,7 @@ module Sources
       link_set_links_source_editions = Edition
         .joins(:document)
         .joins("INNER JOIN links ON links.link_set_content_id = documents.content_id")
+        .left_joins(:unpublishing)
         .where(
           editions: { content_store: @content_store },
           documents: { locale: @locale_with_fallback },
@@ -48,7 +49,7 @@ module Sources
           Arel.sql(content_id_tuples.join(",")),
         )
         .where(
-          %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
+          %["editions"."state" != 'unpublished' OR ("links"."link_type" IN (?) AND "unpublishings"."type" = 'withdrawal')],
           Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
         )
         .select(
@@ -59,6 +60,7 @@ module Sources
 
       edition_links_source_editions = Edition
         .joins(:document, :links)
+        .left_joins(:unpublishing)
         .where(
           editions: { content_store: @content_store },
           documents: { locale: @locale_with_fallback },
@@ -69,7 +71,7 @@ module Sources
           Arel.sql(content_id_tuples.join(",")),
         )
         .where(
-          %["links"."link_type" IN (?) OR "editions"."state" != 'unpublished'],
+          %["editions"."state" != 'unpublished' OR ("links"."link_type" IN (?) AND "unpublishings"."type" = 'withdrawal')],
           Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
         )
         .select(
