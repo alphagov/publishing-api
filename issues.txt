@@ -1,12 +1,12 @@
-1. We shouldn't UNION link set and edition links, we should default to edition
-links but fall back to link set links
-2. The edition links query returns an English link for a Welsh page where the
-Content Store query doesn't
+extra related statistical data set: "5c831909-7631-11e4-a3cb-005056011aef"
 
-```
-# 1 link (dataloader equivalent: 2)
-Queries::EditionLinks.to("5fa93991-7631-11e4-a3cb-005056011aef", locale: "cy", with_drafts: false, allowed_link_types: ExpansionRules.reverse_to_direct_link_types(ExpansionRules.reverse_links))
+```rb
+ed_for_cs = Queries::GetEditionForContentStore.call("9812b268-13af-4333-9d65-2654bcf1e71b", "en", include_draft: false)
 
-# 3 links (dataloader equivalent: 2)
-Queries::Links.to("5fa93991-7631-11e4-a3cb-005056011aef", allowed_link_types: ExpansionRules.reverse_to_direct_link_types(ExpansionRules.reverse_links))
+LinkGraph.new(root_content_id: ed_for_cs.content_id, root_locale: "en", with_drafts: false, link_reference: LinkExpansion::LinkReference.new).links.select {_1.link_type == :related_statistical_data_sets }.count == 12
+
+LinkExpansion.by_edition(ed_for_cs, with_drafts: false).links_with_content[:related_statistical_data_sets].count == 11
 ```
+
+hunch: LinkExpansion#populate_links filters out the missing link because its
+edition is a redirect and therefore has no content
