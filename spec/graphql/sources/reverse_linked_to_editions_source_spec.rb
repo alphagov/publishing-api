@@ -128,55 +128,51 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
   end
 
   context "when the linked item is unpublished" do
-    # we're including parent and related_statistical_data_sets as reverse link
-    # types here, but they're direct link types
-    Link::PERMITTED_UNPUBLISHED_LINK_TYPES.each do |link_type|
-      it "includes unpublished links when they are of the permitted link type #{link_type}" do
-        target_edition = create(:edition, content_store: "live")
+    it "includes unpublished links when they are of the permitted link type 'children'" do
+      target_edition = create(:edition, content_store: "live")
 
-        link_set_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
-        link_set = create(:link_set, content_id: link_set_linked_edition.content_id)
-        create(:link, link_set:, target_content_id: target_edition.content_id, link_type:)
+      link_set_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
+      link_set = create(:link_set, content_id: link_set_linked_edition.content_id)
+      create(:link, link_set:, target_content_id: target_edition.content_id, link_type: "children")
 
-        edition_linked_edition = create(:withdrawn_unpublished_edition,
-                                        content_store: "live",
-                                        links_hash: {
-                                          link_type => [target_edition.content_id],
-                                        })
+      edition_linked_edition = create(:withdrawn_unpublished_edition,
+                                      content_store: "live",
+                                      links_hash: {
+                                        "children" => [target_edition.content_id],
+                                      })
 
-        GraphQL::Dataloader.with_dataloading do |dataloader|
-          request = dataloader.with(
-            described_class,
-            content_store: target_edition.content_store,
-            locale: "en",
-          ).request([target_edition, link_type])
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(
+          described_class,
+          content_store: target_edition.content_store,
+          locale: "en",
+        ).request([target_edition, "children"])
 
-          expect(request.load).to match_array([link_set_linked_edition, edition_linked_edition])
-        end
+        expect(request.load).to match_array([link_set_linked_edition, edition_linked_edition])
       end
+    end
 
-      it "excludes non-withdrawn unpublished links even when they are of the permitted link type #{link_type}" do
-        target_edition = create(:edition, content_store: "live")
+    it "excludes non-withdrawn unpublished links even when they are of the permitted link type 'children'" do
+      target_edition = create(:edition, content_store: "live")
 
-        link_set_linked_edition = create(:redirect_unpublished_edition, content_store: "live")
-        link_set = create(:link_set, content_id: link_set_linked_edition.content_id)
-        create(:link, link_set:, target_content_id: target_edition.content_id, link_type:)
+      link_set_linked_edition = create(:redirect_unpublished_edition, content_store: "live")
+      link_set = create(:link_set, content_id: link_set_linked_edition.content_id)
+      create(:link, link_set:, target_content_id: target_edition.content_id, link_type: "children")
 
-        create(
-          :redirect_unpublished_edition,
-          content_store: "live",
-          links_hash: { link_type => [target_edition.content_id] },
-        )
+      create(
+        :redirect_unpublished_edition,
+        content_store: "live",
+        links_hash: { "children" => [target_edition.content_id] },
+      )
 
-        GraphQL::Dataloader.with_dataloading do |dataloader|
-          request = dataloader.with(
-            described_class,
-            content_store: target_edition.content_store,
-            locale: "en",
-          ).request([target_edition, link_type])
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(
+          described_class,
+          content_store: target_edition.content_store,
+          locale: "en",
+        ).request([target_edition, "children"])
 
-          expect(request.load).to eq([])
-        end
+        expect(request.load).to eq([])
       end
     end
 
