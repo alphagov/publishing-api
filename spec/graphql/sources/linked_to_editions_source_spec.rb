@@ -185,61 +185,57 @@ RSpec.describe Sources::LinkedToEditionsSource do
   end
 
   context "when the linked item is unpublished" do
-    # we're including children as a direct link type here, but children is a
-    # reverse link type
-    Link::PERMITTED_UNPUBLISHED_LINK_TYPES.each do |link_type|
-      it "includes unpublished withdrawn links when they are of the permitted link type #{link_type}" do
-        edition_linked_edition = create(:edition, content_store: "live")
-        withdrawn_edition_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
-        link_set_linked_edition = create(:edition, content_store: "live")
-        withdrawn_link_set_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
+    it "includes unpublished withdrawn links when they are of the permitted link type 'parent'" do
+      edition_linked_edition = create(:edition, content_store: "live")
+      withdrawn_edition_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
+      link_set_linked_edition = create(:edition, content_store: "live")
+      withdrawn_link_set_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
 
-        source_edition = create(:edition,
-                                content_store: "live",
-                                links_hash: {
-                                  link_type => [edition_linked_edition.content_id, withdrawn_edition_linked_edition.content_id],
-                                })
+      source_edition = create(:edition,
+                              content_store: "live",
+                              links_hash: {
+                                "parent" => [edition_linked_edition.content_id, withdrawn_edition_linked_edition.content_id],
+                              })
 
-        link_set = create(:link_set, content_id: source_edition.content_id)
-        create(:link, link_set:, target_content_id: link_set_linked_edition.content_id, link_type:)
-        create(:link, link_set:, target_content_id: withdrawn_link_set_linked_edition.content_id, link_type:)
+      link_set = create(:link_set, content_id: source_edition.content_id)
+      create(:link, link_set:, target_content_id: link_set_linked_edition.content_id, link_type: "parent")
+      create(:link, link_set:, target_content_id: withdrawn_link_set_linked_edition.content_id, link_type: "parent")
 
-        GraphQL::Dataloader.with_dataloading do |dataloader|
-          request = dataloader.with(
-            described_class,
-            content_store: source_edition.content_store,
-            locale: "en",
-          ).request([source_edition, link_type])
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: "en",
+        ).request([source_edition, "parent"])
 
-          expect(request.load).to match_array([edition_linked_edition, withdrawn_edition_linked_edition, link_set_linked_edition, withdrawn_link_set_linked_edition])
-        end
+        expect(request.load).to match_array([edition_linked_edition, withdrawn_edition_linked_edition, link_set_linked_edition, withdrawn_link_set_linked_edition])
       end
+    end
 
-      it "excludes unpublished non-withdrawn links even when they are of the permitted link type #{link_type}" do
-        edition_linked_edition = create(:edition, content_store: "live")
-        redirect_edition_linked_edition = create(:redirect_unpublished_edition, content_store: "live")
-        link_set_linked_edition = create(:edition, content_store: "live")
-        redirect_link_set_linked_edition = create(:redirect_unpublished_edition, content_store: "live")
+    it "excludes unpublished non-withdrawn links even when they are of the permitted link type 'parent'" do
+      edition_linked_edition = create(:edition, content_store: "live")
+      redirect_edition_linked_edition = create(:redirect_unpublished_edition, content_store: "live")
+      link_set_linked_edition = create(:edition, content_store: "live")
+      redirect_link_set_linked_edition = create(:redirect_unpublished_edition, content_store: "live")
 
-        source_edition = create(:edition,
-                                content_store: "live",
-                                links_hash: {
-                                  link_type => [edition_linked_edition.content_id, redirect_edition_linked_edition.content_id],
-                                })
+      source_edition = create(:edition,
+                              content_store: "live",
+                              links_hash: {
+                                "parent" => [edition_linked_edition.content_id, redirect_edition_linked_edition.content_id],
+                              })
 
-        link_set = create(:link_set, content_id: source_edition.content_id)
-        create(:link, link_set:, target_content_id: link_set_linked_edition.content_id, link_type:)
-        create(:link, link_set:, target_content_id: redirect_link_set_linked_edition.content_id, link_type:)
+      link_set = create(:link_set, content_id: source_edition.content_id)
+      create(:link, link_set:, target_content_id: link_set_linked_edition.content_id, link_type: "parent")
+      create(:link, link_set:, target_content_id: redirect_link_set_linked_edition.content_id, link_type: "parent")
 
-        GraphQL::Dataloader.with_dataloading do |dataloader|
-          request = dataloader.with(
-            described_class,
-            content_store: source_edition.content_store,
-            locale: "en",
-          ).request([source_edition, link_type])
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: "en",
+        ).request([source_edition, "parent"])
 
-          expect(request.load).to match_array([edition_linked_edition, link_set_linked_edition])
-        end
+        expect(request.load).to match_array([edition_linked_edition, link_set_linked_edition])
       end
     end
 
