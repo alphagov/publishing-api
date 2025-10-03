@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path("../../", File.dirname(__FILE__))
+
+require "csv"
+
+require "config/environment"
+
+migrated_types = Dir.new(Rails.root.join("app/graphql/queries")).children
+  .map { _1.delete_suffix(".graphql") }
+all_types = File.read(Rails.root.join("script/live_content/data/schema-names.csv"))
+  .split("\n")
+
+remaining_types = all_types - migrated_types
+
+remaining_types.each do |schema_name|
+  output_filepath = Rails.root.join("script/live_content/data/#{schema_name}-sample.csv")
+
+  if File.exist?(output_filepath)
+    warn("", "#{output_filepath} already exists, skipping #{schema_name}")
+    next
+  end
+
+  base_query = Edition
+    .live
+    .joins(:document)
+    .where(schema_name:)
+
+  not_unpublished_editions = base_query
+    .where.not(state: "unpublished")
+    .pluck(:base_path, :content_id, :locale)
+    .sample(10)
+
+  gone_redirect_edition_ids = Unpublishing
+    .where(type: %w[gone redirect])
+    .pluck(:edition_id)
+
+  good_unpublished_editions = base_query
+    .where(state: "unpublished")
+    .where.not(id: gone_redirect_edition_ids)
+    .pluck(:base_path, :content_id, :locale)
+    .sample(10)
+
+  File.write(
+    output_filepath,
+    CSV.generate do |csv|
+      csv << %w[base_path content_id locale]
+
+      (not_unpublished_editions + good_unpublished_editions).each { csv << _1 }
+    end,
+  )
+
+  puts("Written #{schema_name} sample to #{output_filepath}")
+end
