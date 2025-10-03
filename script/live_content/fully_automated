@@ -1,0 +1,280 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path("../../", File.dirname(__FILE__))
+
+require "config/environment"
+
+require "hashdiff"
+
+def usage_and_abort
+  abort("Usage:\n\t#{$PROGRAM_NAME} a_schema_name")
+end
+
+def validate_schema_name!(schema_name)
+  GovukSchemas::Schema.find(publisher_schema: schema_name)
+rescue Errno::ENOENT
+  warn("", "Error: is that meant to be a schema name?")
+  usage_and_abort
+end
+
+schema_name = ARGV.fetch(0) { usage_and_abort }
+validate_schema_name!(schema_name)
+
+class Service
+  class Failure < StandardError; end
+
+  def initialize(host, content_endpoint)
+    @host = host
+    @content_endpoint = content_endpoint
+  end
+
+  def is_ready?
+    get("/healthcheck/ready")
+
+    true
+  rescue Failure
+    false
+  end
+
+  def content_item(base_path)
+    response = ContentItemResponse.new(get("#{@content_endpoint}#{base_path}"))
+
+    raise Failure, "Timeout, #{response.time}s" if response.took_too_long?
+
+    response
+  end
+
+private
+
+  def get(path)
+    response = Net::HTTP.get_response(URI("#{@host}#{path}"))
+
+    raise Failure, response.code if response.code != "200"
+
+    response
+  end
+end
+
+class Service
+  class ContentItemResponse
+    TIMEOUT_IN_SECONDS = 4
+    DATE_PATTERN = /^\d{4}-\d{2}-\d{2}/
+
+    def initialize(net_http_response)
+      @net_http_response = net_http_response
+    end
+
+    def content_item
+      @content_item ||= deep_prune_hash(JSON.parse(@net_http_response.body))
+    end
+
+    def length
+      @net_http_response["Content-Length"].to_i
+    end
+
+    def time
+      @net_http_response["X-Runtime"].to_f
+    end
+
+    def total_links
+      count_links(content_item)
+    end
+
+    def took_too_long?
+      time > TIMEOUT_IN_SECONDS
+    end
+
+  private
+
+    def count_links(object, total = 0)
+      if object.is_a?(Hash) && object["links"]
+        object["links"].values.flatten.then do |links|
+          links.reduce(total + links.size) do |memo, link|
+            count_links(link, memo)
+          end
+        end
+      else
+        total
+      end
+    end
+
+    def deep_prune_hash(hash)
+      hash.map { deep_prune(_1, _2) }.compact.to_h
+    end
+
+    def deep_prune(key, value)
+      case [key, value]
+      in [String, Hash]
+        [key, deep_prune_hash(value)]
+      in [String, [Hash, *]]
+        [key, value.map(&method(:deep_prune_hash))]
+      in ["withdrawn", *]
+        nil
+      in [String, DATE_PATTERN]
+        [key, value.sub(/(#{DATE_PATTERN}).*/, '\1')]
+      else
+        [key, value]
+      end
+    end
+  end
+end
+
+content_store = Service.new(Plek.find("content-store"), "/content")
+publishing_api = Service.new(Plek.find("publishing-api"), "/graphql/content")
+
+abort("Error: is Content Store running?") unless content_store.is_ready?
+abort("Error: is Publishing API running?") unless publishing_api.is_ready?
+
+query_filename = "app/graphql/queries/#{schema_name}.graphql"
+
+puts("")
+puts("Getting random #{schema_name} editions...")
+
+base_query = Edition
+  .live
+  .joins(:document)
+  .where(schema_name:)
+
+not_unpublished_editions = base_query
+  .where.not(state: "unpublished")
+  .pluck(:base_path, :content_id, :locale)
+  .sample(1000)
+
+gone_redirect_edition_ids = Unpublishing
+  .where(type: %w[gone redirect])
+  .pluck(:edition_id)
+
+good_unpublished_editions = base_query
+  .where(state: "unpublished")
+  .where.not(id: gone_redirect_edition_ids)
+  .pluck(:base_path, :content_id, :locale)
+  .sample(10)
+
+MinimalistEdition = Data.define(:base_path, :content_id, :locale)
+
+editions_sample = (not_unpublished_editions + good_unpublished_editions)
+  .map { MinimalistEdition.new(*_1) }
+
+puts("Got #{editions_sample.size} editions.")
+
+def represent_downstream(edition)
+  edition = Queries::GetEditionForContentStore.call(
+    edition.content_id,
+    edition.locale,
+    include_draft: false,
+  )
+
+  return unless edition
+
+  payload = DownstreamPayload.new(
+    edition,
+    Event.maximum_id,
+    draft: false,
+  )
+
+  DownstreamService.update_live_content_store(payload)
+end
+
+puts("")
+puts("Representing editions downstream...")
+
+editions_sample.each do
+  represent_downstream(_1)
+
+  print(".")
+end
+puts("")
+
+puts("Finished representing downstream.")
+
+query = GraphqlQueryBuilder.new(schema_name).build_query
+
+File.open(query_filename, "w") { |f| f.puts(query) }
+
+puts("Saved #{schema_name} GraphQL query to #{query_filename}.")
+
+content_store_item = nil
+publishing_api_item = nil
+
+content_store_response_times = []
+publishing_api_response_times = []
+diff_sizes = []
+content_lengths = []
+link_counts = []
+publishing_api_errors = 0
+
+puts("")
+puts("Requesting content items from Publishing API and Content Store...")
+
+editions_sample.each do |edition|
+  begin
+    response = content_store.content_item(edition.base_path)
+
+    content_store_response_time = response.time
+    content_store_item = response.content_item
+  rescue Service::Failure => e
+    warn(
+      "",
+      "Exception while requesting #{edition.base_path} from Content Store:",
+      "\t#{e.detailed_message}",
+    )
+
+    next
+  end
+
+  begin
+    response = publishing_api.content_item(edition.base_path)
+
+    publishing_api_response_time = response.time
+    publishing_api_item = response.content_item
+    content_lengths << response.length
+    link_counts << response.total_links
+  rescue Service::Failure => e
+    warn(
+      "",
+      "Exception while requesting #{edition.base_path} from Publishing API:",
+      "\t#{e.detailed_message}",
+    )
+
+    publishing_api_errors += 1
+
+    next
+  end
+
+  content_store_response_times << content_store_response_time
+  publishing_api_response_times << publishing_api_response_time
+
+  diff_sizes << Hashdiff.diff(content_store_item, publishing_api_item)
+    .sum do |change|
+      # The last element in every changeset entry is the value that changed.
+      # If change type (first element) is "~", the last 2 elements are the
+      # respective differing values, but I'm not sure how to derive a score
+      # from that yet, so grabbing one and seeing how useful the results are.
+      changed_value = change.last
+
+      if changed_value.is_a?(Hash)
+        changed_value.size + 2 # count the {, } and contents of the hash
+      else
+        1
+      end
+    end
+
+  print(".")
+end
+puts("")
+
+puts("Got #{publishing_api_response_times.size} content items.")
+
+performance_score = (
+  publishing_api_response_times.sum / content_store_response_times.sum * 100
+).round
+
+puts("")
+puts("Summary for #{schema_name}")
+puts("\tperformance score (% of Content Store): #{performance_score}%")
+puts("\taverage diff size: #{diff_sizes.sum / diff_sizes.size}")
+puts("\tmax content length: #{content_lengths.max}")
+puts("\tmax links: #{link_counts.max}")
+if publishing_api_errors.positive?
+  puts("\trequest errors: #{publishing_api_errors}")
+end
