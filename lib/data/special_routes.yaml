@@ -220,6 +220,12 @@
   :title: "HM Passport Office webchat"
   :description: "Handles the webchat view for HM Passport Office"
   :rendering_app: "government-frontend"
+  :links:
+    :ordered_related_items:
+      - "89426190-c98e-4997-8149-7e0f03aecc8d"
+      - "99d076d9-a9f7-4b25-9031-85e311c01da5"
+    :parent:
+      - "3a96a1e0-21e3-4aae-8e84-f90860ed3dbf"
 
 - :base_path: "/government/uploads"
   :content_id: "5a0ca87e-0e91-4d4c-bd26-29feb24f98ab"
