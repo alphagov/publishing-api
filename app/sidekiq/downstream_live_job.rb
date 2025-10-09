@@ -55,7 +55,7 @@ class DownstreamLiveJob
 
     enqueue_dependencies if update_dependencies
   rescue AbortWorkerError => e
-    notify_airbrake(e, args)
+    notify_govuk_error(e, args)
   end
 
 private
@@ -101,7 +101,7 @@ private
     )
   end
 
-  def notify_airbrake(error, parameters)
+  def notify_govuk_error(error, parameters)
     GovukError.notify(error, level: "warning", extra: parameters)
   end
 
