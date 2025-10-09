@@ -71,12 +71,6 @@ RSpec.describe DownstreamLiveJob do
         expect(Adapters::ContentStore).to_not receive(:put_content_item)
         subject.perform(superseded_arguments)
       end
-
-      it "absorbs an error" do
-        expect(GovukError).to receive(:notify)
-          .with(an_instance_of(AbortWorkerError), a_hash_including(:extra))
-        subject.perform(superseded_arguments)
-      end
     end
 
     it "wont send to content store without a base_path" do
@@ -171,26 +165,26 @@ RSpec.describe DownstreamLiveJob do
   end
 
   describe "draft-to-live protection" do
-    it "rejects draft editions" do
-      draft = create(:draft_edition)
+    describe "for draft editions" do
+      let(:draft) { create(:draft_edition) }
 
-      expect(GovukError).to receive(:notify)
-        .with(an_instance_of(AbortWorkerError), a_hash_including(:extra))
-      subject.perform(arguments.merge("content_id" => draft.document.content_id))
+      it "doesn't send to live content store" do
+        expect(Adapters::ContentStore).to_not receive(:put_content_item)
+        subject.perform(arguments.merge("content_id" => draft.document.content_id))
+      end
     end
 
     it "allows live editions" do
       live = create(:live_edition)
 
-      expect(GovukError).to_not receive(:notify)
+      expect(Adapters::ContentStore).to receive(:put_content_item)
       subject.perform(arguments.merge("content_id" => live.document.content_id))
     end
   end
 
   describe "no edition" do
-    it "swallows the error" do
-      expect(GovukError).to receive(:notify)
-        .with(an_instance_of(AbortWorkerError), a_hash_including(:extra))
+    it "doesn't send to live content store" do
+      expect(Adapters::ContentStore).to_not receive(:put_content_item)
       subject.perform(arguments.merge("content_id" => SecureRandom.uuid))
     end
   end
