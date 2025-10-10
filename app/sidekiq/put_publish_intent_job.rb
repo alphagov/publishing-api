@@ -20,6 +20,6 @@ class PutPublishIntentJob
   def perform(args = {})
     Adapters::ContentStore.put_publish_intent(args["base_path"], JSON.parse(args["payload"]))
   rescue AbortWorkerError => e
-    notify_airbrake(e, args)
+    notify_govuk_error(e, args)
   end
 end
