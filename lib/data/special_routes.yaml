@@ -219,7 +219,7 @@
   :content_id: "ed186456-04dc-4d18-9ecb-8d07a83faea9"
   :title: "HM Passport Office webchat"
   :description: "Handles the webchat view for HM Passport Office"
-  :rendering_app: "government-frontend"
+  :rendering_app: "frontend"
   :links:
     :ordered_related_items:
       - "89426190-c98e-4997-8149-7e0f03aecc8d"
