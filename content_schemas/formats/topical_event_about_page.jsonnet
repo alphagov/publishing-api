@@ -15,6 +15,9 @@
         body: {
           "$ref": "#/definitions/body",
         },
+        headers: {
+          "$ref": "#/definitions/nested_headers",
+        },
       },
     },
   },
