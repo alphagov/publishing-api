@@ -7,7 +7,16 @@ module Presenters
       end
 
       def call
-        results = include_edition_change_history ? notes_for_edition_and_linked_content_blocks : change_notes_for_linked_content_blocks
+        results = if include_edition_change_history && embed_links.any?
+                    notes_for_edition_and_linked_content_blocks
+                  elsif include_edition_change_history
+                    change_notes_for_edition
+                  elsif embed_links.empty?
+                    return []
+                  else
+                    change_notes_for_linked_content_blocks
+                  end
+
         results.order(:public_timestamp)
       end
 
@@ -35,8 +44,6 @@ module Presenters
       end
 
       def change_notes_for_linked_content_blocks
-        return ChangeNote.none if embed_links.empty?
-
         conditions = embed_links.map do |(target_content_id, created_at)|
           ChangeNote.joins(edition: :document)
                     .where(documents: { content_id: target_content_id })
