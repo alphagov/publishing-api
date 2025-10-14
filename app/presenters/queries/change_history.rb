@@ -48,9 +48,10 @@ module Presenters
 
       def embed_links
         @embed_links ||= Link
-                          .where(link_type: "embed", edition_id: edition.document.editions.select(:id))
+                          .joins(:edition)
+                          .where(link_type: "embed", edition: { document_id: edition.document_id })
                           .group(:target_content_id)
-                          .minimum(:created_at)
+                          .minimum(:"links.created_at")
       end
     end
   end
