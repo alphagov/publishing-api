@@ -1,0 +1,12 @@
+1. We shouldn't UNION link set and edition links, we should default to edition
+links but fall back to link set links
+2. The edition links query returns an English link for a Welsh page where the
+Content Store query doesn't
+
+```
+# 1 link (dataloader equivalent: 2)
+Queries::EditionLinks.to("5fa93991-7631-11e4-a3cb-005056011aef", locale: "cy", with_drafts: false, allowed_link_types: ExpansionRules.reverse_to_direct_link_types(ExpansionRules.reverse_links))
+
+# 3 links (dataloader equivalent: 2)
+Queries::Links.to("5fa93991-7631-11e4-a3cb-005056011aef", allowed_link_types: ExpansionRules.reverse_to_direct_link_types(ExpansionRules.reverse_links))
+```
