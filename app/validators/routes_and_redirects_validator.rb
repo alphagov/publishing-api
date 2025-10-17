@@ -3,6 +3,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
     caa.co.uk
     gov.uk
     independent-inquiry.uk
+    internationalaisafetyreport.org
     judiciary.uk
     moneyhelper.org.uk
     nationalhighways.co.uk
