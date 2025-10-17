@@ -301,50 +301,6 @@
         "withdrawn": false
       }
     ],
-    "suggested_ordered_related_items": [
-      {
-        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/our-governance",
-        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/our-governance",
-        "base_path": "/government/organisations/department-of-health-and-social-care/about/our-governance",
-        "content_id": "5f5543ee-7631-11e4-a3cb-005056011aef",
-        "document_type": "our_governance",
-        "links": {},
-        "locale": "en",
-        "public_updated_at": "2024-01-25T11:36:54Z",
-        "schema_name": "corporate_information_page",
-        "title": "Our governance",
-        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/our-governance",
-        "withdrawn": false
-      },
-      {
-        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/statistics",
-        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/statistics",
-        "base_path": "/government/organisations/department-of-health-and-social-care/about/statistics",
-        "content_id": "5f553aa0-7631-11e4-a3cb-005056011aef",
-        "document_type": "statistics",
-        "links": {},
-        "locale": "en",
-        "public_updated_at": "2023-12-13T16:29:18Z",
-        "schema_name": "corporate_information_page",
-        "title": "Statistics at DHSC",
-        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/statistics",
-        "withdrawn": false
-      },
-      {
-        "api_path": "/api/content/government/organisations/department-of-health-and-social-care/about/recruitment",
-        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care/about/recruitment",
-        "base_path": "/government/organisations/department-of-health-and-social-care/about/recruitment",
-        "content_id": "5f54e968-7631-11e4-a3cb-005056011aef",
-        "document_type": "recruitment",
-        "links": {},
-        "locale": "en",
-        "public_updated_at": "2025-03-14T16:25:16Z",
-        "schema_name": "corporate_information_page",
-        "title": "Working for DHSC",
-        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care/about/recruitment",
-        "withdrawn": false
-      }
-    ],
     "taxons": [
       {
         "api_path": "/api/content/government/government-efficiency-transparency-and-accountability",
