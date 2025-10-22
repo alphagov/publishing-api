@@ -136,7 +136,7 @@ local embedded_objects = {
           },
           value: {
             type: "string",
-            default: "British Sign Language (BSL) [video relay service](https://connect.interpreterslive.co.uk/vrs) if you’re on a computer - find out how to [use the service on mobile or tablet](https://www.youtube.com/watch?v=oELNMfAvDxw)",
+            default: "British Sign Language interpreter: [use video relay service](https://connect.interpreterslive.co.uk/vrs). Provider: [InterpretersLive!](https://www.interpreterslive.co.uk/).",
           },
         },
       },
