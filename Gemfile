@@ -34,6 +34,8 @@ gem "with_advisory_lock"
 
 group :development do
   gem "listen"
+  gem "rack-mini-profiler"
+  gem "stackprof"
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem "web-console"
 end

@@ -32,7 +32,18 @@ You can run the tests locally with: `bundle exec rake`.
 
 The Publishing API also has [contract tests with GDS API Adapters](https://docs.publishing.service.gov.uk/manual/pact-testing.html) (where it acts as the "provider") and [with Content Store](https://docs.publishing.service.gov.uk/manual/pact-testing.html#special-cases-and-tech-debt) ( where it acts as the contract "consumer"). [Read the guidance for how to run the tests locally](https://docs.publishing.service.gov.uk/manual/pact-testing.html#running-pact-tests-locally).
 
-### Further documentation
+## Profiling
+
+In development mode, you can use [rack-mini-profiler](https://github.com/MiniProfiler/rack-mini-profiler) to get performance
+information (such as flamegraphs). There's full documentation in the gem's readme, but often it's as simple as appending
+
+```
+pp=flamegraph
+```
+
+to the query string.
+
+## Further documentation
 
 - [Publishing API's API](docs/api.md)
 - [Architecture decision records](docs/arch)
