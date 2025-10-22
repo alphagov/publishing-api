@@ -15,10 +15,39 @@ query guide($base_path: String!) {
       first_published_at
       links {
         available_translations {
+          analytics_identifier
           api_path
           api_url
           base_path
           content_id
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        children {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          description
+          details {
+            access_and_opening_times
+            change_description
+            contact_form_links
+            country
+            dates_in_office
+            description
+            email_addresses
+            phone_numbers
+            political_party
+            post_addresses
+            step_by_step_nav
+            title
+          }
           document_type
           locale
           public_updated_at
@@ -39,7 +68,63 @@ query guide($base_path: String!) {
           title
           web_url
         }
+        embed {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            description
+            rates
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        finder {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            facets
+            show_metadata_block
+            show_table_of_contents
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        lead_organisations {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            acronym
+            brand
+            default_news_image
+            logo
+            organisation_govuk_status
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
         mainstream_browse_pages {
+          analytics_identifier
           api_path
           api_url
           base_path
@@ -53,13 +138,29 @@ query guide($base_path: String!) {
           web_url
         }
         ordered_related_items {
+          analytics_identifier
           api_path
           api_url
           base_path
           content_id
+          description
+          details {
+            change_description
+            contact_form_links
+            country
+            dates_in_office
+            description
+            email_addresses
+            phone_numbers
+            political_party
+            post_addresses
+            step_by_step_nav
+            title
+          }
           document_type
           links {
             mainstream_browse_pages {
+              analytics_identifier
               api_path
               api_url
               base_path
@@ -68,27 +169,54 @@ query guide($base_path: String!) {
               document_type
               links {
                 parent {
+                  analytics_identifier
                   api_path
                   api_url
                   base_path
                   content_id
                   description
+                  details {
+                    acronym
+                    brand
+                    default_news_image
+                    logo
+                    organisation_govuk_status
+                    world_location_names
+                  }
                   document_type
                   links {
                     parent {
+                      analytics_identifier
                       api_path
                       api_url
                       base_path
                       content_id
                       description
+                      details {
+                        acronym
+                        brand
+                        default_news_image
+                        logo
+                        organisation_govuk_status
+                        world_location_names
+                      }
                       document_type
                       links {
                         parent {
+                          analytics_identifier
                           api_path
                           api_url
                           base_path
                           content_id
                           description
+                          details {
+                            acronym
+                            brand
+                            default_news_image
+                            logo
+                            organisation_govuk_status
+                            world_location_names
+                          }
                           document_type
                           locale
                           public_updated_at
@@ -119,19 +247,24 @@ query guide($base_path: String!) {
             }
           }
           locale
+          phase
           public_updated_at
           schema_name
           title
           web_url
         }
         ordered_related_items_overrides {
+          analytics_identifier
           api_path
           api_url
           base_path
           content_id
+          description
+          details: details_json
           document_type
           links {
             taxons {
+              analytics_identifier
               api_path
               api_url
               base_path
@@ -148,12 +281,42 @@ query guide($base_path: String!) {
             }
           }
           locale
+          phase
           public_updated_at
           schema_name
           title
           web_url
         }
         organisations {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          description
+          details {
+            access_and_opening_times
+            acronym
+            brand
+            contact_form_links
+            default_news_image
+            description
+            email_addresses
+            logo
+            organisation_govuk_status
+            phone_numbers
+            post_addresses
+            title
+            world_location_names
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        original_primary_publishing_organisation {
           analytics_identifier
           api_path
           api_url
@@ -180,38 +343,82 @@ query guide($base_path: String!) {
           base_path
           content_id
           description
+          details {
+            acronym
+            brand
+            default_news_image
+            logo
+            organisation_govuk_status
+            world_location_names
+          }
           document_type
           links {
             parent {
+              analytics_identifier
               api_path
               api_url
               base_path
               content_id
               description
+              details {
+                acronym
+                brand
+                default_news_image
+                logo
+                organisation_govuk_status
+                world_location_names
+              }
               document_type
               links {
                 parent {
+                  analytics_identifier
                   api_path
                   api_url
                   base_path
                   content_id
                   description
+                  details {
+                    acronym
+                    brand
+                    default_news_image
+                    logo
+                    organisation_govuk_status
+                    world_location_names
+                  }
                   document_type
                   links {
                     parent {
+                      analytics_identifier
                       api_path
                       api_url
                       base_path
                       content_id
                       description
+                      details {
+                        acronym
+                        brand
+                        default_news_image
+                        logo
+                        organisation_govuk_status
+                        world_location_names
+                      }
                       document_type
                       links {
                         parent {
+                          analytics_identifier
                           api_path
                           api_url
                           base_path
                           content_id
                           description
+                          details {
+                            acronym
+                            brand
+                            default_news_image
+                            logo
+                            organisation_govuk_status
+                            world_location_names
+                          }
                           document_type
                           locale
                           public_updated_at
@@ -256,6 +463,19 @@ query guide($base_path: String!) {
           details {
             step_by_step_nav
           }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        policy_areas {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
           document_type
           locale
           public_updated_at

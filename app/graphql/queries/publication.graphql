@@ -1,4 +1,4 @@
-query role($base_path: String!) {
+query publication($base_path: String!) {
   edition(base_path: $base_path) {
     ... on Edition {
       analytics_identifier
@@ -6,13 +6,19 @@ query role($base_path: String!) {
       content_id
       description
       details {
-        attends_cabinet_type
+        attachments
         body
+        brexit_no_deal_notice
         change_history
-        role_payment_type
-        seniority
-        supports_historical_accounts
-        whip_organisation
+        document_type_label
+        documents
+        emphasised_organisations
+        featured_attachments
+        first_public_at
+        government
+        national_applicability
+        political
+        tags
       }
       document_type
       first_published_at
@@ -106,6 +112,24 @@ query role($base_path: String!) {
           title
           web_url
         }
+        government {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            current
+            ended_on
+            started_on
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
         lead_organisations {
           analytics_identifier
           api_path
@@ -133,39 +157,6 @@ query role($base_path: String!) {
           base_path
           content_id
           description
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
-        }
-        ministerial {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
-        }
-        ordered_parent_organisations {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          details {
-            acronym
-            brand
-            default_news_image
-            logo
-            organisation_govuk_status
-          }
           document_type
           locale
           public_updated_at
@@ -506,6 +497,19 @@ query role($base_path: String!) {
           title
           web_url
         }
+        people {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
         policy_areas {
           analytics_identifier
           api_path
@@ -532,6 +536,32 @@ query role($base_path: String!) {
             logo
             organisation_govuk_status
           }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        related_policies {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        related_statistical_data_sets {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
           document_type
           locale
           public_updated_at
@@ -627,6 +657,25 @@ query role($base_path: String!) {
               web_url
             }
           }
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        roles {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            body
+            role_payment_type
+            seniority
+            whip_organisation
+          }
+          document_type
           locale
           public_updated_at
           schema_name
@@ -803,6 +852,36 @@ query role($base_path: String!) {
           }
           locale
           phase
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        topical_events {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        world_locations {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          description
+          document_type
+          links {
+
+          }
+          locale
           public_updated_at
           schema_name
           title
