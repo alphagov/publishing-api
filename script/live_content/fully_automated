@@ -1,5 +1,10 @@
 #!/usr/bin/env ruby
 
+# To execute this script, open a terminal in the root of the repository and do:
+#
+# export DATABASE_URL="postgresql://postgres@postgres-17/publishing-api"
+# for dir in content_schemas/dist/formats/*/; do ./script/live_content/fully_automated $dir:t; done
+
 $LOAD_PATH << File.expand_path("../../", File.dirname(__FILE__))
 
 require "config/environment"
