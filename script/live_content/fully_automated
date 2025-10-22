@@ -280,6 +280,11 @@ puts("\tperformance score (% of Content Store): #{performance_score}%")
 puts("\taverage diff size: #{diff_sizes.sum / diff_sizes.size}")
 puts("\tmax content length: #{content_lengths.max}")
 puts("\tmax links: #{link_counts.max}")
+
+stats_filename = "app/graphql/stats.csv"
+File.open(stats_filename, "a") { |f| f.write(schema_name, ",", performance_score, ",", diff_sizes.sum / diff_sizes.size, ",", content_lengths.max, ",", link_counts.max, "\n") }
+puts("Appended stats to to #{stats_filename}.")
+
 if publishing_api_errors.positive?
   puts("\trequest errors: #{publishing_api_errors}")
 end
