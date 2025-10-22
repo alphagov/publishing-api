@@ -1,26 +1,76 @@
 # Checking parity of GraphQL and Content Store responses
 
-A couple of scripts are available to check the parity of GraphQL and Content
-Store responses:
+A number of scripts are available to check the parity of GraphQL and Content
+Store responses.
 
-- `script/live_content/diff_frontend` - this will guide you through diffing the
-  responses for one page.
-- `script/live_content/bulk_diff_frontend` - this allows you to diff multiple
-  pages in one process.
+## Comparing frontend responses
 
-  For the bulk script, you'll need to prepare a file with a list of base paths
-  (e.g. `/world`) and an empty line at the end. See the "Retrieving base paths"
-  section for two ways to do this.
+These scripts compare the HTML output from frontend applications.
 
-  Diffs will be output to `tmp/diffs` by default. Run the script
-  with `--help` for information on all the required and optional arguments.
+> If diffing in the development environment, you'll need to start all the relevant
+> servers in GOV.UK Docker: Publishing API, Content Store, plus any required
+> frontend apps and their depenedencies (e.g. Collections, Frontend, Government
+> Frontend, Static).
 
-If diffing in the development environment, you'll need to start all the relevant
-servers in GOV.UK Docker: Publishing API, Content Store, plus any required
-frontend apps and their depenedencies (e.g. Collections, Frontend, Government
-Frontend, Static).
+### One document
 
-## Issue with Bash version
+```sh
+./script/live_content/diff_frontend
+```
+
+The script has a interactive interface and will prompt for:
+
+- whether to download the HTML (or use a locally cached version)
+- the base path of the document to check
+- the environment (development, integration, staging or production)
+- if integration is selected: basic auth username and password
+- the diff output style
+
+### List of documents
+
+```sh
+./script/live_content/bulk_diff_frontend --base-paths-file-path path/to/file --environment p
+```
+
+For this bulk script, you'll need to prepare a file with a list of base paths
+(e.g. `/world`) and an empty line at the end. See the "Retrieving base paths"
+section for two ways to do this.
+
+Diffs will be output to `tmp/diffs` by default. Run the script
+with `--help` for information on all the required and optional arguments.
+
+## Comparing content items to GraphQL responses
+
+These scripts compare the content item in Content Store to the output from
+GraphQL.
+
+> These only operate on the local development stack.
+
+### One document
+
+```sh
+./script/live_content/diff base-path-of-document
+```
+
+Give the base path of the document as an argument to the script.
+
+### List of documents
+
+```sh
+./script/live_content/bulk_diff
+```
+
+For this bulk script, you'll need to prepare a file with a list of base paths
+(e.g. `/world`) and an empty line at the end. See the "Retrieving base paths"
+section for two ways to do this. This file must be saved as
+`tmp/base_paths/filtered_base_paths`.
+
+The diff will be shown for each base path and you will be given an option of
+moving on or aborting after each one.
+
+## Known issues
+
+### Issue with Bash version
 
 If you get a syntax error when running the diffing scripts, you might be using
 an old version of Bash. At the time of writing, the version of Bash shipped with
