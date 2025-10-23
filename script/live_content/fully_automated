@@ -135,6 +135,28 @@ query_filename = "app/graphql/queries/#{schema_name}.graphql"
 puts("")
 puts("Getting random #{schema_name} editions...")
 
+# Editions that are in the content store:
+# - AND:
+#   - content_store = 'live'
+#   - unpublishings.type <> 'vanish' or IS NULL
+
+# SELECT editions.id, editions.state, unpublishings.type
+# FROM publishing_api.editions
+# LEFT JOIN publishing_api.unpublishings ON (unpublishings.edition_id = editions.id)
+# WHERE TRUE
+# AND content_store = 'live'
+# AND (
+#   state <> 'unpublished'
+#   OR unpublishings.type = 'withdrawal'
+# )
+
+# base_query = Edition
+#   .live # equivalent to where(content_store: 'live')
+#   .joins(:document)
+#   .joins(:unpublishing)
+#   .where(schema_name: "guide")
+#   .where("editions.state = 'unpublished' OR unpublishings.type = 'withdrawal'")
+
 base_query = Edition
   .live
   .joins(:document)
