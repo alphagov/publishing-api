@@ -148,7 +148,7 @@ editions_sample = base_query
   .where.not(state: "unpublished")
   .or(base_query.where(unpublishing: { type: "withdrawal" }))
   .order("RANDOM()")
-  .limit(1000)
+  .limit(100)
   .pluck(:base_path, :content_id, :locale)
   .map { MinimalistEdition.new(*_1) }
 
