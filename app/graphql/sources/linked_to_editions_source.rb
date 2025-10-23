@@ -60,7 +60,7 @@ module Sources
             SQL
             @primary_locale,
           ),
-          "'link_set_link' AS link_kind",
+          "'1 - link_set_link' AS link_kind",
         )
 
       edition_links_target_editions = Edition
@@ -107,8 +107,8 @@ module Sources
               )
             SQL
             @primary_locale,
-            "'edition_link' AS link_kind",
           ),
+          "'0 - edition_link' AS link_kind",
         )
 
       all_editions = Edition
@@ -122,12 +122,15 @@ module Sources
           SQL
         )
         .where(editions: { row_number: 1 })
-        .order(link_type: :asc, position: :asc, link_id: :desc)
+        .order(link_kind: :asc, link_type: :asc, position: :asc, link_id: :desc)
 
       all_editions.each_with_object(link_types_map) { |edition, hash|
-        unless hash[[edition.source_content_id, edition.link_type]].include?(edition)
-          hash[[edition.source_content_id, edition.link_type]] << edition
-        end
+        candidates = hash[[edition.source_content_id, edition.link_type]]
+
+        already_has_edition_links = candidates.any? { |c| c.link_kind == "0 - edition_link" }
+        next if edition.link_kind == "1 - link_set_link" && already_has_edition_links
+
+        hash[[edition.source_content_id, edition.link_type]] << edition
       }.values
     end
   end
