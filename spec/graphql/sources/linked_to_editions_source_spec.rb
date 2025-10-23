@@ -42,7 +42,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
     end
   end
 
-  it "returns a mixture of links when both present" do
+  it "does not return a link set links when both edition links and link set links are present" do
     target_edition_1 = create(:edition)
     target_edition_2 = create(:edition)
     target_edition_3 = create(:edition)
@@ -63,7 +63,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
         locale: "en",
       ).request([source_edition, "test_link"])
 
-      expect(request.load).to match_array([target_edition_1, target_edition_3])
+      expect(request.load).to match_array([target_edition_1])
     end
   end
 

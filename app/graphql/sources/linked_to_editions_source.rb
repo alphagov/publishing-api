@@ -60,6 +60,7 @@ module Sources
             SQL
             @primary_locale,
           ),
+          "'link_set_link' AS link_kind",
         )
 
       edition_links_target_editions = Edition
@@ -106,6 +107,7 @@ module Sources
               )
             SQL
             @primary_locale,
+            "'edition_link' AS link_kind",
           ),
         )
 
@@ -114,7 +116,7 @@ module Sources
           <<~SQL,
             (
               #{link_set_links_target_editions.to_sql}
-              UNION
+              UNION ALL
               #{edition_links_target_editions.to_sql}
             ) AS editions
           SQL
