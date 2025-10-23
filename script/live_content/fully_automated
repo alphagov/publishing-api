@@ -135,51 +135,21 @@ query_filename = "app/graphql/queries/#{schema_name}.graphql"
 puts("")
 puts("Getting random #{schema_name} editions...")
 
-# Editions that are in the content store:
-# - AND:
-#   - content_store = 'live'
-#   - unpublishings.type <> 'vanish' or IS NULL
-
-# SELECT editions.id, editions.state, unpublishings.type
-# FROM publishing_api.editions
-# LEFT JOIN publishing_api.unpublishings ON (unpublishings.edition_id = editions.id)
-# WHERE TRUE
-# AND content_store = 'live'
-# AND (
-#   state <> 'unpublished'
-#   OR unpublishings.type = 'withdrawal'
-# )
-
-# base_query = Edition
-#   .live # equivalent to where(content_store: 'live')
-#   .joins(:document)
-#   .joins(:unpublishing)
-#   .where(schema_name: "guide")
-#   .where("editions.state = 'unpublished' OR unpublishings.type = 'withdrawal'")
-
-base_query = Edition
-  .live
-  .joins(:document)
-  .where(schema_name:)
-
-not_unpublished_editions = base_query
-  .where.not(state: "unpublished")
-  .pluck(:base_path, :content_id, :locale)
-  .sample(1000)
-
-gone_redirect_edition_ids = Unpublishing
-  .where(type: %w[gone redirect])
-  .pluck(:edition_id)
-
-good_unpublished_editions = base_query
-  .where(state: "unpublished")
-  .where.not(id: gone_redirect_edition_ids)
-  .pluck(:base_path, :content_id, :locale)
-  .sample(10)
-
 MinimalistEdition = Data.define(:base_path, :content_id, :locale)
 
-editions_sample = (not_unpublished_editions + good_unpublished_editions)
+base_query = Edition
+  .live # equivalent to where(content_store: 'live')
+  .joins(:document)
+  .left_outer_joins(:unpublishing)
+  .where(schema_name: "guide")
+
+# Editions that are in the content store:
+editions_sample = base_query
+  .where.not(state: "unpublished")
+  .or(base_query.where(unpublishing: { type: "withdrawal" }))
+  .order("RANDOM()")
+  .limit(1000)
+  .pluck(:base_path, :content_id, :locale)
   .map { MinimalistEdition.new(*_1) }
 
 puts("Got #{editions_sample.size} editions.")
