@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path(".")
+require "config/environment"
+
+def usage
+  abort("Usage:\n\t#{$PROGRAM_NAME} one_schema_name or_more_schema_names")
+end
+
+schema_names = ARGV
+
+usage if schema_names.empty?
+
+data = schema_names.flat_map do |schema_name|
+  Edition
+    .live
+    .joins(:document)
+    .where(schema_name:)
+    .where.not(state: "unpublished")
+    .pluck(:base_path, :content_id, :locale)
+    # it would be quicker to use a limit before the pluck, but then we'd get a
+    # less random sample
+    .sample(1000)
+end
+
+File.write(
+  "script/data/sample",
+  data.map { _1.join(",") }.join("\n"),
+)
+
+File.write(
+  "script/data/sample_base_paths",
+  data.map(&:first).join("\n"),
+)

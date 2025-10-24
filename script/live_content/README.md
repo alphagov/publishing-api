@@ -82,14 +82,30 @@ used in the scripts. You can
 
 ### From a local Publishing API database
 
-If you have a replicated database locally (including in GOV.UK Docker), you can
-use a script to generate a list of one base path per document type per existing
+If you have a replicated database locally (including in GOV.UK Docker), there
+are a couple of scripts you can use to generate a list of base paths.
+
+#### One per document type
+
+You can generate a list of one base path per document type per existing
 GraphQL query (i.e. per schema name). This approach is useful for a quick
 diff or to test changes to the diffing scripts
 
 ```sh
 # prepend with govuk-docker-run for GOV.UK Docker
 bundle exec rails runner script/live_content/generate_base_paths.rb
+```
+
+#### Up to 1000 per schema name
+
+You can get a random sample of base paths - alongside content IDs and locales,
+useful for representing downstream - for a set of schema names. This script will
+only include base paths for editions that are live and not unpublished, and a
+maximum of 1000 per schema name.
+
+```sh
+# prepend with govuk-docker-run for GOV.UK Docker
+./script/get_sample first_schema_name second_schema_name
 ```
 
 ### From logs using Athena
