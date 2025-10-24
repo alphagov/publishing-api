@@ -26,7 +26,7 @@ function curl_and_strip_hashes() {
   fi
 
   local response
-  response=$(curl -u "$username:$password" "$domain$curl_path") || exit 1
+  response=$(curl --fail -u "$username:$password" "$domain$curl_path") || exit $?
 
   echo "$response" | sed -r \
     -e 's/\?graphql=(true|false)//g' \
