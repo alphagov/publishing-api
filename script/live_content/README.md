@@ -154,3 +154,22 @@ WHERE
   AND LOWER("user_agent") NOT LIKE '%ruby%'
   AND LOWER("user_agent") NOT LIKE '%spider%';
 ```
+
+## Syncing Content Store and Publishing API databases
+
+Even with locally replicated databases from backups made on the same day,
+there's no guarantee that data will be in sync between Content Store and
+Publishing API. This can cause a lot of noise when diffing Content Store and
+Publishing API (GraphQL) responses.
+
+To that end, we have a script that runs through a sample at `script/data/sample`
+(the output location of `script/get_sample`) and runs a pared down version of
+`Commands::V2::RepresentDownstream`. This will ensure the two databases are in
+sync and make meaningful diffs easier to identify.
+
+With the Content Store sever running:
+
+```sh
+# prepend with govuk-docker-run for GOV.UK Docker
+./script/represent_for_diffing
+```
