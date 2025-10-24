@@ -52,12 +52,17 @@ local embedded_objects = {
             type: "boolean",
             default: false,
           },
-          prefix: {
+          label: {
             type: "string",
-            default: "[Relay UK](https://www.relayuk.bt.com) (if you cannot hear or speak on the phone): 18001 then",
+            default: "Text relay: dial 18001 then:",
+          },
+          source: {
+            type: "string",
+            default: "Provider: [Relay UK](https://www.relayuk.bt.com)",
           },
           telephone_number: {
             type: "string",
+            default: "0800 1234 1234",
           },
         },
         "if": {
@@ -66,7 +71,7 @@ local embedded_objects = {
           },
         },
         "then": {
-          required: ["prefix", "telephone_number"],
+          required: ["label", "telephone_number", "source"],
         },
         "else": {
           required: [],

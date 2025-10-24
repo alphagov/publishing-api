@@ -76,8 +76,9 @@
         },
         "video_relay_service": {
           "show": true,
-          "prefix": "[Relay UK](https://example.com): 18001 then",
-          "telephone_number": "0800 328 5644"
+          "label": "Text relay: dial 18001 then:",
+          "telephone_number": "0800 1234 1234",
+          "source": "Provider: [Relay UK](https://www.relayuk.bt.com)"
         },
         "call_charges": {
           "label": "Find out about call charges",
