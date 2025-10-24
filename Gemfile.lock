@@ -568,7 +568,7 @@ GEM
       opentelemetry-api (~> 1.0)
     os (1.1.4)
     ostruct (0.6.3)
-    pact (1.67.1)
+    pact (1.67.2)
       jsonpath (~> 1.0)
       pact-mock_service (~> 3.0, >= 3.3.1)
       pact-support (~> 1.21, >= 1.21.2)
