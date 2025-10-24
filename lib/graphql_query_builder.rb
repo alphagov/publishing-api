@@ -123,14 +123,12 @@ private
 
     return if document_types.empty? && link.empty?
 
-    unless document_types.empty?
-      link = document_types.map { |document_type|
-               expand_fields(document_type:, link_type:)
-             }
-               .inject(link) do |link, expanded_fields_item|
-                 expanded_fields_item.deep_merge(link)
-               end
-    end
+    link = document_types.map { |document_type|
+             expand_fields(document_type:, link_type:)
+           }
+             .inject(link) do |link, expanded_fields_item|
+               expanded_fields_item.deep_merge(link)
+             end
 
     link.delete("links") if link["links"].blank?
 
