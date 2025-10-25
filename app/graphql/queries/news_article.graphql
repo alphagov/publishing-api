@@ -70,9 +70,6 @@ query news_article($base_path: String!) {
           }
           title
         }
-        suggested_ordered_related_items {
-          ...RelatedItem
-        }
         taxons {
           ...Taxon
           links {
