@@ -270,10 +270,6 @@
         }
       ]
     },
-    "body": {
-      "description": "The main content provided as HTML rendered from govspeak",
-      "type": "string"
-    },
     "change_history": {
       "type": "array",
       "items": {
@@ -320,7 +316,7 @@
           }
         },
         "body": {
-          "$ref": "#/definitions/body"
+          "type": "string"
         },
         "change_history": {
           "$ref": "#/definitions/change_history"

@@ -201,10 +201,6 @@
         }
       ]
     },
-    "body": {
-      "description": "The main content provided as HTML rendered from govspeak",
-      "type": "string"
-    },
     "change_history": {
       "type": "array",
       "items": {
@@ -251,7 +247,7 @@
           }
         },
         "body": {
-          "$ref": "#/definitions/body"
+          "$ref": "#/definitions/multiple_content_types"
         },
         "change_history": {
           "$ref": "#/definitions/change_history"
@@ -516,6 +512,25 @@
         "zh-hk",
         "zh-tw"
       ]
+    },
+    "multiple_content_types": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "content_type",
+          "content"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "content_type": {
+            "type": "string"
+          }
+        }
+      }
     },
     "political": {
       "description": "If the content is considered political in nature, reflecting views of the government it was published under.",
