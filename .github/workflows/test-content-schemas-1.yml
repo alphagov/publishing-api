@@ -35,13 +35,6 @@ jobs:
       ref: 'main'
       publishingApiRef: ${{ github.ref }}
 
-  test-content-publisher:
-    name: Test Content Publisher
-    uses: alphagov/content-publisher/.github/workflows/rspec.yml@main
-    with:
-      ref: 'main'
-      publishingApiRef: ${{ github.ref }}
-
   test-content-store:
     name: Test Content Store
     uses: alphagov/content-store/.github/workflows/rspec.yml@main

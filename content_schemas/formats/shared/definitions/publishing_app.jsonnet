@@ -9,7 +9,6 @@
       "collections-publisher",
       "contacts",
       "content-block-manager",
-      "content-publisher",
       "content-tagger",
       "email-alert-frontend",
       "external-link-tracker",
