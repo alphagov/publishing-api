@@ -126,7 +126,7 @@ GEM
       govspeak (>= 10.6.3)
       rails (>= 6, < 8.0.4)
       view_component (~> 4)
-    crack (1.0.0)
+    crack (1.0.1)
       bigdecimal
       rexml
     crass (1.0.6)
@@ -292,7 +292,7 @@ GEM
       base64
       fiber-storage
       logger
-    hashdiff (1.2.0)
+    hashdiff (1.2.1)
     hashie (5.0.0)
     htmlentities (4.3.4)
     http-accept (1.7.0)
@@ -881,7 +881,7 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webmock (3.25.1)
+    webmock (3.26.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
