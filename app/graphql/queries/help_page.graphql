@@ -1,0 +1,773 @@
+query help_page($base_path: String!) {
+  edition(base_path: $base_path) {
+    ... on Edition {
+      analytics_identifier
+      base_path
+      content_id
+      description
+      details {
+        body
+        change_history
+        external_related_links
+      }
+      document_type
+      first_published_at
+      links {
+        available_translations {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        children {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          description
+          details {
+            access_and_opening_times
+            change_description
+            contact_form_links
+            country
+            dates_in_office
+            description
+            email_addresses
+            phone_numbers
+            political_party
+            post_addresses
+            step_by_step_nav
+            title
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        document_collections {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        embed {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            description
+            rates
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        finder {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            facets
+            show_metadata_block
+            show_table_of_contents
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        lead_organisations {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            acronym
+            brand
+            default_news_image
+            logo
+            organisation_govuk_status
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        mainstream_browse_pages {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          description
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        ordered_related_items {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          description
+          details {
+            change_description
+            contact_form_links
+            country
+            dates_in_office
+            description
+            email_addresses
+            phone_numbers
+            political_party
+            post_addresses
+            step_by_step_nav
+            title
+          }
+          document_type
+          links {
+            mainstream_browse_pages {
+              analytics_identifier
+              api_path
+              api_url
+              base_path
+              content_id
+              description
+              document_type
+              links {
+                parent {
+                  analytics_identifier
+                  api_path
+                  api_url
+                  base_path
+                  content_id
+                  description
+                  details {
+                    acronym
+                    brand
+                    default_news_image
+                    logo
+                    organisation_govuk_status
+                    world_location_names
+                  }
+                  document_type
+                  links {
+                    parent {
+                      analytics_identifier
+                      api_path
+                      api_url
+                      base_path
+                      content_id
+                      description
+                      details {
+                        acronym
+                        brand
+                        default_news_image
+                        logo
+                        organisation_govuk_status
+                        world_location_names
+                      }
+                      document_type
+                      links {
+                        parent {
+                          analytics_identifier
+                          api_path
+                          api_url
+                          base_path
+                          content_id
+                          description
+                          details {
+                            acronym
+                            brand
+                            default_news_image
+                            logo
+                            organisation_govuk_status
+                            world_location_names
+                          }
+                          document_type
+                          locale
+                          public_updated_at
+                          schema_name
+                          title
+                          web_url
+                        }
+                      }
+                      locale
+                      public_updated_at
+                      schema_name
+                      title
+                      web_url
+                    }
+                  }
+                  locale
+                  public_updated_at
+                  schema_name
+                  title
+                  web_url
+                }
+              }
+              locale
+              public_updated_at
+              schema_name
+              title
+              web_url
+            }
+          }
+          locale
+          phase
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        ordered_related_items_overrides {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          description
+          details: details_json
+          document_type
+          links {
+            taxons {
+              analytics_identifier
+              api_path
+              api_url
+              base_path
+              content_id
+              description
+              details: details_json
+              document_type
+              locale
+              phase
+              public_updated_at
+              schema_name
+              title
+              web_url
+            }
+          }
+          locale
+          phase
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        organisations {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          description
+          details {
+            access_and_opening_times
+            acronym
+            brand
+            contact_form_links
+            default_news_image
+            description
+            email_addresses
+            logo
+            organisation_govuk_status
+            phone_numbers
+            post_addresses
+            title
+            world_location_names
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        original_primary_publishing_organisation {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            acronym
+            brand
+            default_news_image
+            logo
+            organisation_govuk_status
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        parent {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          description
+          details {
+            acronym
+            brand
+            default_news_image
+            logo
+            organisation_govuk_status
+            world_location_names
+          }
+          document_type
+          links {
+            parent {
+              analytics_identifier
+              api_path
+              api_url
+              base_path
+              content_id
+              description
+              details {
+                acronym
+                brand
+                default_news_image
+                logo
+                organisation_govuk_status
+                world_location_names
+              }
+              document_type
+              links {
+                parent {
+                  analytics_identifier
+                  api_path
+                  api_url
+                  base_path
+                  content_id
+                  description
+                  details {
+                    acronym
+                    brand
+                    default_news_image
+                    logo
+                    organisation_govuk_status
+                    world_location_names
+                  }
+                  document_type
+                  links {
+                    parent {
+                      analytics_identifier
+                      api_path
+                      api_url
+                      base_path
+                      content_id
+                      description
+                      details {
+                        acronym
+                        brand
+                        default_news_image
+                        logo
+                        organisation_govuk_status
+                        world_location_names
+                      }
+                      document_type
+                      links {
+                        parent {
+                          analytics_identifier
+                          api_path
+                          api_url
+                          base_path
+                          content_id
+                          description
+                          details {
+                            acronym
+                            brand
+                            default_news_image
+                            logo
+                            organisation_govuk_status
+                            world_location_names
+                          }
+                          document_type
+                          locale
+                          public_updated_at
+                          schema_name
+                          title
+                          web_url
+                        }
+                      }
+                      locale
+                      public_updated_at
+                      schema_name
+                      title
+                      web_url
+                    }
+                  }
+                  locale
+                  public_updated_at
+                  schema_name
+                  title
+                  web_url
+                }
+              }
+              locale
+              public_updated_at
+              schema_name
+              title
+              web_url
+            }
+          }
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        part_of_step_navs {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            step_by_step_nav
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        policy_areas {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        primary_publishing_organisation {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            acronym
+            brand
+            default_news_image
+            logo
+            organisation_govuk_status
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        related_to_step_navs {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            step_by_step_nav
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        role_appointments {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            current
+            ended_on
+            person_appointment_order
+            started_on
+          }
+          document_type
+          links {
+            person {
+              analytics_identifier
+              api_path
+              api_url
+              base_path
+              content_id
+              details {
+                body
+                image
+              }
+              document_type
+              locale
+              public_updated_at
+              schema_name
+              title
+              web_url
+            }
+            role {
+              analytics_identifier
+              api_path
+              api_url
+              base_path
+              content_id
+              details {
+                body
+                role_payment_type
+                seniority
+                whip_organisation
+              }
+              document_type
+              links {
+                ordered_parent_organisations {
+                  analytics_identifier
+                  api_path
+                  api_url
+                  base_path
+                  content_id
+                  details {
+                    acronym
+                    brand
+                    default_news_image
+                    logo
+                    organisation_govuk_status
+                  }
+                  document_type
+                  locale
+                  schema_name
+                  title
+                  web_url
+                }
+              }
+              locale
+              public_updated_at
+              schema_name
+              title
+              web_url
+            }
+          }
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        secondary_to_step_navs {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            step_by_step_nav
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        taxons {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          description
+          details: details_json
+          document_type
+          links {
+            parent_taxons {
+              analytics_identifier
+              api_path
+              api_url
+              base_path
+              content_id
+              description
+              details: details_json
+              document_type
+              links {
+                parent_taxons {
+                  analytics_identifier
+                  api_path
+                  api_url
+                  base_path
+                  content_id
+                  description
+                  details: details_json
+                  document_type
+                  links {
+                    parent_taxons {
+                      analytics_identifier
+                      api_path
+                      api_url
+                      base_path
+                      content_id
+                      description
+                      details: details_json
+                      document_type
+                      links {
+                        parent_taxons {
+                          analytics_identifier
+                          api_path
+                          api_url
+                          base_path
+                          content_id
+                          description
+                          details: details_json
+                          document_type
+                          locale
+                          phase
+                          public_updated_at
+                          schema_name
+                          title
+                          web_url
+                        }
+                        root_taxon {
+                          analytics_identifier
+                          api_path
+                          api_url
+                          base_path
+                          content_id
+                          document_type
+                          locale
+                          public_updated_at
+                          schema_name
+                          title
+                          web_url
+                        }
+                      }
+                      locale
+                      phase
+                      public_updated_at
+                      schema_name
+                      title
+                      web_url
+                    }
+                    root_taxon {
+                      analytics_identifier
+                      api_path
+                      api_url
+                      base_path
+                      content_id
+                      document_type
+                      locale
+                      public_updated_at
+                      schema_name
+                      title
+                      web_url
+                    }
+                  }
+                  locale
+                  phase
+                  public_updated_at
+                  schema_name
+                  title
+                  web_url
+                }
+                root_taxon {
+                  analytics_identifier
+                  api_path
+                  api_url
+                  base_path
+                  content_id
+                  document_type
+                  locale
+                  public_updated_at
+                  schema_name
+                  title
+                  web_url
+                }
+              }
+              locale
+              phase
+              public_updated_at
+              schema_name
+              title
+              web_url
+            }
+            root_taxon {
+              analytics_identifier
+              api_path
+              api_url
+              base_path
+              content_id
+              document_type
+              locale
+              public_updated_at
+              schema_name
+              title
+              web_url
+            }
+          }
+          locale
+          phase
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+      }
+      locale
+      phase
+      public_updated_at
+      publishing_app
+      publishing_request_id
+      publishing_scheduled_at
+      rendering_app
+      scheduled_publishing_delay_seconds
+      schema_name
+      title
+      updated_at
+      withdrawn_notice {
+        explanation
+        withdrawn_at
+      }
+    }
+  }
+}
