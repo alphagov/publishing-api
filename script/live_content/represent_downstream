@@ -1,0 +1,97 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path("../../", File.dirname(__FILE__))
+
+require "config/environment"
+
+require "csv"
+
+REQUIRED_FIELDS = %w[content_id locale].freeze
+
+def usage_and_abort
+  abort("Usage:\n\t#{$PROGRAM_NAME} path/to/editions-sample.csv")
+end
+
+EditionData = Data.define(:content_id, :locale)
+
+def validate_editions_sample!(csv)
+  unless (REQUIRED_FIELDS - csv.headers).empty?
+    raise "CSV doesn't contain #{REQUIRED_FIELDS.to_sentence}"
+  end
+
+  csv.map { |row| EditionData.new(row["content_id"], row["locale"]) }
+end
+
+editions_sample = begin
+  csv_file_path = ARGV.fetch(0)
+  csv = CSV.read(csv_file_path, headers: true)
+  validate_editions_sample!(csv)
+rescue StandardError => e
+  warn("Error: #{e.message}")
+
+  usage_and_abort
+end
+
+class Service
+  class Failure < StandardError; end
+
+  def initialize(host)
+    @host = host
+  end
+
+  def is_ready?
+    get("/healthcheck/ready")
+
+    true
+  rescue Failure
+    false
+  end
+
+private
+
+  def get(path)
+    response = begin
+      Net::HTTP.get_response(URI("#{@host}#{path}"))
+    rescue StandardError
+      raise Failure
+    end
+
+    raise Failure, response.code if response.code != "200"
+
+    response
+  end
+end
+
+content_store = Service.new(Plek.find("content-store"))
+
+abort("Error: is Content Store running?") unless content_store.is_ready?
+
+def represent_downstream(edition_data)
+  edition = Queries::GetEditionForContentStore.call(
+    edition_data.content_id,
+    edition_data.locale,
+    include_draft: false,
+  )
+
+  return unless edition
+
+  payload = DownstreamPayload.new(
+    edition,
+    Event.maximum_id,
+    draft: false,
+  )
+
+  DownstreamService.update_live_content_store(payload)
+end
+
+puts("")
+puts("Representing editions from #{csv_file_path} downstream...")
+
+editions_sample.each do
+  represent_downstream(_1)
+
+  print(".")
+end
+puts("")
+
+puts("Finished representing downstream.")
