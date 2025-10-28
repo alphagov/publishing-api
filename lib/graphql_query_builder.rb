@@ -1,4 +1,6 @@
 class GraphqlQueryBuilder
+  class RandomExampleError < StandardError; end
+
   MAX_LINK_DEPTH = 5
 
   DEFAULT_LINK_FIELDS = %w[
@@ -8,10 +10,14 @@ class GraphqlQueryBuilder
 
   def initialize(schema_name)
     @schema_name = schema_name
-    @content_item = GovukSchemas::RandomExample.for_schema(
-      frontend_schema: @schema_name,
-      strategy: :one_of_everything,
-    )
+    begin
+      @content_item = GovukSchemas::RandomExample.for_schema(
+        frontend_schema: @schema_name,
+        strategy: :one_of_everything,
+      )
+    rescue Errno::ENOENT => e
+      raise RandomExampleError, e.message
+    end
   end
 
   def build_query
