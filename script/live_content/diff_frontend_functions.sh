@@ -26,14 +26,15 @@ function curl_and_strip_hashes() {
   fi
 
   local response
-  response=$(curl -u "$username:$password" "$domain$curl_path") || exit 1
+  response=$(curl --fail -u "$username:$password" "$domain$curl_path") || exit $?
 
   echo "$response" | sed -r \
     -e 's/\?graphql=(true|false)//g' \
     -e 's/nonce="[^"]{22}=="/nonce="HASH=="/g' \
-    -e 's/ (aria-labelledby|data-controls|for|id)="([^"]+)-[a-z0-9]{8}"/ \1="\2-HASH"/g' \
+    -e 's/ (aria-labelledby="[^ ]+-)[a-z0-9]{8}( [^"]+-)[a-z0-9]{8}"/ \1HASH\2HASH"/g' \
+    -e 's/ (aria-labelledby|data-controls|for|id)(="[^"]+-)[a-z0-9]{8}"/ \1\2HASH"/g' \
     -e 's/<(meta name="govuk:updated-at" content=)"[^"]+">/<\1"TIMESTAMP">/' \
-    -e '/<meta name="govuk:content-has-history" content=".*">/d' \
+    -e '/<meta name="(csrf-token|csp-nonce|govuk:content-has-history)" content=".*"( \/)?>/d' \
     -e 's/(This news article was withdrawn on &lt;time datetime=)"[^"]+"/\1"TIMESTAMP"/' \
     -e 's/(This news article was withdrawn on <time datetime=)"[^"]+"/\1"TIMESTAMP"/' \
     > "$output_path"

@@ -9,7 +9,7 @@ These scripts compare the HTML output from frontend applications.
 
 > If diffing in the development environment, you'll need to start all the relevant
 > servers in GOV.UK Docker: Publishing API, Content Store, plus any required
-> frontend apps and their depenedencies (e.g. Collections, Frontend, Government
+> frontend apps and their dependencies (e.g. Collections, Frontend, Government
 > Frontend, Static).
 
 ### One document
@@ -82,14 +82,30 @@ used in the scripts. You can
 
 ### From a local Publishing API database
 
-If you have a replicated database locally (including in GOV.UK Docker), you can
-use a script to generate a list of one base path per document type per existing
+If you have a replicated database locally (including in GOV.UK Docker), there
+are a couple of scripts you can use to generate a list of base paths.
+
+#### One per document type
+
+You can generate a list of one base path per document type per existing
 GraphQL query (i.e. per schema name). This approach is useful for a quick
 diff or to test changes to the diffing scripts
 
-```rb
+```sh
 # prepend with govuk-docker-run for GOV.UK Docker
 bundle exec rails runner script/live_content/generate_base_paths.rb
+```
+
+#### Up to 1000 per schema name
+
+You can get a random sample of base paths - alongside content IDs and locales,
+useful for representing downstream - for a set of schema names. This script will
+only include base paths for editions that are live and not unpublished, and a
+maximum of 1000 per schema name.
+
+```sh
+# prepend with govuk-docker-run for GOV.UK Docker
+./script/get_sample first_schema_name second_schema_name
 ```
 
 ### From logs using Athena
@@ -137,4 +153,23 @@ WHERE
   AND LOWER("user_agent") NOT LIKE '%python%'
   AND LOWER("user_agent") NOT LIKE '%ruby%'
   AND LOWER("user_agent") NOT LIKE '%spider%';
+```
+
+## Syncing Content Store and Publishing API databases
+
+Even with locally replicated databases from backups made on the same day,
+there's no guarantee that data will be in sync between Content Store and
+Publishing API. This can cause a lot of noise when diffing Content Store and
+Publishing API (GraphQL) responses.
+
+To that end, we have a script that runs through a sample at `script/data/sample`
+(the output location of `script/get_sample`) and runs a pared down version of
+`Commands::V2::RepresentDownstream`. This will ensure the two databases are in
+sync and make meaningful diffs easier to identify.
+
+With the Content Store sever running:
+
+```sh
+# prepend with govuk-docker-run for GOV.UK Docker
+./script/represent_for_diffing
 ```
