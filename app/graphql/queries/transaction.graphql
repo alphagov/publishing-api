@@ -619,24 +619,6 @@ query transaction($base_path: String!) {
           title
           web_url
         }
-        suggested_ordered_related_items {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          details {
-            country
-            change_description
-            step_by_step_nav
-          }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
-        }
         taxons {
           analytics_identifier
           api_path

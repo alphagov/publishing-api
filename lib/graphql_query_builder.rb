@@ -100,6 +100,7 @@ private
 
   def build_links_query(link_path, links)
     link_type = link_path.last
+    return if link_type == :suggested_ordered_related_items
 
     document_types = if is_reverse_link_type?(link_path)
                        # Content Schemas include a few irrelevant-looking
@@ -122,14 +123,12 @@ private
 
     return if document_types.empty? && link.empty?
 
-    unless document_types.empty?
-      link = document_types.map { |document_type|
-               expand_fields(document_type:, link_type:)
-             }
-               .inject(link) do |link, expanded_fields_item|
-                 expanded_fields_item.deep_merge(link)
-               end
-    end
+    link = document_types.map { |document_type|
+             expand_fields(document_type:, link_type:)
+           }
+             .inject(link) do |link, expanded_fields_item|
+               expanded_fields_item.deep_merge(link)
+             end
 
     link.delete("links") if link["links"].blank?
 
@@ -258,7 +257,6 @@ private
       service_manual_topics: %w[service_manual_topic],
       speaker: %w[person],
       sponsoring_organisations: %w[organisation],
-      suggested_ordered_related_items: %w[aaib_report about about_our_services access_and_opening accessible_documents_policy animal_disease_case answer asylum_support_decision authored_article business_finance_support_scheme calendar case_study cma_case complaints_procedure coronavirus_landing_page corporate_report correspondence countryside_stewardship_grant decision detailed_guide document_collection drcf_digital_markets_research drug_safety_update employment_appeal_tribunal_decision employment_tribunal_decision equality_and_diversity esi_fund export_health_certificate flood_and_coastal_erosion_risk_management_research_report foi_release form get_involved gone government_response guidance guide help_page history hmrc_manual impact_assessment independent_report international_development_fund international_treaty licence local_transaction maib_report manual map media_enquiries medical_safety_alert membership ministers_index modern_slavery_statement national_statistics national_statistics_announcement news_story notice official_statistics official_statistics_announcement oim_project oral_statement our_energy_use our_governance personal_information_charter petitions_and_campaigns place placeholder policy_paper press_release procurement product_safety_alert_report_recall promotional protected_food_drink_name publication_scheme raib_report recruitment redirect regulation research research_for_development_output residential_property_tribunal_decision service_manual_guide service_manual_service_standard service_manual_service_toolkit service_sign_in service_standard_report simple_smart_answer smart_answer social_media_use special_route speech staff_update standard statistical_data_set statistics statistics_announcement statutory_guidance statutory_instrument step_by_step_nav tax_tribunal_decision terms_of_reference topical_event_about_page transaction transparency travel_advice travel_advice_index uk_market_conformity_assessment_body utaac_decision welsh_language_scheme working_group world_news_story written_statement],
       supporting_organisations: %w[organisation],
       taxonomy_topic_email_override: %w[taxon],
       taxons: %w[taxon],
