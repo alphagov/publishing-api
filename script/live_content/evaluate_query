@@ -1,0 +1,233 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path("../../", File.dirname(__FILE__))
+
+require "config/environment"
+
+require "csv"
+require "hashdiff"
+
+def usage_and_abort
+  abort("Usage:\n\t#{$PROGRAM_NAME} a_schema_name path/to/editions-sample.csv")
+end
+
+def validate_schema_name!
+  GovukSchemas::Schema.find(publisher_schema: SCHEMA_NAME)
+rescue Errno::ENOENT
+  warn("", "Error: is #{SCHEMA_NAME} meant to be a schema name?")
+  usage_and_abort
+end
+
+def validate_editions_sample!
+  unless File.exist?(CSV_FILE_PATH)
+    raise "Can't find editions sample CSV for #{SCHEMA_NAME} at #{CSV_FILE_PATH}"
+  end
+
+  csv = CSV.read(CSV_FILE_PATH, headers: true)
+
+  raise "CSV doesn't contain base_path" unless csv.headers.include?("base_path")
+
+  csv.map { |row| row["base_path"] }
+rescue StandardError => e
+  warn("Error: #{e.message}")
+
+  usage_and_abort
+end
+
+SCHEMA_NAME = ARGV.fetch(0) { usage_and_abort }
+CSV_FILE_PATH = ARGV.fetch(1) { usage_and_abort }
+
+validate_schema_name!
+base_paths = validate_editions_sample!
+
+class Service
+  class Failure < StandardError; end
+  class Timeout < StandardError; end
+
+  def initialize(host, content_endpoint)
+    @host = host
+    @content_endpoint = content_endpoint
+  end
+
+  def is_ready?
+    get("/healthcheck/ready")
+
+    true
+  rescue Failure
+    false
+  end
+
+  def content_item(base_path)
+    response = ContentItemResponse.new(get("#{@content_endpoint}#{base_path}"))
+
+    raise Timeout, "#{response.time}s" if response.took_too_long?
+
+    response
+  end
+
+private
+
+  def get(path)
+    response = begin
+      Net::HTTP.get_response(URI("#{@host}#{path}"))
+    rescue StandardError => e
+      raise Failure, e.message
+    end
+
+    raise Failure, response.code if response.code != "200"
+
+    response
+  end
+end
+
+class Service
+  class ContentItemResponse
+    TIMEOUT_IN_SECONDS = 4
+    DATE_PATTERN = /^\d{4}-\d{2}-\d{2}/
+
+    def initialize(net_http_response)
+      @net_http_response = net_http_response
+    end
+
+    def content_item
+      @content_item ||= deep_prune_hash(JSON.parse(@net_http_response.body))
+    end
+
+    def time
+      @net_http_response["X-Runtime"].to_f
+    end
+
+    def took_too_long?
+      time > TIMEOUT_IN_SECONDS
+    end
+
+  private
+
+    def deep_prune_hash(hash)
+      hash.map { deep_prune(_1, _2) }.compact.to_h
+    end
+
+    def deep_prune(key, value)
+      case [key, value]
+      in [String, Hash]
+        [key, deep_prune_hash(value)]
+      in [String, [*]]
+        [key, value.map { _1.is_a?(Hash) ? deep_prune_hash(_1) : _1 }]
+      in ["withdrawn", *]
+        nil
+      in [String, DATE_PATTERN]
+        [key, value.sub(/(#{DATE_PATTERN}).*/, '\1')]
+      else
+        [key, value]
+      end
+    end
+  end
+end
+
+content_store = Service.new(Plek.find("content-store"), "/content")
+publishing_api = Service.new(Plek.find("publishing-api"), "/graphql/content")
+
+abort("Error: is Content Store running?") unless content_store.is_ready?
+abort("Error: is Publishing API running?") unless publishing_api.is_ready?
+
+content_store_item = nil
+publishing_api_item = nil
+
+content_store_response_times = []
+publishing_api_response_times = []
+diff_sizes = []
+publishing_api_error = nil
+
+warn("")
+warn("Requesting #{SCHEMA_NAME} content items from Publishing API and Content Store...")
+
+base_paths.each do |base_path|
+  begin
+    response = content_store.content_item(base_path)
+
+    content_store_response_time = response.time
+    content_store_item = response.content_item
+  rescue Service::Failure => e
+    warn(
+      "",
+      "Exception while requesting #{base_path} from Content Store:",
+      "\t#{e.detailed_message}",
+    )
+
+    next
+  end
+
+  begin
+    response = publishing_api.content_item(base_path)
+
+    publishing_api_response_time = response.time
+    publishing_api_item = response.content_item
+  rescue Service::Failure => e
+    warn(
+      "",
+      "Failure while requesting #{base_path} from Publishing API:",
+      "\t#{e.detailed_message}",
+    )
+
+    publishing_api_error = e.detailed_message
+
+    next
+  rescue Service::Timeout => e
+    warn(
+      "",
+      "Timeout while requesting #{base_path} from Publishing API:",
+      "\t#{e.detailed_message}",
+    )
+
+    # exclude anomalous response time and its corresponding Content Store value
+    # from later performance calculation
+    content_store_response_time = nil
+    publishing_api_response_time = nil
+  end
+
+  unless content_store_response_time.nil? || publishing_api_response_time.nil?
+    content_store_response_times << content_store_response_time
+    publishing_api_response_times << publishing_api_response_time
+  end
+
+  diff_sizes << Hashdiff.diff(content_store_item, publishing_api_item)
+    .sum do |change|
+      # The last element in every changeset entry is the value that changed.
+      # If change type (first element) is "~", the last 2 elements are the
+      # respective differing values, but I'm not sure how to derive a score
+      # from that yet, so grabbing one and seeing how useful the results are.
+      changed_value = change.last
+
+      if changed_value.is_a?(Hash)
+        changed_value.size + 2 # count the {, } and contents of the hash
+      else
+        1
+      end
+    end
+
+  $stderr.print(".")
+end
+warn("")
+
+warn("#{publishing_api_response_times.size} successful requests.")
+
+performance_score = nil
+average_diff_size = nil
+
+unless publishing_api_response_times.empty?
+  performance_score = (
+    publishing_api_response_times.sum / content_store_response_times.sum * 100
+  ).round
+  average_diff_size = diff_sizes.sum / diff_sizes.size
+end
+
+puts(
+  [
+    SCHEMA_NAME,
+    performance_score,
+    average_diff_size,
+    publishing_api_error&.inspect,
+  ].join(","),
+)
+
+sleep(5)
