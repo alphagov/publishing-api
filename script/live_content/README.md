@@ -9,7 +9,7 @@ These scripts compare the HTML output from frontend applications.
 
 > If diffing in the development environment, you'll need to start all the relevant
 > servers in GOV.UK Docker: Publishing API, Content Store, plus any required
-> frontend apps and their depenedencies (e.g. Collections, Frontend, Government
+> frontend apps and their dependencies (e.g. Collections, Frontend, Government
 > Frontend, Static).
 
 ### One document
@@ -87,7 +87,7 @@ use a script to generate a list of one base path per document type per existing
 GraphQL query (i.e. per schema name). This approach is useful for a quick
 diff or to test changes to the diffing scripts
 
-```rb
+```sh
 # prepend with govuk-docker-run for GOV.UK Docker
 bundle exec rails runner script/live_content/generate_base_paths.rb
 ```
