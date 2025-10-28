@@ -99,7 +99,6 @@ query news_article($base_path: String!) {
         }
         world_locations {
           analytics_identifier
-          base_path
           content_id
           locale
           title
