@@ -52,13 +52,19 @@ private
       in ["details", nil]
         "details: details_json"
       in ["links", Hash => links]
-        [
-          "links {",
-          links.sort.map { |link_key, array|
-            build_links_query(link_path + [link_key.to_sym], array)
-          }.compact,
-          "}",
-        ]
+        nested_links = links.sort.map { |link_key, array|
+          build_links_query(link_path + [link_key.to_sym], array)
+        }.compact
+
+        if nested_links.empty?
+          nil
+        else
+          [
+            "links {",
+            nested_links,
+            "}",
+          ]
+        end
       in [String => key, String | Numeric | true | false | nil]
         key
       end
