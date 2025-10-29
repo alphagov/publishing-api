@@ -397,7 +397,7 @@ module Types
 
       Presenters::ContentTypeResolver.new("text/html").resolve(
         Presenters::DetailsPresenter.new(
-          object.details,
+          object.details, ## Use the `parsed_details` here
           change_history_presenter,
           content_embed_presenter,
           locale: object.locale,

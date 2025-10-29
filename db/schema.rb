@@ -91,6 +91,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_02_135830) do
     t.datetime "publishing_api_last_edited_at", precision: nil
     t.string "auth_bypass_ids", default: [], null: false, array: true
     t.jsonb "details", default: {}
+    ## Add another JSONB column for `parsed_details` to store the govspeak rendered version of the details (i.e. what is returned by `recursively_transform_govspeak` in the DetailsPresenter at the moment)
     t.jsonb "routes", default: []
     t.jsonb "redirects", default: []
     t.uuid "last_edited_by_editor_id"

@@ -24,6 +24,8 @@ module Commands
           edition.links.map(&:target_content_id),
         )
 
+        ## At this point, pre-compute the govspeak for all fields in details (i.e. move the `recursively_transform_govspeak` method here but then store the output in `parsed_details`, overwriting anything that's already there)
+
         after_transaction_commit do
           send_downstream(
             document.content_id,

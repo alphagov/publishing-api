@@ -14,6 +14,7 @@ module Presenters
     def details
       updated = content_embed(content_item_details).presence || content_item_details
       updated = recursively_transform_govspeak(updated)
+      ## Once `recursively_transform_govspeak` has been moved to `PutContent`, it can be removed here
       updated[:change_history] = change_history if change_history.present?
       updated
     end
