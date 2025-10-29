@@ -40,7 +40,7 @@ private
   def transform_aliases_to_content_ids(content_references)
     embedded_aliases = content_references.select(&:identifier_is_alias?).map(&:identifier)
     content_id_aliases = ContentIdAlias.where(name: embedded_aliases).map { |a| [a.name, a.content_id] }.to_h
-    content_references.map do |reference|
+    content_references.map { |reference|
       if reference.identifier_is_alias?
         identifier = content_id_aliases[reference.identifier]
         if identifier.nil?
@@ -53,7 +53,7 @@ private
       else
         reference
       end
-    end
+    }.compact
   end
 
   def live_editions(content_references)

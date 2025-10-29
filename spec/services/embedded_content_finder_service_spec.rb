@@ -311,5 +311,32 @@ RSpec.describe EmbeddedContentFinderService do
     it "returns nil if the argument isn't a scannable string" do
       expect(EmbeddedContentFinderService.new.find_content_references(false)).to eq([])
     end
+
+    context "when a found reference which looks like an ContentIdAlias but isn't found in the db" do
+      let(:details) do
+        { body: "<p>{{embed:content_block_contact:contact-unknowable}}</p>" }
+      end
+
+      let(:command_error) { double("CommandError") }
+
+      before do
+        allow(CommandError).to receive(:new).and_return(command_error)
+        allow(GovukError).to receive(:notify).with(command_error)
+      end
+
+      it "logs the fact that the referenced ContentIdAlias was not found" do
+        EmbeddedContentFinderService.new.find_content_references(details)
+
+        expect(CommandError).to have_received(:new).with(
+          code: 422,
+          message: "Could not find a Content ID for alias contact-unknowable",
+        )
+        expect(GovukError).to have_received(:notify).with(command_error)
+      end
+
+      it "returns an empty list of content references" do
+        expect(EmbeddedContentFinderService.new.find_content_references(details)).to eq([])
+      end
+    end
   end
 end
