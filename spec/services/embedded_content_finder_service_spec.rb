@@ -309,7 +309,7 @@ RSpec.describe EmbeddedContentFinderService do
 
   describe ".find_content_references" do
     it "returns nil if the argument isn't a scannable string" do
-      expect { EmbeddedContentFinderService.new.find_content_references(false).to eq([]) }
+      expect(EmbeddedContentFinderService.new.find_content_references(false)).to eq([])
     end
   end
 end
