@@ -275,6 +275,7 @@ module Types
       field :outcome_attachments, GraphQL::Types::JSON
       field :outcome_detail, GraphQL::Types::JSON
       field :outcome_documents, GraphQL::Types::JSON
+      field :outcome_publication_date, GraphQL::Types::JSON
       field :parts, GraphQL::Types::JSON
       field :people_role_associations, GraphQL::Types::JSON
       field :person_appointment_order, GraphQL::Types::JSON
