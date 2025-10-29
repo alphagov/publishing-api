@@ -319,7 +319,17 @@ RSpec.describe EmbeddedContentFinderService do
 
       let(:command_error) { double("CommandError") }
 
+      let(:found_reference) do
+        instance_double(
+          ContentBlockTools::ContentBlockReference,
+          identifier_is_alias?: true,
+          identifier: "contact-unknowable",
+        )
+      end
+
       before do
+        allow(ContentBlockTools::ContentBlockReference).to receive(:find_all_in_document)
+          .and_return([found_reference])
         allow(CommandError).to receive(:new).and_return(command_error)
         allow(GovukError).to receive(:notify).with(command_error)
       end
