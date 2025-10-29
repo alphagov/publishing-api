@@ -14,9 +14,6 @@
         max_cache_time: {
           "$ref": "#/definitions/max_cache_time",
         },
-        publishing_request_id: {
-          "$ref": "#/definitions/publishing_request_id",
-        },
       },
     },
   },
