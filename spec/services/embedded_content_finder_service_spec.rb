@@ -317,8 +317,6 @@ RSpec.describe EmbeddedContentFinderService do
         { body: "<p>{{embed:content_block_contact:contact-unknowable}}</p>" }
       end
 
-      let(:command_error) { double("CommandError") }
-
       let(:found_reference) do
         instance_double(
           ContentBlockTools::ContentBlockReference,
@@ -330,23 +328,156 @@ RSpec.describe EmbeddedContentFinderService do
       before do
         allow(ContentBlockTools::ContentBlockReference).to receive(:find_all_in_document)
           .and_return([found_reference])
-        allow(CommandError).to receive(:new).and_return(command_error)
-        allow(GovukError).to receive(:notify).with(command_error)
-      end
-
-      it "logs the fact that the referenced ContentIdAlias was not found" do
-        EmbeddedContentFinderService.new.find_content_references(details)
-
-        expect(CommandError).to have_received(:new).with(
-          code: 422,
-          message: "Could not find a Content ID for alias contact-unknowable",
-        )
-        expect(GovukError).to have_received(:notify).with(command_error)
       end
 
       it "returns an empty list of content references" do
         expect(EmbeddedContentFinderService.new.find_content_references(details)).to eq([])
       end
     end
+  end
+
+  describe EmbeddedContentFinderService::ContentReferenceIdentifierNormaliser do
+    describe "#call" do
+      let(:ref_alias_1) do
+        FakeContentBlockReference.new(
+          document_type: "content_block_contact",
+          identifier: "alias-1",
+          embed_code: "{{embed:content_block_contact:alias-1}}",
+        )
+      end
+
+      let(:ref_alias_2) do
+        FakeContentBlockReference.new(
+          document_type: "content_block_contact",
+          identifier: "alias-2",
+          embed_code: "{{embed:content_block_contact:alias-2}}",
+        )
+      end
+
+      let(:ref_id_3) do
+        FakeContentBlockReference.new(
+          document_type: "content_block_contact",
+          identifier: "id-3",
+          embed_code: "{{embed:content_block_contact:id-3}}",
+        )
+      end
+
+      let(:ref_id_4) do
+        FakeContentBlockReference.new(
+          document_type: "content_block_contact",
+          identifier: "id-4",
+          embed_code: "{{embed:content_block_contact:id-4}}",
+        )
+      end
+
+      let(:content_id_alias_1) { instance_double(ContentIdAlias, name: "alias-1", content_id: "id-1") }
+      let(:content_id_alias_2) { instance_double(ContentIdAlias, name: "alias-2", content_id: "id-2") }
+
+      let(:content_references) { [ref_alias_1, ref_alias_2, ref_id_3, ref_id_4] }
+      let(:found_content_id_aliases) { [content_id_alias_1, content_id_alias_2] }
+
+      before do
+        allow(ref_alias_1).to receive(:identifier_is_alias?).and_return(true)
+        allow(ref_alias_2).to receive(:identifier_is_alias?).and_return(true)
+        allow(ref_id_3).to receive(:identifier_is_alias?).and_return(false)
+        allow(ref_id_4).to receive(:identifier_is_alias?).and_return(false)
+
+        allow(ContentIdAlias).to receive(:where).and_return(found_content_id_aliases)
+      end
+
+      it "retrieves ContentIdAlias records for ContentReferences with identifiers considered aliases" do
+        described_class.new(content_references: content_references).call
+
+        expect(ContentIdAlias).to have_received(:where).with(name: %w[alias-1 alias-2])
+      end
+
+      context "when the aliases identified match ContentIdAlias records in the db" do
+        it "returns the content references with the aliases substituted for content_ids" do
+          transformed_references = described_class.new(content_references: content_references).call
+
+          expect(transformed_references.map(&:to_h)).to eq(
+            [
+              { document_type: "content_block_contact",
+                embed_code: "{{embed:content_block_contact:alias-1}}",
+                identifier: "id-1" },
+
+              { document_type: "content_block_contact",
+                embed_code: "{{embed:content_block_contact:alias-2}}",
+                identifier: "id-2" },
+
+              { document_type: "content_block_contact",
+                embed_code: "{{embed:content_block_contact:id-3}}",
+                identifier: "id-3" },
+
+              { document_type: "content_block_contact",
+                embed_code: "{{embed:content_block_contact:id-4}}",
+                identifier: "id-4" },
+            ],
+          )
+        end
+      end
+
+      context "when an alias identified DOES NOT match a ContentIdAlias record in the db" do
+        let(:found_content_id_aliases) { [content_id_alias_2] }
+        let(:command_error) { double("CommandError") }
+
+        before do
+          allow(ContentIdAlias).to receive(:where).and_return(found_content_id_aliases)
+          allow(CommandError).to receive(:new).and_return(command_error)
+          allow(GovukError).to receive(:notify).with(command_error)
+        end
+
+        it "returns only the content references with matching ContentIdAlias records (ids replacing aliases)" do
+          transformed_references = described_class.new(content_references: content_references).call
+
+          expect(transformed_references.map(&:to_h)).to eq(
+            [
+              { document_type: "content_block_contact",
+                embed_code: "{{embed:content_block_contact:alias-2}}",
+                identifier: "id-2" },
+
+              { document_type: "content_block_contact",
+                embed_code: "{{embed:content_block_contact:id-3}}",
+                identifier: "id-3" },
+
+              { document_type: "content_block_contact",
+                embed_code: "{{embed:content_block_contact:id-4}}",
+                identifier: "id-4" },
+            ],
+          )
+        end
+
+        it "logs the fact that the referenced ContentIdAlias was not found" do
+          described_class.new(content_references: content_references).call
+
+          expect(CommandError).to have_received(:new).with(
+            code: 422,
+            message: "Could not find a Content ID for alias alias-1",
+          )
+          expect(GovukError).to have_received(:notify).with(command_error)
+        end
+      end
+    end
+  end
+end
+
+class FakeContentBlockReference
+  def initialize(document_type:, identifier:, embed_code:)
+    @document_type = document_type
+    @identifier = identifier
+    @embed_code = embed_code
+  end
+  attr_reader :document_type, :identifier, :embed_code
+
+  def identifier_is_alias?
+    raise "this should be stubbed"
+  end
+
+  def to_h
+    {
+      document_type: document_type,
+      identifier: identifier,
+      embed_code: embed_code,
+    }
   end
 end

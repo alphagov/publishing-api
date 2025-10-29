@@ -38,13 +38,6 @@ private
   end
 
   def transform_aliases_to_content_ids(content_references)
-    # this takes a list of ContentReferences where the identifier is either a content_id or a content_id_alias
-    # and replaces aliases with ids. We need the content_id rather than the alias in order to pull the content out
-    # of the Publishing API via Document#content_id. The process:
-    #   - filter for identifiers which look like aliases
-    #   - find matching content_id_alias records in the db
-    #   - update references which have a ContentIdAlias rather than a ContentId so that the identifier
-    #     is a content_id
     ContentReferenceIdentifierNormaliser.new(content_references: content_references).call
   end
 
