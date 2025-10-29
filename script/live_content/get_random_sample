@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path("../../", File.dirname(__FILE__))
+
+require "config/environment"
+
+require "csv"
+
+def usage_and_abort
+  abort("Usage:\n\t#{$PROGRAM_NAME} a_schema_name output/destination.csv")
+end
+
+def validate_schema_name!(schema_name)
+  GovukSchemas::Schema.find(publisher_schema: schema_name)
+rescue Errno::ENOENT
+  warn("", "Error: is #{schema_name} meant to be a schema name?")
+  usage_and_abort
+end
+
+schema_name = ARGV.fetch(0) { usage_and_abort }
+validate_schema_name!(schema_name)
+
+output_path = ARGV.fetch(1) { usage_and_abort }
+abort("Sample file already exists for #{schema_name}") if File.exist?(output_path)
+
+puts("Fetching random sample of #{schema_name} editions")
+
+base_query = Edition
+  .live
+  .joins(:document)
+  .left_outer_joins(:unpublishing)
+  .where(schema_name:)
+  .where.not(base_path: nil)
+
+editions_sample = base_query
+  .where.not(state: "unpublished")
+  .or(base_query.where(unpublishing: { type: "withdrawal" }))
+  .order("RANDOM()")
+  .limit(1000)
+  .pluck(:base_path, :content_id, :locale)
+
+puts("Got #{editions_sample.size} editions")
+
+abort if editions_sample.empty?
+
+File.write(
+  output_path,
+  CSV.generate do |csv|
+    csv << %w[base_path content_id locale]
+
+    editions_sample.each { csv << _1 }
+  end,
+)
+
+puts("Written sample of editions to #{output_path}")
