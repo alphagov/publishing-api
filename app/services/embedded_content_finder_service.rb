@@ -38,22 +38,7 @@ private
   end
 
   def transform_aliases_to_content_ids(content_references)
-    embedded_aliases = content_references.select(&:identifier_is_alias?).map(&:identifier)
-    content_id_aliases = ContentIdAlias.where(name: embedded_aliases).map { |a| [a.name, a.content_id] }.to_h
-    content_references.map do |reference|
-      if reference.identifier_is_alias?
-        identifier = content_id_aliases[reference.identifier]
-        if identifier.nil?
-          log_error "Could not find a Content ID for alias #{reference.identifier}"
-          next
-        end
-        ContentBlockTools::ContentBlockReference.new(
-          **reference.to_h.merge(identifier:),
-        )
-      else
-        reference
-      end
-    end
+    ContentReferenceIdentifierNormaliser.new(content_references: content_references).call
   end
 
   def live_editions(content_references)
@@ -72,5 +57,51 @@ private
         message:,
       ),
     )
+  end
+
+  class ContentReferenceIdentifierNormaliser
+    def initialize(content_references:)
+      @content_references = content_references
+    end
+
+    def call
+      content_references.map { |reference|
+        if reference.identifier_is_alias?
+          replace_alias_content_id_with_content_id(reference)
+        else
+          reference
+        end
+      }.compact
+    end
+
+  private
+
+    attr_reader :content_references
+
+    def content_id_aliases
+      @content_id_aliases ||= ContentIdAlias.where(name: detected_aliases).map { |a| [a.name, a.content_id] }.to_h
+    end
+
+    def detected_aliases
+      content_references.select(&:identifier_is_alias?).map(&:identifier)
+    end
+
+    def replace_alias_content_id_with_content_id(reference)
+      identifier = content_id_aliases[reference.identifier]
+      return log_error "Could not find a Content ID for alias #{reference.identifier}" if identifier.nil?
+
+      ContentBlockTools::ContentBlockReference.new(
+        **reference.to_h.merge(identifier: identifier),
+      )
+    end
+
+    def log_error(message)
+      GovukError.notify(
+        CommandError.new(
+          code: 422,
+          message:,
+        ),
+      )
+    end
   end
 end
