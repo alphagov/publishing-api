@@ -34,6 +34,18 @@ jobs:
     name: Lint Ruby
     uses: alphagov/govuk-infrastructure/.github/workflows/rubocop.yml@main
 
+  lint-sql:
+    name: Lint SQL
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: sqlfluff lint
+
   run-gds-api-adapters-pact-tests:
     name: Run GDS API Adapter Pact tests
     uses: ./.github/workflows/pact-verify.yml
