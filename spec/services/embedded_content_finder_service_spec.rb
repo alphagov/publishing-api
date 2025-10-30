@@ -307,32 +307,48 @@ RSpec.describe EmbeddedContentFinderService do
     end
   end
 
-  describe ".find_content_references" do
+  describe ".find_content_references(content_references)" do
     it "returns nil if the argument isn't a scannable string" do
       expect(EmbeddedContentFinderService.new.find_content_references(false)).to eq([])
     end
 
-    context "when a found reference which looks like an ContentIdAlias but isn't found in the db" do
-      let(:details) do
-        { body: "<p>{{embed:content_block_contact:contact-unknowable}}</p>" }
-      end
+    let(:input_to_scan) do
+      "<p>{{embed:content_block_contact:alias-1}}</p>" \
+        "<p>{{embed:content_block_contact:id-2}}</p>"
+    end
 
-      let(:found_reference) do
-        instance_double(
-          ContentBlockTools::ContentBlockReference,
-          identifier_is_alias?: true,
-          identifier: "contact-unknowable",
-        )
-      end
+    let(:found_references) { [double("ref_alias_1"), double("ref_id_2")] }
+    let(:transformed_references) { [double("ref_id_1"), double("ref_id_2")] }
+    let(:normaliser) { instance_double(EmbeddedContentFinderService::ContentReferenceIdentifierNormaliser) }
 
-      before do
-        allow(ContentBlockTools::ContentBlockReference).to receive(:find_all_in_document)
-          .and_return([found_reference])
-      end
+    before do
+      allow(ContentBlockTools::ContentBlockReference).to receive(:find_all_in_document)
+        .and_return(found_references)
 
-      it "returns an empty list of content references" do
-        expect(EmbeddedContentFinderService.new.find_content_references(details)).to eq([])
-      end
+      allow(EmbeddedContentFinderService::ContentReferenceIdentifierNormaliser).to receive(:new)
+         .and_return(normaliser)
+      allow(normaliser).to receive(:call).and_return(transformed_references)
+    end
+
+    it "uses ContentBlockTools::ContentBlockReference.find_all_in_document to pick out references" do
+      EmbeddedContentFinderService.new.find_content_references(input_to_scan)
+
+      expect(ContentBlockTools::ContentBlockReference)
+        .to have_received(:find_all_in_document).with(input_to_scan)
+    end
+
+    it "uses ContentReferenceIdentifierNormaliser to convert content_id_aliases to content_ids" do
+      EmbeddedContentFinderService.new.find_content_references(input_to_scan)
+
+      expect(EmbeddedContentFinderService::ContentReferenceIdentifierNormaliser)
+        .to have_received(:new).with(content_references: found_references)
+
+      expect(normaliser).to have_received(:call)
+    end
+
+    it "returns transformed references, with content_id_aliases replaced by content_ids" do
+      expect(EmbeddedContentFinderService.new.find_content_references(input_to_scan))
+        .to eq(transformed_references)
     end
   end
 
