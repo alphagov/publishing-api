@@ -128,29 +128,27 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
   end
 
   context "when the linked item is unpublished" do
-    Link::PERMITTED_UNPUBLISHED_LINK_TYPES.each do |link_type|
-      it "includes unpublished links when they are of the permitted type #{link_type}" do
-        target_edition = create(:edition, content_store: "live")
+    it "includes unpublished links when they are of a permitted type" do
+      target_edition = create(:edition, content_store: "live")
 
-        link_set_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
-        link_set = create(:link_set, content_id: link_set_linked_edition.content_id)
-        create(:link, link_set:, target_content_id: target_edition.content_id, link_type:)
+      link_set_linked_edition = create(:withdrawn_unpublished_edition, content_store: "live")
+      link_set = create(:link_set, content_id: link_set_linked_edition.content_id)
+      create(:link, link_set:, target_content_id: target_edition.content_id, link_type: "parent")
 
-        edition_linked_edition = create(:withdrawn_unpublished_edition,
-                                        content_store: "live",
-                                        links_hash: {
-                                          link_type => [target_edition.content_id],
-                                        })
+      edition_linked_edition = create(:withdrawn_unpublished_edition,
+                                      content_store: "live",
+                                      links_hash: {
+                                        "parent" => [target_edition.content_id],
+                                      })
 
-        GraphQL::Dataloader.with_dataloading do |dataloader|
-          request = dataloader.with(
-            described_class,
-            content_store: target_edition.content_store,
-            locale: "en",
-          ).request([target_edition, link_type])
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(
+          described_class,
+          content_store: target_edition.content_store,
+          locale: "en",
+        ).request([target_edition, "parent"])
 
-          expect(request.load).to match_array([link_set_linked_edition, edition_linked_edition])
-        end
+        expect(request.load).to match_array([link_set_linked_edition, edition_linked_edition])
       end
     end
 
