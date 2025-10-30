@@ -132,6 +132,7 @@ module Types
       field :alert_status, GraphQL::Types::JSON
       field :alternative_format_contact_email, GraphQL::Types::JSON
       field :appointments_without_historical_accounts, GraphQL::Types::JSON
+      field :archive_notice, GraphQL::Types::JSON
       field :attachments, [GraphQL::Types::JSON]
       field :attends_cabinet_type, GraphQL::Types::JSON
       field :beta_message, GraphQL::Types::JSON
