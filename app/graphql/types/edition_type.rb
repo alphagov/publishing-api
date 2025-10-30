@@ -196,6 +196,7 @@ module Types
       field :final_outcome_attachments, GraphQL::Types::JSON
       field :final_outcome_detail, GraphQL::Types::JSON
       field :final_outcome_documents, GraphQL::Types::JSON
+      field :final_outcome_publication_date, GraphQL::Types::JSON
       field :first_public_at, Types::ContentApiDatetime
       field :first_published_version, GraphQL::Types::JSON
       field :foi_exempt, GraphQL::Types::JSON
