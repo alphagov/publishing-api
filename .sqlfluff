@@ -1,0 +1,9 @@
+[sqlfluff]
+max_line_length = 120
+dialect = postgres
+
+[sqlfluff:indentation]
+tab_space_size = 2
+
+[sqlfluff:layout:type:parameter]
+spacing_before = touch
