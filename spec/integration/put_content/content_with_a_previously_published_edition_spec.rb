@@ -98,6 +98,21 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
     end
   end
 
+  context "and the previous edition does not have a base path" do
+    let(:base_path) { nil }
+
+    it "does not create a redirect" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      redirect = Edition.find_by(
+        base_path:,
+        state: "draft",
+      )
+
+      expect(redirect).to be_nil
+    end
+  end
+
   context "and the base path has changed" do
     before do
       payload.merge!(
