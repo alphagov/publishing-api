@@ -1,84 +1,50 @@
-SELECT "editions".* FROM (
-    SELECT
-        editions.*,
-        "links"."target_content_id" AS "target_content_id",
-        "links"."link_type" AS "link_type",
-        "links"."edition_id" AS "edition_id",
-        "links"."position" AS "position",
-        "links"."id" AS "link_id",
-        "documents"."content_id",
-        "documents"."locale",
-        row_number() OVER (
-            PARTITION BY
-                "documents"."content_id",
-                "links"."link_type",
-                "links"."target_content_id"
-            ORDER BY (
-                CASE
-                    WHEN ("documents"."locale" = :primary_locale) THEN 0
-                    ELSE 1
-                END
-            )
-        )
-    FROM "editions"
-    INNER JOIN "documents" ON "documents"."id" = "editions"."document_id"
-    INNER JOIN links ON links.link_set_content_id = documents.content_id
-    WHERE
-        "editions"."content_store" = :content_store
-        AND "documents"."locale" IN (:locale_with_fallback)
-        AND "editions"."document_type" NOT IN (:non_renderable_formats)
-        AND (
-            ("links"."target_content_id", "links"."link_type") IN (
-                :content_id_tuples
-            )
-        )
-        AND (
-            "links"."link_type" IN (
-                :unpublished_link_types
-            )
-            OR "editions"."state" != 'unpublished'
-        )
-    UNION
-    SELECT
-        editions.*,
-        "links"."target_content_id" AS "target_content_id",
-        "links"."link_type" AS "link_type",
-        "links"."edition_id" AS "edition_id",
-        "links"."position" AS "position",
-        "links"."id" AS "link_id",
-        "documents"."content_id",
-        "documents"."locale",
-        row_number() OVER (
-            PARTITION BY
-                "documents"."content_id",
-                "links"."link_type",
-                "links"."target_content_id"
-            ORDER BY (
-                CASE
-                    WHEN ("documents"."locale" = :primary_locale) THEN 0
-                    ELSE 1
-                END
-            )
-        )
-    FROM "editions"
-    INNER JOIN "documents" ON "documents"."id" = "editions"."document_id"
-    INNER JOIN "links" ON "links"."edition_id" = "editions"."id"
-    WHERE
-        "editions"."content_store" = :content_store
-        AND "documents"."locale" IN (:locale_with_fallback)
-        AND "editions"."document_type" NOT IN (:non_renderable_formats)
-        AND (
-            ("links"."target_content_id", "links"."link_type") IN (
-                :content_id_tuples
-            )
-        )
-        AND (
-            "links"."link_type" IN (
-                :unpublished_link_types
-            )
-            OR "editions"."state" != 'unpublished'
-        )
-) AS editions
-WHERE "editions"."row_number" = 1
+WITH content_ids_and_link_types AS (
+  SELECT
+    content_id,
+    link_type
+  FROM jsonb_to_recordset(:content_ids_and_link_types::jsonb) AS (content_id uuid,link_type text)
+),
+
+all_links AS (
+  SELECT l.*
+  FROM content_ids_and_link_types AS cialt
+  INNER JOIN links AS l ON cialt.content_id = l.target_content_id AND cialt.link_type = l.link_type
+),
+
+source_editions AS (
+  -- noqa: disable=AM04
+  SELECT DISTINCT ON (l.edition_id IS NULL, l.target_content_id, l.link_type, d.content_id)
+    d.*,
+    e.*,
+    l.link_type,
+    l.position,
+    l.id AS link_id,
+    l.target_content_id
+  -- noqa: enable=AM04
+  FROM editions AS e
+  INNER JOIN documents AS d ON e.document_id = d.id AND d.locale IN (:locale_with_fallback)
+  INNER JOIN all_links AS l ON d.content_id = l.link_set_content_id OR e.id = l.edition_id
+  LEFT OUTER JOIN unpublishings AS u ON e.id = u.edition_id
+  WHERE (
+    e.state != 'unpublished'
+    OR (
+      l.link_type IN (:unpublished_link_types)
+      AND u.type = 'withdrawal'
+    )
+  )
+  AND e.content_store =:content_store
+  AND e.document_type NOT IN (:non_renderable_formats)
+  ORDER BY
+    l.edition_id IS NULL ASC, -- edition links first
+    l.target_content_id ASC,
+    l.link_type ASC,
+    d.content_id ASC,
+    d.locale =:primary_locale DESC
+)
+
+SELECT * FROM source_editions
 ORDER BY
-    "link_type" ASC, "position" ASC, "link_id" DESC
+  target_content_id ASC,
+  link_type ASC,
+  position ASC,
+  link_id DESC;
