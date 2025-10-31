@@ -35,7 +35,6 @@ gem "with_advisory_lock"
 group :development do
   gem "listen"
   gem "rack-mini-profiler"
-  gem "stackprof"
   gem "web-console"
 end
 
@@ -50,6 +49,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "rubocop-govuk", require: false
   gem "simplecov", require: false
+  gem "stackprof"
   gem "timecop"
   gem "webmock", require: false
 end
