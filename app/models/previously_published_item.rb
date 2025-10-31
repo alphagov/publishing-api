@@ -38,7 +38,7 @@ class PreviouslyPublishedItem
   delegate :routes, to: :previously_published_item
 
   def path_has_changed?
-    previous_base_path != base_path
+    previous_base_path.present? && previous_base_path != base_path
   end
 
   delegate :links, to: :previously_published_item

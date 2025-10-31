@@ -5,6 +5,13 @@
   "title": "HMRC - Media enquiries",
   "instructions_to_publishers": "Media and press contact email address for HMRC",
   "content_id_alias": "hmrc-media",
+  "base_path": "/content-blocks/content_block_contact/hmrc-media",
+  "routes": [
+    {
+      "path": "/content-blocks/content_block_contact/hmrc-media",
+      "type": "exact"
+    }
+  ],
   "details": {
     "description": "Description goes here",
     "email_addresses": {

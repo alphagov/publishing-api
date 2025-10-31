@@ -1,8 +1,8 @@
 (import "default_format.jsonnet") + {
-  base_path: "forbidden",
+  base_path: "optional",
+  routes: "optional",
   content_id_alias: "optional",
   instructions_to_publishers: "optional",
-  routes: "forbidden",
   rendering_app: "forbidden",
   edition_links: (import "base_edition_links.jsonnet") +  {
     primary_publishing_organisation: {

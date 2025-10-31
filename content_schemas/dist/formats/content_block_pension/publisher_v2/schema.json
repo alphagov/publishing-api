@@ -21,7 +21,7 @@
       "$ref": "#/definitions/guid_list"
     },
     "base_path": {
-      "type": "null"
+      "$ref": "#/definitions/absolute_path_optional"
     },
     "bulk_publishing": {
       "type": "boolean"
@@ -111,9 +111,7 @@
       "type": "null"
     },
     "routes": {
-      "type": "array",
-      "additionalItems": false,
-      "items": {}
+      "$ref": "#/definitions/routes_optional"
     },
     "schema_name": {
       "type": "string",
@@ -131,6 +129,21 @@
   "definitions": {
     "description": {
       "type": "string"
+    },
+    "absolute_path": {
+      "description": "A path only. Query string and/or fragment are not allowed.",
+      "type": "string",
+      "pattern": "^/(([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})+(/([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})*)*)?$"
+    },
+    "absolute_path_optional": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/absolute_path"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "access_limited": {
       "type": "object",
@@ -371,6 +384,12 @@
         "travel-advice-publisher",
         "whitehall"
       ]
+    },
+    "routes_optional": {
+      "type": "array",
+      "items": {
+        "ref": "#/definitions/route"
+      }
     },
     "title": {
       "type": "string"
