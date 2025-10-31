@@ -132,6 +132,7 @@ module Types
       field :alert_status, GraphQL::Types::JSON
       field :alternative_format_contact_email, GraphQL::Types::JSON
       field :appointments_without_historical_accounts, GraphQL::Types::JSON
+      field :archive_notice, GraphQL::Types::JSON
       field :attachments, [GraphQL::Types::JSON]
       field :attends_cabinet_type, GraphQL::Types::JSON
       field :beta_message, GraphQL::Types::JSON
@@ -195,6 +196,7 @@ module Types
       field :final_outcome_attachments, GraphQL::Types::JSON
       field :final_outcome_detail, GraphQL::Types::JSON
       field :final_outcome_documents, GraphQL::Types::JSON
+      field :final_outcome_publication_date, GraphQL::Types::JSON
       field :first_public_at, Types::ContentApiDatetime
       field :first_published_version, GraphQL::Types::JSON
       field :foi_exempt, GraphQL::Types::JSON
@@ -275,6 +277,7 @@ module Types
       field :outcome_attachments, GraphQL::Types::JSON
       field :outcome_detail, GraphQL::Types::JSON
       field :outcome_documents, GraphQL::Types::JSON
+      field :outcome_publication_date, GraphQL::Types::JSON
       field :parts, GraphQL::Types::JSON
       field :people_role_associations, GraphQL::Types::JSON
       field :person_appointment_order, GraphQL::Types::JSON
