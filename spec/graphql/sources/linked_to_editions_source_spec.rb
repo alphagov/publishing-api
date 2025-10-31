@@ -255,11 +255,11 @@ RSpec.describe Sources::LinkedToEditionsSource do
     it "includes links matching the specified locale" do
       content_id_1 = SecureRandom.uuid
       create(:edition, document: create(:document, locale: "en", content_id: content_id_1), title: "content id 1, english, edition link")
-      edition_1_fr = create(:edition, document: create(:document, locale: "fr", content_id: content_id_1), title: "content id 1, french, edition link")
+      fr_edition_1 = create(:edition, document: create(:document, locale: "fr", content_id: content_id_1), title: "content id 1, french, edition link")
 
       content_id_2 = SecureRandom.uuid
       create(:edition, document: create(:document, locale: "en", content_id: content_id_2), title: "content id 2, english, link set link")
-      edition_2_fr = create(:edition, document: create(:document, locale: "fr", content_id: content_id_2), title: "content id 2, french, link set link")
+      fr_edition_2 = create(:edition, document: create(:document, locale: "fr", content_id: content_id_2), title: "content id 2, french, link set link")
 
       source_edition = create(
         :edition,
@@ -280,18 +280,18 @@ RSpec.describe Sources::LinkedToEditionsSource do
         ).request([source_edition, "test_link"])
 
         actual_titles = request.load.map(&:title)
-        expected_titles = [edition_1_fr, edition_2_fr].map(&:title)
+        expected_titles = [fr_edition_1, fr_edition_2].map(&:title)
         expect(actual_titles).to match_array(expected_titles)
       end
     end
 
     it "includes English language links if there's no better match available" do
       content_id_1 = SecureRandom.uuid
-      edition_1_en = create(:edition, document: create(:document, locale: "en", content_id: content_id_1), title: "content id 1, english, edition link")
+      en_edition_1 = create(:edition, document: create(:document, locale: "en", content_id: content_id_1), title: "content id 1, english, edition link")
       create(:edition, document: create(:document, locale: "fr", content_id: content_id_1), title: "content id 1, french, edition link")
 
       content_id_2 = SecureRandom.uuid
-      edition_2_en = create(:edition, document: create(:document, locale: "en", content_id: content_id_2), title: "content id 2, english, link set link")
+      en_edition_2 = create(:edition, document: create(:document, locale: "en", content_id: content_id_2), title: "content id 2, english, link set link")
       create(:edition, document: create(:document, locale: "fr", content_id: content_id_2), title: "content id 2, french, link set link")
 
       source_edition = create(
@@ -313,7 +313,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
         ).request([source_edition, "test_link"])
 
         actual_titles = request.load.map(&:title)
-        expected_titles = [edition_1_en, edition_2_en].map(&:title)
+        expected_titles = [en_edition_1, en_edition_2].map(&:title)
         expect(actual_titles).to match_array(expected_titles)
       end
     end
@@ -354,7 +354,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
     context "when the source Edition is live" do
       it "defaults to including a (live) 'en' link if the locale-matching one is draft" do
         content_id_1 = SecureRandom.uuid
-        edition_1_en = create(
+        en_edition_1 = create(
           :live_edition,
           document: create(:document, locale: "en", content_id: content_id_1),
           title: "content id 1, english, live, edition link",
@@ -366,7 +366,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
         )
 
         content_id_2 = SecureRandom.uuid
-        edition_2_en = create(
+        en_edition_2 = create(
           :live_edition,
           document: create(:document, locale: "en", content_id: content_id_2),
           title: "content id 2, english, live, link set link",
@@ -396,7 +396,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           ).request([source_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
-          expected_titles = [edition_1_en, edition_2_en].map(&:title)
+          expected_titles = [en_edition_1, en_edition_2].map(&:title)
           expect(actual_titles).to match_array(expected_titles)
         end
       end
@@ -415,12 +415,12 @@ RSpec.describe Sources::LinkedToEditionsSource do
         )
 
         content_id_2 = SecureRandom.uuid
-        _edition_2_en = create(
+        create(
           :draft_edition,
           document: create(:document, locale: "en", content_id: content_id_2),
           title: "content id 2, english, draft, link set link",
         )
-        _edition_2_fr = create(
+        create(
           :draft_edition,
           document: create(:document, locale: "fr", content_id: content_id_2),
           title: "content id 2, french, draft, link set link",
@@ -454,24 +454,24 @@ RSpec.describe Sources::LinkedToEditionsSource do
     context "when the linked Edition with matching locale is unpublished" do
       it "includes the link if it's a permitted link_type" do
         content_id_1 = SecureRandom.uuid
-        _edition_1_en = create(
+        create(
           :live_edition,
           document: create(:document, locale: "en", content_id: content_id_1),
           title: "content id 1, english, published, edition link, related_statistical_data_sets",
         )
-        edition_1_fr = create(
+        fr_edition_1 = create(
           :withdrawn_unpublished_edition,
           document: create(:document, locale: "fr", content_id: content_id_1),
           title: "content id 1, french, withdrawn, edition link, related_statistical_data_sets",
         )
 
         content_id_2 = SecureRandom.uuid
-        _edition_2_en = create(
+        create(
           :live_edition,
           document: create(:document, locale: "en", content_id: content_id_2),
           title: "content id 2, english, published, link set link, related_statistical_data_sets",
         )
-        edition_2_fr = create(
+        fr_edition_2 = create(
           :withdrawn_unpublished_edition,
           document: create(:document, locale: "fr", content_id: content_id_2),
           title: "content id 2, french, withdrawn, link set link, related_statistical_data_sets",
@@ -496,31 +496,31 @@ RSpec.describe Sources::LinkedToEditionsSource do
           ).request([source_edition, "related_statistical_data_sets"])
 
           actual_titles = request.load.map(&:title)
-          expected_titles = [edition_1_fr, edition_2_fr].map(&:title)
+          expected_titles = [fr_edition_1, fr_edition_2].map(&:title)
           expect(actual_titles).to match_array(expected_titles)
         end
       end
 
       it "defaults to including a (not-unpublished) 'en' link if the better-matching one isn't a permitted link_type" do
         content_id_1 = SecureRandom.uuid
-        edition_1_en = create(
+        en_edition_1 = create(
           :live_edition,
           document: create(:document, locale: "en", content_id: content_id_1),
           title: "content id 1, english, published, edition link, test_link",
         )
-        _edition_1_fr = create(
+        create(
           :withdrawn_unpublished_edition,
           document: create(:document, locale: "fr", content_id: content_id_1),
           title: "content id 1, french, withdrawn, edition link, test_link",
         )
 
         content_id_2 = SecureRandom.uuid
-        edition_2_en = create(
+        en_edition_2 = create(
           :live_edition,
           document: create(:document, locale: "en", content_id: content_id_2),
           title: "content id 2, english, published, link set link, test_link",
         )
-        _edition_2_fr = create(
+        create(
           :withdrawn_unpublished_edition,
           document: create(:document, locale: "fr", content_id: content_id_2),
           title: "content id 2, french, withdrawn, link set link, test_link",
@@ -545,7 +545,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           ).request([source_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
-          expected_titles = [edition_1_en, edition_2_en].map(&:title)
+          expected_titles = [en_edition_1, en_edition_2].map(&:title)
           expect(actual_titles).to match_array(expected_titles)
         end
       end

@@ -246,13 +246,13 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       target_edition = create(:edition)
 
       content_id_1 = SecureRandom.uuid
-      _edition_1_en = create(
+      create(
         :edition,
         document: create(:document, locale: "en", content_id: content_id_1),
         links_hash: { "test_link" => [target_edition.content_id] },
         title: "content_id 1, english, edition link, test link",
       )
-      edition_1_fr = create(
+      fr_edition_1 = create(
         :edition,
         document: create(:document, locale: "fr", content_id: content_id_1),
         links_hash: { "test_link" => [target_edition.content_id] },
@@ -260,12 +260,12 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       )
 
       content_id_2 = SecureRandom.uuid
-      _edition_2_en = create(
+      create(
         :edition,
         document: create(:document, locale: "en", content_id: content_id_2),
         title: "content_id 2, english, link set link, test link",
       )
-      edition_2_fr = create(
+      fr_edition_2 = create(
         :edition,
         document: create(:document, locale: "fr", content_id: content_id_2),
         title: "content_id 2, french, link set link, test link",
@@ -285,7 +285,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         ).request([target_edition, "test_link"])
 
         actual_titles = request.load.map(&:title)
-        expected_titles = [edition_1_fr, edition_2_fr].map(&:title)
+        expected_titles = [fr_edition_1, fr_edition_2].map(&:title)
         expect(actual_titles).to match_array(expected_titles)
       end
     end
@@ -294,13 +294,13 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       target_edition = create(:edition)
 
       content_id_1 = SecureRandom.uuid
-      edition_1_en = create(
+      en_edition_1 = create(
         :edition,
         document: create(:document, locale: "en", content_id: content_id_1),
         links_hash: { "test_link" => [target_edition.content_id] },
         title: "content_id 1, english, edition link, test link",
       )
-      _edition_1_fr = create(
+      create(
         :edition,
         document: create(:document, locale: "fr", content_id: content_id_1),
         links_hash: { "test_link" => [target_edition.content_id] },
@@ -308,12 +308,12 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       )
 
       content_id_2 = SecureRandom.uuid
-      edition_2_en = create(
+      en_edition_2 = create(
         :edition,
         document: create(:document, locale: "en", content_id: content_id_2),
         title: "content_id 2, english, link set link, test link",
       )
-      _edition_2_fr = create(
+      create(
         :edition,
         document: create(:document, locale: "fr", content_id: content_id_2),
         title: "content_id 2, french, link set link, test link",
@@ -333,7 +333,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         ).request([target_edition, "test_link"])
 
         actual_titles = request.load.map(&:title)
-        expected_titles = [edition_1_en, edition_2_en].map(&:title)
+        expected_titles = [en_edition_1, en_edition_2].map(&:title)
         expect(actual_titles).to match_array(expected_titles)
       end
     end
@@ -342,13 +342,13 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       target_edition = create(:edition)
 
       content_id_1 = SecureRandom.uuid
-      _edition_1_de = create(
+      create(
         :edition,
         document: create(:document, locale: "de", content_id: content_id_1),
         links_hash: { "test_link" => [target_edition.content_id] },
         title: "content id 1, german, edition link",
       )
-      _edition_1_fr = create(
+      create(
         :edition,
         document: create(:document, locale: "fr", content_id: content_id_1),
         links_hash: { "test_link" => [target_edition.content_id] },
@@ -356,12 +356,12 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       )
 
       content_id_2 = SecureRandom.uuid
-      _edition_2_de = create(
+      create(
         :edition,
         document: create(:document, locale: "de", content_id: content_id_2),
         title: "content id 2, german, link set link",
       )
-      _edition_2_fr = create(
+      create(
         :edition,
         document: create(:document, locale: "fr", content_id: content_id_2),
         title: "content id 2, french, link set link",
@@ -390,13 +390,13 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         target_edition = create(:live_edition)
 
         content_id_1 = SecureRandom.uuid
-        edition_1_en = create(
+        en_edition_1 = create(
           :live_edition,
           document: create(:document, locale: "en", content_id: content_id_1),
           links_hash: { "test_link" => [target_edition.content_id] },
           title: "content id 1, english, edition link",
         )
-        _edition_1_fr = create(
+        create(
           :draft_edition,
           document: create(:document, locale: "fr", content_id: content_id_1),
           links_hash: { "test_link" => [target_edition.content_id] },
@@ -404,12 +404,12 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         )
 
         content_id_2 = SecureRandom.uuid
-        edition_2_en = create(
+        en_edition_2 = create(
           :live_edition,
           document: create(:document, locale: "en", content_id: content_id_2),
           title: "content id 2, english, link set link",
         )
-        _edition_2_fr = create(
+        create(
           :draft_edition,
           document: create(:document, locale: "fr", content_id: content_id_2),
           title: "content id 2, french, link set link",
@@ -429,7 +429,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           ).request([target_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
-          expected_titles = [edition_1_en, edition_2_en].map(&:title)
+          expected_titles = [en_edition_1, en_edition_2].map(&:title)
           expect(actual_titles).to match_array(expected_titles)
         end
       end
@@ -438,13 +438,13 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         target_edition = create(:live_edition)
 
         content_id_1 = SecureRandom.uuid
-        _edition_1_en = create(
+        create(
           :draft_edition,
           document: create(:document, locale: "en", content_id: content_id_1),
           links_hash: { "test_link" => [target_edition.content_id] },
           title: "content id 1, english, edition link",
         )
-        _edition_1_fr = create(
+        create(
           :draft_edition,
           document: create(:document, locale: "fr", content_id: content_id_1),
           links_hash: { "test_link" => [target_edition.content_id] },
@@ -452,12 +452,12 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         )
 
         content_id_2 = SecureRandom.uuid
-        _edition_2_en = create(
+        create(
           :draft_edition,
           document: create(:document, locale: "en", content_id: content_id_2),
           title: "content id 2, english, link set link",
         )
-        _edition_2_fr = create(
+        create(
           :draft_edition,
           document: create(:document, locale: "fr", content_id: content_id_2),
           title: "content id 2, french, link set link",
@@ -488,13 +488,13 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         target_edition = create(:live_edition)
 
         content_id_1 = SecureRandom.uuid
-        _edition_1_en = create(
+        create(
           :live_edition,
           document: create(:document, locale: "en", content_id: content_id_1),
           links_hash: { "related_statistical_data_sets" => [target_edition.content_id] },
           title: "content id 1, english, published, edition link, related_statistical_data_sets",
         )
-        edition_1_fr = create(
+        fr_edition_1 = create(
           :withdrawn_unpublished_edition,
           document: create(:document, locale: "fr", content_id: content_id_1),
           links_hash: { "related_statistical_data_sets" => [target_edition.content_id] },
@@ -502,12 +502,12 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         )
 
         content_id_2 = SecureRandom.uuid
-        _edition_2_en = create(
+        create(
           :live_edition,
           document: create(:document, locale: "en", content_id: content_id_2),
           title: "content id 2, english, published, link set link, related_statistical_data_sets",
         )
-        edition_2_fr = create(
+        fr_edition_2 = create(
           :withdrawn_unpublished_edition,
           document: create(:document, locale: "fr", content_id: content_id_2),
           title: "content id 2, french, withdrawn, link set link, related_statistical_data_sets",
@@ -527,7 +527,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           ).request([target_edition, "related_statistical_data_sets"])
 
           actual_titles = request.load.map(&:title)
-          expected_titles = [edition_1_fr, edition_2_fr].map(&:title)
+          expected_titles = [fr_edition_1, fr_edition_2].map(&:title)
           expect(actual_titles).to match_array(expected_titles)
         end
       end
@@ -536,13 +536,13 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         target_edition = create(:live_edition)
 
         content_id_1 = SecureRandom.uuid
-        edition_1_en = create(
+        en_edition_1 = create(
           :live_edition,
           document: create(:document, locale: "en", content_id: content_id_1),
           links_hash: { "test_link" => [target_edition.content_id] },
           title: "content id 1, english, published, edition link, test link",
         )
-        _edition_1_fr = create(
+        create(
           :withdrawn_unpublished_edition,
           document: create(:document, locale: "fr", content_id: content_id_1),
           links_hash: { "test_link" => [target_edition.content_id] },
@@ -550,12 +550,12 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         )
 
         content_id_2 = SecureRandom.uuid
-        edition_2_en = create(
+        en_edition_2 = create(
           :live_edition,
           document: create(:document, locale: "en", content_id: content_id_2),
           title: "content id 2, english, published, link set link, test link",
         )
-        _edition_2_fr = create(
+        create(
           :withdrawn_unpublished_edition,
           document: create(:document, locale: "fr", content_id: content_id_2),
           title: "content id 2, french, withdrawn, link set link, test link",
@@ -575,7 +575,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           ).request([target_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
-          expected_titles = [edition_1_en, edition_2_en].map(&:title)
+          expected_titles = [en_edition_1, en_edition_2].map(&:title)
           expect(actual_titles).to match_array(expected_titles)
         end
       end
