@@ -144,20 +144,6 @@
         "web_url": "http://www.dev.gov.uk/disposal-of-dredged-material-at-sea"
       }
     ],
-    "suggested_ordered_related_items": [
-      {
-        "api_path": "/api/content/fishing-vessel-licence-under-10-metres",
-        "base_path": "/fishing-vessel-licence-under-10-metres",
-        "content_id": "f4dc89b9-1234-4af0-b59d-f4a631409c45",
-        "description": "Fishing vessel licence description",
-        "document_type": "guide",
-        "locale": "en",
-        "public_updated_at": "2019-01-23T19:16:06Z",
-        "schema_name": "guide",
-        "title": "Get a fishing vessel licence: vessels 10 metres or under",
-        "withdrawn": false
-      }
-    ],
     "organisations": [
       {
         "analytics_identifier": "PB57",
