@@ -13,6 +13,7 @@ RSpec.describe Commands::V2::PutContent do
 
     let(:change_note) { "Info" }
     let(:new_change_note) { "Changed Info" }
+    let(:details) { {} }
     let(:payload) do
       {
         content_id:,
@@ -28,7 +29,7 @@ RSpec.describe Commands::V2::PutContent do
         redirects: [],
         phase: "beta",
         change_note:,
-        details: {},
+        details:,
       }
     end
 
@@ -541,6 +542,113 @@ RSpec.describe Commands::V2::PutContent do
         }
 
         described_class.call(payload)
+      end
+    end
+
+    describe "embed links" do
+      let(:details) do
+        { body: "some body" }
+      end
+
+      let(:links) { {} }
+
+      let(:payload) do
+        {
+          content_id:,
+          base_path:,
+          update_type: "major",
+          title: "Some Title",
+          publishing_app:,
+          rendering_app: "frontend",
+          document_type: "press_release",
+          schema_name: "news_article",
+          locale:,
+          routes: [{ path: base_path, type: "exact" }],
+          redirects: [],
+          phase: "beta",
+          change_note:,
+          details:,
+          links:,
+        }
+      end
+
+      before do
+        allow(EmbeddedContentFinderService).to receive_message_chain(:new, :fetch_linked_content_ids)
+                                                 .with(details.stringify_keys)
+                                                 .and_return(content_ids_from_service)
+
+        allow(EmbeddedContentFinderService).to receive_message_chain(:new, :find_content_references)
+                                                 .with(details[:body])
+                                                 .and_return([])
+      end
+
+      describe "when the embedded content finder returns linked content IDs" do
+        let(:content_ids_from_service) { [SecureRandom.uuid] }
+
+        it "creates links for the edition" do
+          described_class.call(payload)
+
+          links = Edition.last.links
+
+          expect(links.count).to eq(1)
+          expect(links.first.target_content_id).to eq(content_ids_from_service.first)
+          expect(links.first.link_type).to eq("embed")
+        end
+
+        describe "when the payload includes embed links" do
+          let(:content_ids_in_payload) { [SecureRandom.uuid] }
+          let(:links) do
+            {
+              embed: content_ids_in_payload,
+            }
+          end
+
+          it "creates links for all content IDs" do
+            described_class.call(payload)
+
+            links = Edition.last.links
+
+            expect(links.count).to eq(2)
+
+            expect(links[0].target_content_id).to eq(content_ids_in_payload.first)
+            expect(links[0].link_type).to eq("embed")
+
+            expect(links[1].target_content_id).to eq(content_ids_from_service.first)
+            expect(links[1].link_type).to eq("embed")
+          end
+        end
+      end
+
+      describe "when the embedded content finder returns no linked content IDs" do
+        let(:content_ids_from_service) { [] }
+
+        it "does not create links for the edition" do
+          described_class.call(payload)
+
+          links = Edition.last.links
+
+          expect(links.count).to eq(0)
+        end
+
+        describe "when the payload includes embed links" do
+          let(:content_ids_in_payload) { [SecureRandom.uuid] }
+          let(:links) do
+            {
+              embed: content_ids_in_payload,
+            }
+          end
+
+          it "creates a link for the content IDs in the payload" do
+            described_class.call(payload)
+
+            links = Edition.last.links
+
+            expect(links.count).to eq(1)
+
+            expect(links[0].target_content_id).to eq(content_ids_in_payload.first)
+            expect(links[0].link_type).to eq("embed")
+          end
+        end
       end
     end
   end
