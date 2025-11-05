@@ -2,6 +2,10 @@
 max_line_length = 120
 dialect = postgres
 
+# We want to select editions.* so that our ActiveRecord model has all of its attributes,
+# so it's worth the ambiguous column count.
+exclude_rules = ambiguous.column_count
+
 [sqlfluff:indentation]
 tab_space_size = 2
 
