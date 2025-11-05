@@ -1,5 +1,5 @@
 -- linked_to_editions
-SELECT editions.* FROM (
+WITH link_set_linked_editions AS (
   SELECT
     editions.*,
     links.link_type,
@@ -35,7 +35,9 @@ SELECT editions.* FROM (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
-  UNION
+),
+
+edition_linked_editions AS (
   SELECT
     editions.*,
     links.link_type,
@@ -70,6 +72,12 @@ SELECT editions.* FROM (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
+)
+
+SELECT editions.* FROM (
+  SELECT * FROM link_set_linked_editions
+  UNION
+  SELECT * FROM edition_linked_editions
 ) AS editions
 WHERE editions.row_number = 1
 ORDER BY
