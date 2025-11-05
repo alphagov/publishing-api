@@ -88,7 +88,9 @@ module Commands
       end
 
       def create_links(edition)
-        links = payload.fetch(:links, {}).merge({ embed: fetch_embedded_content(edition) })
+        links = payload.fetch(:links, {})
+        links[:embed] ||= []
+        links[:embed].concat(fetch_embedded_content(edition))
 
         links.each do |link_type, target_link_ids|
           edition.links.create!(
