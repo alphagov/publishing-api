@@ -1,0 +1,64 @@
+---
+defaults:
+  # Response min size is intended as a quick check that the query has completed successfully.
+  # If you know your response is going to be much bigger than 1k, you can increase this value to make the check stricter.
+  expected_response_min_size: 1000
+
+  # Any individual SQL queries slower than max_single_query_time will cause the benchmark to fail.
+  # You should provide enough overhead that the benchmarks aren't too flaky on modest hardware.
+  max_single_query_time: 0.1
+
+  # If the entire GraphQL query is slower than max_overall_time the benchmark will fail.
+  # You should provide enough overhead that the benchmarks aren't too flaky on modest hardware.
+  max_overall_time: 1
+
+  # If more than max_sql_query_count SQL queries are made, the benchmark will fail.
+  # This is a guard against N+1s or other inefficient batching of queries.
+  # You may be able to set this lower in some cases, and you may have to set it higher in others.
+  max_sql_query_count: 10
+
+test_cases:
+  # Ministers Index
+  - base_path: "/government/ministers"
+    schema_name: "ministers_index"
+    expected_response_min_size: 100000
+    max_single_query_time: 0.3
+    max_overall_time: 3
+
+  # Guides
+  - base_path: "/frontier-worker-permit"
+    schema_name: "guide"
+  - base_path: "/sut-i-gofrestru-nod-masnach"
+    schema_name: "guide"
+
+  # News Articles
+  - base_path: "/government/news/important-notice-for-british-passport-holders"
+    schema_name: "news_article"
+  - base_path: "/government/news/uk-transport-minister-visits-hong-kong"
+    schema_name: "news_article"
+
+  # Roles
+  - base_path: "/government/ministers/lord-in-waiting-government-whip--13"
+    schema_name: "role"
+  - base_path: "/government/ministers/minister-of-state--48.cy"
+    schema_name: "role"
+
+  # Travel Advice
+  - base_path: "/foreign-travel-advice/kyrgyzstan"
+    schema_name: "travel_advice"
+    max_sql_query_count: 15
+  - base_path: "/foreign-travel-advice/oman"
+    schema_name: "travel_advice"
+    max_sql_query_count: 15
+
+  # Transactions
+  - base_path: "/possession-claim-online-recover-property"
+    schema_name: "transaction"
+    max_sql_query_count: 15
+  - base_path: "/find-teacher-training-courses"
+    schema_name: "transaction"
+    max_sql_query_count: 15
+
+  # World Index
+  - base_path: "/world"
+    schema_name: "world_index"
