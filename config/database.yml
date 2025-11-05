@@ -14,6 +14,12 @@ test:
   database: publishing_api_test
   url: <%= ENV["TEST_DATABASE_URL"] %>
 
+benchmark:
+  <<: *default
+  database: publishing_api_development
+  variables:
+    default_transaction_read_only: on
+
 production:
   <<: *default
 
