@@ -44,7 +44,6 @@ class ExpansionRules::LinkExpansion
       length: link_types_path.length,
     )
 
-    valid_paths.include?(link_types_path)
     valid_paths.any? { |path| path[0...link_types_path.length] == link_types_path }
   end
 
