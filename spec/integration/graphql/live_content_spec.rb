@@ -1,6 +1,67 @@
 RSpec.describe "Requesting live content by base path" do
   schema_specific_fields = {
+    call_for_evidence: { details: { body: "", political: false } },
+    case_study: { details: { body: "" } },
+    consultation: { details: { body: "", political: false } },
+    document_collection: { details: { collection_groups: [], political: false } },
+    embassies_index: { details: { world_locations: [] } },
+    fatality_notice: {
+      details: {
+        body: "",
+        change_history: [],
+        emphasised_organisations: [],
+        roll_call_introduction: "",
+      },
+    },
+    finder_email_signup: { details: { subscription_list_title_prefix: "" } },
+    historic_appointment: { details: { body: "", political_party: "" } },
+    historic_appointments: {
+      details: { appointments_without_historical_accounts: [] },
+    },
+    hmrc_manual: { details: { child_section_groups: [] } },
+    hmrc_manual_section: {
+      details: {
+        manual: { base_path: "/abc" },
+        section_id: "",
+      },
+    },
+    how_government_works: { details: { reshuffle_in_progress: false } },
+    manual: { details: { body: "" } },
+    manual_section: {
+      details: {
+        body: "",
+        manual: { base_path: "/abc" },
+        organisations: [],
+      },
+    },
     news_article: { details: { body: "" } },
+    simple_smart_answer: { details: { start_button_text: "" } },
+    specialist_document: { details: { body: "", metadata: {} } },
+    speech: {
+      details: {
+        body: "",
+        delivered_on: "2016-05-12T12:30:00+00:00",
+        political: false,
+      },
+    },
+    statistical_data_set: { details: { body: "", political: false } },
+    statistics_announcement: {
+      details: {
+        display_date: "January 2016",
+        format_sub_type: "national",
+        state: "cancelled",
+      },
+    },
+    step_by_step_nav: {
+      details: {
+        step_by_step_nav: {
+          title: "",
+          introduction: "",
+          steps: [],
+        },
+      },
+    },
+    topical_event_about_page: { details: { body: "", read_more: "" } },
     travel_advice: {
       details: {
         alert_status: [],
@@ -12,8 +73,16 @@ RSpec.describe "Requesting live content by base path" do
         updated_at: "2025-09-05T08:15:33Z",
       },
     },
+    travel_advice_index: { details: { email_signup_link: "" } },
     world_index: {
       details: { world_locations: [], international_delegations: [] },
+    },
+    world_location_news: {
+      details: {
+        mission_statement: "",
+        ordered_featured_documents: [],
+        ordered_featured_links: [],
+      },
     },
   }
 

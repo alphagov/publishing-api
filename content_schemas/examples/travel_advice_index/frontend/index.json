@@ -5,8 +5,7 @@
   "description": "Latest travel advice by country including safety and security, entry requirements, travel warnings and health",
   "details": {
     "email_signup_link": "/foreign-travel-advice/email-signup",
-    "max_cache_time": 10,
-    "publishing_request_id": "2546-1460985144476-19268198-3242"
+    "max_cache_time": 10
   },
   "links": {
     "children": [
@@ -269,6 +268,7 @@
   },
   "locale": "en",
   "public_updated_at": "2015-04-28T17:11:23+01:00",
+  "publishing_request_id": "2546-1460985144476-19268198-3242",
   "updated_at": "2015-08-28T17:16:43+01:00",
   "schema_name": "travel_advice_index",
   "document_type": "travel_advice_index"
