@@ -1,25 +1,13 @@
 -- linked_to_editions
 WITH link_set_linked_editions AS (
-  SELECT
+  SELECT DISTINCT ON (documents.content_id, links.link_type, link_sets.content_id)
     editions.*,
     links.link_type,
     links.position,
     links.id AS link_id,
     documents.content_id,
     documents.locale,
-    link_sets.content_id AS source_content_id,
-    row_number() OVER (
-      PARTITION BY
-        documents.content_id,
-        links.link_type,
-        link_sets.content_id
-      ORDER BY (
-        CASE
-          WHEN (documents.locale =:primary_locale) THEN 0
-          ELSE 1
-        END
-      )
-    ) AS row_number
+    link_sets.content_id AS source_content_id
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON documents.content_id = links.target_content_id
@@ -35,29 +23,23 @@ WITH link_set_linked_editions AS (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
+  ORDER BY documents.content_id, links.link_type, link_sets.content_id, (
+    CASE
+      WHEN (documents.locale =:primary_locale) THEN 0
+      ELSE 1
+    END
+  )
 ),
 
 edition_linked_editions AS (
-  SELECT
+  SELECT DISTINCT ON (documents.content_id, links.link_type, source_editions.id)
     editions.*,
     links.link_type,
     links.position,
     links.id AS link_id,
     documents.content_id,
     documents.locale,
-    source_documents.content_id AS source_content_id,
-    row_number() OVER (
-      PARTITION BY
-        documents.content_id,
-        links.link_type,
-        source_editions.id
-      ORDER BY (
-        CASE
-          WHEN (documents.locale =:primary_locale) THEN 0
-          ELSE 1
-        END
-      )
-    ) AS row_number
+    source_documents.content_id AS source_content_id
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON documents.content_id = links.target_content_id
@@ -72,13 +54,18 @@ edition_linked_editions AS (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
+  ORDER BY documents.content_id, links.link_type, source_editions.id, (
+    CASE
+      WHEN (documents.locale =:primary_locale) THEN 0
+      ELSE 1
+    END
+  )
 )
 
 SELECT editions.* FROM (
   SELECT * FROM link_set_linked_editions
-  UNION
+  UNION ALL
   SELECT * FROM edition_linked_editions
 ) AS editions
-WHERE editions.row_number = 1
 ORDER BY
   editions.link_type ASC, editions.position ASC, editions.link_id DESC
