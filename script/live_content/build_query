@@ -4,14 +4,28 @@ $LOAD_PATH << File.expand_path("../../", File.dirname(__FILE__))
 
 require "config/environment"
 
+require "optparse"
+
+overwrite_existing_query_files = true
+
+OPT_PARSER = OptionParser.new do |parser|
+  parser.banner = "Usage: #{$PROGRAM_NAME} a_schema_name"
+
+  parser.on("--no-clobber", "Don't overwrite existing query files") do
+    overwrite_existing_query_files = false
+  end
+end
+
+OPT_PARSER.parse!
+
 def usage_and_abort
-  abort("Usage:\n\t#{$PROGRAM_NAME} a_schema_name")
+  abort(OPT_PARSER.to_s)
 end
 
 def validate_schema_name!(schema_name)
   GovukSchemas::Schema.find(publisher_schema: schema_name)
 rescue Errno::ENOENT
-  warn("Error: is that meant to be a schema name?")
+  warn("Error: is '#{schema_name}' meant to be a schema name?")
   usage_and_abort
 end
 
@@ -21,9 +35,18 @@ validate_schema_name!(schema_name)
 
 query_filename = "app/graphql/queries/#{schema_name}.graphql"
 
-query_builder = GraphqlQueryBuilder.new(schema_name)
+if !overwrite_existing_query_files && File.exist?(query_filename)
+  abort("Query file already exists for #{schema_name}")
+end
+
+begin
+  query_builder = GraphqlQueryBuilder.new(schema_name)
+rescue GraphqlQueryBuilder::RandomExampleError => e
+  warn("Error: GovukSchemas::RandomExample failed for #{schema_name}")
+  abort(e.message)
+end
 query = query_builder.build_query
 
 File.open(query_filename, "w") { |f| f.puts(query) }
 
-puts("👍")
+puts("Generated GraphQL query for #{schema_name} 👍")
