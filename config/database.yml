@@ -17,6 +17,7 @@ test:
 benchmark:
   <<: *default
   database: publishing_api_development
+  url: <%= ENV["DATABASE_URL"]%>
   variables:
     default_transaction_read_only: on
 
