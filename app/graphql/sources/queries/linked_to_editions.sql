@@ -59,10 +59,30 @@ edition_linked_editions AS (
       ELSE 1
     END
   )
+),
+
+-- Get the types of the edition_linked_editions
+edition_link_types AS (
+  SELECT DISTINCT
+    source_content_id,
+    link_type
+  FROM edition_linked_editions
+),
+
+-- Exclude links of those types from the link_set_linked_editions
+intact_link_set_linked_editions AS (
+  SELECT link_set_linked_editions.*
+  FROM link_set_linked_editions
+  LEFT JOIN edition_link_types
+    ON (
+      link_set_linked_editions.source_content_id = edition_link_types.source_content_id
+      AND link_set_linked_editions.link_type = edition_link_types.link_type
+    )
+  WHERE edition_link_types.link_type IS NULL
 )
 
 SELECT editions.* FROM (
-  SELECT * FROM link_set_linked_editions
+  SELECT * FROM intact_link_set_linked_editions
   UNION ALL
   SELECT * FROM edition_linked_editions
 ) AS editions
