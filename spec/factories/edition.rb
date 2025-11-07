@@ -34,6 +34,8 @@ FactoryBot.define do
     transient do
       change_note { "note" }
       links_hash { {} }
+      link_set_links { nil }
+      edition_links { nil }
     end
 
     after(:create) do |item, evaluator|
@@ -43,6 +45,10 @@ FactoryBot.define do
           note: evaluator.change_note,
           edition: item,
         )
+      end
+
+      if evaluator.links_hash.present? && (evaluator.edition_links.present? || evaluator.link_set_links.present?)
+        raise "links_hash is not compatible with edition_links / link_set_links"
       end
 
       if evaluator.links_hash
@@ -57,6 +63,29 @@ FactoryBot.define do
               target_content_id:,
             )
           end
+        end
+      end
+
+      if evaluator.edition_links
+        evaluator.edition_links.each_with_index do |link_params, index|
+          create(
+            :link,
+            edition: item,
+            position: index,
+            **link_params,
+          )
+        end
+      end
+
+      if evaluator.link_set_links
+        link_set = LinkSet.find_by(content_id: item.content_id) || create(:link_set, content_id: item.content_id)
+        evaluator.link_set_links.each_with_index do |link_params, index|
+          create(
+            :link,
+            link_set:,
+            position: index,
+            **link_params,
+          )
         end
       end
     end
