@@ -60,7 +60,14 @@ module Presenters
     end
 
     def rendered_govspeak(value)
-      Govspeak::Document.new(raw_govspeak(value), govspeak_attributes).to_html
+      raw = raw_govspeak(value)
+      ActiveSupport::Notifications.instrument(
+        "govspeak.to_html",
+        truncated_govspeak: raw&.truncate(100),
+        govspeak_size: raw&.bytesize,
+      ) do
+        Govspeak::Document.new(raw, govspeak_attributes).to_html
+      end
     end
 
     def raw_govspeak(value)
