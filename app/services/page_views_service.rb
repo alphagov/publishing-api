@@ -56,6 +56,7 @@ private
     {
       "client_email" => ENV["BIGQUERY_CLIENT_EMAIL"],
       "private_key" => ENV["BIGQUERY_PRIVATE_KEY"],
+      "type" => "service_account",
     }
   end
 

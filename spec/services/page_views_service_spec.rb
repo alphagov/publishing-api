@@ -20,6 +20,7 @@ RSpec.describe PageViewsService do
       {
         "client_email" => client_email,
         "private_key" => private_key,
+        "type" => "service_account",
       }
     end
 
