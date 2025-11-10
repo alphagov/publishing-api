@@ -63,14 +63,14 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         target_edition = create(:edition)
 
         source_edition_0 = create(:edition,
-                                  title: "edition 0, position 2",
-                                  links_kind => [
-                                    { link_type: "test_link", target_content_id: target_edition.content_id, position: 2 },
-                                  ])
-        source_edition_1 = create(:edition,
-                                  title: "edition 1, position 1",
+                                  title: "edition 0, position 1",
                                   links_kind => [
                                     { link_type: "test_link", target_content_id: target_edition.content_id, position: 1 },
+                                  ])
+        source_edition_1 = create(:edition,
+                                  title: "edition 1, position 2",
+                                  links_kind => [
+                                    { link_type: "test_link", target_content_id: target_edition.content_id, position: 2 },
                                   ])
         source_edition_2 = create(:edition,
                                   title: "edition 2, position 0",
@@ -86,8 +86,8 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           ).request([target_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
-          expected_titles = [source_edition_2, source_edition_1, source_edition_0].map(&:title)
-          expect(actual_titles).to match_array(expected_titles)
+          expected_titles = [source_edition_2, source_edition_0, source_edition_1].map(&:title)
+          expect(actual_titles).to eq(expected_titles)
         end
       end
 
