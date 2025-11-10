@@ -103,14 +103,16 @@ RSpec.describe Sources::LinkedToEditionsSource do
       end
 
       it "returns editions in order of their associated link's `position`" do
-        target_edition_0 = create(:edition, title: "edition 0")
-        target_edition_1 = create(:edition, title: "edition 1")
+        target_edition_0 = create(:edition, title: "edition 0, position 2")
+        target_edition_1 = create(:edition, title: "edition 1, position 1")
+        target_edition_2 = create(:edition, title: "edition 2, position 0")
 
         source_edition = create(:edition,
                                 content_store: "draft",
                                 links_kind => [
-                                  { link_type: "test_link", target_content_id: target_edition_0.content_id },
-                                  { link_type: "test_link", target_content_id: target_edition_1.content_id },
+                                  { link_type: "test_link", target_content_id: target_edition_0.content_id, position: 2 },
+                                  { link_type: "test_link", target_content_id: target_edition_1.content_id, position: 1 },
+                                  { link_type: "test_link", target_content_id: target_edition_2.content_id, position: 0 },
                                 ])
 
         GraphQL::Dataloader.with_dataloading do |dataloader|
@@ -121,7 +123,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           ).request([source_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
-          expected_titles = [target_edition_0, target_edition_1].map(&:title)
+          expected_titles = [target_edition_2, target_edition_1, target_edition_0].map(&:title)
           expect(actual_titles).to eq(expected_titles)
         end
       end
