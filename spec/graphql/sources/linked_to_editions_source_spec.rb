@@ -422,13 +422,13 @@ RSpec.describe Sources::LinkedToEditionsSource do
       end
 
       it "doesn't include non-renderable links" do
-        renderable_edition_1 = create(:edition, title: "renderable edition 1")
+        renderable_edition = create(:edition, title: "renderable edition")
         non_renderable_edition = create(:redirect_edition, title: "non-renderable edition (redirect)")
 
         source_edition = create(
           :edition,
           links_kind => [
-            { link_type: "test_link", target_content_id: renderable_edition_1.content_id },
+            { link_type: "test_link", target_content_id: renderable_edition.content_id },
             { link_type: "test_link", target_content_id: non_renderable_edition.content_id },
           ],
         )
@@ -441,7 +441,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           ).request([source_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
-          expected_titles = [renderable_edition_1.title]
+          expected_titles = [renderable_edition.title]
           expect(actual_titles).to match_array(expected_titles)
         end
       end

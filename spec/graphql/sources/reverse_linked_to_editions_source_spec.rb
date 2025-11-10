@@ -190,9 +190,9 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       it "doesn't include non-renderable reverse links" do
         target_edition = create(:edition)
 
-        renderable_edition_1 = create(
+        renderable_edition = create(
           :edition,
-          title: "renderable edition 1",
+          title: "renderable edition",
           links_kind => [
             { link_type: "test_link", target_content_id: target_edition.content_id },
           ],
@@ -213,7 +213,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           ).request([target_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
-          expected_titles = [renderable_edition_1].map(&:title)
+          expected_titles = [renderable_edition].map(&:title)
           expect(actual_titles).to match_array(expected_titles)
         end
       end
