@@ -160,7 +160,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
             actual_titles = request.load.map(&:title)
             expected_titles = [unpublished_edition].map(&:title)
-            expect(actual_titles).to match_array(expected_titles)
+            expect(actual_titles).to eq(expected_titles)
           end
         end
 
@@ -214,7 +214,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
           actual_titles = request.load.map(&:title)
           expected_titles = [renderable_edition].map(&:title)
-          expect(actual_titles).to match_array(expected_titles)
+          expect(actual_titles).to eq(expected_titles)
         end
       end
 
@@ -249,7 +249,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
             actual_titles = request.load.map(&:title)
             expected_titles = [french_edition].map(&:title)
-            expect(actual_titles).to match_array(expected_titles)
+            expect(actual_titles).to eq(expected_titles)
           end
         end
 
@@ -283,7 +283,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
             actual_titles = request.load.map(&:title)
             expected_titles = [english_edition].map(&:title)
-            expect(actual_titles).to match_array(expected_titles)
+            expect(actual_titles).to eq(expected_titles)
           end
         end
 
@@ -316,7 +316,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             ).request([target_edition, "test_link"])
 
             actual_titles = request.load.map(&:title)
-            expect(actual_titles).to match_array([])
+            expect(actual_titles).to eq([])
           end
         end
 
@@ -351,7 +351,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
               actual_titles = request.load.map(&:title)
               expected_titles = [english_edition].map(&:title)
-              expect(actual_titles).to match_array(expected_titles)
+              expect(actual_titles).to eq(expected_titles)
             end
           end
 
@@ -385,7 +385,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
               actual_titles = request.load.map(&:title)
               expected_titles = []
-              expect(actual_titles).to match_array(expected_titles)
+              expect(actual_titles).to eq(expected_titles)
             end
           end
         end
@@ -421,7 +421,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
               actual_titles = request.load.map(&:title)
               expected_titles = [french_edition].map(&:title)
-              expect(actual_titles).to match_array(expected_titles)
+              expect(actual_titles).to eq(expected_titles)
             end
           end
 
@@ -455,7 +455,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
               actual_titles = request.load.map(&:title)
               expected_titles = [english_edition].map(&:title)
-              expect(actual_titles).to match_array(expected_titles)
+              expect(actual_titles).to eq(expected_titles)
             end
           end
         end

@@ -98,7 +98,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
           actual_titles = request.load.map(&:title)
           expected_titles = [target_edition_1.title]
-          expect(actual_titles).to match_array(expected_titles)
+          expect(actual_titles).to eq(expected_titles)
         end
       end
 
@@ -203,7 +203,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
             actual_titles = request.load.map(&:title)
             expected_titles = [target_edition_0.title]
-            expect(actual_titles).to match_array(expected_titles)
+            expect(actual_titles).to eq(expected_titles)
           end
         end
       end
@@ -230,7 +230,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
             actual_titles = request.load.map(&:title)
             expected_titles = [french_edition.title]
-            expect(actual_titles).to match_array(expected_titles)
+            expect(actual_titles).to eq(expected_titles)
           end
         end
 
@@ -255,7 +255,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
             actual_titles = request.load.map(&:title)
             expected_titles = [english_edition.title]
-            expect(actual_titles).to match_array(expected_titles)
+            expect(actual_titles).to eq(expected_titles)
           end
         end
 
@@ -280,7 +280,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
             actual_titles = request.load.map(&:title)
             expected_titles = []
-            expect(actual_titles).to match_array(expected_titles)
+            expect(actual_titles).to eq(expected_titles)
           end
         end
 
@@ -314,7 +314,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
               actual_titles = request.load.map(&:title)
               expected_titles = [english_edition.title]
-              expect(actual_titles).to match_array(expected_titles)
+              expect(actual_titles).to eq(expected_titles)
             end
           end
 
@@ -347,7 +347,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
               actual_titles = request.load.map(&:title)
               expected_titles = []
-              expect(actual_titles).to match_array(expected_titles)
+              expect(actual_titles).to eq(expected_titles)
             end
           end
         end
@@ -382,7 +382,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
               actual_titles = request.load.map(&:title)
               expected_titles = [french_withdrawn_edition.title]
-              expect(actual_titles).to match_array(expected_titles)
+              expect(actual_titles).to eq(expected_titles)
             end
           end
 
@@ -415,7 +415,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
               actual_titles = request.load.map(&:title)
               expected_titles = [english_edition.title]
-              expect(actual_titles).to match_array(expected_titles)
+              expect(actual_titles).to eq(expected_titles)
             end
           end
         end
@@ -442,7 +442,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
           actual_titles = request.load.map(&:title)
           expected_titles = [renderable_edition.title]
-          expect(actual_titles).to match_array(expected_titles)
+          expect(actual_titles).to eq(expected_titles)
         end
       end
     end
