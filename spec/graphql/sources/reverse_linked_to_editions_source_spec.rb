@@ -4,12 +4,12 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       target_edition = create(:edition)
 
       source_edition = create(:edition,
-                              links_hash: {
-                                "test_link" => [target_edition.content_id],
-                              })
-
-      link_set = create(:link_set, content_id: source_edition.content_id)
-      create(:link, link_set: link_set, target_content_id: target_edition.content_id, link_type: "test_link")
+                              edition_links: [
+                                { link_type: "test_link", target_content_id: target_edition.content_id },
+                              ],
+                              link_set_links: [
+                                { link_type: "test_link", target_content_id: target_edition.content_id },
+                              ])
 
       GraphQL::Dataloader.with_dataloading do |dataloader|
         request = dataloader.with(

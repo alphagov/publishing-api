@@ -29,22 +29,14 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
     context "when the same document is both a link set link and an edition link" do
       it "only returns the document once" do
-        source_edition = create(:live_edition)
         target_edition = create(:live_edition)
-
-        create(
-          :link,
-          edition: source_edition,
-          target_content_id: target_edition.content_id,
-          link_type: "test_link",
-        )
-
-        create(
-          :link,
-          link_set: create(:link_set, content_id: source_edition.content_id),
-          target_content_id: target_edition.content_id,
-          link_type: "test_link",
-        )
+        source_edition = create(:live_edition,
+                                edition_links: [
+                                  { link_type: "test_link", target_content_id: target_edition.content_id },
+                                ],
+                                link_set_links: [
+                                  { link_type: "test_link", target_content_id: target_edition.content_id },
+                                ])
 
         GraphQL::Dataloader.with_dataloading do |dataloader|
           request = dataloader.with(
