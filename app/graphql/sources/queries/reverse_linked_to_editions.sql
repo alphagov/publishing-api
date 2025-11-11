@@ -26,7 +26,7 @@ SELECT editions.* FROM (
   INNER JOIN links ON documents.content_id = links.link_set_content_id
   WHERE
     editions.content_store =:content_store
-    AND documents.locale IN (:locale_with_fallback)
+    AND documents.locale IN (:primary_locale,:secondary_locale)
     AND editions.document_type NOT IN (:non_renderable_formats)
     AND (
       (links.target_content_id, links.link_type) IN (:content_id_tuples)
@@ -62,7 +62,7 @@ SELECT editions.* FROM (
   INNER JOIN links ON editions.id = links.edition_id
   WHERE
     editions.content_store =:content_store
-    AND documents.locale IN (:locale_with_fallback)
+    AND documents.locale IN (:primary_locale,:secondary_locale)
     AND editions.document_type NOT IN (:non_renderable_formats)
     AND (
       (links.target_content_id, links.link_type) IN (:content_id_tuples)
