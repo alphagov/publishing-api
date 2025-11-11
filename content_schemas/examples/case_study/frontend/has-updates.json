@@ -86,39 +86,6 @@
         "withdrawn": false
       }
     ],
-    "original_primary_publishing_organisation": [
-      {
-        "analytics_identifier": "EA1328",
-        "api_path": "/api/content/government/organisations/uk-health-security-agency",
-        "api_url": "https://www.gov.uk/api/content/government/organisations/uk-health-security-agency",
-        "base_path": "/government/organisations/uk-health-security-agency",
-        "content_id": "80091cd8-7a8f-41ef-8faf-8af91fce4fdb",
-        "details": {
-          "acronym": "UKHSA",
-          "brand": "department-of-health",
-          "default_news_image": {
-            "high_resolution_url": "https://assets.publishing.service.gov.uk/media/674de56feb52380f5456af9f/s960_News_logo.png",
-            "url": "https://assets.publishing.service.gov.uk/media/674de56f20e5fc28f0a59fbb/s300_News_logo.png"
-          },
-          "logo": {
-            "crest": "single-identity",
-            "formatted_title": "UK Health<br/>Security<br/>Agency"
-          },
-          "organisation_govuk_status": {
-            "status": "live",
-            "updated_at": null,
-            "url": null
-          }
-        },
-        "document_type": "organisation",
-        "links": {},
-        "locale": "en",
-        "schema_name": "organisation",
-        "title": "UK Health Security Agency",
-        "web_url": "https://www.gov.uk/government/organisations/uk-health-security-agency",
-        "withdrawn": false
-      }
-    ],
     "primary_publishing_organisation": [
       {
         "analytics_identifier": "EA1328",

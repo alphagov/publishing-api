@@ -110,10 +110,6 @@
         "organisations": {
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
-        "original_primary_publishing_organisation": {
-          "description": "The organisation that published the original version of the page. Corresponds to the first of the 'Lead organisations' in Whitehall for the first edition, and is empty for all other publishing applications.",
-          "$ref": "#/definitions/frontend_links_with_base_path"
-        },
         "parent": {
           "$ref": "#/definitions/frontend_links_with_base_path"
         },

@@ -46,7 +46,6 @@
       description: "The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.",
       maxItems: 1,
     },
-    original_primary_publishing_organisation: "The organisation that published the original version of the page. Corresponds to the first of the 'Lead organisations' in Whitehall for the first edition, and is empty for all other publishing applications.",
     roles: "Government roles that are associated with this document, typically the role part of a role association",
   },
   links: (import "shared/base_links.jsonnet") + {

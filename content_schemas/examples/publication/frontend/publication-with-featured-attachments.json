@@ -65,34 +65,6 @@
         "web_url": "https://www.gov.uk/government/organisations/ministry-of-defence"
       }
     ],
-    "original_primary_publishing_organisation": [
-      {
-        "content_id": "d994e55c-48c9-4795-b872-58d8ec98af12",
-        "title": "Ministry of Defence",
-        "locale": "en",
-        "analytics_identifier": "D17",
-        "api_path": "/api/content/government/organisations/ministry-of-defence",
-        "base_path": "/government/organisations/ministry-of-defence",
-        "document_type": "organisation",
-        "schema_name": "organisation",
-        "withdrawn": false,
-        "details": {
-          "logo": {
-            "formatted_title": "Ministry<br/>of Defence",
-            "crest": "mod"
-          },
-          "brand": "ministry-of-defence",
-          "default_news_image": {
-            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/154/s300_ministry-of-defence.jpg",
-            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/154/s960_ministry-of-defence.jpg"
-          }
-        },
-        "links": {
-        },
-        "api_url": "https://www.gov.uk/api/content/government/organisations/ministry-of-defence",
-        "web_url": "https://www.gov.uk/government/organisations/ministry-of-defence"
-      }
-    ],
     "primary_publishing_organisation": [
       {
         "content_id": "d994e55c-48c9-4795-b872-58d8ec98af12",

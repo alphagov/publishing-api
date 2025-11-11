@@ -135,39 +135,6 @@
         "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/ministry-of-housing-communities-and-local-government"
       }
     ],
-    "original_primary_publishing_organisation": [
-      {
-        "content_id": "2e7868a8-38f5-4ff6-b62f-9a15d1c22d28",
-        "title": "Ministry of Housing, Communities & Local Government",
-        "locale": "en",
-        "analytics_identifier": "D4",
-        "api_path": "/api/content/government/organisations/ministry-of-housing-communities-and-local-government",
-        "base_path": "/government/organisations/ministry-of-housing-communities-and-local-government",
-        "document_type": "organisation",
-        "schema_name": "organisation",
-        "withdrawn": false,
-        "details": {
-          "logo": {
-            "crest": "single-identity",
-            "formatted_title": "Ministry of Housing,<br/>Communities &amp;<br/>Local Government"
-          },
-          "brand": "department-for-communities-and-local-government",
-          "default_news_image": {
-            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/124/s300_2_Marsham_Street_960x640.jpg",
-            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/124/s960_2_Marsham_Street_960x640.jpg"
-          },
-          "organisation_govuk_status": {
-            "url": null,
-            "status": "live",
-            "updated_at": null
-          }
-        },
-        "links": {
-        },
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/ministry-of-housing-communities-and-local-government",
-        "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/ministry-of-housing-communities-and-local-government"
-      }
-    ],
     "primary_publishing_organisation": [
       {
         "content_id": "2e7868a8-38f5-4ff6-b62f-9a15d1c22d28",

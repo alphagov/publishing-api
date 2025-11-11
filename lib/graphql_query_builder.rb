@@ -238,7 +238,6 @@ private
       ordered_successor_organisations: %w[organisation],
       ordered_traffic_commissioners: %w[person],
       organisations: %w[contact organisation worldwide_office worldwide_organisation],
-      original_primary_publishing_organisation: %w[organisation],
       pages_part_of_step_nav: %w[answer completed_transaction contact detailed_guide document_collection finder form guidance guide html_publication licence_transaction local_transaction manual notice place placeholder redirect simple_smart_answer smart_answer step_by_step_nav transaction travel_advice_index],
       pages_related_to_step_nav: %w[answer detailed_guide document_collection guidance guide html_publication local_transaction manual place simple_smart_answer smart_answer step_by_step_nav transaction travel_advice_index],
       pages_secondary_to_step_nav: %w[answer completed_transaction detailed_guide document_collection form guidance guide html_publication notice statutory_guidance transaction],

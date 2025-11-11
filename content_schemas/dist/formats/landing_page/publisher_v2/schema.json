@@ -85,10 +85,6 @@
         "organisations": {
           "$ref": "#/definitions/guid_list"
         },
-        "original_primary_publishing_organisation": {
-          "description": "The organisation that published the original version of the page. Corresponds to the first of the 'Lead organisations' in Whitehall for the first edition, and is empty for all other publishing applications.",
-          "$ref": "#/definitions/guid_list"
-        },
         "parent": {
           "$ref": "#/definitions/guid_list"
         },

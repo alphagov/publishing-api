@@ -314,26 +314,6 @@ query calendar($base_path: String!) {
           title
           web_url
         }
-        original_primary_publishing_organisation {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          details {
-            acronym
-            brand
-            default_news_image
-            logo
-            organisation_govuk_status
-          }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
-        }
         parent {
           analytics_identifier
           api_path
