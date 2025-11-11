@@ -102,10 +102,6 @@
           "description": "All organisations linked to this content item. This should include lead organisations.",
           "$ref": "#/definitions/guid_list"
         },
-        "original_primary_publishing_organisation": {
-          "description": "The organisation that published the original version of the page. Corresponds to the first of the 'Lead organisations' in Whitehall for the first edition, and is empty for all other publishing applications.",
-          "$ref": "#/definitions/guid_list"
-        },
         "parent": {
           "description": "The parent content item.",
           "$ref": "#/definitions/guid_list",

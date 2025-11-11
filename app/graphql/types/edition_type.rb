@@ -50,7 +50,6 @@ module Types
       links_field :ordered_successor_organisations, [EditionType]
       links_field :ordered_traffic_commissioners, [EditionType]
       links_field :organisations, [EditionType]
-      links_field :original_primary_publishing_organisation, [EditionType]
       links_field :pages_part_of_step_nav, [EditionType]
       links_field :pages_related_to_step_nav, [EditionType]
       links_field :pages_secondary_to_step_nav, [EditionType]
