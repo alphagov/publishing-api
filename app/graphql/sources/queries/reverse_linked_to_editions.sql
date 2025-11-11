@@ -1,4 +1,14 @@
 -- reverse_linked_to_editions
+WITH query_input AS (
+  SELECT query_input.*
+  FROM
+    json_to_recordset(:query_input::json) AS query_input (
+      content_id uuid,
+      link_type varchar
+    )
+  LIMIT (:query_input_count) -- noqa: AM09
+)
+
 SELECT editions.* FROM (
   SELECT
     editions.*,
@@ -24,13 +34,11 @@ SELECT editions.* FROM (
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON documents.content_id = links.link_set_content_id
+  INNER JOIN query_input ON links.target_content_id = query_input.content_id AND links.link_type = query_input.link_type
   WHERE
     editions.content_store =:content_store
     AND documents.locale IN (:primary_locale,:secondary_locale)
     AND editions.document_type NOT IN (:non_renderable_formats)
-    AND (
-      (links.target_content_id, links.link_type) IN (:content_id_tuples)
-    )
     AND (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
@@ -60,13 +68,11 @@ SELECT editions.* FROM (
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON editions.id = links.edition_id
+  INNER JOIN query_input ON links.target_content_id = query_input.content_id AND links.link_type = query_input.link_type
   WHERE
     editions.content_store =:content_store
     AND documents.locale IN (:primary_locale,:secondary_locale)
     AND editions.document_type NOT IN (:non_renderable_formats)
-    AND (
-      (links.target_content_id, links.link_type) IN (:content_id_tuples)
-    )
     AND (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
