@@ -228,6 +228,7 @@ module Types
       field :label, GraphQL::Types::JSON
       field :language, GraphQL::Types::JSON
       field :latest_change_note, GraphQL::Types::JSON
+      field :lead_paragraph, String
       field :lgil_code, GraphQL::Types::JSON
       field :lgsl_code, GraphQL::Types::JSON
       field :link_items, GraphQL::Types::JSON
@@ -322,6 +323,7 @@ module Types
       field :show_metadata_block, GraphQL::Types::JSON
       field :show_summaries, GraphQL::Types::JSON
       field :show_table_of_contents, GraphQL::Types::JSON
+      field :sidebar_image, GraphQL::Types::JSON
       field :signup_link, GraphQL::Types::JSON
       field :slug, GraphQL::Types::JSON
       field :social_media_links, GraphQL::Types::JSON

@@ -17,6 +17,7 @@ RSpec.describe "Requesting live content by base path" do
     },
     finder: { details: { "document_noun": "", facets: [] } },
     finder_email_signup: { details: { subscription_list_title_prefix: "" } },
+    history: { details: { body: "" } },
     historic_appointment: { details: { body: "", political_party: "" } },
     historic_appointments: {
       details: { appointments_without_historical_accounts: [] },
