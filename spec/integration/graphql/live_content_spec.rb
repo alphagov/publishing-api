@@ -38,6 +38,7 @@ RSpec.describe "Requesting live content by base path" do
         public_timestamp: "2016-05-12T12:30:00+00:00",
       },
     },
+    local_transaction: { details: { lgsl_code: 1, service_tiers: [] } },
     manual: { details: { body: "" } },
     manual_section: {
       details: {

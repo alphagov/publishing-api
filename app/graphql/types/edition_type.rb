@@ -128,12 +128,14 @@ module Types
       field :about_page_link_text, GraphQL::Types::JSON
       field :access_and_opening_times, GraphQL::Types::JSON
       field :acronym, String
+      field :after_results, GraphQL::Types::JSON
       field :alert_status, GraphQL::Types::JSON
       field :alternative_format_contact_email, GraphQL::Types::JSON
       field :appointments_without_historical_accounts, GraphQL::Types::JSON
       field :archive_notice, GraphQL::Types::JSON
       field :attachments, [GraphQL::Types::JSON]
       field :attends_cabinet_type, GraphQL::Types::JSON
+      field :before_results, GraphQL::Types::JSON
       field :beta_message, GraphQL::Types::JSON
       field :beta, GraphQL::Types::JSON
       field :blocks, GraphQL::Types::JSON
@@ -161,6 +163,7 @@ module Types
       field :contact_type, GraphQL::Types::JSON
       field :corporate_information_groups, GraphQL::Types::JSON
       field :country, GraphQL::Types::JSON
+      field :cta_text, String
       field :current, Boolean
       field :dates_in_office, GraphQL::Types::JSON
       field :default_documents_per_page, GraphQL::Types::JSON
@@ -170,6 +173,7 @@ module Types
       field :department_analytics_profile, GraphQL::Types::JSON
       field :department_counts, GraphQL::Types::JSON
       field :description, String
+      field :devolved_administration_availability, GraphQL::Types::JSON
       field :died, GraphQL::Types::JSON
       field :display_as_result_metadata, GraphQL::Types::JSON
       field :display_date, Types::ContentApiDatetime
@@ -231,6 +235,7 @@ module Types
       field :latest_change_note, GraphQL::Types::JSON
       field :lead_paragraph, String
       field :lgil_code, GraphQL::Types::JSON
+      field :lgil_override, Integer
       field :lgsl_code, GraphQL::Types::JSON
       field :link_items, GraphQL::Types::JSON
       field :location, GraphQL::Types::JSON
@@ -312,6 +317,7 @@ module Types
       field :reviewed_at, GraphQL::Types::JSON
       field :role_payment_type, String
       field :roll_call_introduction, GraphQL::Types::JSON
+      field :scotland_availability, GraphQL::Types::JSON
       field :second_level_ordering, GraphQL::Types::JSON
       field :secondary_corporate_information_pages, GraphQL::Types::JSON
       field :section_id, GraphQL::Types::JSON
@@ -354,6 +360,7 @@ module Types
       field :visible_to_departmental_editors, Boolean
       field :visually_collapsed, GraphQL::Types::JSON
       field :visually_expanded, GraphQL::Types::JSON
+      field :wales_availability, GraphQL::Types::JSON
       field :ways_to_respond, GraphQL::Types::JSON
       field :what_you_need_to_know, GraphQL::Types::JSON
       field :whip_organisation, GraphQL::Types::JSON
