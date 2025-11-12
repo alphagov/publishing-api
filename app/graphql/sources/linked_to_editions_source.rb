@@ -32,6 +32,7 @@ module Sources
                      .sub(":content_id_tuples", content_id_tuples.join(","))
                      .sub(":edition_id_tuples", edition_id_tuples.join(","))
       all_editions = Edition.find_by_sql([subbed_sql, sql_params])
+      all_editions.each(&:strict_loading!)
       all_editions.each_with_object(link_types_map) { |edition, hash|
         unless hash[[edition.source_content_id, edition.link_type]].include?(edition)
           hash[[edition.source_content_id, edition.link_type]] << edition

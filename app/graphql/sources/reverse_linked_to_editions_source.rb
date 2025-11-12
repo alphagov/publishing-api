@@ -29,6 +29,7 @@ module Sources
       # TODO: this SQL.gsub is very ugly
       subbed_sql = SQL.gsub(":content_id_tuples", content_id_tuples.join(","))
       all_editions = Edition.find_by_sql([subbed_sql, sql_params])
+      all_editions.each(&:strict_loading!)
       all_editions.each_with_object(link_types_map) { |edition, hash|
         unless hash[[edition.target_content_id, edition.link_type]].include?(edition)
           hash[[edition.target_content_id, edition.link_type]] << edition
