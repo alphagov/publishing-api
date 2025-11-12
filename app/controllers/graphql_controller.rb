@@ -33,7 +33,7 @@ class GraphqlController < ApplicationController
         result = PublishingApiSchema.execute(query, variables: { base_path: encoded_base_path }).to_hash
         report_result(result)
 
-        content_item = GraphqlContentItemService.for_schema(edition.schema_name).process(result)
+        content_item = GraphqlContentItemService.for_edition(edition).process(result)
 
         http_status = if content_item["schema_name"] == "gone" && (content_item["details"].nil? || content_item["details"].values.reject(&:blank?).empty?)
                         410

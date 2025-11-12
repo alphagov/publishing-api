@@ -1,15 +1,17 @@
 class GraphqlContentItemService
   class QueryResultError < StandardError; end
 
-  def initialize(compactor)
+  def initialize(auto_reverse_linker:, compactor:)
+    @auto_reverse_linker = auto_reverse_linker
     @compactor = compactor
   end
 
-  def self.for_schema(schema_name)
-    schema = GovukSchemas::Schema.find(frontend_schema: schema_name)
+  def self.for_edition(edition)
+    schema = GovukSchemas::Schema.find(frontend_schema: edition.schema_name)
 
     new(
-      Graphql::ContentItemCompactor.new(schema),
+      auto_reverse_linker: Graphql::AutoReverseLinker.new(edition),
+      compactor: Graphql::ContentItemCompactor.new(schema),
     )
   end
 
@@ -26,7 +28,10 @@ private
 
   def get_edition(query_result)
     edition = query_result.dig("data", "edition")
-    @compactor.compact(edition)
+
+    @auto_reverse_linker.insert_links(
+      @compactor.compact(edition),
+    )
   end
 
   def get_unpublishing(query_result)

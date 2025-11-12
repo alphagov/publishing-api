@@ -1,9 +1,14 @@
 RSpec.describe GraphqlContentItemService do
+  let(:auto_reverse_linker) { instance_double(Graphql::AutoReverseLinker) }
   let(:compactor) { instance_double(Graphql::ContentItemCompactor) }
-  let(:graphql_content_item_service) { GraphqlContentItemService.new(compactor) }
+  let(:graphql_content_item_service) do
+    GraphqlContentItemService.new(auto_reverse_linker:, compactor:)
+  end
   before do
     # For the purposes of these tests, the compact method can just pass through its input
     allow(compactor).to receive(:compact).and_invoke(-> { _1 })
+    # same for the insert_links method
+    allow(auto_reverse_linker).to receive(:insert_links).and_invoke(-> { _1 })
   end
 
   it "returns the edition from the query result" do
