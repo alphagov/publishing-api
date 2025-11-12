@@ -42,6 +42,7 @@ group :development, :test do
   gem "byebug"
   gem "climate_control"
   gem "database_cleaner"
+  gem "deepsort"
   gem "factory_bot_rails"
   gem "govuk_test"
   gem "pact", require: false

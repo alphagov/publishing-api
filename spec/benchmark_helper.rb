@@ -11,11 +11,13 @@ RSpec.configure do |config|
   config.add_setting :benchmark_sql_log_dir, default: Rails.root.join("tmp/benchmarks/sql")
   config.add_setting :benchmark_profiles_dir, default: Rails.root.join("tmp/benchmarks/profiles")
   config.add_setting :benchmark_instrumentation_dir, default: Rails.root.join("tmp/benchmarks/instrumentation")
+  config.add_setting :benchmark_content_store_examples_dir, default: Rails.root.join("tmp/benchmarks/content-store-examples")
 
   config.before(:suite) do
     FileUtils.mkdir_p(config.benchmark_sql_log_dir)
     FileUtils.mkdir_p(config.benchmark_profiles_dir)
     FileUtils.mkdir_p(config.benchmark_instrumentation_dir)
+    FileUtils.mkdir_p(config.benchmark_content_store_examples_dir)
 
     # Warm up ActiveRecord
     [Edition, Document, Link, Unpublishing].each(&:first)
