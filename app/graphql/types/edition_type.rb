@@ -131,6 +131,10 @@ module Types
       field :after_results, GraphQL::Types::JSON
       field :alert_status, GraphQL::Types::JSON
       field :alternative_format_contact_email, GraphQL::Types::JSON
+      field :alternative_nothern_ireland_url, String
+      field :alternative_scotland_url, String
+      field :alternative_wales_url, String
+      field :analytics_identifier, String
       field :appointments_without_historical_accounts, GraphQL::Types::JSON
       field :archive_notice, GraphQL::Types::JSON
       field :attachments, [GraphQL::Types::JSON]
