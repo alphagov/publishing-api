@@ -1,6 +1,14 @@
 class HostContentUpdateJob < DependencyResolutionJob
 private
 
+  def downstream_draft(dependent_content_id, locale)
+    return unless draft?
+
+    DownstreamDraftJob.perform_async_in_queue(
+      *downstream_args(dependent_content_id:, locale:, queue: DownstreamDraftJob::HIGH_QUEUE),
+    )
+  end
+
   def downstream_live(dependent_content_id, locale)
     return if draft?
 
