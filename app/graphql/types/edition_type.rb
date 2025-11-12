@@ -302,6 +302,7 @@ module Types
       field :political_party, GraphQL::Types::JSON
       field :political, Boolean
       field :post_addresses, [GraphQL::Types::JSON]
+      field :poster_url, String
       field :preposition, GraphQL::Types::JSON
       field :previous_display_date, GraphQL::Types::JSON
       field :privy_counsellor, Boolean
