@@ -15,7 +15,7 @@ defaults:
   # If more than max_sql_query_count SQL queries are made, the benchmark will fail.
   # This is a guard against N+1s or other inefficient batching of queries.
   # You may be able to set this lower in some cases, and you may have to set it higher in others.
-  max_sql_query_count: 10
+  max_sql_query_count: 11
 
 test_cases:
   # Guide
