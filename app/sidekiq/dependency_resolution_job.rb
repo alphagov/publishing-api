@@ -83,13 +83,7 @@ private
     return unless draft?
 
     DownstreamDraftJob.perform_async_in_queue(
-      DownstreamDraftJob::LOW_QUEUE,
-      "content_id" => dependent_content_id,
-      "locale" => locale,
-      "update_dependencies" => false,
-      "dependency_resolution_source_content_id" => content_id,
-      "source_command" => source_command,
-      "source_fields" => source_fields,
+      *downstream_args(dependent_content_id:, locale:),
     )
   end
 
@@ -97,14 +91,24 @@ private
     return if draft?
 
     DownstreamLiveJob.perform_async_in_queue(
-      DownstreamLiveJob::LOW_QUEUE,
+      *downstream_args(dependent_content_id:, locale:, message_queue_event_type: "links"),
+    )
+  end
+
+  def downstream_args(dependent_content_id:, locale:, queue: DownstreamDraftJob::LOW_QUEUE, message_queue_event_type: nil)
+    additional_args = {
       "content_id" => dependent_content_id,
       "locale" => locale,
-      "message_queue_event_type" => "links",
       "update_dependencies" => false,
       "dependency_resolution_source_content_id" => content_id,
       "source_command" => source_command,
       "source_fields" => source_fields,
-    )
+      "message_queue_event_type" => message_queue_event_type,
+    }.compact
+
+    [
+      queue,
+      **additional_args,
+    ]
   end
 end

@@ -4,7 +4,20 @@ private
   def downstream_live(dependent_content_id, locale)
     return if draft?
 
-    event_payload = {
+    EventLogger.log_command(self.class, event_payload(dependent_content_id, locale)) do |_event|
+      DownstreamLiveJob.perform_async_in_queue(
+        *downstream_args(
+          dependent_content_id:,
+          locale:,
+          queue: DownstreamDraftJob::HIGH_QUEUE,
+          message_queue_event_type: source_edition.update_type,
+        ),
+      )
+    end
+  end
+
+  def event_payload(dependent_content_id, locale)
+    {
       content_id: dependent_content_id,
       locale:,
       message: "Host content updated by content block update",
@@ -15,19 +28,6 @@ private
         updated_by_user_uid: source_edition_publication_event&.user_uid,
       },
     }
-
-    EventLogger.log_command(self.class, event_payload) do |_event|
-      DownstreamLiveJob.perform_async_in_queue(
-        DownstreamLiveJob::HIGH_QUEUE,
-        "content_id" => dependent_content_id,
-        "locale" => locale,
-        "message_queue_event_type" => source_edition.update_type,
-        "update_dependencies" => false,
-        "dependency_resolution_source_content_id" => content_id,
-        "source_command" => source_command,
-        "source_fields" => source_fields,
-      )
-    end
   end
 
   def source_edition_publication_event
