@@ -49,6 +49,7 @@ RSpec.describe "Requesting live content by base path" do
     },
     news_article: { details: { body: "" } },
     publication: { details: { body: "", documents: [], political: false } },
+    service_manual_guide: { details: { body: "" } },
     simple_smart_answer: { details: { start_button_text: "" } },
     specialist_document: { details: { body: "", metadata: {} } },
     speech: {
