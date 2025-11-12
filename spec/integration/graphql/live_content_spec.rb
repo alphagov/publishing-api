@@ -5,6 +5,7 @@ RSpec.describe "Requesting live content by base path" do
     consultation: { details: { body: "", political: false } },
     corporate_information_page: { details: { body: "", organisation: "af07d5a5-df63-4ddc-9383-6a666845ebe9" } },
     document_collection: { details: { collection_groups: [], political: false } },
+    email_alert_signup: { details: { subscriber_list: { document_type: "" }, summary: "" } },
     embassies_index: { details: { world_locations: [] } },
     fatality_notice: {
       details: {

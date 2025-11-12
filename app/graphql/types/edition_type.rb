@@ -179,6 +179,7 @@ module Types
       field :downtime_message, String
       field :email_address, GraphQL::Types::JSON
       field :email_addresses, [GraphQL::Types::JSON]
+      field :email_alert_type, String
       field :email_filter_by, GraphQL::Types::JSON
       field :email_filter_facets, GraphQL::Types::JSON
       field :email_signup_link, GraphQL::Types::JSON
