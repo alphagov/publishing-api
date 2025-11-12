@@ -30,6 +30,14 @@ RSpec.describe "Requesting live content by base path" do
       },
     },
     how_government_works: { details: { reshuffle_in_progress: false } },
+    html_publication: {
+      details: {
+        body: "",
+        first_published_version: false,
+        political: false,
+        public_timestamp: "2016-05-12T12:30:00+00:00",
+      },
+    },
     manual: { details: { body: "" } },
     manual_section: {
       details: {

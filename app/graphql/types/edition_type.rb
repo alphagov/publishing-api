@@ -223,6 +223,7 @@ module Types
       field :international_delegations, [GraphQL::Types::JSON]
       field :introduction, GraphQL::Types::JSON
       field :introductory_paragraph, GraphQL::Types::JSON
+      field :isbn, String
       field :key, GraphQL::Types::JSON
       field :label_text, GraphQL::Types::JSON
       field :label, GraphQL::Types::JSON
