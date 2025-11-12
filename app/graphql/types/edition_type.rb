@@ -246,6 +246,7 @@ module Types
       field :mapped_specialist_topic_content_id, GraphQL::Types::JSON
       field :max_cache_time, GraphQL::Types::JSON
       field :metadata, GraphQL::Types::JSON
+      field :minister, Boolean
       field :ministerial_role_counts, GraphQL::Types::JSON
       field :mission_statement, GraphQL::Types::JSON
       field :more_info_contact_form, GraphQL::Types::JSON
