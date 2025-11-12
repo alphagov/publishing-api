@@ -18,6 +18,12 @@ defaults:
   max_sql_query_count: 10
 
 test_cases:
+  # Guide
+  - base_path: "/frontier-worker-permit"
+    schema_name: "guide"
+  - base_path: "/sut-i-gofrestru-nod-masnach"
+    schema_name: "guide"
+
   # Ministers Index
   - base_path: "/government/ministers"
     schema_name: "ministers_index"
@@ -25,23 +31,25 @@ test_cases:
     max_single_query_time: 0.3
     max_overall_time: 3
 
-  # Guides
-  - base_path: "/frontier-worker-permit"
-    schema_name: "guide"
-  - base_path: "/sut-i-gofrestru-nod-masnach"
-    schema_name: "guide"
-
-  # News Articles
+  # News Article
   - base_path: "/government/news/important-notice-for-british-passport-holders"
     schema_name: "news_article"
   - base_path: "/government/news/uk-transport-minister-visits-hong-kong"
     schema_name: "news_article"
 
-  # Roles
+  # Role
   - base_path: "/government/ministers/lord-in-waiting-government-whip--13"
     schema_name: "role"
   - base_path: "/government/ministers/minister-of-state--48.cy"
     schema_name: "role"
+
+  # Transaction
+  - base_path: "/possession-claim-online-recover-property"
+    schema_name: "transaction"
+    max_sql_query_count: 15
+  - base_path: "/find-teacher-training-courses"
+    schema_name: "transaction"
+    max_sql_query_count: 15
 
   # Travel Advice
   - base_path: "/foreign-travel-advice/kyrgyzstan"
@@ -49,14 +57,6 @@ test_cases:
     max_sql_query_count: 15
   - base_path: "/foreign-travel-advice/oman"
     schema_name: "travel_advice"
-    max_sql_query_count: 15
-
-  # Transactions
-  - base_path: "/possession-claim-online-recover-property"
-    schema_name: "transaction"
-    max_sql_query_count: 15
-  - base_path: "/find-teacher-training-courses"
-    schema_name: "transaction"
     max_sql_query_count: 15
 
   # World Index
