@@ -144,6 +144,7 @@ module Types
       field :brexit_no_deal_notice, GraphQL::Types::JSON
       field :cancellation_reason, GraphQL::Types::JSON
       field :cancelled_at, GraphQL::Types::JSON
+      field :canonical_link, Boolean
       field :casualties, GraphQL::Types::JSON
       field :change_description, GraphQL::Types::JSON
       field :change_history, GraphQL::Types::JSON
@@ -204,6 +205,7 @@ module Types
       field :format_name, GraphQL::Types::JSON
       field :format_sub_type, GraphQL::Types::JSON
       field :full_name, GraphQL::Types::JSON
+      field :generic_description, Boolean
       field :govdelivery_title, GraphQL::Types::JSON
       field :government, GraphQL::Types::JSON
       field :groups, GraphQL::Types::JSON
@@ -231,6 +233,7 @@ module Types
       field :link_items, GraphQL::Types::JSON
       field :location, GraphQL::Types::JSON
       field :logo, GraphQL::Types::JSON
+      field :logo_path, String
       field :major_acts, GraphQL::Types::JSON
       field :manual, GraphQL::Types::JSON
       field :mapped_specialist_topic_content_id, GraphQL::Types::JSON
@@ -248,6 +251,7 @@ module Types
       field :national_applicability, GraphQL::Types::JSON
       field :navigation_groups, GraphQL::Types::JSON
       field :need_to_know, GraphQL::Types::JSON
+      field :no_index, Boolean
       field :nodes, GraphQL::Types::JSON
       field :northern_ireland_availability, GraphQL::Types::JSON
       field :notes_for_editors, String

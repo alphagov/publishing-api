@@ -15,6 +15,7 @@ RSpec.describe "Requesting live content by base path" do
         roll_call_introduction: "",
       },
     },
+    finder: { details: { "document_noun": "", facets: [] } },
     finder_email_signup: { details: { subscription_list_title_prefix: "" } },
     historic_appointment: { details: { body: "", political_party: "" } },
     historic_appointments: {
