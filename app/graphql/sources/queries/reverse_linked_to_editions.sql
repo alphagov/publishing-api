@@ -19,6 +19,7 @@ link_set_linked_editions AS (
     links.id AS link_id,
     documents.content_id,
     documents.locale,
+    documents.locale =:primary_locale AS is_primary_locale,
     row_number() OVER (
       PARTITION BY
         documents.content_id,
@@ -55,6 +56,7 @@ edition_linked_editions AS (
     links.id AS link_id,
     documents.content_id,
     documents.locale,
+    documents.locale =:primary_locale AS is_primary_locale,
     row_number() OVER (
       PARTITION BY
         documents.content_id,
