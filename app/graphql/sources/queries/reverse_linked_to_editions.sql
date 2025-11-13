@@ -67,7 +67,7 @@ link_set_linked_editions AS (
 
 SELECT editions.* FROM (
   SELECT * FROM link_set_linked_editions
-  UNION
+  UNION ALL
   SELECT * FROM edition_linked_editions
 ) AS editions
 ORDER BY
