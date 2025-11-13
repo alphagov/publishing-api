@@ -10,7 +10,7 @@ WITH query_input AS (
 ),
 
 link_set_linked_editions AS (
-  SELECT
+  SELECT DISTINCT ON (links.id)
     editions.*,
     links.target_content_id,
     links.link_type,
@@ -19,19 +19,7 @@ link_set_linked_editions AS (
     links.id AS link_id,
     documents.content_id,
     documents.locale,
-    documents.locale =:primary_locale AS is_primary_locale,
-    row_number() OVER (
-      PARTITION BY
-        documents.content_id,
-        links.link_type,
-        links.target_content_id
-      ORDER BY (
-        CASE
-          WHEN (documents.locale =:primary_locale) THEN 0
-          ELSE 1
-        END
-      )
-    ) AS row_number
+    documents.locale =:primary_locale AS is_primary_locale
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON documents.content_id = links.link_set_content_id
@@ -44,10 +32,11 @@ link_set_linked_editions AS (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
+  ORDER BY links.id ASC, is_primary_locale DESC
 ),
 
 edition_linked_editions AS (
-  SELECT
+  SELECT DISTINCT ON (links.id)
     editions.*,
     links.target_content_id,
     links.link_type,
@@ -56,19 +45,7 @@ edition_linked_editions AS (
     links.id AS link_id,
     documents.content_id,
     documents.locale,
-    documents.locale =:primary_locale AS is_primary_locale,
-    row_number() OVER (
-      PARTITION BY
-        documents.content_id,
-        links.link_type,
-        links.target_content_id
-      ORDER BY (
-        CASE
-          WHEN (documents.locale =:primary_locale) THEN 0
-          ELSE 1
-        END
-      )
-    ) AS row_number
+    documents.locale =:primary_locale AS is_primary_locale
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON editions.id = links.edition_id
@@ -81,6 +58,7 @@ edition_linked_editions AS (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
+  ORDER BY links.id ASC, is_primary_locale DESC
 )
 
 SELECT editions.* FROM (
@@ -88,6 +66,5 @@ SELECT editions.* FROM (
   UNION
   SELECT * FROM edition_linked_editions
 ) AS editions
-WHERE editions.row_number = 1
 ORDER BY
   editions.link_type ASC, editions.position ASC, editions.link_id DESC
