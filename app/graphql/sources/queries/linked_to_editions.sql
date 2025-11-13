@@ -1,32 +1,5 @@
 -- linked_to_editions
-WITH link_set_linked_editions AS (
-  SELECT DISTINCT ON (links.id)
-    editions.*,
-    links.link_type,
-    links.position,
-    links.id AS link_id,
-    documents.content_id,
-    documents.locale,
-    documents.locale =:primary_locale AS is_primary_locale,
-    links.link_set_content_id AS source_content_id
-  FROM editions
-  INNER JOIN documents ON editions.document_id = documents.id
-  INNER JOIN links ON documents.content_id = links.target_content_id
-  WHERE
-    (
-      (links.link_set_content_id, links.link_type) IN (:content_id_tuples)
-    )
-    AND editions.content_store =:content_store
-    AND documents.locale IN (:primary_locale,:secondary_locale)
-    AND editions.document_type NOT IN (:non_renderable_formats)
-    AND (
-      links.link_type IN (:unpublished_link_types)
-      OR editions.state != 'unpublished'
-    )
-  ORDER BY links.id ASC, is_primary_locale DESC
-),
-
-edition_linked_editions AS (
+WITH edition_linked_editions AS (
   SELECT DISTINCT ON (links.id)
     editions.*,
     links.link_type,
@@ -59,6 +32,33 @@ edition_link_types AS (
     source_content_id,
     link_type
   FROM edition_linked_editions
+),
+
+link_set_linked_editions AS (
+  SELECT DISTINCT ON (links.id)
+    editions.*,
+    links.link_type,
+    links.position,
+    links.id AS link_id,
+    documents.content_id,
+    documents.locale,
+    documents.locale =:primary_locale AS is_primary_locale,
+    links.link_set_content_id AS source_content_id
+  FROM editions
+  INNER JOIN documents ON editions.document_id = documents.id
+  INNER JOIN links ON documents.content_id = links.target_content_id
+  WHERE
+    (
+      (links.link_set_content_id, links.link_type) IN (:content_id_tuples)
+    )
+    AND editions.content_store =:content_store
+    AND documents.locale IN (:primary_locale,:secondary_locale)
+    AND editions.document_type NOT IN (:non_renderable_formats)
+    AND (
+      links.link_type IN (:unpublished_link_types)
+      OR editions.state != 'unpublished'
+    )
+  ORDER BY links.id ASC, is_primary_locale DESC
 ),
 
 -- Exclude links of those types from the link_set_linked_editions
