@@ -26,13 +26,6 @@ WITH edition_linked_editions AS (
   ORDER BY links.id ASC, is_primary_locale DESC
 ),
 
-edition_links AS (
-  SELECT DISTINCT
-    source_content_id,
-    link_type
-  FROM edition_linked_editions
-),
-
 link_set_linked_editions AS (
   SELECT DISTINCT ON (links.id)
     editions.*,
@@ -57,8 +50,13 @@ link_set_linked_editions AS (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
-    -- skip any links that we already found in edition_links:
-    AND (links.link_set_content_id, links.link_type) NOT IN (SELECT edition_links.* FROM edition_links)
+    -- skip any links that we already found in edition_linked_editions:
+    AND NOT EXISTS (
+      SELECT FROM edition_linked_editions
+      WHERE
+        edition_linked_editions.source_content_id = links.link_set_content_id
+        AND edition_linked_editions.link_type = links.link_type
+    )
   ORDER BY links.id ASC, is_primary_locale DESC
 )
 
