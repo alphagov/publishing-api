@@ -16,7 +16,7 @@ WITH link_set_linked_editions AS (
       (links.link_set_content_id, links.link_type) IN (:content_id_tuples)
     )
     AND editions.content_store =:content_store
-    AND documents.locale IN (:locale_with_fallback)
+    AND documents.locale IN (:primary_locale,:secondary_locale)
     AND editions.document_type NOT IN (:non_renderable_formats)
     AND (
       links.link_type IN (:unpublished_link_types)
@@ -47,7 +47,7 @@ edition_linked_editions AS (
   WHERE
     ((source_editions.id, links.link_type) IN (:edition_id_tuples))
     AND editions.content_store =:content_store
-    AND documents.locale IN (:locale_with_fallback)
+    AND documents.locale IN (:primary_locale,:secondary_locale)
     AND editions.document_type NOT IN (:non_renderable_formats)
     AND (
       links.link_type IN (:unpublished_link_types)

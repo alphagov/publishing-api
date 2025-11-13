@@ -6,7 +6,7 @@ module Sources
     def initialize(content_store:, locale:)
       @content_store = content_store.to_sym
       @primary_locale = locale
-      @locale_with_fallback = [locale, Edition::DEFAULT_LOCALE].uniq
+      @secondary_locale = Edition::DEFAULT_LOCALE
     end
     # rubocop:enable Lint/MissingSuper
 
@@ -21,8 +21,8 @@ module Sources
       end
 
       sql_params = {
-        locale_with_fallback: @locale_with_fallback,
         primary_locale: @primary_locale,
+        secondary_locale: @secondary_locale,
         content_store: @content_store,
         unpublished_link_types: Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
         non_renderable_formats: Edition::NON_RENDERABLE_FORMATS,
