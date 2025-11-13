@@ -12,6 +12,7 @@
       type: "string",
       enum: [
         "bis",
+        "custom",
         "dbt",
         "eo",
         "gds",
@@ -19,6 +20,7 @@
         "ho",
         "mod",
         "no10",
+        "no-identity",
         "portcullis",
         "single-identity",
         "so",
