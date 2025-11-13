@@ -1,20 +1,19 @@
 -- linked_to_editions
 WITH link_set_linked_editions AS (
-  SELECT DISTINCT ON (documents.content_id, links.link_type, link_sets.content_id)
+  SELECT DISTINCT ON (documents.content_id, links.link_type, links.link_set_content_id)
     editions.*,
     links.link_type,
     links.position,
     links.id AS link_id,
     documents.content_id,
     documents.locale,
-    link_sets.content_id AS source_content_id
+    links.link_set_content_id AS source_content_id
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON documents.content_id = links.target_content_id
-  INNER JOIN link_sets ON links.link_set_content_id = link_sets.content_id
   WHERE
     (
-      (link_sets.content_id, links.link_type) IN (:content_id_tuples)
+      (links.link_set_content_id, links.link_type) IN (:content_id_tuples)
     )
     AND editions.content_store =:content_store
     AND documents.locale IN (:locale_with_fallback)
@@ -23,7 +22,7 @@ WITH link_set_linked_editions AS (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
-  ORDER BY documents.content_id, links.link_type, link_sets.content_id, (
+  ORDER BY documents.content_id, links.link_type, links.link_set_content_id, (
     CASE
       WHEN (documents.locale =:primary_locale) THEN 0
       ELSE 1
