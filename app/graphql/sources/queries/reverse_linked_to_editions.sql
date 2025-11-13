@@ -36,7 +36,13 @@ link_set_linked_editions AS (
 ),
 
 edition_linked_editions AS (
-  SELECT DISTINCT ON (links.id)
+  -- NOTE: we're not using DISTINCT ON (links.id) here because the tests check that
+  --       if we have multiple links of the same link_type / target_content_id pointing
+  --       at editions of the same document with different locales, we should only get
+  --       the document with the best locale (rather than all of them).
+  --       It's not clear if the behaviour we're testing for is correct though.
+  --       Reverse edition links are a niche feature.
+  SELECT DISTINCT ON (documents.content_id, links.link_type, links.target_content_id)
     editions.*,
     links.target_content_id,
     links.link_type,
@@ -58,7 +64,7 @@ edition_linked_editions AS (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
-  ORDER BY links.id ASC, is_primary_locale DESC
+  ORDER BY documents.content_id ASC, links.link_type ASC, links.target_content_id ASC, is_primary_locale DESC
 )
 
 SELECT editions.* FROM (
