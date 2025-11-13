@@ -26,8 +26,7 @@ WITH edition_linked_editions AS (
   ORDER BY links.id ASC, is_primary_locale DESC
 ),
 
--- Get the types of the edition_linked_editions
-edition_link_types AS (
+edition_links AS (
   SELECT DISTINCT
     source_content_id,
     link_type
@@ -58,23 +57,13 @@ link_set_linked_editions AS (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
+    -- skip any links that we already found in edition_links:
+    AND (links.link_set_content_id, links.link_type) NOT IN (SELECT edition_links.* FROM edition_links)
   ORDER BY links.id ASC, is_primary_locale DESC
-),
-
--- Exclude links of those types from the link_set_linked_editions
-intact_link_set_linked_editions AS (
-  SELECT link_set_linked_editions.*
-  FROM link_set_linked_editions
-  LEFT JOIN edition_link_types
-    ON (
-      link_set_linked_editions.source_content_id = edition_link_types.source_content_id
-      AND link_set_linked_editions.link_type = edition_link_types.link_type
-    )
-  WHERE edition_link_types.link_type IS NULL
 )
 
 SELECT editions.* FROM (
-  SELECT * FROM intact_link_set_linked_editions
+  SELECT * FROM link_set_linked_editions
   UNION ALL
   SELECT * FROM edition_linked_editions
 ) AS editions
