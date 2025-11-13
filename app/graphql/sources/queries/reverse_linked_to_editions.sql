@@ -18,14 +18,13 @@ edition_linked_editions AS (
   --       Reverse edition links are a niche feature.
   SELECT DISTINCT ON (documents.content_id, links.link_type, links.target_content_id)
     editions.*,
-    links.target_content_id,
     links.link_type,
-    links.edition_id,
     links.position,
     links.id AS link_id,
     documents.content_id,
     documents.locale,
-    documents.locale =:primary_locale AS is_primary_locale
+    documents.locale =:primary_locale AS is_primary_locale,
+    links.target_content_id
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON editions.id = links.edition_id
@@ -44,14 +43,13 @@ edition_linked_editions AS (
 link_set_linked_editions AS (
   SELECT DISTINCT ON (links.id)
     editions.*,
-    links.target_content_id,
     links.link_type,
-    links.edition_id,
     links.position,
     links.id AS link_id,
     documents.content_id,
     documents.locale,
-    documents.locale =:primary_locale AS is_primary_locale
+    documents.locale =:primary_locale AS is_primary_locale,
+    links.target_content_id
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON documents.content_id = links.link_set_content_id
