@@ -1,5 +1,16 @@
 -- linked_to_editions
-WITH edition_linked_editions AS (
+WITH query_input AS (
+  SELECT query_input.*
+  FROM
+    json_to_recordset(:query_input::json) AS query_input (
+      edition_id integer,
+      content_id uuid,
+      link_type varchar
+    )
+  LIMIT (:query_input_count) -- noqa: AM09
+),
+
+edition_linked_editions AS (
   SELECT DISTINCT ON (links.id)
     editions.*,
     links.link_type,
@@ -13,10 +24,10 @@ WITH edition_linked_editions AS (
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON documents.content_id = links.target_content_id
   INNER JOIN editions AS source_editions ON links.edition_id = source_editions.id
+  INNER JOIN query_input ON source_editions.id = query_input.edition_id AND links.link_type = query_input.link_type
   INNER JOIN documents AS source_documents ON source_editions.document_id = source_documents.id
   WHERE
-    ((source_editions.id, links.link_type) IN (:edition_id_tuples))
-    AND editions.content_store =:content_store
+    editions.content_store =:content_store
     AND documents.locale IN (:primary_locale,:secondary_locale)
     AND editions.document_type NOT IN (:non_renderable_formats)
     AND (
@@ -39,11 +50,11 @@ link_set_linked_editions AS (
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON documents.content_id = links.target_content_id
+  INNER JOIN
+    query_input
+    ON links.link_set_content_id = query_input.content_id AND links.link_type = query_input.link_type
   WHERE
-    (
-      (links.link_set_content_id, links.link_type) IN (:content_id_tuples)
-    )
-    AND editions.content_store =:content_store
+    editions.content_store =:content_store
     AND documents.locale IN (:primary_locale,:secondary_locale)
     AND editions.document_type NOT IN (:non_renderable_formats)
     AND (
