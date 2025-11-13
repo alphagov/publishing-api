@@ -398,3 +398,75 @@ test_cases:
     max_sql_query_count: 14
   - base_path: "/world/organisations/department-for-business-and-trade-singapore"
     schema_name: "worldwide_organisation"
+
+  # Lots of govspeak
+  - base_path: "/cma-cases/private-healthcare-market-investigation"
+    schema_name: "specialist_document"
+  - base_path: "/software-company-accounts"
+    schema_name: "simple_smart_answer"
+  - base_path: "/settled-status-eu-citizens-families"
+    schema_name: "guide"
+  - base_path: "/foreign-travel-advice/palestine"
+    schema_name: "travel_advice"
+
+  # Lots of separate bits of govspeak
+  - base_path: "/fuel-scale-charge"
+    schema_name: "simple_smart_answer"
+  - base_path: "/gwneud-cais-am-ryddhad-ardrethi-busnes"
+    schema_name: "guide"
+  - base_path: "/missions/economic-growth"
+    schema_name: "landing_page"
+  - base_path: "/foreign-travel-advice/saudi-arabia"
+    schema_name: "travel_advice"
+
+  # Tagged to a lot of different taxons
+  - base_path: "/guidance/professional-services-if-you-are-abroad"
+    schema_name: "detailed_guide"
+  - base_path: "/working-abroad"
+    schema_name: "guide"
+  - base_path: "/government/news/public-exhibitions-for-a21-safety-improvements-in-east-sussex"
+    schema_name: "news_article"
+    max_sql_query_count: 235
+  - base_path: "/world/organisations/british-embassy-paris.fr"
+    schema_name: "worldwide_organisation"
+    max_sql_query_count: 14
+  - base_path: "/government/collections/hm-revenue-and-customs-service-availability-and-issues"
+    schema_name: "document_collection"
+
+  # 6 levels deep in the taxonomy
+  - base_path: "/environment/coal-water-management"
+    schema_name: "taxon"
+    max_sql_query_count: 12
+  - base_path: "/environment/oil-and-gas-finance-and-taxation-tax-and-profits"
+    schema_name: "taxon"
+    max_sql_query_count: 12
+  - base_path: "/environment/farming-food-grants-payments-rural-grants-payments-cross-compliance"
+    schema_name: "taxon"
+    max_sql_query_count: 12
+  - base_path: "/transport/hs2-phase-2a"
+    schema_name: "taxon"
+    max_sql_query_count: 12
+
+  # Large number of direct links
+  - base_path: "/government/organisations/foreign-commonwealth-development-office"
+    schema_name: "organisation"
+    max_single_query_time: 0.3
+    max_overall_time: 1.5
+  - base_path: "/government/collections/tax-information-and-impact-notes-tiins"
+    schema_name: "document_collection"
+  - base_path: "/government/fields-of-operation/afghanistan"
+    schema_name: "field_of_operation"
+  - base_path: "/government/news/foreign-secretary-statement-on-the-death-of-nelson-mandela.es-419"
+    schema_name: "news_article"
+  - base_path: "/guidance/rating-manual-section-6-part-3-valuation-of-all-property-classes"
+    schema_name: "manual"
+
+  # Large change history
+  - base_path: "/government/publications/register-of-licensed-sponsors-students"
+    schema_name: "publication"
+  - base_path: "/guidance/immigration-and-asylum-daily-court-lists"
+    schema_name: "detailed_guide"
+  - base_path: "/government/statistical-data-sets/quota-use-statistics"
+    schema_name: "statistical_data_set"
+  - base_path: "/government/organisations/department-for-environment-food-rural-affairs/about/statistics"
+    schema_name: "corporate_information_page"
