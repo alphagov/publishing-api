@@ -7,9 +7,9 @@ WITH query_input AS (
       link_type varchar
     )
   LIMIT (:query_input_count) -- noqa: AM09
-)
+),
 
-SELECT editions.* FROM (
+link_set_linked_editions AS (
   SELECT
     editions.*,
     links.target_content_id,
@@ -43,7 +43,9 @@ SELECT editions.* FROM (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
-  UNION
+),
+
+edition_linked_editions AS (
   SELECT
     editions.*,
     links.target_content_id,
@@ -77,6 +79,12 @@ SELECT editions.* FROM (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
+)
+
+SELECT editions.* FROM (
+  SELECT * FROM link_set_linked_editions
+  UNION
+  SELECT * FROM edition_linked_editions
 ) AS editions
 WHERE editions.row_number = 1
 ORDER BY
