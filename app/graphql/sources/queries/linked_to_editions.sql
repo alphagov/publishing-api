@@ -7,6 +7,7 @@ WITH link_set_linked_editions AS (
     links.id AS link_id,
     documents.content_id,
     documents.locale,
+    documents.locale =:primary_locale AS is_primary_locale,
     links.link_set_content_id AS source_content_id
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
@@ -22,12 +23,7 @@ WITH link_set_linked_editions AS (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
-  ORDER BY links.id, (
-    CASE
-      WHEN (documents.locale =:primary_locale) THEN 0
-      ELSE 1
-    END
-  )
+  ORDER BY links.id ASC, is_primary_locale DESC
 ),
 
 edition_linked_editions AS (
@@ -38,6 +34,7 @@ edition_linked_editions AS (
     links.id AS link_id,
     documents.content_id,
     documents.locale,
+    documents.locale =:primary_locale AS is_primary_locale,
     source_documents.content_id AS source_content_id
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
@@ -53,12 +50,7 @@ edition_linked_editions AS (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
-  ORDER BY links.id, (
-    CASE
-      WHEN (documents.locale =:primary_locale) THEN 0
-      ELSE 1
-    END
-  )
+  ORDER BY links.id ASC, is_primary_locale DESC
 ),
 
 -- Get the types of the edition_linked_editions
