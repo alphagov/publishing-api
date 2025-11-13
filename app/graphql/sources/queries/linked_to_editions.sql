@@ -1,6 +1,6 @@
 -- linked_to_editions
 WITH link_set_linked_editions AS (
-  SELECT DISTINCT ON (documents.content_id, links.link_type, links.link_set_content_id)
+  SELECT DISTINCT ON (links.target_content_id, links.link_type, links.link_set_content_id)
     editions.*,
     links.link_type,
     links.position,
@@ -22,7 +22,7 @@ WITH link_set_linked_editions AS (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
-  ORDER BY documents.content_id, links.link_type, links.link_set_content_id, (
+  ORDER BY links.target_content_id, links.link_type, links.link_set_content_id, (
     CASE
       WHEN (documents.locale =:primary_locale) THEN 0
       ELSE 1
@@ -31,7 +31,7 @@ WITH link_set_linked_editions AS (
 ),
 
 edition_linked_editions AS (
-  SELECT DISTINCT ON (documents.content_id, links.link_type, source_editions.id)
+  SELECT DISTINCT ON (links.target_content_id, links.link_type, links.edition_id)
     editions.*,
     links.link_type,
     links.position,
@@ -53,7 +53,7 @@ edition_linked_editions AS (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
-  ORDER BY documents.content_id, links.link_type, source_editions.id, (
+  ORDER BY links.target_content_id, links.link_type, links.edition_id, (
     CASE
       WHEN (documents.locale =:primary_locale) THEN 0
       ELSE 1
