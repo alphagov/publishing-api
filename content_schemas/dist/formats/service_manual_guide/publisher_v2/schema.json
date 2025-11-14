@@ -248,9 +248,6 @@
         "show_description": {
           "description": "Display the description on the page if true. This is needed for the service standard points.",
           "type": "boolean"
-        },
-        "withdrawn_notice": {
-          "$ref": "#/definitions/withdrawn_notice"
         }
       }
     },
@@ -448,18 +445,6 @@
         "minor",
         "republish"
       ]
-    },
-    "withdrawn_notice": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "explanation": {
-          "type": "string"
-        },
-        "withdrawn_at": {
-          "format": "date-time"
-        }
-      }
     }
   }
 }

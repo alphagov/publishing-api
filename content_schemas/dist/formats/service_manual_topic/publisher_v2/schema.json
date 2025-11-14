@@ -184,9 +184,6 @@
         "visually_collapsed": {
           "description": "A flag set by a content designer when they want the sections of a topic to be collapsed into an accordion. This will likely be used when there are many items in the topic.",
           "type": "boolean"
-        },
-        "withdrawn_notice": {
-          "$ref": "#/definitions/withdrawn_notice"
         }
       }
     },
@@ -406,18 +403,6 @@
         "minor",
         "republish"
       ]
-    },
-    "withdrawn_notice": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "explanation": {
-          "type": "string"
-        },
-        "withdrawn_at": {
-          "format": "date-time"
-        }
-      }
     }
   }
 }
