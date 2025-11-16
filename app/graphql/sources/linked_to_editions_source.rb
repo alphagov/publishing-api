@@ -13,9 +13,9 @@ module Sources
     def fetch(editions_and_link_types)
       link_types_map = {}
       query_input = []
-      editions_and_link_types.each do |edition, link_type|
-        query_input.push({ edition_id: edition.id, content_id: edition.content_id, link_type: })
-        link_types_map[[edition.content_id, link_type]] = []
+      editions_and_link_types.each do |edition, link_type, direction|
+        query_input.push({ edition_id: edition.id, content_id: edition.content_id, link_type:, direction: })
+        link_types_map[[edition.content_id, link_type, direction.to_s]] = []
       end
 
       sql_params = {
@@ -30,8 +30,8 @@ module Sources
       all_editions = Edition.find_by_sql([SQL, sql_params])
       all_editions.each(&:strict_loading!)
       all_editions.each_with_object(link_types_map) { |edition, hash|
-        unless hash[[edition.source_content_id, edition.link_type]].include?(edition)
-          hash[[edition.source_content_id, edition.link_type]] << edition
+        unless hash[[edition.requested_content_id, edition.link_type, edition.direction]].include?(edition)
+          hash[[edition.requested_content_id, edition.link_type, edition.direction]] << edition
         end
       }.values
     end

@@ -15,7 +15,7 @@ module Types
           content_store: object.content_store,
           locale: context[:root_edition].locale,
         )
-          .load([object, link_type.to_s])
+          .load([object, link_type.to_s, :direct])
       end
     end
 
@@ -24,11 +24,11 @@ module Types
 
       define_method(field_name.to_sym) do
         dataloader.with(
-          Sources::ReverseLinkedToEditionsSource,
+          Sources::LinkedToEditionsSource,
           content_store: object.content_store,
           locale: context[:root_edition].locale,
         )
-          .load([object, link_type.to_s])
+          .load([object, link_type.to_s, :reverse])
       end
     end
   end
