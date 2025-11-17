@@ -32,6 +32,14 @@ You can run the tests locally with: `bundle exec rake`.
 
 The Publishing API also has [contract tests with GDS API Adapters](https://docs.publishing.service.gov.uk/manual/pact-testing.html) (where it acts as the "provider") and [with Content Store](https://docs.publishing.service.gov.uk/manual/pact-testing.html#special-cases-and-tech-debt) ( where it acts as the contract "consumer"). [Read the guidance for how to run the tests locally](https://docs.publishing.service.gov.uk/manual/pact-testing.html#running-pact-tests-locally).
 
+## Linting
+
+Like all GOV.UK's Rails apps, we use rubocop for linting Ruby.
+
+We also have SQL linting using [SQLFluff](https://docs.sqlfluff.com/en/stable/index.html). You can install this locally
+with `brew install sqlfluff`. Use `sqlfluff lint` to check the SQL passes the rules, or `sqlfluff fix` to automatically
+fix any issues that can be.
+
 ## Profiling and Benchmarks
 
 In development mode, you can use [rack-mini-profiler](https://github.com/MiniProfiler/rack-mini-profiler) to get performance
