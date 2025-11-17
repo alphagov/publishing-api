@@ -2,7 +2,7 @@ class Graphql::ContentItemCompactor
   def initialize(schema)
     @required_top_level_fields = schema.fetch("required")
     @required_details_fields = schema.fetch("definitions")
-                                     .fetch("details")
+                                     .fetch("details", {})
                                      .fetch("required", [])
   end
 
@@ -12,6 +12,14 @@ class Graphql::ContentItemCompactor
     details = compact_response["details"]
     if details.present?
       compact_response["details"] = compact_non_required_fields(details, @required_details_fields)
+    elsif @required_top_level_fields.include?("details")
+      # Special case. The details field is 'forbidden' by the special_routes
+      # schema defined in jsonnet, and is then defaulted to an empty object {}.
+      # The field is then 'required' by the schema.json files that are derived
+      # from the jsonnet. Graphql doesn't return empty objects, so the details
+      # field isn't returned at all, hence tests fail to validate the graphql
+      # response against the schema.json schema.
+      compact_response["details"] = {}
     end
 
     compact_links(compact_response)
