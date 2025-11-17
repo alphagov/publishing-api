@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     UuidValidator.valid?(request.params[:content_id])
   end
 
-  require "sidekiq/web"
+  require "sidekiq_unique_jobs/web"
 
   scope format: false do
     put "/publish-intent(/*base_path)", to: "publish_intents#create_or_update"
