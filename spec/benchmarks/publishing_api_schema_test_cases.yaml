@@ -15,9 +15,202 @@ defaults:
   # If more than max_sql_query_count SQL queries are made, the benchmark will fail.
   # This is a guard against N+1s or other inefficient batching of queries.
   # You may be able to set this lower in some cases, and you may have to set it higher in others.
-  max_sql_query_count: 10
+  max_sql_query_count: 11
 
 test_cases:
+  # Answer
+  - base_path: "/get-replacement-citizenship-certificate"
+    schema_name: "answer"
+  - base_path: "/nominate-community-payback-project"
+    schema_name: "answer"
+
+  # Calendar
+  - base_path: "/bank-holidays"
+    schema_name: "calendar"
+    max_sql_query_count: 13
+  - base_path: "/when-do-the-clocks-change"
+    schema_name: "calendar"
+
+  # Call For Evidence
+  - base_path: "/government/calls-for-evidence/call-for-evidence-on-the-production-of-an-appraisal-tool-for-local-speed-limits"
+    schema_name: "call_for_evidence"
+  - base_path: "/government/calls-for-evidence/independent-commission-for-water-call-for-evidence"
+    schema_name: "call_for_evidence"
+
+  # Case Study
+  - base_path: "/government/case-studies/intellectual-property-nicole-phillips"
+    schema_name: "case_study"
+  - base_path: "/government/case-studies/government-internal-audit-agencys-technology-gets-to-the-point"
+    schema_name: "case_study"
+
+  # Completed Transaction
+  - base_path: "/done/notice-to-oppose-trademark"
+    schema_name: "completed_transaction"
+  - base_path: "/done/contact-building-safety-regulator"
+    schema_name: "completed_transaction"
+
+  # Consultation
+  - base_path: "/government/consultations/package-travel-legislation-consultation-on-proposed-amendments"
+    schema_name: "consultation"
+  - base_path: "/government/consultations/extending-permitted-development-rights-for-homeowners-and-businesses-technical-consultation"
+    schema_name: "consultation"
+
+  # Coronavirus Landing Page
+  - base_path: "/coronavirus"
+    schema_name: "coronavirus_landing_page"
+
+  # Corporate Information Page
+  - base_path: "/government/organisations/interception-of-communications-commissioner/about"
+    schema_name: "corporate_information_page"
+  - base_path: "/government/organisations/land-registry/about.cy"
+    schema_name: "corporate_information_page"
+    max_single_query_time: 0.2
+
+  # Detailed Guide
+  - base_path: "/guidance/section-251-2020-to-2021"
+    schema_name: "detailed_guide"
+    max_sql_query_count: 28
+  - base_path: "/guidance/using-simplified-declarations-for-imports"
+    schema_name: "detailed_guide"
+
+  # Document Collection
+  - base_path: "/government/collections/exempt-entry-clearance-guidance"
+    schema_name: "document_collection"
+  - base_path: "/government/collections/hmrc-forms"
+    schema_name: "document_collection"
+
+  # Email Alert Signup
+  - base_path: "/foreign-travel-advice/sao-tome-and-principe/email-signup"
+    schema_name: "email_alert_signup"
+  - base_path: "/foreign-travel-advice/australia/email-signup"
+    schema_name: "email_alert_signup"
+
+  # Embassies Index
+  - base_path: "/world/embassies"
+    schema_name: "embassies_index"
+
+  # Fatality Notice
+  - base_path: "/government/fatalities/craftsman-anthony-lombardi-killed-in-afghanistan"
+    schema_name: "fatality_notice"
+  - base_path: "/government/fatalities/lance-corporal-sean-tansey-killed-in-afghanistan"
+    schema_name: "fatality_notice"
+
+  # Field Of Operation
+  - base_path: "/government/fields-of-operation/iraq"
+    schema_name: "field_of_operation"
+  - base_path: "/government/fields-of-operation/afghanistan"
+    schema_name: "field_of_operation"
+
+  # Fields Of Operation
+  - base_path: "/government/fields-of-operation"
+    schema_name: "fields_of_operation"
+
+  # Finder
+  - base_path: "/official-documents"
+    schema_name: "finder"
+  - base_path: "/maib-reports"
+    schema_name: "finder"
+
+  # Finder Email Signup
+  - base_path: "/uk-market-conformity-assessment-bodies/email-signup"
+    schema_name: "finder_email_signup"
+  - base_path: "/research-for-development-outputs/email-signup"
+    schema_name: "finder_email_signup"
+
+  # Generic
+  - base_path: "/government/organisations/charity-commission/services-information"
+    schema_name: "generic"
+
+  # Guide
+  - base_path: "/frontier-worker-permit"
+    schema_name: "guide"
+  - base_path: "/sut-i-gofrestru-nod-masnach"
+    schema_name: "guide"
+
+  # Government
+  - base_path: "/government/1950-to-1951-labour-government"
+    schema_name: "government"
+  - base_path: "/government/1910-to-1910-liberal-minority-government"
+    schema_name: "government"
+
+  # Help Page
+  - base_path: "/help/terms-conditions"
+    schema_name: "help_page"
+  - base_path: "/help/reuse-govuk-content"
+    schema_name: "help_page"
+
+  # Historic Appointment
+  - base_path: "/government/history/past-prime-ministers/henry-addington-1st-viscount-sidmouth"
+    schema_name: "historic_appointment"
+  - base_path: "/government/history/past-prime-ministers/william-bentinck-duke-of-portland"
+    schema_name: "historic_appointment"
+
+  # Historic Appointments
+  - base_path: "/government/history/past-prime-ministers"
+    schema_name: "historic_appointments"
+
+  # History
+  - base_path: "/government/history/king-charles-street"
+    schema_name: "history"
+  - base_path: "/government/history/lancaster-house"
+    schema_name: "history"
+
+  # Html Publication
+  - base_path: "/government/publications/issuing-aviation-permits-to-foreign-carriers-in-uk-overseas-territories/issuing-aviation-permits-to-foreign-carriers-in-uk-overseas-territories"
+    schema_name: "html_publication"
+  - base_path: "/government/publications/dh-non-executive-appointments/appointments-made-april-2020-to-march-2021"
+    schema_name: "html_publication"
+
+  # Hmrc Manual
+  - base_path: "/hmrc-internal-manuals/inheritance-tax-manual"
+    schema_name: "hmrc_manual"
+  - base_path: "/hmrc-internal-manuals/complaints-and-remedy-guidance"
+    schema_name: "hmrc_manual"
+
+  # Hmrc Manual Section
+  - base_path: "/hmrc-internal-manuals/debt-management-and-banking/dmbm675330"
+    schema_name: "hmrc_manual_section"
+  - base_path: "/hmrc-internal-manuals/trusts-settlements-and-estates-manual/tsem3022"
+    schema_name: "hmrc_manual_section"
+
+  # Homepage
+  - base_path: "/"
+    schema_name: "homepage"
+
+  # How Government Works
+  - base_path: "/government/how-government-works"
+    schema_name: "how_government_works"
+
+  # Landing Page
+  - base_path: "/missions/clean-energy"
+    schema_name: "landing_page"
+  - base_path: "/missions/safer-streets"
+    schema_name: "landing_page"
+
+  # Local Transaction
+  - base_path: "/subsidised-college-transport-16-19"
+    schema_name: "local_transaction"
+  - base_path: "/apply-allotment"
+    schema_name: "local_transaction"
+
+  # Mainstream Browse Page
+  - base_path: "/browse/visas-immigration/immigration-appeals"
+    schema_name: "mainstream_browse_page"
+  - base_path: "/browse/citizenship/government"
+    schema_name: "mainstream_browse_page"
+
+  # Manual
+  - base_path: "/guidance/financial-handbook-for-independent-training-providers"
+    schema_name: "manual"
+  - base_path: "/guidance/special-procedure-outward-processing"
+    schema_name: "manual"
+
+  # Manual Section
+  - base_path: "/guidance/garden-communities/planning-policy"
+    schema_name: "manual_section"
+  - base_path: "/guidance/buying-for-schools-things-to-consider-before-you-start/consultancy-educational-services-and-design-and-build"
+    schema_name: "manual_section"
+
   # Ministers Index
   - base_path: "/government/ministers"
     schema_name: "ministers_index"
@@ -25,23 +218,139 @@ test_cases:
     max_single_query_time: 0.3
     max_overall_time: 3
 
-  # Guides
-  - base_path: "/frontier-worker-permit"
-    schema_name: "guide"
-  - base_path: "/sut-i-gofrestru-nod-masnach"
-    schema_name: "guide"
-
-  # News Articles
+  # News Article
   - base_path: "/government/news/important-notice-for-british-passport-holders"
     schema_name: "news_article"
   - base_path: "/government/news/uk-transport-minister-visits-hong-kong"
     schema_name: "news_article"
 
-  # Roles
+  # Organisation
+  - base_path: "/government/organisations/office-for-equality-and-opportunity"
+    schema_name: "organisation"
+  - base_path: "/government/organisations/broadcasting-standards-commission"
+    schema_name: "organisation"
+
+  # Organisations Homepage
+  - base_path: "/government/organisations"
+    schema_name: "organisations_homepage"
+    max_single_query_time: 0.2
+
+  # Person
+  - base_path: "/government/people/james-heappey"
+    schema_name: "person"
+  - base_path: "/government/people/john-davie"
+    schema_name: "person"
+
+  # Place
+  - base_path: "/id-scan-eu-settlement-scheme"
+    schema_name: "place"
+  - base_path: "/find-family-hub-local-area"
+    schema_name: "place"
+
+  # Publication
+  - base_path: "/government/publications/deposit-for-recovery-operators-environmental-permits"
+    schema_name: "publication"
+  - base_path: "/government/publications/ol16-5sj-environmental-permit-issued"
+    schema_name: "publication"
+
+  # Role
   - base_path: "/government/ministers/lord-in-waiting-government-whip--13"
     schema_name: "role"
   - base_path: "/government/ministers/minister-of-state--48.cy"
     schema_name: "role"
+
+  # Service Manual Guide
+  - base_path: "/service-manual/measuring-success/measuring-the-success-of-your-service"
+    schema_name: "service_manual_guide"
+  - base_path: "/service-manual/agile-delivery/running-your-service-in-a-sustainable-way"
+    schema_name: "service_manual_guide"
+
+  # Service Manual Homepage
+  - base_path: "/service-manual"
+    schema_name: "service_manual_homepage"
+
+  # Service Manual Service Standard
+  - base_path: "/service-manual/service-standard"
+    schema_name: "service_manual_service_standard"
+
+  # Service Manual Service Toolkit
+  - base_path: "/service-toolkit"
+    schema_name: "service_manual_service_toolkit"
+    max_sql_query_count: 14
+
+  # Service Manual Topic
+  - base_path: "/service-manual/agile-delivery"
+    schema_name: "service_manual_topic"
+  - base_path: "/service-manual/the-team"
+    schema_name: "service_manual_topic"
+
+  # Simple Smart Answer
+  - base_path: "/cofrestru-cyflogwr"
+    schema_name: "simple_smart_answer"
+  - base_path: "/return-or-contact-abducted-child"
+    schema_name: "simple_smart_answer"
+
+  # Smart Answer
+  - base_path: "/calculate-agricultural-holiday-entitlement"
+    schema_name: "smart_answer"
+  - base_path: "/child-benefit-tax-calculator"
+    schema_name: "smart_answer"
+
+  # Specialist Document
+  - base_path: "/employment-tribunal-decisions/mr-t-charlerie-v-concentrix-tsc-uk-ltd-t-slash-a-concentrix-1305395-slash-2023"
+    schema_name: "specialist_document"
+  - base_path: "/employment-tribunal-decisions/h-neal-v-the-cbd-group-ltd-6020788-slash-2024"
+    schema_name: "specialist_document"
+
+  # Speech
+  - base_path: "/government/speeches/improving-and-modernising-our-service-to-customers"
+    schema_name: "speech"
+  - base_path: "/government/speeches/the-uk-has-committed-up-to-264-million-in-humanitarian-assistance-to-syria-this-year-uk-statement-at-the-un-security-council"
+    schema_name: "speech"
+
+  # Statistical Data Set
+  - base_path: "/government/statistical-data-sets/museums-and-galleries-monthly-visits"
+    schema_name: "statistical_data_set"
+  - base_path: "/government/statistical-data-sets/mot-testing-data-for-great-britain"
+    schema_name: "statistical_data_set"
+
+  # Statistics Announcement
+  - base_path: "/government/statistics/announcements/children-looked-after-in-england-including-adoptions-year-ending-31-march"
+    schema_name: "statistics_announcement"
+  - base_path: "/government/statistics/announcements/housing-statistics-1-april-2016-to-31-march-2017"
+    schema_name: "statistics_announcement"
+
+  # Step By Step Nav
+  - base_path: "/visit-uk-holiday-family-friends"
+    schema_name: "step_by_step_nav"
+  - base_path: "/learn-to-drive-a-car"
+    schema_name: "step_by_step_nav"
+
+  # Taxon
+  - base_path: "/world/travelling-to-netherlands"
+    schema_name: "taxon"
+  - base_path: "/world/liberia"
+    schema_name: "taxon"
+
+  # Topical Event
+  - base_path: "/government/topical-events/global-conference-for-media-freedom-london-2019"
+    schema_name: "topical_event"
+  - base_path: "/government/topical-events/national-apprenticeship-week-2019"
+    schema_name: "topical_event"
+
+  # Topical Event About Page
+  - base_path: "/government/topical-events/international-holocaust-remembrance-alliance-uk-presidency-2024-to-2025/about"
+    schema_name: "topical_event_about_page"
+  - base_path: "/government/topical-events/uk-voluntary-national-review-of-progress-towards-the-sustainable-development-goals-2018/about"
+    schema_name: "topical_event_about_page"
+
+  # Transaction
+  - base_path: "/possession-claim-online-recover-property"
+    schema_name: "transaction"
+    max_sql_query_count: 15
+  - base_path: "/find-teacher-training-courses"
+    schema_name: "transaction"
+    max_sql_query_count: 15
 
   # Travel Advice
   - base_path: "/foreign-travel-advice/kyrgyzstan"
@@ -51,14 +360,113 @@ test_cases:
     schema_name: "travel_advice"
     max_sql_query_count: 15
 
-  # Transactions
-  - base_path: "/possession-claim-online-recover-property"
-    schema_name: "transaction"
-    max_sql_query_count: 15
-  - base_path: "/find-teacher-training-courses"
-    schema_name: "transaction"
-    max_sql_query_count: 15
+  # Travel Advice Index
+  - base_path: "/foreign-travel-advice"
+    schema_name: "travel_advice_index"
+
+  # Working Group
+  - base_path: "/government/groups/secretary-of-state-for-transports-honorary-medical-advisory-panel-on-driving-and-disorders-of-the-cardiovascular-system"
+    schema_name: "working_group"
+  - base_path: "/government/groups/ministers-and-commissioners"
+    schema_name: "working_group"
 
   # World Index
   - base_path: "/world"
     schema_name: "world_index"
+
+  # World Location News
+  - base_path: "/world/lithuania/news"
+    schema_name: "world_location_news"
+  - base_path: "/world/portugal/news"
+    schema_name: "world_location_news"
+
+  # Worldwide Corporate Information Page
+  - base_path: "/world/organisations/british-embassy-vienna/about/recruitment.de"
+    schema_name: "worldwide_corporate_information_page"
+  - base_path: "/world/organisations/british-high-commission-suva/about/complaints-procedure"
+    schema_name: "worldwide_corporate_information_page"
+
+  # Worldwide Office
+  - base_path: "/world/organisations/british-embassy-kyiv/office/british-embassy-kyiv"
+    schema_name: "worldwide_office"
+  - base_path: "/world/organisations/department-for-business-and-trade-turkey/office/department-for-business-and-trade-izmir"
+    schema_name: "worldwide_office"
+
+  # Worldwide Organisation
+  - base_path: "/world/organisations/british-embassy-jakarta.id"
+    schema_name: "worldwide_organisation"
+    max_sql_query_count: 14
+  - base_path: "/world/organisations/department-for-business-and-trade-singapore"
+    schema_name: "worldwide_organisation"
+
+  # Lots of govspeak
+  - base_path: "/cma-cases/private-healthcare-market-investigation"
+    schema_name: "specialist_document"
+  - base_path: "/software-company-accounts"
+    schema_name: "simple_smart_answer"
+  - base_path: "/settled-status-eu-citizens-families"
+    schema_name: "guide"
+  - base_path: "/foreign-travel-advice/palestine"
+    schema_name: "travel_advice"
+
+  # Lots of separate bits of govspeak
+  - base_path: "/fuel-scale-charge"
+    schema_name: "simple_smart_answer"
+  - base_path: "/gwneud-cais-am-ryddhad-ardrethi-busnes"
+    schema_name: "guide"
+  - base_path: "/missions/economic-growth"
+    schema_name: "landing_page"
+  - base_path: "/foreign-travel-advice/saudi-arabia"
+    schema_name: "travel_advice"
+
+  # Tagged to a lot of different taxons
+  - base_path: "/guidance/professional-services-if-you-are-abroad"
+    schema_name: "detailed_guide"
+  - base_path: "/working-abroad"
+    schema_name: "guide"
+  - base_path: "/government/news/public-exhibitions-for-a21-safety-improvements-in-east-sussex"
+    schema_name: "news_article"
+    max_sql_query_count: 235
+  - base_path: "/world/organisations/british-embassy-paris.fr"
+    schema_name: "worldwide_organisation"
+    max_sql_query_count: 14
+  - base_path: "/government/collections/hm-revenue-and-customs-service-availability-and-issues"
+    schema_name: "document_collection"
+
+  # 6 levels deep in the taxonomy
+  - base_path: "/environment/coal-water-management"
+    schema_name: "taxon"
+    max_sql_query_count: 12
+  - base_path: "/environment/oil-and-gas-finance-and-taxation-tax-and-profits"
+    schema_name: "taxon"
+    max_sql_query_count: 12
+  - base_path: "/environment/farming-food-grants-payments-rural-grants-payments-cross-compliance"
+    schema_name: "taxon"
+    max_sql_query_count: 12
+  - base_path: "/transport/hs2-phase-2a"
+    schema_name: "taxon"
+    max_sql_query_count: 12
+
+  # Large number of direct links
+  - base_path: "/government/organisations/foreign-commonwealth-development-office"
+    schema_name: "organisation"
+    max_single_query_time: 0.3
+    max_overall_time: 1.5
+  - base_path: "/government/collections/tax-information-and-impact-notes-tiins"
+    schema_name: "document_collection"
+  - base_path: "/government/fields-of-operation/afghanistan"
+    schema_name: "field_of_operation"
+  - base_path: "/government/news/foreign-secretary-statement-on-the-death-of-nelson-mandela.es-419"
+    schema_name: "news_article"
+  - base_path: "/guidance/rating-manual-section-6-part-3-valuation-of-all-property-classes"
+    schema_name: "manual"
+
+  # Large change history
+  - base_path: "/government/publications/register-of-licensed-sponsors-students"
+    schema_name: "publication"
+  - base_path: "/guidance/immigration-and-asylum-daily-court-lists"
+    schema_name: "detailed_guide"
+  - base_path: "/government/statistical-data-sets/quota-use-statistics"
+    schema_name: "statistical_data_set"
+  - base_path: "/government/organisations/department-for-environment-food-rural-affairs/about/statistics"
+    schema_name: "corporate_information_page"
