@@ -128,12 +128,18 @@ module Types
       field :about_page_link_text, GraphQL::Types::JSON
       field :access_and_opening_times, GraphQL::Types::JSON
       field :acronym, String
+      field :after_results, GraphQL::Types::JSON
       field :alert_status, GraphQL::Types::JSON
       field :alternative_format_contact_email, GraphQL::Types::JSON
+      field :alternative_nothern_ireland_url, String
+      field :alternative_scotland_url, String
+      field :alternative_wales_url, String
+      field :analytics_identifier, String
       field :appointments_without_historical_accounts, GraphQL::Types::JSON
       field :archive_notice, GraphQL::Types::JSON
       field :attachments, [GraphQL::Types::JSON]
       field :attends_cabinet_type, GraphQL::Types::JSON
+      field :before_results, GraphQL::Types::JSON
       field :beta_message, GraphQL::Types::JSON
       field :beta, GraphQL::Types::JSON
       field :blocks, GraphQL::Types::JSON
@@ -144,6 +150,7 @@ module Types
       field :brexit_no_deal_notice, GraphQL::Types::JSON
       field :cancellation_reason, GraphQL::Types::JSON
       field :cancelled_at, GraphQL::Types::JSON
+      field :canonical_link, Boolean
       field :casualties, GraphQL::Types::JSON
       field :change_description, GraphQL::Types::JSON
       field :change_history, GraphQL::Types::JSON
@@ -160,6 +167,7 @@ module Types
       field :contact_type, GraphQL::Types::JSON
       field :corporate_information_groups, GraphQL::Types::JSON
       field :country, GraphQL::Types::JSON
+      field :cta_text, String
       field :current, Boolean
       field :dates_in_office, GraphQL::Types::JSON
       field :default_documents_per_page, GraphQL::Types::JSON
@@ -169,6 +177,7 @@ module Types
       field :department_analytics_profile, GraphQL::Types::JSON
       field :department_counts, GraphQL::Types::JSON
       field :description, String
+      field :devolved_administration_availability, GraphQL::Types::JSON
       field :died, GraphQL::Types::JSON
       field :display_as_result_metadata, GraphQL::Types::JSON
       field :display_date, Types::ContentApiDatetime
@@ -179,6 +188,7 @@ module Types
       field :downtime_message, String
       field :email_address, GraphQL::Types::JSON
       field :email_addresses, [GraphQL::Types::JSON]
+      field :email_alert_type, String
       field :email_filter_by, GraphQL::Types::JSON
       field :email_filter_facets, GraphQL::Types::JSON
       field :email_signup_link, GraphQL::Types::JSON
@@ -203,6 +213,7 @@ module Types
       field :format_name, GraphQL::Types::JSON
       field :format_sub_type, GraphQL::Types::JSON
       field :full_name, GraphQL::Types::JSON
+      field :generic_description, Boolean
       field :govdelivery_title, GraphQL::Types::JSON
       field :government, GraphQL::Types::JSON
       field :groups, GraphQL::Types::JSON
@@ -220,21 +231,26 @@ module Types
       field :international_delegations, [GraphQL::Types::JSON]
       field :introduction, GraphQL::Types::JSON
       field :introductory_paragraph, GraphQL::Types::JSON
+      field :isbn, String
       field :key, GraphQL::Types::JSON
       field :label_text, GraphQL::Types::JSON
       field :label, GraphQL::Types::JSON
       field :language, GraphQL::Types::JSON
       field :latest_change_note, GraphQL::Types::JSON
+      field :lead_paragraph, String
       field :lgil_code, GraphQL::Types::JSON
+      field :lgil_override, Integer
       field :lgsl_code, GraphQL::Types::JSON
       field :link_items, GraphQL::Types::JSON
       field :location, GraphQL::Types::JSON
       field :logo, GraphQL::Types::JSON
+      field :logo_path, String
       field :major_acts, GraphQL::Types::JSON
       field :manual, GraphQL::Types::JSON
       field :mapped_specialist_topic_content_id, GraphQL::Types::JSON
       field :max_cache_time, GraphQL::Types::JSON
       field :metadata, GraphQL::Types::JSON
+      field :minister, Boolean
       field :ministerial_role_counts, GraphQL::Types::JSON
       field :mission_statement, GraphQL::Types::JSON
       field :more_info_contact_form, GraphQL::Types::JSON
@@ -247,6 +263,7 @@ module Types
       field :national_applicability, GraphQL::Types::JSON
       field :navigation_groups, GraphQL::Types::JSON
       field :need_to_know, GraphQL::Types::JSON
+      field :no_index, Boolean
       field :nodes, GraphQL::Types::JSON
       field :northern_ireland_availability, GraphQL::Types::JSON
       field :notes_for_editors, String
@@ -285,6 +302,7 @@ module Types
       field :political_party, GraphQL::Types::JSON
       field :political, Boolean
       field :post_addresses, [GraphQL::Types::JSON]
+      field :poster_url, String
       field :preposition, GraphQL::Types::JSON
       field :previous_display_date, GraphQL::Types::JSON
       field :privy_counsellor, Boolean
@@ -305,6 +323,7 @@ module Types
       field :reviewed_at, GraphQL::Types::JSON
       field :role_payment_type, String
       field :roll_call_introduction, GraphQL::Types::JSON
+      field :scotland_availability, GraphQL::Types::JSON
       field :second_level_ordering, GraphQL::Types::JSON
       field :secondary_corporate_information_pages, GraphQL::Types::JSON
       field :section_id, GraphQL::Types::JSON
@@ -317,6 +336,7 @@ module Types
       field :show_metadata_block, GraphQL::Types::JSON
       field :show_summaries, GraphQL::Types::JSON
       field :show_table_of_contents, GraphQL::Types::JSON
+      field :sidebar_image, GraphQL::Types::JSON
       field :signup_link, GraphQL::Types::JSON
       field :slug, GraphQL::Types::JSON
       field :social_media_links, GraphQL::Types::JSON
@@ -346,6 +366,7 @@ module Types
       field :visible_to_departmental_editors, Boolean
       field :visually_collapsed, GraphQL::Types::JSON
       field :visually_expanded, GraphQL::Types::JSON
+      field :wales_availability, GraphQL::Types::JSON
       field :ways_to_respond, GraphQL::Types::JSON
       field :what_you_need_to_know, GraphQL::Types::JSON
       field :whip_organisation, GraphQL::Types::JSON

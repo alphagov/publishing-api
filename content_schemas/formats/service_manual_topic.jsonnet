@@ -12,9 +12,6 @@
         groups: {
           "$ref": "#/definitions/service_manual_topic_groups",
         },
-        withdrawn_notice: {
-          "$ref": "#/definitions/withdrawn_notice",
-        },
       },
     },
   },

@@ -47,15 +47,17 @@ private
   end
 
   def deep_sort(content_item)
-    content_item.deep_stringify_keys.map { |key, value|
-      case value
-      in Hash
+    case content_item
+    when Hash
+      content_item.deep_stringify_keys.map { |key, value|
         [key, deep_sort(value)]
-      in [Hash, *]
-        [key, value.map(&method(:deep_sort))]
-      else
-        [key, value]
-      end
-    }.sort.to_h
+      }.sort.to_h
+
+    when Array
+      content_item.map { |item| deep_sort(item) }
+
+    else
+      content_item
+    end
   end
 end

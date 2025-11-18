@@ -34,6 +34,7 @@ RSpec.describe GraphqlContentItemService do
           "links" => {
             "organisations" => [
               { title: "The Big Dogs", base_path: "/government/big-dogs" },
+              "The Small Dogs",
             ],
           },
           "title" => "The best edition yet!",
@@ -59,6 +60,7 @@ RSpec.describe GraphqlContentItemService do
       "links" => {
         "organisations" => [
           { "base_path" => "/government/big-dogs", "title" => "The Big Dogs" },
+          "The Small Dogs",
         ],
       },
       "title" => "The best edition yet!",

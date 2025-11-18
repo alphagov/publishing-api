@@ -15,9 +15,6 @@
         body: {
           "$ref": "#/definitions/body",
         },
-        withdrawn_notice: {
-          "$ref": "#/definitions/withdrawn_notice",
-        },
         header_links: {
           type: "array",
           items: {

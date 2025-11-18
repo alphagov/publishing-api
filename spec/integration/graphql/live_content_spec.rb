@@ -3,7 +3,10 @@ RSpec.describe "Requesting live content by base path" do
     call_for_evidence: { details: { body: "", political: false } },
     case_study: { details: { body: "" } },
     consultation: { details: { body: "", political: false } },
+    corporate_information_page: { details: { body: "", organisation: "af07d5a5-df63-4ddc-9383-6a666845ebe9" } },
+    detailed_guide: { details: { body: "", political: false } },
     document_collection: { details: { collection_groups: [], political: false } },
+    email_alert_signup: { details: { subscriber_list: { document_type: "" }, summary: "" } },
     embassies_index: { details: { world_locations: [] } },
     fatality_notice: {
       details: {
@@ -13,7 +16,9 @@ RSpec.describe "Requesting live content by base path" do
         roll_call_introduction: "",
       },
     },
+    finder: { details: { "document_noun": "", facets: [] } },
     finder_email_signup: { details: { subscription_list_title_prefix: "" } },
+    history: { details: { body: "" } },
     historic_appointment: { details: { body: "", political_party: "" } },
     historic_appointments: {
       details: { appointments_without_historical_accounts: [] },
@@ -26,6 +31,15 @@ RSpec.describe "Requesting live content by base path" do
       },
     },
     how_government_works: { details: { reshuffle_in_progress: false } },
+    html_publication: {
+      details: {
+        body: "",
+        first_published_version: false,
+        political: false,
+        public_timestamp: "2016-05-12T12:30:00+00:00",
+      },
+    },
+    local_transaction: { details: { lgsl_code: 1, service_tiers: [] } },
     manual: { details: { body: "" } },
     manual_section: {
       details: {
@@ -35,6 +49,8 @@ RSpec.describe "Requesting live content by base path" do
       },
     },
     news_article: { details: { body: "" } },
+    publication: { details: { body: "", documents: [], political: false } },
+    service_manual_guide: { details: { body: "" } },
     simple_smart_answer: { details: { start_button_text: "" } },
     specialist_document: { details: { body: "", metadata: {} } },
     speech: {
