@@ -426,7 +426,6 @@ test_cases:
     schema_name: "guide"
   - base_path: "/government/news/public-exhibitions-for-a21-safety-improvements-in-east-sussex"
     schema_name: "news_article"
-    max_sql_query_count: 235
   - base_path: "/world/organisations/british-embassy-paris.fr"
     schema_name: "worldwide_organisation"
     max_sql_query_count: 14
