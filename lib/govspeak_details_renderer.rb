@@ -39,6 +39,7 @@ private
     govspeak = {
       content_type: "text/html",
       content: rendered_govspeak(wrapped_value),
+      rendered_by: "publishing-api",
     }
     wrapped_value + [govspeak]
   end

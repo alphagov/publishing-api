@@ -48,16 +48,16 @@ RSpec.describe GovspeakDetailsRenderer do
       }
     end
 
-    let(:expected_result) do
-      {
-        body: [
-          { content_type: "text/govspeak", content: "**hello**" },
-          { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" },
-        ],
-      }
+    it "should render the HTML as text/html and include rendered_by: publishing-api" do
+      expect(subject[:body]).to contain_exactly(
+        hash_including(content_type: "text/govspeak"),
+        hash_including(
+          content_type: "text/html",
+          content: a_string_starting_with("<p>"),
+          rendered_by: "publishing-api",
+        ),
+      )
     end
-
-    it { is_expected.to match(expected_result) }
   end
 
   context "when we're passed multiple govspeak fields" do
@@ -77,11 +77,19 @@ RSpec.describe GovspeakDetailsRenderer do
       {
         body: [
           { content_type: "text/govspeak", content: "**hello**" },
-          { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" },
+          {
+            content_type: "text/html",
+            content: "<p><strong>hello</strong></p>\n",
+            rendered_by: "publishing-api",
+          },
         ],
         other: [
           { content_type: "text/govspeak", content: "**goodbye**" },
-          { content_type: "text/html", content: "<p><strong>goodbye</strong></p>\n" },
+          {
+            content_type: "text/html",
+            content: "<p><strong>goodbye</strong></p>\n",
+            rendered_by: "publishing-api",
+          },
         ],
       }
     end
@@ -134,6 +142,7 @@ RSpec.describe GovspeakDetailsRenderer do
               {
                 content_type: "text/html",
                 content: "<p>foo</p>\n",
+                rendered_by: "publishing-api",
               },
             ],
           },
