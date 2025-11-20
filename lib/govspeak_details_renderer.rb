@@ -12,6 +12,12 @@ class GovspeakDetailsRenderer
     end
   end
 
+  def remove_content_rendered_by_publishing_api
+    visit_content_arrays(@details) do |content_array|
+      content_array.reject { |content_hash| content_hash[:rendered_by] == "publishing-api" }
+    end
+  end
+
 private
 
   def render_content_arrays(array_of_hashes)

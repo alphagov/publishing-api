@@ -206,4 +206,70 @@ RSpec.describe GovspeakDetailsRenderer do
       end
     end
   end
+
+  describe "removing content rendered by publishing-api" do
+    it "removes content rendered by publishing-api" do
+      details = {
+        body: [
+          { content_type: "text/govspeak", content: "blah" },
+          { content_type: "text/html", content: "blah", rendered_by: "publishing-api" },
+        ],
+      }
+      result = described_class.new(details).remove_content_rendered_by_publishing_api
+      expect(result[:body]).to match_array([{ content_type: "text/govspeak", content: "blah" }])
+    end
+
+    it "removes nested content rendered by publishing-api" do
+      details = {
+        parts: [
+          {
+            body: [
+              { content_type: "text/govspeak", content: "blah" },
+              { content_type: "text/html", content: "blah", rendered_by: "publishing-api" },
+            ],
+          },
+        ],
+      }
+      result = described_class.new(details).remove_content_rendered_by_publishing_api
+      expect(result.dig(:parts, 0, :body)).to match_array([{ content_type: "text/govspeak", content: "blah" }])
+    end
+
+    context "when rendered_by is something other than publishing-api" do
+      let(:details) do
+        {
+          body: [
+            { content_type: "text/govspeak", content: "blah" },
+            { content_type: "text/html", content: "blah", rendered_by: "something else!" },
+          ],
+        }
+      end
+
+      it "retains rendered content" do
+        result = described_class.new(details).remove_content_rendered_by_publishing_api
+        expect(result[:body]).to match_array([
+          { content_type: "text/govspeak", content: "blah" },
+          { content_type: "text/html", content: "blah", rendered_by: "something else!" },
+        ])
+      end
+    end
+
+    context "when rendered_by is not present in alternate formats" do
+      let(:details) do
+        {
+          body: [
+            { content_type: "text/govspeak", content: "blah" },
+            { content_type: "text/html", content: "blah" },
+          ],
+        }
+      end
+
+      it "retains content in all formats" do
+        result = described_class.new(details).remove_content_rendered_by_publishing_api
+        expect(result[:body]).to match_array([
+          { content_type: "text/govspeak", content: "blah" },
+          { content_type: "text/html", content: "blah" },
+        ])
+      end
+    end
+  end
 end
