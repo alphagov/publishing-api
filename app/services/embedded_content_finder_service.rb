@@ -88,7 +88,10 @@ private
 
     def replace_alias_content_id_with_content_id(reference)
       identifier = content_id_aliases[reference.identifier]
-      return log_error "Could not find a Content ID for alias #{reference.identifier}" if identifier.nil?
+      if identifier.nil?
+        log_error "Could not find a Content ID for alias #{reference.identifier}"
+        return
+      end
 
       ContentBlockTools::ContentBlockReference.new(
         **reference.to_h.merge(identifier: identifier),
