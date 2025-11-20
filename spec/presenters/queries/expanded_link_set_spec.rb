@@ -72,6 +72,8 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           {
             content_type: "text/html",
             content: "<p>Body</p>\n",
+            rendered_by: "publishing-api",
+            govspeak_version: an_instance_of(String),
           },
         ])
       end
@@ -118,6 +120,8 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           {
             content_type: "text/html",
             content: Govspeak::Document.new(presented_details_for(contact, embed_code)).to_html,
+            rendered_by: "publishing-api",
+            govspeak_version: an_instance_of(String),
           },
         ])
       end
@@ -139,6 +143,8 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
             {
               content_type: "text/html",
               content: Govspeak::Document.new(presented_details_for(contact, embed_code)).to_html,
+              rendered_by: "publishing-api",
+              govspeak_version: an_instance_of(String),
             },
           ])
         end

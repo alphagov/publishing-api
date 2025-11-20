@@ -71,7 +71,12 @@ RSpec.describe Presenters::DetailsPresenter do
         {
           body: [
             { content_type: "text/govspeak", content: "**hello**" },
-            { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" },
+            {
+              content_type: "text/html",
+              content: "<p><strong>hello</strong></p>\n",
+              rendered_by: "publishing-api",
+              govspeak_version: an_instance_of(String),
+            },
           ],
         }
       end
@@ -96,11 +101,21 @@ RSpec.describe Presenters::DetailsPresenter do
         {
           body: [
             { content_type: "text/govspeak", content: "**hello**" },
-            { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" },
+            {
+              content_type: "text/html",
+              content: "<p><strong>hello</strong></p>\n",
+              rendered_by: "publishing-api",
+              govspeak_version: an_instance_of(String),
+            },
           ],
           other: [
             { content_type: "text/govspeak", content: "**goodbye**" },
-            { content_type: "text/html", content: "<p><strong>goodbye</strong></p>\n" },
+            {
+              content_type: "text/html",
+              content: "<p><strong>goodbye</strong></p>\n",
+              rendered_by: "publishing-api",
+              govspeak_version: an_instance_of(String),
+            },
           ],
         }
       end
@@ -153,6 +168,8 @@ RSpec.describe Presenters::DetailsPresenter do
                 {
                   content_type: "text/html",
                   content: "<p>foo</p>\n",
+                  rendered_by: "publishing-api",
+                  govspeak_version: an_instance_of(String),
                 },
               ],
             },
@@ -161,7 +178,7 @@ RSpec.describe Presenters::DetailsPresenter do
       end
 
       it "converts from govspeak appropriately" do
-        expect(subject).to eq expected_details
+        expect(subject).to match expected_details
       end
     end
 
