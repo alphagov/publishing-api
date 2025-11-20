@@ -29,7 +29,7 @@ RSpec.describe GovspeakDetailsRenderer do
       {
         body: [
           { content_type: "text/html", content: "<b>html</b>" },
-          { content_type: "text/govspeak", content: "<b>html</b>" },
+          { content_type: "text/govspeak", content: "**html**" },
         ],
       }
     end
