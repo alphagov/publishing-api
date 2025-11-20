@@ -13,6 +13,9 @@ module Commands
         check_update_type
 
         update_root_payload_with_auth_bypass_ids
+
+        render_govspeak_in_details
+
         edition = create_or_update_edition
         set_timestamps(edition)
 
@@ -43,6 +46,11 @@ module Commands
       end
 
     private
+
+      def render_govspeak_in_details
+        details = payload[:details]
+        payload[:details] = GovspeakDetailsRenderer.new(details).render if details.present?
+      end
 
       def link_diff_between(old_links, new_links)
         old_links - new_links
