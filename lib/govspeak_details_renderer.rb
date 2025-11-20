@@ -7,27 +7,41 @@ class GovspeakDetailsRenderer
   end
 
   def render
-    recursively_transform_govspeak(@details)
+    visit_content_arrays(@details) do |content_array|
+      render_content_arrays(content_array)
+    end
   end
 
 private
 
-  def parsed_content(array_of_hashes)
-    if array_of_hashes.one? { |hash| hash[:content_type] == "text/html" }
+  def render_content_arrays(array_of_hashes)
+    html_content = array_of_hashes.find { |hash| hash[:content_type] == "text/html" }
+    govspeak_content = array_of_hashes.find { |hash| hash[:content_type] == "text/govspeak" }
+
+    if html_content.present?
       array_of_hashes
-    elsif array_of_hashes.one? { |hash| hash[:content_type] == "text/govspeak" }
-      render_govspeak(array_of_hashes)
+    elsif govspeak_content.present?
+      [
+        *array_of_hashes,
+        {
+          content_type: "text/html",
+          content: render_govspeak(govspeak_content[:content]),
+          rendered_by: "publishing-api",
+        },
+      ]
+    else
+      array_of_hashes
     end
   end
 
-  def recursively_transform_govspeak(obj)
-    if obj.is_a?(Array) && obj.all?(Hash) && (parsed_obj = parsed_content(obj))
-      parsed_obj
+  def visit_content_arrays(obj, &block)
+    if obj.is_a?(Array) && obj.all?(Hash) && obj.all? { |hash| hash.key?(:content_type) }
+      block.call(obj)
     elsif obj.is_a?(Array)
-      obj.map { |o| recursively_transform_govspeak(o) }
+      obj.map { |o| visit_content_arrays(o, &block) }
     elsif obj.is_a?(Hash)
       obj.transform_values do |value|
-        recursively_transform_govspeak(value)
+        visit_content_arrays(value, &block)
       end
     else
       obj
@@ -35,33 +49,16 @@ private
   end
 
   def render_govspeak(value)
-    wrapped_value = Array.wrap(value)
-    govspeak = {
-      content_type: "text/html",
-      content: rendered_govspeak(wrapped_value),
-    }
-    wrapped_value + [govspeak]
-  end
-
-  def rendered_govspeak(value)
-    raw = raw_govspeak(value)
     ActiveSupport::Notifications.instrument(
       "govspeak.to_html",
-      truncated_govspeak: raw&.truncate(100),
-      govspeak_size: raw&.bytesize,
+      truncated_govspeak: value&.truncate(100),
+      govspeak_size: value&.bytesize,
     ) do
-      Govspeak::Document.new(raw, govspeak_attributes).to_html
+      Govspeak::Document.new(
+        value,
+        attachments: @details[:attachments],
+        locale: @locale,
+      ).to_html
     end
-  end
-
-  def raw_govspeak(value)
-    value.find { |format| format[:content_type] == "text/govspeak" }[:content]
-  end
-
-  def govspeak_attributes
-    {
-      attachments: @details[:attachments],
-      locale: @locale,
-    }
   end
 end
