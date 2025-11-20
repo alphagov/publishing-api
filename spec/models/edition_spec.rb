@@ -303,6 +303,26 @@ RSpec.describe Edition do
     it "changes the state to superseded" do
       expect { subject.supersede }.to change { subject.state }.from("draft").to("superseded")
     end
+
+    context "when details does not contain content rendered by publishing-api" do
+      let(:edition) { create(:edition, details: { body: "foo bar" }) }
+
+      it "leaves details unchanged" do
+        expect { subject.supersede }.not_to(change { subject.details })
+      end
+    end
+
+    context "when details contains content rendered by publishing-api" do
+      subject { edition }
+      let(:govspeak_content_hash) { { content_type: "text/govspeak", content: "**foo**" } }
+      let(:html_content_hash) { { content_type: "text/html", content: "<b>foo</b>", rendered_by: "publishing-api" } }
+      let(:details) { { body: [govspeak_content_hash, html_content_hash] } }
+      let(:edition) { create(:edition, details:) }
+
+      it "removes content rendered by publishing-api from details" do
+        expect { subject.supersede }.to change { subject.details }.from(details).to({ body: [govspeak_content_hash] })
+      end
+    end
   end
 
   context "#unpublish" do

@@ -201,4 +201,46 @@ RSpec.describe GovspeakDetailsRenderer do
       end
     end
   end
+
+  describe "removing content rendered by publishing-api" do
+    it "removes content rendered by publishing-api" do
+      details = {
+        body: [
+          { content_type: "text/govspeak", content: "blah" },
+          { content_type: "text/html", content: "blah", rendered_by: "publishing-api" },
+        ],
+      }
+      result = described_class.new(details).remove_content_rendered_by_publishing_api
+      expect(result[:body]).to match_array([{ content_type: "text/govspeak", content: "blah" }])
+    end
+
+    it "removes nested content rendered by publishing-api" do
+      details = {
+        parts: [
+          {
+            body: [
+              { content_type: "text/govspeak", content: "blah" },
+              { content_type: "text/html", content: "blah", rendered_by: "publishing-api" },
+            ],
+          },
+        ],
+      }
+      result = described_class.new(details).remove_content_rendered_by_publishing_api
+      expect(result.dig(:parts, 0, :body)).to match_array([{ content_type: "text/govspeak", content: "blah" }])
+    end
+
+    it "retains content not rendered by publishing-api" do
+      details = {
+        body: [
+          { content_type: "text/govspeak", content: "blah" },
+          { content_type: "text/html", content: "blah", rendered_by: "something else!" },
+        ],
+      }
+      result = described_class.new(details).remove_content_rendered_by_publishing_api
+      expect(result[:body]).to match_array([
+        { content_type: "text/govspeak", content: "blah" },
+        { content_type: "text/html", content: "blah", rendered_by: "something else!" },
+      ])
+    end
+  end
 end
