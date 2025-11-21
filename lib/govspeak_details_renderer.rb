@@ -15,17 +15,14 @@ class GovspeakDetailsRenderer
 private
 
   def render_content_arrays(array_of_hashes)
-    html_content = array_of_hashes.find { |hash| hash[:content_type] == "text/html" }
-    govspeak_content = array_of_hashes.find { |hash| hash[:content_type] == "text/govspeak" }
-
-    if html_content.present?
+    case array_of_hashes
+    in [*, { content_type: "text/html" }, *]
       array_of_hashes
-    elsif govspeak_content.present?
-      [
-        *array_of_hashes,
+    in [*, { content_type: "text/govspeak", content: govspeak_content }, *]
+      array_of_hashes + [
         {
           content_type: "text/html",
-          content: render_govspeak(govspeak_content[:content]),
+          content: render_govspeak(govspeak_content),
           rendered_by: "publishing-api",
         },
       ]
@@ -35,14 +32,13 @@ private
   end
 
   def visit_content_arrays(obj, &block)
-    if obj.is_a?(Array) && obj.all?(Hash) && obj.all? { |hash| hash.key?(:content_type) }
+    case obj
+    in [{ content_type: String }, *]
       block.call(obj)
-    elsif obj.is_a?(Array)
+    in Array
       obj.map { |o| visit_content_arrays(o, &block) }
-    elsif obj.is_a?(Hash)
-      obj.transform_values do |value|
-        visit_content_arrays(value, &block)
-      end
+    in Hash
+      obj.transform_values { |value| visit_content_arrays(value, &block) }
     else
       obj
     end
