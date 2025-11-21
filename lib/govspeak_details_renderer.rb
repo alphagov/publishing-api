@@ -30,6 +30,7 @@ private
           content_type: "text/html",
           content: render_govspeak(govspeak_content),
           rendered_by: "publishing-api",
+          govspeak_version: Gem.loaded_specs["govspeak"]&.version&.to_s || "unknown",
         },
       ]
     else

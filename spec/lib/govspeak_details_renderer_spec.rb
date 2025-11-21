@@ -48,13 +48,14 @@ RSpec.describe GovspeakDetailsRenderer do
       }
     end
 
-    it "should render the HTML as text/html and include rendered_by: publishing-api" do
+    it "should render the HTML as text/html and include rendered_by: publishing-api and the govspeak version" do
       expect(subject[:body]).to contain_exactly(
         hash_including(content_type: "text/govspeak"),
         hash_including(
           content_type: "text/html",
           content: a_string_starting_with("<p>"),
           rendered_by: "publishing-api",
+          govspeak_version: a_string_matching(/\A(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*\Z/),
         ),
       )
     end
