@@ -278,7 +278,7 @@ RSpec.describe Edition do
 
     describe "routes and redirects" do
       subject { edition }
-      let(:edition) { build(:edition, base_path: "/vat-rates") }
+      let(:edition) { build(:edition, base_path: "/ca$h-money") }
       it_behaves_like RoutesAndRedirectsValidator
     end
   end
