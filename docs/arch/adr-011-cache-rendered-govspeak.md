@@ -14,7 +14,7 @@ For large amounts of content, we see this process as being a bottleneck in the p
 
 A decision has been made to continue pre-computing rendered Govspeak at the point of putting draft content or publishing. However, to support GraphQL (which does not use Content Store), we will now need to cache the rendered Govspeak in Publishing API’s database.
 
-This will involve moving the `recursively_transform_govspeak` method out of the `DetailsPresenter` and into both the `PutContent` and `Publish` commands. Once the govspeak has been transformed, we will need to insert the parsed govspeak into the relevant part of the `details` hash.
+This will involve moving the `recursively_transform_govspeak` method out of the `DetailsPresenter` and into the `PutContent` command. Once the govspeak has been transformed, we will need to insert the parsed govspeak into the relevant part of the `details` hash.
 
 In addition to this, we should store some metadata (e.g. that this was rendered by Publishing API and the version of govspeak used). This will allow us to identify which data was provided by the publishing application and which was produced by Publishing API.
 
@@ -47,7 +47,7 @@ This will speed up the rendering of content when using GraphQL.
 
 The deployment of this change will need to occur in multiple steps:
 
-1. Add the `recursively_transform_govspeak` code to the `PutContent` and `Publish` commands, then store the output in the database.
+1. Add the `recursively_transform_govspeak` code to the `PutContent` command, then store the output in the database.
 1. Run a one-off task to pre-compute and store the Govspeak for all existing editions. It would be reasonable to limit this to only draft and live editions, ignoring those that are superseded.
 1. Switch the `DetailsPresenter` to use the pre-computed cached version of the content.
 
