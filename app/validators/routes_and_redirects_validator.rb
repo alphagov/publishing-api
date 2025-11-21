@@ -104,9 +104,7 @@ private
   private
 
     def below_base_path?(path, base_path)
-      return true if path =~ %r{^#{base_path}\.[\w-]+\z}
-
-      /^#{base_path}/.match?(path)
+      path.start_with?(base_path)
     end
 
     def segments(path)
