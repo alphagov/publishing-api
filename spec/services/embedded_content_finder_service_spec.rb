@@ -129,9 +129,9 @@ RSpec.shared_examples "finds references" do |document_type|
         }
         links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
 
-        expect(links.length).to eq(4)
-        expect(links.count(editions[0].content_id)).to eq(2)
-        expect(links.count(editions[1].content_id)).to eq(2)
+        expect(links.length).to eq(2)
+        expect(links.count(editions[0].content_id)).to eq(1)
+        expect(links.count(editions[1].content_id)).to eq(1)
       end
 
       it "returns duplicates when there is more than one content reference in the field and #{field_name} is a multipart document" do
@@ -169,9 +169,9 @@ RSpec.shared_examples "finds references" do |document_type|
         }
         links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
 
-        expect(links.length).to eq(8)
-        expect(links.count(editions[0].content_id)).to eq(4)
-        expect(links.count(editions[1].content_id)).to eq(4)
+        expect(links.length).to eq(4)
+        expect(links.count(editions[0].content_id)).to eq(2)
+        expect(links.count(editions[1].content_id)).to eq(2)
       end
 
       it "returns duplicates when there is more than one content reference in the field and #{field_name} is a guide document" do
