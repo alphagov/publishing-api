@@ -83,6 +83,12 @@
         content: {
           type: "string",
         },
+        govspeak_version: {
+          type: "string",
+        },
+        rendering_app: {
+          type: "string",
+        },
       },
     },
   },

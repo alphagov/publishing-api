@@ -146,7 +146,11 @@ class Edition < ApplicationRecord
   end
 
   def supersede
-    update!(state: "superseded", content_store: nil)
+    update!(
+      state: "superseded",
+      content_store: nil,
+      details: GovspeakDetailsRenderer.new(details).remove_content_rendered_by_publishing_api,
+    )
   end
 
   def unpublish(type:, explanation: nil, alternative_path: nil, redirects: nil, unpublished_at: nil)
