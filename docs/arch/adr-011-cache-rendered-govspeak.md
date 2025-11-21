@@ -55,6 +55,8 @@ There is a trade off between these performance enhancements and the benefit of r
 
 If we find storing the rendered version of govspeak inflates the size of the `editions` table too much, we could remove the rendered version at the point of an edition being superseded.
 
+PutContent API responses may get slower, as we're now rendering govspeak synchronously where previously it happened in a queue job.
+
 ## Alternatives considered
 
 ### Store the rendered content in another column
