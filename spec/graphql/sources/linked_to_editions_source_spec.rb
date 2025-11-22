@@ -17,7 +17,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           described_class,
           content_store: source_edition.content_store,
           locale: "en",
-        ).request([source_edition, "test_link"])
+        ).request([source_edition, "test_link", :direct])
 
         actual_titles = request.load.map(&:title)
         expected_titles = [target_edition_1.title]
@@ -45,7 +45,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
             described_class,
             content_store: source_edition.content_store,
             locale: "en",
-          ).request([source_edition, "test_link"])
+          ).request([source_edition, "test_link", :direct])
 
           actual_titles = request.load.map(&:title)
           expected_titles = [target_edition_1, target_edition_3].map(&:title)
@@ -69,7 +69,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
             described_class,
             content_store: source_edition.content_store,
             locale: "en",
-          ).request([source_edition, "test_link"])
+          ).request([source_edition, "test_link", :direct])
 
           actual_titles = request.load.map(&:title)
           expected_titles = [target_edition_1.title]
@@ -95,7 +95,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
             described_class,
             content_store: source_edition.content_store,
             locale: "en",
-          ).request([source_edition, "test_link"])
+          ).request([source_edition, "test_link", :direct])
 
           actual_titles = request.load.map(&:title)
           expected_titles = [target_edition_2, target_edition_0, target_edition_1].map(&:title)
@@ -124,7 +124,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               described_class,
               content_store: source_edition.content_store,
               locale: "en",
-            ).request([source_edition, "test_link"])
+            ).request([source_edition, "test_link", :direct])
 
             actual_titles = request.load.map(&:title)
             expected_titles = [target_edition_3, target_edition_0, target_edition_2, target_edition_1].map(&:title)
@@ -150,7 +150,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               described_class,
               content_store: source_edition.content_store,
               locale: "en",
-            ).request([source_edition, "parent"])
+            ).request([source_edition, "parent", :direct])
 
             actual_titles = request.load.map(&:title)
             expected_titles = [target_edition_0, target_edition_1].map(&:title)
@@ -174,7 +174,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               described_class,
               content_store: source_edition.content_store,
               locale: "en",
-            ).request([source_edition, "test_link"])
+            ).request([source_edition, "test_link", :direct])
 
             actual_titles = request.load.map(&:title)
             expected_titles = [target_edition_0.title]
@@ -201,7 +201,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               described_class,
               content_store: source_edition.content_store,
               locale: "fr",
-            ).request([source_edition, "test_link"])
+            ).request([source_edition, "test_link", :direct])
 
             actual_titles = request.load.map(&:title)
             expected_titles = [french_edition.title]
@@ -226,7 +226,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               described_class,
               content_store: source_edition.content_store,
               locale: "de",
-            ).request([source_edition, "test_link"])
+            ).request([source_edition, "test_link", :direct])
 
             actual_titles = request.load.map(&:title)
             expected_titles = [english_edition.title]
@@ -251,7 +251,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               described_class,
               content_store: source_edition.content_store,
               locale: "hu",
-            ).request([source_edition, "test_link"])
+            ).request([source_edition, "test_link", :direct])
 
             actual_titles = request.load.map(&:title)
             expected_titles = []
@@ -285,7 +285,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
                 described_class,
                 content_store: source_edition.content_store,
                 locale: "fr",
-              ).request([source_edition, "test_link"])
+              ).request([source_edition, "test_link", :direct])
 
               actual_titles = request.load.map(&:title)
               expected_titles = [english_edition.title]
@@ -318,7 +318,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
                 described_class,
                 content_store: source_edition.content_store,
                 locale: "fr",
-              ).request([source_edition, "test_link"])
+              ).request([source_edition, "test_link", :direct])
 
               actual_titles = request.load.map(&:title)
               expected_titles = []
@@ -353,7 +353,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
                 described_class,
                 content_store: source_edition.content_store,
                 locale: "fr",
-              ).request([source_edition, "related_statistical_data_sets"])
+              ).request([source_edition, "related_statistical_data_sets", :direct])
 
               actual_titles = request.load.map(&:title)
               expected_titles = [french_withdrawn_edition.title]
@@ -386,7 +386,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
                 described_class,
                 content_store: source_edition.content_store,
                 locale: "fr",
-              ).request([source_edition, "test_link"])
+              ).request([source_edition, "test_link", :direct])
 
               actual_titles = request.load.map(&:title)
               expected_titles = [english_edition.title]
@@ -413,7 +413,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
             described_class,
             content_store: source_edition.content_store,
             locale: "en",
-          ).request([source_edition, "test_link"])
+          ).request([source_edition, "test_link", :direct])
 
           actual_titles = request.load.map(&:title)
           expected_titles = [renderable_edition.title]
