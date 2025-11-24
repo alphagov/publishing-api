@@ -159,7 +159,7 @@ module Presenters
       end
 
       def select_fields(scope)
-        if fields.include?(:state_history) && !fields.include?(:content_id)
+        if fields.intersect?(%i[state_history content_id_aliases]) && !fields.include?(:content_id)
           fields << :content_id
         end
 
@@ -197,8 +197,7 @@ module Presenters
             )
           ) AS content_id_aliases
           FROM content_id_aliases
-          LEFT JOIN documents ON documents.id = subquery.document_id
-          WHERE content_id_aliases.content_id = documents.content_id
+          WHERE content_id_aliases.content_id = subquery.content_id
         ) content_id_aliases_subquery
       SQL
 
