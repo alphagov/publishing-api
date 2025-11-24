@@ -159,15 +159,16 @@ module Presenters
       end
 
       def select_fields(scope)
-        fields_to_select = (fields + order.map(&:first)).map do |field|
-          field_selector(field)
+        if fields.include?(:state_history) && !fields.include?(:content_id)
+          fields << :content_id
         end
 
-        fields = [
-          "DISTINCT ON(editions.document_id) editions.document_id",
-        ] + fields_to_select.compact
+        fields_to_select = (fields + order.map(&:first)).map { |field| field_selector(field) }
 
-        scope.select(*fields)
+        scope.select(
+          "DISTINCT ON(editions.document_id) editions.document_id",
+          *fields_to_select.compact,
+        )
       end
 
       STATE_HISTORY_SQL = <<-SQL.freeze
