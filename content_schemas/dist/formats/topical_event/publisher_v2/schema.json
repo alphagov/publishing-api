@@ -186,6 +186,27 @@
         }
       ]
     },
+    "change_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "public_timestamp",
+          "note"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "note": {
+            "description": "A summary of the change",
+            "type": "string"
+          },
+          "public_timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
     "description_optional": {
       "anyOf": [
         {
@@ -206,6 +227,9 @@
         "body": {
           "description": "The main content provided as HTML rendered from govspeak",
           "type": "string"
+        },
+        "change_history": {
+          "$ref": "#/definitions/change_history"
         },
         "emphasised_organisations": {
           "$ref": "#/definitions/emphasised_organisations"
