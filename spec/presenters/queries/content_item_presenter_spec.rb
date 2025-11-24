@@ -186,12 +186,19 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when an array of fields is provided" do
       let(:fields) { %w[title phase publication_state] }
+      let(:editions) { Edition.with_document.where("documents.content_id": content_id) }
 
       it "returns the requested fields" do
-        editions = Edition.with_document.where("documents.content_id": content_id)
-
         results = described_class.present_many(editions, fields:)
         expect(results.first.keys).to match_array(%w[title phase publication_state])
+      end
+
+      context "when lateral aggregates are requested as fields on their own" do
+        let(:fields) { described_class::LATERAL_AGGREGATES.keys }
+
+        it "does not raise an error" do
+          expect { described_class.present_many(editions, fields:) }.not_to raise_error
+        end
       end
     end
 
