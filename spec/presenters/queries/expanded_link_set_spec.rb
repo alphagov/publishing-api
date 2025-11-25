@@ -52,6 +52,10 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
                 content_type: "text/govspeak",
                 content: "Body",
               },
+              {
+                content_type: "text/html",
+                content: "<p>Body</p>\n",
+              },
             ],
           },
         )
@@ -72,8 +76,6 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           {
             content_type: "text/html",
             content: "<p>Body</p>\n",
-            rendered_by: "publishing-api",
-            govspeak_version: an_instance_of(String),
           },
         ])
       end
@@ -98,6 +100,10 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
                 content_type: "text/govspeak",
                 content: embed_code,
               },
+              {
+                content_type: "text/html",
+                content: "<html>#{embed_code}</html>",
+              },
             ],
           },
           links_hash: { embed: [contact.document.content_id] },
@@ -119,9 +125,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           },
           {
             content_type: "text/html",
-            content: Govspeak::Document.new(presented_details_for(contact, embed_code)).to_html,
-            rendered_by: "publishing-api",
-            govspeak_version: an_instance_of(String),
+            content: "<html>#{presented_details_for(contact, embed_code)}</html>",
           },
         ])
       end
@@ -142,9 +146,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
             },
             {
               content_type: "text/html",
-              content: Govspeak::Document.new(presented_details_for(contact, embed_code)).to_html,
-              rendered_by: "publishing-api",
-              govspeak_version: an_instance_of(String),
+              content: "<html>#{presented_details_for(contact, embed_code)}</html>",
             },
           ])
         end
