@@ -20,7 +20,6 @@ query topical_event($base_path: String!) {
       first_published_at
       links {
         available_translations {
-          analytics_identifier
           api_path
           api_url
           base_path
@@ -33,26 +32,10 @@ query topical_event($base_path: String!) {
           web_url
         }
         children {
-          analytics_identifier
           api_path
           api_url
           base_path
           content_id
-          description
-          details {
-            access_and_opening_times
-            change_description
-            contact_form_links
-            country
-            dates_in_office
-            description
-            email_addresses
-            phone_numbers
-            political_party
-            post_addresses
-            step_by_step_nav
-            title
-          }
           document_type
           locale
           public_updated_at
@@ -174,7 +157,6 @@ query topical_event($base_path: String!) {
               document_type
               links {
                 parent {
-                  analytics_identifier
                   api_path
                   api_url
                   base_path
@@ -191,7 +173,6 @@ query topical_event($base_path: String!) {
                   document_type
                   links {
                     parent {
-                      analytics_identifier
                       api_path
                       api_url
                       base_path
@@ -208,7 +189,6 @@ query topical_event($base_path: String!) {
                       document_type
                       links {
                         parent {
-                          analytics_identifier
                           api_path
                           api_url
                           base_path
@@ -298,31 +278,20 @@ query topical_event($base_path: String!) {
           api_url
           base_path
           content_id
-          description
           details {
-            access_and_opening_times
             acronym
             brand
-            contact_form_links
             default_news_image
-            description
-            email_addresses
             logo
             organisation_govuk_status
-            phone_numbers
-            post_addresses
-            title
-            world_location_names
           }
           document_type
           locale
-          public_updated_at
           schema_name
           title
           web_url
         }
         parent {
-          analytics_identifier
           api_path
           api_url
           base_path
@@ -339,7 +308,6 @@ query topical_event($base_path: String!) {
           document_type
           links {
             parent {
-              analytics_identifier
               api_path
               api_url
               base_path
@@ -356,7 +324,6 @@ query topical_event($base_path: String!) {
               document_type
               links {
                 parent {
-                  analytics_identifier
                   api_path
                   api_url
                   base_path
@@ -373,7 +340,6 @@ query topical_event($base_path: String!) {
                   document_type
                   links {
                     parent {
-                      analytics_identifier
                       api_path
                       api_url
                       base_path
@@ -390,7 +356,6 @@ query topical_event($base_path: String!) {
                       document_type
                       links {
                         parent {
-                          analytics_identifier
                           api_path
                           api_url
                           base_path
@@ -483,7 +448,6 @@ query topical_event($base_path: String!) {
           }
           document_type
           locale
-          public_updated_at
           schema_name
           title
           web_url
@@ -604,12 +568,10 @@ query topical_event($base_path: String!) {
           api_url
           base_path
           content_id
-          description
           details: details_json
           document_type
           links {
             parent_taxons {
-              analytics_identifier
               api_path
               api_url
               base_path
@@ -619,7 +581,6 @@ query topical_event($base_path: String!) {
               document_type
               links {
                 parent_taxons {
-                  analytics_identifier
                   api_path
                   api_url
                   base_path
@@ -629,7 +590,6 @@ query topical_event($base_path: String!) {
                   document_type
                   links {
                     parent_taxons {
-                      analytics_identifier
                       api_path
                       api_url
                       base_path
@@ -639,12 +599,10 @@ query topical_event($base_path: String!) {
                       document_type
                       links {
                         parent_taxons {
-                          analytics_identifier
                           api_path
                           api_url
                           base_path
                           content_id
-                          description
                           details: details_json
                           document_type
                           locale
@@ -655,7 +613,6 @@ query topical_event($base_path: String!) {
                           web_url
                         }
                         root_taxon {
-                          analytics_identifier
                           api_path
                           api_url
                           base_path
