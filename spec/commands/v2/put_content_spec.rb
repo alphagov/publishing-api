@@ -574,7 +574,7 @@ RSpec.describe Commands::V2::PutContent do
 
       before do
         allow(EmbeddedContentFinderService).to receive_message_chain(:new, :fetch_linked_content_ids)
-                                                 .with(details.stringify_keys)
+                                                 .with(details)
                                                  .and_return(content_ids_from_service)
 
         allow(EmbeddedContentFinderService).to receive_message_chain(:new, :find_content_references)

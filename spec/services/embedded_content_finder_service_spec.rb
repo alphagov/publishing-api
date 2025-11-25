@@ -87,7 +87,7 @@ RSpec.shared_examples "finds references" do |document_type|
       end
 
       it "finds content references when #{field_name} is an array of hashes" do
-        details = { field_name => [{ "content" => "{{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}" }] }
+        details = { field_name => [{ content: "{{embed:#{document_type}:#{editions[0].content_id}}} {{embed:#{document_type}:#{editions[1].content_id}}}" }] }
 
         links = EmbeddedContentFinderService.new.fetch_linked_content_ids(details)
 
