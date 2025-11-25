@@ -17,7 +17,7 @@ module Presenters
     def change_notes
       all_change_notes
         .map { |h| format_change_note(h) }
-        .sort_by { |h| Time.zone.parse(h[:public_timestamp]) }
+        .sort_by { |h| h[:public_timestamp] }
         .reverse
     end
 
