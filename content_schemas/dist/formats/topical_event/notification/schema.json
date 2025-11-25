@@ -93,6 +93,11 @@
           "description": "Powers links from content back to finders the content is surfaced on",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "government": {
+          "description": "The government associated with this document",
+          "$ref": "#/definitions/frontend_links_with_base_path",
+          "maxItems": 1
+        },
         "lead_organisations": {
           "description": "DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -118,13 +123,10 @@
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "organisations": {
-          "description": "All organisations linked to this content item. This should include lead organisations.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "parent": {
-          "description": "The parent content item.",
-          "$ref": "#/definitions/frontend_links_with_base_path",
-          "maxItems": 1
+          "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "part_of_step_navs": {
           "description": "Link type automatically added by Publishing API",
@@ -142,6 +144,9 @@
           "description": "The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.",
           "$ref": "#/definitions/frontend_links_with_base_path",
           "maxItems": 1
+        },
+        "related_policies": {
+          "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "related_to_step_navs": {
           "description": "Link type automatically added by Publishing API",
@@ -161,6 +166,9 @@
         },
         "taxons": {
           "description": "Prototype-stage taxonomy label for this content item",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
+        "topical_events": {
           "$ref": "#/definitions/frontend_links_with_base_path"
         }
       }
@@ -187,6 +195,11 @@
           "description": "Powers links from content back to finders the content is surfaced on",
           "$ref": "#/definitions/guid_list"
         },
+        "government": {
+          "description": "The government associated with this document",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
         "lead_organisations": {
           "description": "DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.",
           "$ref": "#/definitions/guid_list"
@@ -204,13 +217,10 @@
           "$ref": "#/definitions/guid_list"
         },
         "organisations": {
-          "description": "All organisations linked to this content item. This should include lead organisations.",
           "$ref": "#/definitions/guid_list"
         },
         "parent": {
-          "description": "The parent content item.",
-          "$ref": "#/definitions/guid_list",
-          "maxItems": 1
+          "$ref": "#/definitions/guid_list"
         },
         "policy_areas": {
           "description": "A largely deprecated tag currently only used to power email alerts.",
@@ -221,12 +231,18 @@
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
         },
+        "related_policies": {
+          "$ref": "#/definitions/guid_list"
+        },
         "suggested_ordered_related_items": {
           "description": "Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms.",
           "$ref": "#/definitions/guid_list"
         },
         "taxons": {
           "description": "Prototype-stage taxonomy label for this content item",
+          "$ref": "#/definitions/guid_list"
+        },
+        "topical_events": {
           "$ref": "#/definitions/guid_list"
         }
       }

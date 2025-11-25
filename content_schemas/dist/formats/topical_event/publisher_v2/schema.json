@@ -73,8 +73,30 @@
           "description": "Content that will be embedded within the document, using embed tags.",
           "$ref": "#/definitions/guid_list"
         },
+        "government": {
+          "description": "The government associated with this document",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
+        "organisations": {
+          "$ref": "#/definitions/guid_list"
+        },
+        "parent": {
+          "$ref": "#/definitions/guid_list"
+        },
         "policy_areas": {
           "description": "A largely deprecated tag currently only used to power email alerts.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "primary_publishing_organisation": {
+          "description": "The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
+        "related_policies": {
+          "$ref": "#/definitions/guid_list"
+        },
+        "topical_events": {
           "$ref": "#/definitions/guid_list"
         }
       }
@@ -164,6 +186,27 @@
         }
       ]
     },
+    "change_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "public_timestamp",
+          "note"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "note": {
+            "description": "A summary of the change",
+            "type": "string"
+          },
+          "public_timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
     "description_optional": {
       "anyOf": [
         {
@@ -184,6 +227,9 @@
         "body": {
           "description": "The main content provided as HTML rendered from govspeak",
           "type": "string"
+        },
+        "change_history": {
+          "$ref": "#/definitions/change_history"
         },
         "emphasised_organisations": {
           "$ref": "#/definitions/emphasised_organisations"

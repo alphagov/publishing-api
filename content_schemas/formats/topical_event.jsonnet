@@ -26,6 +26,9 @@
         emphasised_organisations: {
           "$ref": "#/definitions/emphasised_organisations",
         },
+        change_history: {
+          "$ref": "#/definitions/change_history",
+        },
         ordered_featured_documents: {
           type: "array",
           items: {
@@ -58,4 +61,5 @@
       },
     },
   },
+  edition_links: (import "shared/whitehall_edition_links.jsonnet")
 }
