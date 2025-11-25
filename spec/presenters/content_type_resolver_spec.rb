@@ -105,7 +105,7 @@ RSpec.describe Presenters::ContentTypeResolver do
     )
   end
 
-  it "doesn't resolve incomplete multi-type content" do
+  it "doesn't resolve incomplete multi-type content (missing content or content_type)" do
     result = subject.resolve(
       details: {
         body: {
@@ -126,5 +126,19 @@ RSpec.describe Presenters::ContentTypeResolver do
         },
       },
     )
+  end
+
+  it "raises an error if the content is multi-type, but there's no matching type available" do
+    expect {
+      subject.resolve(
+        details: {
+          body: {
+            content: [
+              { content: "body", content_type: "govspeak" },
+            ],
+          },
+        },
+      )
+    }.to raise_error(Presenters::ContentTypeResolver::NotFoundError)
   end
 end
