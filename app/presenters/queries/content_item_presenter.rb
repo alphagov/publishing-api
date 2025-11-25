@@ -159,15 +159,16 @@ module Presenters
       end
 
       def select_fields(scope)
-        fields_to_select = (fields + order.map(&:first)).map do |field|
-          field_selector(field)
+        if fields.intersect?(%i[state_history content_id_aliases]) && !fields.include?(:content_id)
+          fields << :content_id
         end
 
-        fields = [
-          "DISTINCT ON(editions.document_id) editions.document_id",
-        ] + fields_to_select.compact
+        fields_to_select = (fields + order.map(&:first)).map { |field| field_selector(field) }
 
-        scope.select(*fields)
+        scope.select(
+          "DISTINCT ON(editions.document_id) editions.document_id",
+          *fields_to_select.compact,
+        )
       end
 
       STATE_HISTORY_SQL = <<-SQL.freeze
@@ -196,8 +197,7 @@ module Presenters
             )
           ) AS content_id_aliases
           FROM content_id_aliases
-          LEFT JOIN documents ON documents.id = subquery.document_id
-          WHERE content_id_aliases.content_id = documents.content_id
+          WHERE content_id_aliases.content_id = subquery.content_id
         ) content_id_aliases_subquery
       SQL
 
