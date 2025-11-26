@@ -23,7 +23,7 @@ edition_linked_editions AS (
     links.id AS link_id,
     documents.content_id,
     documents.locale,
-    documents.locale =:primary_locale AS is_primary_locale,
+    TRUE AS is_primary_locale,
     links.target_content_id
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
@@ -31,13 +31,13 @@ edition_linked_editions AS (
   INNER JOIN query_input ON links.target_content_id = query_input.content_id AND links.link_type = query_input.link_type
   WHERE
     editions.content_store =:content_store
-    AND documents.locale IN (:primary_locale,:secondary_locale)
+    AND documents.locale =:primary_locale
     AND editions.document_type NOT IN (:non_renderable_formats)
     AND (
       links.link_type IN (:unpublished_link_types)
       OR editions.state != 'unpublished'
     )
-  ORDER BY documents.content_id ASC, links.link_type ASC, links.target_content_id ASC, is_primary_locale DESC
+  ORDER BY documents.content_id ASC, links.link_type ASC, links.target_content_id ASC
 ),
 
 link_set_linked_editions AS (
