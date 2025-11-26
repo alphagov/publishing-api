@@ -29,13 +29,19 @@ edition_linked_editions AS (
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON editions.id = links.edition_id
   INNER JOIN query_input ON links.target_content_id = query_input.content_id AND links.link_type = query_input.link_type
+  LEFT JOIN unpublishings ON editions.id = unpublishings.edition_id
   WHERE
     editions.content_store =:content_store
     AND documents.locale =:primary_locale
     AND editions.document_type NOT IN (:non_renderable_formats)
     AND (
-      links.link_type IN (:unpublished_link_types)
-      OR editions.state != 'unpublished'
+      editions.state != 'unpublished'
+      OR
+      (
+        links.link_type IN (:unpublished_link_types)
+        AND
+        unpublishings.type = 'withdrawal'
+      )
     )
   ORDER BY documents.content_id ASC, links.link_type ASC, links.target_content_id ASC
 ),
@@ -54,13 +60,19 @@ link_set_linked_editions AS (
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON documents.content_id = links.link_set_content_id
   INNER JOIN query_input ON links.target_content_id = query_input.content_id AND links.link_type = query_input.link_type
+  LEFT JOIN unpublishings ON editions.id = unpublishings.edition_id
   WHERE
     editions.content_store =:content_store
     AND documents.locale IN (:primary_locale,:secondary_locale)
     AND editions.document_type NOT IN (:non_renderable_formats)
     AND (
-      links.link_type IN (:unpublished_link_types)
-      OR editions.state != 'unpublished'
+      editions.state != 'unpublished'
+      OR
+      (
+        links.link_type IN (:unpublished_link_types)
+        AND
+        unpublishings.type = 'withdrawal'
+      )
     )
   ORDER BY links.id ASC, is_primary_locale DESC
 )
