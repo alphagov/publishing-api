@@ -39,7 +39,7 @@ function curl_and_strip_hashes() {
     -e 's/ (aria-labelledby|data-controls|for|id)(="[^"]+-)[a-z0-9]{8}"/ \1\2HASH"/g' \
     -e 's/<(meta name="govuk:updated-at" content=)"[^"]+">/<\1"TIMESTAMP">/' \
     -e '/<meta name="(csrf-token|csp-nonce|govuk:content-has-history)" content=".*"( \/)?>/d' \
-    -e 's/(datetime=")('"$date_regex"')[ T]'"$hour_regex"'('"$minute_second_regex"')[ Z]?(UTC|\+01:00|\+00:00)?"/\1\2HH:\3"/' \
+    -e 's/(datetime=)("|&quot;)('"$date_regex"')[ T]'"$hour_regex"'('"$minute_second_regex"')[ Z]?(UTC|\+01:00|\+00:00)?("|&quot;)/\1"\3HH:\4"/' \
     > "$output_path"
 }
 
