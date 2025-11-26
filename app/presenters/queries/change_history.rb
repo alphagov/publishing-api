@@ -7,14 +7,14 @@ module Presenters
       end
 
       def call
-        results = if include_edition_change_history && embed_links.any?
+        results = if include_edition_change_history && edition_has_embed_links?
                     notes_for_edition_and_linked_content_blocks
                   elsif include_edition_change_history
                     change_notes_for_edition
-                  elsif embed_links.empty?
-                    return []
-                  else
+                  elsif edition_has_embed_links?
                     change_notes_for_linked_content_blocks
+                  else
+                    return []
                   end
 
         results.order(:public_timestamp)
@@ -44,7 +44,7 @@ module Presenters
       end
 
       def change_notes_for_linked_content_blocks
-        conditions = embed_links.map do |(target_content_id, created_at)|
+        conditions = document_embed_links.map do |(target_content_id, created_at)|
           ChangeNote.joins(edition: :document)
                     .where(documents: { content_id: target_content_id })
                     .where("public_timestamp > ?", created_at)
@@ -53,12 +53,16 @@ module Presenters
         conditions.reduce { |acc, q| acc.or(q) }
       end
 
-      def embed_links
-        @embed_links ||= Link
-                          .joins(:edition)
-                          .where(link_type: "embed", edition: { document_id: edition.document_id })
-                          .group(:target_content_id)
-                          .minimum(:"links.created_at")
+      def edition_has_embed_links?
+        @edition_has_embed_links ||= Link.exists?(edition_id: edition.id, link_type: "embed")
+      end
+
+      def document_embed_links
+        @document_embed_links ||= Link
+                                    .joins(:edition)
+                                    .where(link_type: "embed", edition: { document_id: edition.document_id })
+                                    .group(:target_content_id)
+                                    .minimum(:"links.created_at")
       end
     end
   end
