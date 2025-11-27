@@ -41,29 +41,17 @@ RSpec.describe Presenters::Queries::ChangeHistory do
     end
   end
 
-  describe "when links exist" do
-    before do
-      content_block = create(:edition, created_at: 2.weeks.ago)
-      older_edition = create(:edition, document:, created_at: 2.days.ago, state: "superseded", user_facing_version: "1", content_store: nil)
+  describe "when links to an older edition exist" do
+    let(:content_block) { create(:edition, created_at: 2.weeks.ago) }
+    let(:older_edition) { create(:edition, document:, created_at: 2.days.ago, state: "superseded", user_facing_version: "1", content_store: nil) }
 
+    before do
       # This is where the document was first linked with the content_block
       create(:link,
              edition: older_edition,
              target_content_id: content_block.content_id,
              link_type: "embed",
              created_at: 3.days.ago)
-
-      create(:link,
-             edition: edition,
-             target_content_id: content_block.content_id,
-             link_type: "embed",
-             created_at: 1.day.ago)
-
-      # This link should not be included
-      create(:link,
-             edition: edition,
-             target_content_id: content_block.content_id,
-             link_type: "ministers")
 
       # Create change notes for the content block - the first one was created before the document was linked, so should
       # not show
@@ -75,19 +63,36 @@ RSpec.describe Presenters::Queries::ChangeHistory do
       create(:change_note, edition: older_edition, note: "note-2", public_timestamp: 3.days.ago)
       create(:change_note, edition:, note: "note-1", public_timestamp: 1.hour.ago)
     end
-    context "when include_edition_change_history is true" do
-      let(:include_edition_change_history) { true }
 
-      it "should include change notes that were created after the link was created" do
-        expect(subject.map(&:note)).to eq %w[note-2 linked-edition-note-1 linked-edition-note-2 note-1]
+    context "when the current edition has embed links" do
+      before do
+        create(:link,
+               edition: edition,
+               target_content_id: content_block.content_id,
+               link_type: "embed",
+               created_at: 1.day.ago)
+
+        # This link should not be included
+        create(:link,
+               edition: edition,
+               target_content_id: content_block.content_id,
+               link_type: "ministers")
       end
-    end
 
-    context "when include_edition_change_history is false" do
-      let(:include_edition_change_history) { false }
+      context "when include_edition_change_history is true" do
+        let(:include_edition_change_history) { true }
 
-      it "should only include the change notes for the linked editions" do
-        expect(subject.map(&:note)).to eq %w[linked-edition-note-1 linked-edition-note-2]
+        it "should include change notes that were created after the link was created" do
+          expect(subject.map(&:note)).to eq %w[note-2 linked-edition-note-1 linked-edition-note-2 note-1]
+        end
+      end
+
+      context "when include_edition_change_history is false" do
+        let(:include_edition_change_history) { false }
+
+        it "should only include the change notes for the linked editions" do
+          expect(subject.map(&:note)).to eq %w[linked-edition-note-1 linked-edition-note-2]
+        end
       end
     end
   end
