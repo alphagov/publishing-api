@@ -64,6 +64,24 @@ RSpec.describe Presenters::Queries::ChangeHistory do
       create(:change_note, edition:, note: "note-1", public_timestamp: 1.hour.ago)
     end
 
+    context "when the current edition has no embed links" do
+      context "when include_edition_change_history is true" do
+        let(:include_edition_change_history) { true }
+
+        it "should include change notes from the edition, but not notes from previously linked editions" do
+          expect(subject.map(&:note)).to eq %w[note-2 note-1]
+        end
+      end
+
+      context "when include_edition_change_history is false" do
+        let(:include_edition_change_history) { false }
+
+        it "should not include the change notes for the linked editions" do
+          expect(subject.map(&:note)).to eq []
+        end
+      end
+    end
+
     context "when the current edition has embed links" do
       before do
         create(:link,
