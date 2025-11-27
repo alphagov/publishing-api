@@ -8,8 +8,8 @@ require "json"
 require "net/http"
 require "uri"
 
-# Using a list of base paths, render each page with Content Store and Publishing
-# API's GraphQL endpoint as the data source and diff the results.
+# For a given base path, request the content item from Content Store and
+# Publishing API's GraphQL endpoint and diff the results.
 
 OUTPUT_DIR = "tmp/diffs/content_items".freeze
 
