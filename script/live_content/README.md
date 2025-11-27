@@ -3,70 +3,71 @@
 A number of scripts are available to check the parity of GraphQL and Content
 Store responses.
 
-## Comparing frontend responses
+## Type of comparison
 
-These scripts compare the HTML output from frontend applications.
+With the scripts, you can compare:
+- the HTML rendered from frontend applications when backed by data from Content
+Store versus our GraphQL endpoint
+- the JSON content item returned by Content Store versus our GraphQL endpoint
 
-> If diffing in the development environment, you'll need to start all the relevant
-> servers in GOV.UK Docker: Publishing API, Content Store, plus any required
-> frontend apps and their dependencies (e.g. Collections, Frontend, Government
-> Frontend, Static).
+The comparisons are made against apps running locally (the development
+environment). If you need to run them against a different environment, check the
+"Legacy scripts" section.
 
-### One document
+> Both types of comparison filter out inconsequential diffs such as
+> request-specific hashes.
+
+> We generally have a higher tolerance for JSON diffs than HTML diffs, since the
+> rendered page is ultimately what users see.
+
+## Preparation
+
+Before running the scripts, you'll need to start all the relevant servers in
+GOV.UK Docker: Publishing API, Content Store, plus any required frontend apps
+and their dependencies (e.g. Collections, Frontend, Government Frontend,
+Static).
+
+It's recommended that you represent content from Publishing API to Content Store
+before running any diffs. See the "Syncing Content Store and Publishing API
+databases" section for more information.
+
+## Comparing a single document
+
+Give the base path of the document as an argument to the script.
+
+Frontend (HTML):
 
 ```sh
-./script/live_content/diff_frontend
+./script/live_content/diff_frontend base-path-of-document
 ```
 
-The script has a interactive interface and will prompt for:
-
-- whether to download the HTML (or use a locally cached version)
-- the base path of the document to check
-- the environment (development, integration, staging or production)
-- if integration is selected: basic auth username and password
-- the diff output style
-
-### List of documents
-
-```sh
-./script/live_content/bulk_diff_frontend --base-paths-file-path path/to/file --environment p
-```
-
-For this bulk script, you'll need to prepare a file with a list of base paths
-(e.g. `/world`) and an empty line at the end. See the "Retrieving base paths"
-section for two ways to do this.
-
-Diffs will be output to `tmp/diffs` by default. Run the script
-with `--help` for information on all the required and optional arguments.
-
-## Comparing content items to GraphQL responses
-
-These scripts compare the content item in Content Store to the output from
-GraphQL.
-
-> These only operate on the local development stack.
-
-### One document
+Content item (JSON):
 
 ```sh
 ./script/live_content/diff base-path-of-document
 ```
 
-Give the base path of the document as an argument to the script.
+## Comparing a list of documents
 
-### List of documents
+For the bulk scripts, you'll need to prepare a file with a list of base paths
+(e.g. `/world`) and an empty line at the end. See the "Retrieving base paths"
+section for a few ways to do this. This file must be saved as
+`tmp/base_paths/filtered_base_paths`.
+
+Diffs - where found - will be shown for each base path and you will be given the
+option of moving on or aborting after each one.
+
+Frontend (HTML):
+
+```sh
+./script/live_content/bulk_diff_frontend
+```
+
+Content item (JSON):
 
 ```sh
 ./script/live_content/bulk_diff
 ```
-
-For this bulk script, you'll need to prepare a file with a list of base paths
-(e.g. `/world`) and an empty line at the end. See the "Retrieving base paths"
-section for two ways to do this. This file must be saved as
-`tmp/base_paths/filtered_base_paths`.
-
-The diff will be shown for each base path and you will be given an option of
-moving on or aborting after each one.
 
 ### Compare documents in the integration environment
 

@@ -1,42 +1,100 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ruby
 
-# Diff a rendered page in production when the data source is Content Store vs
-# when the data source is Publishing API's GraphQL endpoint.
+# Start Content Store, Publishing API, Static, and the relevant frontend app
+# before running this script
 
-source script/live_content/diff_frontend_functions.sh
+require "English"
+require "fileutils"
+require "json"
+require "net/http"
+require "uri"
 
-while [[ "$download_html" != @(y|yes|n|no) ]]; do
-  read -p 'Download HTML (y[es]/n[o])? ' download_html
-done
+# For a given base path, request the frontend page with Content Store and
+# Publishing API's GraphQL endpoint as the data source and diff the results.
 
-if [[ $download_html == @(y|yes) ]]; then
-  while [ -z "$base_path" ]; do
-    read -p 'Enter base path (e.g. "/world"): ' base_path
-  done
+OUTPUT_DIR = "tmp/diffs/frontend".freeze
 
-  while [[ $environment != @(d|development|i|integration|s|staging|p|production) ]]; do
-    read -p 'Enter environment (d[evelopment]/i[ntegration]/s[taging]/p[roduction]): ' environment
-  done
+FileUtils.mkdir_p(OUTPUT_DIR)
 
-  if [[ $environment == @(i|integration) ]]; then
-    while [ -z "$username" ]; do
-      read -p 'Enter username: ' username
-    done
+def usage
+  abort("Usage:\n\t#{$PROGRAM_NAME} a_base_path")
+end
 
-    while [ -z "$password" ]; do
-      read -s -p 'Enter password: ' password
-    done
-  fi
+BASE_PATH = ARGV.fetch(0) { usage }
 
-  mkdir -p 'tmp/diffs'
+def rendering_app
+  graphql_query = <<~QUERY
+    {
+      edition(base_path: "#{BASE_PATH}", content_store: "live") {
+        ...on Edition { rendering_app }
+      }
+    }
+  QUERY
 
-  echo
-  prepare_html \
-    --base-path "$base_path" \
-    --environment "$environment" \
-    --username "$username" \
-    --password "$password"
-  echo
-fi
+  response = Net::HTTP.post_form(
+    URI("http://publishing-api.dev.gov.uk/graphql"),
+    query: graphql_query,
+  )
 
-diff_html --interactive
+  JSON.parse(response.body).dig("data", "edition", "rendering_app")
+end
+
+def uri(with_graphql:)
+  domain = "http://#{rendering_app}.dev.gov.uk"
+  URI("#{domain}#{BASE_PATH}?graphql=#{with_graphql}")
+end
+
+uri_without_graphql = uri(with_graphql: false)
+uri_with_graphql = uri(with_graphql: true)
+
+def get_html(uri)
+  response = Net::HTTP.get_response(uri)
+
+  if response.code.to_i >= 400
+    abort(
+      <<~MESSAGE,
+        Aborting due to failed request
+        URI: #{uri}
+        Code: #{response.code}
+      MESSAGE
+    )
+  end
+
+  response.body
+end
+
+def normalise_html(html)
+  html
+    .gsub(/\?graphql=(true|false)/, "")
+    .gsub(/nonce="[^"]{22}=="/, 'nonce="HASH=="')
+    .gsub(
+      /( aria-labelledby="[^ ]+-)[a-z0-9]{8}( [^"]+-)[a-z0-9]{8}"/,
+      '\1HASH\2HASH',
+    )
+    .gsub(
+      / (aria-labelledby|data-controls|for|id)(="[^"]+-)[a-z0-9]{8}"/,
+      ' \1\2HASH"',
+    )
+    .gsub(/\n *<meta name="govuk:content-has-history" content="[^"]+">/, "")
+    .gsub(
+      /(<meta name=")(csrf-token|csp-nonce|govuk:updated-at)(" content=")[^"]+"(?: \/)?>/,
+      '\1\2\3CONTENT">',
+    )
+    .gsub(
+      /(datetime=)(?:"|&quot;)(\d{4}-\d{2}-\d{2})[ T]\d{2}(:\d{2}:\d{2})[ Z]?(?:UTC|\+00:00|\+01:00)?(?:"|&quot;)/,
+      '\1"\2 HH\3"',
+    )
+end
+
+html_without_graphql = normalise_html(get_html(uri_without_graphql)).force_encoding("UTF-8")
+html_with_graphql = normalise_html(get_html(uri_with_graphql)).force_encoding("UTF-8")
+
+without_graphql_file_path = File.join(OUTPUT_DIR, "without_graphql_response.html")
+with_graphql_file_path = File.join(OUTPUT_DIR, "with_graphql_response.html")
+
+File.write(without_graphql_file_path, html_without_graphql)
+File.write(with_graphql_file_path, html_with_graphql)
+
+puts `git diff --no-index --word-diff=color #{without_graphql_file_path} #{with_graphql_file_path}`
+
+exit $CHILD_STATUS.exitstatus
