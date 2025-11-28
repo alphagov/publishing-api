@@ -68,6 +68,27 @@ section for two ways to do this. This file must be saved as
 The diff will be shown for each base path and you will be given an option of
 moving on or aborting after each one.
 
+### Compare documents in the integration environment
+
+Sometimes you may wish to use the integration environment to avoid the need to
+replicate data locally. To do this, you can create a tunnel into Publishing API
+(as it is not accessible to the public).
+
+Log into the integration environment:
+
+```sh
+gds aws govuk-integration-developer --shell
+```
+
+Then create tunnels to both Publishing API and Content Store:
+
+```sh
+kubectl -n apps port-forward deployment/publishing-api-read-replica 8080:8080
+kubectl -n apps port-forward deployment/content-store 8081:8080
+```
+
+Then append `--use-tunnel` to either of the commands above.
+
 ## Known issues
 
 ### Issue with Bash version

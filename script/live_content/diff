@@ -22,9 +22,15 @@ end
 DATE_PATTERN = /^\d{4}-\d{2}-\d{2}/
 
 base_path = ARGV.fetch(0) { usage }
+use_tunnel = ARGV.include?("--use-tunnel")
 
-publishing_api_uri = URI("http://publishing-api.dev.gov.uk/graphql/content#{base_path}")
-content_store_uri = URI("http://content-store.dev.gov.uk/content#{base_path}")
+if use_tunnel
+  publishing_api_uri = URI("http://localhost:8080/graphql/content#{base_path}")
+  content_store_uri = URI("http://localhost:8081/api/content#{base_path}")
+else
+  publishing_api_uri = URI("http://publishing-api.dev.gov.uk/graphql/content#{base_path}")
+  content_store_uri = URI("http://content-store.dev.gov.uk/content#{base_path}")
+end
 
 def deep_sort(value)
   if value.is_a?(Hash)
