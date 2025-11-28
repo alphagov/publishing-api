@@ -835,7 +835,6 @@ query publication($base_path: String!) {
           analytics_identifier
           api_path
           api_url
-          base_path
           content_id
           description
           document_type
