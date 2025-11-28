@@ -1,8 +1,23 @@
 class ChangeNote < ApplicationRecord
-  belongs_to :edition, optional: true
+  belongs_to :edition
+  belongs_to :document
+
+  before_validation :set_columns_from_edition
 
   def self.create_from_edition(payload, edition)
     ChangeNoteFactory.new(payload, edition).build
+  end
+
+private
+
+  def set_columns_from_edition
+    if edition.nil?
+      errors.add(:edition, "must exist")
+      raise_validation_error
+    end
+
+    self.document_id = edition.document_id
+    self.user_facing_version = edition.user_facing_version
   end
 end
 

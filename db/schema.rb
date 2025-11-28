@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_21_132638) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_28_172013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -41,6 +41,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_21_132638) do
     t.integer "edition_id", null: false
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.integer "document_id"
+    t.integer "user_facing_version"
+    t.index ["document_id"], name: "idx_change_notes_document_id_partial", where: "(public_timestamp IS NOT NULL)"
     t.index ["edition_id"], name: "index_change_notes_on_edition_id"
   end
 
