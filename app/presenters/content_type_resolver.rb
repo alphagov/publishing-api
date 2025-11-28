@@ -1,4 +1,6 @@
 class Presenters::ContentTypeResolver
+  class NotFoundError < RuntimeError; end
+
   def initialize(content_type)
     self.content_type = content_type
   end
@@ -36,7 +38,11 @@ private
   end
 
   def extract_content(array)
-    array.detect { |h| h[:content_type] == content_type && h[:content] }
+    contains_content_hashes = array.any? { |h| h[:content_type] && h[:content] }
+    result = array.detect { |h| h[:content_type] == content_type && h[:content] }
+    raise NotFoundError, "Expected to find #{content_type} in #{array.inspect}" if contains_content_hashes && result.nil?
+
+    result
   end
 
   attr_accessor :content_type
