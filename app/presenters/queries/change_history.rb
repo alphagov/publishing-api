@@ -25,14 +25,7 @@ module Presenters
       attr_reader :edition, :include_edition_change_history
 
       def notes_for_edition_and_linked_content_blocks
-        unioned = Arel::Nodes::UnionAll.new(
-          change_notes_for_edition.arel,
-          change_notes_for_linked_content_blocks.arel,
-        )
-
-        # Wrap the unioned subquery so ActiveRecord can use it
-        ChangeNote
-          .from(Arel::Nodes::TableAlias.new(unioned, ChangeNote.table_name))
+        ChangeNote.with(change_notes: [change_notes_for_edition, change_notes_for_linked_content_blocks])
       end
 
       def change_notes_for_edition
