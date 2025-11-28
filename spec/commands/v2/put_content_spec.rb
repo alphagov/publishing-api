@@ -574,7 +574,7 @@ RSpec.describe Commands::V2::PutContent do
 
       before do
         allow(EmbeddedContentFinderService).to receive_message_chain(:new, :fetch_linked_content_ids)
-                                                 .with(details.stringify_keys)
+                                                 .with(details)
                                                  .and_return(content_ids_from_service)
 
         allow(EmbeddedContentFinderService).to receive_message_chain(:new, :find_content_references)
@@ -649,6 +649,45 @@ RSpec.describe Commands::V2::PutContent do
             expect(links[0].link_type).to eq("embed")
           end
         end
+      end
+    end
+
+    describe "when there is a govspeak array inside details" do
+      let(:details) do
+        {
+          body: [
+            { content_type: "text/govspeak", content: "## Mr. Bombastic" },
+          ],
+        }
+      end
+
+      let(:payload) do
+        {
+          content_id:,
+          base_path:,
+          update_type: "major",
+          title: "Some Title",
+          publishing_app:,
+          rendering_app: "frontend",
+          document_type: "person",
+          schema_name: "person",
+          locale:,
+          routes: [{ path: base_path, type: "exact" }],
+          redirects: [],
+          phase: "beta",
+          change_note:,
+          details:,
+        }
+      end
+
+      it "renders the govspeak content to HTML and stores it in the Edition" do
+        expect { described_class.call(payload) }.not_to raise_error
+        edition = Edition.last
+        body = edition.details[:body]
+        expect(body).to contain_exactly(
+          hash_including(content_type: "text/govspeak"),
+          hash_including(content_type: "text/html"),
+        )
       end
     end
   end

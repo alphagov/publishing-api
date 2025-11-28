@@ -115,7 +115,7 @@ module Presenters
 
     def details_presenter
       @details_presenter ||= Presenters::DetailsPresenter.new(
-        edition.to_h[:details],
+        edition.details,
         change_history_presenter,
         content_embed_presenter,
         locale: edition.locale,

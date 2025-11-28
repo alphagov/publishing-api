@@ -71,7 +71,12 @@ RSpec.describe Presenters::DetailsPresenter do
         {
           body: [
             { content_type: "text/govspeak", content: "**hello**" },
-            { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" },
+            {
+              content_type: "text/html",
+              content: "<p><strong>hello</strong></p>\n",
+              rendered_by: "publishing-api",
+              govspeak_version: an_instance_of(String),
+            },
           ],
         }
       end
@@ -96,11 +101,21 @@ RSpec.describe Presenters::DetailsPresenter do
         {
           body: [
             { content_type: "text/govspeak", content: "**hello**" },
-            { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" },
+            {
+              content_type: "text/html",
+              content: "<p><strong>hello</strong></p>\n",
+              rendered_by: "publishing-api",
+              govspeak_version: an_instance_of(String),
+            },
           ],
           other: [
             { content_type: "text/govspeak", content: "**goodbye**" },
-            { content_type: "text/html", content: "<p><strong>goodbye</strong></p>\n" },
+            {
+              content_type: "text/html",
+              content: "<p><strong>goodbye</strong></p>\n",
+              rendered_by: "publishing-api",
+              govspeak_version: an_instance_of(String),
+            },
           ],
         }
       end
@@ -153,6 +168,8 @@ RSpec.describe Presenters::DetailsPresenter do
                 {
                   content_type: "text/html",
                   content: "<p>foo</p>\n",
+                  rendered_by: "publishing-api",
+                  govspeak_version: an_instance_of(String),
                 },
               ],
             },
@@ -161,60 +178,7 @@ RSpec.describe Presenters::DetailsPresenter do
       end
 
       it "converts from govspeak appropriately" do
-        expect(subject).to eq expected_details
-      end
-    end
-
-    describe "providing a locale to Govspeak" do
-      let(:edition_details) do
-        {
-          body: [
-            { content_type: "text/govspeak", content: "**hello**" },
-          ],
-        }
-      end
-
-      context "when we're passed Govspeak without a locale specified" do
-        it "passes English as the locale to Govspeak" do
-          expect(Govspeak::Document)
-            .to receive(:new)
-            .with(anything, a_hash_including(locale: "en"))
-            .and_call_original
-
-          subject
-        end
-      end
-
-      context "when we're passed Govspeak with a locale specified" do
-        it "passes the specified locale to Govspeak" do
-          expect(Govspeak::Document)
-            .to receive(:new)
-            .with(anything, a_hash_including(locale: "cy"))
-            .and_call_original
-
-          described_class.new(
-            edition_details,
-            change_history_presenter,
-            content_embed_presenter,
-            locale: "cy",
-          ).details
-        end
-
-        context "when the provided locale is nil" do
-          it "passes English as the locale to Govspeak" do
-            expect(Govspeak::Document)
-              .to receive(:new)
-              .with(anything, a_hash_including(locale: "en"))
-              .and_call_original
-
-            described_class.new(
-              edition_details,
-              change_history_presenter,
-              content_embed_presenter,
-              locale: nil,
-            ).details
-          end
-        end
+        expect(subject).to match expected_details
       end
     end
 

@@ -9,13 +9,16 @@ class EmbeddedContentFinderService
 
   def find_content_references(value)
     case value
-    when Array
-      value.map { |item| find_content_references(item) }.flatten
-    when Hash
-      value.map { |_, v| find_content_references(v) }.flatten
-    when String
-      content_references = ContentBlockTools::ContentBlockReference.find_all_in_document(value)
+    in [{ content_type: String, content: String => content }, *]
+      content_references = ContentBlockTools::ContentBlockReference.find_all_in_document(content)
       transform_aliases_to_content_ids(content_references)
+    in String => content
+      content_references = ContentBlockTools::ContentBlockReference.find_all_in_document(content)
+      transform_aliases_to_content_ids(content_references)
+    in Array
+      value.map { |item| find_content_references(item) }.flatten
+    in Hash
+      value.map { |_, v| find_content_references(v) }.flatten
     else
       []
     end
