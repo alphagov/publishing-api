@@ -217,8 +217,12 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           expect(actual_titles).to eq(expected_titles)
         end
       end
+    end
+  end
 
-      describe "links between documents with different locales" do
+  describe "links between documents with different locales" do
+    %i[link_set_links edition_links].each do |links_kind|
+      context "when the link kind is #{links_kind}" do
         it "includes reverse links matching the specified locale" do
           target_edition = create(:edition)
 
@@ -252,7 +256,11 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             expect(actual_titles).to eq(expected_titles)
           end
         end
+      end
+    end
 
+    %i[link_set_links edition_links].each do |links_kind|
+      context "when the link kind is #{links_kind}" do
         it "includes English language reverse links if there's no better match available" do
           target_edition = create(:edition)
 
@@ -286,7 +294,11 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             expect(actual_titles).to eq(expected_titles)
           end
         end
+      end
+    end
 
+    %i[link_set_links edition_links].each do |links_kind|
+      context "when the link kind is #{links_kind}" do
         it "doesn't include a reverse link if none match the locale or English" do
           target_edition = create(:edition)
 
@@ -319,8 +331,12 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             expect(actual_titles).to eq([])
           end
         end
+      end
+    end
 
-        context "when the Edition is live" do
+    context "when the Edition is live" do
+      %i[link_set_links edition_links].each do |links_kind|
+        context "when the link kind is #{links_kind}" do
           it "defaults to including a (live) 'en' reverse link if the locale-matching one is draft" do
             target_edition = create(:live_edition)
 
@@ -354,7 +370,11 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               expect(actual_titles).to eq(expected_titles)
             end
           end
+        end
+      end
 
+      %i[link_set_links edition_links].each do |links_kind|
+        context "when the link kind is #{links_kind}" do
           it "doesn't include any reverse link if none are live" do
             target_edition = create(:live_edition)
 
@@ -389,8 +409,12 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             end
           end
         end
+      end
+    end
 
-        context "when the reverse linked Edition with matching locale is unpublished" do
+    context "when the reverse linked Edition with matching locale is unpublished" do
+      %i[link_set_links edition_links].each do |links_kind|
+        context "when the link kind is #{links_kind}" do
           it "includes the reverse link if it's a permitted link_type" do
             target_edition = create(:live_edition)
 
@@ -424,7 +448,11 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               expect(actual_titles).to eq(expected_titles)
             end
           end
+        end
+      end
 
+      %i[link_set_links edition_links].each do |links_kind|
+        context "when the link kind is #{links_kind}" do
           it "defaults to including a (not-unpublished) 'en' reverse link if the better-matching one isn't a permitted link_type" do
             target_edition = create(:live_edition)
 
