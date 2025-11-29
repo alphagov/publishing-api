@@ -1,4 +1,4 @@
-RSpec.describe Sources::ReverseLinkedToEditionsSource do
+RSpec.describe Sources::LinkedToEditionsSource do
   context "when the same document is both a link set link and an edition link" do
     it "only returns the document once" do
       target_edition = create(:edition)
@@ -16,7 +16,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           described_class,
           content_store: target_edition.content_store,
           locale: "en",
-        ).request([target_edition, "test_link"])
+        ).request([target_edition, "test_link", :reverse])
 
         expect(request.load).to eq([source_edition])
       end
@@ -51,7 +51,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             described_class,
             content_store: target_edition.content_store,
             locale: "en",
-          ).request([target_edition, "test_link"])
+          ).request([target_edition, "test_link", :reverse])
 
           actual_titles = request.load.map(&:title)
           expected_titles = [source_edition_1, source_edition_2].map(&:title)
@@ -83,7 +83,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             described_class,
             content_store: target_edition.content_store,
             locale: "en",
-          ).request([target_edition, "test_link"])
+          ).request([target_edition, "test_link", :reverse])
 
           actual_titles = request.load.map(&:title)
           expected_titles = [source_edition_2, source_edition_0, source_edition_1].map(&:title)
@@ -131,7 +131,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               described_class,
               content_store: target_edition.content_store,
               locale: "en",
-            ).request([target_edition, "test_link"])
+            ).request([target_edition, "test_link", :reverse])
 
             actual_titles = request.load.map(&:title)
             expected_titles = [source_edition_2, source_edition_1, source_edition_0].map(&:title)
@@ -156,7 +156,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               described_class,
               content_store: target_edition.content_store,
               locale: "en",
-            ).request([target_edition, "parent"])
+            ).request([target_edition, "parent", :reverse])
 
             actual_titles = request.load.map(&:title)
             expected_titles = [unpublished_edition].map(&:title)
@@ -179,7 +179,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               described_class,
               content_store: target_edition.content_store,
               locale: "en",
-            ).request([target_edition, "test_link"])
+            ).request([target_edition, "test_link", :reverse])
 
             actual_titles = request.load.map(&:title)
             expect(actual_titles).to eq([])
@@ -210,7 +210,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             described_class,
             content_store: target_edition.content_store,
             locale: "en",
-          ).request([target_edition, "test_link"])
+          ).request([target_edition, "test_link", :reverse])
 
           actual_titles = request.load.map(&:title)
           expected_titles = [renderable_edition].map(&:title)
@@ -245,7 +245,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               described_class,
               content_store: target_edition.content_store,
               locale: "fr",
-            ).request([target_edition, "test_link"])
+            ).request([target_edition, "test_link", :reverse])
 
             actual_titles = request.load.map(&:title)
             expected_titles = [french_edition].map(&:title)
@@ -279,7 +279,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               described_class,
               content_store: target_edition.content_store,
               locale: "de",
-            ).request([target_edition, "test_link"])
+            ).request([target_edition, "test_link", :reverse])
 
             actual_titles = request.load.map(&:title)
             expected_titles = [english_edition].map(&:title)
@@ -313,7 +313,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               described_class,
               content_store: target_edition.content_store,
               locale: "hu",
-            ).request([target_edition, "test_link"])
+            ).request([target_edition, "test_link", :reverse])
 
             actual_titles = request.load.map(&:title)
             expect(actual_titles).to eq([])
@@ -347,7 +347,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                 described_class,
                 content_store: target_edition.content_store,
                 locale: "fr",
-              ).request([target_edition, "test_link"])
+              ).request([target_edition, "test_link", :reverse])
 
               actual_titles = request.load.map(&:title)
               expected_titles = [english_edition].map(&:title)
@@ -381,7 +381,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                 described_class,
                 content_store: target_edition.content_store,
                 locale: "fr",
-              ).request([target_edition, "test_link"])
+              ).request([target_edition, "test_link", :reverse])
 
               actual_titles = request.load.map(&:title)
               expected_titles = []
@@ -417,7 +417,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                 described_class,
                 content_store: target_edition.content_store,
                 locale: "fr",
-              ).request([target_edition, "related_statistical_data_sets"])
+              ).request([target_edition, "related_statistical_data_sets", :reverse])
 
               actual_titles = request.load.map(&:title)
               expected_titles = [french_edition].map(&:title)
@@ -451,7 +451,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                 described_class,
                 content_store: target_edition.content_store,
                 locale: "fr",
-              ).request([target_edition, "test_link"])
+              ).request([target_edition, "test_link", :reverse])
 
               actual_titles = request.load.map(&:title)
               expected_titles = [english_edition].map(&:title)
