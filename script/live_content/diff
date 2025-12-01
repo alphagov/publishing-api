@@ -26,7 +26,7 @@ use_tunnel = ARGV.include?("--use-tunnel")
 
 if use_tunnel
   publishing_api_uri = URI("http://localhost:8080/graphql/content#{base_path}")
-  content_store_uri = URI("http://localhost:8081/api/content#{base_path}")
+  content_store_uri = URI("http://localhost:8081/content#{base_path}")
 else
   publishing_api_uri = URI("http://publishing-api.dev.gov.uk/graphql/content#{base_path}")
   content_store_uri = URI("http://content-store.dev.gov.uk/content#{base_path}")
