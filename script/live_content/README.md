@@ -107,7 +107,8 @@ or alternatively as a subshell:
 gds aws govuk-integration-developer --shell
 ```
 
-Then create tunnels to both Publishing API and Content Store:
+Then create tunnels to both Publishing API and Content Store (you'll need to
+set up each tunnel in a separate shell):
 
 ```sh
 kubectl -n apps port-forward deployment/publishing-api-read-replica 8080:8080
