@@ -99,7 +99,9 @@ Sometimes you may wish to use the integration environment to avoid the need to
 replicate data locally. To do this, you can create a tunnel into Publishing API
 (as it is not accessible to the public).
 
-Log into the integration environment:
+Log into the integration environment per the ["Access a GOV.UK EKS cluster"
+guidance](https://docs.publishing.service.gov.uk/kubernetes/get-started/access-eks-cluster/#access-a-cluster-that-you-have-accessed-before),
+or alternatively as a subshell:
 
 ```sh
 gds aws govuk-integration-developer --shell
