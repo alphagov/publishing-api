@@ -2,11 +2,4 @@
 
 # Start Content Store and Publishing API before running this script
 
-while [ $# -gt 0 ]; do
-  case $1 in
-    --use-tunnel) use_tunnel='--use-tunnel'; shift;;
-    *) echo 'Unexpected flag'; exit 1;;
-  esac
-done
-
-script/live_content/bulk_check "script/live_content/diff" --less "${use_tunnel}"
+script/live_content/bulk_check "script/live_content/diff" --less

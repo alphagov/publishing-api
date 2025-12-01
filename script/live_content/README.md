@@ -10,9 +10,9 @@ With the scripts, you can compare:
 Store versus our GraphQL endpoint
 - the JSON content item returned by Content Store versus our GraphQL endpoint
 
-The comparisons are made against apps running locally (the development
-environment). If you need to run them against a different environment, check the
-"Legacy scripts" section.
+The comparisons default to apps running locally (the development environment).
+If you need to run them against a different environment, check the "Using custom
+hosts" section.
 
 > Both types of comparison filter out inconsequential diffs such as
 > request-specific hashes.
@@ -69,7 +69,31 @@ Content item (JSON):
 ./script/live_content/bulk_diff
 ```
 
-### Compare documents in the integration environment
+## Using custom hosts
+
+You might wish to use a custom hosts for your apps, for example if:
+- running the apps locally but without GOV.UK Docker
+- running against integration with port-forwarding (see "Comparing documents in
+the integration environment")
+
+This is supported in all the diffing scripts. To do this, provide environment
+variables with the hosts for all the apps the script will need to hit.
+
+For example:
+
+```sh
+PUBLISHING_API_HOST='localhost:8080' \
+CONTENT_STORE_HOST='localhost:8081' \
+script/live_content/diff
+```
+
+```sh
+FRONTEND_HOST='localhost:8080' \
+GOVERNMENT_FRONTEND_HOST='localhost:8081' \
+script/live_content/bulk_diff_frontend
+```
+
+## Comparing documents in the integration environment
 
 Sometimes you may wish to use the integration environment to avoid the need to
 replicate data locally. To do this, you can create a tunnel into Publishing API
@@ -88,7 +112,10 @@ kubectl -n apps port-forward deployment/publishing-api-read-replica 8080:8080
 kubectl -n apps port-forward deployment/content-store 8081:8080
 ```
 
-Then append `--use-tunnel` to either of the commands above.
+Then provide the relevant environment variables to any of the diffing scripts
+(see "Using custom hosts"). For example, if the ports have been set up as above,
+the Publishing API host will be `localhost:8080` and the Content Store host will
+be `localhost:8081`.
 
 ## Known issues
 

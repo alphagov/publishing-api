@@ -8,7 +8,6 @@ end
 
 check = ARGV.fetch(0) { usage }
 use_less = ARGV.include?("--less")
-use_tunnel = "--use-tunnel" if ARGV.include?("--use-tunnel")
 
 def pipe_to_less(info, result)
   less_input = "#{info}\n\n#{result}"
@@ -25,7 +24,7 @@ total_base_paths = base_paths.count
 base_paths.each_with_index do |base_path, index|
   info = "#{index + 1}/#{total_base_paths}: #{base_path}"
   puts "Processing #{info}"
-  result = `#{check} #{base_path} #{use_tunnel}`
+  result = `#{check} #{base_path}`
   success = $CHILD_STATUS.success?
 
   unless success
