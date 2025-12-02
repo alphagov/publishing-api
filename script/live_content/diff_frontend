@@ -88,6 +88,7 @@ def normalise_html(html)
       /(datetime=)(?:"|&quot;)(\d{4}-\d{2}-\d{2})[ T]\d{2}(:\d{2}:\d{2})[ Z]?(?:UTC|\+00:00|\+01:00)?(?:"|&quot;)/,
       '\1"\2 HH\3"',
     )
+    .gsub(/\\u003c.+--\\u003e/, "")
 end
 
 html_without_graphql = normalise_html(get_html(uri_without_graphql)).force_encoding("UTF-8")
