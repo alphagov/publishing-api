@@ -1,4 +1,39 @@
 RSpec.describe Sources::ReverseLinkedToEditionsSource do
+  context "when the same target content has a mix of link set links and edition links for the same link type" do
+    it "returns only the edition links" do
+      target_edition = create(:edition)
+
+      source_edition_1 = create(:edition,
+                                title: "edition 1, edition link",
+                                edition_links: [
+                                  {
+                                    link_type: "test_link",
+                                    target_content_id: target_edition.content_id,
+                                  },
+                                ])
+      create(:edition,
+             title: "edition 2, link set link",
+             link_set_links: [
+               {
+                 link_type: "test_link",
+                 target_content_id: target_edition.content_id,
+               },
+             ])
+
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(
+          described_class,
+          content_store: target_edition.content_store,
+          locale: "en",
+        ).request([target_edition, "test_link"])
+
+        actual_titles = request.load.map(&:title)
+        expected_titles = [source_edition_1].map(&:title)
+        expect(actual_titles).to match_array(expected_titles)
+      end
+    end
+  end
+
   context "when the same document is both a link set link and an edition link" do
     it "only returns the document once" do
       target_edition = create(:edition)

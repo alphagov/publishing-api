@@ -74,6 +74,13 @@ link_set_linked_editions AS (
         unpublishings.type = 'withdrawal'
       )
     )
+    -- skip any links that we already found in edition_linked_editions:
+    AND NOT EXISTS (
+      SELECT FROM edition_linked_editions
+      WHERE
+        edition_linked_editions.target_content_id = links.target_content_id
+        AND edition_linked_editions.link_type = links.link_type
+    )
   ORDER BY links.id ASC, is_primary_locale DESC
 )
 
