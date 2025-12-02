@@ -134,7 +134,57 @@ RSpec.describe Sources::LinkedToEditionsSource do
       end
 
       context "when the linked item is unpublished" do
-        it "includes unpublished links when they are of a permitted type" do
+        it "includes unpublished links when the unpublishing type is withdrawn" do
+          target_edition = create(:withdrawn_unpublished_edition, content_store: "live", title: "withdrawn edition")
+
+          source_edition = create(:edition,
+                                  content_store: "live",
+                                  links_kind => [
+                                    { link_type: "parent", target_content_id: target_edition.content_id },
+                                  ])
+
+          GraphQL::Dataloader.with_dataloading do |dataloader|
+            request = dataloader.with(
+              described_class,
+              content_store: source_edition.content_store,
+              locale: "en",
+            ).request([source_edition, "parent"])
+
+            actual_titles = request.load.map(&:title)
+            expected_titles = [target_edition.title]
+            expect(actual_titles).to match_array(expected_titles)
+          end
+        end
+
+        it "does not include unpublished links when the unpublishing type is not withdrawn" do
+          target_edition_0 = create(:gone_unpublished_edition, content_store: "live", title: "edition 0, gone")
+          target_edition_1 = create(:redirect_unpublished_edition, content_store: "live", title: "edition 1, redirect")
+          target_edition_2 = create(:substitute_unpublished_edition, content_store: "live", title: "edition 2, substitute")
+          target_edition_3 = create(:vanish_unpublished_edition, content_store: "live", title: "edition 3, vanish")
+
+          source_edition = create(:edition,
+                                  content_store: "live",
+                                  links_kind => [
+                                    { link_type: "parent", target_content_id: target_edition_0.content_id },
+                                    { link_type: "parent", target_content_id: target_edition_1.content_id },
+                                    { link_type: "parent", target_content_id: target_edition_2.content_id },
+                                    { link_type: "parent", target_content_id: target_edition_3.content_id },
+                                  ])
+
+          GraphQL::Dataloader.with_dataloading do |dataloader|
+            request = dataloader.with(
+              described_class,
+              content_store: source_edition.content_store,
+              locale: "en",
+            ).request([source_edition, "parent"])
+
+            actual_titles = request.load.map(&:title)
+            expected_titles = []
+            expect(actual_titles).to match_array(expected_titles)
+          end
+        end
+
+        it "includes unpublished links when they are of a permitted link type" do
           target_edition_0 = create(:edition, content_store: "live", title: "edition 0, published")
           target_edition_1 = create(:withdrawn_unpublished_edition, content_store: "live", title: "edition 1, withdrawn")
 
@@ -158,7 +208,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           end
         end
 
-        it "does not include unpublished links when they are of another type" do
+        it "does not include unpublished links when they are of an unpermitted link type" do
           target_edition_0 = create(:edition, content_store: "live", title: "edition 0, published")
           target_edition_1 = create(:withdrawn_unpublished_edition, content_store: "live", title: "edition 1, withdrawn")
 
@@ -396,7 +446,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
         end
       end
 
-      it "doesn't include non-renderable links" do
+      it "doesn't include linked editions of non-renderable document types" do
         renderable_edition = create(:edition, title: "renderable edition")
         non_renderable_edition = create(:redirect_edition, title: "non-renderable edition (redirect)")
 
