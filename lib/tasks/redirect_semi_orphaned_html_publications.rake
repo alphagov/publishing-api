@@ -18,7 +18,8 @@ def redirect_orphaned_document(document)
     return false
   end
 
-  parent = parent_link.target_documents.find_by(locale: [document.locale, "en"])
+  parent = parent_link.target_documents.find_by(locale: document.locale)
+  parent ||= parent_link.target_documents.find_by(locale: "en")
   if parent.nil?
     puts("ERROR: Couldn't find parent for #{document.content_id}")
     return false
