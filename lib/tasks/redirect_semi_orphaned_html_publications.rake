@@ -14,7 +14,7 @@ end
 def redirect_orphaned_document(document)
   parent_link = document.live.links.find_by(link_type: "parent")
   if parent_link.nil?
-    puts("ERROR: Couldn't find parent link for #{document.documentcontent_id}")
+    puts("ERROR: Couldn't find parent link for #{document.content_id}")
     return false
   end
 
