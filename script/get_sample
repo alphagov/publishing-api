@@ -11,6 +11,9 @@ schema_names = ARGV
 
 usage if schema_names.empty?
 
+MIN_PUBLISHED_PER_SCHEMA_NAME = 2000
+MIN_PUBLISHED_PER_DOCUMENT_TYPE = 250
+
 data = schema_names.flat_map do |schema_name|
   puts "\nSchema name: #{schema_name}"
 
@@ -21,15 +24,21 @@ data = schema_names.flat_map do |schema_name|
   document_types.flat_map do |document_type|
     puts "\nDocument type: #{document_type}"
 
-    Edition
+    data = Edition
       .live
       .joins(:document)
       .where(schema_name:, document_type:)
       .where.not(state: "unpublished")
       .pluck(:base_path, :content_id, :locale)
-      # it would be quicker to use a limit before the pluck, but then we'd get a
-      # less random sample
-      .sample(1000)
+
+    # it would be quicker to use a limit before the pluck, but then we'd get a
+    # less random sample
+    data.sample([
+      MIN_PUBLISHED_PER_SCHEMA_NAME / document_types.size,
+      MIN_PUBLISHED_PER_DOCUMENT_TYPE,
+    ].max).tap do |sample|
+      puts "Sampling #{sample.size} of #{data.size} published editions"
+    end
   end
 end
 
