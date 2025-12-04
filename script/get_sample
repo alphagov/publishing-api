@@ -12,15 +12,25 @@ schema_names = ARGV
 usage if schema_names.empty?
 
 data = schema_names.flat_map do |schema_name|
-  Edition
-    .live
-    .joins(:document)
-    .where(schema_name:)
-    .where.not(state: "unpublished")
-    .pluck(:base_path, :content_id, :locale)
-    # it would be quicker to use a limit before the pluck, but then we'd get a
-    # less random sample
-    .sample(1000)
+  puts "\nSchema name: #{schema_name}"
+
+  document_types = GovukSchemas::Schema
+    .find(frontend_schema: schema_name)
+    .dig("properties", "document_type", "enum")
+
+  document_types.flat_map do |document_type|
+    puts "\nDocument type: #{document_type}"
+
+    Edition
+      .live
+      .joins(:document)
+      .where(schema_name:, document_type:)
+      .where.not(state: "unpublished")
+      .pluck(:base_path, :content_id, :locale)
+      # it would be quicker to use a limit before the pluck, but then we'd get a
+      # less random sample
+      .sample(1000)
+  end
 end
 
 File.write(
