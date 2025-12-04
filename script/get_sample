@@ -75,10 +75,10 @@ end
 
 File.write(
   "script/data/sample",
-  data.map { _1.join(",") }.join("\n"),
+  "#{data.map { _1.join(',') }.join("\n")}\n",
 )
 
 File.write(
   "script/data/sample_base_paths",
-  data.map(&:first).join("\n"),
+  "#{data.map(&:first).join("\n")}\n",
 )
