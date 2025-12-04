@@ -13,6 +13,7 @@ usage if schema_names.empty?
 
 MIN_PUBLISHED_PER_SCHEMA_NAME = 2000
 MIN_PUBLISHED_PER_DOCUMENT_TYPE = 250
+SAMPLE_FIELDS = %i[base_path content_id locale schema_name document_type].freeze
 
 # it might be quicker to use limit before pluck, but then we'd get a less random
 # sample (database-level random ordering is slow given the size of the table)
@@ -23,7 +24,7 @@ def published_sample(schema_name:, document_type:, document_type_count:)
     .live
     .where(schema_name:, document_type:)
     .where.not(state: "unpublished")
-    .pluck(:base_path, :content_id, :locale)
+    .pluck(*SAMPLE_FIELDS)
 
   data.sample([
     MIN_PUBLISHED_PER_SCHEMA_NAME / document_type_count,
@@ -44,7 +45,7 @@ def withdrawn_sample(schema_name:, document_type:)
       state: "unpublished",
       unpublishing: { type: "withdrawal" },
     )
-    .pluck(:base_path, :content_id, :locale)
+    .pluck(*SAMPLE_FIELDS)
 
   data.sample(25).tap do |sample|
     puts "Sampling #{sample.size} of #{data.size} withdrawn editions"
