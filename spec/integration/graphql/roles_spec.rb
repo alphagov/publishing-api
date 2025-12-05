@@ -10,8 +10,8 @@ RSpec.describe "GraphQL" do
         {
           "attends_cabinet_type": nil,
           "body": [{
-            "content_type": "text/govspeak",
-            "content": "# Prime Minister\nThe Prime Minister is the leader of His Majesty's Government",
+            "content_type": "text/html",
+            "content": "<h1>Prime Minister</h1>\n<p>The Prime Minister is the leader of His Majesty's Government</p>",
           }],
           "supports_historical_accounts": true,
         },
@@ -43,8 +43,8 @@ RSpec.describe "GraphQL" do
           base_path: "/government/people/rishi-sunak",
           details: {
             body: [{
-              content: "Rishi Sunak was Prime Minister between 25 October 2022 and 5 July 2024.",
-              content_type: "text/govspeak",
+              content: "<p>Rishi Sunak was Prime Minister between 25 October 2022 and 5 July 2024.</p>",
+              content_type: "text/html",
             }],
           },
         )
@@ -73,8 +73,8 @@ RSpec.describe "GraphQL" do
           base_path: "/government/people/keir-starmer",
           details: {
             body: [{
-              content: "Sir Keir Starmer became Prime Minister on 5 July 2024.",
-              content_type: "text/govspeak",
+              content: "<p>Sir Keir Starmer became Prime Minister on 5 July 2024.</p>\n",
+              content_type: "text/html",
             }],
           },
         )
@@ -166,7 +166,7 @@ RSpec.describe "GraphQL" do
         locale: "en",
         title: "Prime Minister",
         details: {
-          body: "<h1 id=\"prime-minister\">Prime Minister</h1>\n<p>The Prime Minister is the leader of His Majesty’s Government</p>\n",
+          body: "<h1>Prime Minister</h1>\n<p>The Prime Minister is the leader of His Majesty's Government</p>",
           supports_historical_accounts: true,
         },
       )
@@ -204,7 +204,7 @@ RSpec.describe "GraphQL" do
               person: [
                 base_path: "/government/people/rishi-sunak",
                 details: {
-                  body: "<p>Rishi Sunak was Prime Minister between 25 October 2022 and 5 July 2024.</p>\n",
+                  body: "<p>Rishi Sunak was Prime Minister between 25 October 2022 and 5 July 2024.</p>",
                 },
                 title: "The Rt Hon Rishi Sunak MP",
               ],
