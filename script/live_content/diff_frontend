@@ -71,6 +71,7 @@ def normalise_html(html)
   html
     .gsub(/\?graphql=(true|false)/, "")
     .gsub(/nonce="[^"]{22}=="/, 'nonce="HASH=="')
+    .gsub(/value="[a-zA-Z0-9_-]{86}"/, 'value="HASH"')
     .gsub(
       /( aria-labelledby="[^ ]+-)[a-z0-9]{8}( [^"]+-)[a-z0-9]{8}"/,
       '\1HASH\2HASH',
