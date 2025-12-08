@@ -65,6 +65,13 @@ RSpec.describe DownstreamDraftJob do
         subject.perform(arguments.merge("content_id" => pathless.document.content_id))
       end
     end
+
+    context "the edition does not exist" do
+      it "does not put content to draft content store" do
+        expect(Adapters::ContentStore).to_not receive(:put_content_item)
+        subject.perform(arguments.merge("content_id" => SecureRandom.uuid))
+      end
+    end
   end
 
   describe "updates expanded links" do
