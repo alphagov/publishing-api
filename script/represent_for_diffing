@@ -11,8 +11,11 @@ sample = File
   .map { _1.chomp.split(",") }
 count = sample.count
 
-sample.each_with_index do |(base_path, content_id, locale), index|
-  puts "\nProcessing #{index + 1} of #{count}", content_id, locale, base_path
+sample.each_with_index do |data, index|
+  puts "\nProcessing #{index + 1} of #{count}", *data.map { "  #{_1}" }
+
+  _, content_id, locale = data
+
   edition = Queries::GetEditionForContentStore.call(content_id, locale, include_draft: false)
   next unless edition
 
