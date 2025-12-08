@@ -23,9 +23,7 @@ class DownstreamDraftJob
   def perform(args = {})
     assign_attributes(args)
 
-    unless edition
-      raise AbortWorkerError, "A downstreamable edition was not found for content_id: #{content_id} and locale: #{locale}"
-    end
+    return unless edition
 
     unless dependency_resolution_source_content_id.nil?
       DownstreamService.set_govuk_dependency_resolution_source_content_id_header(
@@ -42,8 +40,6 @@ class DownstreamDraftJob
     end
 
     enqueue_dependencies if update_dependencies
-  rescue AbortWorkerError => e
-    notify_govuk_error(e, args)
   end
 
 private
