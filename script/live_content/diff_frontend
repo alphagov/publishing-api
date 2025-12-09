@@ -21,31 +21,9 @@ def usage
 end
 
 BASE_PATH = ARGV.fetch(0) { usage }
-RENDERING_APP = begin
-  graphql_query = <<~QUERY
-    {
-      edition(base_path: "#{BASE_PATH}", content_store: "live") {
-        ...on Edition { rendering_app }
-      }
-    }
-  QUERY
-
-  publishing_api_host = ENV.fetch("PUBLISHING_API_HOST", "publishing-api.dev.gov.uk")
-  response = Net::HTTP.post_form(
-    URI("http://#{publishing_api_host}/graphql"),
-    query: graphql_query,
-  )
-
-  JSON.parse(response.body).dig("data", "edition", "rendering_app")
-end
 
 def uri(with_graphql:)
-  host = ENV.fetch(
-    "#{RENDERING_APP.upcase.gsub('-', '_')}_HOST",
-    "#{RENDERING_APP}.dev.gov.uk",
-  )
-
-  URI("http://#{host}#{BASE_PATH}?graphql=#{with_graphql}")
+  URI("https://www.gov.uk/#{BASE_PATH}?graphql=#{with_graphql}")
 end
 
 uri_without_graphql = uri(with_graphql: false)
