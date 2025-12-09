@@ -32,7 +32,6 @@ query service_manual_service_standard($base_path: String!) {
           api_url
           base_path
           content_id
-          description
           details {
             access_and_opening_times
             change_description
