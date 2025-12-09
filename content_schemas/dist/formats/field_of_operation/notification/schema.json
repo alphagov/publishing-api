@@ -89,6 +89,10 @@
           "description": "Content that will be embedded within the document, using embed tags.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "emphasised_organisations": {
+          "description": "Lead organisations linked to this content item.",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "fatality_notices": {
           "description": "Fatality notices for this field of operation",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -185,6 +189,10 @@
       "properties": {
         "embed": {
           "description": "Content that will be embedded within the document, using embed tags.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "emphasised_organisations": {
+          "description": "Lead organisations linked to this content item.",
           "$ref": "#/definitions/guid_list"
         },
         "fatality_notices": {
