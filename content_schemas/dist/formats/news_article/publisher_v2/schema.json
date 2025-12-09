@@ -76,13 +76,18 @@
           "description": "Content that will be embedded within the document, using embed tags.",
           "$ref": "#/definitions/guid_list"
         },
+        "emphasised_organisations": {
+          "$ref": "#/definitions/guid_list"
+        },
         "government": {
           "description": "The government associated with this document",
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
         },
         "organisations": {
-          "description": "All organisations linked to this content item. This should include lead organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "parent": {
           "$ref": "#/definitions/guid_list"
         },
         "people": {
@@ -98,12 +103,14 @@
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
         },
+        "related_policies": {
+          "$ref": "#/definitions/guid_list"
+        },
         "roles": {
           "description": "Government roles that are associated with this document, typically the role part of a role association",
           "$ref": "#/definitions/guid_list"
         },
         "topical_events": {
-          "description": "The topical events this content item relates to.",
           "$ref": "#/definitions/guid_list"
         },
         "world_locations": {

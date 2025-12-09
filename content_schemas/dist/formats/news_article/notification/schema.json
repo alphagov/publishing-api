@@ -93,7 +93,6 @@
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "emphasised_organisations": {
-          "description": "Lead organisations linked to this content item.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "finder": {
@@ -130,13 +129,10 @@
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "organisations": {
-          "description": "All organisations linked to this content item. This should include lead organisations.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "parent": {
-          "description": "The parent content item.",
-          "$ref": "#/definitions/frontend_links_with_base_path",
-          "maxItems": 1
+          "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "part_of_step_navs": {
           "description": "Link type automatically added by Publishing API",
@@ -187,7 +183,6 @@
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "topical_events": {
-          "description": "The topical events this content item relates to.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "world_locations": {
@@ -219,7 +214,6 @@
           "$ref": "#/definitions/guid_list"
         },
         "emphasised_organisations": {
-          "description": "Lead organisations linked to this content item.",
           "$ref": "#/definitions/guid_list"
         },
         "finder": {
@@ -248,13 +242,10 @@
           "$ref": "#/definitions/guid_list"
         },
         "organisations": {
-          "description": "All organisations linked to this content item. This should include lead organisations.",
           "$ref": "#/definitions/guid_list"
         },
         "parent": {
-          "description": "The parent content item.",
-          "$ref": "#/definitions/guid_list",
-          "maxItems": 1
+          "$ref": "#/definitions/guid_list"
         },
         "people": {
           "description": "People that are associated with this document, typically the person part of a role association",
@@ -285,7 +276,6 @@
           "$ref": "#/definitions/guid_list"
         },
         "topical_events": {
-          "description": "The topical events this content item relates to.",
           "$ref": "#/definitions/guid_list"
         },
         "world_locations": {

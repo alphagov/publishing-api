@@ -59,20 +59,10 @@
     roles: "Government roles that are associated with this document, typically the role part of a role association",
     people: "People that are associated with this document, typically the person part of a role association",
   },
-  edition_links: (import "shared/base_edition_links.jsonnet") + {
-    government: {
-      description: "The government associated with this document",
-      maxItems: 1,
-    },
+  edition_links: (import "shared/whitehall_edition_links.jsonnet") + {
     roles: "Government roles that are associated with this document, typically the role part of a role association",
     people: "People that are associated with this document, typically the person part of a role association",
-    topical_events: "The topical events this content item relates to.",
     world_locations: "The world locations this content item is about.",
     worldwide_organisations: "The worldwide organisations associated with this content item.",
-    organisations: "All organisations linked to this content item. This should include lead organisations.",
-    primary_publishing_organisation: {
-      description: "The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.",
-      maxItems: 1,
-    }
   }
 }
