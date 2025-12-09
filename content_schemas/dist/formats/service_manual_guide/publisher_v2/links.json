@@ -14,6 +14,10 @@
           "description": "References a page of a GDS community responsible for maintaining the guide e.g. Agile delivery community, Design community",
           "$ref": "#/definitions/guid_list"
         },
+        "emphasised_organisations": {
+          "description": "Lead organisations linked to this content item.",
+          "$ref": "#/definitions/guid_list"
+        },
         "finder": {
           "description": "Powers links from content back to finders the content is surfaced on",
           "$ref": "#/definitions/guid_list"

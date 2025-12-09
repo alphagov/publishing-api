@@ -15,6 +15,10 @@
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
         },
+        "emphasised_organisations": {
+          "description": "Lead organisations linked to this content item.",
+          "$ref": "#/definitions/guid_list"
+        },
         "finder": {
           "description": "Powers links from content back to finders the content is surfaced on",
           "$ref": "#/definitions/guid_list"

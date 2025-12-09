@@ -1,4 +1,5 @@
 (import "base_edition_links.jsonnet") + {
+  emphasised_organisations: "",
   government: {
     description: "The government associated with this document",
     maxItems: 1,

@@ -9,6 +9,19 @@
   "title": "Christmas 2016: Prime Minister's message",
   "updated_at": "2016-12-25T00:15:07.824Z",
   "links": {
+    "emphasised_organisations": [
+      {
+        "content_id": "705dbea4-8bd7-422e-ba9c-254557f77f81",
+        "title": "Prime Minister's Office, 10 Downing Street",
+        "api_path": "/api/content/government/organisations/prime-ministers-office-10-downing-street",
+        "base_path": "/government/organisations/prime-ministers-office-10-downing-street",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/prime-ministers-office-10-downing-street",
+        "web_url": "https://www.gov.uk/government/organisations/prime-ministers-office-10-downing-street",
+        "locale": "en",
+        "analytics_identifier": "OT532",
+        "document_type": "organisation"
+      }
+    ],
     "government": [
       {
         "content_id": "d4fbc1b9-d47d-4386-af04-ac909f868f92",
