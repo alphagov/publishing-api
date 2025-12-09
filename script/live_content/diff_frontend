@@ -77,8 +77,8 @@ def normalise_html(html)
       '\1HASH\2HASH',
     )
     .gsub(
-      / (aria-labelledby|data-controls|for|id)(="[^"]+-)[a-z0-9]{8}"/,
-      ' \1\2HASH"',
+      / (aria-describedby|aria-labelledby|data-aria-controls|data-controls|for|id)(="[^"]+-)[a-z0-9]{8}(-?[^"]*)"/,
+      ' \1\2HASH\3"',
     )
     .gsub(/\n *<meta name="govuk:content-has-history" content="[^"]+">/, "")
     .gsub(
