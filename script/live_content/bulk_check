@@ -7,19 +7,12 @@ def usage
 end
 
 check = ARGV.fetch(0) { usage }
-use_less = ARGV.include?("--less")
-
-def pipe_to_less(info, result)
-  less_input = "#{info}\n\n#{result}"
-    .gsub(/\n\+([^+])/, "\n\e[32m+\\1")
-    .gsub(/\n-([^-])/, "\n\e[31m-\\1")
-
-  IO.popen("less -R", "w") { |pipe| pipe.puts less_input }
-end
 
 base_paths_file_path = "tmp/base_paths/filtered_base_paths"
 base_paths = File.read(base_paths_file_path).split("\n")
 total_base_paths = base_paths.count
+
+output_file = File.open("output.txt", "w")
 
 base_paths.each_with_index do |base_path, index|
   info = "#{index + 1}/#{total_base_paths}: #{base_path}"
@@ -28,20 +21,11 @@ base_paths.each_with_index do |base_path, index|
   success = $CHILD_STATUS.success?
 
   unless success
-    pipe_to_less(info, result) if use_less
-    puts result
+    output_file.write(result)
   end
 
   puts "Processed #{info}\n\n"
-
-  next if success
-
-  print "Continue? (Y/n) "
-
-  continue = nil
-  continue = $stdin.gets.chomp.downcase until ["", "y", "n"].include?(continue)
-
-  abort if continue == "n"
-
   puts
 end
+
+output_file.close
