@@ -37,7 +37,29 @@
   },
   "description": "The Bureaucracy Reference Group worked with the Department for Education to help cut down unnecessary administration of schools and children’s services.",
   "details": {
+    "body": "<div class=\"govspeak\"><p>This group has closed.</p>\n\n<h2 id=\"terms-of-reference\">Terms of reference</h2>\n\n<p>The Bureaucracy Reference Group helped the Department for Education (DfE) and local authorities to simplify their management of schools and children’s services. It also consulted the Association of Directors of Children’s Services.</p>\n\n<p>The group aimed to help reduce:</p>\n\n<ul>\n  <li>unnecessary detail in documents and communications</li>\n  <li>commissioning unnecessary evidence</li>\n  <li>unnecessary regulations for schools and children’s services</li>\n  <li>processes that will require teachers to take time away from teaching</li>\n</ul>\n\n<p>It encouraged better communication so that teachers, schools and children’s services professionals:</p>\n\n<ul>\n  <li>could access guidance on their statutory obligations easily</li>\n  <li>received guidance and communications that was easy to read and understand</li>\n  <li>received simple instructions on how to provide the data DfE and local authorities needed to hold schools and children’s services accountable</li>\n  <li>were clear about DfE’s policies on essential teaching areas</li>\n</ul>\n\n<h2 id=\"meeting-dates\">Meeting dates</h2>\n\n<p>The group met 6 times per year. The last meeting was held in July 2015.</p>\n\n<h2 id=\"membership\">Membership</h2>\n\n<p>The Reducing Bureaucracy Group was made up of primary, secondary and special school headteachers and teachers. It also includes business managers and governors from schools and academies.</p>\n\n<h2 id=\"further-information\">Further information</h2>\n<p>Read about <a href=\"https://www.gov.uk/government/publications/reducing-teachers-workload/reducing-teachers-workload\">reducing teachers’ workload</a>.</p>\n</div>",
     "email": "",
-    "body": "<div class=\"govspeak\"><p>This group has closed.</p>\n\n<h2 id=\"terms-of-reference\">Terms of reference</h2>\n\n<p>The Bureaucracy Reference Group helped the Department for Education (DfE) and local authorities to simplify their management of schools and children’s services. It also consulted the Association of Directors of Children’s Services.</p>\n\n<p>The group aimed to help reduce:</p>\n\n<ul>\n  <li>unnecessary detail in documents and communications</li>\n  <li>commissioning unnecessary evidence</li>\n  <li>unnecessary regulations for schools and children’s services</li>\n  <li>processes that will require teachers to take time away from teaching</li>\n</ul>\n\n<p>It encouraged better communication so that teachers, schools and children’s services professionals:</p>\n\n<ul>\n  <li>could access guidance on their statutory obligations easily</li>\n  <li>received guidance and communications that was easy to read and understand</li>\n  <li>received simple instructions on how to provide the data DfE and local authorities needed to hold schools and children’s services accountable</li>\n  <li>were clear about DfE’s policies on essential teaching areas</li>\n</ul>\n\n<h2 id=\"meeting-dates\">Meeting dates</h2>\n\n<p>The group met 6 times per year. The last meeting was held in July 2015.</p>\n\n<h2 id=\"membership\">Membership</h2>\n\n<p>The Reducing Bureaucracy Group was made up of primary, secondary and special school headteachers and teachers. It also includes business managers and governors from schools and academies.</p>\n\n<h2 id=\"further-information\">Further information</h2>\n<p>Read about <a href=\"https://www.gov.uk/government/publications/reducing-teachers-workload/reducing-teachers-workload\">reducing teachers’ workload</a>.</p>\n</div>"
+    "headers": [
+      {
+        "text": "Terms of reference",
+        "level": 2,
+        "id": "terms-of-reference"
+      },
+      {
+        "text": "Meeting dates",
+        "level": 2,
+        "id": "meeting-dates"
+      },
+      {
+        "text": "Membership",
+        "level": 2,
+        "id": "membership"
+      },
+      {
+        "text": "Further information",
+        "level": 2,
+        "id": "further-information"
+      }
+    ]
   }
 }
