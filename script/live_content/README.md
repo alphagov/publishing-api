@@ -120,16 +120,6 @@ Then provide the relevant environment variables to any of the diffing scripts
 the Publishing API host will be `localhost:8080` and the Content Store host will
 be `localhost:8081`.
 
-## Known issues
-
-### Issue with Bash version
-
-If you get a syntax error when running the diffing scripts, you might be using
-an old version of Bash. At the time of writing, the version of Bash shipped with
-macOS is two major versions behind the latest release and missing some features
-used in the scripts. You can
-[install a modern version via Homebrew](https://formulae.brew.sh/formula/bash).
-
 ## Retrieving base paths
 
 ### From a local Publishing API database
