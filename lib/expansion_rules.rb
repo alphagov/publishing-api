@@ -53,7 +53,7 @@ module_function
     %i[main_office contact],
     %i[home_page_offices contact],
     %i[worldwide_organisation sponsoring_organisations],
-    %i[worldwide_organisation world_locations],
+    %i[worldwide_organisation world_locations world_location_news],
     %i[world_locations world_location_news],
   ].freeze
 
@@ -110,8 +110,6 @@ module_function
   STEP_BY_STEP_AUTH_BYPASS_FIELDS = (STEP_BY_STEP_FIELDS + %i[auth_bypass_ids]).freeze
   TAKE_PART_PAGE_FIELDS = (DEFAULT_FIELDS + %i[description details]).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
-  WORLD_LOCATION_FIELDS = %i[content_id title schema_name locale analytics_identifier].freeze
-  WORLD_LOCATION_NEWS_FIELDS = DEFAULT_FIELDS_AND_DESCRIPTION
   WORLDWIDE_OFFICE_FIELDS = (DEFAULT_FIELDS + details_fields(:access_and_opening_times)).freeze
   WORLDWIDE_ORGANISATION_FIELDS = (DEFAULT_FIELDS_AND_DESCRIPTION + details_fields(:logo, :world_location_names, :default_news_image)).freeze
   LINK_COLLECTION_FIELDS = (DEFAULT_FIELDS + details_fields(:link_items)).freeze
@@ -198,9 +196,9 @@ module_function
       { document_type: :travel_advice,
         fields: TRAVEL_ADVICE_FIELDS },
       { document_type: :world_location,
-        fields: WORLD_LOCATION_FIELDS },
+        fields: DEFAULT_FIELDS },
       { document_type: :world_location_news,
-        fields: WORLD_LOCATION_NEWS_FIELDS },
+        fields: DEFAULT_FIELDS_AND_DESCRIPTION },
       { document_type: :worldwide_office,
         fields: WORLDWIDE_OFFICE_FIELDS },
       { document_type: :worldwide_organisation,
