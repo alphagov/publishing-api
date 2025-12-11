@@ -112,6 +112,14 @@
           "description": "Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms.",
           "$ref": "#/definitions/guid_list"
         },
+        "superseded_organisations": {
+          "description": "Organisations this organisation supersedes",
+          "$ref": "#/definitions/guid_list"
+        },
+        "superseding_organisations": {
+          "description": "Organisations superseding this organisation",
+          "$ref": "#/definitions/guid_list"
+        },
         "taxons": {
           "description": "Prototype-stage taxonomy label for this content item",
           "$ref": "#/definitions/guid_list"
