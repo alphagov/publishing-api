@@ -169,6 +169,7 @@ GEM
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-arm64-darwin)
     ffi (1.17.2-x86_64-linux-gnu)
+    fiber-storage (1.0.1)
     find_a_port (1.0.1)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
@@ -289,8 +290,9 @@ GEM
       capybara (>= 3.36)
       puma
       selenium-webdriver (>= 4.0)
-    graphql (2.5.15)
+    graphql (2.5.16)
       base64
+      fiber-storage
       logger
     hashdiff (1.2.1)
     hashie (5.0.0)
