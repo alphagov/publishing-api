@@ -6,7 +6,12 @@ query landing_page($base_path: String!) {
       content_id
       description
       details {
+        blocks
+        breadcrumbs
         change_history
+        image
+        navigation_groups
+        theme
       }
       document_type
       first_published_at
