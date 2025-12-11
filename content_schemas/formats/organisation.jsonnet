@@ -195,5 +195,7 @@
     ordered_special_representatives: "Special representatives primarily for use with Whitehall organisations.",
     ordered_successor_organisations: "Successor organisations primarily for use with closed Whitehall organisations.",
     ordered_traffic_commissioners: "Traffic commissioners primarily for use with Whitehall organisations.",
+    superseded_organisations: "Organisations this organisation supersedes",
+    superseding_organisations: "Organisations superseding this organisation",
   },
 }
