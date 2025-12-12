@@ -778,6 +778,17 @@ query case_study($base_path: String!) {
           content_id
           description
           document_type
+          links {
+            world_location_news {
+              analytics_identifier
+              base_path
+              content_id
+              document_type
+              locale
+              title
+              description
+            }
+          }
           locale
           public_updated_at
           schema_name
