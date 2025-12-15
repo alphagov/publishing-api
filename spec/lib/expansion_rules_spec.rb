@@ -57,7 +57,7 @@ RSpec.describe ExpansionRules do
     let(:step_by_step_fields) { default_fields + [%i[details step_by_step_nav title], %i[details step_by_step_nav steps]] }
     let(:step_by_step_auth_bypass_fields) { step_by_step_fields + %i[auth_bypass_ids] }
     let(:travel_advice_fields) { default_fields + [%i[details country], %i[details change_description]] }
-    let(:world_location_fields) { %i[content_id title schema_name locale analytics_identifier] }
+    let(:world_location_fields) { default_fields }
     let(:world_location_news_fields) { default_fields_and_description }
     let(:worldwide_office_fields) { default_fields + [%i[details access_and_opening_times]] }
     let(:worldwide_organisation_fields) { default_fields_and_description + [%i[details logo]] + [%i[details world_location_names]] + [%i[details default_news_image]] }
