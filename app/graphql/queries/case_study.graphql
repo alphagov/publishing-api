@@ -783,10 +783,10 @@ query case_study($base_path: String!) {
               analytics_identifier
               base_path
               content_id
+              description
               document_type
               locale
               title
-              description
             }
           }
           locale
