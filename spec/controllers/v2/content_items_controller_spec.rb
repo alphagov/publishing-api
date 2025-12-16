@@ -413,6 +413,24 @@ RSpec.describe V2::ContentItemsController do
       end
     end
 
+    context "with content store specified" do
+      context "for a draft edition looking in the draft content store" do
+        it "responds with 200" do
+          get :show, params: { content_id:, content_store: :draft }
+
+          expect(response.status).to eq(200)
+        end
+      end
+
+      context "for a draft edition looking in the live content store" do
+        it "responds with 404" do
+          get :show, params: { content_id:, content_store: :live }
+
+          expect(response.status).to eq(404)
+        end
+      end
+    end
+
     context "for a non-existent edition" do
       it "responds with 404" do
         get :show, params: { content_id: SecureRandom.uuid }

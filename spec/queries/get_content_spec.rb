@@ -77,9 +77,19 @@ RSpec.describe Queries::GetContent do
       )
     end
 
-    it "presents the draft edition" do
+    it "presents the draft edition when no content store is provided" do
       result = subject.call(content_id)
       expect(result.fetch("title")).to eq("Draft Title")
+    end
+
+    it "presents the draft edition when the draft content store is provided" do
+      result = subject.call(content_id, content_store: :draft)
+      expect(result.fetch("title")).to eq("Draft Title")
+    end
+
+    it "presents the live edition when the live content store is provided" do
+      result = subject.call(content_id, content_store: :live)
+      expect(result.fetch("title")).to eq("Live Title")
     end
   end
 

@@ -58,6 +58,7 @@ module V2
         query_params[:locale],
         version: query_params[:version],
         include_warnings: true,
+        content_store: query_params[:content_store],
       )
     end
 
