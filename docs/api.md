@@ -429,9 +429,9 @@ included within the response.
 - `locale` *(optional, default "en")*
   - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
   - Used to return a specific locale.
-- `version` *(optional)*
-  - Specify a particular edition of this document
-  - If omitted the most recent edition.
+- `content_store` *(optional)*
+  - Specify a content_store (live or draft) for the content item
+  - If omitted, the most recent edition (which may be a draft)
 
 ## `GET /v2/content/:content_id/events`
 
