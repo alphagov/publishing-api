@@ -22,8 +22,7 @@ def published_sample(schema_name:, document_type:, document_type_count:)
   data = Edition
     .with_document
     .live
-    .where(schema_name:, document_type:)
-    .where.not(state: "unpublished")
+    .where(schema_name:, document_type:, state: "published")
     .pluck(*SAMPLE_FIELDS)
 
   data.sample([
