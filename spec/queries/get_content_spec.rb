@@ -39,7 +39,7 @@ RSpec.describe Queries::GetContent do
       it "raises a command error" do
         expect {
           subject.call(content_id, version: incorrect_version)
-        }.to raise_error(CommandError, /version: #{incorrect_version} for document/)
+        }.to raise_error(CommandError, /version parameter no longer supported in get_content/)
       end
     end
 
@@ -55,7 +55,7 @@ RSpec.describe Queries::GetContent do
       it "raises a command error" do
         expect {
           subject.call(content_id, incorrect_locale, version: incorrect_version)
-        }.to raise_error(CommandError, /locale: #{incorrect_locale} and version: #{incorrect_version}/)
+        }.to raise_error(CommandError, /version parameter no longer supported in get_content/)
       end
     end
   end
@@ -159,12 +159,10 @@ RSpec.describe Queries::GetContent do
       )
     end
 
-    it "returns specific versions if provided" do
-      result = subject.call(content_id, version: 1)
-      expect(result.fetch("publication_state")).to eq("superseded")
-
-      result = subject.call(content_id, version: 2)
-      expect(result.fetch("publication_state")).to eq("published")
+    it "raises an error if version is provided" do
+      expect {
+        subject.call(content_id, version: 1)
+      }.to raise_error(CommandError, /version parameter no longer supported in get_content/)
     end
 
     it "returns the most recent if version isn't given" do
