@@ -1,11 +1,11 @@
 RSpec.describe Presenters::ContentTypeResolver do
-  subject { described_class.new("html") }
+  subject { described_class.new("text/html") }
 
   it "inlines content of the specified content type" do
     result = subject.resolve(
       body: [
-        { content_type: "html", content: "<p>body</p>" },
-        { content_type: "text", content: "body" },
+        { content_type: "text/html", content: "<p>body</p>" },
+        { content_type: "text/plain", content: "body" },
       ],
     )
 
@@ -17,8 +17,8 @@ RSpec.describe Presenters::ContentTypeResolver do
   it "works for string keys as well as symbols" do
     result = subject.resolve(
       "body" => [
-        { "content_type" => "html", "content" => "<p>body</p>" },
-        { "content_type" => "text", "content" => "body" },
+        { "content_type" => "text/html", "content" => "<p>body</p>" },
+        { "content_type" => "text/plain", "content" => "body" },
       ],
     )
 
@@ -59,7 +59,7 @@ RSpec.describe Presenters::ContentTypeResolver do
         foo: {
           bar: {
             content: [
-              { content_type: "html", content: "<p>body</p>" },
+              { content_type: "text/html", content: "<p>body</p>" },
             ],
           },
         },
@@ -84,7 +84,7 @@ RSpec.describe Presenters::ContentTypeResolver do
           [
             {
               body: [
-                { content_type: "html", content: "<p>body</p>" },
+                { content_type: "text/html", content: "<p>body</p>" },
               ],
             },
           ],
@@ -111,7 +111,7 @@ RSpec.describe Presenters::ContentTypeResolver do
         body: {
           content: [
             { content: "<p>body</p>" },
-            { content_type: "html" },
+            { content_type: "text/html" },
           ],
         },
       },
@@ -121,7 +121,7 @@ RSpec.describe Presenters::ContentTypeResolver do
         body: {
           content: [
             { content: "<p>body</p>" },
-            { content_type: "html" },
+            { content_type: "text/html" },
           ],
         },
       },
@@ -134,7 +134,7 @@ RSpec.describe Presenters::ContentTypeResolver do
         details: {
           body: {
             content: [
-              { content: "body", content_type: "govspeak" },
+              { content: "body", content_type: "text/govspeak" },
             ],
           },
         },
