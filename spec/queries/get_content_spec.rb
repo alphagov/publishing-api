@@ -110,9 +110,10 @@ RSpec.describe Queries::GetContent do
       )
     end
 
-    it "includes these editions" do
-      result = subject.call(content_id)
-      expect(result.fetch("title")).to eq("Newer Title")
+    it "does not include these editions" do
+      expect {
+        subject.call(content_id)
+      }.to raise_error(CommandError, /Could not find locale: en for document with content_id: #{content_id}/)
     end
   end
 
