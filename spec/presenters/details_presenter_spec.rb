@@ -58,71 +58,6 @@ RSpec.describe Presenters::DetailsPresenter do
       end
     end
 
-    context "when we're passed govspeak without HTML" do
-      let(:edition_details) do
-        {
-          body: [
-            { content_type: "text/govspeak", content: "**hello**" },
-          ],
-        }
-      end
-
-      let(:expected_result) do
-        {
-          body: [
-            { content_type: "text/govspeak", content: "**hello**" },
-            {
-              content_type: "text/html",
-              content: "<p><strong>hello</strong></p>\n",
-              rendered_by: "publishing-api",
-              govspeak_version: an_instance_of(String),
-            },
-          ],
-        }
-      end
-
-      it { is_expected.to match(expected_result) }
-    end
-
-    context "when we're passed multiple govspeak fields" do
-      let(:edition_details) do
-        {
-          body: [
-            { content_type: "text/govspeak", content: "**hello**" },
-          ],
-          other: [
-            { content_type: "text/govspeak", content: "**goodbye**" },
-          ],
-
-        }
-      end
-
-      let(:expected_result) do
-        {
-          body: [
-            { content_type: "text/govspeak", content: "**hello**" },
-            {
-              content_type: "text/html",
-              content: "<p><strong>hello</strong></p>\n",
-              rendered_by: "publishing-api",
-              govspeak_version: an_instance_of(String),
-            },
-          ],
-          other: [
-            { content_type: "text/govspeak", content: "**goodbye**" },
-            {
-              content_type: "text/html",
-              content: "<p><strong>goodbye</strong></p>\n",
-              rendered_by: "publishing-api",
-              govspeak_version: an_instance_of(String),
-            },
-          ],
-        }
-      end
-
-      it { is_expected.to match(expected_result) }
-    end
-
     context "when we're passed an image hash" do
       let(:edition_details) do
         { image: { content_type: "image/png", content: "some content" } }
@@ -137,48 +72,6 @@ RSpec.describe Presenters::DetailsPresenter do
       let(:edition_details) { { other: %w[an array of strings] } }
       it "doesn't try to convert to govspeak" do
         expect { subject }.to_not raise_error
-      end
-    end
-
-    context "when we're passed a deeply-nested hash with govspeak" do
-      let(:edition_details) do
-        {
-          parts: [
-            {
-              body: [
-                {
-                  content_type: "text/govspeak",
-                  content: "foo",
-                },
-              ],
-            },
-          ],
-        }
-      end
-
-      let(:expected_details) do
-        {
-          parts: [
-            {
-              body: [
-                {
-                  content_type: "text/govspeak",
-                  content: "foo",
-                },
-                {
-                  content_type: "text/html",
-                  content: "<p>foo</p>\n",
-                  rendered_by: "publishing-api",
-                  govspeak_version: an_instance_of(String),
-                },
-              ],
-            },
-          ],
-        }
-      end
-
-      it "converts from govspeak appropriately" do
-        expect(subject).to match expected_details
       end
     end
 

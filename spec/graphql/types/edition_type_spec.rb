@@ -118,21 +118,21 @@ RSpec.describe "Types::EditionType" do
     end
 
     context "when there are multiple content types and none are html" do
-      it "converts the govspeak to html" do
+      it "raises a NotFoundError" do
         edition = create(:edition, details: {
           body: [
             { content_type: "text/govspeak", content: "some text" },
           ],
         })
 
-        expect(
+        expect {
           run_graphql_field(
             PublishingApiSchema,
             "Edition.details",
             edition,
             lookahead: OpenStruct.new(selections: [OpenStruct.new(name: :body)]),
-          )[:body],
-        ).to eq("<p>some text</p>\n")
+          )
+        }.to raise_error(Presenters::ContentTypeResolver::NotFoundError)
       end
     end
   end

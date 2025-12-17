@@ -373,42 +373,5 @@ RSpec.describe Presenters::EditionPresenter do
         end
       end
     end
-
-    describe "rendering govspeak" do
-      let(:details) do
-        {
-          body: [
-            {
-              content_type: "text/govspeak",
-              content: "#Hello World",
-            },
-          ],
-        }
-      end
-
-      let(:edition) do
-        create(
-          :live_edition,
-          base_path:,
-          details:,
-        )
-      end
-
-      it "renders the govspeak as html" do
-        expect(result[:details][:body]).to include(
-          a_hash_including(
-            content_type: "text/html",
-            content: "<h1 id=\"hello-world\">Hello World</h1>\n",
-          ),
-        )
-      end
-
-      it "returns the govspeak" do
-        expect(result[:details][:body]).to include(
-          content_type: "text/govspeak",
-          content: "#Hello World",
-        )
-      end
-    end
   end
 end

@@ -39,46 +39,6 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   describe "details" do
     let(:c) { create_link_set }
 
-    context "without embedded content in the body" do
-      before do
-        create_edition(a, "/a", document_type: "person")
-        create_edition(
-          b,
-          "/b",
-          document_type: "ministerial_role",
-          details: {
-            body: [
-              {
-                content_type: "text/govspeak",
-                content: "Body",
-              },
-            ],
-          },
-        )
-        create_edition(c, "/c", document_type: "role_appointment")
-
-        create_link(c, a, "person")
-        create_link(c, b, "role")
-      end
-
-      it "recursively calls the details presenter and renders govspeak inside expanded links" do
-        b = expanded_links[:role_appointments].first
-        c = b[:links][:role].first
-        expect(c[:details][:body]).to match([
-          {
-            content_type: "text/govspeak",
-            content: "Body",
-          },
-          {
-            content_type: "text/html",
-            content: "<p>Body</p>\n",
-            rendered_by: "publishing-api",
-            govspeak_version: an_instance_of(String),
-          },
-        ])
-      end
-    end
-
     context "with embedded content in the body" do
       let(:contact) do
         create(:edition, state: "published", content_store: "live", document_type: "contact", title: "Some contact")
@@ -97,6 +57,10 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
               {
                 content_type: "text/govspeak",
                 content: embed_code,
+              },
+              {
+                content_type: "text/html",
+                content: "<html>#{embed_code}</html>",
               },
             ],
           },
@@ -119,9 +83,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           },
           {
             content_type: "text/html",
-            content: Govspeak::Document.new(presented_details_for(contact, embed_code)).to_html,
-            rendered_by: "publishing-api",
-            govspeak_version: an_instance_of(String),
+            content: "<html>#{presented_details_for(contact, embed_code)}</html>",
           },
         ])
       end
@@ -142,9 +104,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
             },
             {
               content_type: "text/html",
-              content: Govspeak::Document.new(presented_details_for(contact, embed_code)).to_html,
-              rendered_by: "publishing-api",
-              govspeak_version: an_instance_of(String),
+              content: "<html>#{presented_details_for(contact, embed_code)}</html>",
             },
           ])
         end

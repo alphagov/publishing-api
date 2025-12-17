@@ -11,7 +11,6 @@ module Presenters
 
     def details
       updated = content_embed(content_item_details).presence || content_item_details
-      updated = GovspeakDetailsRenderer.new(updated, locale:).render
       updated[:change_history] = change_history if change_history.present?
       updated
     end
