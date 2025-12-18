@@ -72,7 +72,7 @@ class GraphqlController < ApplicationController
           return head :not_found
         end
 
-        result = PublishingApiSchema.execute(query, variables: { base_path: encoded_base_path }).to_hash
+        result = PublishingApiSchema.execute(query, variables: { base_path: encoded_base_path, content_store: "live" }).to_hash
         report_result(result)
 
         content_item = GraphqlContentItemService.for_edition(edition).process(result)

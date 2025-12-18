@@ -1,0 +1,23 @@
+
+Document with a draft edition and a translation
+Link set link to another document with a draft edition and translation
+Link set link to another document with a draft edition and no translation
+Edition link to another document with a draft edition and translation
+Edition link to another document with a draft edition and no translation
+
+Document with a draft edition and a translation
+Link set link to another document with a draft edition and translation
+Link set link to another document with a draft edition and no translation
+Edition link to another document with a draft edition and translation
+Edition link to another document with a draft edition and no translation
+Edition link present in live but removed from draft edition shouldn't appear on draft version
+
+
+Document without a draft edition and a translation but viewed on the draft stack
+Link set link to another document with a draft edition and translation
+Link set link to another document with a draft edition and no translation
+Edition link to another document with a draft edition and translation
+Edition link to another document with a draft edition and no translation
+
+
+Access limited drafts: who can see links to the access limited document?
