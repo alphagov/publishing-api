@@ -1,5 +1,5 @@
-query person($base_path: String!) {
-  edition(base_path: $base_path) {
+query person($base_path: String!, $content_store: String) {
+  edition(base_path: $base_path, content_store: $content_store) {
     ... on Edition {
       analytics_identifier
       base_path
