@@ -5,15 +5,6 @@ query person($base_path: String!) {
       base_path
       content_id
       description
-      details {
-        analytics_identifier
-        body
-        change_history
-        full_name
-        image
-        minister
-        privy_counsellor
-      }
       document_type
       first_published_at
       links {
@@ -37,20 +28,6 @@ query person($base_path: String!) {
           base_path
           content_id
           description
-          details {
-            access_and_opening_times
-            change_description
-            contact_form_links
-            country
-            dates_in_office
-            description
-            email_addresses
-            phone_numbers
-            political_party
-            post_addresses
-            step_by_step_nav
-            title
-          }
           document_type
           locale
           public_updated_at
@@ -77,10 +54,6 @@ query person($base_path: String!) {
           api_url
           base_path
           content_id
-          details {
-            description
-            rates
-          }
           document_type
           locale
           public_updated_at
@@ -94,11 +67,6 @@ query person($base_path: String!) {
           api_url
           base_path
           content_id
-          details {
-            facets
-            show_metadata_block
-            show_table_of_contents
-          }
           document_type
           locale
           public_updated_at
@@ -112,13 +80,6 @@ query person($base_path: String!) {
           api_url
           base_path
           content_id
-          details {
-            acronym
-            brand
-            default_news_image
-            logo
-            organisation_govuk_status
-          }
           document_type
           locale
           public_updated_at
@@ -147,19 +108,6 @@ query person($base_path: String!) {
           base_path
           content_id
           description
-          details {
-            change_description
-            contact_form_links
-            country
-            dates_in_office
-            description
-            email_addresses
-            phone_numbers
-            political_party
-            post_addresses
-            step_by_step_nav
-            title
-          }
           document_type
           links {
             mainstream_browse_pages {
@@ -178,14 +126,6 @@ query person($base_path: String!) {
                   base_path
                   content_id
                   description
-                  details {
-                    acronym
-                    brand
-                    default_news_image
-                    logo
-                    organisation_govuk_status
-                    world_location_names
-                  }
                   document_type
                   links {
                     parent {
@@ -195,14 +135,6 @@ query person($base_path: String!) {
                       base_path
                       content_id
                       description
-                      details {
-                        acronym
-                        brand
-                        default_news_image
-                        logo
-                        organisation_govuk_status
-                        world_location_names
-                      }
                       document_type
                       links {
                         parent {
@@ -212,14 +144,6 @@ query person($base_path: String!) {
                           base_path
                           content_id
                           description
-                          details {
-                            acronym
-                            brand
-                            default_news_image
-                            logo
-                            organisation_govuk_status
-                            world_location_names
-                          }
                           document_type
                           locale
                           public_updated_at
@@ -297,21 +221,6 @@ query person($base_path: String!) {
           base_path
           content_id
           description
-          details {
-            access_and_opening_times
-            acronym
-            brand
-            contact_form_links
-            default_news_image
-            description
-            email_addresses
-            logo
-            organisation_govuk_status
-            phone_numbers
-            post_addresses
-            title
-            world_location_names
-          }
           document_type
           locale
           public_updated_at
@@ -326,14 +235,6 @@ query person($base_path: String!) {
           base_path
           content_id
           description
-          details {
-            acronym
-            brand
-            default_news_image
-            logo
-            organisation_govuk_status
-            world_location_names
-          }
           document_type
           links {
             parent {
@@ -343,14 +244,6 @@ query person($base_path: String!) {
               base_path
               content_id
               description
-              details {
-                acronym
-                brand
-                default_news_image
-                logo
-                organisation_govuk_status
-                world_location_names
-              }
               document_type
               links {
                 parent {
@@ -360,14 +253,6 @@ query person($base_path: String!) {
                   base_path
                   content_id
                   description
-                  details {
-                    acronym
-                    brand
-                    default_news_image
-                    logo
-                    organisation_govuk_status
-                    world_location_names
-                  }
                   document_type
                   links {
                     parent {
@@ -377,14 +262,6 @@ query person($base_path: String!) {
                       base_path
                       content_id
                       description
-                      details {
-                        acronym
-                        brand
-                        default_news_image
-                        logo
-                        organisation_govuk_status
-                        world_location_names
-                      }
                       document_type
                       links {
                         parent {
@@ -394,14 +271,6 @@ query person($base_path: String!) {
                           base_path
                           content_id
                           description
-                          details {
-                            acronym
-                            brand
-                            default_news_image
-                            logo
-                            organisation_govuk_status
-                            world_location_names
-                          }
                           document_type
                           locale
                           public_updated_at
@@ -443,9 +312,6 @@ query person($base_path: String!) {
           api_url
           base_path
           content_id
-          details {
-            step_by_step_nav
-          }
           document_type
           locale
           public_updated_at
@@ -472,13 +338,6 @@ query person($base_path: String!) {
           api_url
           base_path
           content_id
-          details {
-            acronym
-            brand
-            default_news_image
-            logo
-            organisation_govuk_status
-          }
           document_type
           locale
           public_updated_at
@@ -492,9 +351,6 @@ query person($base_path: String!) {
           api_url
           base_path
           content_id
-          details {
-            step_by_step_nav
-          }
           document_type
           locale
           public_updated_at
@@ -508,12 +364,6 @@ query person($base_path: String!) {
           api_url
           base_path
           content_id
-          details {
-            current
-            ended_on
-            person_appointment_order
-            started_on
-          }
           document_type
           links {
             person {
@@ -522,10 +372,6 @@ query person($base_path: String!) {
               api_url
               base_path
               content_id
-              details {
-                body
-                image
-              }
               document_type
               locale
               public_updated_at
@@ -539,12 +385,6 @@ query person($base_path: String!) {
               api_url
               base_path
               content_id
-              details {
-                body
-                role_payment_type
-                seniority
-                whip_organisation
-              }
               document_type
               links {
                 ordered_parent_organisations {
@@ -553,13 +393,6 @@ query person($base_path: String!) {
                   api_url
                   base_path
                   content_id
-                  details {
-                    acronym
-                    brand
-                    default_news_image
-                    logo
-                    organisation_govuk_status
-                  }
                   document_type
                   locale
                   schema_name
@@ -586,9 +419,6 @@ query person($base_path: String!) {
           api_url
           base_path
           content_id
-          details {
-            step_by_step_nav
-          }
           document_type
           locale
           public_updated_at
