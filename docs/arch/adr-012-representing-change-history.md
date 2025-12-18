@@ -64,74 +64,24 @@ then we could find them much more efficiently.
 
 ## Decision
 
-We will add `change_note` and `change_note_timestamp` columns to the editions table, migrate existing data from the
-`note` and `public_timestamp` columns in `change_notes`, and then drop the `change_notes` table.
+We will add `document_id` and `user_facing_version` columns to the `change_notes` table. These will contain a copy of
+the values in the editions table, populated when the `change_note` entry is saved (and back-filled in a batch job for
+old change notes).
 
-<details>
-<summary>Aside on public_timestamp / change_note_timestamp</summary>
-
-The situation with `change_notes.public_timestamp` is a little confusing. How is it different from
-`editions.public_updated_at`?
-
-If the entry in `change_notes` comes from the `change_note` at the top level in the payload, or from the
-`details.change_note` field, `public_timestamp` will be set to the `public_updated_at` value
-in the PutContent request, if there is one, or the current time otherwise. Using the current time as a default
-is different to the logic for `editions.public_updated_at`, which will use the current time only if it's a major change,
-otherwise using the `public_updated_at` of the previous edition. Additionally, prior to 8a5366af in June 2019 it
-would always use the current time (which was a bug).
-
-Further complicating things, if the change note comes from `details.change_history` (which is an array of
-`{ note: ..., public_timestamp: ...}`), we take the first `public_timestamp` from the `change_history` - in which case
-it can be a completely different (publisher specified) timestamp to the edition.
-
-This all feels like a terrible mess, and although it would be nice to clean it up, I think it would add too much extra
-complexity to this ADR to change it at the same time as amending the database schema.
-
-Even though we're not addressing it in this ADR, it does seem like a good idea to remove the complexity of change notes
-potentially having different public timestamps to the editions they belong to. Possible future work there.
-</details>
-
-<details>
-<summary>Aside on edition / change_note cardinality</summary>
-
-From looking at the database schema, I'd assumed that there would only be one change note for each edition.
-
-It turns out there's no unique index on `change_notes.edition_id` though, so it's actually possible to have several
-change notes for the same edition. Indeed, there are a few (about 500) editions that have several change notes. These
-are all superseded editions from before 2018, and they're all either `specialist_documents` or `service_manual_guide`
-schemas, so I suspect they're echoes of long forgotten bugs in specialist publisher / service manual publisher.
-
-I'm pretty confident they can be safely ignored - we can just pick a note at random (first, last, whatever) if there
-are several for a given edition.
-
-</details>
-
-<details>
-<summary>Aside on NULL public_timestamps</summary>
-
-Around 100 `change_notes` (~0.01% of them) have `NULL` `public_timestamp` fields. They get ignored by the
-`.where.not(public_timestamp: nil)` clause in the change history query though.
-
-I'd probably lean towards not copying over these `NULL` `public_timestamp` change notes, and maybe putting a constraint
-in the database to ensure that any edition that has a non-NULL `change_note` also has a non-NULL `change_note_timestamp`.
-
-This should allow a slight simplification of the database query.
-</details>
+This idea was explored [in this PR](https://github.com/alphagov/publishing-api/pull/3743).
 
 ### Implementation plan
 
-1) Add `change_note` and `change_note_timestamp` columns to the editions table.
-2) Update the code in publishing API to write to both the new columns in the `editions` table and the `change_notes`
-   table, while continuing to read change notes from the `change_notes` table.
-3) Populate the new columns on `editions` with the contents of the `note` and `public_timestamp` fields from the
-   `change_notes` table.
-4) Consider whether any changes to the indexes on `editions` are worthwhile (probably the existing
-   `index_editions_on_document_id_and_user_facing_version` is good enough though)
-5) Update the code in publishing API to read from the new columns in the `editions` table, and stop writing to the
-   `change_notes` table.
-6) Delete the `ChangeNote` model from publishing API
-7) Drop the `change_notes` table
-
+1) Update any queries that join `change_notes` and `editions` to fully qualify `document_id` and `user_facing_version`
+   columns (i.e. use `"editions"."document_id"` not just `"document_id"`) to avoid ambiguous queries once we add columns
+2) Deploy `publishing-api` to all environments
+3) Add the `document_id` and `user_facing_version` columns to the `change_notes` table in a database migration
+4) Add an index to the `change_notes.document_id` column
+5) Update the code to ensure that whenever we save `ChangeNote` models we populate the `document_id` and
+   `user_facing_version` columns with the values from the referenced edition
+6) Populate the new columns in `change_notes` with a rake task (or some other kind of job)
+7) Update the `change_notes_for_edition` and `change_notes_for_linked_content_blocks` queries to avoid joining `editions`
+8) Hopefully, see a big performance improvement in change history queries!
 
 ## Consequences
 
@@ -141,41 +91,40 @@ This should allow a slight simplification of the database query.
 
 Thanks to all the columns of interest being in the same table, we'll be able to do a much simpler index scan.
 
-### The database schema will be simpler
-
-We'll have fewer tables, which should make the schema a little easier to understand.
-
-### The timestamp situation will still be confusing
-
-As mentioned above in "Aside on public_timestamp / change_note_timestamp", the situation with change note timestamps
-is very confusing. We're not planning on addressing that issue in this ADR, so it will continue to be confusing.
-
-By moving and renaming the field, we'll also be adding another crumb to the trail of clues you have to follow to work
-out what on earth is going on with timestamps in publishing-api.
-
-## Doesn't help us remove superseded editions from the editions table
+### It will be easier for us to refactor the way we store superseded editions
 
 Publishing API's database is huge, largely because we store every historical version of every edition.
 
 Historical versions of editions are currently stored in the `editions` table, with the `content_store` column set to
 `NULL` and the `state` column set to `'superseded'`.
 
-We need these historical records mainly because we need to look up change notes for editions, so we need the mapping
-from `document_id` to `edition_id`.
+One reason we need these superseded editions is that we need to look up change notes for documents, so we need the
+mapping from `document_id` to `edition_id`. Once we have the `document_id` column in `change_notes`, we don't need to
+query editions when getting change history for a document - we only need to look at the `change_notes` table.
 
-Moving change notes into the editions table wouldn't make this situation any better, and might further entrench the
-pattern of keeping `superseded` editions in the same table as live / draft editions.
+The fewer places where publishing-api relies on the presence of superseded editions in the editions table, the easier it
+will be to refactor the schema (e.g. by moving them into a separate `superseded_editions` table, or by partitioning the
+`editions` table on `content_store`).
 
-This is annoying, because publishing API database dumps are very large because of superseded editions, and we believe
-there's a performance cost to all queries that hit the editions table.
+### We'll be storing the document to edition mapping in two places
+
+We're storing "which edition belongs to which document" in two places - the editions table, and the change notes table.
+
+This denormalization simplifies the joins required when querying change notes, but adds a bit of data redundancy.
+
+The main risk with data redundancy is update anomalies - for example, if we allowed editions to change which document
+they belonged to, it would be possible to update the document for an edition in the `editions` table but forget to
+update the other `document_id` in the `change_notes` table. In practice, editions never move from one document to
+another, and `user_facing_version` never changes once an edition is created. So I don't think there's a realistic data
+hazard in doing it this way.
 
 ## Alternatives considered
 
-### Denormalising change history by adding document_id / user_facing_version columns
+### Moving change notes into the editions table
 
-This was explored [in this PR](https://github.com/alphagov/publishing-api/pull/3743).
+A [previous version of this ADR](https://github.com/alphagov/publishing-api/blob/bb38a789c94a7a7ce9cf6769376824ab0064ecce/docs/arch/adr-012-representing-change-history.md)
+considered moving the `change_notes` columns into `editions`, and then dropping the `change_notes` table.
 
-The drawbacks of this approach are:
-
-- We're storing a little more data (a small amount though, basically irrelevant)
-- We're storing "which edition belongs to which document" in two places - the editions table, and the change notes table. Which feels like "bad" database design. In practice, editions never move from one document to another, and user_facing_version never changes once an edition is created. So I don't think there's any realistic data hazard in doing it this way.
+This would have brought the same performance benefits, without needing to denormalize the database schema. However, we
+felt that it was a step in the wrong direction in terms of optimising the storage of superseded editions - it would have
+made it more difficult to refactor the database schema to store superseded editions separately to live / draft editions.
