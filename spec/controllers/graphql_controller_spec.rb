@@ -1,4 +1,98 @@
 RSpec.describe GraphqlController do
+  describe "#draft_content" do
+    context "when the requested base_path has draft content" do
+      let(:edition) do
+        create(
+          :draft_edition,
+          schema_name: "person",
+          document_type: "person",
+          details: {
+            "body" => "Some content",
+          },
+        )
+      end
+
+      let(:request_path) { base_path_without_leading_slash(edition.base_path) }
+
+      before do
+        get :draft_content, params: { base_path: request_path }
+      end
+
+      it "returns a 200 OK response" do
+        expect(response.status).to eq(200)
+      end
+
+      it "returns the content item as JSON data" do
+        expect(response.media_type).to eq("application/json")
+      end
+
+      context "but the requested route does not match the base_path" do
+        let(:edition) do
+          create(
+            :draft_edition,
+            base_path: "/base-path",
+            document_type: "news_story",
+            routes: [
+              { path: "/base-path", type: "exact" },
+              { path: "/base-path/exact", type: "exact" },
+            ],
+            schema_name: "news_article",
+          )
+        end
+
+        let(:request_path) { base_path_without_leading_slash(edition.routes.second[:path]) }
+
+        it "returns a 303 See Other response" do
+          expect(response.status).to eq(303)
+        end
+
+        it "returns a redirect to the item by base_path" do
+          expect(response).to redirect_to("/graphql/draft/base-path")
+        end
+      end
+    end
+
+    context "when the requested base_path only has live content" do
+      let(:edition) do
+        create(
+          :live_edition,
+          schema_name: "news_article",
+          document_type: "news_story",
+          details: {
+            "body" => "Some content",
+          },
+        )
+      end
+
+      let(:request_path) { base_path_without_leading_slash(edition.base_path) }
+
+      before do
+        get :draft_content, params: { base_path: request_path }
+      end
+
+      it "returns a 200 OK response" do
+        expect(response.status).to eq(200)
+      end
+
+      it "returns the content item as JSON data" do
+        expect(response.media_type).to eq("application/json")
+      end
+
+      it "sets document_type and schema_type as prometheus labels" do
+        expect(request.env.dig("govuk.prometheus_labels", "document_type")).to eq(edition.document_type)
+        expect(request.env.dig("govuk.prometheus_labels", "schema_name")).to eq(edition.schema_name)
+      end
+
+      it "sets cache headers to expire in the default TTL" do
+        expect(cache_control["max-age"]).to eq(default_ttl.to_s)
+      end
+
+      it "sets a cache-control directive of public" do
+        expect(cache_control["public"]).to eq(true)
+      end
+    end
+  end
+
   describe "#live_content" do
     shared_examples "a response with default public cache headers" do
       it "sets cache headers to expire in the default TTL" do
