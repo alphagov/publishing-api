@@ -53,7 +53,7 @@
       "check_name": "FileAccess",
       "message": "Parameter value used in file name",
       "file": "app/controllers/graphql_controller.rb",
-      "line": 28,
+      "line": 70,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
       "code": "File.read(Rails.root.join(\"app/graphql/queries/#{EditionFinderService.new(Addressable::URI.encode(\"/#{params[:base_path]}\")).find.schema_name}.graphql\"))",
       "render_path": null,
@@ -61,6 +61,29 @@
         "type": "method",
         "class": "GraphqlController",
         "method": "live_content"
+      },
+      "user_input": "params[:base_path]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "caea2a7c4a7bdd253244a55991bdb9f5ef30073e70834adccefbee128af05cb5",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/graphql_controller.rb",
+      "line": 28,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.read(Rails.root.join(\"app/graphql/queries/#{EditionFinderService.new(Addressable::URI.encode(\"/#{params[:base_path]}\"), :with_drafts => true).find.schema_name}.graphql\"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "GraphqlController",
+        "method": "draft_content"
       },
       "user_input": "params[:base_path]",
       "confidence": "Weak",
