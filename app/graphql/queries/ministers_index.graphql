@@ -13,56 +13,43 @@ query ministers_index($base_path: String!) {
       schema_name
       title
       updated_at
-
       details {
         body
         reshuffle
       }
-
       links {
         ordered_cabinet_ministers {
           ...basePersonInfo
         }
-
         ordered_also_attends_cabinet {
           ...basePersonInfo
         }
-
         ordered_assistant_whips {
           ...basePersonInfo
         }
-
         ordered_baronesses_and_lords_in_waiting_whips {
           ...basePersonInfo
         }
-
         ordered_house_lords_whips {
           ...basePersonInfo
         }
-
         ordered_house_of_commons_whips {
           ...basePersonInfo
         }
-
         ordered_junior_lords_of_the_treasury_whips {
           ...basePersonInfo
         }
-
         ordered_ministerial_departments {
           title
           web_url
-
           details {
             brand
-
             logo
           }
-
           links {
             ordered_ministers {
               ...basePersonInfo
             }
-
             ordered_roles {
               content_id
             }
@@ -77,25 +64,20 @@ fragment basePersonInfo on MinistersIndexPerson {
   title
   base_path
   web_url
-
   details {
     privy_counsellor
-
     image
   }
-
   links {
     role_appointments {
       details {
         current
       }
-
       links {
         role {
           content_id
           title
           web_url
-
           details {
             role_payment_type
             seniority

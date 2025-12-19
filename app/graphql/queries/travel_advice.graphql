@@ -1,3 +1,17 @@
+fragment defaultFields on Edition {
+  content_id
+  title
+  locale
+  analytics_identifier
+  api_path
+  base_path
+  document_type
+  public_updated_at
+  schema_name
+  api_url
+  web_url
+}
+
 query travel_advice($base_path: String!) {
   edition(base_path: $base_path) {
     ... on Edition {
@@ -22,24 +36,10 @@ query travel_advice($base_path: String!) {
       first_published_at
       links {
         available_translations {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
+          ...defaultFields
         }
         children {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           description
           details {
             access_and_opening_times
@@ -55,67 +55,27 @@ query travel_advice($base_path: String!) {
             step_by_step_nav
             title
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         document_collections {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
+          ...defaultFields
         }
         embed {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             description
             rates
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         finder {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             facets
             show_metadata_block
             show_table_of_contents
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         lead_organisations {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             acronym
             brand
@@ -123,33 +83,13 @@ query travel_advice($base_path: String!) {
             logo
             organisation_govuk_status
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         mainstream_browse_pages {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           description
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         ordered_related_items {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           description
           details {
             change_description
@@ -164,23 +104,13 @@ query travel_advice($base_path: String!) {
             step_by_step_nav
             title
           }
-          document_type
           links {
             mainstream_browse_pages {
-              analytics_identifier
-              api_path
-              api_url
-              base_path
-              content_id
+              ...defaultFields
               description
-              document_type
               links {
                 parent {
-                  analytics_identifier
-                  api_path
-                  api_url
-                  base_path
-                  content_id
+                  ...defaultFields
                   description
                   details {
                     acronym
@@ -190,14 +120,9 @@ query travel_advice($base_path: String!) {
                     organisation_govuk_status
                     world_location_names
                   }
-                  document_type
                   links {
                     parent {
-                      analytics_identifier
-                      api_path
-                      api_url
-                      base_path
-                      content_id
+                      ...defaultFields
                       description
                       details {
                         acronym
@@ -207,14 +132,9 @@ query travel_advice($base_path: String!) {
                         organisation_govuk_status
                         world_location_names
                       }
-                      document_type
                       links {
                         parent {
-                          analytics_identifier
-                          api_path
-                          api_url
-                          base_path
-                          content_id
+                          ...defaultFields
                           description
                           details {
                             acronym
@@ -224,82 +144,32 @@ query travel_advice($base_path: String!) {
                             organisation_govuk_status
                             world_location_names
                           }
-                          document_type
-                          locale
-                          public_updated_at
-                          schema_name
-                          title
-                          web_url
                         }
                       }
-                      locale
-                      public_updated_at
-                      schema_name
-                      title
-                      web_url
                     }
                   }
-                  locale
-                  public_updated_at
-                  schema_name
-                  title
-                  web_url
                 }
               }
-              locale
-              public_updated_at
-              schema_name
-              title
-              web_url
             }
           }
-          locale
           phase
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         ordered_related_items_overrides {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           description
           details: details_json
-          document_type
           links {
             taxons {
-              analytics_identifier
-              api_path
-              api_url
-              base_path
-              content_id
+              ...defaultFields
               description
               details: details_json
-              document_type
-              locale
               phase
-              public_updated_at
-              schema_name
-              title
-              web_url
             }
           }
-          locale
           phase
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         organisations {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           description
           details {
             access_and_opening_times
@@ -316,19 +186,9 @@ query travel_advice($base_path: String!) {
             title
             world_location_names
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         parent {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           description
           details {
             acronym
@@ -338,14 +198,9 @@ query travel_advice($base_path: String!) {
             organisation_govuk_status
             world_location_names
           }
-          document_type
           links {
             parent {
-              analytics_identifier
-              api_path
-              api_url
-              base_path
-              content_id
+              ...defaultFields
               description
               details {
                 acronym
@@ -355,14 +210,9 @@ query travel_advice($base_path: String!) {
                 organisation_govuk_status
                 world_location_names
               }
-              document_type
               links {
                 parent {
-                  analytics_identifier
-                  api_path
-                  api_url
-                  base_path
-                  content_id
+                  ...defaultFields
                   description
                   details {
                     acronym
@@ -372,14 +222,9 @@ query travel_advice($base_path: String!) {
                     organisation_govuk_status
                     world_location_names
                   }
-                  document_type
                   links {
                     parent {
-                      analytics_identifier
-                      api_path
-                      api_url
-                      base_path
-                      content_id
+                      ...defaultFields
                       description
                       details {
                         acronym
@@ -389,14 +234,9 @@ query travel_advice($base_path: String!) {
                         organisation_govuk_status
                         world_location_names
                       }
-                      document_type
                       links {
                         parent {
-                          analytics_identifier
-                          api_path
-                          api_url
-                          base_path
-                          content_id
+                          ...defaultFields
                           description
                           details {
                             acronym
@@ -406,76 +246,26 @@ query travel_advice($base_path: String!) {
                             organisation_govuk_status
                             world_location_names
                           }
-                          document_type
-                          locale
-                          public_updated_at
-                          schema_name
-                          title
-                          web_url
                         }
                       }
-                      locale
-                      public_updated_at
-                      schema_name
-                      title
-                      web_url
                     }
                   }
-                  locale
-                  public_updated_at
-                  schema_name
-                  title
-                  web_url
                 }
               }
-              locale
-              public_updated_at
-              schema_name
-              title
-              web_url
             }
           }
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         part_of_step_navs {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             step_by_step_nav
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         policy_areas {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
+          ...defaultFields
         }
         primary_publishing_organisation {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             acronym
             brand
@@ -483,19 +273,9 @@ query travel_advice($base_path: String!) {
             logo
             organisation_govuk_status
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         related {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           description
           details {
             contact_form_links
@@ -505,73 +285,37 @@ query travel_advice($base_path: String!) {
             post_addresses
             title
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         related_to_step_navs {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             step_by_step_nav
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         role_appointments {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             current
             ended_on
             person_appointment_order
             started_on
           }
-          document_type
           links {
             person {
-              analytics_identifier
-              api_path
-              api_url
-              base_path
-              content_id
+              ...defaultFields
               details {
                 body
                 image
               }
-              document_type
-              locale
-              public_updated_at
-              schema_name
-              title
-              web_url
             }
             role {
-              analytics_identifier
-              api_path
-              api_url
-              base_path
-              content_id
+              ...defaultFields
               details {
                 body
                 role_payment_type
                 seniority
                 whip_organisation
               }
-              document_type
               links {
                 ordered_parent_organisations {
                   analytics_identifier
@@ -593,187 +337,67 @@ query travel_advice($base_path: String!) {
                   web_url
                 }
               }
-              locale
-              public_updated_at
-              schema_name
-              title
-              web_url
             }
           }
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         secondary_to_step_navs {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             step_by_step_nav
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         taxons {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           description
           details: details_json
-          document_type
           links {
             parent_taxons {
-              analytics_identifier
-              api_path
-              api_url
-              base_path
-              content_id
+              ...defaultFields
               description
               details: details_json
-              document_type
               links {
                 parent_taxons {
-                  analytics_identifier
-                  api_path
-                  api_url
-                  base_path
-                  content_id
+                  ...defaultFields
                   description
                   details: details_json
-                  document_type
                   links {
                     parent_taxons {
-                      analytics_identifier
-                      api_path
-                      api_url
-                      base_path
-                      content_id
+                      ...defaultFields
                       description
                       details: details_json
-                      document_type
                       links {
                         parent_taxons {
-                          analytics_identifier
-                          api_path
-                          api_url
-                          base_path
-                          content_id
+                          ...defaultFields
                           description
                           details: details_json
-                          document_type
-                          locale
                           phase
-                          public_updated_at
-                          schema_name
-                          title
-                          web_url
                         }
                         root_taxon {
-                          analytics_identifier
-                          api_path
-                          api_url
-                          base_path
-                          content_id
-                          document_type
-                          locale
-                          public_updated_at
-                          schema_name
-                          title
-                          web_url
+                          ...defaultFields
                         }
                       }
-                      locale
                       phase
-                      public_updated_at
-                      schema_name
-                      title
-                      web_url
                     }
                     root_taxon {
-                      analytics_identifier
-                      api_path
-                      api_url
-                      base_path
-                      content_id
-                      document_type
-                      locale
-                      public_updated_at
-                      schema_name
-                      title
-                      web_url
+                      ...defaultFields
                     }
                   }
-                  locale
                   phase
-                  public_updated_at
-                  schema_name
-                  title
-                  web_url
                 }
                 root_taxon {
-                  analytics_identifier
-                  api_path
-                  api_url
-                  base_path
-                  content_id
-                  document_type
-                  locale
-                  public_updated_at
-                  schema_name
-                  title
-                  web_url
+                  ...defaultFields
                 }
               }
-              locale
               phase
-              public_updated_at
-              schema_name
-              title
-              web_url
             }
             root_taxon {
-              analytics_identifier
-              api_path
-              api_url
-              base_path
-              content_id
-              document_type
-              locale
-              public_updated_at
-              schema_name
-              title
-              web_url
+              ...defaultFields
             }
           }
-          locale
           phase
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         topical_events {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
+          ...defaultFields
         }
       }
       locale
