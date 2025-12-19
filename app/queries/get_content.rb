@@ -10,11 +10,7 @@ module Queries
 
       editions = editions.where(content_store:) if content_store
 
-      response = Presenters::Queries::ContentItemPresenter.present_many(
-        editions,
-        include_warnings:,
-        states: %i[draft published unpublished superseded],
-      ).first
+      response = Presenters::Queries::ContentItemPresenter.present_many(editions, include_warnings:).first
 
       if response.present?
         response
