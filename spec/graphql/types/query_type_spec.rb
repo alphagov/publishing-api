@@ -4,8 +4,8 @@ RSpec.describe Types::QueryType do
   describe "#edition" do
     let(:query) do
       <<~QUERY
-        query($base_path: String!, $content_store: String!) {
-          edition(base_path: $base_path, content_store: $content_store) {
+        query($base_path: String!, $with_drafts: Boolean!) {
+          edition(base_path: $base_path, with_drafts: $with_drafts) {
             ... on Edition {
               base_path
               state
@@ -18,22 +18,34 @@ RSpec.describe Types::QueryType do
     context "when there is only a draft edition" do
       let(:draft_edition) { create(:draft_edition) }
 
-      context "requesting the draft edition" do
+      context "requesting with_drafts=true" do
         it "returns the draft edition" do
           expected_data = {
             "base_path" => draft_edition.base_path,
             "state" => "draft",
           }
 
-          result = PublishingApiSchema.execute(query, variables: { base_path: draft_edition.base_path, content_store: "draft" })
+          result = PublishingApiSchema.execute(
+            query,
+            variables: {
+              base_path: draft_edition.base_path,
+              with_drafts: true,
+            },
+          )
           edition_data = result.dig("data", "edition")
           expect(edition_data).to eq(expected_data)
         end
       end
 
-      context "requesting the live edition" do
+      context "requesting with_drafts=false" do
         it "returns no edition" do
-          result = PublishingApiSchema.execute(query, variables: { base_path: draft_edition.base_path, content_store: "live" })
+          result = PublishingApiSchema.execute(
+            query,
+            variables: {
+              base_path: draft_edition.base_path,
+              with_drafts: false,
+            },
+          )
           edition_data = result.dig("data", "edition")
           expect(edition_data).to be_nil
         end
@@ -43,22 +55,39 @@ RSpec.describe Types::QueryType do
     context "when there is only a live edition" do
       let(:live_edition) { create(:live_edition) }
 
-      context "requesting the draft edition" do
-        it "returns no edition" do
-          result = PublishingApiSchema.execute(query, variables: { base_path: live_edition.base_path, content_store: "draft" })
-          edition_data = result.dig("data", "edition")
-          expect(edition_data).to be_nil
-        end
-      end
-
-      context "requesting the live edition" do
+      context "requesting with_drafts=true" do
         it "returns the live edition" do
           expected_data = {
             "base_path" => live_edition.base_path,
             "state" => "published",
           }
 
-          result = PublishingApiSchema.execute(query, variables: { base_path: live_edition.base_path, content_store: "live" })
+          result = PublishingApiSchema.execute(
+            query,
+            variables: {
+              base_path: live_edition.base_path,
+              with_drafts: true,
+            },
+          )
+          edition_data = result.dig("data", "edition")
+          expect(edition_data).to eq(expected_data)
+        end
+      end
+
+      context "requesting with_drafts=false" do
+        it "returns the live edition" do
+          expected_data = {
+            "base_path" => live_edition.base_path,
+            "state" => "published",
+          }
+
+          result = PublishingApiSchema.execute(
+            query,
+            variables: {
+              base_path: live_edition.base_path,
+              with_drafts: false,
+            },
+          )
           edition_data = result.dig("data", "edition")
           expect(edition_data).to eq(expected_data)
         end
@@ -71,27 +100,39 @@ RSpec.describe Types::QueryType do
       let!(:live_edition) { create(:live_edition, document:, base_path:, user_facing_version: 1) }
       let!(:draft_edition) { create(:draft_edition, document:, base_path:, user_facing_version: 2) }
 
-      context "requesting the draft edition" do
+      context "requesting with_drafts=true" do
         it "returns the draft edition" do
           expected_data = {
             "base_path" => draft_edition.base_path,
             "state" => "draft",
           }
 
-          result = PublishingApiSchema.execute(query, variables: { base_path: draft_edition.base_path, content_store: "draft" })
+          result = PublishingApiSchema.execute(
+            query,
+            variables: {
+              base_path: live_edition.base_path,
+              with_drafts: true,
+            },
+          )
           edition_data = result.dig("data", "edition")
           expect(edition_data).to eq(expected_data)
         end
       end
 
-      context "requesting the live edition" do
+      context "requesting with_drafts=false" do
         it "returns the live edition" do
           expected_data = {
             "base_path" => live_edition.base_path,
             "state" => "published",
           }
 
-          result = PublishingApiSchema.execute(query, variables: { base_path: live_edition.base_path, content_store: "live" })
+          result = PublishingApiSchema.execute(
+            query,
+            variables: {
+              base_path: live_edition.base_path,
+              with_drafts: false,
+            },
+          )
           edition_data = result.dig("data", "edition")
           expect(edition_data).to eq(expected_data)
         end
