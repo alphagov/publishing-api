@@ -98,6 +98,35 @@ query homepage($base_path: String!) {
           title
           web_url
         }
+        organisations {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          description
+          details {
+            access_and_opening_times
+            acronym
+            brand
+            contact_form_links
+            default_news_image
+            description
+            email_addresses
+            logo
+            organisation_govuk_status
+            phone_numbers
+            post_addresses
+            title
+            world_location_names
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
         part_of_step_navs {
           analytics_identifier
           api_path
@@ -106,6 +135,26 @@ query homepage($base_path: String!) {
           content_id
           details {
             step_by_step_nav
+          }
+          document_type
+          locale
+          public_updated_at
+          schema_name
+          title
+          web_url
+        }
+        primary_publishing_organisation {
+          analytics_identifier
+          api_path
+          api_url
+          base_path
+          content_id
+          details {
+            acronym
+            brand
+            default_news_image
+            logo
+            organisation_govuk_status
           }
           document_type
           locale
