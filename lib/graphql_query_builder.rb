@@ -112,7 +112,6 @@ private
 
   def build_links_query(link_path, links)
     link_type = link_path.last
-    return if link_type == :suggested_ordered_related_items
 
     document_types = if is_reverse_link_type?(link_path)
                        # Content Schemas include a few irrelevant-looking

@@ -76,7 +76,6 @@ module Types
       links_field :service_manual_topics, [EditionType]
       links_field :speaker, [EditionType]
       links_field :sponsoring_organisations, [EditionType]
-      links_field :suggested_ordered_related_items, [EditionType]
       links_field :take_part_pages, [EditionType]
       links_field :taxonomy_topic_email_override, [EditionType]
       links_field :taxons, [EditionType]
