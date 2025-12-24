@@ -13,12 +13,10 @@ query world_index($base_path: String!) {
       schema_name
       title
       updated_at
-
       details {
         world_locations
         international_delegations
       }
-
       links {
         available_translations {
           base_path

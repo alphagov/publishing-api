@@ -13,12 +13,10 @@ query role($base_path: String!) {
       schema_name
       title
       updated_at
-
       details {
         body
         supports_historical_accounts
       }
-
       links {
         available_translations {
           base_path
@@ -26,36 +24,30 @@ query role($base_path: String!) {
           locale
           title
         }
-
         role_appointments {
           details {
             current
             ended_on
             started_on
           }
-
           links {
             person {
               base_path
               title
-
               details {
                 body
               }
             }
           }
         }
-
         ordered_parent_organisations {
           analytics_identifier
           base_path
           title
         }
-
         organisations {
           analytics_identifier
         }
-
         taxons {
           ...Taxon
           links {
