@@ -5,16 +5,16 @@ $LOAD_PATH << File.expand_path("../../", File.dirname(__FILE__))
 require "config/environment"
 
 DEFAULT_FIELD_NAMES = Set.new(%w[
+  content_id
+  title
+  locale
   analytics_identifier
   api_path
-  api_url
   base_path
-  content_id
   document_type
-  locale
   public_updated_at
   schema_name
-  title
+  api_url
   web_url
 ])
 
@@ -85,5 +85,5 @@ Dir[Rails.root.join("app/graphql/queries/*.graphql")].each do |filename|
   ast = GraphQL.parse_file(filename)
   edited_ast = DefaultFieldAdder.new(ast).visit
 
-  File.open(filename, "w") { |f| f.puts(edited_ast.to_query_string) }
+  File.open(filename, "w") { |f| f.print(edited_ast.to_query_string) }
 end

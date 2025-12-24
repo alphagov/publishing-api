@@ -1,14 +1,14 @@
 fragment defaultFields on Edition {
+  content_id
+  title
+  locale
   analytics_identifier
   api_path
-  api_url
   base_path
-  content_id
   document_type
-  locale
   public_updated_at
   schema_name
-  title
+  api_url
   web_url
 }
 

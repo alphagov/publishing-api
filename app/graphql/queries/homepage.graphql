@@ -1,14 +1,14 @@
 fragment defaultFields on Edition {
+  content_id
+  title
+  locale
   analytics_identifier
   api_path
-  api_url
   base_path
-  content_id
   document_type
-  locale
   public_updated_at
   schema_name
-  title
+  api_url
   web_url
 }
 
@@ -63,11 +63,7 @@ query homepage($base_path: String!) {
           phase
         }
         organisations {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           description
           details {
             access_and_opening_times
@@ -84,12 +80,6 @@ query homepage($base_path: String!) {
             title
             world_location_names
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         part_of_step_navs {
           ...defaultFields
@@ -98,11 +88,7 @@ query homepage($base_path: String!) {
           }
         }
         primary_publishing_organisation {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             acronym
             brand
@@ -110,12 +96,6 @@ query homepage($base_path: String!) {
             logo
             organisation_govuk_status
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         policy_areas {
           ...defaultFields
