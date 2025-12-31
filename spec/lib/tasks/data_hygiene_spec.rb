@@ -16,8 +16,8 @@ RSpec.describe "Rake tasks for maintaining data hygiene" do
 
       context "and when a draft is present" do
         before do
-          create(:edition, document:).publish
-          create(:edition, document:, user_facing_version: 2)
+          create(:live_edition, document:)
+          create(:draft_edition, document:)
         end
 
         it "runs the process to discard a draft with the locale" do
