@@ -20,3 +20,4 @@ spec/pacts/publishing_api-content_store.json
 
 # data for GraphQL migration scripts
 script/data
+script/graphql-transforms/node_modules
