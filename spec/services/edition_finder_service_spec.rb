@@ -14,7 +14,7 @@ RSpec.describe EditionFinderService do
   end
 
   describe ".find" do
-    subject { described_class.new(request_path, "live").find }
+    subject { described_class.new(request_path).find }
 
     context "when there isn't an item matching the path" do
       let(:request_path) { "/path" }
