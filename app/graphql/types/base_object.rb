@@ -12,7 +12,7 @@ module Types
       define_method(link_type.to_sym) do
         dataloader.with(
           Sources::LinkedToEditionsSource,
-          content_store: object.content_store,
+          with_drafts: object.content_store == "draft",
           locale: context[:root_edition].locale,
         )
           .load([object, link_type.to_s])
