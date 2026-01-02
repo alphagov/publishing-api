@@ -1,7 +1,7 @@
 class EditionFinderService
   attr_reader :path, :content_store
 
-  def initialize(path, content_store)
+  def initialize(path, content_store = "live")
     @path = path
     @content_store = content_store
   end
