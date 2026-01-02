@@ -10,7 +10,7 @@ RSpec.describe EditionFinderService do
   end
 
   before do
-    @edition = create(:live_edition, base_path:, routes:, redirects:)
+    @live = @edition = create(:live_edition, base_path:, routes:, redirects:)
   end
 
   describe ".find" do
@@ -22,10 +22,44 @@ RSpec.describe EditionFinderService do
       it { is_expected.to be_nil }
     end
 
-    context "when there is a base_path that matches the path" do
+    context "when there are base_paths that match the path" do
       let(:request_path) { "/base-path" }
 
-      it { is_expected.to eq @edition }
+      context "with_drafts=true" do
+        subject { described_class.new(request_path, with_drafts: true).find }
+
+        context "when there are both draft and live base_path matches" do
+          before do
+            @draft = create(:draft_edition, base_path:, routes:, redirects:)
+          end
+
+          it { is_expected.to eq @draft }
+        end
+      end
+
+      context "with_drafts=false" do
+        context "when there are both draft and live base_path matches" do
+          before do
+            @draft = create(:draft_edition, base_path:, routes:, redirects:)
+          end
+
+          it { is_expected.to eq @live }
+        end
+
+        context "when there's only a draft base_path match" do
+          before do
+            @live.destroy!
+
+            @draft = create(:draft_edition, base_path:, routes:, redirects:)
+          end
+
+          it { is_expected.to be_nil }
+        end
+
+        context "when there's only a live base_path match" do
+          it { is_expected.to eq @live }
+        end
+      end
     end
 
     context "when there is a matching exact route for the path" do
