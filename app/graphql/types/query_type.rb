@@ -47,6 +47,7 @@ module Types
       end
 
       context[:root_edition] = edition
+      context[:with_drafts] = with_drafts
 
       edition
     end
