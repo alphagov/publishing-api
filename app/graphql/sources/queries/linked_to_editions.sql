@@ -28,19 +28,28 @@ edition_linked_editions AS (
   INNER JOIN documents AS source_documents ON source_editions.document_id = source_documents.id
   LEFT JOIN unpublishings ON editions.id = unpublishings.edition_id
   WHERE
-    editions.content_store =:content_store
-    AND documents.locale IN (:primary_locale,:secondary_locale)
+    documents.locale IN (:primary_locale,:secondary_locale)
     AND editions.document_type NOT IN (:non_renderable_formats)
     AND (
-      editions.state != 'unpublished'
+      editions.state IN (:state_unless_withdrawn)
       OR
       (
+        editions.state = 'unpublished'
+        AND
         links.link_type IN (:unpublished_link_types)
         AND
         unpublishings.type = 'withdrawal'
       )
     )
-  ORDER BY links.id ASC, is_primary_locale DESC
+  ORDER BY
+    links.id ASC,
+    is_primary_locale DESC,
+    CASE editions.state
+      WHEN 'draft' THEN 0
+      WHEN 'published' THEN 1
+      WHEN 'unpublished' THEN 2
+      ELSE 3
+    END
 ),
 
 link_set_linked_editions AS (
@@ -61,13 +70,14 @@ link_set_linked_editions AS (
     ON links.link_set_content_id = query_input.content_id AND links.link_type = query_input.link_type
   LEFT JOIN unpublishings ON editions.id = unpublishings.edition_id
   WHERE
-    editions.content_store =:content_store
-    AND documents.locale IN (:primary_locale,:secondary_locale)
+    documents.locale IN (:primary_locale,:secondary_locale)
     AND editions.document_type NOT IN (:non_renderable_formats)
     AND (
-      editions.state != 'unpublished'
+      editions.state IN (:state_unless_withdrawn)
       OR
       (
+        editions.state = 'unpublished'
+        AND
         links.link_type IN (:unpublished_link_types)
         AND
         unpublishings.type = 'withdrawal'
@@ -80,7 +90,15 @@ link_set_linked_editions AS (
         edition_linked_editions.source_content_id = links.link_set_content_id
         AND edition_linked_editions.link_type = links.link_type
     )
-  ORDER BY links.id ASC, is_primary_locale DESC
+  ORDER BY
+    links.id ASC,
+    is_primary_locale DESC,
+    CASE editions.state
+      WHEN 'draft' THEN 0
+      WHEN 'published' THEN 1
+      WHEN 'unpublished' THEN 2
+      ELSE 3
+    END
 )
 
 SELECT editions.* FROM (
