@@ -69,6 +69,33 @@ RSpec.describe GraphqlController do
       end
     end
 
+    context "when the requested base_path only has draft content" do
+      let(:edition) do
+        create(
+          :draft_edition,
+          schema_name: "person",
+          document_type: "person",
+          details: {
+            "body" => "Some content",
+          },
+        )
+      end
+
+      let(:request_path) { base_path_without_leading_slash(edition.base_path) }
+
+      before do
+        get :live_content, params: { base_path: request_path }
+      end
+
+      it "returns a 404 Not Found response" do
+        expect(response.status).to eq(404)
+      end
+
+      it "doesn't return any content item data" do
+        expect(response.body).not_to be_present
+      end
+    end
+
     context "a content item with a non-ASCII base_path" do
       before(:each) do
         create(
