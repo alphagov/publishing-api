@@ -103,12 +103,14 @@ module Types
         if %w[role ministerial_role].include?(object.document_type)
           dataloader.with(
             Sources::ReverseLinkedToEditionsSource,
+            with_drafts: context[:with_drafts],
             locale: context[:root_edition].locale,
           )
             .load([object, "role"])
         else
           dataloader.with(
             Sources::ReverseLinkedToEditionsSource,
+            with_drafts: context[:with_drafts],
             locale: context[:root_edition].locale,
           )
             .load([object, "person"])
