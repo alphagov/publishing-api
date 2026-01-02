@@ -24,29 +24,6 @@
       "note": "The included SQL is a constant string with no user input."
     },
     {
-      "warning_type": "File Access",
-      "warning_code": 16,
-      "fingerprint": "fd291054c7ec05ad94a610720679b4679e738f04204e1993fdeda694ee7c5f1d",
-      "check_name": "FileAccess",
-      "message": "Parameter value used in file name",
-      "file": "app/controllers/graphql_controller.rb",
-      "line": 28,
-      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "File.read(Rails.root.join(\"app/graphql/queries/#{EditionFinderService.new(Addressable::URI.encode(\"/#{params[:base_path]}\"), \"live\").find.schema_name}.graphql\"))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "GraphqlController",
-        "method": "live_content"
-      },
-      "user_input": "params[:base_path]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "683209c49b28a5b8dcf1f540dbba77d2ef430831a7b3391c7484bd0418bba104",
@@ -68,6 +45,29 @@
         89
       ],
       "note": "This SQL is generated using valid content IDs and configuration data, not with arbitrary user input"
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "8bb962377b1903768a01fad99f2970a86d362bc80ab38bb1327411d6b8572e55",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/graphql_controller.rb",
+      "line": 28,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.read(Rails.root.join(\"app/graphql/queries/#{EditionFinderService.new(Addressable::URI.encode(\"/#{params[:base_path]}\")).find.schema_name}.graphql\"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "GraphqlController",
+        "method": "live_content"
+      },
+      "user_input": "params[:base_path]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
     },
     {
       "warning_type": "SQL Injection",
