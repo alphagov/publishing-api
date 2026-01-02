@@ -1,13 +1,20 @@
 class EditionFinderService
-  attr_reader :path, :content_store
+  attr_reader :path, :content_stores
 
-  def initialize(path, content_store = "live")
+  def initialize(path, with_drafts: false)
     @path = path
-    @content_store = content_store
+    @content_stores = if with_drafts
+                        %i[draft live]
+                      else
+                        %i[live]
+                      end
   end
 
   def find
-    exact_match = scope.find_by(base_path: path)
+    exact_match = scope
+      .where(base_path: path)
+      .in_order_of(:content_store, @content_stores)
+      .first
     return exact_match if exact_match
 
     if route_matches.present?
@@ -18,7 +25,7 @@ class EditionFinderService
 private
 
   def scope
-    Edition.where(content_store:)
+    Edition.where(content_store: @content_stores)
   end
 
   def route_matches
@@ -29,6 +36,7 @@ private
       .or(scope.where("routes @> ANY (ARRAY [?]::jsonb[])", potential_prefix_json_matches))
       .or(scope.where("redirects @> ?", json_path_element(path, "exact")))
       .or(scope.where("redirects @> ANY (ARRAY [?]::jsonb[])", potential_prefix_json_matches))
+      .in_order_of(:content_store, @content_stores)
   end
 
   # Given a path, will decompose the path into path prefixes, and
