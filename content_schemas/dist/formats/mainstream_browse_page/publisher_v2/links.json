@@ -64,10 +64,6 @@
           "description": "All 2nd level browse pages under active_top_level_browse_page",
           "$ref": "#/definitions/guid_list"
         },
-        "suggested_ordered_related_items": {
-          "description": "Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms.",
-          "$ref": "#/definitions/guid_list"
-        },
         "taxons": {
           "description": "Prototype-stage taxonomy label for this content item",
           "$ref": "#/definitions/guid_list"

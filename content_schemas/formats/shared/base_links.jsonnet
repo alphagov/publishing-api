@@ -15,6 +15,5 @@
     description: "The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.",
     maxItems: 1,
   },
-  suggested_ordered_related_items: "Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms.",
   taxons: "Prototype-stage taxonomy label for this content item",
 }
