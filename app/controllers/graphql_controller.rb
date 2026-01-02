@@ -15,7 +15,7 @@ class GraphqlController < ApplicationController
     execute_in_read_replica do
       begin
         encoded_base_path = Addressable::URI.encode("/#{params[:base_path]}")
-        edition = EditionFinderService.new(encoded_base_path, "live").find
+        edition = EditionFinderService.new(encoded_base_path).find
         set_cache_headers(edition)
         return head :not_found unless edition
 
