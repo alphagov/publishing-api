@@ -3,10 +3,10 @@ module Sources
     SQL = File.read(Rails.root.join("app/graphql/sources/queries/linked_to_editions.sql"))
 
     # rubocop:disable Lint/MissingSuper
-    def initialize(content_store:, locale:)
-      @content_store = content_store.to_sym
+    def initialize(locale:, with_drafts: false)
       @primary_locale = locale
       @secondary_locale = Edition::DEFAULT_LOCALE
+      @with_drafts = with_drafts
     end
     # rubocop:enable Lint/MissingSuper
 
@@ -23,7 +23,7 @@ module Sources
         query_input_count: query_input.count,
         primary_locale: @primary_locale,
         secondary_locale: @secondary_locale,
-        content_store: @content_store,
+        state_unless_withdrawn: @with_drafts ? %i[draft published] : %i[published],
         unpublished_link_types: Link::PERMITTED_UNPUBLISHED_LINK_TYPES,
         non_renderable_formats: Edition::NON_RENDERABLE_FORMATS,
       }
