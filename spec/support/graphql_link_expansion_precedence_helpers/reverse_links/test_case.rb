@@ -31,7 +31,6 @@ module GraphqlLinkExpansionPrecedenceHelpers
           GraphQL::Dataloader.with_dataloading do |dataloader|
             request = dataloader.with(
               Sources::ReverseLinkedToEditionsSource,
-              content_store: "live",
               locale: root_locale,
             ).request([linked_edition, link_type])
 
