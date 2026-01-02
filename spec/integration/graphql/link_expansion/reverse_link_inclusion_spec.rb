@@ -11,8 +11,8 @@ RSpec.describe "reverse link expansion inclusion" do
     GraphQL::Dataloader.with_dataloading do |dataloader|
       request = dataloader.with(
         Sources::ReverseLinkedToEditionsSource,
-        content_store: with_drafts ? "draft" : "live",
         locale: target_edition.locale,
+        with_drafts:,
       ).request([target_edition, link_type])
 
       request.load
@@ -60,9 +60,6 @@ RSpec.describe "reverse link expansion inclusion" do
             end
 
             %w[content_store graphql].each do |destination|
-              # GraphQL doesn't yet support drafts
-              next if destination == "graphql" && test_case.with_drafts?
-
               # GraphQL will only attempt to find a reverse link for a field that is declared
               # as a reverse_links_field in app/graphql/types/edition_type.rb. This test
               # calls the dataloader directly, but the dataloader won't check that the

@@ -16,7 +16,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       GraphQL::Dataloader.with_dataloading do |dataloader|
         request = dataloader.with(
           described_class,
-          content_store: target_edition.content_store,
+          with_drafts:,
           locale: target_edition.locale,
         ).request([target_edition, link_type])
 
@@ -36,6 +36,8 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       check_links!
     end
   end
+
+  let(:with_drafts) { false }
 
   context "when the same target content has a mix of link set links and edition links for the same link type" do
     it "returns all valid source editions" do
@@ -105,6 +107,86 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
         expected_titles = [source_edition_1, source_edition_2].map(&:title)
         expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles).in_any_order
+      end
+
+      context "when with_drafts=true" do
+        let(:with_drafts) { true }
+
+        it "returns reverse links to drafts when drafts are available" do
+          target_edition = create(:live_edition)
+
+          source_document = create(:document)
+          source_edition_1 = create(
+            :draft_edition,
+            title: "edition 1, draft",
+            document: source_document,
+            links_kind => [
+              { link_type: "test_link", target_content_id: target_edition.content_id },
+            ],
+          )
+          create(
+            :live_edition,
+            title: "edition 2, live",
+            document: source_document,
+            links_kind => [
+              { link_type: "test_link", target_content_id: target_edition.content_id },
+            ],
+          )
+
+          expected_titles = [source_edition_1.title]
+          expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles)
+        end
+
+        it "returns reverse links to live editions when drafts aren't available" do
+          target_edition = create(:live_edition)
+
+          source_edition = create(
+            :live_edition,
+            title: "edition 1, live",
+            links_kind => [
+              { link_type: "test_link", target_content_id: target_edition.content_id },
+            ],
+          )
+
+          expected_titles = [source_edition.title]
+          expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles)
+        end
+      end
+
+      context "when with_drafts=false" do
+        it "doesn't return reverse links to drafts" do
+          target_edition = create(:live_edition)
+
+          create(
+            :draft_edition,
+            title: "edition 1, draft",
+            links_kind => [
+              { link_type: "test_link", target_content_id: target_edition.content_id },
+            ],
+          )
+
+          source_document = create(:document)
+          source_edition_2 = create(
+            :live_edition,
+            title: "edition 2, live",
+            document: source_document,
+            links_kind => [
+              { link_type: "test_link", target_content_id: target_edition.content_id },
+            ],
+          )
+
+          create(
+            :draft_edition,
+            title: "edition 3, draft",
+            document: source_document,
+            links_kind => [
+              { link_type: "test_link", target_content_id: target_edition.content_id },
+            ],
+          )
+
+          expected_titles = [source_edition_2.title]
+          expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles)
+        end
       end
 
       it "returns editions ordered by their reverse links' `position`" do
@@ -403,7 +485,38 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       end
     end
 
-    context "when the Edition is live" do
+    context "when requested with with_drafts=true" do
+      let(:with_drafts) { true }
+
+      context "when the link kind is link_set_links" do
+        it "includes a draft 'en' link if there isn't a draft locale-matching one" do
+          target_edition = create(:live_edition, document: create(:document, locale: "fr"))
+
+          source_content_id = SecureRandom.uuid
+          english_edition = create(
+            :draft_edition,
+            document: create(:document, locale: "en", content_id: source_content_id),
+            title: "english draft edition",
+            link_set_links: [
+              { link_type: "test_link", target_content_id: target_edition.content_id },
+            ],
+          )
+          create(
+            :live_edition,
+            document: create(:document, locale: "fr", content_id: source_content_id),
+            title: "french live edition",
+            link_set_links: [
+              { link_type: "test_link", target_content_id: target_edition.content_id },
+            ],
+          )
+
+          expected_titles = [english_edition].map(&:title)
+          expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles)
+        end
+      end
+    end
+
+    context "when requested with with_drafts=false" do
       context "when the link kind is link_set_links" do
         it "defaults to including a (live) 'en' reverse link when the locale-matching one is draft" do
           target_edition = create(:live_edition, document: create(:document, locale: "fr"))
@@ -456,7 +569,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       end
 
       context "when the link kind is edition_links" do
-        it "doesn't default to including a (live) 'en' reverse link when the locale-matching one is draft" do
+        it "doesn't include any reverse links if there are no locale-matching live ones" do
           target_edition = create(:live_edition, document: create(:document, locale: "fr"))
 
           source_content_id = SecureRandom.uuid
