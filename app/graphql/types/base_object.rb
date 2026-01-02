@@ -24,7 +24,6 @@ module Types
       define_method(field_name.to_sym) do
         dataloader.with(
           Sources::ReverseLinkedToEditionsSource,
-          content_store: object.content_store,
           locale: context[:root_edition].locale,
         )
           .load([object, link_type.to_s])
