@@ -25,7 +25,6 @@ module GraphqlLinkExpansionPrecedenceHelpers
         @graphql_titles ||= GraphQL::Dataloader.with_dataloading do |dataloader|
           request = dataloader.with(
             Sources::LinkedToEditionsSource,
-            content_store: "live",
             locale: root_locale,
           ).request([source_edition, link_type])
 
