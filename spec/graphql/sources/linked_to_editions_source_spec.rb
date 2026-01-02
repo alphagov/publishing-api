@@ -16,7 +16,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
       GraphQL::Dataloader.with_dataloading do |dataloader|
         request = dataloader.with(
           described_class,
-          content_store: source_edition.content_store,
+          with_drafts:,
           locale: source_edition.locale,
         ).request([source_edition, link_type])
 
@@ -36,6 +36,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
       check_links!
     end
   end
+
+  let(:with_drafts) { false }
 
   context "when the same source content has a mix of link set links and edition links for the same link type" do
     it "returns only the edition links" do
@@ -73,18 +75,53 @@ RSpec.describe Sources::LinkedToEditionsSource do
         expect(source_edition).to have_links("test_link").with_titles(expected_titles).in_any_order
       end
 
-      it "returns links from only the requested content store" do
-        target_edition_0 = create(:live_edition, title: "edition 0, live")
-        target_edition_1 = create(:draft_edition, title: "edition 1, draft")
+      context "when with_drafts=true" do
+        let(:with_drafts) { true }
 
-        source_edition = create(:draft_edition,
-                                links_kind => [
-                                  { link_type: "test_link", target_content_id: target_edition_0.content_id },
-                                  { link_type: "test_link", target_content_id: target_edition_1.content_id },
-                                ])
+        it "returns links to drafts when drafts are available" do
+          target_document = create(:document)
+          create(:live_edition, title: "edition 1, live", document: target_document)
+          target_edition = create(:draft_edition, title: "edition 2, draft", document: target_document)
 
-        expected_titles = [target_edition_1.title]
-        expect(source_edition).to have_links("test_link").with_titles(expected_titles)
+          source_edition = create(:draft_edition,
+                                  links_kind => [
+                                    { link_type: "test_link", target_content_id: target_document.content_id },
+                                  ])
+
+          expected_titles = [target_edition.title]
+          expect(source_edition).to have_links("test_link").with_titles(expected_titles)
+        end
+
+        it "returns links to live editions when drafts aren't available" do
+          target_document = create(:document)
+          target_edition = create(:live_edition, title: "edition, live", document: target_document)
+
+          source_edition = create(:draft_edition,
+                                  links_kind => [
+                                    { link_type: "test_link", target_content_id: target_document.content_id },
+                                  ])
+
+          expected_titles = [target_edition.title]
+          expect(source_edition).to have_links("test_link").with_titles(expected_titles)
+        end
+      end
+
+      context "when with_drafts=false" do
+        it "doesn't return links to drafts" do
+          target_edition_1 = create(:draft_edition, title: "edition 1, draft")
+          target_document = create(:document)
+          target_edition_2 = create(:live_edition, title: "edition 2, live", document: target_document)
+          create(:draft_edition, title: "edition 3, draft", document: target_document)
+
+          source_edition = create(:live_edition,
+                                  links_kind => [
+                                    { link_type: "test_link", target_content_id: target_edition_1.content_id },
+                                    { link_type: "test_link", target_content_id: target_document.content_id },
+                                  ])
+
+          expected_titles = [target_edition_2.title]
+          expect(source_edition).to have_links("test_link").with_titles(expected_titles)
+        end
       end
 
       it "returns editions in order of their associated link's `position`" do
@@ -240,7 +277,36 @@ RSpec.describe Sources::LinkedToEditionsSource do
           expect(source_edition).not_to have_links("test_link")
         end
 
-        context "when the source Edition is live" do
+        context "when requested with with_drafts=true" do
+          let(:with_drafts) { true }
+
+          it "includes a draft 'en' link if there isn't a draft locale-matching one" do
+            target_content_id = SecureRandom.uuid
+            english_edition = create(
+              :draft_edition,
+              document: create(:document, locale: "en", content_id: target_content_id),
+              title: "english draft edition",
+            )
+            create(
+              :live_edition,
+              document: create(:document, locale: "fr", content_id: target_content_id),
+              title: "french live edition",
+            )
+
+            source_edition = create(
+              :live_edition,
+              document: create(:document, locale: "fr"),
+              links_kind => [
+                { link_type: "test_link", target_content_id: },
+              ],
+            )
+
+            expected_titles = [english_edition.title]
+            expect(source_edition).to have_links("test_link").with_titles(expected_titles)
+          end
+        end
+
+        context "when requested with with_drafts=false" do
           it "defaults to including a (live) 'en' link if the locale-matching one is draft" do
             target_content_id = SecureRandom.uuid
             english_edition = create(

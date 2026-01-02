@@ -10,8 +10,8 @@ RSpec.describe "link expansion inclusion" do
     GraphQL::Dataloader.with_dataloading do |dataloader|
       request = dataloader.with(
         Sources::LinkedToEditionsSource,
-        content_store: with_drafts ? "draft" : "live",
         locale: source_edition.locale,
+        with_drafts:,
       ).request([source_edition, link_type])
 
       request.load
@@ -60,9 +60,6 @@ RSpec.describe "link expansion inclusion" do
               )
 
               %w[content_store graphql].each do |destination|
-                # GraphQL doesn't yet support drafts
-                next if destination == "graphql" && test_case.with_drafts?
-
                 result = send(
                   :"for_#{destination}",
                   source_edition,
