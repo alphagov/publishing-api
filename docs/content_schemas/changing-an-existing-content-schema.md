@@ -24,6 +24,9 @@ within `details` (a field already defined in `default_format.jsonnet`).
    `content_schemas/examples/**/<example_name>.jsonnet`
 1. Run `rake build_schemas` to compile the updated schemas in
    `content_schemas/dist/` and validate the example schemas
+1. Add, remove, or update the desired value in `details` in the GraphQL query in
+   `app/graphql/queries/<format_name>.graphql`
+1. Add, remove, or update the `Details` class in `app/graphql/types/edition_type.rb`
 1. Check that all the CI workflows pass. These will verify that the content
    schemas are compatible with the suite of publishing apps
 
@@ -67,6 +70,9 @@ API, then allow it for schemas further down the chain by marking it as
    `forbidden` field as `optional` at a lower level
 1. Run `rake build_schemas` to compile the updated schemas in
    `content_schemas/dist/` and validate the example schemas
+1. Add, remove, or update the relevant GraphQL query in
+   `app/graphql/queries/<format_name>.graphql`
+1. If applicable, add, remove, or update fields or links_field in `app/graphql/types/edition_type.rb`
 1. Check that all the CI workflows pass. These will verify that the content
    schemas are compatible with the suite of publishing apps
 

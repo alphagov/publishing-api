@@ -20,4 +20,7 @@ steps to retire it:
 
    > This step will also validate the examples against the schema.
 
+1. Delete the GraphQL query for the schema `app/graphql/queries/<format_name>.graphql` and corresponding tests.
+1. If fields or links_field were only relevant to that schema, delete them in `app/graphql/types/edition_type.rb`
+
 1. You may also need to remove the parser from content-data-admin ([Example PR](https://github.com/alphagov/content-data-api/pull/2387))
