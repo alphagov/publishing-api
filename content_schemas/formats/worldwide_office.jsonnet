@@ -12,6 +12,9 @@
            ],
            description: "The access and opening times for this Worldwide Office.",
         },
+        headers: {
+          "$ref": "#/definitions/nested_headers",
+        },
         type: {
           type: [
             "string",
