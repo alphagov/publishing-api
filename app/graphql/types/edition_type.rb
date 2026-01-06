@@ -390,13 +390,13 @@ module Types
     field :details_json, GraphQL::Types::JSON
     field :document_type, String
     field :ended_on, Types::ContentApiDatetime
-    field :first_published_at, Types::ContentApiDatetime, null: false
+    field :first_published_at, Types::ContentApiDatetime
     field :iso2, String
     field :links, EditionLinks, method: :itself
     field :locale, String, null: false
     field :name, String, null: false
     field :phase, String, null: false
-    field :public_updated_at, Types::ContentApiDatetime, null: false
+    field :public_updated_at, Types::ContentApiDatetime
     field :publishing_app, String
     field :publishing_request_id, String
     field :publishing_scheduled_at, Types::ContentApiDatetime
