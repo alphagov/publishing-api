@@ -95,6 +95,11 @@ Thanks to all the columns of interest being in the same table, we'll be able to 
 
 Publishing API's database is huge, largely because we store every historical version of every edition.
 
+Because we use local copies of (redacted) database dumps in our development workflow, the size of the database causes
+problems for local development. Database dumps take a long time to download and restore, and use a lot of bandwidth and
+disk space. A long term goal is to factor the database in such a way that we could exclude historical editions from
+database dumps, to make them easier to work with in local development.
+
 Historical versions of editions are currently stored in the `editions` table, with the `content_store` column set to
 `NULL` and the `state` column set to `'superseded'`.
 
