@@ -20,7 +20,6 @@ query travel_advice_index($base_path: String!) {
       content_id
       description
       details {
-        change_history
         email_signup_link
         max_cache_time
       }
