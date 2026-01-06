@@ -1,3 +1,17 @@
+fragment defaultFields on Edition {
+  analytics_identifier
+  api_path
+  api_url
+  base_path
+  content_id
+  document_type
+  locale
+  public_updated_at
+  schema_name
+  title
+  web_url
+}
+
 query step_by_step_nav($base_path: String!) {
   edition(base_path: $base_path) {
     ... on Edition {
@@ -14,24 +28,10 @@ query step_by_step_nav($base_path: String!) {
       first_published_at
       links {
         available_translations {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
+          ...defaultFields
         }
         children {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           description
           details {
             access_and_opening_times
@@ -47,49 +47,19 @@ query step_by_step_nav($base_path: String!) {
             step_by_step_nav
             title
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         document_collections {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
+          ...defaultFields
         }
         embed {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             description
             rates
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         pages_part_of_step_nav {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             contact_form_links
             description
@@ -99,131 +69,55 @@ query step_by_step_nav($base_path: String!) {
             step_by_step_nav
             title
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         pages_related_to_step_nav {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             step_by_step_nav
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         pages_secondary_to_step_nav {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
+          ...defaultFields
         }
         part_of_step_navs {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             step_by_step_nav
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         policy_areas {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
+          ...defaultFields
         }
         related_to_step_navs {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             step_by_step_nav
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         role_appointments {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             current
             ended_on
             person_appointment_order
             started_on
           }
-          document_type
           links {
             person {
-              analytics_identifier
-              api_path
-              api_url
-              base_path
-              content_id
+              ...defaultFields
               details {
                 body
                 image
               }
-              document_type
-              locale
-              public_updated_at
-              schema_name
-              title
-              web_url
             }
             role {
-              analytics_identifier
-              api_path
-              api_url
-              base_path
-              content_id
+              ...defaultFields
               details {
                 body
                 role_payment_type
                 seniority
                 whip_organisation
               }
-              document_type
               links {
                 ordered_parent_organisations {
                   analytics_identifier
@@ -245,34 +139,14 @@ query step_by_step_nav($base_path: String!) {
                   web_url
                 }
               }
-              locale
-              public_updated_at
-              schema_name
-              title
-              web_url
             }
           }
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
         secondary_to_step_navs {
-          analytics_identifier
-          api_path
-          api_url
-          base_path
-          content_id
+          ...defaultFields
           details {
             step_by_step_nav
           }
-          document_type
-          locale
-          public_updated_at
-          schema_name
-          title
-          web_url
         }
       }
       locale
