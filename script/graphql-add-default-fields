@@ -1,0 +1,89 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path("../", File.dirname(__FILE__))
+
+require "config/environment"
+
+DEFAULT_FIELD_NAMES = Set.new(%w[
+  analytics_identifier
+  api_path
+  api_url
+  base_path
+  content_id
+  document_type
+  locale
+  public_updated_at
+  schema_name
+  title
+  web_url
+])
+
+FRAGMENT_DEFINITION = GraphQL::Language::Nodes::FragmentDefinition.new(
+  name: "defaultFields",
+  type: GraphQL::Language::Nodes::TypeName.new(name: "Edition"),
+  selections: DEFAULT_FIELD_NAMES.map { GraphQL::Language::Nodes::Field.new(name: _1) },
+)
+
+FRAGMENT_SPREAD = GraphQL::Language::Nodes::FragmentSpread.new(name: "defaultFields")
+
+class DefaultFieldAdder < GraphQL::Language::Visitor
+  def initialize(document)
+    @already_had_default_fields_fragment = false
+    @used_default_fields_fragment = false
+
+    super
+  end
+
+  def on_field(node, parent)
+    field_names = node.selections
+      .select { _1.is_a?(GraphQL::Language::Nodes::Field) }
+      .map(&:name)
+      .to_set
+
+    if DEFAULT_FIELD_NAMES.subset?(field_names)
+      @used_default_fields_fragment = true
+
+      remainder = node.selections.reject do
+        _1.is_a?(GraphQL::Language::Nodes::Field) &&
+          DEFAULT_FIELD_NAMES.include?(_1.name)
+      end
+
+      edited_node = node.merge(selections: [FRAGMENT_SPREAD] + remainder)
+
+      super(edited_node, parent)
+    else
+      super
+    end
+  end
+
+  def on_document(node, _parent)
+    if node.definitions.any? { is_default_fields_definition?(_1) }
+      @already_had_default_fields_fragment = true
+    end
+
+    result = super
+
+    traversed_document = result.first
+
+    if @used_default_fields_fragment && !@already_had_default_fields_fragment
+      existing_definitions = traversed_document.definitions || []
+      edited_document = traversed_document.merge(
+        definitions: [FRAGMENT_DEFINITION] + existing_definitions,
+      )
+
+      [edited_document]
+    end
+  end
+
+  def is_default_fields_definition?(definition)
+    definition.is_a?(GraphQL::Language::Nodes::FragmentDefinition) &&
+      definition.name == "defaultFields"
+  end
+end
+
+Dir[Rails.root.join("app/graphql/queries/*.graphql")].each do |filename|
+  ast = GraphQL.parse_file(filename)
+  edited_ast = DefaultFieldAdder.new(ast).visit
+
+  File.open(filename, "w") { |f| f.puts(edited_ast.to_query_string) }
+end
