@@ -34,3 +34,9 @@ Follow these steps to add a new schema:
    [Example of adding a new content schema to the Content Body parser](https://github.com/alphagov/content-data-api/pull/1906).
 
    Failing to do so, will cause `Etl::Edition::Content::Parser::InvalidSchemaError` in Content Data API but basic metrics will still be available in Content Data.
+
+1. Add a GraphQL query for the new schema in the `app/graphql/queries` directory.
+   
+   Generate the query with the [graphql_query_builder](https://github.com/alphagov/publishing-api/blob/main/lib/graphql_query_builder.rb).
+
+1. If applicable, add fields or links_field in `app/graphql/types/edition_type.rb`
