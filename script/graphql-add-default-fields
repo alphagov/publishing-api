@@ -4,19 +4,11 @@ $LOAD_PATH << File.expand_path("../", File.dirname(__FILE__))
 
 require "config/environment"
 
-DEFAULT_FIELD_NAMES = Set.new(%w[
-  analytics_identifier
-  api_path
-  api_url
-  base_path
-  content_id
-  document_type
-  locale
-  public_updated_at
-  schema_name
-  title
-  web_url
-])
+DEFAULT_FIELD_NAMES = (ExpansionRules::DEFAULT_FIELDS + %i[api_url web_url] - %i[withdrawn])
+                        .map(&:to_s)
+                        .sort
+                        .to_set
+                        .freeze
 
 FRAGMENT_DEFINITION = GraphQL::Language::Nodes::FragmentDefinition.new(
   name: "defaultFields",
