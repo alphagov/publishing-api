@@ -1,8 +1,5 @@
 query news_article($base_path: String!) {
-  edition(
-    base_path: $base_path,
-    content_store: "live",
-  ) {
+  edition(base_path: $base_path, content_store: "live") {
     ... on Edition {
       base_path
       content_id
