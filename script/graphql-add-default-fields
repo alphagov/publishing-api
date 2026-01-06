@@ -20,7 +20,6 @@ FRAGMENT_SPREAD = GraphQL::Language::Nodes::FragmentSpread.new(name: "defaultFie
 
 class DefaultFieldAdder < GraphQL::Language::Visitor
   def initialize(document)
-    @already_had_default_fields_fragment = false
     @used_default_fields_fragment = false
 
     super
@@ -49,22 +48,17 @@ class DefaultFieldAdder < GraphQL::Language::Visitor
   end
 
   def on_document(node, _parent)
-    if node.definitions.any? { is_default_fields_definition?(_1) }
-      @already_had_default_fields_fragment = true
-    end
-
     result = super
+    return result unless @used_default_fields_fragment
+    return result if node.definitions.any? { is_default_fields_definition?(_1) }
 
     traversed_document = result.first
+    existing_definitions = traversed_document.definitions || []
+    edited_document = traversed_document.merge(
+      definitions: [FRAGMENT_DEFINITION] + existing_definitions,
+    )
 
-    if @used_default_fields_fragment && !@already_had_default_fields_fragment
-      existing_definitions = traversed_document.definitions || []
-      edited_document = traversed_document.merge(
-        definitions: [FRAGMENT_DEFINITION] + existing_definitions,
-      )
-
-      [edited_document]
-    end
+    [edited_document]
   end
 
   def is_default_fields_definition?(definition)
