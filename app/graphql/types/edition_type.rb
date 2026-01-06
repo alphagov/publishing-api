@@ -263,6 +263,7 @@ module Types
       field :national_applicability, GraphQL::Types::JSON
       field :navigation_groups, GraphQL::Types::JSON
       field :need_to_know, GraphQL::Types::JSON
+      field :nested_headers, GraphQL::Types::JSON
       field :no_index, Boolean
       field :nodes, GraphQL::Types::JSON
       field :northern_ireland_availability, GraphQL::Types::JSON
