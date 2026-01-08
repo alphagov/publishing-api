@@ -121,64 +121,6 @@
         "web_url": "https://www.gov.uk/government/organisations/government-digital-service",
         "withdrawn": false
       }
-    ],
-    "suggested_ordered_related_items": [
-      {
-        "api_path": "/api/content/help/privacy-notice",
-        "api_url": "https://www.gov.uk/api/content/help/privacy-notice",
-        "base_path": "/help/privacy-notice",
-        "content_id": "333f53c7-36a2-47b9-b52d-e249929f6ef1",
-        "document_type": "help_page",
-        "links": {},
-        "locale": "en",
-        "public_updated_at": "2023-11-24T12:19:15Z",
-        "schema_name": "help_page",
-        "title": "Privacy notice",
-        "web_url": "https://www.gov.uk/help/privacy-notice",
-        "withdrawn": false
-      },
-      {
-        "api_path": "/api/content/help/terms-conditions",
-        "api_url": "https://www.gov.uk/api/content/help/terms-conditions",
-        "base_path": "/help/terms-conditions",
-        "content_id": "df47bc71-2e96-4993-8342-11b4ba464f1d",
-        "document_type": "help_page",
-        "links": {},
-        "locale": "en",
-        "public_updated_at": "2024-09-03T14:21:50Z",
-        "schema_name": "help_page",
-        "title": "Terms and conditions",
-        "web_url": "https://www.gov.uk/help/terms-conditions",
-        "withdrawn": false
-      },
-      {
-        "api_path": "/api/content/help/beta",
-        "api_url": "https://www.gov.uk/api/content/help/beta",
-        "base_path": "/help/beta",
-        "content_id": "8779a87f-87e4-477a-a1f0-6fa415080dc8",
-        "document_type": "help_page",
-        "links": {},
-        "locale": "en",
-        "public_updated_at": "2023-11-06T13:32:46Z",
-        "schema_name": "help_page",
-        "title": "Beta on GOV.UK",
-        "web_url": "https://www.gov.uk/help/beta",
-        "withdrawn": false
-      },
-      {
-        "api_path": "/api/content/help/get-emails-about-updates-to-govuk",
-        "api_url": "https://www.gov.uk/api/content/help/get-emails-about-updates-to-govuk",
-        "base_path": "/help/get-emails-about-updates-to-govuk",
-        "content_id": "7e21f642-af50-4833-a2ce-1a564c3571a7",
-        "document_type": "help_page",
-        "links": {},
-        "locale": "en",
-        "public_updated_at": "2021-11-25T15:09:07Z",
-        "schema_name": "help_page",
-        "title": "Get emails about updates to GOV.UK",
-        "web_url": "https://www.gov.uk/help/get-emails-about-updates-to-govuk",
-        "withdrawn": false
-      }
     ]
   },
   "locale": "en",

@@ -109,20 +109,6 @@
     ],
     "ordered_related_items": [
 
-    ],
-    "suggested_ordered_related_items": [
-      {
-        "api_path": "/api/content/government/news/a-record-year-for-culture-in-the-northern-powerhouse",
-        "base_path": "/government/news/a-record-year-for-culture-in-the-northern-powerhouse",
-        "content_id": "bd22b146-e0f3-4344-9979-e6d28d5437ca",
-        "description": "More than 5 million people enjoyed the government-sponsored museums and galleries in the Northern Powerhouse between April and October 2018.",
-        "document_type": "press_release",
-        "locale": "en",
-        "public_updated_at": "2018-12-28T01:57:33Z",
-        "schema_name": "news_article",
-        "title": "A record year for culture in the Northern Powerhouse",
-        "withdrawn": false
-      }
     ]
   }
 }
