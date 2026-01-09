@@ -114,9 +114,10 @@ task represent_world_location_links: :environment do
   batch_size = 1000
   processed_count = 0
   content_ids.each_slice(batch_size) do |batch|
-    Rake::Task["represent_downstream:content_id"].invoke(batch)
+    Commands::V2::RepresentDownstream.new.call(batch)
     processed_count += batch_size
     puts("Processed #{processed_count} content IDs")
+    sleep 5
   end
 
   puts "Done"
