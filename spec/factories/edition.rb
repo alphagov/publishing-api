@@ -29,7 +29,7 @@ FactoryBot.define do
     state { "draft" }
     content_store { "draft" }
     sequence(:base_path) { |n| "/vat-rates-#{n}" }
-    user_facing_version { 1 }
+    user_facing_version { 2 }
 
     transient do
       change_note { "note" }

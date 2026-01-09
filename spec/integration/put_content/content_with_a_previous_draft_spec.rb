@@ -21,6 +21,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
       title: "Old Title",
       publishing_app: "publisher",
       update_type: "major",
+      user_facing_version: 1,
     )
   end
 
