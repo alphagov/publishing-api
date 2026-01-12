@@ -24,4 +24,3 @@ class LinkPathsVisitor < GraphQL::Language::StaticVisitor
     end
   end
 end
-
