@@ -177,10 +177,9 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
       context "when the linked item is unpublished" do
         it "includes unpublished links when the unpublishing type is withdrawn" do
-          target_edition = create(:edition, content_store: "live")
+          target_edition = create(:live_edition)
 
           source_edition = create(:withdrawn_unpublished_edition,
-                                  content_store: "live",
                                   title: "withdrawn edition",
                                   links_kind => [{
                                     link_type: "parent",
@@ -201,31 +200,27 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         end
 
         it "does not include unpublished links when the unpublishing type is not withdrawn" do
-          target_edition = create(:edition, content_store: "live")
+          target_edition = create(:live_edition)
 
           create(:gone_unpublished_edition,
-                 content_store: "live",
                  title: "gone edition",
                  links_kind => [{
                    link_type: "parent",
                    target_content_id: target_edition.content_id,
                  }])
           create(:redirect_unpublished_edition,
-                 content_store: "live",
                  title: "redirect edition",
                  links_kind => [{
                    link_type: "parent",
                    target_content_id: target_edition.content_id,
                  }])
           create(:substitute_unpublished_edition,
-                 content_store: "live",
                  title: "substitute edition",
                  links_kind => [{
                    link_type: "parent",
                    target_content_id: target_edition.content_id,
                  }])
           create(:vanish_unpublished_edition,
-                 content_store: "live",
                  title: "vanish edition",
                  links_kind => [{
                    link_type: "parent",
@@ -246,10 +241,9 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         end
 
         it "includes unpublished links when they are of a permitted link type" do
-          target_edition = create(:edition, content_store: "live")
+          target_edition = create(:live_edition)
 
           unpublished_edition = create(:withdrawn_unpublished_edition,
-                                       content_store: "live",
                                        title: "edition 2, withdrawn, parent link",
                                        links_kind => [
                                          { link_type: "parent", target_content_id: target_edition.content_id },
@@ -269,10 +263,9 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         end
 
         it "does not include unpublished links when they are of an unpermitted link type" do
-          target_edition = create(:edition, content_store: "live")
+          target_edition = create(:live_edition)
 
           create(:withdrawn_unpublished_edition,
-                 content_store: "live",
                  title: "edition 0, withdrawn, test_link link",
                  links_kind => [
                    { link_type: "test_link", target_content_id: target_edition.content_id },

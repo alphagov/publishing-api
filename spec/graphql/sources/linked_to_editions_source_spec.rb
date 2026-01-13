@@ -54,11 +54,10 @@ RSpec.describe Sources::LinkedToEditionsSource do
       end
 
       it "returns links from only the requested content store" do
-        target_edition_0 = create(:edition, content_store: "live", title: "edition 0, live")
-        target_edition_1 = create(:edition, content_store: "draft", title: "edition 1, draft")
+        target_edition_0 = create(:live_edition, title: "edition 0, live")
+        target_edition_1 = create(:draft_edition, title: "edition 1, draft")
 
-        source_edition = create(:edition,
-                                content_store: "draft",
+        source_edition = create(:draft_edition,
                                 links_kind => [
                                   { link_type: "test_link", target_content_id: target_edition_0.content_id },
                                   { link_type: "test_link", target_content_id: target_edition_1.content_id },
@@ -83,7 +82,6 @@ RSpec.describe Sources::LinkedToEditionsSource do
         target_edition_2 = create(:edition, title: "edition 2, position 0")
 
         source_edition = create(:edition,
-                                content_store: "draft",
                                 links_kind => [
                                   { link_type: "test_link", target_content_id: target_edition_0.content_id, position: 1 },
                                   { link_type: "test_link", target_content_id: target_edition_1.content_id, position: 2 },
@@ -111,7 +109,6 @@ RSpec.describe Sources::LinkedToEditionsSource do
           target_edition_3 = create(:edition, title: "edition 3, fourth link id")
 
           source_edition = create(:edition,
-                                  content_store: "draft",
                                   links_kind => [
                                     { link_type: "test_link", target_content_id: target_edition_1.content_id, position: 0 },
                                     { link_type: "test_link", target_content_id: target_edition_2.content_id, position: 0 },
@@ -135,10 +132,9 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
       context "when the linked item is unpublished" do
         it "includes unpublished links when the unpublishing type is withdrawn" do
-          target_edition = create(:withdrawn_unpublished_edition, content_store: "live", title: "withdrawn edition")
+          target_edition = create(:withdrawn_unpublished_edition, title: "withdrawn edition")
 
-          source_edition = create(:edition,
-                                  content_store: "live",
+          source_edition = create(:live_edition,
                                   links_kind => [
                                     { link_type: "parent", target_content_id: target_edition.content_id },
                                   ])
@@ -157,13 +153,12 @@ RSpec.describe Sources::LinkedToEditionsSource do
         end
 
         it "does not include unpublished links when the unpublishing type is not withdrawn" do
-          target_edition_0 = create(:gone_unpublished_edition, content_store: "live", title: "edition 0, gone")
-          target_edition_1 = create(:redirect_unpublished_edition, content_store: "live", title: "edition 1, redirect")
-          target_edition_2 = create(:substitute_unpublished_edition, content_store: "live", title: "edition 2, substitute")
-          target_edition_3 = create(:vanish_unpublished_edition, content_store: "live", title: "edition 3, vanish")
+          target_edition_0 = create(:gone_unpublished_edition, title: "edition 0, gone")
+          target_edition_1 = create(:redirect_unpublished_edition, title: "edition 1, redirect")
+          target_edition_2 = create(:substitute_unpublished_edition, title: "edition 2, substitute")
+          target_edition_3 = create(:vanish_unpublished_edition, title: "edition 3, vanish")
 
-          source_edition = create(:edition,
-                                  content_store: "live",
+          source_edition = create(:live_edition,
                                   links_kind => [
                                     { link_type: "parent", target_content_id: target_edition_0.content_id },
                                     { link_type: "parent", target_content_id: target_edition_1.content_id },
@@ -185,11 +180,10 @@ RSpec.describe Sources::LinkedToEditionsSource do
         end
 
         it "includes unpublished links when they are of a permitted link type" do
-          target_edition_0 = create(:edition, content_store: "live", title: "edition 0, published")
-          target_edition_1 = create(:withdrawn_unpublished_edition, content_store: "live", title: "edition 1, withdrawn")
+          target_edition_0 = create(:live_edition, title: "edition 0, published")
+          target_edition_1 = create(:withdrawn_unpublished_edition, title: "edition 1, withdrawn")
 
-          source_edition = create(:edition,
-                                  content_store: "live",
+          source_edition = create(:live_edition,
                                   links_kind => [
                                     { link_type: "parent", target_content_id: target_edition_0.content_id },
                                     { link_type: "parent", target_content_id: target_edition_1.content_id },
@@ -209,11 +203,10 @@ RSpec.describe Sources::LinkedToEditionsSource do
         end
 
         it "does not include unpublished links when they are of an unpermitted link type" do
-          target_edition_0 = create(:edition, content_store: "live", title: "edition 0, published")
-          target_edition_1 = create(:withdrawn_unpublished_edition, content_store: "live", title: "edition 1, withdrawn")
+          target_edition_0 = create(:live_edition, title: "edition 0, published")
+          target_edition_1 = create(:withdrawn_unpublished_edition, title: "edition 1, withdrawn")
 
-          source_edition = create(:edition,
-                                  content_store: "live",
+          source_edition = create(:live_edition,
                                   links_kind => [
                                     { link_type: "test_link", target_content_id: target_edition_0.content_id },
                                     { link_type: "test_link", target_content_id: target_edition_1.content_id },
