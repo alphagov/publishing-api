@@ -676,11 +676,11 @@ GEM
     rails-html-sanitizer (1.6.2)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
-    rails-pg-extras (5.6.15)
+    rails-pg-extras (5.6.16)
       actionpack
       activerecord
       railties
-      ruby-pg-extras (= 5.6.15)
+      ruby-pg-extras (= 5.6.16)
     railties (8.0.3)
       actionpack (= 8.0.3)
       activesupport (= 8.0.3)
@@ -777,7 +777,7 @@ GEM
     rubocop-rspec (3.6.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
-    ruby-pg-extras (5.6.15)
+    ruby-pg-extras (5.6.16)
       pg
       terminal-table
     ruby-progressbar (1.13.0)
@@ -855,7 +855,7 @@ GEM
       tins (~> 1.0)
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
-    thor (1.4.0)
+    thor (1.5.0)
     timecop (0.9.10)
     timeout (0.6.0)
     tins (1.38.0)
@@ -868,7 +868,7 @@ GEM
     uber (0.1.0)
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
-    unicode-emoji (4.1.0)
+    unicode-emoji (4.2.0)
     uri (1.1.1)
     useragent (0.16.11)
     version_gem (1.1.8)
