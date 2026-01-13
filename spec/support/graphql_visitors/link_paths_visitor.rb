@@ -1,6 +1,5 @@
 class LinkPathsVisitor < GraphQL::Language::StaticVisitor
-  attr_reader :full_link_paths
-  attr_reader :selections_by_link_path
+  attr_reader :full_link_paths, :selections_by_link_path, :details_selections_by_link_path
 
   def initialize(document)
     super
@@ -9,6 +8,7 @@ class LinkPathsVisitor < GraphQL::Language::StaticVisitor
     @full_link_paths = Set.new
     @fragment_definitions = []
     @selections_by_link_path = {}
+    @details_selections_by_link_path = {}
   end
 
   def on_document(node, _parent)
@@ -21,9 +21,18 @@ class LinkPathsVisitor < GraphQL::Language::StaticVisitor
       @current_path << node.name.to_sym
       path = @current_path.dup
 
-      selections_by_link_path[path] = expand_fragment_selections(node.selections)
+      expanded_selections = expand_fragment_selections(node.selections)
+      selections_by_link_path[path] = expanded_selections
                                         .map { _1.alias || _1.name }
                                         .map(&:to_sym)
+
+      details = expanded_selections.find { (_1.alias || _1.name) == "details" }
+      details_selections_by_link_path[path] = if details
+                                                expand_fragment_selections(details.selections)
+                                                  .map { _1.alias || _1.name }
+                                                  .map(&:to_sym)
+                                              end
+
       full_link_paths << path if node.selections.none? { _1.name == "links" }
       super
 
@@ -33,7 +42,7 @@ class LinkPathsVisitor < GraphQL::Language::StaticVisitor
     end
   end
 
-  private
+private
 
   def expand_fragment_selections(selections)
     selections.flat_map do |selection|

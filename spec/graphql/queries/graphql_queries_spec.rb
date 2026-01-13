@@ -5,7 +5,7 @@ RSpec::Matchers.define :match_array_with_link_path do |expected, link_path|
     @matcher.matches?(actual)
   end
 
-  failure_message { "%-32s%s\n%s" % ["at link path:", link_path, @matcher.failure_message] }
+  failure_message { sprintf("%-32s%s\n%s", "at link path:", link_path, @matcher.failure_message) }
 end
 
 RSpec.describe "GraphQL queries" do
@@ -20,6 +20,9 @@ RSpec.describe "GraphQL queries" do
       end
       let(:link_paths_for_schema) do
         expected_link_paths_for_schema(schema_name, json_schema, GraphqlQueryBuilder::MAX_LINK_DEPTH)
+      end
+      let(:graphql_query_builder) do
+        GraphqlQueryBuilder.new(schema_name)
       end
 
       it "should select the same top level fields as the JSON schema" do
@@ -48,16 +51,34 @@ RSpec.describe "GraphQL queries" do
         visitor.visit
 
         aggregate_failures do
-          gqb = GraphqlQueryBuilder.new(schema_name)
           visitor.selections_by_link_path.each do |link_path, selections|
             next if link_path == [:lead_organisations] # TODO: why does this have an extra public_updated_at ?
 
-            link = gqb.build_link(link_path)
-            next if link.nil?
+            link = graphql_query_builder.build_link(link_path)
+            if link.nil?
+              expect(selections).to be_blank
+            else
+              expected_selections = link.keys.map(&:to_sym) - %i[withdrawn]
+              expect(selections - %i[links]).to match_array_with_link_path(expected_selections, link_path)
+            end
+          end
+        end
+      end
 
-            expected_selections = link.keys.map(&:to_sym) - %i[withdrawn]
+      it "should select the same linked details fields as the expansion rules" do
+        ast = GraphQL.parse_file(path)
+        visitor = LinkPathsVisitor.new(ast)
+        visitor.visit
 
-            expect(selections - %i[links]).to match_array_with_link_path(expected_selections, link_path)
+        aggregate_failures do
+          visitor.details_selections_by_link_path.each do |link_path, selections|
+            link = graphql_query_builder.build_link(link_path)
+            if link.nil? || link["details"].nil?
+              expect(selections).to be_blank
+            else
+              expected_selections = link["details"].keys.map(&:to_sym)
+              expect(selections).to match_array_with_link_path(expected_selections, link_path)
+            end
           end
         end
       end
