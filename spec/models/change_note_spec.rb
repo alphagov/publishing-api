@@ -13,6 +13,22 @@ RSpec.describe ChangeNote do
     )
   end
 
+  describe "#save!" do
+    it "won't save without an edition" do
+      change_note = described_class.new
+      expect { change_note.save! }.to raise_error(ActiveRecord::RecordInvalid, /Edition must exist/)
+    end
+
+    it "sets document_id and user_facing_version from edition" do
+      change_note = described_class.new
+      change_note.edition = edition
+      change_note.save!
+      change_note.reload
+      expect(change_note.document_id).to eq(edition.document_id)
+      expect(change_note.user_facing_version).to eq(edition.user_facing_version)
+    end
+  end
+
   describe ".create_from_edition" do
     subject { described_class.create_from_edition(payload, edition) }
 

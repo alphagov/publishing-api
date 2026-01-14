@@ -30,8 +30,7 @@ module Presenters
 
       def change_notes_for_edition
         ChangeNote
-          .joins(:edition)
-          .where(editions: { document: edition.document })
+          .where(document_id: edition.document_id)
           .where("user_facing_version <= ?", edition.user_facing_version)
           .where.not(public_timestamp: nil)
       end
