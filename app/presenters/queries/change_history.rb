@@ -32,7 +32,7 @@ module Presenters
         ChangeNote
           .joins(:edition)
           .where(editions: { document: edition.document })
-          .where("user_facing_version <= ?", edition.user_facing_version)
+          .where("editions.user_facing_version <= ?", edition.user_facing_version)
           .where.not(public_timestamp: nil)
       end
 

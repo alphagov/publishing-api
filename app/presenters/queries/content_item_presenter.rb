@@ -173,7 +173,7 @@ module Presenters
 
       STATE_HISTORY_SQL = <<-SQL.freeze
         (
-          SELECT json_agg((user_facing_version, state)) AS state_history
+          SELECT json_agg((e.user_facing_version, e.state)) AS state_history
           FROM editions e
           WHERE e.document_id = subquery.document_id
           GROUP BY subquery.content_id
