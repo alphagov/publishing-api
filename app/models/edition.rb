@@ -38,6 +38,7 @@ class Edition < ApplicationRecord
   CONTENT_BLOCK_PREFIX = "content_block".freeze
 
   belongs_to :document
+  attr_readonly :document_id
   has_one :unpublishing
   has_one :change_note
   has_many :links, dependent: :delete_all

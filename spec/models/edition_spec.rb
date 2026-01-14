@@ -46,6 +46,10 @@ RSpec.describe Edition do
       expect(subject).to be_invalid
     end
 
+    it "treats document as readonly" do
+      expect { create(:edition).document_id = 0 }.to raise_error(ActiveRecord::ReadonlyAttributeError)
+    end
+
     context "when the edition is 'redirect' but has routes" do
       before do
         subject.document_type = "redirect"
