@@ -26,6 +26,12 @@ Use this to validate a change to the schemas, without having to run the tests.
 bundle exec rake build_schemas
 ```
 
+If you want to build an individual schema, you can run the following:
+
+```
+bundle exec rake build_schema\["SCHEMA_NAME"\]
+```
+
 ### Further documentation
 
 * [How to change an existing content schema](../docs/content_schemas/changing-an-existing-content-schema.md)
