@@ -1,0 +1,94 @@
+{
+  "locale": "en",
+  "schema_name": "content_block_tax",
+  "document_type": "content_block_tax",
+  "publishing_app": "content-block-manager",
+  "title": "Income tax",
+  "instructions_to_publishers": "Information about income tax",
+  "content_id_alias": "income-tax",
+  "base_path": "/content-blocks/content_block_tax/income-tax",
+  "details": {
+    "tax_type": "Tax",
+    "things_taxed": {
+      "income": {
+        "title": "Income",
+        "type": "Income",
+        "rates": [
+          {
+            "name": "Personal Allowance",
+            "value": "0%",
+            "bands": [
+              {
+                "name": "Personal Allowance Band",
+                "upper_threshold": {
+                  "show": true,
+                  "value": "£12,570"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Basic Rate",
+            "value": "20%",
+            "bands": [
+              {
+                "name": "Basic Rate Band",
+                "lower_threshold": {
+                  "show": true,
+                  "value": "£12,571 "
+                },
+                "upper_threshold": {
+                  "show": true,
+                  "value": "£50,270"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Higher rate",
+            "value": "40%",
+            "bands": [
+              {
+                "name": "Higher rate",
+                "lower_threshold": {
+                  "show": true,
+                  "value": "£50,271"
+                },
+                "upper_threshold": {
+                  "show": true,
+                  "value": "£125,140"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Additional rate",
+            "value": "45%",
+            "bands": [
+              {
+                "name": "Additional rate band",
+                "lower_threshold": {
+                  "show": true,
+                  "value": "£125,141"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "links": {
+    "primary_publishing_organisation": [
+      "6667cce2-e809-4e21-ae09-cb0bdc1ddda3"
+    ]
+  },
+  "update_type": "minor",
+  "change_note": null,
+  "routes": [
+    {
+      "path": "/content-blocks/content_block_tax/income-tax",
+      "type": "exact"
+    }
+  ]
+}
