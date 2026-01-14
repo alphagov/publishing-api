@@ -11,6 +11,12 @@ RSpec.describe Edition do
     end
   end
 
+  describe "callbacks" do
+    it "should update change note if user_facing_version has changed" do
+      # TODO: implement this
+    end
+  end
+
   describe "validations" do
     it "is valid for the default factory" do
       expect(subject).to be_valid

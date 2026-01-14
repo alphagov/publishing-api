@@ -48,6 +48,8 @@ class Edition < ApplicationRecord
   scope :with_unpublishing, -> { left_outer_joins(:unpublishing) }
   scope :with_change_note, -> { left_outer_joins(:change_note) }
 
+  before_save :update_user_facing_version_on_change_notes
+
   validates :document, presence: true
 
   validate :auth_bypass_ids_are_uuids
@@ -240,5 +242,11 @@ private
 
   def requires_rendering_app?
     !is_content_block? && renderable_content? && NO_RENDERING_APP_FORMATS.exclude?(document_type)
+  end
+
+  def update_user_facing_version_on_change_notes
+    if user_facing_version_changed? && change_note.present?
+      change_note.save!
+    end
   end
 end
