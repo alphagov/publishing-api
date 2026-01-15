@@ -4,14 +4,32 @@ module Types
   class QueryType < Types::BaseObject
     field :edition, EditionTypeOrSubtype, description: "An edition or one of its subtypes" do
       argument :base_path, String
-      argument :content_store, String, required: false, default_value: "live"
+      argument :with_drafts, Boolean, required: false, default_value: false
     end
 
-    def edition(base_path:, content_store:)
+    def edition(base_path:, with_drafts:)
+      all_states = if with_drafts
+                     %i[draft published unpublished]
+                   else
+                     %i[published unpublished]
+                   end
+
       edition = Edition
         .includes(:document, :unpublishing)
-        .where(content_store:)
-        .find_by(base_path:)
+        .where(base_path:, state: all_states)
+        .order(
+          Arel.sql(
+            <<~SQL,
+              CASE editions.state
+                WHEN 'draft' THEN 0
+                WHEN 'published' THEN 1
+                WHEN 'unpublished' THEN 2
+                ELSE 3
+              END
+            SQL
+          ),
+        )
+        .first
 
       return unless edition
 
@@ -29,6 +47,7 @@ module Types
       end
 
       context[:root_edition] = edition
+      context[:with_drafts] = with_drafts
 
       edition
     end
