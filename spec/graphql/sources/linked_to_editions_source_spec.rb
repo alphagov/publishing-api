@@ -37,6 +37,13 @@ RSpec.describe Sources::LinkedToEditionsSource do
     end
   end
 
+  def link_expansion_actual_titles(source_edition, link_type:)
+    Presenters::Queries::ExpandedLinkSet
+      .by_edition(source_edition, with_drafts: source_edition.content_store == "draft")
+      .links
+      .fetch(link_type.to_sym, []).map { _1.fetch(:title) }
+  end
+
   context "when the same source content has a mix of link set links and edition links for the same link type" do
     it "returns only the edition links" do
       target_edition_1 = create(:edition, title: "edition 1, test link, edition link")
@@ -271,6 +278,41 @@ RSpec.describe Sources::LinkedToEditionsSource do
           )
 
           expect(source_edition).not_to have_links("test_link")
+        end
+
+        context "when requested with with_drafts=true" do
+          it "includes a draft 'en' link if there isn't a draft locale-matching one" do
+            target_content_id = SecureRandom.uuid
+            english_edition = create(
+              :draft_edition,
+              document: create(:document, locale: "en", content_id: target_content_id),
+              title: "english draft edition",
+            )
+            create(
+              :live_edition,
+              document: create(:document, locale: "fr", content_id: target_content_id),
+              title: "french live edition",
+            )
+
+            source_edition = create(
+              :live_edition,
+              document: create(:document, locale: "fr"),
+              links_kind => [
+                { link_type: "test_link", target_content_id: },
+              ],
+            )
+
+            expected_titles = [english_edition.title]
+
+            expect(
+              link_expansion_actual_titles(
+                source_edition,
+                link_type: "test_link",
+              ),
+            ).to eq(expected_titles)
+
+            expect(source_edition).to have_links("test_link").with_titles(expected_titles)
+          end
         end
 
         context "when requested with with_drafts=false" do
