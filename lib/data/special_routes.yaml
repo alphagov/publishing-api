@@ -230,9 +230,9 @@
 - :base_path: "/government/uploads"
   :content_id: "5a0ca87e-0e91-4d4c-bd26-29feb24f98ab"
   :title: "Government Uploads"
-  :description: "Handles redirects for /government/uploads path for asset manager"
+  :description: "Handles redirects for /government/uploads path for asset manager (redirect is in app's nginx config)"
   :type: "prefix"
-  :rendering_app: "government-frontend"
+  :rendering_app: "frontend"
 
 - :base_path: "/gwyliau-banc"
   :content_id: "58f79dbd-e57f-4ab2-ae96-96df5767d1b2"
