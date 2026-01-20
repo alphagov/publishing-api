@@ -131,97 +131,105 @@ RSpec.describe Sources::LinkedToEditionsSource do
       end
 
       context "when the linked item is unpublished" do
-        it "includes unpublished links when the unpublishing type is withdrawn" do
-          target_edition = create(:withdrawn_unpublished_edition, title: "withdrawn edition")
+        context "when the links are of a permitted unpublished link type" do
+          it "includes unpublished links when the unpublishing type is withdrawal" do
+            target_edition = create(:withdrawn_unpublished_edition, title: "withdrawn edition")
 
-          source_edition = create(:live_edition,
-                                  links_kind => [
-                                    { link_type: "parent", target_content_id: target_edition.content_id },
-                                  ])
+            source_edition = create(:live_edition,
+                                    links_kind => [
+                                      { link_type: "parent", target_content_id: target_edition.content_id },
+                                    ])
 
-          GraphQL::Dataloader.with_dataloading do |dataloader|
-            request = dataloader.with(
-              described_class,
-              content_store: source_edition.content_store,
-              locale: "en",
-            ).request([source_edition, "parent"])
+            GraphQL::Dataloader.with_dataloading do |dataloader|
+              request = dataloader.with(
+                described_class,
+                content_store: source_edition.content_store,
+                locale: "en",
+              ).request([source_edition, "parent"])
 
-            actual_titles = request.load.map(&:title)
-            expected_titles = [target_edition.title]
-            expect(actual_titles).to match_array(expected_titles)
+              actual_titles = request.load.map(&:title)
+              expected_titles = [target_edition.title]
+              expect(actual_titles).to match_array(expected_titles)
+            end
+          end
+
+          it "does not include unpublished links when the unpublishing type is not withdrawal" do
+            target_edition_0 = create(:gone_unpublished_edition, title: "edition 0, gone")
+            target_edition_1 = create(:redirect_unpublished_edition, title: "edition 1, redirect")
+            target_edition_2 = create(:substitute_unpublished_edition, title: "edition 2, substitute")
+            target_edition_3 = create(:vanish_unpublished_edition, title: "edition 3, vanish")
+
+            source_edition = create(:live_edition,
+                                    links_kind => [
+                                      { link_type: "parent", target_content_id: target_edition_0.content_id },
+                                      { link_type: "parent", target_content_id: target_edition_1.content_id },
+                                      { link_type: "parent", target_content_id: target_edition_2.content_id },
+                                      { link_type: "parent", target_content_id: target_edition_3.content_id },
+                                    ])
+
+            GraphQL::Dataloader.with_dataloading do |dataloader|
+              request = dataloader.with(
+                described_class,
+                content_store: source_edition.content_store,
+                locale: "en",
+              ).request([source_edition, "parent"])
+
+              actual_titles = request.load.map(&:title)
+              expected_titles = []
+              expect(actual_titles).to match_array(expected_titles)
+            end
           end
         end
 
-        it "does not include unpublished links when the unpublishing type is not withdrawn" do
-          target_edition_0 = create(:gone_unpublished_edition, title: "edition 0, gone")
-          target_edition_1 = create(:redirect_unpublished_edition, title: "edition 1, redirect")
-          target_edition_2 = create(:substitute_unpublished_edition, title: "edition 2, substitute")
-          target_edition_3 = create(:vanish_unpublished_edition, title: "edition 3, vanish")
+        context "when the links aren't of a permitted unpublished link type" do
+          it "does not include unpublished links even if the unpublishing type is withdrawal" do
+            target_edition_0 = create(:live_edition, title: "edition 0, published")
+            target_edition_1 = create(:withdrawn_unpublished_edition, title: "edition 1, withdrawn")
 
-          source_edition = create(:live_edition,
-                                  links_kind => [
-                                    { link_type: "parent", target_content_id: target_edition_0.content_id },
-                                    { link_type: "parent", target_content_id: target_edition_1.content_id },
-                                    { link_type: "parent", target_content_id: target_edition_2.content_id },
-                                    { link_type: "parent", target_content_id: target_edition_3.content_id },
-                                  ])
+            source_edition = create(:live_edition,
+                                    links_kind => [
+                                      { link_type: "test_link", target_content_id: target_edition_0.content_id },
+                                      { link_type: "test_link", target_content_id: target_edition_1.content_id },
+                                    ])
 
-          GraphQL::Dataloader.with_dataloading do |dataloader|
-            request = dataloader.with(
-              described_class,
-              content_store: source_edition.content_store,
-              locale: "en",
-            ).request([source_edition, "parent"])
+            GraphQL::Dataloader.with_dataloading do |dataloader|
+              request = dataloader.with(
+                described_class,
+                content_store: source_edition.content_store,
+                locale: "en",
+              ).request([source_edition, "test_link"])
 
-            actual_titles = request.load.map(&:title)
-            expected_titles = []
-            expect(actual_titles).to match_array(expected_titles)
+              actual_titles = request.load.map(&:title)
+              expected_titles = [target_edition_0.title]
+              expect(actual_titles).to eq(expected_titles)
+            end
           end
-        end
 
-        it "includes unpublished links when they are of a permitted link type" do
-          target_edition_0 = create(:live_edition, title: "edition 0, published")
-          target_edition_1 = create(:withdrawn_unpublished_edition, title: "edition 1, withdrawn")
+          it "also does not include unpublished links when the unpublishing type is not withdrawal" do
+            target_edition_0 = create(:gone_unpublished_edition, title: "edition 0, gone")
+            target_edition_1 = create(:redirect_unpublished_edition, title: "edition 1, redirect")
+            target_edition_2 = create(:substitute_unpublished_edition, title: "edition 2, substitute")
+            target_edition_3 = create(:vanish_unpublished_edition, title: "edition 3, vanish")
 
-          source_edition = create(:live_edition,
-                                  links_kind => [
-                                    { link_type: "parent", target_content_id: target_edition_0.content_id },
-                                    { link_type: "parent", target_content_id: target_edition_1.content_id },
-                                  ])
+            source_edition = create(:live_edition,
+                                    links_kind => [
+                                      { link_type: "test_link", target_content_id: target_edition_0.content_id },
+                                      { link_type: "test_link", target_content_id: target_edition_1.content_id },
+                                      { link_type: "test_link", target_content_id: target_edition_2.content_id },
+                                      { link_type: "test_link", target_content_id: target_edition_3.content_id },
+                                    ])
 
-          GraphQL::Dataloader.with_dataloading do |dataloader|
-            request = dataloader.with(
-              described_class,
-              content_store: source_edition.content_store,
-              locale: "en",
-            ).request([source_edition, "parent"])
+            GraphQL::Dataloader.with_dataloading do |dataloader|
+              request = dataloader.with(
+                described_class,
+                content_store: source_edition.content_store,
+                locale: "en",
+              ).request([source_edition, "test_link"])
 
-            actual_titles = request.load.map(&:title)
-            expected_titles = [target_edition_0, target_edition_1].map(&:title)
-            expect(actual_titles).to match_array(expected_titles)
-          end
-        end
-
-        it "does not include unpublished links when they are of an unpermitted link type" do
-          target_edition_0 = create(:live_edition, title: "edition 0, published")
-          target_edition_1 = create(:withdrawn_unpublished_edition, title: "edition 1, withdrawn")
-
-          source_edition = create(:live_edition,
-                                  links_kind => [
-                                    { link_type: "test_link", target_content_id: target_edition_0.content_id },
-                                    { link_type: "test_link", target_content_id: target_edition_1.content_id },
-                                  ])
-
-          GraphQL::Dataloader.with_dataloading do |dataloader|
-            request = dataloader.with(
-              described_class,
-              content_store: source_edition.content_store,
-              locale: "en",
-            ).request([source_edition, "test_link"])
-
-            actual_titles = request.load.map(&:title)
-            expected_titles = [target_edition_0.title]
-            expect(actual_titles).to eq(expected_titles)
+              actual_titles = request.load.map(&:title)
+              expected_titles = []
+              expect(actual_titles).to eq(expected_titles)
+            end
           end
         end
       end
