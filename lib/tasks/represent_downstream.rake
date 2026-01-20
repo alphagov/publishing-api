@@ -43,7 +43,7 @@ namespace :represent_downstream do
   "
   task content_id: :environment do |_t, args|
     content_ids = args.extras
-    queue = DownstreamQueue::HIGH_QUEUE
+    queue = DownstreamQueue::LOW_QUEUE
 
     content_ids.uniq.each_slice(1000).each do |batch|
       Commands::V2::RepresentDownstream.new.call(batch, queue:)
