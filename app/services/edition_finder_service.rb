@@ -10,7 +10,7 @@ class EditionFinderService
     exact_match = scope.find_by(base_path: path)
     return exact_match if exact_match
 
-    if route_matches.any?
+    if route_matches.present?
       exact_route_match || best_prefix_match
     end
   end
