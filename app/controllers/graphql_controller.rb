@@ -130,17 +130,6 @@ private
     render json: { errors: [{ message: error.message, backtrace: error.backtrace }], data: {} }, status: :internal_server_error
   end
 
-  # Constrain the cache time to be within the minimum_ttl and default_ttl.
-  def bounded_max_age(cache_time)
-    if cache_time > DEFAULT_TTL
-      DEFAULT_TTL
-    elsif cache_time < MINIMUM_TTL
-      MINIMUM_TTL
-    else
-      cache_time
-    end
-  end
-
   def set_prometheus_labels(hash)
     return unless hash
 
@@ -153,6 +142,6 @@ private
     # NOTE: this will need to support `max_cache_time` when schemas that have this field are available through GraphQL
     cache_time = DEFAULT_TTL
 
-    expires_in bounded_max_age(cache_time), public: true
+    expires_in cache_time.clamp(MINIMUM_TTL, DEFAULT_TTL), public: true
   end
 end
