@@ -591,6 +591,9 @@
         "credit": {
           "type": "string"
         },
+        "type": {
+          "type": "string"
+        },
         "url": {
           "type": "string",
           "format": "uri"

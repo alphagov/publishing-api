@@ -244,6 +244,12 @@
         "image": {
           "$ref": "#/definitions/image"
         },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/image_asset"
+          }
+        },
         "ordered_featured_documents": {
           "description": "A set of featured documents to display for the Topical Event.",
           "type": "array",
@@ -384,6 +390,35 @@
         },
         "url": {
           "description": "URL to the image. The image should be in a suitable resolution for display on the page.",
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "image_asset": {
+      "type": "object",
+      "required": [
+        "content_type",
+        "url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "alt_text": {
+          "type": "string"
+        },
+        "caption": {
+          "type": "string"
+        },
+        "content_type": {
+          "type": "string"
+        },
+        "credit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "url": {
           "type": "string",
           "format": "uri"
         }
