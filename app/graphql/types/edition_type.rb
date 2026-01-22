@@ -224,6 +224,7 @@ module Types
       field :hidden_search_terms, GraphQL::Types::JSON
       field :hide_chapter_navigation, GraphQL::Types::JSON
       field :image, GraphQL::Types::JSON
+      field :images, [GraphQL::Types::JSON]
       field :important_board_members, GraphQL::Types::JSON
       field :interesting_facts, GraphQL::Types::JSON
       field :internal_name, String
