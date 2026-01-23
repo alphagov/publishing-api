@@ -15,7 +15,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
       GraphQL::Dataloader.with_dataloading do |dataloader|
         request = dataloader.with(
           described_class,
-          content_store: source_edition.content_store,
+          with_drafts: true,
           locale: "en",
         ).request([source_edition, "test_link"])
 
@@ -43,7 +43,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
         GraphQL::Dataloader.with_dataloading do |dataloader|
           request = dataloader.with(
             described_class,
-            content_store: source_edition.content_store,
+            with_drafts: true,
             locale: "en",
           ).request([source_edition, "test_link"])
 
@@ -53,27 +53,77 @@ RSpec.describe Sources::LinkedToEditionsSource do
         end
       end
 
-      it "returns links from only the requested content store" do
-        target_edition_0 = create(:edition, content_store: "live", title: "edition 0, live")
-        target_edition_1 = create(:edition, content_store: "draft", title: "edition 1, draft")
+      context "when with_drafts=true" do
+        it "returns links to drafts when drafts are available" do
+          target_document = create(:document)
+          create(:live_edition, title: "edition 1, live", document: target_document)
+          target_edition = create(:draft_edition, title: "edition 2, draft", document: target_document)
 
-        source_edition = create(:edition,
-                                content_store: "draft",
-                                links_kind => [
-                                  { link_type: "test_link", target_content_id: target_edition_0.content_id },
-                                  { link_type: "test_link", target_content_id: target_edition_1.content_id },
-                                ])
+          source_edition = create(:edition,
+                                  links_kind => [
+                                    { link_type: "test_link", target_content_id: target_document.content_id },
+                                  ])
 
-        GraphQL::Dataloader.with_dataloading do |dataloader|
-          request = dataloader.with(
-            described_class,
-            content_store: source_edition.content_store,
-            locale: "en",
-          ).request([source_edition, "test_link"])
+          GraphQL::Dataloader.with_dataloading do |dataloader|
+            request = dataloader.with(
+              described_class,
+              with_drafts: true,
+              locale: "en",
+            ).request([source_edition, "test_link"])
 
-          actual_titles = request.load.map(&:title)
-          expected_titles = [target_edition_1.title]
-          expect(actual_titles).to eq(expected_titles)
+            actual_titles = request.load.map(&:title)
+            expected_titles = [target_edition.title]
+            expect(actual_titles).to eq(expected_titles)
+          end
+        end
+
+        it "returns links to live editions when drafts aren't available" do
+          target_document = create(:document)
+          target_edition = create(:live_edition, title: "edition, live", document: target_document)
+
+          source_edition = create(:edition,
+                                  links_kind => [
+                                    { link_type: "test_link", target_content_id: target_document.content_id },
+                                  ])
+
+          GraphQL::Dataloader.with_dataloading do |dataloader|
+            request = dataloader.with(
+              described_class,
+              with_drafts: true,
+              locale: "en",
+            ).request([source_edition, "test_link"])
+
+            actual_titles = request.load.map(&:title)
+            expected_titles = [target_edition.title]
+            expect(actual_titles).to eq(expected_titles)
+          end
+        end
+      end
+
+      context "when with_drafts=false" do
+        it "doesn't return links to drafts" do
+          target_edition_1 = create(:draft_edition, title: "edition 1, draft")
+          target_document = create(:document)
+          target_edition_2 = create(:live_edition, title: "edition 2, live", document: target_document)
+          create(:draft_edition, title: "edition 3, draft", document: target_document)
+
+          source_edition = create(:edition,
+                                  links_kind => [
+                                    { link_type: "test_link", target_content_id: target_edition_1.content_id },
+                                    { link_type: "test_link", target_content_id: target_document.content_id },
+                                  ])
+
+          GraphQL::Dataloader.with_dataloading do |dataloader|
+            request = dataloader.with(
+              described_class,
+              with_drafts: false,
+              locale: "en",
+            ).request([source_edition, "test_link"])
+
+            actual_titles = request.load.map(&:title)
+            expected_titles = [target_edition_2.title]
+            expect(actual_titles).to eq(expected_titles)
+          end
         end
       end
 
@@ -83,7 +133,6 @@ RSpec.describe Sources::LinkedToEditionsSource do
         target_edition_2 = create(:edition, title: "edition 2, position 0")
 
         source_edition = create(:edition,
-                                content_store: "draft",
                                 links_kind => [
                                   { link_type: "test_link", target_content_id: target_edition_0.content_id, position: 1 },
                                   { link_type: "test_link", target_content_id: target_edition_1.content_id, position: 2 },
@@ -93,7 +142,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
         GraphQL::Dataloader.with_dataloading do |dataloader|
           request = dataloader.with(
             described_class,
-            content_store: source_edition.content_store,
+            with_drafts: true,
             locale: "en",
           ).request([source_edition, "test_link"])
 
@@ -111,7 +160,6 @@ RSpec.describe Sources::LinkedToEditionsSource do
           target_edition_3 = create(:edition, title: "edition 3, fourth link id")
 
           source_edition = create(:edition,
-                                  content_store: "draft",
                                   links_kind => [
                                     { link_type: "test_link", target_content_id: target_edition_1.content_id, position: 0 },
                                     { link_type: "test_link", target_content_id: target_edition_2.content_id, position: 0 },
@@ -122,7 +170,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           GraphQL::Dataloader.with_dataloading do |dataloader|
             request = dataloader.with(
               described_class,
-              content_store: source_edition.content_store,
+              with_drafts: true,
               locale: "en",
             ).request([source_edition, "test_link"])
 
@@ -135,10 +183,9 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
       context "when the linked item is unpublished" do
         it "includes unpublished links when the unpublishing type is withdrawn" do
-          target_edition = create(:withdrawn_unpublished_edition, content_store: "live", title: "withdrawn edition")
+          target_edition = create(:withdrawn_unpublished_edition, title: "withdrawn edition")
 
-          source_edition = create(:edition,
-                                  content_store: "live",
+          source_edition = create(:live_edition,
                                   links_kind => [
                                     { link_type: "parent", target_content_id: target_edition.content_id },
                                   ])
@@ -146,7 +193,6 @@ RSpec.describe Sources::LinkedToEditionsSource do
           GraphQL::Dataloader.with_dataloading do |dataloader|
             request = dataloader.with(
               described_class,
-              content_store: source_edition.content_store,
               locale: "en",
             ).request([source_edition, "parent"])
 
@@ -157,13 +203,12 @@ RSpec.describe Sources::LinkedToEditionsSource do
         end
 
         it "does not include unpublished links when the unpublishing type is not withdrawn" do
-          target_edition_0 = create(:gone_unpublished_edition, content_store: "live", title: "edition 0, gone")
-          target_edition_1 = create(:redirect_unpublished_edition, content_store: "live", title: "edition 1, redirect")
-          target_edition_2 = create(:substitute_unpublished_edition, content_store: "live", title: "edition 2, substitute")
-          target_edition_3 = create(:vanish_unpublished_edition, content_store: "live", title: "edition 3, vanish")
+          target_edition_0 = create(:gone_unpublished_edition, title: "edition 0, gone")
+          target_edition_1 = create(:redirect_unpublished_edition, title: "edition 1, redirect")
+          target_edition_2 = create(:substitute_unpublished_edition, title: "edition 2, substitute")
+          target_edition_3 = create(:vanish_unpublished_edition, title: "edition 3, vanish")
 
-          source_edition = create(:edition,
-                                  content_store: "live",
+          source_edition = create(:live_edition,
                                   links_kind => [
                                     { link_type: "parent", target_content_id: target_edition_0.content_id },
                                     { link_type: "parent", target_content_id: target_edition_1.content_id },
@@ -174,7 +219,6 @@ RSpec.describe Sources::LinkedToEditionsSource do
           GraphQL::Dataloader.with_dataloading do |dataloader|
             request = dataloader.with(
               described_class,
-              content_store: source_edition.content_store,
               locale: "en",
             ).request([source_edition, "parent"])
 
@@ -185,11 +229,10 @@ RSpec.describe Sources::LinkedToEditionsSource do
         end
 
         it "includes unpublished links when they are of a permitted link type" do
-          target_edition_0 = create(:edition, content_store: "live", title: "edition 0, published")
-          target_edition_1 = create(:withdrawn_unpublished_edition, content_store: "live", title: "edition 1, withdrawn")
+          target_edition_0 = create(:live_edition, title: "edition 0, published")
+          target_edition_1 = create(:withdrawn_unpublished_edition, title: "edition 1, withdrawn")
 
-          source_edition = create(:edition,
-                                  content_store: "live",
+          source_edition = create(:live_edition,
                                   links_kind => [
                                     { link_type: "parent", target_content_id: target_edition_0.content_id },
                                     { link_type: "parent", target_content_id: target_edition_1.content_id },
@@ -198,7 +241,6 @@ RSpec.describe Sources::LinkedToEditionsSource do
           GraphQL::Dataloader.with_dataloading do |dataloader|
             request = dataloader.with(
               described_class,
-              content_store: source_edition.content_store,
               locale: "en",
             ).request([source_edition, "parent"])
 
@@ -209,11 +251,10 @@ RSpec.describe Sources::LinkedToEditionsSource do
         end
 
         it "does not include unpublished links when they are of an unpermitted link type" do
-          target_edition_0 = create(:edition, content_store: "live", title: "edition 0, published")
-          target_edition_1 = create(:withdrawn_unpublished_edition, content_store: "live", title: "edition 1, withdrawn")
+          target_edition_0 = create(:live_edition, title: "edition 0, published")
+          target_edition_1 = create(:withdrawn_unpublished_edition, title: "edition 1, withdrawn")
 
-          source_edition = create(:edition,
-                                  content_store: "live",
+          source_edition = create(:live_edition,
                                   links_kind => [
                                     { link_type: "test_link", target_content_id: target_edition_0.content_id },
                                     { link_type: "test_link", target_content_id: target_edition_1.content_id },
@@ -222,7 +263,6 @@ RSpec.describe Sources::LinkedToEditionsSource do
           GraphQL::Dataloader.with_dataloading do |dataloader|
             request = dataloader.with(
               described_class,
-              content_store: source_edition.content_store,
               locale: "en",
             ).request([source_edition, "test_link"])
 
@@ -249,7 +289,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           GraphQL::Dataloader.with_dataloading do |dataloader|
             request = dataloader.with(
               described_class,
-              content_store: source_edition.content_store,
+              with_drafts: true,
               locale: "fr",
             ).request([source_edition, "test_link"])
 
@@ -274,7 +314,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           GraphQL::Dataloader.with_dataloading do |dataloader|
             request = dataloader.with(
               described_class,
-              content_store: source_edition.content_store,
+              with_drafts: true,
               locale: "de",
             ).request([source_edition, "test_link"])
 
@@ -299,7 +339,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           GraphQL::Dataloader.with_dataloading do |dataloader|
             request = dataloader.with(
               described_class,
-              content_store: source_edition.content_store,
+              with_drafts: true,
               locale: "hu",
             ).request([source_edition, "test_link"])
 
@@ -309,7 +349,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           end
         end
 
-        context "when the source Edition is live" do
+        context "when requested with with_drafts=false" do
           it "defaults to including a (live) 'en' link if the locale-matching one is draft" do
             target_content_id = SecureRandom.uuid
             english_edition = create(
@@ -333,7 +373,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
             GraphQL::Dataloader.with_dataloading do |dataloader|
               request = dataloader.with(
                 described_class,
-                content_store: source_edition.content_store,
+                with_drafts: false,
                 locale: "fr",
               ).request([source_edition, "test_link"])
 
@@ -366,7 +406,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
             GraphQL::Dataloader.with_dataloading do |dataloader|
               request = dataloader.with(
                 described_class,
-                content_store: source_edition.content_store,
+                with_drafts: false,
                 locale: "fr",
               ).request([source_edition, "test_link"])
 
@@ -401,7 +441,6 @@ RSpec.describe Sources::LinkedToEditionsSource do
             GraphQL::Dataloader.with_dataloading do |dataloader|
               request = dataloader.with(
                 described_class,
-                content_store: source_edition.content_store,
                 locale: "fr",
               ).request([source_edition, "related_statistical_data_sets"])
 
@@ -434,7 +473,6 @@ RSpec.describe Sources::LinkedToEditionsSource do
             GraphQL::Dataloader.with_dataloading do |dataloader|
               request = dataloader.with(
                 described_class,
-                content_store: source_edition.content_store,
                 locale: "fr",
               ).request([source_edition, "test_link"])
 
@@ -461,7 +499,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
         GraphQL::Dataloader.with_dataloading do |dataloader|
           request = dataloader.with(
             described_class,
-            content_store: source_edition.content_store,
+            with_drafts: true,
             locale: "en",
           ).request([source_edition, "test_link"])
 
