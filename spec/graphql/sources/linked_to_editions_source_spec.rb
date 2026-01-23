@@ -16,7 +16,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
         request = dataloader.with(
           described_class,
           content_store: source_edition.content_store,
-          locale: "en",
+          locale: source_edition.locale,
         ).request([source_edition, "test_link"])
 
         actual_titles = request.load.map(&:title)
@@ -44,7 +44,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           request = dataloader.with(
             described_class,
             content_store: source_edition.content_store,
-            locale: "en",
+            locale: source_edition.locale,
           ).request([source_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
@@ -67,7 +67,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           request = dataloader.with(
             described_class,
             content_store: source_edition.content_store,
-            locale: "en",
+            locale: source_edition.locale,
           ).request([source_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
@@ -92,7 +92,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           request = dataloader.with(
             described_class,
             content_store: source_edition.content_store,
-            locale: "en",
+            locale: source_edition.locale,
           ).request([source_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
@@ -120,7 +120,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
             request = dataloader.with(
               described_class,
               content_store: source_edition.content_store,
-              locale: "en",
+              locale: source_edition.locale,
             ).request([source_edition, "test_link"])
 
             actual_titles = request.load.map(&:title)
@@ -144,7 +144,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               request = dataloader.with(
                 described_class,
                 content_store: source_edition.content_store,
-                locale: "en",
+                locale: source_edition.locale,
               ).request([source_edition, "parent"])
 
               actual_titles = request.load.map(&:title)
@@ -171,7 +171,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               request = dataloader.with(
                 described_class,
                 content_store: source_edition.content_store,
-                locale: "en",
+                locale: source_edition.locale,
               ).request([source_edition, "parent"])
 
               actual_titles = request.load.map(&:title)
@@ -196,7 +196,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               request = dataloader.with(
                 described_class,
                 content_store: source_edition.content_store,
-                locale: "en",
+                locale: source_edition.locale,
               ).request([source_edition, "test_link"])
 
               actual_titles = request.load.map(&:title)
@@ -223,7 +223,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               request = dataloader.with(
                 described_class,
                 content_store: source_edition.content_store,
-                locale: "en",
+                locale: source_edition.locale,
               ).request([source_edition, "test_link"])
 
               actual_titles = request.load.map(&:title)
@@ -242,6 +242,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
           source_edition = create(
             :edition,
+            document: create(:document, locale: "fr"),
             links_kind => [
               { link_type: "test_link", target_content_id: },
             ],
@@ -251,7 +252,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
             request = dataloader.with(
               described_class,
               content_store: source_edition.content_store,
-              locale: "fr",
+              locale: source_edition.locale,
             ).request([source_edition, "test_link"])
 
             actual_titles = request.load.map(&:title)
@@ -267,6 +268,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
           source_edition = create(
             :edition,
+            document: create(:document, locale: "de"),
             links_kind => [
               { link_type: "test_link", target_content_id: },
             ],
@@ -276,7 +278,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
             request = dataloader.with(
               described_class,
               content_store: source_edition.content_store,
-              locale: "de",
+              locale: source_edition.locale,
             ).request([source_edition, "test_link"])
 
             actual_titles = request.load.map(&:title)
@@ -292,6 +294,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
           source_edition = create(
             :edition,
+            document: create(:document, locale: "hu"),
             links_kind => [
               { link_type: "test_link", target_content_id: },
             ],
@@ -301,7 +304,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
             request = dataloader.with(
               described_class,
               content_store: source_edition.content_store,
-              locale: "hu",
+              locale: source_edition.locale,
             ).request([source_edition, "test_link"])
 
             actual_titles = request.load.map(&:title)
@@ -326,6 +329,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
             source_edition = create(
               :live_edition,
+              document: create(:document, locale: "fr"),
               links_kind => [
                 { link_type: "test_link", target_content_id: },
               ],
@@ -335,7 +339,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               request = dataloader.with(
                 described_class,
                 content_store: source_edition.content_store,
-                locale: "fr",
+                locale: source_edition.locale,
               ).request([source_edition, "test_link"])
 
               actual_titles = request.load.map(&:title)
@@ -359,6 +363,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
             source_edition = create(
               :live_edition,
+              document: create(:document, locale: "fr"),
               links_kind => [
                 { link_type: "test_link", target_content_id: },
               ],
@@ -368,7 +373,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               request = dataloader.with(
                 described_class,
                 content_store: source_edition.content_store,
-                locale: "fr",
+                locale: source_edition.locale,
               ).request([source_edition, "test_link"])
 
               actual_titles = request.load.map(&:title)
@@ -394,6 +399,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
             source_edition = create(
               :live_edition,
+              document: create(:document, locale: "fr"),
               links_kind => [
                 { link_type: "related_statistical_data_sets", target_content_id: },
               ],
@@ -403,7 +409,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               request = dataloader.with(
                 described_class,
                 content_store: source_edition.content_store,
-                locale: "fr",
+                locale: source_edition.locale,
               ).request([source_edition, "related_statistical_data_sets"])
 
               actual_titles = request.load.map(&:title)
@@ -427,6 +433,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
             source_edition = create(
               :live_edition,
+              document: create(:document, locale: "fr"),
               links_kind => [
                 { link_type: "test_link", target_content_id: },
               ],
@@ -436,7 +443,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               request = dataloader.with(
                 described_class,
                 content_store: source_edition.content_store,
-                locale: "fr",
+                locale: source_edition.locale,
               ).request([source_edition, "test_link"])
 
               actual_titles = request.load.map(&:title)
@@ -463,7 +470,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
           request = dataloader.with(
             described_class,
             content_store: source_edition.content_store,
-            locale: "en",
+            locale: source_edition.locale,
           ).request([source_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)

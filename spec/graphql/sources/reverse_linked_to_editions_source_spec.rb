@@ -24,7 +24,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         request = dataloader.with(
           described_class,
           content_store: target_edition.content_store,
-          locale: "en",
+          locale: target_edition.locale,
         ).request([target_edition, "test_link"])
 
         actual_titles = request.load.map(&:title)
@@ -50,7 +50,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         request = dataloader.with(
           described_class,
           content_store: target_edition.content_store,
-          locale: "en",
+          locale: target_edition.locale,
         ).request([target_edition, "test_link"])
 
         expect(request.load).to eq([source_edition])
@@ -85,7 +85,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           request = dataloader.with(
             described_class,
             content_store: target_edition.content_store,
-            locale: "en",
+            locale: target_edition.locale,
           ).request([target_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
@@ -117,7 +117,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           request = dataloader.with(
             described_class,
             content_store: target_edition.content_store,
-            locale: "en",
+            locale: target_edition.locale,
           ).request([target_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
@@ -165,7 +165,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             request = dataloader.with(
               described_class,
               content_store: target_edition.content_store,
-              locale: "en",
+              locale: target_edition.locale,
             ).request([target_edition, "test_link"])
 
             actual_titles = request.load.map(&:title)
@@ -191,7 +191,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               request = dataloader.with(
                 described_class,
                 content_store: target_edition.content_store,
-                locale: "en",
+                locale: target_edition.locale,
               ).request([target_edition, "parent"])
 
               actual_titles = request.load.map(&:title)
@@ -232,7 +232,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               request = dataloader.with(
                 described_class,
                 content_store: target_edition.content_store,
-                locale: "en",
+                locale: target_edition.locale,
               ).request([target_edition, "parent"])
 
               actual_titles = request.load.map(&:title)
@@ -256,7 +256,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               request = dataloader.with(
                 described_class,
                 content_store: target_edition.content_store,
-                locale: "en",
+                locale: target_edition.locale,
               ).request([target_edition, "test_link"])
 
               actual_titles = request.load.map(&:title)
@@ -296,7 +296,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               request = dataloader.with(
                 described_class,
                 content_store: target_edition.content_store,
-                locale: "en",
+                locale: target_edition.locale,
               ).request([target_edition, "test_link"])
 
               actual_titles = request.load.map(&:title)
@@ -329,7 +329,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           request = dataloader.with(
             described_class,
             content_store: target_edition.content_store,
-            locale: "en",
+            locale: target_edition.locale,
           ).request([target_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
@@ -344,7 +344,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
     %i[link_set_links edition_links].each do |links_kind|
       context "when the link kind is #{links_kind}" do
         it "includes reverse links matching the specified locale" do
-          target_edition = create(:edition)
+          target_edition = create(:edition, document: create(:document, locale: "fr"))
 
           source_content_id = SecureRandom.uuid
           create(
@@ -368,7 +368,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             request = dataloader.with(
               described_class,
               content_store: target_edition.content_store,
-              locale: "fr",
+              locale: target_edition.locale,
             ).request([target_edition, "test_link"])
 
             actual_titles = request.load.map(&:title)
@@ -381,7 +381,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
     context "when the link kind is link_set_links" do
       it "includes English language reverse links if there's no better match available" do
-        target_edition = create(:edition)
+        target_edition = create(:edition, document: create(:document, locale: "de"))
 
         source_content_id = SecureRandom.uuid
         english_edition = create(
@@ -405,7 +405,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           request = dataloader.with(
             described_class,
             content_store: target_edition.content_store,
-            locale: "de",
+            locale: target_edition.locale,
           ).request([target_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
@@ -415,7 +415,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       end
 
       it "doesn't include a reverse link if none match the locale or English" do
-        target_edition = create(:edition)
+        target_edition = create(:edition, document: create(:document, locale: "hu"))
 
         source_content_id = SecureRandom.uuid
         create(
@@ -439,7 +439,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           request = dataloader.with(
             described_class,
             content_store: target_edition.content_store,
-            locale: "hu",
+            locale: target_edition.locale,
           ).request([target_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
@@ -450,7 +450,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
     context "when the link kind is edition_links" do
       it "doesn't include a reverse link if none match the locale" do
-        target_edition = create(:edition)
+        target_edition = create(:edition, document: create(:document, locale: "hu"))
 
         source_content_id = SecureRandom.uuid
         create(
@@ -482,7 +482,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           request = dataloader.with(
             described_class,
             content_store: target_edition.content_store,
-            locale: "hu",
+            locale: target_edition.locale,
           ).request([target_edition, "test_link"])
 
           actual_titles = request.load.map(&:title)
@@ -494,7 +494,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
     context "when the Edition is live" do
       context "when the link kind is link_set_links" do
         it "defaults to including a (live) 'en' reverse link when the locale-matching one is draft" do
-          target_edition = create(:live_edition)
+          target_edition = create(:live_edition, document: create(:document, locale: "fr"))
 
           source_content_id = SecureRandom.uuid
           english_edition = create(
@@ -518,7 +518,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             request = dataloader.with(
               described_class,
               content_store: target_edition.content_store,
-              locale: "fr",
+              locale: target_edition.locale,
             ).request([target_edition, "test_link"])
 
             actual_titles = request.load.map(&:title)
@@ -528,7 +528,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         end
 
         it "doesn't include any reverse link if none are live" do
-          target_edition = create(:live_edition)
+          target_edition = create(:live_edition, document: create(:document, locale: "fr"))
 
           source_content_id = SecureRandom.uuid
           create(
@@ -552,7 +552,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             request = dataloader.with(
               described_class,
               content_store: target_edition.content_store,
-              locale: "fr",
+              locale: target_edition.locale,
             ).request([target_edition, "test_link"])
 
             actual_titles = request.load.map(&:title)
@@ -564,7 +564,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
       context "when the link kind is edition_links" do
         it "doesn't default to including a (live) 'en' reverse link when the locale-matching one is draft" do
-          target_edition = create(:live_edition)
+          target_edition = create(:live_edition, document: create(:document, locale: "fr"))
 
           source_content_id = SecureRandom.uuid
           create(
@@ -588,7 +588,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             request = dataloader.with(
               described_class,
               content_store: target_edition.content_store,
-              locale: "fr",
+              locale: target_edition.locale,
             ).request([target_edition, "test_link"])
 
             actual_titles = request.load.map(&:title)
@@ -602,7 +602,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       %i[link_set_links edition_links].each do |links_kind|
         context "when the link kind is #{links_kind}" do
           it "includes the reverse link if it's a permitted link_type" do
-            target_edition = create(:live_edition)
+            target_edition = create(:live_edition, document: create(:document, locale: "fr"))
 
             source_content_id = SecureRandom.uuid
             create(
@@ -626,7 +626,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               request = dataloader.with(
                 described_class,
                 content_store: target_edition.content_store,
-                locale: "fr",
+                locale: target_edition.locale,
               ).request([target_edition, "related_statistical_data_sets"])
 
               actual_titles = request.load.map(&:title)
@@ -639,7 +639,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
       context "when the link kind is link_set_links" do
         it "defaults to including a (not-unpublished) 'en' reverse link when the better-matching one isn't a permitted link_type" do
-          target_edition = create(:live_edition)
+          target_edition = create(:live_edition, document: create(:document, locale: "fr"))
 
           source_content_id = SecureRandom.uuid
           english_edition = create(
@@ -663,7 +663,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             request = dataloader.with(
               described_class,
               content_store: target_edition.content_store,
-              locale: "fr",
+              locale: target_edition.locale,
             ).request([target_edition, "test_link"])
 
             actual_titles = request.load.map(&:title)
@@ -675,7 +675,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
       context "when the link kind is edition_links" do
         it "doesn't default to including a (not-unpublished) 'en' reverse link when the better-matching one isn't a permitted link_type" do
-          target_edition = create(:live_edition)
+          target_edition = create(:live_edition, document: create(:document, locale: "fr"))
 
           source_content_id = SecureRandom.uuid
           create(
@@ -699,7 +699,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             request = dataloader.with(
               described_class,
               content_store: target_edition.content_store,
-              locale: "fr",
+              locale: target_edition.locale,
             ).request([target_edition, "test_link"])
 
             actual_titles = request.load.map(&:title)
