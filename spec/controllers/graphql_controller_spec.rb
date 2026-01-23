@@ -153,7 +153,7 @@ RSpec.describe GraphqlController do
       end
     end
 
-    context "a gone content item with an explantion and alternative_path" do
+    context "a gone content item with an explanation and alternative_path" do
       let(:edition) do
         create(
           :gone_unpublished_edition,
@@ -203,6 +203,18 @@ RSpec.describe GraphqlController do
       get :live_content, params: {
         base_path: base_path_without_leading_slash("/base-path"),
       }
+    end
+
+    it "sets cache headers based on the edition's max cache time value" do
+      edition = create(
+        :live_edition,
+        schema_name: "specialist_document",
+        details: { max_cache_time: 10 },
+      )
+
+      get :live_content, params: { base_path: base_path_without_leading_slash(edition.base_path) }
+
+      expect(cache_control["max-age"]).to eq("10")
     end
   end
 
