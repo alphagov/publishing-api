@@ -1,9 +1,10 @@
 class Presenters::GonePresenter
-  def initialize(base_path:, content_id:, publishing_app:, public_updated_at:, alternative_path:, explanation:, locale:, routes:)
+  def initialize(base_path:, content_id:, publishing_app:, public_updated_at:, updated_at:, alternative_path:, explanation:, locale:, routes:)
     @base_path = base_path
     @content_id = content_id
     @publishing_app = publishing_app
     @public_updated_at = public_updated_at
+    @updated_at = updated_at
     @alternative_path = alternative_path
     @explanation = explanation
     @locale = locale
@@ -16,6 +17,7 @@ class Presenters::GonePresenter
       content_id: edition.content_id,
       publishing_app: edition.publishing_app,
       public_updated_at: edition.unpublishing.unpublished_at || edition.unpublishing.created_at,
+      updated_at: edition.updated_at,
       alternative_path: edition.unpublishing.alternative_path,
       explanation: edition.unpublishing.explanation,
       locale: edition.locale,
@@ -28,7 +30,13 @@ class Presenters::GonePresenter
   end
 
   def for_graphql
-    present
+    present.except(:routes).merge(
+      title: nil,
+      description: nil,
+      links: {},
+      content_id: nil,
+      updated_at: updated_at&.iso8601,
+    )
   end
 
   def for_message_queue(payload_version)
@@ -41,7 +49,7 @@ class Presenters::GonePresenter
 
 private
 
-  attr_reader :base_path, :content_id, :publishing_app, :public_updated_at, :alternative_path, :explanation, :locale, :routes
+  attr_reader :base_path, :content_id, :publishing_app, :public_updated_at, :updated_at, :alternative_path, :explanation, :locale, :routes
 
   def present
     {

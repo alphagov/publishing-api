@@ -50,4 +50,16 @@ RSpec.describe Presenters::GonePresenter do
       end
     end
   end
+
+  describe "#for_graphql" do
+    let(:edition) { create(:gone_unpublished_edition) }
+
+    subject(:result) do
+      described_class.from_edition(edition).for_graphql
+    end
+
+    it "matches the frontend schema" do
+      expect(subject).to be_valid_against_frontend_schema("gone")
+    end
+  end
 end

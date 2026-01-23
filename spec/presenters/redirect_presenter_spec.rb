@@ -42,4 +42,30 @@ RSpec.describe Presenters::RedirectPresenter do
       end
     end
   end
+
+  describe "#for_graphql" do
+    context "when the edition is an unpublished redirect" do
+      let(:edition) { create(:redirect_unpublished_edition) }
+
+      subject(:result) do
+        described_class.from_unpublished_edition(edition).for_graphql
+      end
+
+      it "matches the frontend schema" do
+        expect(subject).to be_valid_against_frontend_schema("redirect")
+      end
+    end
+
+    context "when the edition is a published redirect" do
+      let(:edition) { create(:redirect_live_edition) }
+
+      subject(:result) do
+        described_class.from_published_edition(edition).for_graphql
+      end
+
+      it "matches the frontend schema" do
+        expect(subject).to be_valid_against_frontend_schema("redirect")
+      end
+    end
+  end
 end

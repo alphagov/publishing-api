@@ -1,9 +1,10 @@
 class Presenters::RedirectPresenter
-  def initialize(base_path:, content_id:, publishing_app:, redirects:, locale:, public_updated_at: nil, first_published_at: nil)
+  def initialize(base_path:, content_id:, publishing_app:, redirects:, locale:, public_updated_at: nil, updated_at: nil, first_published_at: nil)
     @base_path = base_path
     @content_id = content_id
     @publishing_app = publishing_app
     @public_updated_at = public_updated_at
+    @updated_at = updated_at
     @redirects = redirects
     @locale = locale
     @first_published_at = first_published_at
@@ -15,6 +16,7 @@ class Presenters::RedirectPresenter
       content_id: edition.content_id,
       publishing_app: edition.publishing_app,
       public_updated_at: edition.unpublishing.unpublished_at || edition.unpublishing.created_at,
+      updated_at: edition.updated_at,
       first_published_at: edition.first_published_at,
       redirects: edition.unpublishing.redirects,
       locale: edition.locale,
@@ -27,6 +29,7 @@ class Presenters::RedirectPresenter
       content_id: edition.content_id,
       publishing_app: edition.publishing_app,
       public_updated_at: edition.public_updated_at,
+      updated_at: edition.updated_at,
       first_published_at: edition.first_published_at,
       redirects: edition.redirects,
       locale: edition.locale,
@@ -38,7 +41,14 @@ class Presenters::RedirectPresenter
   end
 
   def for_graphql
-    present
+    present.merge(
+      title: nil,
+      description: nil,
+      links: {},
+      details: {},
+      content_id: nil,
+      updated_at: updated_at&.iso8601,
+    )
   end
 
   def for_message_queue(payload_version)
@@ -58,6 +68,7 @@ private
   attr_reader :base_path,
               :publishing_app,
               :public_updated_at,
+              :updated_at,
               :first_published_at,
               :redirects,
               :content_id,
