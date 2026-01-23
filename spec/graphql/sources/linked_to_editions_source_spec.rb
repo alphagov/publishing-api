@@ -1,4 +1,40 @@
 RSpec.describe Sources::LinkedToEditionsSource do
+  RSpec::Matchers.define :have_links do |link_type|
+    match do |source_edition|
+      GraphQL::Dataloader.with_dataloading do |dataloader|
+        request = dataloader.with(
+          described_class,
+          content_store: source_edition.content_store,
+          locale: source_edition.locale,
+        ).request([source_edition, link_type])
+
+        @links = request.load
+        @actual_titles = @links.map(&:title)
+
+        expect(@links).not_to be_empty
+
+        unless expected_titles.nil?
+          if in_any_order
+            expect(@actual_titles).to match_array(expected_titles)
+          else
+            expect(@actual_titles).to eq(expected_titles)
+          end
+        end
+      end
+    end
+
+    chain :with_titles, :expected_titles
+    chain :in_any_order, :in_any_order
+
+    failure_message do
+      expect(@links).not_to be_empty
+
+      unless expected_titles.nil?
+        expect(@actual_titles).to eq(expected_titles)
+      end
+    end
+  end
+
   context "when the same source content has a mix of link set links and edition links for the same link type" do
     it "returns only the edition links" do
       target_edition_1 = create(:edition, title: "edition 1, test link, edition link")
@@ -12,17 +48,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
                                 { link_type: "test_link", target_content_id: target_edition_2.content_id },
                               ])
 
-      GraphQL::Dataloader.with_dataloading do |dataloader|
-        request = dataloader.with(
-          described_class,
-          content_store: source_edition.content_store,
-          locale: source_edition.locale,
-        ).request([source_edition, "test_link"])
-
-        actual_titles = request.load.map(&:title)
-        expected_titles = [target_edition_1.title]
-        expect(actual_titles).to eq(expected_titles)
-      end
+      expected_titles = [target_edition_1.title]
+      expect(source_edition).to have_links("test_link").with_titles(expected_titles)
     end
   end
 
@@ -40,17 +67,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
                                   { link_type: "test_link", target_content_id: target_edition_3.content_id },
                                 ])
 
-        GraphQL::Dataloader.with_dataloading do |dataloader|
-          request = dataloader.with(
-            described_class,
-            content_store: source_edition.content_store,
-            locale: source_edition.locale,
-          ).request([source_edition, "test_link"])
-
-          actual_titles = request.load.map(&:title)
-          expected_titles = [target_edition_1, target_edition_3].map(&:title)
-          expect(actual_titles).to match_array(expected_titles)
-        end
+        expected_titles = [target_edition_1, target_edition_3].map(&:title)
+        expect(source_edition).to have_links("test_link").with_titles(expected_titles).in_any_order
       end
 
       it "returns links from only the requested content store" do
@@ -63,17 +81,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
                                   { link_type: "test_link", target_content_id: target_edition_1.content_id },
                                 ])
 
-        GraphQL::Dataloader.with_dataloading do |dataloader|
-          request = dataloader.with(
-            described_class,
-            content_store: source_edition.content_store,
-            locale: source_edition.locale,
-          ).request([source_edition, "test_link"])
-
-          actual_titles = request.load.map(&:title)
-          expected_titles = [target_edition_1.title]
-          expect(actual_titles).to eq(expected_titles)
-        end
+        expected_titles = [target_edition_1.title]
+        expect(source_edition).to have_links("test_link").with_titles(expected_titles)
       end
 
       it "returns editions in order of their associated link's `position`" do
@@ -88,17 +97,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
                                   { link_type: "test_link", target_content_id: target_edition_2.content_id, position: 0 },
                                 ])
 
-        GraphQL::Dataloader.with_dataloading do |dataloader|
-          request = dataloader.with(
-            described_class,
-            content_store: source_edition.content_store,
-            locale: source_edition.locale,
-          ).request([source_edition, "test_link"])
-
-          actual_titles = request.load.map(&:title)
-          expected_titles = [target_edition_2, target_edition_0, target_edition_1].map(&:title)
-          expect(actual_titles).to eq(expected_titles)
-        end
+        expected_titles = [target_edition_2, target_edition_0, target_edition_1].map(&:title)
+        expect(source_edition).to have_links("test_link").with_titles(expected_titles)
       end
 
       context "when links have the same `position`" do
@@ -116,17 +116,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
                                     { link_type: "test_link", target_content_id: target_edition_3.content_id, position: 0 },
                                   ])
 
-          GraphQL::Dataloader.with_dataloading do |dataloader|
-            request = dataloader.with(
-              described_class,
-              content_store: source_edition.content_store,
-              locale: source_edition.locale,
-            ).request([source_edition, "test_link"])
-
-            actual_titles = request.load.map(&:title)
-            expected_titles = [target_edition_3, target_edition_0, target_edition_2, target_edition_1].map(&:title)
-            expect(actual_titles).to eq(expected_titles)
-          end
+          expected_titles = [target_edition_3, target_edition_0, target_edition_2, target_edition_1].map(&:title)
+          expect(source_edition).to have_links("test_link").with_titles(expected_titles)
         end
       end
 
@@ -140,17 +131,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
                                       { link_type: "parent", target_content_id: target_edition.content_id },
                                     ])
 
-            GraphQL::Dataloader.with_dataloading do |dataloader|
-              request = dataloader.with(
-                described_class,
-                content_store: source_edition.content_store,
-                locale: source_edition.locale,
-              ).request([source_edition, "parent"])
-
-              actual_titles = request.load.map(&:title)
-              expected_titles = [target_edition.title]
-              expect(actual_titles).to match_array(expected_titles)
-            end
+            expected_titles = [target_edition.title]
+            expect(source_edition).to have_links("parent").with_titles(expected_titles).in_any_order
           end
 
           it "does not include unpublished links when the unpublishing type is not withdrawal" do
@@ -167,17 +149,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
                                       { link_type: "parent", target_content_id: target_edition_3.content_id },
                                     ])
 
-            GraphQL::Dataloader.with_dataloading do |dataloader|
-              request = dataloader.with(
-                described_class,
-                content_store: source_edition.content_store,
-                locale: source_edition.locale,
-              ).request([source_edition, "parent"])
-
-              actual_titles = request.load.map(&:title)
-              expected_titles = []
-              expect(actual_titles).to match_array(expected_titles)
-            end
+            expect(source_edition).not_to have_links("parent")
           end
         end
 
@@ -192,17 +164,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
                                       { link_type: "test_link", target_content_id: target_edition_1.content_id },
                                     ])
 
-            GraphQL::Dataloader.with_dataloading do |dataloader|
-              request = dataloader.with(
-                described_class,
-                content_store: source_edition.content_store,
-                locale: source_edition.locale,
-              ).request([source_edition, "test_link"])
-
-              actual_titles = request.load.map(&:title)
-              expected_titles = [target_edition_0.title]
-              expect(actual_titles).to eq(expected_titles)
-            end
+            expected_titles = [target_edition_0.title]
+            expect(source_edition).to have_links("test_link").with_titles(expected_titles)
           end
 
           it "also does not include unpublished links when the unpublishing type is not withdrawal" do
@@ -219,17 +182,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
                                       { link_type: "test_link", target_content_id: target_edition_3.content_id },
                                     ])
 
-            GraphQL::Dataloader.with_dataloading do |dataloader|
-              request = dataloader.with(
-                described_class,
-                content_store: source_edition.content_store,
-                locale: source_edition.locale,
-              ).request([source_edition, "test_link"])
-
-              actual_titles = request.load.map(&:title)
-              expected_titles = []
-              expect(actual_titles).to eq(expected_titles)
-            end
+            expect(source_edition).not_to have_links("test_link")
           end
         end
       end
@@ -248,17 +201,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
             ],
           )
 
-          GraphQL::Dataloader.with_dataloading do |dataloader|
-            request = dataloader.with(
-              described_class,
-              content_store: source_edition.content_store,
-              locale: source_edition.locale,
-            ).request([source_edition, "test_link"])
-
-            actual_titles = request.load.map(&:title)
-            expected_titles = [french_edition.title]
-            expect(actual_titles).to eq(expected_titles)
-          end
+          expected_titles = [french_edition.title]
+          expect(source_edition).to have_links("test_link").with_titles(expected_titles)
         end
 
         it "includes English language links if there's no better match available" do
@@ -274,17 +218,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
             ],
           )
 
-          GraphQL::Dataloader.with_dataloading do |dataloader|
-            request = dataloader.with(
-              described_class,
-              content_store: source_edition.content_store,
-              locale: source_edition.locale,
-            ).request([source_edition, "test_link"])
-
-            actual_titles = request.load.map(&:title)
-            expected_titles = [english_edition.title]
-            expect(actual_titles).to eq(expected_titles)
-          end
+          expected_titles = [english_edition.title]
+          expect(source_edition).to have_links("test_link").with_titles(expected_titles)
         end
 
         it "doesn't include a link if none match the locale or English" do
@@ -300,17 +235,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
             ],
           )
 
-          GraphQL::Dataloader.with_dataloading do |dataloader|
-            request = dataloader.with(
-              described_class,
-              content_store: source_edition.content_store,
-              locale: source_edition.locale,
-            ).request([source_edition, "test_link"])
-
-            actual_titles = request.load.map(&:title)
-            expected_titles = []
-            expect(actual_titles).to eq(expected_titles)
-          end
+          expect(source_edition).not_to have_links("test_link")
         end
 
         context "when the source Edition is live" do
@@ -335,17 +260,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
               ],
             )
 
-            GraphQL::Dataloader.with_dataloading do |dataloader|
-              request = dataloader.with(
-                described_class,
-                content_store: source_edition.content_store,
-                locale: source_edition.locale,
-              ).request([source_edition, "test_link"])
-
-              actual_titles = request.load.map(&:title)
-              expected_titles = [english_edition.title]
-              expect(actual_titles).to eq(expected_titles)
-            end
+            expected_titles = [english_edition.title]
+            expect(source_edition).to have_links("test_link").with_titles(expected_titles)
           end
 
           it "doesn't include any links if none of the target editions are live" do
@@ -369,17 +285,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               ],
             )
 
-            GraphQL::Dataloader.with_dataloading do |dataloader|
-              request = dataloader.with(
-                described_class,
-                content_store: source_edition.content_store,
-                locale: source_edition.locale,
-              ).request([source_edition, "test_link"])
-
-              actual_titles = request.load.map(&:title)
-              expected_titles = []
-              expect(actual_titles).to eq(expected_titles)
-            end
+            expect(source_edition).not_to have_links("test_link")
           end
         end
 
@@ -405,17 +311,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
               ],
             )
 
-            GraphQL::Dataloader.with_dataloading do |dataloader|
-              request = dataloader.with(
-                described_class,
-                content_store: source_edition.content_store,
-                locale: source_edition.locale,
-              ).request([source_edition, "related_statistical_data_sets"])
-
-              actual_titles = request.load.map(&:title)
-              expected_titles = [french_withdrawn_edition.title]
-              expect(actual_titles).to eq(expected_titles)
-            end
+            expected_titles = [french_withdrawn_edition.title]
+            expect(source_edition).to have_links("related_statistical_data_sets").with_titles(expected_titles)
           end
 
           it "falls back to an english document if the unpublished locale-matching one isn't a permitted unpublished link_type" do
@@ -439,17 +336,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
               ],
             )
 
-            GraphQL::Dataloader.with_dataloading do |dataloader|
-              request = dataloader.with(
-                described_class,
-                content_store: source_edition.content_store,
-                locale: source_edition.locale,
-              ).request([source_edition, "test_link"])
-
-              actual_titles = request.load.map(&:title)
-              expected_titles = [english_edition.title]
-              expect(actual_titles).to eq(expected_titles)
-            end
+            expected_titles = [english_edition.title]
+            expect(source_edition).to have_links("test_link").with_titles(expected_titles)
           end
         end
       end
@@ -466,17 +354,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
           ],
         )
 
-        GraphQL::Dataloader.with_dataloading do |dataloader|
-          request = dataloader.with(
-            described_class,
-            content_store: source_edition.content_store,
-            locale: source_edition.locale,
-          ).request([source_edition, "test_link"])
-
-          actual_titles = request.load.map(&:title)
-          expected_titles = [renderable_edition.title]
-          expect(actual_titles).to eq(expected_titles)
-        end
+        expected_titles = [renderable_edition.title]
+        expect(source_edition).to have_links("test_link").with_titles(expected_titles)
       end
     end
   end
