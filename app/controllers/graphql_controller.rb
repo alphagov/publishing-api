@@ -14,10 +14,9 @@ class GraphqlController < ApplicationController
   def live_content
     execute_in_read_replica do
       begin
-        set_cache_headers
-
         encoded_base_path = Addressable::URI.encode("/#{params[:base_path]}")
         edition = EditionFinderService.new(encoded_base_path, "live").find
+        set_cache_headers(edition)
         return head :not_found unless edition
 
         if edition.base_path != encoded_base_path
@@ -130,17 +129,6 @@ private
     render json: { errors: [{ message: error.message, backtrace: error.backtrace }], data: {} }, status: :internal_server_error
   end
 
-  # Constrain the cache time to be within the minimum_ttl and default_ttl.
-  def bounded_max_age(cache_time)
-    if cache_time > DEFAULT_TTL
-      DEFAULT_TTL
-    elsif cache_time < MINIMUM_TTL
-      MINIMUM_TTL
-    else
-      cache_time
-    end
-  end
-
   def set_prometheus_labels(hash)
     return unless hash
 
@@ -149,10 +137,14 @@ private
     request.env["govuk.prometheus_labels"] = prometheus_labels.merge(hash)
   end
 
-  def set_cache_headers
-    # NOTE: this will need to support `max_cache_time` when schemas that have this field are available through GraphQL
-    cache_time = DEFAULT_TTL
+  def set_cache_headers(edition)
+    # NOTE: this will need to support drafts and drafts with access limits
+    cache_time = max_cache_time(edition) || DEFAULT_TTL
 
-    expires_in bounded_max_age(cache_time), public: true
+    expires_in cache_time.clamp(MINIMUM_TTL, DEFAULT_TTL), public: true
+  end
+
+  def max_cache_time(edition)
+    edition&.details&.[](:max_cache_time)&.to_i&.seconds
   end
 end

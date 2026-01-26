@@ -1,5 +1,15 @@
 RSpec.describe GraphqlController do
   describe "#live_content" do
+    shared_examples "a response with default public cache headers" do
+      it "sets cache headers to expire in the default TTL" do
+        expect(cache_control["max-age"]).to eq(default_ttl.to_s)
+      end
+
+      it "sets a cache-control directive of public" do
+        expect(cache_control["public"]).to eq(true)
+      end
+    end
+
     context "when the requested base_path has live content" do
       let(:edition) do
         create(
@@ -31,13 +41,7 @@ RSpec.describe GraphqlController do
         expect(request.env.dig("govuk.prometheus_labels", "schema_name")).to eq(edition.schema_name)
       end
 
-      it "sets cache headers to expire in the default TTL" do
-        expect(cache_control["max-age"]).to eq(default_ttl.to_s)
-      end
-
-      it "sets a cache-control directive of public" do
-        expect(cache_control["public"]).to eq(true)
-      end
+      it_behaves_like "a response with default public cache headers"
 
       context "but the requested route does not match the base_path" do
         let(:edition) do
@@ -119,13 +123,7 @@ RSpec.describe GraphqlController do
         expect(response.status).to eq(404)
       end
 
-      it "sets cache headers to expire in the default TTL" do
-        expect(cache_control["max-age"]).to eq(default_ttl.to_s)
-      end
-
-      it "sets a cache-control directive of public" do
-        expect(cache_control["public"]).to eq(true)
-      end
+      it_behaves_like "a response with default public cache headers"
     end
 
     context "a gone content item without an explanation and without an alternative_path" do
@@ -144,16 +142,10 @@ RSpec.describe GraphqlController do
         expect(response.status).to eq(410)
       end
 
-      it "sets cache headers to expire in the default TTL" do
-        expect(cache_control["max-age"]).to eq(default_ttl.to_s)
-      end
-
-      it "sets a cache-control directive of public" do
-        expect(cache_control["public"]).to eq(true)
-      end
+      it_behaves_like "a response with default public cache headers"
     end
 
-    context "a gone content item with an explantion and alternative_path" do
+    context "a gone content item with an explanation and alternative_path" do
       let(:edition) do
         create(
           :gone_unpublished_edition,
@@ -203,6 +195,18 @@ RSpec.describe GraphqlController do
       get :live_content, params: {
         base_path: base_path_without_leading_slash("/base-path"),
       }
+    end
+
+    it "sets cache headers based on the edition's max cache time value" do
+      edition = create(
+        :live_edition,
+        schema_name: "specialist_document",
+        details: { max_cache_time: 10 },
+      )
+
+      get :live_content, params: { base_path: base_path_without_leading_slash(edition.base_path) }
+
+      expect(cache_control["max-age"]).to eq("10")
     end
   end
 
