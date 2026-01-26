@@ -21,7 +21,6 @@ query help_page($base_path: String!) {
       description
       details {
         body
-        change_history
         external_related_links
       }
       document_type
