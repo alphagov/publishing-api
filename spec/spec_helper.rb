@@ -28,6 +28,9 @@ Sidekiq.configure_client do |config|
   end
 end
 
+# Don't show logs below error (e.g. warnings) when running tests
+Sidekiq.logger.level = ENV.fetch("RAILS_LOG_LEVEL", "error")
+
 if GovukSchemas::Schema.all.empty?
   raise <<-MESSAGE
     No schemas found
