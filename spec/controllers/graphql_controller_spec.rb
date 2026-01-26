@@ -1,5 +1,15 @@
 RSpec.describe GraphqlController do
   describe "#live_content" do
+    shared_examples "a response with default public cache headers" do
+      it "sets cache headers to expire in the default TTL" do
+        expect(cache_control["max-age"]).to eq(default_ttl.to_s)
+      end
+
+      it "sets a cache-control directive of public" do
+        expect(cache_control["public"]).to eq(true)
+      end
+    end
+
     context "when the requested base_path has live content" do
       let(:edition) do
         create(
@@ -31,13 +41,7 @@ RSpec.describe GraphqlController do
         expect(request.env.dig("govuk.prometheus_labels", "schema_name")).to eq(edition.schema_name)
       end
 
-      it "sets cache headers to expire in the default TTL" do
-        expect(cache_control["max-age"]).to eq(default_ttl.to_s)
-      end
-
-      it "sets a cache-control directive of public" do
-        expect(cache_control["public"]).to eq(true)
-      end
+      it_behaves_like "a response with default public cache headers"
 
       context "but the requested route does not match the base_path" do
         let(:edition) do
@@ -119,13 +123,7 @@ RSpec.describe GraphqlController do
         expect(response.status).to eq(404)
       end
 
-      it "sets cache headers to expire in the default TTL" do
-        expect(cache_control["max-age"]).to eq(default_ttl.to_s)
-      end
-
-      it "sets a cache-control directive of public" do
-        expect(cache_control["public"]).to eq(true)
-      end
+      it_behaves_like "a response with default public cache headers"
     end
 
     context "a gone content item without an explanation and without an alternative_path" do
@@ -144,13 +142,7 @@ RSpec.describe GraphqlController do
         expect(response.status).to eq(410)
       end
 
-      it "sets cache headers to expire in the default TTL" do
-        expect(cache_control["max-age"]).to eq(default_ttl.to_s)
-      end
-
-      it "sets a cache-control directive of public" do
-        expect(cache_control["public"]).to eq(true)
-      end
+      it_behaves_like "a response with default public cache headers"
     end
 
     context "a gone content item with an explanation and alternative_path" do
