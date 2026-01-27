@@ -265,7 +265,7 @@ RSpec.describe Edition do
       let(:edition) { create(:edition) }
 
       before { edition.user_facing_version += 1 }
-      it { is_expected.to be_valid }
+      it { is_expected.to be_invalid }
     end
 
     context "when user_facing_version is decremented" do
