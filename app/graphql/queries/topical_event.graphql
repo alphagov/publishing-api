@@ -29,6 +29,7 @@ query topical_event($base_path: String!) {
         ordered_featured_documents
         social_media_links
         start_date
+        images
       }
       document_type
       first_published_at

@@ -58,6 +58,12 @@
           description: "A set of featured documents to display for the Topical Event.",
         },
         social_media_links: (import "shared/definitions/_social_media_links.jsonnet"),
+        images: {
+          type: "array",
+          items: {
+            "$ref": "#/definitions/image_asset",
+          }
+        }
       },
     },
   },
