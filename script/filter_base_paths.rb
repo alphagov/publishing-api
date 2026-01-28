@@ -43,9 +43,9 @@ end
 unfiltered_base_paths
   .each_slice(batch_size)
   .with_index do |unfiltered_base_paths_slice, index|
-  puts "Processing batch #{index + 1} of #{batch_count}"
+    puts "Processing batch #{index + 1} of #{batch_count}"
 
-  filtered_base_paths += query(unfiltered_base_paths_slice, schema_name)
+    filtered_base_paths += query(unfiltered_base_paths_slice, schema_name)
 end
 
 File.open("script/filtered_base_paths", "w") do |file|
