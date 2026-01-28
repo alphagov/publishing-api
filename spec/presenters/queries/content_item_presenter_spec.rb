@@ -218,15 +218,11 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     end
 
     context "when there are other editions with that content_id" do
-      before do
-        edition.update(user_facing_version: 2)
-      end
-
-      let!(:published_item) do
+      let!(:edition) do
         create(
           :live_edition,
+          :with_draft,
           document:,
-          user_facing_version: 1,
         )
       end
 

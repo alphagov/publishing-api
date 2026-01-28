@@ -65,7 +65,7 @@ class Edition < ApplicationRecord
             }
   validates :details, well_formed_content_types: { must_include_one_of: %w[text/html text/govspeak] }
 
-  validate :user_facing_version_must_increase
+  validate :user_facing_version_cannot_change
   validate :draft_cannot_be_behind_live
 
   validates :routes, absence: true, if: ->(edition) { edition.schema_name == "redirect" }
@@ -132,13 +132,8 @@ class Edition < ApplicationRecord
     end
   end
 
-  def user_facing_version_must_increase
-    return unless persisted?
-    return unless user_facing_version_changed? && user_facing_version <= user_facing_version_was
-
-    mismatch = "(#{user_facing_version} <= #{user_facing_version_was})"
-    message = "cannot be less than or equal to the previous user_facing_version #{mismatch}"
-    errors.add(:user_facing_version, message)
+  def user_facing_version_cannot_change
+    errors.add(:user_facing_version, "has changed") if persisted? && user_facing_version_changed?
   end
 
   def publish
