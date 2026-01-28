@@ -3,7 +3,7 @@ class GetHostContentService
     @target_content_id = target_content_id
     @order = order
     @page = page.blank? ? 0 : page.to_i - 1
-    @per_page = per_page.blank? ? nil : per_page.to_i
+    @per_page = per_page.presence&.to_i
   end
 
   def call
