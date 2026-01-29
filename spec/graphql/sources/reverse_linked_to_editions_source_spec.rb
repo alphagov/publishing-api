@@ -1,5 +1,5 @@
 RSpec.describe Sources::ReverseLinkedToEditionsSource do
-  RSpec::Matchers.define :have_links do |link_type|
+  RSpec::Matchers.define :have_reverse_links do |link_type|
     def check_links!
       expect(@links).not_to be_empty
 
@@ -59,7 +59,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                                 ])
 
       expected_titles = [source_edition_1, source_edition_2].map(&:title)
-      expect(target_edition).to have_links("test_link").with_titles(expected_titles).in_any_order
+      expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles).in_any_order
     end
   end
 
@@ -76,7 +76,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                               ])
 
       expected_titles = [source_edition.title]
-      expect(target_edition).to have_links("test_link").with_titles(expected_titles)
+      expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles)
     end
   end
 
@@ -104,7 +104,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                ])
 
         expected_titles = [source_edition_1, source_edition_2].map(&:title)
-        expect(target_edition).to have_links("test_link").with_titles(expected_titles).in_any_order
+        expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles).in_any_order
       end
 
       it "returns editions ordered by their reverse links' `position`" do
@@ -127,7 +127,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                                   ])
 
         expected_titles = [source_edition_2, source_edition_0, source_edition_1].map(&:title)
-        expect(target_edition).to have_links("test_link").with_titles(expected_titles)
+        expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles)
       end
 
       context "when reverse links have the same `position`" do
@@ -166,7 +166,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                                     ])
 
           expected_titles = [source_edition_2, source_edition_1, source_edition_0].map(&:title)
-          expect(target_edition).to have_links("test_link").with_titles(expected_titles)
+          expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles)
         end
       end
 
@@ -183,7 +183,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                                     }])
 
             expected_titles = [source_edition].map(&:title)
-            expect(target_edition).to have_links("parent").with_titles(expected_titles)
+            expect(target_edition).to have_reverse_links("parent").with_titles(expected_titles)
           end
 
           it "does not include unpublished reverse links when the unpublishing type is not withdrawal" do
@@ -214,7 +214,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                      target_content_id: target_edition.content_id,
                    }])
 
-            expect(target_edition).not_to have_links("parent")
+            expect(target_edition).not_to have_reverse_links("parent")
           end
         end
 
@@ -228,7 +228,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                      { link_type: "test_link", target_content_id: target_edition.content_id },
                    ])
 
-            expect(target_edition).not_to have_links("test_link")
+            expect(target_edition).not_to have_reverse_links("test_link")
           end
 
           it "also does not include unpublished reverse links when the unpublishing type is not withdrawal" do
@@ -259,7 +259,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                      target_content_id: target_edition.content_id,
                    }])
 
-            expect(target_edition).not_to have_links("test_link")
+            expect(target_edition).not_to have_reverse_links("test_link")
           end
         end
       end
@@ -283,7 +283,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         )
 
         expected_titles = [renderable_edition].map(&:title)
-        expect(target_edition).to have_links("test_link").with_titles(expected_titles)
+        expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles)
       end
     end
   end
@@ -313,7 +313,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           )
 
           expected_titles = [french_edition].map(&:title)
-          expect(target_edition).to have_links("test_link").with_titles(expected_titles)
+          expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles)
         end
       end
     end
@@ -341,7 +341,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
         )
 
         expected_titles = [english_edition].map(&:title)
-        expect(target_edition).to have_links("test_link").with_titles(expected_titles)
+        expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles)
       end
 
       it "doesn't include a reverse link if none match the locale or English" do
@@ -365,7 +365,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           ],
         )
 
-        expect(target_edition).not_to have_links("test_link")
+        expect(target_edition).not_to have_reverse_links("test_link")
       end
     end
 
@@ -399,7 +399,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           ],
         )
 
-        expect(target_edition).not_to have_links("test_link")
+        expect(target_edition).not_to have_reverse_links("test_link")
       end
     end
 
@@ -427,7 +427,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           )
 
           expected_titles = [english_edition].map(&:title)
-          expect(target_edition).to have_links("test_link").with_titles(expected_titles)
+          expect(target_edition).to have_reverse_links("test_link").with_titles(expected_titles)
         end
 
         it "doesn't include any reverse link if none are live" do
@@ -451,7 +451,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             ],
           )
 
-          expect(target_edition).not_to have_links("test_link")
+          expect(target_edition).not_to have_reverse_links("test_link")
         end
       end
 
@@ -477,7 +477,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             ],
           )
 
-          expect(target_edition).not_to have_links("test_link")
+          expect(target_edition).not_to have_reverse_links("test_link")
         end
       end
     end
@@ -507,7 +507,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             )
 
             expected_titles = [french_edition].map(&:title)
-            expect(target_edition).to have_links("related_statistical_data_sets").with_titles(expected_titles)
+            expect(target_edition).to have_reverse_links("related_statistical_data_sets").with_titles(expected_titles)
           end
 
           it "omits a locale-matching reverse link if it isn't a permitted unpublished link_type" do
@@ -523,7 +523,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
               ],
             )
 
-            expect(target_edition).not_to have_links("test_link")
+            expect(target_edition).not_to have_reverse_links("test_link")
           end
         end
       end
@@ -551,7 +551,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           )
 
           expected_titles = [english_published_edition].map(&:title)
-          expect(target_edition).to have_links("related_statistical_data_sets").with_titles(expected_titles)
+          expect(target_edition).to have_reverse_links("related_statistical_data_sets").with_titles(expected_titles)
         end
       end
 
@@ -577,7 +577,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             ],
           )
 
-          expect(target_edition).not_to have_links("related_statistical_data_sets")
+          expect(target_edition).not_to have_reverse_links("related_statistical_data_sets")
         end
       end
     end
