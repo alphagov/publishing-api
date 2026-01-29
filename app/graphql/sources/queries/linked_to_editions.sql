@@ -43,13 +43,13 @@ edition_linked_editions AS (
     )
   ORDER BY
     links.id ASC,
-    is_primary_locale DESC,
     CASE editions.state
       WHEN 'draft' THEN 0
       WHEN 'published' THEN 1
       WHEN 'unpublished' THEN 2
       ELSE 3
-    END
+    END,
+    is_primary_locale DESC
 ),
 
 link_set_linked_editions AS (
@@ -92,13 +92,13 @@ link_set_linked_editions AS (
     )
   ORDER BY
     links.id ASC,
-    is_primary_locale DESC,
     CASE editions.state
       WHEN 'draft' THEN 0
       WHEN 'published' THEN 1
       WHEN 'unpublished' THEN 2
       ELSE 3
-    END
+    END,
+    is_primary_locale DESC
 )
 
 SELECT editions.* FROM (
