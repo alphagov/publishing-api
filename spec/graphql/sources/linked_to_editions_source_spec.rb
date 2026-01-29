@@ -371,10 +371,10 @@ RSpec.describe Sources::LinkedToEditionsSource do
         end
 
         context "when the linked Edition with matching locale is unpublished" do
-          it "includes the link if it's a permitted link_type" do
+          it "includes the link if it's a permitted link_type and there are no competing published links" do
             target_content_id = SecureRandom.uuid
             create(
-              :live_edition,
+              :withdrawn_unpublished_edition,
               document: create(:document, locale: "en", content_id: target_content_id),
               title: "english, published, related_statistical_data_sets",
             )
@@ -429,13 +429,8 @@ RSpec.describe Sources::LinkedToEditionsSource do
             expect(source_edition).to have_links("related_statistical_data_sets").with_titles(expected_titles)
           end
 
-          it "falls back to an english document if the unpublished locale-matching one isn't a permitted unpublished link_type" do
+          it "omits an unpublished locale-matching link if it isn't a permitted unpublished link_type" do
             target_content_id = SecureRandom.uuid
-            english_edition = create(
-              :live_edition,
-              document: create(:document, locale: "en", content_id: target_content_id),
-              title: "english, published, test_link",
-            )
             create(
               :withdrawn_unpublished_edition,
               document: create(:document, locale: "fr", content_id: target_content_id),
@@ -450,8 +445,7 @@ RSpec.describe Sources::LinkedToEditionsSource do
               ],
             )
 
-            expected_titles = [english_edition.title]
-            expect(source_edition).to have_links("test_link").with_titles(expected_titles)
+            expect(source_edition).not_to have_links("test_link")
           end
         end
       end
