@@ -86,8 +86,8 @@ def normalise_html(html)
       '\1\2\3CONTENT">',
     )
     .gsub(
-      /(<meta name="govuk:public-updated-at" content="\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(?:Z|\+00:00)(">)/,
-      '\1\2',
+      /(<meta name="govuk:public-updated-at" content="\d{4}-\d{2}-\d{2}T)\d{2}(:\d{2}:\d{2})(?:Z|\+00:00|\+01:00)(">)/,
+      '\1HH\2\3',
     )
     .gsub(
       /(datetime=)(?:"|&quot;)(\d{4}-\d{2}-\d{2})[ T]\d{2}(:\d{2}:\d{2})[ Z]?(?:\.\d{3})?(?:UTC|\+00:00|\+01:00)?(?:"|&quot;)/,
