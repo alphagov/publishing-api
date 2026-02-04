@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+require "CSV"
+require "YAML"
+
+csv = CSV.parse(File.read("inclusion.csv"), headers: true)
+
+puts csv.map {
+  it
+    .to_h
+    .transform_values do
+      if %w[FALSE TRUE].include?(it)
+        it == "TRUE"
+      else
+        it
+      end
+    end
+}
+  .to_yaml
