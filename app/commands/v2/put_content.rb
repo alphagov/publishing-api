@@ -4,6 +4,8 @@ module Commands
       def call
         PutContentValidator.new(payload, self).validate
 
+        check_bulk_publishing_present
+
         update_draft_items_of_different_locale_but_matching_content_id
 
         remove_previous_path_reservations
@@ -83,6 +85,21 @@ module Commands
 
       def set_timestamps(edition)
         Edition::Timestamps.edited(edition, payload, previously_published_edition)
+      end
+
+      def check_bulk_publishing_present
+        return if [true, false].include?(payload[:bulk_publishing])
+
+        raise CommandError.new(
+          code: 422,
+          message: "A value for bulk_publishing is required",
+          error_details: {
+            error: {
+              code: 422,
+              message: "A value for bulk_publishing is required",
+            },
+          },
+        )
       end
 
       def check_update_type
@@ -257,7 +274,7 @@ module Commands
       end
 
       def bulk_publishing?
-        payload.fetch(:bulk_publishing, false)
+        payload[:bulk_publishing]
       end
 
       def edition_diff

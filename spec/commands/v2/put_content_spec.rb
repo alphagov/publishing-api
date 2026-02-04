@@ -186,7 +186,34 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "when the 'bulk_publishing' flag is set" do
+    context "when the 'bulk_publishing' flag is not set" do
+      before do
+        payload.delete(:bulk_publishing)
+      end
+
+      it "raises a 422 error" do
+        expect {
+          described_class.call(payload)
+        }.to raise_error(CommandError) { |error|
+               expect(error.code).to eq(422)
+               expect(error.message).to eq("A value for bulk_publishing is required")
+             }
+      end
+    end
+
+    context "when the 'bulk_publishing' flag is set to false" do
+      it "enqueues in the correct queue" do
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
+          .with(
+            "downstream_high",
+            anything,
+          )
+
+        described_class.call(payload.merge(bulk_publishing: false))
+      end
+    end
+
+    context "when the 'bulk_publishing' flag is set to true" do
       it "enqueues in the correct queue" do
         expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
           .with(
