@@ -1,0 +1,75 @@
+#!/usr/bin/env ruby
+
+with_drafts_values = [false, true]
+default_root_locale_values = [false, true]
+link_kind_values = %w[link_set edition]
+
+# state, withdawal, permitted unpublished link type
+state_values = [
+  ["draft", nil, nil],
+  ["published", nil, nil],
+  ["unpublished", true, true],
+  ["unpublished", true, false],
+  ["unpublished", false, true],
+  ["unpublished", false, false],
+]
+
+renderable_document_type_values = [false, true]
+locale_values = %w[default fr hu]
+
+test_case_halves = with_drafts_values.product(
+  default_root_locale_values,
+  link_kind_values,
+  state_values,
+  renderable_document_type_values,
+  locale_values,
+).map do
+  {
+    with_drafts: it[0],
+    default_root_locale: it[1],
+    link_kind: it[2],
+    state: it[3][0],
+    withdrawal: it[3][1],
+    permitted_unpublished_link_type: it[3][2],
+    renderable_document_type: it[4],
+    locale: it[5],
+  }
+end
+
+test_case_halves.reject! { it[:default_root_locale] && it[:locale] == "hu" }
+
+# 240
+puts test_case_halves.count
+
+test_cases = test_case_halves.combination(2).to_a
+
+def fields_equal(a, b, *fields) # rubocop:disable Naming/MethodParameterName
+  fields.all? { a[it] == b[it] }
+end
+
+test_cases.reject! do |test_case|
+  [
+    !fields_equal(*test_case, :with_drafts),
+    !fields_equal(*test_case, :default_root_locale),
+    if fields_equal(*test_case, :link_kind, :locale)
+      test_case.map { it[:state] }.sort == %w[published unpublished]
+    else
+      false
+    end,
+  ].any?
+end
+
+# 7048
+puts test_cases.count
+puts test_cases.first.inspect
+
+test_cases = test_cases.map do |test_case|
+  test_case.first.slice(:with_drafts, :default_root_locale).tap do
+    it[:linked_editions] = test_case.map do |test_case_half|
+      test_case_half.except(:with_drafts, :default_root_locale)
+    end
+  end
+end
+
+puts test_cases.count
+puts test_cases.first.inspect
