@@ -29,7 +29,7 @@ pairs = csv.map {
   true
 end.map do | it |
   pair = it.first.slice("with_drafts", "default_root_locale")
-  pair["linked_editions"] = it.map {_1.except("with_drafts", "default_root_locale")}
+  pair["linked_editions"] = it.map {_1.except("with_drafts", "default_root_locale", "included")}
   pair
 end
 
