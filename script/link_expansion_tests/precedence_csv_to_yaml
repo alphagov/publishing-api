@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require "CSV"
+require "YAML"
+
+csv = CSV.parse(File.read("precedence.csv"), headers: true)
+
+pairs = csv.map {
+  [it, it].map do
+    it.to_h
+    .transform_values do
+      if %w[FALSE TRUE].include?(it)
+        it == "TRUE"
+      else
+        it
+      end
+    end
+  end.map.with_index do | object, index |
+    object["link_kind"] = index == 0 ? "link-set" : "edition"
+    object
+  end
+}.flatten.combination(2).to_a.filter do
+  next unless it.dig(0, "with_drafts") == it.dig(1, "with_drafts")
+  next unless it.dig(0, "default_root_locale") == it.dig(1, "default_root_locale")
+  if it.dig(0, "link_kind") == it.dig(1, "link_kind") and it.dig(0, "locale") == it.dig(1, "locale")
+    next if it.dig(0, "state") == "published" and it.dig(1, "state") == "unpublished"
+    next if it.dig(0, "state") == "unpublished" and it.dig(1, "state") == "published"
+  end
+  true
+end.map do | it |
+  pair = it.first.slice("with_drafts", "default_root_locale")
+  pair["linked_editions"] = it.map {_1.except("with_drafts", "default_root_locale")}
+  pair
+end
+
+File.write("precedence.yaml", pairs.to_yaml)
