@@ -232,21 +232,43 @@ RSpec.describe Commands::V2::PatchLinkSet do
       )
     end
 
-    it "sends to the downstream draft worker" do
-      expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
-        .with(
-          "downstream_high",
-          a_hash_including("content_id", "locale", "update_dependencies" => true),
-        )
+    context "when the 'bulk_publishing' flag is not set" do
+      before do
+        payload.delete(:bulk_publishing)
+      end
 
-      described_class.call(payload)
+      it "raise a 422 error" do
+        expect {
+          described_class.call(payload)
+        }.to raise_error(CommandError) { |error|
+               expect(error.code).to eq(422)
+               expect(error.message).to eq("A value for bulk_publishing is required")
+             }
+      end
     end
 
-    it "sends a low priority request to the downstream draft worker for bulk publishing" do
-      expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
-        .with("downstream_low", anything)
+    context "when the 'bulk_publishing' flag is set to false" do
+      it "sends to the downstream draft worker in the correct queue" do
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
+          .with(
+            "downstream_high",
+            a_hash_including("content_id", "locale", "update_dependencies" => true),
+          )
 
-      described_class.call(payload.merge(bulk_publishing: true))
+        described_class.call(payload)
+      end
+    end
+
+    context "when the 'bulk_publishing' flag is set to true" do
+      it "sends to the downstream draft worker in the correct queue" do
+        expect(DownstreamDraftJob).to receive(:perform_async_in_queue)
+          .with(
+            "downstream_low",
+            a_hash_including("content_id", "locale", "update_dependencies" => true),
+          )
+
+        described_class.call(payload.merge(bulk_publishing: true))
+      end
     end
 
     it "sends to the downstream draft worker without updating dependencies if it hasn't changed" do
