@@ -75,7 +75,11 @@ class SpecialRoutePublisher
     })
 
     if route[:links]
-      Commands::V2::PatchLinkSet.call({ content_id:, links: route[:links] })
+      Commands::V2::PatchLinkSet.call({
+        bulk_publishing: false,
+        content_id:,
+        links: route[:links],
+      })
     end
 
     Commands::V2::Publish.call({ content_id:, update_type: nil, locale: route.fetch(:locale, "en") })

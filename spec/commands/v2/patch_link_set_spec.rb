@@ -7,6 +7,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
   let(:payload) do
     {
+      bulk_publishing: false,
       content_id:,
       links: {
         taxons: taxons * 2, # test deduplication
@@ -18,6 +19,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
   # Shuffle the order of the links to test preservation of ordering
   let(:payload_shuffled) do
     {
+      bulk_publishing: false,
       content_id:,
       links: {
         taxons: taxons_shuffled * 2, # test deduplication
@@ -65,6 +67,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       described_class.call(
         {
+          bulk_publishing: false,
           content_id: link_set.content_id,
           links: {},
         },
@@ -411,7 +414,11 @@ RSpec.describe Commands::V2::PatchLinkSet do
     let(:content_id) { edition.document.content_id }
 
     let(:payload) do
-      { content_id:, links: { taxons: [link_b] } }
+      {
+        bulk_publishing: false,
+        content_id:,
+        links: { taxons: [link_b] },
+      }
     end
 
     before do
