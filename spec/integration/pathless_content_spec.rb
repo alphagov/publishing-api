@@ -4,6 +4,7 @@ RSpec.describe "pathless content" do
       let(:content_id) { build(:document).content_id }
       let(:payload) do
         {
+          bulk_publishing: false,
           content_id:,
           title: "Some Title",
           publishing_app: "publisher",

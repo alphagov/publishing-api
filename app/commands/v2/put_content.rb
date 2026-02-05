@@ -135,6 +135,7 @@ module Commands
           previously_published_edition,
           payload,
           callbacks,
+          bulk_publishing?,
         ).call
       end
 

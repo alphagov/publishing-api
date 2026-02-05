@@ -18,6 +18,7 @@ RSpec.describe Commands::V2::PutContent do
       {
         content_id:,
         base_path:,
+        bulk_publishing: false,
         update_type: "major",
         title: "Some Title",
         publishing_app:,
@@ -37,6 +38,7 @@ RSpec.describe Commands::V2::PutContent do
       {
         content_id:,
         base_path:,
+        bulk_publishing: false,
         update_type: "major",
         title: "New Title",
         publishing_app:,
@@ -108,6 +110,7 @@ RSpec.describe Commands::V2::PutContent do
     describe "linking a content_id to a human readable alias" do
       let(:content_block_payload) do
         {
+          bulk_publishing: false,
           content_id:,
           locale: "en",
           schema_name: "content_block_pension",
@@ -481,6 +484,7 @@ RSpec.describe Commands::V2::PutContent do
           .never
 
         payload = {
+          bulk_publishing: false,
           content_id:,
           update_type: "major",
           title: "Some Title",
@@ -527,6 +531,7 @@ RSpec.describe Commands::V2::PutContent do
           .never
 
         payload = {
+          bulk_publishing: false,
           content_id:,
           update_type: "major",
           title: "Some Title",
@@ -554,6 +559,7 @@ RSpec.describe Commands::V2::PutContent do
 
       let(:payload) do
         {
+          bulk_publishing: false,
           content_id:,
           base_path:,
           update_type: "major",
@@ -663,6 +669,7 @@ RSpec.describe Commands::V2::PutContent do
 
       let(:payload) do
         {
+          bulk_publishing: false,
           content_id:,
           base_path:,
           update_type: "major",

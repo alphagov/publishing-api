@@ -58,6 +58,7 @@ class SpecialRoutePublisher
     })
 
     Commands::V2::PutContent.call({
+      bulk_publishing: false,
       content_id:,
       base_path: route.fetch(:base_path),
       document_type: route.fetch(:document_type, "special_route"),

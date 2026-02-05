@@ -59,8 +59,12 @@ class Presenters::RedirectPresenter
     )
   end
 
-  def for_redirect_helper(content_id)
-    present.merge(content_id:, update_type: "major")
+  def for_redirect_helper(content_id, bulk_publishing)
+    present.merge(
+      bulk_publishing:,
+      content_id:,
+      update_type: "major",
+    )
   end
 
 private
