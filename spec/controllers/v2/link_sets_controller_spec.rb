@@ -85,4 +85,40 @@ RSpec.describe V2::LinkSetsController do
       end
     end
   end
+
+  describe "patch_links" do
+    let(:content_id) { SecureRandom.uuid }
+    let(:payload) { { link_type: [SecureRandom.uuid] } }
+    let(:subject) { patch :patch_links, params: { content_id: }, body: payload.to_json }
+
+    context "when bulk_publishing is not set in the payload" do
+      it "calls Commands::V2::PatchLinkSet with bulk_publishing set to false" do
+        links_hash = payload.merge(
+          bulk_publishing: false,
+          content_id:,
+        ).deep_symbolize_keys
+
+        expect(Commands::V2::PatchLinkSet).to receive(:call).with(links_hash).and_call_original
+
+        subject
+      end
+    end
+
+    context "when bulk_publishing is set in the payload" do
+      before do
+        payload[:bulk_publishing] = true
+      end
+
+      it "calls Commands::V2::PatchLinkSet with bulk_publishing set to true" do
+        links_hash = payload.merge(
+          bulk_publishing: true,
+          content_id:,
+        ).deep_symbolize_keys
+
+        expect(Commands::V2::PatchLinkSet).to receive(:call).with(links_hash).and_call_original
+
+        subject
+      end
+    end
+  end
 end

@@ -62,6 +62,8 @@ module V2
     end
 
     def links_params
+      payload[:bulk_publishing] ||= false
+
       payload.merge(content_id:)
     end
 
