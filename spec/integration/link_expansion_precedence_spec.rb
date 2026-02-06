@@ -29,14 +29,6 @@ TestLinkedEdition = Struct.new(
       Unpublishing::VALID_TYPES.reject { it == "withdrawal" }.sample
     end
   end
-
-  def link_type
-    @link_type ||= begin
-      return "ordered_related_items" unless permitted_unpublished_link_type
-
-      Link::PERMITTED_UNPUBLISHED_LINK_TYPES.sample
-    end
-  end
 end
 
 TestCase = Struct.new(
@@ -87,6 +79,14 @@ TestCase = Struct.new(
     return Edition::DEFAULT_LOCALE if default_root_locale
 
     "fr"
+  end
+
+  def link_type
+    @link_type ||= begin
+      test_linked_editions.any?(&:permitted_unpublished_link_type) ?
+        Link::PERMITTED_UNPUBLISHED_LINK_TYPES.sample
+        : "ordered_related_items"
+    end
   end
 end
 
