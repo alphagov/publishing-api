@@ -202,6 +202,9 @@ RSpec.describe "link expansion precedence" do
     end
   end
 
+  def find_or_create_document(**fields)
+    Document.find_by(**fields) || create(:document, **fields)
+  end
 
   test_cases.each do |test_case|
     context test_case.with_drafts_description do
@@ -217,8 +220,7 @@ RSpec.describe "link expansion precedence" do
                     title: "#{link_kind}-linked edition #{index}",
                     state: edition.state,
                     document_type: edition.document_type,
-                    document: create(
-                      :document,
+                    document: find_or_create_document(
                       locale: edition.locale,
                       content_id: target_content_id,
                     ),
