@@ -259,6 +259,7 @@ RSpec.describe "link expansion precedence" do
             link_type: test_case.link_type,
             with_drafts: test_case.with_drafts,
           )
+          skip "content store returns two links sometimes, e.g. when there's a non-renderable draft and a renderable live edition" if content_store_result.size > 1
 
           graphql_result = for_graphql(
             source_edition,
