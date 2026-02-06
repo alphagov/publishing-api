@@ -266,7 +266,7 @@ RSpec.describe "link expansion precedence" do
             with_drafts: test_case.with_drafts,
           )
 
-          expect(content_store_result.map(&:title))
+          expect(content_store_result.map { it[:title] })
             .to eq(graphql_result.map(&:title))
           expect(content_store_result.size).to be <= 1
         end
