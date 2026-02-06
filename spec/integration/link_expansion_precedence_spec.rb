@@ -1,12 +1,22 @@
-TestLinkedEdition = Struct.new(
-  :state,
-  :renderable_document_type,
-  :locale,
-  :withdrawal,
-  :permitted_unpublished_link_type,
-  :link_kind,
-  keyword_init: true,
-) do
+class TestLinkedEdition
+  def initialize(
+    state:,
+    renderable_document_type:,
+    locale:,
+    withdrawal:,
+    permitted_unpublished_link_type:,
+    link_kind:
+  )
+    @state = state
+    @renderable_document_type = renderable_document_type
+    @locale = locale
+    @withdrawal = withdrawal
+    @permitted_unpublished_link_type = permitted_unpublished_link_type
+    @link_kind = link_kind
+  end
+
+  attr_reader :state, :renderable_document_type, :withdrawal, :permitted_unpublished_link_type, :link_kind
+
   def document_type
     @document_type ||= if renderable_document_type
                          renderable_types = GovukSchemas::DocumentTypes.valid_document_types - Edition::NON_RENDERABLE_FORMATS
@@ -17,7 +27,7 @@ TestLinkedEdition = Struct.new(
   end
 
   def locale
-    return locale unless locale == "default"
+    return @locale unless @locale == "default"
 
     Edition::DEFAULT_LOCALE
   end
@@ -53,9 +63,17 @@ TestCase = Struct.new(
     # "#{inclusion_string} a target edition that is #{[state_string, document_type_string, locale_string].to_sentence}"
   end
 
+  def with_drafts_description
+    "when #{with_drafts ? 'accepting' : 'rejecting'} drafts"
+  end
+
+  def source_edition_locale_description
+    "when the source edition's locale is #{default_root_locale ? 'default' : 'non-default'}"
+  end
+
   def test_linked_editions
     @test_linked_editions ||= linked_editions.map do
-      TestLinkedEdition.new(it)
+      TestLinkedEdition.new(**it)
     end
   end
 
@@ -65,14 +83,6 @@ TestCase = Struct.new(
 
   def edition_linked_editions
     test_linked_editions.filter { it.link_kind == "edition" }
-  end
-
-  def with_drafts_description
-    "when #{with_drafts ? 'accepting' : 'rejecting'} drafts"
-  end
-
-  def source_edition_locale_description
-    "when the source edition's locale is #{default_root_locale ? 'default' : 'non-default'}"
   end
 
   def root_locale
