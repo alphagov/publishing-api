@@ -118,6 +118,7 @@ RSpec.describe "link expansion precedence" do
     context test_case.with_drafts_description do
       context test_case.source_edition_locale_description do
         it test_case.description do
+          target_content_id = SecureRandom.uuid
           link_set_linked_editions, edition_linked_editions =
             %w[link_set edition].map do |link_kind|
               test_case.send(:"#{link_kind}_linked_editions")
@@ -130,6 +131,7 @@ RSpec.describe "link expansion precedence" do
                     document: create(
                       :document,
                       locale: edition.locale,
+                      content_id: target_content_id,
                     ),
                   ).tap do
                     if it.state == "unpublished"
