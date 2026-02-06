@@ -1,21 +1,36 @@
-class TestLinkedEdition
+class TestLinkedEditionFactory
   def initialize(
     state:,
     renderable_document_type:,
     locale:,
     withdrawal:,
-    permitted_unpublished_link_type:,
-    link_kind:
+    link_kind:,
+    content_id:
   )
     @state = state
     @renderable_document_type = renderable_document_type
     @locale = locale
     @withdrawal = withdrawal
-    @permitted_unpublished_link_type = permitted_unpublished_link_type
     @link_kind = link_kind
+    @content_id = content_id
   end
 
-  attr_reader :state, :renderable_document_type, :withdrawal, :permitted_unpublished_link_type, :link_kind
+  def call
+    Edition.find_by(state:, document:) ||
+      FactoryBot.create(
+        draft? ? :edition : :live_edition,
+        title: "edition #{Edition.count} (#{link_kind})",
+        state:,
+        document_type:,
+        document:,
+      ).tap do
+        FactoryBot.create(:unpublishing, edition: it, type: unpublishing_type) if unpublished?
+      end
+  end
+
+private
+
+  attr_reader :state, :renderable_document_type, :withdrawal, :link_kind, :content_id
 
   def document_type
     @document_type ||= if renderable_document_type
@@ -39,28 +54,60 @@ class TestLinkedEdition
       Unpublishing::VALID_TYPES.reject { it == "withdrawal" }.sample
     end
   end
+
+  def draft?
+    state == "draft"
+  end
+
+  def unpublished?
+    state == "unpublished"
+  end
+
+  def document
+    @document ||= Document.find_by(content_id:, locale:) ||
+      FactoryBot.create(:document, content_id:, locale:)
+  end
 end
 
-TestCase = Struct.new(
-  :with_drafts,
-  :default_root_locale,
-  :linked_editions,
-  keyword_init: true,
-) do
+class TestCase
+  def initialize(
+    with_drafts:,
+    default_root_locale:,
+    linked_editions:
+  )
+    @with_drafts = with_drafts
+    @default_root_locale = default_root_locale
+    @linked_editions_input = linked_editions
+  end
+
+  attr_reader :with_drafts
+
+  def source_edition
+    @source_edition ||= FactoryBot.create(
+      :live_edition,
+      document: FactoryBot.create(
+        :document,
+        locale: root_locale,
+      ),
+      edition_links: edition_linked_editions.map do
+        { link_type:, target_content_id: it.content_id }
+      end,
+      link_set_links: link_set_linked_editions.map do
+        { link_type:, target_content_id: it.content_id }
+      end,
+    )
+  end
+
+  def link_type
+    @link_type ||= if linked_editions_input.any? { it[:permitted_unpublished_link_type] }
+                     Link::PERMITTED_UNPUBLISHED_LINK_TYPES.sample
+                   else
+                     "ordered_related_items"
+                   end
+  end
+
   def description
     inspect
-    # inclusion_string = included ? "includes" : "excludes"
-    # state_string = if state == "unpublished"
-    #                  link_type_description = permitted_unpublished_link_type ? "permitted" : "unpermitted"
-    #                  unpublishing_type_description = withdrawal ? "withdrawal" : "non-withdrawal"
-    #                  "an unpublished #{unpublishing_type_description} with a #{link_type_description} link type"
-    #                else
-    #                  state
-    #                end
-    # locale_string = locale == "default" ? "in the default locale" : "in the locale #{locale}"
-    # document_type_string = "a #{renderable_document_type ? 'renderable' : 'non-renderable'} document type"
-    #
-    # "#{inclusion_string} a target edition that is #{[state_string, document_type_string, locale_string].to_sentence}"
   end
 
   def with_drafts_description
@@ -71,32 +118,40 @@ TestCase = Struct.new(
     "when the source edition's locale is #{default_root_locale ? 'default' : 'non-default'}"
   end
 
-  def test_linked_editions
-    @test_linked_editions ||= linked_editions.map do
-      TestLinkedEdition.new(**it)
-    end
+private
+
+  attr_reader :default_root_locale, :linked_editions_input
+
+  def target_content_id
+    @target_content_id ||= SecureRandom.uuid
   end
 
   def link_set_linked_editions
-    test_linked_editions.filter { it.link_kind == "link_set" }
+    @link_set_linked_editions ||= linked_editions_input
+      .filter { it[:link_kind] == "link_set" }
+      .map do
+        TestLinkedEditionFactory.new(
+          **it.except(:permitted_unpublished_link_type),
+          content_id: target_content_id,
+        ).call
+      end
   end
 
   def edition_linked_editions
-    test_linked_editions.filter { it.link_kind == "edition" }
+    @edition_linked_editions ||= linked_editions_input
+      .filter { it[:link_kind] == "edition" }
+      .map do
+        TestLinkedEditionFactory.new(
+          **it.except(:permitted_unpublished_link_type),
+          content_id: target_content_id,
+        ).call
+      end
   end
 
   def root_locale
     return Edition::DEFAULT_LOCALE if default_root_locale
 
     "fr"
-  end
-
-  def link_type
-    @link_type ||= if test_linked_editions.any?(&:permitted_unpublished_link_type)
-                     Link::PERMITTED_UNPUBLISHED_LINK_TYPES.sample
-                   else
-                     "ordered_related_items"
-                   end
   end
 end
 
@@ -180,7 +235,7 @@ end
 # 4664
 puts test_cases.count
 
-test_cases = test_cases.map { TestCase.new(it) }
+test_cases = test_cases.map { TestCase.new(**it) }
 
 RSpec.describe "link expansion precedence" do
   def for_content_store(source_edition, link_type:, with_drafts:)
@@ -202,67 +257,19 @@ RSpec.describe "link expansion precedence" do
     end
   end
 
-  def find_or_create_document(**fields)
-    Document.find_by(**fields) || create(:document, **fields)
-  end
-
   test_cases.each do |test_case|
     context test_case.with_drafts_description do
       context test_case.source_edition_locale_description do
         it test_case.description do
-          target_content_id = SecureRandom.uuid
-          link_set_linked_editions, edition_linked_editions =
-            %w[link_set edition].map do |link_kind|
-              test_case.send(:"#{link_kind}_linked_editions")
-                .map.with_index do |test_edition, index|
-                  create(
-                    test_edition.state == "draft" ? :edition : :live_edition,
-                    title: "#{link_kind}-linked edition #{index}",
-                    state: test_edition.state,
-                    document_type: test_edition.document_type,
-                    document: find_or_create_document(
-                      locale: test_edition.locale,
-                      content_id: target_content_id,
-                    ),
-                  ).tap do
-                    if it.state == "unpublished"
-                      create(
-                        :unpublishing, edition: it, type: test_edition.unpublishing_type
-                      )
-                    end
-                  end
-                end
-            end
-
-          source_edition = create(
-            :live_edition,
-            document: create(
-              :document,
-              locale: test_case.root_locale,
-            ),
-            edition_links: edition_linked_editions.map do
-              {
-                link_type: test_case.link_type,
-                target_content_id: it.content_id,
-              }
-            end,
-            link_set_links: link_set_linked_editions.map do
-              {
-                link_type: test_case.link_type,
-                target_content_id: it.content_id,
-              }
-            end,
-          )
-
           content_store_result = for_content_store(
-            source_edition,
+            test_case.source_edition,
             link_type: test_case.link_type,
             with_drafts: test_case.with_drafts,
           )
           skip "content store returns two links sometimes, e.g. when there's a non-renderable draft and a renderable live edition" if content_store_result.size > 1
 
           graphql_result = for_graphql(
-            source_edition,
+            test_case.source_edition,
             link_type: test_case.link_type,
             with_drafts: test_case.with_drafts,
           )
