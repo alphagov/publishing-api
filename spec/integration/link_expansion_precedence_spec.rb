@@ -89,10 +89,10 @@ class TestCase
         :document,
         locale: root_locale,
       ),
-      edition_links: edition_linked_editions.map do
+      edition_links: linked_editions.fetch(:edition, []).map do
         { link_type:, target_content_id: it.content_id }
       end,
-      link_set_links: link_set_linked_editions.map do
+      link_set_links: linked_editions.fetch(:link_set, []).map do
         { link_type:, target_content_id: it.content_id }
       end,
     )
@@ -126,25 +126,16 @@ private
     @target_content_id ||= SecureRandom.uuid
   end
 
-  def link_set_linked_editions
-    @link_set_linked_editions ||= linked_editions_input
-      .filter { it[:link_kind] == "link_set" }
-      .map do
-        TestLinkedEditionFactory.new(
-          **it.except(:permitted_unpublished_link_type),
-          content_id: target_content_id,
-        ).call
-      end
-  end
-
-  def edition_linked_editions
-    @edition_linked_editions ||= linked_editions_input
-      .filter { it[:link_kind] == "edition" }
-      .map do
-        TestLinkedEditionFactory.new(
-          **it.except(:permitted_unpublished_link_type),
-          content_id: target_content_id,
-        ).call
+  def linked_editions
+    @linked_editions ||= linked_editions_input
+      .group_by { it[:link_kind].to_sym }
+      .transform_values do
+        it.map do
+          TestLinkedEditionFactory.new(
+            **it.except(:permitted_unpublished_link_type),
+            content_id: target_content_id,
+          ).call
+        end
       end
   end
 
