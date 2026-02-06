@@ -168,8 +168,17 @@ test_cases.reject! do |test_case|
     else
       false
     end,
+
+    # if the state and locale are the same (where the content id is also the
+    # same), they're the same edition so they can't have a different document
+    # type
+    fields_equal(*test_case[:linked_editions], :state, :locale) &&
+      !fields_equal(*test_case[:linked_editions], :renderable_document_type),
   ].any?
 end
+
+# 4664
+puts test_cases.count
 
 test_cases = test_cases.map { TestCase.new(it) }
 
