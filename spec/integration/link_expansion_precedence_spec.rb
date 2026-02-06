@@ -216,7 +216,7 @@ RSpec.describe "link expansion precedence" do
               test_case.send(:"#{link_kind}_linked_editions")
                 .map.with_index do |edition, index|
                   create(
-                    :edition,
+                    edition.state == "draft" ? :edition : :live_edition,
                     title: "#{link_kind}-linked edition #{index}",
                     state: edition.state,
                     document_type: edition.document_type,
