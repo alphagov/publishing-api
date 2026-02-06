@@ -89,12 +89,14 @@ class TestCase
         :document,
         locale: root_locale,
       ),
-      edition_links: linked_editions.fetch(:edition, []).map do
-        { link_type:, target_content_id: it.content_id }
-      end,
-      link_set_links: linked_editions.fetch(:link_set, []).map do
-        { link_type:, target_content_id: it.content_id }
-      end,
+      edition_links: linked_editions
+        .fetch(:edition, [])
+        .uniq { it[:target_content_id] }
+        .map { { link_type:, target_content_id: it.content_id } },
+      link_set_links: linked_editions
+        .fetch(:link_set, [])
+        .uniq { it[:target_content_id] }
+        .map { { link_type:, target_content_id: it.content_id } },
     )
   end
 
@@ -266,7 +268,6 @@ RSpec.describe "link expansion precedence" do
             link_type: test_case.link_type,
             with_drafts: test_case.with_drafts,
           )
-          skip "content store returns two links sometimes, e.g. when there's a non-renderable draft and a renderable live edition" if content_store_result.size > 1
 
           graphql_result = for_graphql(
             test_case.source_edition,
