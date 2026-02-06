@@ -82,11 +82,11 @@ TestCase = Struct.new(
   end
 
   def link_type
-    @link_type ||= begin
-      test_linked_editions.any?(&:permitted_unpublished_link_type) ?
-        Link::PERMITTED_UNPUBLISHED_LINK_TYPES.sample
-        : "ordered_related_items"
-    end
+    @link_type ||= if test_linked_editions.any?(&:permitted_unpublished_link_type)
+                     Link::PERMITTED_UNPUBLISHED_LINK_TYPES.sample
+                   else
+                     "ordered_related_items"
+                   end
   end
 end
 

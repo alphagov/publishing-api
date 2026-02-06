@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
 query_values = [
-  { with_drafts: true, default_root_locale: true},
-  { with_drafts: true, default_root_locale: false},
-  { with_drafts: false, default_root_locale: true},
-  { with_drafts: false, default_root_locale: false},
+  { with_drafts: true, default_root_locale: true },
+  { with_drafts: true, default_root_locale: false },
+  { with_drafts: false, default_root_locale: true },
+  { with_drafts: false, default_root_locale: false },
 ]
 
 link_kind_values = %w[link_set edition]
@@ -52,7 +52,7 @@ test_cases.reject! do |test_case|
     # root_locale: "fr", locale: "default"
     # root_locale: "fr", locale: "fr"
     # root_locale: "fr", locale: "hu"
-    test_case[:default_root_locale] && test_case[:linked_editions].any? {it[:locale] == "hu"},
+    test_case[:default_root_locale] && test_case[:linked_editions].any? { it[:locale] == "hu" },
 
     # A single document can't be in the live content store twice with different
     # states. The two test cases are the same document if they have the same
@@ -61,7 +61,7 @@ test_cases.reject! do |test_case|
       test_case[:linked_editions].map { it[:state] }.sort == %w[published unpublished]
     else
       false
-    end
+    end,
   ].any?
 end
 
