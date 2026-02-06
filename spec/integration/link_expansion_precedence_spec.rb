@@ -214,20 +214,20 @@ RSpec.describe "link expansion precedence" do
           link_set_linked_editions, edition_linked_editions =
             %w[link_set edition].map do |link_kind|
               test_case.send(:"#{link_kind}_linked_editions")
-                .map.with_index do |edition, index|
+                .map.with_index do |test_edition, index|
                   create(
-                    edition.state == "draft" ? :edition : :live_edition,
+                    test_edition.state == "draft" ? :edition : :live_edition,
                     title: "#{link_kind}-linked edition #{index}",
-                    state: edition.state,
-                    document_type: edition.document_type,
+                    state: test_edition.state,
+                    document_type: test_edition.document_type,
                     document: find_or_create_document(
-                      locale: edition.locale,
+                      locale: test_edition.locale,
                       content_id: target_content_id,
                     ),
                   ).tap do
                     if it.state == "unpublished"
                       create(
-                        :unpublishing, edition: it, type: it.unpublishing_type
+                        :unpublishing, edition: it, type: test_edition.unpublishing_type
                       )
                     end
                   end
