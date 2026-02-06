@@ -155,87 +155,96 @@ private
   end
 end
 
-# TODO: use precedence cases helper
-query_values = [
-  { with_drafts: true, default_root_locale: true },
-  { with_drafts: true, default_root_locale: false },
-  { with_drafts: false, default_root_locale: true },
-  { with_drafts: false, default_root_locale: false },
-]
+class TestCaseFactory
+  class << self
+    def all
+      @all ||= begin
+        query_values = [
+          { with_drafts: true, default_root_locale: true },
+          { with_drafts: true, default_root_locale: false },
+          { with_drafts: false, default_root_locale: true },
+          { with_drafts: false, default_root_locale: false },
+        ]
 
-link_kind_values = %w[link_set edition]
+        link_kind_values = %w[link_set edition]
 
-# state, withdawal, permitted unpublished link type
-state_values = [
-  ["draft", nil, nil],
-  ["published", nil, nil],
-  ["unpublished", true, true],
-  ["unpublished", true, false],
-  ["unpublished", false, true],
-  ["unpublished", false, false],
-]
+        # state, withdawal, permitted unpublished link type
+        state_values = [
+          ["draft", nil, nil],
+          ["published", nil, nil],
+          ["unpublished", true, true],
+          ["unpublished", true, false],
+          ["unpublished", false, true],
+          ["unpublished", false, false],
+        ]
 
-renderable_document_type_values = [false, true]
-locale_values = %w[default fr hu]
+        renderable_document_type_values = [false, true]
+        locale_values = %w[default fr hu]
 
-edition_values = link_kind_values.product(
-  state_values,
-  renderable_document_type_values,
-  locale_values,
-).map do
-  {
-    link_kind: _1,
-    state: _2[0],
-    withdrawal: _2[1],
-    permitted_unpublished_link_type: _2[2],
-    renderable_document_type: _3,
-    locale: _4,
-  }
-end
+        edition_values = link_kind_values.product(
+          state_values,
+          renderable_document_type_values,
+          locale_values,
+        ).map do
+          {
+            link_kind: _1,
+            state: _2[0],
+            withdrawal: _2[1],
+            permitted_unpublished_link_type: _2[2],
+            renderable_document_type: _3,
+            locale: _4,
+          }
+        end
 
-test_cases = query_values.product(edition_values.combination(2).to_a)
-  .map { { **_1, linked_editions: _2 } }
+        test_cases = query_values.product(edition_values.combination(2).to_a)
+          .map { { **_1, linked_editions: _2 } }
 
-def fields_equal(a, b, *fields) # rubocop:disable Naming/MethodParameterName
-  fields.all? { a[it] == b[it] }
-end
+        test_cases.reject! do |test_case|
+          [
+            # We only need the following cases.
+            # root_locale: "default", locale: "default"
+            # root_locale: "default", locale: "fr"
+            # root_locale: "fr", locale: "default"
+            # root_locale: "fr", locale: "fr"
+            # root_locale: "fr", locale: "hu"
+            test_case[:default_root_locale] && test_case[:linked_editions].any? { it[:locale] == "hu" },
 
-test_cases.reject! do |test_case|
-  [
-    # We only need the following cases.
-    # root_locale: "default", locale: "default"
-    # root_locale: "default", locale: "fr"
-    # root_locale: "fr", locale: "default"
-    # root_locale: "fr", locale: "fr"
-    # root_locale: "fr", locale: "hu"
-    test_case[:default_root_locale] && test_case[:linked_editions].any? { it[:locale] == "hu" },
+            # the link type must be the same for two targets to compete, so we need to
+            # filter out cases where we have both true and false for the permitted
+            # unpublished link type (from which we derive the link type)
+            test_case[:linked_editions].map { it[:permitted_unpublished_link_type] }.compact.uniq.size > 1,
 
-    # the link type must be the same for two targets to compete, so we need to
-    # filter out cases where we have both true and false for the permitted
-    # unpublished link type (from which we derive the link type)
-    test_case[:linked_editions].map { it[:permitted_unpublished_link_type] }.compact.uniq.size > 1,
+            # A single document can't be in the live content store twice with different
+            # states. The two test cases are the same document if they have the same
+            # locale, because we already assume that they have the same Content ID.
+            if fields_equal(*test_case[:linked_editions], :locale)
+              test_case[:linked_editions].map { it[:state] }.sort == %w[published unpublished]
+            else
+              false
+            end,
 
-    # A single document can't be in the live content store twice with different
-    # states. The two test cases are the same document if they have the same
-    # locale, because we already assume that they have the same Content ID.
-    if fields_equal(*test_case[:linked_editions], :locale)
-      test_case[:linked_editions].map { it[:state] }.sort == %w[published unpublished]
-    else
-      false
-    end,
+            # if the state and locale are the same (where the content id is also the
+            # same), they're the same edition so they can't have a different document
+            # type
+            fields_equal(*test_case[:linked_editions], :state, :locale) &&
+              !fields_equal(*test_case[:linked_editions], :renderable_document_type),
+          ].any?
+        end
 
-    # if the state and locale are the same (where the content id is also the
-    # same), they're the same edition so they can't have a different document
-    # type
-    fields_equal(*test_case[:linked_editions], :state, :locale) &&
-      !fields_equal(*test_case[:linked_editions], :renderable_document_type),
-  ].any?
+        test_cases.map { TestCase.new(**it) }
+      end
+    end
+
+  private
+
+    def fields_equal(a, b, *fields) # rubocop:disable Naming/MethodParameterName
+      fields.all? { a[it] == b[it] }
+    end
+  end
 end
 
 # 4664
-puts test_cases.count
-
-test_cases = test_cases.map { TestCase.new(**it) }
+# puts TestCaseFactory.all.count
 
 RSpec.describe "link expansion precedence" do
   def for_content_store(source_edition, link_type:, with_drafts:)
@@ -257,7 +266,7 @@ RSpec.describe "link expansion precedence" do
     end
   end
 
-  test_cases.each do |test_case|
+  TestCaseFactory.all.each do |test_case| # rubocop:disable Rails/FindEach
     context test_case.with_drafts_description do
       context test_case.source_edition_locale_description do
         it test_case.description do
