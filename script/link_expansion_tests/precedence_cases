@@ -54,6 +54,11 @@ test_cases.reject! do |test_case|
     # root_locale: "fr", locale: "hu"
     test_case[:default_root_locale] && test_case[:linked_editions].any? { it[:locale] == "hu" },
 
+    # the link type must be the same for two targets to compete, so we need to
+    # filter out cases where we have both true and false for the permitted
+    # unpublished link type (from which we derive the link type)
+    test_case[:linked_editions].map { it[:permitted_unpublished_link_type] }.compact.uniq.size > 1,
+
     # A single document can't be in the live content store twice with different
     # states. The two test cases are the same document if they have the same
     # locale, because we already assume that they have the same Content ID.
@@ -65,6 +70,6 @@ test_cases.reject! do |test_case|
   ].any?
 end
 
-# 6728
+# 5064
 puts test_cases.count
 puts test_cases.first.inspect
