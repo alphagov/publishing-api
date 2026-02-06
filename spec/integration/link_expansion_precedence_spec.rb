@@ -241,20 +241,16 @@ RSpec.describe "link expansion precedence" do
               locale: test_case.root_locale,
             ),
             edition_links: edition_linked_editions.map do
-              [
-                {
-                  link_type: test_case.link_type,
-                  target_content_id: it.content_id,
-                },
-              ]
+              {
+                link_type: test_case.link_type,
+                target_content_id: it.content_id,
+              }
             end,
             link_set_links: link_set_linked_editions.map do
-              [
-                {
-                  link_type: test_case.link_type,
-                  target_content_id: it.content_id,
-                },
-              ]
+              {
+                link_type: test_case.link_type,
+                target_content_id: it.content_id,
+              }
             end,
           )
 
