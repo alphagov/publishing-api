@@ -9,11 +9,11 @@ TestLinkedEdition = Struct.new(
 ) do
   def document_type
     @document_type ||= if renderable_document_type
-                                        renderable_types = GovukSchemas::DocumentTypes.valid_document_types - Edition::NON_RENDERABLE_FORMATS
-                                        renderable_types.sample
-                                      else
-                                        Edition::NON_RENDERABLE_FORMATS.sample
-                                      end
+                         renderable_types = GovukSchemas::DocumentTypes.valid_document_types - Edition::NON_RENDERABLE_FORMATS
+                         renderable_types.sample
+                       else
+                         Edition::NON_RENDERABLE_FORMATS.sample
+                       end
   end
 
   def locale
@@ -67,6 +67,14 @@ TestCase = Struct.new(
     end
   end
 
+  def link_set_linked_editions
+    test_linked_editions.filter { it.link_kind == "link_set" }
+  end
+
+  def edition_linked_editions
+    test_linked_editions.filter { it.link_kind == "edition" }
+  end
+
   def with_drafts_description
     "when #{with_drafts ? 'accepting' : 'rejecting'} drafts"
   end
@@ -110,26 +118,28 @@ RSpec.describe "link expansion precedence" do
     context test_case.with_drafts_description do
       context test_case.source_edition_locale_description do
         it test_case.description do
-          test_linked_editions = test_case.test_linked_editions.map.with_index do | object, index |
-            test_linked_edition = create(
-              :edition,
-              title: "Edition #{index}",
-              state: it.state,
-              document_type: it.document_type,
-              document: create(
-                :document,
-                locale: it.locale,
-              ),
-            )
-            if test_linked_edition.state == "unpublished"
-              create(
-                :unpublishing,
-                edition: linked_edition,
-                type: test_case.linked_edition_unpublishing_type,
-              )
+          link_set_linked_editions, edition_linked_editions =
+            %w[link_set edition].map do |link_kind|
+              test_case.send(:"#{link_kind}_linked_editions")
+                .map.with_index do |edition, index|
+                  create(
+                    :edition,
+                    title: "#{link_kind}-linked edition #{index}",
+                    state: edition.state,
+                    document_type: edition.document_type,
+                    document: create(
+                      :document,
+                      locale: edition.locale,
+                    ),
+                  ).tap do
+                    if it.state == "unpublished"
+                      create(
+                        :unpublishing, edition: it, type: it.unpublishing_type
+                      )
+                    end
+                  end
+                end
             end
-          end
-
 
           source_edition = create(
             :live_edition,
@@ -137,7 +147,15 @@ RSpec.describe "link expansion precedence" do
               :document,
               locale: test_case.root_locale,
             ),
-            link_kind => test_linked_editions.map do
+            edition_links: edition_linked_editions.map do
+              [
+                {
+                  link_type: test_case.link_type,
+                  target_content_id: it.content_id,
+                },
+              ]
+            end,
+            link_set_links: link_set_linked_editions.map do
               [
                 {
                   link_type: test_case.link_type,
