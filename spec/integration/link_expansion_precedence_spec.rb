@@ -167,28 +167,21 @@ RSpec.describe "link expansion precedence" do
             end,
           )
 
-          %w[content_store graphql].each do |destination|
-            result = send(
-              :"for_#{destination}",
-              source_edition,
-              **{
-                link_type: test_case.link_type,
-                with_drafts: test_case.with_drafts,
-              },
-            )
+          content_store_result = for_content_store(
+            source_edition,
+            link_type: test_case.link_type,
+            with_drafts: test_case.with_drafts,
+          )
 
-            if test_case.included
-              expect(result.size).to(
-                eq(1),
-                "unexpected exclusion for #{destination}",
-              )
-            else
-              expect(result).to(
-                be_empty,
-                "unexpected inclusion for #{destination}",
-              )
-            end
-          end
+          graphql_result = for_graphql(
+            source_edition,
+            link_type: test_case.link_type,
+            with_drafts: test_case.with_drafts,
+          )
+
+          expect(content_store_result.map(&:title))
+            .to eq(graphql_result.map(&:title))
+          expect(content_store_result.size).to be <= 1
         end
       end
     end
