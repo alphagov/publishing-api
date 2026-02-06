@@ -48,7 +48,7 @@ TestCase = Struct.new(
   keyword_init: true,
 ) do
   def description
-    "description"
+    inspect
     # inclusion_string = included ? "includes" : "excludes"
     # state_string = if state == "unpublished"
     #                  link_type_description = permitted_unpublished_link_type ? "permitted" : "unpermitted"
