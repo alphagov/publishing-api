@@ -250,8 +250,12 @@ RSpec.describe "link expansion precedence" do
       context test_case.source_edition_locale_description do
         it test_case.description do
           aggregate_failures do
-            expect(test_case.content_store_result.map { it[:title] })
-              .to eq(test_case.graphql_result.map(&:title))
+            graphql_titles = test_case.graphql_result.map(&:title)
+            content_store_titles = test_case
+              .content_store_result
+              .map { it[:title] }
+
+            expect(graphql_titles).to eq(content_store_titles)
             expect(test_case.content_store_result.size).to be <= 1
             expect(test_case.graphql_result.size).to be <= 1
           end
