@@ -45,15 +45,15 @@ private
     end
   end
 
+  def document
+    Document.find_by(content_id:, locale:) ||
+      FactoryBot.create(:document, content_id:, locale:)
+  end
+
   def unpublishing_type
     return "withdrawal" if withdrawal
 
     Unpublishing::VALID_TYPES.reject { it == "withdrawal" }.sample
-  end
-
-  def document
-    Document.find_by(content_id:, locale:) ||
-      FactoryBot.create(:document, content_id:, locale:)
   end
 end
 
