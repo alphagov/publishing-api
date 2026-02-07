@@ -35,20 +35,20 @@ private
   attr_reader :state, :renderable_document_type, :locale, :withdrawal, :link_kind, :content_id
 
   def document_type
-    @document_type ||= if renderable_document_type
-                         renderable_types = GovukSchemas::DocumentTypes.valid_document_types - Edition::NON_RENDERABLE_FORMATS
-                         renderable_types.sample
-                       else
-                         Edition::NON_RENDERABLE_FORMATS.sample
-                       end
+    if renderable_document_type
+      (
+        GovukSchemas::DocumentTypes.valid_document_types -
+        Edition::NON_RENDERABLE_FORMATS
+      ).sample
+    else
+      Edition::NON_RENDERABLE_FORMATS.sample
+    end
   end
 
   def unpublishing_type
-    @unpublishing_type ||= begin
-      return "withdrawal" if withdrawal
+    return "withdrawal" if withdrawal
 
-      Unpublishing::VALID_TYPES.reject { it == "withdrawal" }.sample
-    end
+    Unpublishing::VALID_TYPES.reject { it == "withdrawal" }.sample
   end
 
   def draft?
@@ -60,7 +60,7 @@ private
   end
 
   def document
-    @document ||= Document.find_by(content_id:, locale:) ||
+    Document.find_by(content_id:, locale:) ||
       FactoryBot.create(:document, content_id:, locale:)
   end
 end
@@ -142,59 +142,57 @@ end
 class TestCaseFactory
   class << self
     def all
-      @all ||= begin
-        query_values = [
-          { with_drafts: true, root_locale: Edition::DEFAULT_LOCALE },
-          { with_drafts: true, root_locale: "fr" },
-          { with_drafts: false, root_locale: Edition::DEFAULT_LOCALE },
-          { with_drafts: false, root_locale: "fr" },
-        ]
+      query_values = [
+        { with_drafts: true, root_locale: Edition::DEFAULT_LOCALE },
+        { with_drafts: true, root_locale: "fr" },
+        { with_drafts: false, root_locale: Edition::DEFAULT_LOCALE },
+        { with_drafts: false, root_locale: "fr" },
+      ]
 
-        link_kind_values = %w[link_set edition]
+      link_kind_values = %w[link_set edition]
 
-        # state, withdawal, permitted unpublished link type
-        state_values = [
-          ["draft", nil, nil],
-          ["published", nil, nil],
-          ["unpublished", true, true],
-          ["unpublished", true, false],
-          ["unpublished", false, true],
-          ["unpublished", false, false],
-        ]
+      # state, withdawal, permitted unpublished link type
+      state_values = [
+        ["draft", nil, nil],
+        ["published", nil, nil],
+        ["unpublished", true, true],
+        ["unpublished", true, false],
+        ["unpublished", false, true],
+        ["unpublished", false, false],
+      ]
 
-        renderable_document_type_values = [false, true]
-        locale_values = [Edition::DEFAULT_LOCALE, "fr", "hu"]
+      renderable_document_type_values = [false, true]
+      locale_values = [Edition::DEFAULT_LOCALE, "fr", "hu"]
 
-        edition_values = link_kind_values.product(
-          state_values,
-          renderable_document_type_values,
-          locale_values,
-        ).map do
-          {
-            link_kind: _1,
-            state: _2[0],
-            withdrawal: _2[1],
-            permitted_unpublished_link_type: _2[2],
-            renderable_document_type: _3,
-            locale: _4,
-          }
-        end
-
-        edition_pairs = edition_values.combination(2).to_a
-
-        query_values
-          .product(edition_pairs)
-          .map { { **_1, linked_editions: _2 } }
-          .reject { |test_case|
-            [
-              redundant_locale(test_case),
-              mismatching_link_type(test_case),
-              document_with_two_editions_in_live_content_store(test_case),
-              single_edition_with_mismatching_document_type(test_case),
-            ].any?
-          }
-          .map { TestCase.new(**it) }
+      edition_values = link_kind_values.product(
+        state_values,
+        renderable_document_type_values,
+        locale_values,
+      ).map do
+        {
+          link_kind: _1,
+          state: _2[0],
+          withdrawal: _2[1],
+          permitted_unpublished_link_type: _2[2],
+          renderable_document_type: _3,
+          locale: _4,
+        }
       end
+
+      edition_pairs = edition_values.combination(2).to_a
+
+      query_values
+        .product(edition_pairs)
+        .map { { **_1, linked_editions: _2 } }
+        .reject { |test_case|
+          [
+            redundant_locale(test_case),
+            mismatching_link_type(test_case),
+            document_with_two_editions_in_live_content_store(test_case),
+            single_edition_with_mismatching_document_type(test_case),
+          ].any?
+        }
+        .map { TestCase.new(**it) }
     end
 
   private
