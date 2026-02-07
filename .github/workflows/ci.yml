@@ -97,6 +97,8 @@ jobs:
       - name: Setup Postgres
         id: setup-postgres-graphql-parity
         uses: alphagov/govuk-infrastructure/.github/actions/setup-postgres@main
+        with:
+          POSTGRES_DB: postgres-parity
 
       - name: Setup Redis
         uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@main
@@ -115,11 +117,17 @@ jobs:
           TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity.outputs.db-url }}
         run: bundle exec rails db:setup
 
+      - name: Prepare for parallel testing
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity.outputs.db-url }}
+        run: bundle exec rake db:parallel:create db:parallel:prepare
+
       - name: Run RSpec
         env:
           RAILS_ENV: test
           TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity.outputs.db-url }}
-        run: bundle exec rspec --options .rspec.parity
+        run: bundle exec prspec --options .rspec.parity
 
   check-schemas-build:
     name: Check content schemas are built
