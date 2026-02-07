@@ -1,0 +1,3 @@
+--color
+--require spec_helper
+--pattern spec/parity/*_spec.rb

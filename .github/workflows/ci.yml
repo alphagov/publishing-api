@@ -90,6 +90,37 @@ jobs:
           name: pacts
           path: spec/pacts/*.json
 
+  test-ruby-graphql-parity:
+    name: Test Ruby (GraphQL parity)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Postgres
+        id: setup-postgres-graphql-parity
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-postgres@main
+
+      - name: Setup Redis
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@main
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Initialize database
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity.outputs.db-url }}
+        run: bundle exec rails db:setup
+
+      - name: Run RSpec
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity.outputs.db-url }}
+        run: bundle exec rspec --options .rspec.parity
+
   check-schemas-build:
     name: Check content schemas are built
     runs-on: ubuntu-latest
