@@ -18,13 +18,13 @@ class TestLinkedEditionFactory
   def call
     Edition.find_by(state:, document:) ||
       FactoryBot.create(
-        draft? ? :edition : :live_edition,
+        state == "draft" ? :edition : :live_edition,
         title: "edition #{Edition.count} (#{link_kind})",
         state:,
         document_type:,
         document:,
       ).tap do
-        if unpublished?
+        if state == "unpublished"
           FactoryBot.create(:unpublishing, edition: it, type: unpublishing_type)
         end
       end
@@ -49,14 +49,6 @@ private
     return "withdrawal" if withdrawal
 
     Unpublishing::VALID_TYPES.reject { it == "withdrawal" }.sample
-  end
-
-  def draft?
-    state == "draft"
-  end
-
-  def unpublished?
-    state == "unpublished"
   end
 
   def document
