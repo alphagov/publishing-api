@@ -68,29 +68,23 @@ class TestCase
     @linked_editions_input = linked_editions
   end
 
-  attr_reader :with_drafts
-
-  def source_edition
-    @source_edition ||= FactoryBot.create(
-      :live_edition,
-      document: FactoryBot.create(:document, locale: root_locale),
-      edition_links: linked_editions
-        .fetch(:edition, [])
-        .uniq { it[:target_content_id] }
-        .map { { link_type:, target_content_id: it.content_id } },
-      link_set_links: linked_editions
-        .fetch(:link_set, [])
-        .uniq { it[:target_content_id] }
-        .map { { link_type:, target_content_id: it.content_id } },
-    )
+  def content_store_result
+    Presenters::Queries::ExpandedLinkSet
+      .by_edition(source_edition, with_drafts:)
+      .links
+      .fetch(link_type.to_sym, [])
   end
 
-  def link_type
-    @link_type ||= if linked_editions_input.any? { it[:permitted_unpublished_link_type] }
-                     Link::PERMITTED_UNPUBLISHED_LINK_TYPES.sample
-                   else
-                     "ordered_related_items"
-                   end
+  def graphql_result
+    GraphQL::Dataloader.with_dataloading do |dataloader|
+      request = dataloader.with(
+        Sources::LinkedToEditionsSource,
+        with_drafts:,
+        locale: root_locale,
+      ).request([source_edition, link_type])
+
+      request.load
+    end
   end
 
   def description
@@ -111,10 +105,21 @@ class TestCase
 
 private
 
-  attr_reader :root_locale, :linked_editions_input
+  attr_reader :with_drafts, :root_locale, :linked_editions_input
 
-  def target_content_id
-    @target_content_id ||= SecureRandom.uuid
+  def source_edition
+    @source_edition ||= FactoryBot.create(
+      :live_edition,
+      document: FactoryBot.create(:document, locale: root_locale),
+      edition_links: linked_editions
+        .fetch(:edition, [])
+        .uniq { it[:target_content_id] }
+        .map { { link_type:, target_content_id: it.content_id } },
+      link_set_links: linked_editions
+        .fetch(:link_set, [])
+        .uniq { it[:target_content_id] }
+        .map { { link_type:, target_content_id: it.content_id } },
+    )
   end
 
   def linked_editions
@@ -128,6 +133,18 @@ private
           ).call
         end
       end
+  end
+
+  def target_content_id
+    @target_content_id ||= SecureRandom.uuid
+  end
+
+  def link_type
+    @link_type ||= if linked_editions_input.any? { it[:permitted_unpublished_link_type] }
+                     Link::PERMITTED_UNPUBLISHED_LINK_TYPES.sample
+                   else
+                     "ordered_related_items"
+                   end
   end
 end
 
@@ -232,46 +249,15 @@ end
 # puts TestCaseFactory.all.count
 
 RSpec.describe "link expansion precedence" do
-  def for_content_store(source_edition, link_type:, with_drafts:)
-    Presenters::Queries::ExpandedLinkSet
-      .by_edition(source_edition, with_drafts:)
-      .links
-      .fetch(link_type.to_sym, [])
-  end
-
-  def for_graphql(source_edition, link_type:, with_drafts:)
-    GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(
-        Sources::LinkedToEditionsSource,
-        with_drafts:,
-        locale: source_edition.locale,
-      ).request([source_edition, link_type])
-
-      request.load
-    end
-  end
-
   TestCaseFactory.all.each do |test_case| # rubocop:disable Rails/FindEach
     context test_case.with_drafts_description do
       context test_case.source_edition_locale_description do
         it test_case.description do
-          content_store_result = for_content_store(
-            test_case.source_edition,
-            link_type: test_case.link_type,
-            with_drafts: test_case.with_drafts,
-          )
-
-          graphql_result = for_graphql(
-            test_case.source_edition,
-            link_type: test_case.link_type,
-            with_drafts: test_case.with_drafts,
-          )
-
           aggregate_failures do
-            expect(content_store_result.map { it[:title] })
-              .to eq(graphql_result.map(&:title))
-            expect(content_store_result.size).to be <= 1
-            expect(graphql_result.size).to be <= 1
+            expect(test_case.content_store_result.map { it[:title] })
+              .to eq(test_case.graphql_result.map(&:title))
+            expect(test_case.content_store_result.size).to be <= 1
+            expect(test_case.graphql_result.size).to be <= 1
           end
         end
       end
