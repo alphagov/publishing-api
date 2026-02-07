@@ -24,7 +24,9 @@ class TestLinkedEditionFactory
         document_type:,
         document:,
       ).tap do
-        FactoryBot.create(:unpublishing, edition: it, type: unpublishing_type) if unpublished?
+        if unpublished?
+          FactoryBot.create(:unpublishing, edition: it, type: unpublishing_type)
+        end
       end
   end
 
@@ -126,10 +128,10 @@ private
   def linked_editions
     @linked_editions ||= linked_editions_input
       .group_by { it[:link_kind].to_sym }
-      .transform_values do
-        it.map do
+      .transform_values do |linked_editions_for_link_kind|
+        linked_editions_for_link_kind.map do |linked_edition|
           TestLinkedEditionFactory.new(
-            **it.except(:permitted_unpublished_link_type),
+            **linked_edition.except(:permitted_unpublished_link_type),
             content_id: target_content_id,
           ).call
         end
@@ -178,19 +180,20 @@ class TestCaseFactory
           }
         end
 
-        test_cases = query_values.product(edition_values.combination(2).to_a)
+        edition_pairs = edition_values.combination(2).to_a
+
+        query_values
+          .product(edition_pairs)
           .map { { **_1, linked_editions: _2 } }
-
-        test_cases.reject! do |test_case|
-          [
-            redundant_locale(test_case),
-            mismatching_link_type(test_case),
-            document_with_two_editions_in_live_content_store(test_case),
-            single_edition_with_mismatching_document_type(test_case),
-          ].any?
-        end
-
-        test_cases.map { TestCase.new(**it) }
+          .reject { |test_case|
+            [
+              redundant_locale(test_case),
+              mismatching_link_type(test_case),
+              document_with_two_editions_in_live_content_store(test_case),
+              single_edition_with_mismatching_document_type(test_case),
+            ].any?
+          }
+          .map { TestCase.new(**it) }
       end
     end
 
