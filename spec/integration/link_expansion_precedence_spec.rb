@@ -96,11 +96,7 @@ class TestCase
   end
 
   def source_edition_locale_description
-    "when the source edition's locale is #{if root_locale == Edition::DEFAULT_LOCALE
-                                             'default'
-                                           else
-                                             'non-default'
-                                           end}"
+    "when the source edition's locale is #{root_locale}"
   end
 
 private
