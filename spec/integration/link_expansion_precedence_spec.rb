@@ -79,10 +79,7 @@ class TestCase
   def source_edition
     @source_edition ||= FactoryBot.create(
       :live_edition,
-      document: FactoryBot.create(
-        :document,
-        locale: root_locale,
-      ),
+      document: FactoryBot.create(:document, locale: root_locale),
       edition_links: linked_editions
         .fetch(:edition, [])
         .uniq { it[:target_content_id] }
@@ -198,16 +195,17 @@ class TestCaseFactory
             # the link type must be the same for two targets to compete, so we need to
             # filter out cases where we have both true and false for the permitted
             # unpublished link type (from which we derive the link type)
-            test_case[:linked_editions].map { it[:permitted_unpublished_link_type] }.compact.uniq.size > 1,
+            test_case[:linked_editions]
+              .map { it[:permitted_unpublished_link_type] }
+              .compact.uniq.size > 1,
 
             # A single document can't be in the live content store twice with different
             # states. The two test cases are the same document if they have the same
             # locale, because we already assume that they have the same Content ID.
-            if fields_equal(*test_case[:linked_editions], :locale)
-              test_case[:linked_editions].map { it[:state] }.sort == %w[published unpublished]
-            else
-              false
-            end,
+            fields_equal(*test_case[:linked_editions], :locale) &&
+              test_case[:linked_editions]
+                .map { it[:state] }
+                .sort == %w[published unpublished],
 
             # if the state and locale are the same (where the content id is also the
             # same), they're the same edition so they can't have a different document
