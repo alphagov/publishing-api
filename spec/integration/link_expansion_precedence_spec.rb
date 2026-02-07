@@ -30,7 +30,7 @@ class TestLinkedEditionFactory
 
 private
 
-  attr_reader :state, :renderable_document_type, :withdrawal, :link_kind, :content_id
+  attr_reader :state, :renderable_document_type, :locale, :withdrawal, :link_kind, :content_id
 
   def document_type
     @document_type ||= if renderable_document_type
@@ -39,12 +39,6 @@ private
                        else
                          Edition::NON_RENDERABLE_FORMATS.sample
                        end
-  end
-
-  def locale
-    return @locale unless @locale == "default"
-
-    Edition::DEFAULT_LOCALE
   end
 
   def unpublishing_type
@@ -72,11 +66,11 @@ end
 class TestCase
   def initialize(
     with_drafts:,
-    default_root_locale:,
+    root_locale:,
     linked_editions:
   )
     @with_drafts = with_drafts
-    @default_root_locale = default_root_locale
+    @root_locale = root_locale
     @linked_editions_input = linked_editions
   end
 
@@ -117,12 +111,16 @@ class TestCase
   end
 
   def source_edition_locale_description
-    "when the source edition's locale is #{default_root_locale ? 'default' : 'non-default'}"
+    "when the source edition's locale is #{if root_locale == Edition::DEFAULT_LOCALE
+                                             'default'
+                                           else
+                                             'non-default'
+                                           end}"
   end
 
 private
 
-  attr_reader :default_root_locale, :linked_editions_input
+  attr_reader :root_locale, :linked_editions_input
 
   def target_content_id
     @target_content_id ||= SecureRandom.uuid
@@ -140,12 +138,6 @@ private
         end
       end
   end
-
-  def root_locale
-    return Edition::DEFAULT_LOCALE if default_root_locale
-
-    "fr"
-  end
 end
 
 class TestCaseFactory
@@ -153,10 +145,10 @@ class TestCaseFactory
     def all
       @all ||= begin
         query_values = [
-          { with_drafts: true, default_root_locale: true },
-          { with_drafts: true, default_root_locale: false },
-          { with_drafts: false, default_root_locale: true },
-          { with_drafts: false, default_root_locale: false },
+          { with_drafts: true, root_locale: Edition::DEFAULT_LOCALE },
+          { with_drafts: true, root_locale: "fr" },
+          { with_drafts: false, root_locale: Edition::DEFAULT_LOCALE },
+          { with_drafts: false, root_locale: "fr" },
         ]
 
         link_kind_values = %w[link_set edition]
@@ -172,7 +164,7 @@ class TestCaseFactory
         ]
 
         renderable_document_type_values = [false, true]
-        locale_values = %w[default fr hu]
+        locale_values = [Edition::DEFAULT_LOCALE, "fr", "hu"]
 
         edition_values = link_kind_values.product(
           state_values,
@@ -200,7 +192,8 @@ class TestCaseFactory
             # root_locale: "fr", locale: "default"
             # root_locale: "fr", locale: "fr"
             # root_locale: "fr", locale: "hu"
-            test_case[:default_root_locale] && test_case[:linked_editions].any? { it[:locale] == "hu" },
+            test_case[:root_locale] == Edition::DEFAULT_LOCALE &&
+              test_case[:linked_editions].any? { it[:locale] == "hu" },
 
             # the link type must be the same for two targets to compete, so we need to
             # filter out cases where we have both true and false for the permitted
