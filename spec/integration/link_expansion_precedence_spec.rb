@@ -183,35 +183,10 @@ class TestCaseFactory
 
         test_cases.reject! do |test_case|
           [
-            # We only need the following cases.
-            # root_locale: "default", locale: "default"
-            # root_locale: "default", locale: "fr"
-            # root_locale: "fr", locale: "default"
-            # root_locale: "fr", locale: "fr"
-            # root_locale: "fr", locale: "hu"
-            test_case[:root_locale] == Edition::DEFAULT_LOCALE &&
-              test_case[:linked_editions].any? { it[:locale] == "hu" },
-
-            # the link type must be the same for two targets to compete, so we need to
-            # filter out cases where we have both true and false for the permitted
-            # unpublished link type (from which we derive the link type)
-            test_case[:linked_editions]
-              .map { it[:permitted_unpublished_link_type] }
-              .compact.uniq.size > 1,
-
-            # A single document can't be in the live content store twice with different
-            # states. The two test cases are the same document if they have the same
-            # locale, because we already assume that they have the same Content ID.
-            fields_equal(*test_case[:linked_editions], :locale) &&
-              test_case[:linked_editions]
-                .map { it[:state] }
-                .sort == %w[published unpublished],
-
-            # if the state and locale are the same (where the content id is also the
-            # same), they're the same edition so they can't have a different document
-            # type
-            fields_equal(*test_case[:linked_editions], :state, :locale) &&
-              !fields_equal(*test_case[:linked_editions], :renderable_document_type),
+            redundant_locale(test_case),
+            mismatching_link_type(test_case),
+            document_with_two_editions_in_live_content_store(test_case),
+            single_edition_with_mismatching_document_type(test_case),
           ].any?
         end
 
@@ -223,6 +198,39 @@ class TestCaseFactory
 
     def fields_equal(a, b, *fields) # rubocop:disable Naming/MethodParameterName
       fields.all? { a[it] == b[it] }
+    end
+
+    # we only need to test one non-default/fallback non-root-matching locale
+    def redundant_locale(test_case)
+      test_case[:root_locale] == Edition::DEFAULT_LOCALE &&
+        test_case[:linked_editions].any? { it[:locale] == "hu" }
+    end
+
+    # the link type must be the same for two targets to compete, so we
+    # filter out cases where we have both true and false for the permitted
+    # unpublished link type (from which we derive the link type)
+    def mismatching_link_type(test_case)
+      test_case[:linked_editions]
+      .map { it[:permitted_unpublished_link_type] }
+      .compact.uniq.size > 1
+    end
+
+    # given the target content ID is the same, the document must be the same if
+    # the locale is the same. in such cases, we can't have two editions in the
+    # same content store
+    def document_with_two_editions_in_live_content_store(test_case)
+      fields_equal(*test_case[:linked_editions], :locale) &&
+        test_case[:linked_editions]
+          .map { it[:state] }
+          .sort == %w[published unpublished]
+    end
+
+    # given the target content ID is the same, the edition must be the same if
+    # the state and locale are the same. in such cases, they can't have a
+    # different document type
+    def single_edition_with_mismatching_document_type(test_case)
+      fields_equal(*test_case[:linked_editions], :state, :locale) &&
+        !fields_equal(*test_case[:linked_editions], :renderable_document_type)
     end
   end
 end
