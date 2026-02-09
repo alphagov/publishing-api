@@ -90,12 +90,12 @@ jobs:
           name: pacts
           path: spec/pacts/*.json
 
-  test-ruby-graphql-parity:
-    name: Test Ruby (GraphQL parity)
+  test-ruby-graphql-precedence-same-content-id:
+    name: "Test Ruby (GraphQL parity: precedence, same Content ID)"
     runs-on: ubuntu-latest
     steps:
       - name: Setup Postgres
-        id: setup-postgres-graphql-parity
+        id: setup-postgres-graphql-parity-precedence-same-content-id
         uses: alphagov/govuk-infrastructure/.github/actions/setup-postgres@main
         with:
           POSTGRES_DB: postgres-parity
@@ -114,20 +114,60 @@ jobs:
       - name: Initialize database
         env:
           RAILS_ENV: test
-          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity.outputs.db-url }}
+          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity-precedence-same-content-id.outputs.db-url }}
         run: bundle exec rails db:setup
 
       - name: Prepare for parallel testing
         env:
           RAILS_ENV: test
-          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity.outputs.db-url }}
+          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity-precedence-same-content-id.outputs.db-url }}
         run: bundle exec rake db:parallel:create db:parallel:prepare
 
       - name: Run RSpec
         env:
           RAILS_ENV: test
-          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity.outputs.db-url }}
-        run: bundle exec prspec --options .rspec.parity
+          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity-precedence-same-content-id.outputs.db-url }}
+        run: bundle exec prspec spec/parity/link_expansion_precedence/same_target_content_ids_spec.rb
+
+
+  test-ruby-graphql-precedence-differing-content-id:
+    name: "Test Ruby (GraphQL parity: precedence, differing Content ID)"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Postgres
+        id: setup-postgres-graphql-parity-precedence-differing-content-id
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-postgres@main
+        with:
+          POSTGRES_DB: postgres-parity
+
+      - name: Setup Redis
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@main
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Initialize database
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity-precedence-differing-content-id.outputs.db-url }}
+        run: bundle exec rails db:setup
+
+      - name: Prepare for parallel testing
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity-precedence-differing-content-id.outputs.db-url }}
+        run: bundle exec rake db:parallel:create db:parallel:prepare
+
+      - name: Run RSpec
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-parity-precedence-differing-content-id.outputs.db-url }}
+        run: bundle exec prspec spec/parity/link_expansion_precedence/different_target_content_ids_spec.rb
 
   check-schemas-build:
     name: Check content schemas are built

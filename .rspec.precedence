@@ -1,0 +1,3 @@
+--color
+--require spec_helper
+--pattern spec/parity/link_expansion_precedence/*_spec.rb
