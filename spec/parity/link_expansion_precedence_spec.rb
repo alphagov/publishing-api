@@ -62,11 +62,13 @@ module LinkExpansionPrecedenceTestHelpers
     def initialize(
       with_drafts:,
       root_locale:,
-      linked_editions:
+      linked_editions:,
+      target_content_ids_differ:
     )
       @with_drafts = with_drafts
       @root_locale = root_locale
       @linked_editions_input = linked_editions
+      @target_content_ids_differ = target_content_ids_differ
     end
 
     def content_store_result
@@ -102,7 +104,7 @@ module LinkExpansionPrecedenceTestHelpers
 
   private
 
-    attr_reader :with_drafts, :root_locale, :linked_editions_input
+    attr_reader :with_drafts, :root_locale, :linked_editions_input, :target_content_ids_differ
 
     def source_edition
       @source_edition ||= FactoryBot.create(
@@ -133,7 +135,11 @@ module LinkExpansionPrecedenceTestHelpers
     end
 
     def target_content_id
-      @target_content_id ||= SecureRandom.uuid
+      if target_content_ids_differ
+        SecureRandom.uuid
+      else
+        @target_content_id ||= SecureRandom.uuid
+      end
     end
 
     def link_type
@@ -147,7 +153,7 @@ module LinkExpansionPrecedenceTestHelpers
 
   class TestCaseFactory
     class << self
-      def all
+      def all(target_content_ids_differ:)
         query_values = [
           { with_drafts: true, root_locale: Edition::DEFAULT_LOCALE },
           { with_drafts: true, root_locale: "fr" },
@@ -194,11 +200,15 @@ module LinkExpansionPrecedenceTestHelpers
             [
               redundant_locale(test_case),
               mismatching_link_type(test_case),
-              document_with_two_editions_in_live_content_store(test_case),
-              single_edition_with_mismatching_document_type(test_case),
+              *unless target_content_ids_differ
+                 [
+                   document_with_two_editions_in_live_content_store(test_case),
+                   single_edition_with_mismatching_document_type(test_case)
+                 ]
+              end
             ].any?
           }
-          .map { TestCase.new(**it) }
+          .map { TestCase.new(**it, target_content_ids_differ:) }
       end
 
     private
@@ -247,19 +257,42 @@ end
 # puts TestCaseFactory.all.count
 
 RSpec.describe "link expansion precedence" do
-  LinkExpansionPrecedenceTestHelpers::TestCaseFactory.all.each do |test_case| # rubocop:disable Rails/FindEach
-    context test_case.with_drafts_description do
-      context test_case.source_edition_locale_description do
-        it test_case.description do
-          aggregate_failures do
-            graphql_titles = test_case.graphql_result.map(&:title)
-            content_store_titles = test_case
-              .content_store_result
-              .map { it[:title] }
+  context "when targeting the same content ID" do
+    LinkExpansionPrecedenceTestHelpers::TestCaseFactory.all(target_content_ids_differ: false).each do |test_case| # rubocop:disable Rails/FindEach
+      context test_case.with_drafts_description do
+        context test_case.source_edition_locale_description do
+          it test_case.description do
+            aggregate_failures do
+              graphql_titles = test_case.graphql_result.map(&:title)
+              content_store_titles = test_case
+                .content_store_result
+                .map { it[:title] }
 
-            expect(graphql_titles).to eq(content_store_titles)
-            expect(test_case.content_store_result.size).to be <= 1
-            expect(test_case.graphql_result.size).to be <= 1
+              expect(graphql_titles).to eq(content_store_titles)
+              expect(test_case.content_store_result.size).to be <= 1
+              expect(test_case.graphql_result.size).to be <= 1
+            end
+          end
+        end
+      end
+    end
+  end
+
+  context "when targeting different content IDs" do
+    LinkExpansionPrecedenceTestHelpers::TestCaseFactory.all(target_content_ids_differ: true).each do |test_case| # rubocop:disable Rails/FindEach
+      context test_case.with_drafts_description do
+        context test_case.source_edition_locale_description do
+          it test_case.description do
+            aggregate_failures do
+              graphql_titles = test_case.graphql_result.map(&:title)
+              content_store_titles = test_case
+                .content_store_result
+                .map { it[:title] }
+
+              expect(graphql_titles).to eq(content_store_titles)
+              expect(test_case.content_store_result.size).to be <= 1
+              expect(test_case.graphql_result.size).to be <= 1
+            end
           end
         end
       end
