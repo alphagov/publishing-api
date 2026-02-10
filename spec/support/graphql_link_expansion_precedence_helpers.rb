@@ -1,4 +1,4 @@
-module LinkExpansionPrecedenceTestHelpers
+module GraphqlLinkExpansionPrecedenceHelpers
   class TestLinkedEditionFactory
     def initialize(
       state:,
