@@ -202,6 +202,9 @@
     },
     "details": {
       "type": "object",
+      "required": [
+        "date_time"
+      ],
       "additionalProperties": false,
       "properties": {
         "date_time": {
@@ -301,7 +304,7 @@
         "description": {
           "type": "string"
         },
-        "notes": {
+        "note": {
           "type": "string"
         }
       }

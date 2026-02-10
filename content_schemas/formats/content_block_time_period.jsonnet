@@ -6,8 +6,9 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
     details: {
       type: "object",
       additionalProperties: false,
+      required: ["date_time"],
       properties: {
-        notes: {
+        note: {
           type: "string"
         },
         description: {

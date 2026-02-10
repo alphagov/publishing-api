@@ -361,6 +361,9 @@
     },
     "details": {
       "type": "object",
+      "required": [
+        "date_time"
+      ],
       "additionalProperties": false,
       "properties": {
         "change_history": {
@@ -463,7 +466,7 @@
         "description": {
           "type": "string"
         },
-        "notes": {
+        "note": {
           "type": "string"
         }
       }
