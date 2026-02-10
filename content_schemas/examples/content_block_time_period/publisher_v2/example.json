@@ -14,7 +14,7 @@
   ],
   "details": {
     "description": "Description goes here",
-    "notes": "Some notes",
+    "note": "Some notes",
     "date_time": {
       "start": {
         "date": {

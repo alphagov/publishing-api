@@ -7,7 +7,7 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
       type: "object",
       additionalProperties: false,
       properties: {
-        notes: {
+        note: {
           type: "string"
         },
         description: {

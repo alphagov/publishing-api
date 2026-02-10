@@ -301,7 +301,7 @@
         "description": {
           "type": "string"
         },
-        "notes": {
+        "note": {
           "type": "string"
         }
       }
