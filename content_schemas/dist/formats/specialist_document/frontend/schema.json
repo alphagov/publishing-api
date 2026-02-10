@@ -62,6 +62,7 @@
         "content_block_contact",
         "content_block_pension",
         "content_block_tax",
+        "content_block_time_period",
         "complaints_procedure",
         "completed_transaction",
         "consultation",

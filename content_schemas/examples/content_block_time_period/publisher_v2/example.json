@@ -1,0 +1,49 @@
+{
+  "locale": "en",
+  "schema_name": "content_block_time_period",
+  "document_type": "content_block_time_period",
+  "title": "Current tax year",
+  "instructions_to_publishers": "Information about the current tax year",
+  "content_id_alias": "current-tax-year",
+  "base_path": "/content-blocks/content_block_time_period/current-tax-year",
+  "routes": [
+    {
+      "path": "/content-blocks/content_block_time_period/current-tax-year",
+      "type": "exact"
+    }
+  ],
+  "details": {
+    "description": "Description goes here",
+    "notes": "Some notes",
+    "date_time": {
+      "start": {
+        "date": {
+          "year": "2025",
+          "month": "04",
+          "day": "01"
+        },
+        "time": {
+          "hour": "00",
+          "minute": "00"
+        }
+      },
+      "end": {
+        "date": {
+          "year": "2026",
+          "month": "04",
+          "day": "01"
+        },
+        "time": {
+          "hour": "00",
+          "minute": "00"
+        }
+      }
+    }
+  },
+  "links": {
+    "primary_publishing_organisation": [
+      "dcc907d6-433c-42df-9ffb-d9c68be5dc4d"
+    ]
+  },
+  "publishing_app": "whitehall"
+}
