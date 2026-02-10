@@ -90,6 +90,27 @@ module LinkExpansionPrecedenceTestHelpers
       end
     end
 
+    def has_link_of_kind?(kind)
+      linked_editions.key?(kind)
+    end
+
+    def has_valid_link_of_kind?(kind)
+      return false if linked_editions[kind]&.nil?
+
+      linked_editions[kind].any? do |edition|
+        next if Edition::NON_RENDERABLE_FORMATS.include?(edition.document_type)
+        next unless [Edition::DEFAULT_LOCALE, root_locale].include?(edition.locale)
+        next if edition.draft? && !with_drafts
+
+        if edition.unpublished?
+          next unless edition.withdrawn?
+          next unless Link::PERMITTED_UNPUBLISHED_LINK_TYPES.include?(link_type)
+        end
+
+        true
+      end
+    end
+
     def description
       "is consistent with linked editions: #{linked_editions_input.inspect}"
     end
@@ -99,7 +120,7 @@ module LinkExpansionPrecedenceTestHelpers
     end
 
     def source_edition_locale_description
-      "when the source edition's locale is #{root_locale}"
+      "when the source edition's locale is \"#{root_locale}\""
     end
 
   private
@@ -112,11 +133,11 @@ module LinkExpansionPrecedenceTestHelpers
         document: FactoryBot.create(:document, locale: root_locale),
         edition_links: linked_editions
           .fetch(:edition, [])
-          .uniq { it[:target_content_id] }
+          .uniq(&:content_id)
           .map { { link_type:, target_content_id: it.content_id } },
         link_set_links: linked_editions
           .fetch(:link_set, [])
-          .uniq { it[:target_content_id] }
+          .uniq(&:content_id)
           .map { { link_type:, target_content_id: it.content_id } },
       )
     end
@@ -203,9 +224,9 @@ module LinkExpansionPrecedenceTestHelpers
               *unless target_content_ids_differ
                  [
                    document_with_two_editions_in_live_content_store(test_case),
-                   single_edition_with_mismatching_document_type(test_case)
+                   single_edition_with_mismatching_document_type(test_case),
                  ]
-              end
+               end,
             ].any?
           }
           .map { TestCase.new(**it, target_content_ids_differ:) }
