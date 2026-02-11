@@ -40,7 +40,14 @@ edition_linked_editions AS (
         unpublishings.type = 'withdrawal'
       )
     )
-  ORDER BY links.id ASC, is_primary_locale DESC
+  ORDER BY
+    links.id ASC,
+    CASE editions.state
+      WHEN 'published' THEN 0
+      WHEN 'unpublished' THEN 1
+      ELSE 2
+    END,
+    is_primary_locale DESC
 ),
 
 link_set_linked_editions AS (
@@ -80,7 +87,14 @@ link_set_linked_editions AS (
         edition_linked_editions.source_content_id = links.link_set_content_id
         AND edition_linked_editions.link_type = links.link_type
     )
-  ORDER BY links.id ASC, is_primary_locale DESC
+  ORDER BY
+    links.id ASC,
+    CASE editions.state
+      WHEN 'published' THEN 0
+      WHEN 'unpublished' THEN 1
+      ELSE 2
+    END,
+    is_primary_locale DESC
 )
 
 SELECT editions.* FROM (
