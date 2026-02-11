@@ -24,33 +24,12 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
               additionalProperties: false,
               properties: {
                 date: {
-                  type: "object",
-                  additionalProperties: false,
-                  required: ["year", "month", "day"],
-                  properties: {
-                    year: {
-                      type: "string",
-                    },
-                    month: {
-                      type: "string",
-                    },
-                    day: {
-                      type: "string",
-                    },
-                  }
+                  type: "string",
+                  pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
                 },
                 time: {
-                  type: "object",
-                  additionalProperties: false,
-                  required: ["hour", "minute"],
-                  properties: {
-                    hour: {
-                      type: "string",
-                    },
-                    minute: {
-                      type: "string",
-                    },
-                  }
+                  type: "string",
+                  pattern: "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$",
                 }
               }
             },
@@ -59,33 +38,12 @@ local utils = import "shared/utils/content_block_utils.jsonnet";
               additionalProperties: false,
               properties: {
                 date: {
-                  type: "object",
-                  additionalProperties: false,
-                  required: ["year", "month", "day"],
-                  properties: {
-                    year: {
-                      type: "string",
-                    },
-                    month: {
-                      type: "string",
-                    },
-                    day: {
-                      type: "string",
-                    },
-                  }
+                  type: "string",
+                  pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
                 },
                 time: {
-                  type: "object",
-                  additionalProperties: false,
-                  required: ["hour", "minute"],
-                  properties: {
-                    hour: {
-                      type: "string",
-                    },
-                    minute: {
-                      type: "string",
-                    },
-                  }
+                  type: "string",
+                  pattern: "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$",
                 }
               }
             },

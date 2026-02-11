@@ -17,26 +17,12 @@
     "note": "Some notes",
     "date_time": {
       "start": {
-        "date": {
-          "year": "2025",
-          "month": "04",
-          "day": "01"
-        },
-        "time": {
-          "hour": "00",
-          "minute": "00"
-        }
+        "date": "2025-04-06",
+        "time": "00:00"
       },
       "end": {
-        "date": {
-          "year": "2026",
-          "month": "04",
-          "day": "01"
-        },
-        "time": {
-          "hour": "00",
-          "minute": "00"
-        }
+        "date": "2026-04-05",
+        "time": "23:59"
       }
     }
   },
