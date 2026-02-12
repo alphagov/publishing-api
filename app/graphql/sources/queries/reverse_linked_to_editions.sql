@@ -16,7 +16,7 @@ edition_linked_editions AS (
   --       the document with the best locale (rather than all of them).
   --       It's not clear if the behaviour we're testing for is correct though.
   --       Reverse edition links are a niche feature.
-  SELECT DISTINCT ON (documents.content_id, links.link_type, links.target_content_id)
+  SELECT DISTINCT ON (documents.content_id, links.target_content_id)
     editions.*,
     links.link_type,
     links.position,
@@ -43,7 +43,7 @@ edition_linked_editions AS (
         unpublishings.type = 'withdrawal'
       )
     )
-  ORDER BY documents.content_id ASC, links.link_type ASC, links.target_content_id ASC
+  ORDER BY documents.content_id ASC, links.target_content_id ASC
 ),
 
 link_set_linked_editions AS (
