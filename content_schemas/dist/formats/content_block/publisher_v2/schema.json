@@ -116,7 +116,7 @@
     "schema_name": {
       "type": "string",
       "enum": [
-        "content_block_time_period"
+        "content_block"
       ]
     },
     "title": {
@@ -202,112 +202,8 @@
     },
     "details": {
       "type": "object",
-      "required": [
-        "date_time"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "date_time": {
-          "type": "object",
-          "required": [
-            "start",
-            "end"
-          ],
-          "additionalProperties": false,
-          "properties": {
-            "end": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "date": {
-                  "type": "object",
-                  "required": [
-                    "year",
-                    "month",
-                    "day"
-                  ],
-                  "additionalProperties": false,
-                  "properties": {
-                    "day": {
-                      "type": "string"
-                    },
-                    "month": {
-                      "type": "string"
-                    },
-                    "year": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "time": {
-                  "type": "object",
-                  "required": [
-                    "hour",
-                    "minute"
-                  ],
-                  "additionalProperties": false,
-                  "properties": {
-                    "hour": {
-                      "type": "string"
-                    },
-                    "minute": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            },
-            "start": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "date": {
-                  "type": "object",
-                  "required": [
-                    "year",
-                    "month",
-                    "day"
-                  ],
-                  "additionalProperties": false,
-                  "properties": {
-                    "day": {
-                      "type": "string"
-                    },
-                    "month": {
-                      "type": "string"
-                    },
-                    "year": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "time": {
-                  "type": "object",
-                  "required": [
-                    "hour",
-                    "minute"
-                  ],
-                  "additionalProperties": false,
-                  "properties": {
-                    "hour": {
-                      "type": "string"
-                    },
-                    "minute": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "description": {
-          "type": "string"
-        },
-        "note": {
-          "type": "string"
-        }
-      }
+      "additionalProperties": true,
+      "properties": {}
     },
     "first_published_at": {
       "description": "The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.",

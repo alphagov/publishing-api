@@ -2,17 +2,29 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "required": [
+    "analytics_identifier",
     "base_path",
     "content_id",
     "description",
     "details",
     "document_type",
+    "email_document_supertype",
+    "expanded_links",
+    "first_published_at",
+    "government_document_supertype",
+    "govuk_request_id",
     "links",
     "locale",
+    "payload_version",
+    "phase",
     "public_updated_at",
+    "publishing_app",
+    "redirects",
+    "rendering_app",
+    "routes",
     "schema_name",
     "title",
-    "updated_at"
+    "update_type"
   ],
   "additionalProperties": false,
   "properties": {
@@ -20,10 +32,22 @@
       "$ref": "#/definitions/analytics_identifier"
     },
     "base_path": {
-      "$ref": "#/definitions/absolute_path"
+      "$ref": "#/definitions/absolute_path_optional"
     },
     "content_id": {
       "$ref": "#/definitions/guid"
+    },
+    "content_purpose_document_supertype": {
+      "description": "DEPRECATED. Use `content_purpose_subgroup`.",
+      "type": "string"
+    },
+    "content_purpose_subgroup": {
+      "description": "Document subgroup grouping documents by purpose. Narrows down the purpose defined in content_purpose_supergroup.",
+      "type": "string"
+    },
+    "content_purpose_supergroup": {
+      "description": "Document supergroup grouping documents by a purpose",
+      "type": "string"
     },
     "description": {
       "$ref": "#/definitions/description_optional"
@@ -37,17 +61,11 @@
         "content_block_time_period"
       ]
     },
-    "first_published_at": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/first_published_at"
-        },
-        {
-          "type": "null"
-        }
-      ]
+    "email_document_supertype": {
+      "description": "Document supertype grouping intended to power the Whitehall finders and email subscriptions",
+      "type": "string"
     },
-    "links": {
+    "expanded_links": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -147,8 +165,81 @@
         }
       }
     },
+    "first_published_at": {
+      "$ref": "#/definitions/first_published_at"
+    },
+    "government_document_supertype": {
+      "description": "Document supertype grouping intended to power the Whitehall finders and email subscriptions",
+      "type": "string"
+    },
+    "govuk_request_id": {
+      "$ref": "#/definitions/govuk_request_id"
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "embed": {
+          "description": "Content that will be embedded within the document, using embed tags.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "emphasised_organisations": {
+          "description": "Lead organisations linked to this content item.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "finder": {
+          "description": "Powers links from content back to finders the content is surfaced on",
+          "$ref": "#/definitions/guid_list"
+        },
+        "lead_organisations": {
+          "description": "DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "mainstream_browse_pages": {
+          "description": "Powers the /browse section of the site. These are known as sections in some legacy apps.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_related_items": {
+          "description": "Related items, can be any page on GOV.UK. Mostly used for mainstream content to power the sidebar. Ordering of the links is determined by the editor in Content Tagger.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "ordered_related_items_overrides": {
+          "description": "Related items, can be any page on GOV.UK. Overrides 'more like this' automatically generated links in the beta navigation.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "organisations": {
+          "description": "All organisations linked to this content item. This should include lead organisations.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "parent": {
+          "description": "The parent content item.",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
+        "policy_areas": {
+          "description": "A largely deprecated tag currently only used to power email alerts.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "primary_publishing_organisation": {
+          "description": "The organisation that published the content block. Corresponds to the Edition's 'Organisation' in Whitehall, and is empty for all other publishing applications.",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
+        "taxons": {
+          "description": "Prototype-stage taxonomy label for this content item",
+          "$ref": "#/definitions/guid_list"
+        }
+      }
+    },
     "locale": {
       "$ref": "#/definitions/locale"
+    },
+    "navigation_document_supertype": {
+      "description": "Document type grouping powering the new taxonomy-based navigation pages",
+      "type": "string"
+    },
+    "payload_version": {
+      "$ref": "#/definitions/payload_version"
     },
     "phase": {
       "description": "The service design phase of this content item - https://www.gov.uk/service-manual/phases",
@@ -160,14 +251,7 @@
       ]
     },
     "public_updated_at": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/public_updated_at"
-        },
-        {
-          "type": "null"
-        }
-      ]
+      "$ref": "#/definitions/public_updated_at"
     },
     "publishing_app": {
       "$ref": "#/definitions/publishing_app_name"
@@ -175,41 +259,40 @@
     "publishing_request_id": {
       "$ref": "#/definitions/publishing_request_id"
     },
-    "publishing_scheduled_at": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/publishing_scheduled_at"
-        },
-        {
-          "type": "null"
-        }
-      ]
+    "redirects": {
+      "type": "array",
+      "additionalItems": false,
+      "items": {}
     },
     "rendering_app": {
       "type": "null"
     },
-    "scheduled_publishing_delay_seconds": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/scheduled_publishing_delay_seconds"
-        },
-        {
-          "type": "null"
-        }
-      ]
+    "routes": {
+      "$ref": "#/definitions/routes_optional"
     },
     "schema_name": {
       "type": "string",
       "enum": [
-        "content_block_time_period"
+        "content_block"
       ]
+    },
+    "search_user_need_document_supertype": {
+      "description": "Document supertype grouping core and government documents",
+      "type": "string"
     },
     "title": {
       "$ref": "#/definitions/title"
     },
-    "updated_at": {
-      "type": "string",
-      "format": "date-time"
+    "update_type": {
+      "$ref": "#/definitions/update_type"
+    },
+    "user_journey_document_supertype": {
+      "description": "Document type grouping powering analytics of user journeys",
+      "type": "string"
+    },
+    "user_need_document_supertype": {
+      "description": "DEPRECATED. Use `content_purpose_document_supertype`.",
+      "type": "string"
     },
     "withdrawn_notice": {
       "$ref": "#/definitions/withdrawn_notice"
@@ -223,6 +306,16 @@
       "description": "A path only. Query string and/or fragment are not allowed.",
       "type": "string",
       "pattern": "^/(([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})+(/([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})*)*)?$"
+    },
+    "absolute_path_optional": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/absolute_path"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "analytics_identifier": {
       "description": "A short identifier we send to Google Analytics for multi-valued fields. This means we avoid the truncated values we would get if we sent the path or slug of eg organisations.",
@@ -268,113 +361,10 @@
     },
     "details": {
       "type": "object",
-      "required": [
-        "date_time"
-      ],
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "change_history": {
           "$ref": "#/definitions/change_history"
-        },
-        "date_time": {
-          "type": "object",
-          "required": [
-            "start",
-            "end"
-          ],
-          "additionalProperties": false,
-          "properties": {
-            "end": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "date": {
-                  "type": "object",
-                  "required": [
-                    "year",
-                    "month",
-                    "day"
-                  ],
-                  "additionalProperties": false,
-                  "properties": {
-                    "day": {
-                      "type": "string"
-                    },
-                    "month": {
-                      "type": "string"
-                    },
-                    "year": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "time": {
-                  "type": "object",
-                  "required": [
-                    "hour",
-                    "minute"
-                  ],
-                  "additionalProperties": false,
-                  "properties": {
-                    "hour": {
-                      "type": "string"
-                    },
-                    "minute": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            },
-            "start": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "date": {
-                  "type": "object",
-                  "required": [
-                    "year",
-                    "month",
-                    "day"
-                  ],
-                  "additionalProperties": false,
-                  "properties": {
-                    "day": {
-                      "type": "string"
-                    },
-                    "month": {
-                      "type": "string"
-                    },
-                    "year": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "time": {
-                  "type": "object",
-                  "required": [
-                    "hour",
-                    "minute"
-                  ],
-                  "additionalProperties": false,
-                  "properties": {
-                    "hour": {
-                      "type": "string"
-                    },
-                    "minute": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "description": {
-          "type": "string"
-        },
-        "note": {
-          "type": "string"
         }
       }
     },
@@ -516,9 +506,22 @@
         }
       }
     },
+    "govuk_request_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "guid": {
       "type": "string",
       "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
+    },
+    "guid_list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/guid"
+      },
+      "uniqueItems": true
     },
     "locale": {
       "type": "string",
@@ -594,6 +597,10 @@
         "zh-tw"
       ]
     },
+    "payload_version": {
+      "description": "Counter to indicate when the payload was generated",
+      "type": "integer"
+    },
     "public_updated_at": {
       "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
       "type": "string",
@@ -646,17 +653,21 @@
         }
       ]
     },
-    "publishing_scheduled_at": {
-      "description": "When this content was last scheduled for publishing. Determined by the publishing intent sent by the publishing API.",
-      "type": "string",
-      "format": "date-time"
-    },
-    "scheduled_publishing_delay_seconds": {
-      "description": "The delay between the most recent scheduled and actual publishing times. Determined by the content store based on the publishing intent.",
-      "type": "integer"
+    "routes_optional": {
+      "type": "array",
+      "items": {
+        "ref": "#/definitions/route"
+      }
     },
     "title": {
       "type": "string"
+    },
+    "update_type": {
+      "enum": [
+        "major",
+        "minor",
+        "republish"
+      ]
     },
     "withdrawn_notice": {
       "type": "object",
