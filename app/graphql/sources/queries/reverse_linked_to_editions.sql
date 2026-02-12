@@ -81,7 +81,14 @@ link_set_linked_editions AS (
         edition_linked_editions.target_content_id = links.target_content_id
         AND edition_linked_editions.link_type = links.link_type
     )
-  ORDER BY links.id ASC, is_primary_locale DESC
+  ORDER BY
+    links.id ASC,
+    CASE editions.state
+      WHEN 'published' THEN 0
+      WHEN 'unpublished' THEN 1
+      ELSE 2
+    END,
+    is_primary_locale DESC
 )
 
 SELECT editions.* FROM (

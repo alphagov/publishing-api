@@ -492,14 +492,14 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
     context "when the reverse linked Edition with matching locale is unpublished" do
       %i[link_set_links edition_links].each do |links_kind|
         context "when the link kind is #{links_kind}" do
-          it "includes the reverse link if it's a permitted link_type" do
+          it "includes the reverse link if it's a permitted link_type and there are no competing published links" do
             target_edition = create(:live_edition, document: create(:document, locale: "fr"))
 
             source_content_id = SecureRandom.uuid
             create(
-              :live_edition,
+              :withdrawn_unpublished_edition,
               document: create(:document, locale: "en", content_id: source_content_id),
-              title: "english, published, related_statistical_data_sets",
+              title: "english, withdrawn, related_statistical_data_sets",
               links_kind => [
                 { link_type: "related_statistical_data_sets", target_content_id: target_edition.content_id },
               ],
@@ -516,59 +516,75 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             expected_titles = [french_edition].map(&:title)
             expect(target_edition).to have_links("related_statistical_data_sets").with_titles(expected_titles)
           end
+
+          it "omits a locale-matching reverse link if it isn't a permitted unpublished link_type" do
+            target_edition = create(:live_edition, document: create(:document, locale: "fr"))
+
+            source_content_id = SecureRandom.uuid
+            create(
+              :withdrawn_unpublished_edition,
+              document: create(:document, locale: "fr", content_id: source_content_id),
+              title: "french, withdrawn, test link",
+              link_set_links: [
+                { link_type: "test_link", target_content_id: target_edition.content_id },
+              ],
+            )
+
+            expect(target_edition).not_to have_links("test_link")
+          end
         end
       end
 
       context "when the link kind is link_set_links" do
-        it "defaults to including a (not-unpublished) 'en' reverse link when the better-matching one isn't a permitted link_type" do
+        it "falls back to a published 'en' reverse link even if the locale-matching one is a permitted link_type" do
           target_edition = create(:live_edition, document: create(:document, locale: "fr"))
 
           source_content_id = SecureRandom.uuid
-          english_edition = create(
+          english_published_edition = create(
             :live_edition,
             document: create(:document, locale: "en", content_id: source_content_id),
-            title: "english, published, test link",
+            title: "english, published, related_statistical_data_sets",
             link_set_links: [
-              { link_type: "test_link", target_content_id: target_edition.content_id },
+              { link_type: "related_statistical_data_sets", target_content_id: target_edition.content_id },
             ],
           )
           create(
             :withdrawn_unpublished_edition,
             document: create(:document, locale: "fr", content_id: source_content_id),
-            title: "french, withdrawn, test link",
+            title: "french, withdrawn, related_statistical_data_sets",
             link_set_links: [
-              { link_type: "test_link", target_content_id: target_edition.content_id },
+              { link_type: "related_statistical_data_sets", target_content_id: target_edition.content_id },
             ],
           )
 
-          expected_titles = [english_edition].map(&:title)
-          expect(target_edition).to have_links("test_link").with_titles(expected_titles)
+          expected_titles = [english_published_edition].map(&:title)
+          expect(target_edition).to have_links("related_statistical_data_sets").with_titles(expected_titles)
         end
       end
 
       context "when the link kind is edition_links" do
-        it "doesn't default to including a (not-unpublished) 'en' reverse link when the better-matching one isn't a permitted link_type" do
+        it "doesn't fall back to a published 'en' reverse link" do
           target_edition = create(:live_edition, document: create(:document, locale: "fr"))
 
           source_content_id = SecureRandom.uuid
           create(
             :live_edition,
             document: create(:document, locale: "en", content_id: source_content_id),
-            title: "english, published, test link",
+            title: "english, published, related_statistical_data_sets",
             edition_links: [
-              { link_type: "test_link", target_content_id: target_edition.content_id },
+              { link_type: "related_statistical_data_sets", target_content_id: target_edition.content_id },
             ],
           )
           create(
             :withdrawn_unpublished_edition,
             document: create(:document, locale: "fr", content_id: source_content_id),
-            title: "french, withdrawn, test link",
+            title: "french, withdrawn, related_statistical_data_sets",
             edition_links: [
-              { link_type: "test_link", target_content_id: target_edition.content_id },
+              { link_type: "related_statistical_data_sets", target_content_id: target_edition.content_id },
             ],
           )
 
-          expect(target_edition).not_to have_links("test_link")
+          expect(target_edition).not_to have_links("related_statistical_data_sets")
         end
       end
     end
