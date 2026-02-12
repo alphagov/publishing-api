@@ -47,7 +47,7 @@ edition_linked_editions AS (
 ),
 
 link_set_linked_editions AS (
-  SELECT DISTINCT ON (links.id)
+  SELECT DISTINCT ON (documents.content_id, links.target_content_id)
     editions.*,
     links.link_type,
     links.position,
@@ -82,7 +82,8 @@ link_set_linked_editions AS (
         AND edition_linked_editions.link_type = links.link_type
     )
   ORDER BY
-    links.id ASC,
+    documents.content_id ASC,
+    links.target_content_id ASC,
     CASE editions.state
       WHEN 'published' THEN 0
       WHEN 'unpublished' THEN 1
