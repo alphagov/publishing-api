@@ -394,32 +394,7 @@
           }
         },
         "ordered_featured_documents": {
-          "description": "A set of featured documents to display for the Topical Event.",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "title",
-              "href",
-              "image",
-              "summary"
-            ],
-            "additionalProperties": false,
-            "properties": {
-              "href": {
-                "type": "string"
-              },
-              "image": {
-                "$ref": "#/definitions/image"
-              },
-              "summary": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/ordered_featured_documents"
         },
         "social_media_links": {
           "description": "A set of links to social media profiles for the object.",
@@ -779,6 +754,46 @@
         "zh-hk",
         "zh-tw"
       ]
+    },
+    "ordered_featured_documents": {
+      "description": "A set of featured documents to display.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "title",
+          "href",
+          "image",
+          "summary"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "document_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "href": {
+            "type": "string"
+          },
+          "image": {
+            "$ref": "#/definitions/image"
+          },
+          "public_updated_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "summary": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      }
     },
     "payload_version": {
       "description": "Counter to indicate when the payload was generated",

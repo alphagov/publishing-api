@@ -611,9 +611,7 @@
           "title",
           "href",
           "image",
-          "summary",
-          "public_updated_at",
-          "document_type"
+          "summary"
         ],
         "additionalProperties": false,
         "properties": {
