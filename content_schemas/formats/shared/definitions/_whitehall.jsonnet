@@ -339,8 +339,6 @@
         "href",
         "image",
         "summary",
-        "public_updated_at",
-        "document_type",
       ],
       properties: {
         title: {
