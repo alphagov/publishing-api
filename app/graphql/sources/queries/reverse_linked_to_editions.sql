@@ -10,13 +10,7 @@ WITH query_input AS (
 ),
 
 edition_linked_editions AS (
-  -- NOTE: we're not using DISTINCT ON (links.id) here because the tests check that
-  --       if we have multiple links of the same link_type / target_content_id pointing
-  --       at editions of the same document with different locales, we should only get
-  --       the document with the best locale (rather than all of them).
-  --       It's not clear if the behaviour we're testing for is correct though.
-  --       Reverse edition links are a niche feature.
-  SELECT DISTINCT ON (documents.content_id, links.target_content_id)
+  SELECT
     editions.*,
     links.link_type,
     links.position,
@@ -43,11 +37,10 @@ edition_linked_editions AS (
         unpublishings.type = 'withdrawal'
       )
     )
-  ORDER BY documents.content_id ASC, links.target_content_id ASC
 ),
 
 link_set_linked_editions AS (
-  SELECT DISTINCT ON (documents.content_id, links.target_content_id)
+  SELECT
     editions.*,
     links.link_type,
     links.position,
@@ -74,28 +67,30 @@ link_set_linked_editions AS (
         unpublishings.type = 'withdrawal'
       )
     )
-    -- skip any links that we already found in edition_linked_editions:
-    AND NOT EXISTS (
-      SELECT FROM edition_linked_editions
-      WHERE
-        edition_linked_editions.target_content_id = links.target_content_id
-        AND edition_linked_editions.link_type = links.link_type
-    )
+)
+
+SELECT editions.* FROM (
+  -- NOTE: we're not using DISTINCT ON (links.id) here because the tests check
+  --       that if we have multiple links of the same link_type /
+  --       target_content_id pointing at editions of the same document with
+  --       different locales, we should only get the document with the best
+  --       locale (rather than all of them). It's not clear if the behaviour
+  --       we're testing for is correct though. Reverse edition links are a
+  --       niche feature.
+  SELECT DISTINCT ON (content_id, target_content_id) * FROM (
+    SELECT * FROM link_set_linked_editions
+    UNION ALL
+    SELECT * FROM edition_linked_editions
+  ) AS all_editions
   ORDER BY
-    documents.content_id ASC,
-    links.target_content_id ASC,
-    CASE editions.state
+    content_id ASC,
+    target_content_id ASC,
+    CASE state
       WHEN 'published' THEN 0
       WHEN 'unpublished' THEN 1
       ELSE 2
     END,
     is_primary_locale DESC
-)
-
-SELECT editions.* FROM (
-  SELECT * FROM link_set_linked_editions
-  UNION ALL
-  SELECT * FROM edition_linked_editions
 ) AS editions
 ORDER BY
   editions.link_type ASC, editions.position ASC, editions.link_id DESC

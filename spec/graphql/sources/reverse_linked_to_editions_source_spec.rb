@@ -38,7 +38,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
   end
 
   context "when the same target content has a mix of link set links and edition links for the same link type" do
-    it "returns only the edition links" do
+    it "returns all valid source editions" do
       target_edition = create(:edition)
 
       source_edition_1 = create(:edition,
@@ -49,16 +49,16 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                                     target_content_id: target_edition.content_id,
                                   },
                                 ])
-      create(:edition,
-             title: "edition 2, link set link",
-             link_set_links: [
-               {
-                 link_type: "test_link",
-                 target_content_id: target_edition.content_id,
-               },
-             ])
+      source_edition_2 = create(:edition,
+                                title: "edition 2, link set link",
+                                link_set_links: [
+                                  {
+                                    link_type: "test_link",
+                                    target_content_id: target_edition.content_id,
+                                  },
+                                ])
 
-      expected_titles = [source_edition_1].map(&:title)
+      expected_titles = [source_edition_1, source_edition_2].map(&:title)
       expect(target_edition).to have_links("test_link").with_titles(expected_titles).in_any_order
     end
   end
