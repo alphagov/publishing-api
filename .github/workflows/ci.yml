@@ -152,6 +152,68 @@ jobs:
           TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-direct-link-precedence-different-content-id.outputs.db-url }}
         run: bundle exec rspec spec/integration/graphql/link_expansion/direct_link_precedence_with_different_content_ids_spec.rb
 
+  test-graphql-reverse-link-precedence-same-content-id:
+    name: "Test GraphQL reverse link expansion precedence with same content ID"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Postgres
+        id: setup-postgres-graphql-reverse-link-precedence-same-content-id
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-postgres@main
+
+      - name: Setup Redis
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@main
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Initialize database
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-reverse-link-precedence-same-content-id.outputs.db-url }}
+        run: bundle exec rails db:setup
+
+      - name: Run RSpec
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-reverse-link-precedence-same-content-id.outputs.db-url }}
+        run: bundle exec rspec spec/integration/graphql/link_expansion/reverse_link_precedence_with_same_content_ids_spec.rb
+
+  test-graphql-reverse-link-precedence-different-content-id:
+    name: "Test GraphQL reverse link expansion precedence with different content IDs"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Postgres
+        id: setup-postgres-graphql-reverse-link-precedence-different-content-id
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-postgres@main
+
+      - name: Setup Redis
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@main
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Initialize database
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-reverse-link-precedence-different-content-id.outputs.db-url }}
+        run: bundle exec rails db:setup
+
+      - name: Run RSpec
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-postgres-graphql-reverse-link-precedence-different-content-id.outputs.db-url }}
+        run: bundle exec rspec spec/integration/graphql/link_expansion/reverse_link_precedence_with_different_content_ids_spec.rb
+
   check-schemas-build:
     name: Check content schemas are built
     runs-on: ubuntu-latest
