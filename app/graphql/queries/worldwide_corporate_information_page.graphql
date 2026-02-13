@@ -22,6 +22,7 @@ query worldwide_corporate_information_page($base_path: String!) {
       details {
         body
         change_history
+        headers
       }
       document_type
       first_published_at
