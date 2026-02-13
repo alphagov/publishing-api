@@ -24,6 +24,7 @@ query working_group($base_path: String!) {
         body
         change_history
         email
+        headers
       }
       document_type
       first_published_at
