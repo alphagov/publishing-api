@@ -22,7 +22,7 @@ query worldwide_office($base_path: String!) {
       details {
         access_and_opening_times
         change_history
-        nested_headers
+        headers
         services
         type
       }
