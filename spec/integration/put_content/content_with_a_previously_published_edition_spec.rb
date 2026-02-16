@@ -117,6 +117,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
     before do
       payload.merge!(
         base_path: "/moved",
+        bulk_publishing: false,
         routes: [{ path: "/moved", type: "exact" }],
       )
     end

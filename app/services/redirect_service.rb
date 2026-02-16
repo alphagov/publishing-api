@@ -1,10 +1,11 @@
 class RedirectService
-  attr_reader :previously_published_item, :payload, :callbacks
+  attr_reader :previously_published_item, :payload, :callbacks, :bulk_publishing
 
-  def initialize(previously_published_item, payload, callbacks)
+  def initialize(previously_published_item, payload, callbacks, bulk_publishing)
     @previously_published_item = previously_published_item
     @payload = payload
     @callbacks = callbacks
+    @bulk_publishing = bulk_publishing
   end
 
   def call
@@ -20,7 +21,7 @@ class RedirectService
         payload[:base_path],
       ),
       publishing_app: payload[:publishing_app],
-    ).for_redirect_helper(SecureRandom.uuid)
+    ).for_redirect_helper(SecureRandom.uuid, bulk_publishing)
 
     Commands::V2::PutContent.call(
       redirect_payload,

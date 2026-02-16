@@ -6,6 +6,7 @@ RSpec.describe "Superseding editions" do
 
   let(:put_content_payload) do
     {
+      bulk_publishing: false,
       content_id:,
       base_path: "/vat-rates",
       title: "Some Title",

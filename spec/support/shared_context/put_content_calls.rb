@@ -1,6 +1,7 @@
 RSpec.shared_context "PutContent call" do
   let(:payload) do
     {
+      bulk_publishing: false,
       content_id:,
       base_path:,
       update_type: "major",

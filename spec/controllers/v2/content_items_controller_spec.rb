@@ -442,20 +442,57 @@ RSpec.describe V2::ContentItemsController do
 
   describe "put_content" do
     context "with valid request params for a new edition" do
-      before do
-        edition_hash = @draft.as_json.merge(
+      let(:content_id) { SecureRandom.uuid }
+      let(:payload) do
+        @draft.as_json.merge(
           "base_path" => "/that-rates",
           "routes" => [{ "path" => "/that-rates", "type" => "exact" }],
         )
+      end
+      let(:subject) { put :put_content, params: { content_id: }, body: payload.to_json }
+
+      before do
         request.env["CONTENT_TYPE"] = "application/json"
-        put :put_content, params: { content_id: SecureRandom.uuid }, body: edition_hash.to_json
       end
 
       it "responds with 200" do
+        subject
         expect(response.status).to eq(200)
       end
 
+      context "when bulk_publishing is not set in the payload" do
+        it "calls Commands::V2::PutContent with bulk_publishing set to false" do
+          edition_hash = payload.merge(
+            bulk_publishing: false,
+            content_id:,
+          ).deep_symbolize_keys
+
+          expect(Commands::V2::PutContent).to receive(:call).with(edition_hash).and_call_original
+
+          subject
+        end
+      end
+
+      context "when bulk_publishing is set in the payload" do
+        before do
+          payload[:bulk_publishing] = true
+        end
+
+        it "calls Commands::V2::PutContent with bulk_publishing set to true" do
+          edition_hash = payload.merge(
+            bulk_publishing: true,
+            content_id:,
+          ).deep_symbolize_keys
+
+          expect(Commands::V2::PutContent).to receive(:call).with(edition_hash).and_call_original
+
+          subject
+        end
+      end
+
       it "responds with the edition" do
+        subject
+
         parsed_response_body = parsed_response
         expect(parsed_response_body["base_path"]).to eq("/that-rates")
       end

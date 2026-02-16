@@ -90,6 +90,8 @@ module V2
   private
 
     def edition
+      payload[:bulk_publishing] ||= false
+
       payload.merge(content_id: path_params[:content_id])
     end
 

@@ -3,6 +3,7 @@ module Commands
     class PatchLinkSet < BaseCommand
       def call
         raise_unless_links_hash_is_provided
+        check_bulk_publishing_present
         validate_schema
         link_set = LinkSet.find_or_create_locked(content_id:)
         check_version_and_raise_if_conflicting(link_set, previous_version_number)
@@ -44,6 +45,21 @@ module Commands
       end
 
     private
+
+      def check_bulk_publishing_present
+        return if [true, false].include?(payload[:bulk_publishing])
+
+        raise CommandError.new(
+          code: 422,
+          message: "A value for bulk_publishing is required",
+          error_details: {
+            error: {
+              code: 422,
+              message: "A value for bulk_publishing is required",
+            },
+          },
+        )
+      end
 
       def link_diff_between(links_before_patch, links_after_patch)
         links_before_patch - links_after_patch
@@ -94,7 +110,7 @@ module Commands
       end
 
       def bulk_publishing?
-        payload.fetch(:bulk_publishing, false)
+        payload[:bulk_publishing]
       end
 
       def downstream_draft(content_id, locale, orphaned_content_ids, update_dependencies)

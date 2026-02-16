@@ -4,6 +4,7 @@ RSpec.describe "Reinstating editions that were previously unpublished" do
 
   let(:guide_draft_payload) do
     {
+      bulk_publishing: false,
       content_id: SecureRandom.uuid,
       base_path: "/vat-rates",
       title: "Guide Title",
@@ -27,6 +28,7 @@ RSpec.describe "Reinstating editions that were previously unpublished" do
 
   let(:redirect_draft_payload) do
     {
+      bulk_publishing: false,
       content_id: SecureRandom.uuid,
       base_path: "/vat-rates",
       destination: "/somewhere",

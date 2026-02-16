@@ -6,6 +6,7 @@ RSpec.describe "Substituting content that is not published" do
 
   let(:guide_payload) do
     {
+      bulk_publishing: false,
       content_id:,
       base_path: "/vat-rates",
       title: "Some Title",
@@ -24,6 +25,7 @@ RSpec.describe "Substituting content that is not published" do
 
   let(:gone_payload) do
     {
+      bulk_publishing: false,
       content_id: another_content_id,
       base_path: gone_base_path,
       document_type: "gone",

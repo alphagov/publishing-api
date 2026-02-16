@@ -61,6 +61,7 @@ module DataHygiene
 
     def update_document(document, organisations)
       Commands::V2::PatchLinkSet.call({
+        bulk_publishing: true,
         content_id: document,
         links: { organisations: },
       })

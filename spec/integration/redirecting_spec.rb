@@ -4,6 +4,7 @@ RSpec.describe "Redirecting editions that are redrafted" do
 
   let(:draft_payload) do
     {
+      bulk_publishing: false,
       content_id: SecureRandom.uuid,
       base_path: "/foo",
       title: "Title",
