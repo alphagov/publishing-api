@@ -12,8 +12,8 @@ fragment defaultFields on Edition {
   web_url
 }
 
-query manual_section($base_path: String!) {
-  edition(base_path: $base_path) {
+query manual_section($base_path: String!, $with_drafts: Boolean) {
+  edition(base_path: $base_path, with_drafts: $with_drafts) {
     ... on Edition {
       analytics_identifier
       base_path

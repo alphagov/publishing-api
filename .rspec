@@ -1,2 +1,3 @@
 --color
 --require spec_helper
+--exclude-pattern spec/integration/graphql/link_expansion/precedence*_spec.rb

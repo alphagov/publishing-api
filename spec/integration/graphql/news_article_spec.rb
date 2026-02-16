@@ -105,7 +105,6 @@ RSpec.describe "GraphQL" do
           {
             edition(
               base_path: "/government/news/announcement",
-              content_store: "live",
             ) {
               ... on Edition {
                 base_path
