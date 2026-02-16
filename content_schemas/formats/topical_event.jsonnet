@@ -30,32 +30,7 @@
           "$ref": "#/definitions/change_history",
         },
         ordered_featured_documents: {
-          type: "array",
-          items: {
-            type: "object",
-            additionalProperties: false,
-            required: [
-              "title",
-              "href",
-              "image",
-              "summary",
-            ],
-            properties: {
-              title: {
-                type: "string",
-              },
-              href: {
-                type: "string",
-              },
-              image: {
-                "$ref": "#/definitions/image",
-              },
-              summary: {
-                type: "string",
-              },
-            },
-          },
-          description: "A set of featured documents to display for the Topical Event.",
+          "$ref": "#/definitions/ordered_featured_documents",
         },
         social_media_links: (import "shared/definitions/_social_media_links.jsonnet"),
         images: {
