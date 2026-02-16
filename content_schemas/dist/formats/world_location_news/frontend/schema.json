@@ -576,7 +576,9 @@
           "title",
           "href",
           "image",
-          "summary"
+          "summary",
+          "public_updated_at",
+          "document_type"
         ],
         "additionalProperties": false,
         "properties": {
