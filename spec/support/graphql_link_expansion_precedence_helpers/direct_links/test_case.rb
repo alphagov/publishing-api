@@ -4,10 +4,12 @@ module GraphqlLinkExpansionPrecedenceHelpers
       include FactoryBot::Syntax::Methods
 
       def initialize(
+        with_drafts:,
         root_locale:,
         linked_editions:,
         target_content_ids_differ:
       )
+        @with_drafts = with_drafts
         @root_locale = root_locale
         @linked_editions_input = linked_editions
         @target_content_ids_differ = target_content_ids_differ
@@ -15,7 +17,7 @@ module GraphqlLinkExpansionPrecedenceHelpers
 
       def content_store_titles
         @content_store_titles ||= Presenters::Queries::ExpandedLinkSet
-          .by_edition(source_edition, with_drafts: false)
+          .by_edition(source_edition, with_drafts:)
           .links
           .fetch(link_type.to_sym, [])
           .map { it[:title] }
@@ -25,7 +27,7 @@ module GraphqlLinkExpansionPrecedenceHelpers
         @graphql_titles ||= GraphQL::Dataloader.with_dataloading do |dataloader|
           request = dataloader.with(
             Sources::LinkedToEditionsSource,
-            content_store: "live",
+            with_drafts:,
             locale: root_locale,
           ).request([source_edition, link_type])
 
@@ -48,9 +50,13 @@ module GraphqlLinkExpansionPrecedenceHelpers
         "when the source edition's locale is \"#{root_locale}\""
       end
 
+      def with_drafts_description
+        "when #{with_drafts ? 'accepting' : 'rejecting'} drafts"
+      end
+
     private
 
-      attr_reader :root_locale, :linked_editions_input, :target_content_ids_differ
+      attr_reader :with_drafts, :root_locale, :linked_editions_input, :target_content_ids_differ
 
       def source_edition
         @source_edition ||= create(
@@ -102,6 +108,7 @@ module GraphqlLinkExpansionPrecedenceHelpers
         linked_editions[kind].any? do |edition|
           next if Edition::NON_RENDERABLE_FORMATS.include?(edition.document_type)
           next unless [Edition::DEFAULT_LOCALE, root_locale].include?(edition.locale)
+          next if edition.draft? && !with_drafts
 
           if edition.unpublished?
             next unless edition.withdrawn?
