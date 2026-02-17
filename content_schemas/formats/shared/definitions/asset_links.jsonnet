@@ -67,6 +67,7 @@ local PublicationAttachmentAssetProperties = {
       content_type: { type: "string", },
       credit: { type: "string", },
       url: { type: "string", format: "uri", },
+      high_resolution_url: { type: "string", format: "uri", },
       type: { type: "string" }
     },
   },
