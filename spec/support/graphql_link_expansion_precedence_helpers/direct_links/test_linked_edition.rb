@@ -22,7 +22,7 @@ module GraphqlLinkExpansionPrecedenceHelpers
       def call
         Edition.find_by(state:, document:) ||
           create(
-            :live_edition,
+            state == "draft" ? :edition : :live_edition,
             title: "edition #{Edition.count} (#{link_kind})",
             state:,
             document_type:,
