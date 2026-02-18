@@ -5,7 +5,6 @@
       type: "object",
       additionalProperties: false,
       required: [
-        "read_more",
         "body",
       ],
       properties: {

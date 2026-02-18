@@ -273,7 +273,6 @@
     "details": {
       "type": "object",
       "required": [
-        "read_more",
         "body"
       ],
       "additionalProperties": false,
