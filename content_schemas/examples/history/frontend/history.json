@@ -17,10 +17,14 @@
         "id": "explore-10-downing-street"
       }
     ],
-    "sidebar_image": {
-      "url": "https://www.gov.uk/assets/government-frontend/history/buildings/number-10-300-00aa6cc4623aff497a924d2742fa5087533221bb81c65b88fa1d11a1fc942567.jpg",
-      "caption": "10 Downing Street is the official residence of the Prime Minister"
-    }
+    "images": [
+      {
+        "type": "sidebar",
+        "url": "https://www.gov.uk/assets/government-frontend/history/buildings/number-10-300-00aa6cc4623aff497a924d2742fa5087533221bb81c65b88fa1d11a1fc942567.jpg",
+        "caption": "10 Downing Street is the official residence of the Prime Minister",
+        "content_type": "image/jpeg"
+      }
+    ]
   },
   "document_type": "history",
   "first_published_at": "2016-07-27T10:24:31+01:00",
