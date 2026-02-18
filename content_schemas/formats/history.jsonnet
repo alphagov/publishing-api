@@ -13,9 +13,6 @@
         body: {
           "$ref": "#/definitions/body"
         },
-        sidebar_image: {
-          "$ref": "#/definitions/image"
-        },
         images: {
           type: "array",
           items: {
