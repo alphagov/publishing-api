@@ -16,6 +16,12 @@
         sidebar_image: {
           "$ref": "#/definitions/image"
         },
+        images: {
+          type: "array",
+          items: {
+            "$ref": "#/definitions/image_asset",
+          }
+        },
         headers: {
           "$ref": "#/definitions/nested_headers"
         }
