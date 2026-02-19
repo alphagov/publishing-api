@@ -694,6 +694,10 @@
         "credit": {
           "type": "string"
         },
+        "high_resolution_url": {
+          "type": "string",
+          "format": "uri"
+        },
         "type": {
           "type": "string"
         },
