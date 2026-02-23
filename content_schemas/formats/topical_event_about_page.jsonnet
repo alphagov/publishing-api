@@ -20,4 +20,5 @@
       },
     },
   },
+  edition_links: (import "shared/whitehall_edition_links.jsonnet")
 }
