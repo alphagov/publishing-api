@@ -577,7 +577,7 @@ GEM
       opentelemetry-api (~> 1.0)
     os (1.1.4)
     ostruct (0.6.3)
-    pact (1.67.4)
+    pact (1.67.5)
       pact-mock_service (~> 3.0, >= 3.3.1)
       pact-support (~> 1.21, >= 1.21.2)
       rack
@@ -850,7 +850,7 @@ GEM
       sprockets (>= 3.0.0)
     stackprof (0.2.28)
     statsd-ruby (1.5.0)
-    string_pattern (2.3.0)
+    string_pattern (2.4.0)
       regexp_parser (~> 2.5, >= 2.5.0)
     stringio (3.2.0)
     strong_migrations (2.5.2)
@@ -906,7 +906,7 @@ GEM
       zeitwerk (>= 2.7)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.4)
+    zeitwerk (2.7.5)
 
 PLATFORMS
   aarch64-linux
