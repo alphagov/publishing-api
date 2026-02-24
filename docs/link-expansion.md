@@ -292,8 +292,6 @@ You can navigate through the `link_graph` object for further debugging informati
 [apprenticeship-standards]: https://www.gov.uk/government/collections/apprenticeship-standards
 [content-id]: model.md#user-content-content_id
 [content-store]: https://github.com/alphagov/content-store
-[downstream-draft-worker]: ../app/workers/downstream_draft_worker.rb
-[downstream-live-worker]: ../app/workers/downstream_live_worker.rb
 [link-expansion]: ../lib/link_expansion.rb
 [link-expansion-rules]: ../lib/expansion_rules/link_expansion.rb
 [link-graph]: ../app/models/link_graph.rb
