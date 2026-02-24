@@ -26,6 +26,12 @@
         image: {
           "$ref": "#/definitions/image",
         },
+        images: {
+          type: "array",
+          items: {
+            "$ref": "#/definitions/image_asset",
+          }
+        },
         first_public_at: {
           "$ref": "#/definitions/first_public_at",
         },
