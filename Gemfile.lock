@@ -292,7 +292,7 @@ GEM
       capybara (>= 3.36)
       puma
       selenium-webdriver (>= 4.0)
-    graphql (2.5.19)
+    graphql (2.5.20)
       base64
       fiber-storage
       logger
