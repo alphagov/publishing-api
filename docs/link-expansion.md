@@ -27,16 +27,13 @@
 
 Publishing API stores links between content items so that frontend applications can render links to related content on GOV.UK, such as the organisation responsible for publishing the page. These links contain only a reference to the related content item - they don't contain any information about the related content item until they are "expanded".
 
-Link expansion is the process of converting the stored links of an edition into a JSON representation containing more information about the linked content items. The expansion process occurs immediately before sending an edition downstream to the
-[Content Store][content-store].
+Link expansion is the process of converting the stored links of an edition into a JSON representation containing more information about the linked content items. The expansion process occurs immediately before sending an edition downstream to the [Content Store][content-store].
 
-A closely related process to this is
-[dependency resolution](dependency-resolution.md), which runs immediately after a document has been presented to Content Store. This is roughly the opposite of link expansion. When a document is updated, Publishing API works out which documents link to the updated document, and presents the linked documents to Content Store with the new expanded link content.
+A closely related process to this is [dependency resolution](dependency-resolution.md), which runs immediately after a document has been presented to Content Store. This is roughly the opposite of link expansion. When a document is updated, Publishing API works out which documents link to the updated document, and presents the linked documents to Content Store with the new expanded link content.
 
 ## Example Output
 
-Below is an abridged example of an edition represented as JSON after link
-expansion has occurred.
+Below is an abridged example of an edition represented as JSON after link expansion has occurred.
 
 ```json
 {
@@ -93,10 +90,7 @@ expansion has occurred.
 }
 ```
 
-Within a `links` JSON object there are keys which indicate the type of link
-(`link_type`), and at the value of those keys is an array of all links of that
-type. In the above example there are two types of link: `organisations` and
-`available_translations` which contain 1 and 2 links respectively.
+Within a `links` JSON object there are keys which indicate the type of link (`link_type`), and at the value of those keys is an array of all links of that type. In the above example there are two types of link: `organisations` and `available_translations` which contain 1 and 2 links respectively.
 
 ## Link Lifecycles
 
@@ -104,11 +98,9 @@ There are two categories of link with two separate API routes: edition links and
 
 ### `put-content` - Edition links
 
-These links are added via the [`put-content`](api.md#put-v2contentcontent_id)
-endpoint. They are associated with a single edition of a document.
+These links are added via the [`put-content`](api.md#put-v2contentcontent_id) endpoint. They are associated with a single edition of a document.
 
-In cases when there are edition links and link set links which have the same
-`link_type`, the edition links will take precedence during link expansion.
+In cases when there are edition links and link set links which have the same `link_type`, the edition links will take precedence during link expansion.
 
 Edition links should be the default approach to link creation, because link set links have the disadvantage of applying to all editions and locales of a document, which is generally not what is required in most use cases. However, edition links have a substantial limitation, which is that [recursive link expansion](#recursive-links) is not applied to them. If a document needs to access data from documents more than one link away, then link set links must be used.
 
@@ -116,9 +108,7 @@ There was an attempt to allow recursive expansion of edition links, but we weren
 
 ### `patch-link-set` - Link set links
 
-These links are added via the
-[`patch-link-set`](api.md#patch-v2linkscontent_id) endpoint. They are
-associated with a `content_id` rather than an `edition_id`, which therefore associates them with all of the editions and all of the locales of a document.
+These links are added via the [`patch-link-set`](api.md#patch-v2linkscontent_id) endpoint. They are associated with a `content_id` rather than an `edition_id`, which therefore associates them with all of the editions and all of the locales of a document.
 
 This is important because it means when they are updated **they will immediately apply to live editions** of a document.
 
@@ -128,73 +118,49 @@ Theoretically there isn't a need for link set links to exist as edition links ca
 
 ### Available translations
 
-A document can be available in multiple translations. This will be
-determined by documents sharing the same [`content_id`][content-id] and
-having different [`locale`][locale] values.
+A document can be available in multiple translations. This will be determined by documents sharing the same [`content_id`][content-id] and having different [`locale`][locale] values.
 
-The links for an edition will automatically include the available translations
-of editions of documents matching the same `content_id`, including the current
-locale.
+The links for an edition will automatically include the available translations of editions of documents matching the same `content_id`, including the current locale.
 
 **Example**
 
-For item `E` which exists in English ("en") and Welsh ("cy") the available
-translations links include a link to the "en" and "cy" variations of the
-document.
+For item `E` which exists in English ("en") and Welsh ("cy") the available translations links include a link to the "en" and "cy" variations of the document.
 
 ### Direct links
 
-These are typical links which have been added via
-[`patch-link-set`](#patch-link-set---link-set-links) or
-[`put-content`](#put-content---edition-links). They are presented with the `link_type` provided when creating the link.
+These are typical links which have been added via [`patch-link-set`](#patch-link-set---link-set-links) or [`put-content`](#put-content---edition-links). They are presented with the `link_type` provided when creating the link.
 
-These links may be [recursive](#recursive-links) depending on their
-`link_type`.
+These links may be [recursive](#recursive-links) depending on their `link_type`.
 
 ### Reverse links
 
 Certain `link_types` are considered the reverse of others, as configured in the [expansion link rules](lib/expansion_rules.rb:59).
 
-A reverse link corresponds with a direct link and has a reverse name. For
-instance `parent` has a reverse name of `children`.
+A reverse link corresponds with a direct link and has a reverse name. For instance `parent` has a reverse name of `children`.
 
 **Example**
 
-For item `A` which has a link to `B` which is a reverse `link_type` of parent.
-`A` will be presented with a link to `B` of type `parent`, whereas `B` will be
-presented with a link to `A` of type `children`.
+For item `A` which has a link to `B` which is a reverse `link_type` of parent. `A` will be presented with a link to `B` of type `parent`, whereas `B` will be presented with a link to `A` of type `children`.
 
-A quirk of reverse links is that they are presented with their corresponding
-link. For example when presenting a collection of links with a type of
-`children`, each one of those links will have a link of type `parent` which
-links to the original content.
+A quirk of reverse links is that they are presented with their corresponding link. For example when presenting a collection of links with a type of `children`, each one of those links will have a link of type `parent` which links to the original content.
 
-These links may be [recursive](#recursive-links) dependant on their `link_type`,
-they are defined in [`LinkExpansion::Rules`][link-expansion-rules].
+These links may be [recursive](#recursive-links) dependant on their `link_type`, they are defined in [`LinkExpansion::Rules`][link-expansion-rules].
 
 ### Recursive links
 
-Some link types are considered recursive. These types are used to present a tree
-structure of links and are frequently a source of confusion.
+Some link types are considered recursive. These types are used to present a tree structure of links and are frequently a source of confusion.
 
-Recursive links are used in cases where multiple levels of links are needed to render
-content. A common use case for this is breadcrumbs, where we may want to know the
-hierarchy from the root `/` page to the page we are on. Breadcrumbs are represented
-by using a recursive `parent` link type.
+Recursive links are used in cases where multiple levels of links are needed to render content. A common use case for this is breadcrumbs, where we may want to know the hierarchy from the root `/` page to the page we are on. Breadcrumbs are represented by using a recursive `parent` link type.
 
 **Example**
 
-Consider the page [Apprenticeship Standards][apprenticeship-standards] which
-has breadcrumbs of "Home > Further education and skills > Apprenticeships"
+Consider the page [Apprenticeship Standards][apprenticeship-standards] which has breadcrumbs of "Home > Further education and skills > Apprenticeships"
 
-- "Apprenticeship Standards" would have a link to "Apprenticeships" of type
-`parent`.
-- "Apprenticeships" would have a link to "Further education and skills" of type
-`parent`.
+- "Apprenticeship Standards" would have a link to "Apprenticeships" of type `parent`.
+- "Apprenticeships" would have a link to "Further education and skills" of type `parent`.
 - "Further education and skills" could have a link to "Home" of type `parent`.
 
-As `parent` is a recursive link type each link would include a link to its
-subsequent parent forming a graph of:
+As `parent` is a recursive link type each link would include a link to its subsequent parent forming a graph of:
 
 ```
 "Apprenticeship Standards" -parent-> "Apprenticeships" -parent-> "Further education and skills" -parent-> "Home"
@@ -204,13 +170,9 @@ From which breadcrumbs can be generated.
 
 #### Recursive link paths
 
-Recursive links can be defined as a path of link types, which means that only
-a structure of links that matches the defined path will be included in link
-expansion.
+Recursive links can be defined as a path of link types, which means that only a structure of links that matches the defined path will be included in link expansion.
 
-An example of this is the path of `ordered_related_items`,
-`mainstream_browse_pages` and `parent`. Only a tree of links that match this
-path would be included in link expansion.
+An example of this is the path of `ordered_related_items`, `mainstream_browse_pages` and `parent`. Only a tree of links that match this path would be included in link expansion.
 
 This path would be included in the links representation for an item `A`:
 
@@ -224,12 +186,9 @@ However this path would not be:
 "Item A" -mainstream_browse_pages-> "Item B" -ordered_related_items-> "Item C" -parent-> "Item D"
 ```
 
-An item in a path of link types can be marked as _recurring_. This means that
-there can be many items of this type in the path.
+An item in a path of link types can be marked as _recurring_. This means that there can be many items of this type in the path.
 
-For the path `ordered_related_items`, `mainstream_browse_pages` and
-`parent.recurring` there be any number of `parent` items, and only 1 instance
-of `ordered_related_items` and `mainstream_browse_pages`.
+For the path `ordered_related_items`, `mainstream_browse_pages` and `parent.recurring` there be any number of `parent` items, and only 1 instance of `ordered_related_items` and `mainstream_browse_pages`.
 
 This is a valid path for `ordered_related_items`, `mainstream_browse_pages` and `parent`:
 
@@ -243,8 +202,7 @@ Yet this is invalid:
 "Item A" -ordered_related_items-> "Item B" -mainstream_browse_pages-> "Item C" -mainstream_browse_pages-> "Item D" -parent-> "Item E" -parent-> "Item F"
 ```
 
-The rules for recursive link types are defined in
-[`LinkExpansion::Rules`][link-expansion-rules].
+The rules for recursive link types are defined in [`LinkExpansion::Rules`][link-expansion-rules].
 
 ## Edition state and links
 
@@ -252,12 +210,9 @@ Whether a link is included during link expansion depends on which [state](model.
 
 ### Edition has a state of `published` or `unpublished`
 
-Links are included when the linked edition exists in a `published` state. Editions
-that are in an `unpublished` state with type `withdrawn` may be linked to
-depending on their `link_type`. Editions that are `unpublished` but not `withdrawn` are not linked.
+Links are included when the linked edition exists in a `published` state. Editions that are in an `unpublished` state with type `withdrawn` may be linked to depending on their `link_type`. Editions that are `unpublished` but not `withdrawn` are not linked.
 
-The `link_types` that define whether a withdrawn edition is linked to are defined
-in [LinkExpansion][link-expansion].
+The `link_types` that define whether a withdrawn edition is linked to are defined in [LinkExpansion][link-expansion].
 
 ### Edition has a state of `draft`
 
@@ -265,11 +220,9 @@ Links to draft editions are only included if the item which is having its links 
 
 ## Link presentation
 
-Links are presented as a JSON object where the keys of the object define the link
-types and for each link type there is an array of links.
+Links are presented as a JSON object where the keys of the object define the link types and for each link type there is an array of links.
 
-The ordering of links is determined by the order in which the links were added
-via `patch-link-set`. Automatic link types (e.g. translations) do not have a specific ordering.
+The ordering of links is determined by the order in which the links were added via `patch-link-set`. Automatic link types (e.g. translations) do not have a specific ordering.
 
 ### Fields
 
@@ -280,67 +233,49 @@ By default links contain the following fields:
 - `base_path` - The public path to this item
 - `content_id` - A UUID to represents the document
 - `description` - A short description of the content
-- `document_type` - This describes a type of document used on GOV.UK and
-  allowed by the schema
+- `document_type` - This describes a type of document used on GOV.UK and allowed by the schema
 - `locale` - The language this document is written in
 - `public_updated_at` - The date/time that this document  was last changed
 - `schema_name` - The schema (in `content_schemas`) that this edition conforms to
 - `title` - The title of the edition
-- `links` - Any [recursive links](#recursive-links) that are presented with a
-  link representation of an edition
+- `links` - Any [recursive links](#recursive-links) that are presented with a link representation of an edition
 
-The fields can be customised per `link_type`. These customisations are defined in
-[`LinkExpansion::Rules`][link-expansion-rules].
+The fields can be customised per `link_type`. These customisations are defined in [`LinkExpansion::Rules`][link-expansion-rules].
 
 ## Developer gotchas
 
-Link expansion is complicated and thus can be challenging for developers to
-understand. This section attempts to cover some of the common questions,
-we always welcome any suggestions to simplify link expansion.
+Link expansion is complicated and thus can be challenging for developers to understand. This section attempts to cover some of the common questions, we always welcome any suggestions to simplify link expansion.
 
 ### Why is this link appearing?
 
 To understand why a link is presented the following things should be considered:
 
-- If the link is an `available_translations` link it will be a
-  [translation](#available-translations) of the document;
-- The link could be a [direct link](#direct-links) from the
-  [`Edition`](model.md#edition) or [`LinkSet`](model.md#linkset);
-- The link could be a link defined on a different Edition or LinkSet and be
-  a [reverse link](#reverse-links) and represented reciprocally;
-- If the link is defined inside a different link it will be either be a
-  [recursive link](#recursive-links) or it will be the counterpart of a [reverse link](#reverse-links).
+- If the link is an `available_translations` link it will be a [translation](#available-translations) of the document;
+- The link could be a [direct link](#direct-links) from the [`Edition`](model.md#edition) or [`LinkSet`](model.md#linkset);
+- The link could be a link defined on a different Edition or LinkSet and be a [reverse link](#reverse-links) and represented reciprocally;
+- If the link is defined inside a different link it will be either be a [recursive link](#recursive-links) or it will be the counterpart of a [reverse link](#reverse-links).
 
 ### Why is this link *not* appearing?
 
-A link that you expect to appear might not be appearing for one of the following
-reasons:
+A link that you expect to appear might not be appearing for one of the following reasons:
 
-- The item to be linked to might not be available in a
-  [linkable state](#edition-state-and-links);
-- If it is a link set link, there could be [`Edition`](model.md#edition) 
-  links that are defined with the same `link_type` which means the edition
-  links will take precedence.
-- If a recursive link is expected it may not be following a valid
-  [recursive link path](#recursive-link-paths).
+- The item to be linked to might not be available in a [linkable state](#edition-state-and-links);
+- If it is a link set link, there could be [`Edition`](model.md#edition) links that are defined with the same `link_type` which means the edition links will take precedence.
+- If a recursive link is expected it may not be following a valid [recursive link path](#recursive-link-paths).
 
 ### Why/how does a link have different fields to other links?
 
-Links for a specific `link_type` can be defined to return
-[different fields](#fields) as part of link expansion. These are defined in
-[`LinkExpansion::Rules`][link-expansion-rules].
+Links for a specific `link_type` can be defined to return [different fields](#fields) as part of link expansion. These are defined in [`LinkExpansion::Rules`][link-expansion-rules].
 
 ## Debugging
 
-You can explore link expansion in the rails console by creating a
-[`LinkExpansion`][link-expansion] instance.
+You can explore link expansion in the rails console by creating a [`LinkExpansion`][link-expansion] instance.
 
 ```
 > link_expansion = LinkExpansion.by_content_id(content_id, locale: :en, with_drafts: true)
 ```
 
-You can then print the [`link_graph`][link-graph] of the link expansion to view
-the links.
+You can then print the [`link_graph`][link-graph] of the link expansion to view the links.
 
 ```
 > link_expansion.link_graph.to_h
@@ -352,8 +287,7 @@ the links.
  :related=>[{:content_id=>"78cedbfe-d3aa-41c3-b8c0-aeb5d9035d6a", :links=>{}}]}
 ```
 
-You can navigate through the `link_graph` object for further debugging
-information.
+You can navigate through the `link_graph` object for further debugging information.
 
 [apprenticeship-standards]: https://www.gov.uk/government/collections/apprenticeship-standards
 [content-id]: model.md#user-content-content_id
