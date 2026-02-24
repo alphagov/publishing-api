@@ -4,6 +4,9 @@
 
 - [Introduction](#introduction)
 - [Example output](#example-output)
+- [Types of Link Expansion](#type-of-link-expansion)
+  - [Legacy Link Expansion](#legacy-link-expansion)
+  - [GraphQL Link Expansion](#graphql-link-expansion)
 - [Link lifecycles](#link-lifecycles)
   - [`put-content` - Edition links](#put-content---edition-links)
   - [`patch-link-set` - Link set links](#patch-link-set---link-set-links)
@@ -19,7 +22,7 @@
   - [Why is this link appearing?](#why-is-this-link-appearing)
   - [Why is this link *not* appearing?](#why-is-this-link-not-appearing)
   - [Why/how does a link have different fields to other links?](#whyhow-does-a-link-have-different-fields-to-other-links)
-- [Debugging](#debugging)
+- [Debugging legacy link expansion](#debugging-legacy-link-expansion)
 
 ## Introduction
 
@@ -84,11 +87,27 @@ Below is an abridged example of an edition represented as JSON after link expans
       "title": "Cynllun iaith Gymraeg",
       "links": {}
     }]
-  },
+  }
 }
 ```
 
 Within a `links` JSON object there are keys which indicate the type of link (`link_type`), and at the value of those keys is an array of all links of that type. In the above example there are two types of link: `organisations` and `available_translations` which contain 1 and 2 links respectively.
+
+Note that `available_translations` is not submitted as part of the payload from publishing applications. It is added automatically by Publishing API to all documents. See [available translations](#available-translations).
+
+## Type of Link Expansion
+
+### Legacy Link Expansion
+
+This occurs at the time of putting content, patching links and publishing a document. The links for an edition are pre-computed and presented to Content Store. Content Store caches a copy of these links in its database and renders this cached version when requested.
+
+The definitions for which fields to include in expanded links are hardcoded in Publishing API (see [fields](#fields)).
+
+### GraphQL Link Expansion
+
+This occurs at the time of requesting content by the public. The links for an edition are only computed when the document is rendered to a client.
+
+The definitions for which fields to include in expanded links are defined by the client in their request payload (see [fields](#fields)).
 
 ## Link Lifecycles
 
@@ -100,17 +119,44 @@ These links are added via the [`put-content`](api.md#put-v2contentcontent_id) en
 
 In cases when there are edition links and link set links which have the same `link_type`, the edition links will take precedence during link expansion.
 
-Edition links should be the default approach to link creation, because link set links have the disadvantage of applying to all editions and locales of a document, which is generally not what is required in most use cases. However, edition links have a substantial limitation, which is that [recursive link expansion](#recursive-links) is not applied to them. If a document needs to access data from documents more than one link away, then link set links must be used.
+Edition links should be the default approach to link creation, because link set links have the disadvantage of applying to all editions and locales of a document. Whereas edition links allow links to be set against draft editions, meaning they won't become live until the edition is published. Edition links are also locale specific, so different locales of the same Content ID can have different links.
 
-There was an attempt to allow recursive expansion of edition links, but we weren't able to complete it. See <https://github.com/alphagov/publishing-api/pull/2605>.
+However, edition links have a substantial limitation, which is that [recursive link expansion](#recursive-links) is not applied to them during legacy link expansion. If a document needs to access data from documents more than one link away, then link set links must be used. This is not the case with GraphQL link expansion, which expands all levels of recursive edition links. This limitation will no longer exist when legacy link expansion is switched off.
+
+Below is an abridged example of the edition above, sent to Publishing API by a publishing application with edition links in the payload.
+
+```json
+{
+  "base_path": "/government/organisations/department-for-transport/about/welsh-language-scheme",
+  "content_id": "5f54d009-7631-11e4-a3cb-005056011aef",
+  ...
+  "links": {
+    "organisations": [
+      "4c717efc-f47b-478e-a76d-ce1ae0af1946"
+    ],
+  }
+}
+```
 
 ### `patch-link-set` - Link set links
 
-These links are added via the [`patch-link-set`](api.md#patch-v2linkscontent_id) endpoint. They are associated with a `content_id` rather than an `edition_id`, which therefore associates them with all of the editions and all of the locales of a document.
+Link set links pre-date edition links. These links are added via the [`patch-link-set`](api.md#patch-v2linkscontent_id) endpoint. They are associated with a `content_id` rather than an `edition_id`, which therefore means they are associated with all editions and all locales of a Content ID.
 
-This is important because it means when they are updated **they will immediately apply to live editions** of a document.
+This is important because it means when a patch links request is made, **they will immediately apply to live editions** of a document, even if the document has a draft edition.
 
-Theoretically there isn't a need for link set links to exist as edition links can serve all of the same use cases. However, edition links are missing the crucial feature of recursive expansion, so we cannot retire link set links. Link set links pre-date edition links.
+Theoretically there isn't a need for link set links to exist as edition links can serve all of the same use cases. However, edition links are missing the crucial feature of recursive expansion in legacy link expansion, so we cannot retire link set links. This will be resolved by GraphQL link expansion, which expands all levels of recursive edition links.
+
+Below is an abridged example of a patch links request for the document above, sent to Publishing API by a publishing application.
+
+```json
+{
+  "links": {
+    "organisations": [
+      "4c717efc-f47b-478e-a76d-ce1ae0af1946"
+    ],
+  }
+}
+```
 
 ## Types of links
 
@@ -132,7 +178,9 @@ These links may be [recursive](#recursive-links) depending on their `link_type`.
 
 ### Reverse links
 
-Certain `link_types` are considered the reverse of others, as configured in the [expansion link rules](lib/expansion_rules.rb:59).
+Certain `link_types` are considered the reverse of others.
+
+These are configured in the [expansion link rules](lib/expansion_rules.rb) for legacy link expansion and the [edition type](app/graphql/types/edition_type.rb) for GraphQL link expansion.
 
 A reverse link corresponds with a direct link and has a reverse name. For instance `parent` has a reverse name of `children`.
 
@@ -146,7 +194,7 @@ These links may be [recursive](#recursive-links) dependant on their `link_type`,
 
 ### Recursive links
 
-Some link types are considered recursive. These types are used to present a tree structure of links and are frequently a source of confusion.
+Some link types are considered recursive. These types are used to present a tree structure of links.
 
 Recursive links are used in cases where multiple levels of links are needed to render content. A common use case for this is breadcrumbs, where we may want to know the hierarchy from the root `/` page to the page we are on. Breadcrumbs are represented by using a recursive `parent` link type.
 
@@ -200,7 +248,9 @@ Yet this is invalid:
 "Item A" -ordered_related_items-> "Item B" -mainstream_browse_pages-> "Item C" -mainstream_browse_pages-> "Item D" -parent-> "Item E" -parent-> "Item F"
 ```
 
-The rules for recursive link types are defined in [`LinkExpansion::Rules`][link-expansion-rules].
+For legacy link expansion, the rules for recursive link types are defined in [`LinkExpansion::Rules`][link-expansion-rules].
+
+For GraphQL link expansion, the client defines the recursive links they would like to obtain in their query, which forms part of the request payload.
 
 ## Edition state and links
 
@@ -210,7 +260,7 @@ Whether a link is included during link expansion depends on which [state](model.
 
 Links are included when the linked edition exists in a `published` state. Editions that are in an `unpublished` state with type `withdrawn` may be linked to depending on their `link_type`. Editions that are `unpublished` but not `withdrawn` are not linked.
 
-The `link_types` that define whether a withdrawn edition is linked to are defined in [LinkExpansion][link-expansion].
+The `link_types` that define whether a withdrawn edition is linked to are defined in the [Link::PERMITTED_UNPUBLISHED_LINK_TYPES constant](app/models/link.rb).
 
 ### Edition has a state of `draft`
 
@@ -223,6 +273,8 @@ Links are presented as a JSON object where the keys of the object define the lin
 The ordering of links is determined by the order in which the links were added via `patch-link-set`. Automatic link types (e.g. translations) do not have a specific ordering.
 
 ### Fields
+
+#### With legacy link expansion
 
 By default links contain the following fields:
 
@@ -239,6 +291,10 @@ By default links contain the following fields:
 - `links` - Any [recursive links](#recursive-links) that are presented with a link representation of an edition
 
 The fields can be customised per `link_type`. These customisations are defined in [`LinkExpansion::Rules`][link-expansion-rules].
+
+#### With GraphQL link expansion
+
+The client defines which fields they would like to obtain by including them in their query. There are no default fields.
 
 ## Developer gotchas
 
@@ -263,11 +319,13 @@ A link that you expect to appear might not be appearing for one of the following
 
 ### Why/how does a link have different fields to other links?
 
+> This is relevant to legacy link expansion only. For GraphQL, the fields are defined by the client.
+
 Links for a specific `link_type` can be defined to return [different fields](#fields) as part of link expansion. These are defined in [`LinkExpansion::Rules`][link-expansion-rules].
 
-## Debugging
+## Debugging legacy link expansion
 
-You can explore link expansion in the rails console by creating a [`LinkExpansion`][link-expansion] instance.
+You can explore legacy link expansion in the rails console by creating a [`LinkExpansion`][link-expansion] instance.
 
 ```
 > link_expansion = LinkExpansion.by_content_id(content_id, locale: :en, with_drafts: true)
