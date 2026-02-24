@@ -133,7 +133,7 @@ GEM
       rexml
     crass (1.0.6)
     csv (3.3.5)
-    dalli (5.0.1)
+    dalli (5.0.2)
       logger
     database_cleaner (2.1.0)
       database_cleaner-active_record (>= 2, < 3)
