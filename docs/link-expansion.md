@@ -4,8 +4,7 @@
 
 - [Introduction](#introduction)
 - [Example output](#example-output)
-- [When it occurs](#when-it-occurs)
-- [Link lifecycles](#how-links-are-added)
+- [Link lifecycles](#link-lifecycles)
   - [`put-content` - Edition links](#put-content---edition-links)
   - [`patch-link-set` - Link set links](#patch-link-set---link-set-links)
 - [Types of links](#types-of-links)
@@ -19,8 +18,7 @@
 - [Developer gotchas](#developer-gotchas)
   - [Why is this link appearing?](#why-is-this-link-appearing)
   - [Why is this link *not* appearing?](#why-is-this-link-not-appearing)
-  - [Why/how does a link have extra fields?](#whyhow-does-a-link-have-extra-fields)
-  - [Why does this link have/have no child links?](#why-does-this-link-havehave-no-child-links)
+  - [Why/how does a link have different fields to other links?](#whyhow-does-a-link-have-different-fields-to-other-links)
 - [Debugging](#debugging)
 
 ## Introduction
