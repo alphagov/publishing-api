@@ -4,10 +4,12 @@ module GraphqlLinkExpansionPrecedenceHelpers
       include FactoryBot::Syntax::Methods
 
       def initialize(
+        with_drafts:,
         root_locale:,
         source_editions:,
         source_content_ids_differ:
       )
+        @with_drafts = with_drafts
         @root_locale = root_locale
         @source_editions_input = source_editions
         @source_content_ids_differ = source_content_ids_differ
@@ -18,7 +20,7 @@ module GraphqlLinkExpansionPrecedenceHelpers
           source_editions
 
           Presenters::Queries::ExpandedLinkSet
-            .by_edition(linked_edition, with_drafts: false)
+            .by_edition(linked_edition, with_drafts:)
             .links
             .fetch(ExpansionRules.reverse_link_type(link_type), [])
         end
@@ -31,7 +33,7 @@ module GraphqlLinkExpansionPrecedenceHelpers
           GraphQL::Dataloader.with_dataloading do |dataloader|
             request = dataloader.with(
               Sources::ReverseLinkedToEditionsSource,
-              content_store: "live",
+              with_drafts:,
               locale: root_locale,
             ).request([linked_edition, link_type])
 
@@ -90,9 +92,13 @@ module GraphqlLinkExpansionPrecedenceHelpers
         "when the linked (root) edition's locale is \"#{root_locale}\""
       end
 
+      def with_drafts_description
+        "when #{with_drafts ? 'accepting' : 'rejecting'} drafts"
+      end
+
     private
 
-      attr_reader :root_locale, :source_editions_input, :source_content_ids_differ
+      attr_reader :with_drafts, :root_locale, :source_editions_input, :source_content_ids_differ
 
       def linked_edition
         @linked_edition ||= create(
@@ -173,6 +179,7 @@ module GraphqlLinkExpansionPrecedenceHelpers
       def valid_edition?(edition)
         return false if Edition::NON_RENDERABLE_FORMATS.include?(edition.document_type)
         return false unless [Edition::DEFAULT_LOCALE, root_locale].include?(edition.locale)
+        return false if edition.draft? && !with_drafts
 
         if edition.unpublished?
           return false unless edition.withdrawn?
