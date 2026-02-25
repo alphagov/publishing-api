@@ -1,5 +1,10 @@
 (import "shared/default_format.jsonnet") + {
-  document_type: ["content_block_time_period"],
+  document_type: [
+    "content_block_time_period",
+    "content_block_tax",
+    "content_block_contact",
+    "content_block_pension",
+  ],
   definitions: {
     details: {
       type: "object",

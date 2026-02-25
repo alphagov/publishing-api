@@ -34,7 +34,10 @@
     "document_type": {
       "type": "string",
       "enum": [
-        "content_block_time_period"
+        "content_block_time_period",
+        "content_block_tax",
+        "content_block_contact",
+        "content_block_pension"
       ]
     },
     "first_published_at": {

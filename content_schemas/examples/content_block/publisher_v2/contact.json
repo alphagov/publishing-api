@@ -1,0 +1,108 @@
+{
+  "locale": "en",
+  "schema_name": "content_block",
+  "document_type": "content_block_contact",
+  "title": "HMRC - Media enquiries",
+  "instructions_to_publishers": "Media and press contact email address for HMRC",
+  "content_id_alias": "hmrc-media",
+  "base_path": "/content-blocks/content_block_contact/hmrc-media",
+  "routes": [
+    {
+      "path": "/content-blocks/content_block_contact/hmrc-media",
+      "type": "exact"
+    }
+  ],
+  "details": {
+    "description": "Description goes here",
+    "order": [
+      "email_addresses.email-1",
+      "addresses.address-1",
+      "addresses.address-2",
+      "email_addresses.email-2",
+      "telephones.telephone-1",
+      "email_addresses.email-2",
+      "contact_links.webchat"
+    ],
+    "email_addresses": {
+      "email-1": {
+        "title": "Email 1",
+        "email_address": "hello@example.com",
+        "description": "General enquiries"
+      },
+      "email-2": {
+        "title": "Email 2",
+        "email_address": "hiagain@example.com",
+        "description": "More enquiries"
+      },
+      "email-3": {
+        "title": "Email 3",
+        "email_address": "bye@example.com",
+        "description": "Another address"
+      }
+    },
+    "addresses": {
+      "address-1": {
+        "title": "Some address",
+        "street_address": "123 Fake Street",
+        "postal_code": "ABC 123"
+      },
+      "address-2": {
+        "title": "Address"
+      }
+    },
+    "contact_links": {
+      "webchat": {
+        "title": "Webchat",
+        "label": "Speak to an adviser now",
+        "url": "https://example.com"
+      }
+    },
+    "telephones": {
+      "telephone-1": {
+        "title": "Telephone",
+        "telephone_numbers": [
+          {
+            "label": "Telephone 1",
+            "telephone_number": "1234 567 89",
+            "type": "telephone"
+          },
+          {
+            "label": "Telephone 2",
+            "telephone_number": "1234 567 89",
+            "type": "textphone"
+          },
+          {
+            "label": "Telephone 3",
+            "telephone_number": "1234 567 89",
+            "type": "welsh_language"
+          }
+        ],
+        "opening_hours": {
+          "show": true,
+          "value": "Monday to Friday, 8am to 6pm (except public holidays)"
+        },
+        "video_relay_service": {
+          "show": true,
+          "label": "Text relay: dial 18001 then:",
+          "telephone_number": "0800 1234 1234",
+          "source": "Provider: [Relay UK](https://www.relayuk.bt.com)"
+        },
+        "call_charges": {
+          "label": "Find out about call charges",
+          "call_charges_info_url": "https://gov.uk/call-charges/overseas",
+          "show_call_charges_info_url": true
+        },
+        "bsl_guidance": {
+          "show": true,
+          "value": "Some value"
+        }
+      }
+    }
+  },
+  "links": {
+    "primary_publishing_organisation": [
+      "dcc907d6-433c-42df-9ffb-d9c68be5dc4d"
+    ]
+  },
+  "publishing_app": "whitehall"
+}
