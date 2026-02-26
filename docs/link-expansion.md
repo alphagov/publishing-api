@@ -28,9 +28,9 @@
 
 Publishing API stores links between content items so that frontend applications can render links to related content on GOV.UK, such as the organisation responsible for publishing the page. These links contain only a reference to the related content item - they don't contain any information about the related content item until they are "expanded".
 
-Link expansion is the process of converting the stored links of an edition into a JSON representation containing more information about the linked content items. The expansion process occurs immediately before sending an edition downstream to the [Content Store][content-store].
+Link expansion is the process of converting the stored links of an edition into a JSON representation containing more information about the linked content items. The expansion process occurs at different times, depending on whether GraphQL is being used (see [Types of Link Expansion](#type-of-link-expansion)).
 
-A closely related process to this is [dependency resolution](dependency-resolution.md), which runs immediately after a document has been presented to Content Store. This is roughly the opposite of link expansion. When a document is updated, Publishing API works out which documents link to the updated document, and presents the linked documents to Content Store with the new expanded link content.
+A closely related process to this is [dependency resolution](dependency-resolution.md), which runs immediately after a document has been presented to Content Store. This is roughly the opposite of link expansion. When a document is updated, Publishing API works out which documents link to the updated document, and presents the linked documents to Content Store with the new expanded link content. Dependency resolution is not required for GraphQL.
 
 ## Example Output
 
