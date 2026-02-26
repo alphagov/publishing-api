@@ -75,15 +75,8 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                                 { link_type: "test_link", target_content_id: target_edition.content_id },
                               ])
 
-      GraphQL::Dataloader.with_dataloading do |dataloader|
-        request = dataloader.with(
-          described_class,
-          content_store: target_edition.content_store,
-          locale: target_edition.locale,
-        ).request([target_edition, "test_link"])
-
-        expect(request.load).to eq([source_edition])
-      end
+      expected_titles = [source_edition.title]
+      expect(target_edition).to have_links("test_link").with_titles(expected_titles)
     end
   end
 
