@@ -22,8 +22,8 @@ class GraphqlQueryBuilder
 
   def build_query
     parts = [
-      "query #{@schema_name}($base_path: String!) {",
-      "  edition(base_path: $base_path) {",
+      "query #{@schema_name}($base_path: String!, $with_drafts: Boolean) {",
+      "  edition(base_path: $base_path, with_drafts: $with_drafts) {",
       "    ... on #{edition_type_or_subtype} {",
       build_fields(@content_item, indent: 6),
       "    }",
