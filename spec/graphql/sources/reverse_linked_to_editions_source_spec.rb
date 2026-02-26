@@ -39,9 +39,9 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
   context "when the same target content has a mix of link set links and edition links for the same link type" do
     it "returns all valid source editions" do
-      target_edition = create(:edition)
+      target_edition = create(:live_edition)
 
-      source_edition_1 = create(:edition,
+      source_edition_1 = create(:live_edition,
                                 title: "edition 1, edition link",
                                 edition_links: [
                                   {
@@ -49,7 +49,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                                     target_content_id: target_edition.content_id,
                                   },
                                 ])
-      source_edition_2 = create(:edition,
+      source_edition_2 = create(:live_edition,
                                 title: "edition 2, link set link",
                                 link_set_links: [
                                   {
@@ -65,9 +65,9 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
   context "when the same document is both a link set link and an edition link" do
     it "only returns the document once" do
-      target_edition = create(:edition)
+      target_edition = create(:live_edition)
 
-      source_edition = create(:edition,
+      source_edition = create(:live_edition,
                               edition_links: [
                                 { link_type: "test_link", target_content_id: target_edition.content_id },
                               ],
@@ -90,21 +90,21 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
   %i[link_set_links edition_links].each do |links_kind|
     context "when the link kind is #{links_kind}" do
       it "returns the specified reverse links" do
-        target_edition = create(:edition)
+        target_edition = create(:live_edition)
 
-        source_edition_1 = create(:edition,
+        source_edition_1 = create(:live_edition,
                                   title: "edition 1, test link",
                                   links_kind => [
                                     { link_type: "test_link", target_content_id: target_edition.content_id },
                                   ])
 
-        source_edition_2 = create(:edition,
+        source_edition_2 = create(:live_edition,
                                   title: "edition 2, test link",
                                   links_kind => [
                                     { link_type: "test_link", target_content_id: target_edition.content_id },
                                   ])
 
-        create(:edition,
+        create(:live_edition,
                title: "edition 3, another link type",
                links_kind => [
                  { link_type: "another_link_type", target_content_id: target_edition.content_id },
@@ -115,19 +115,19 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       end
 
       it "returns editions ordered by their reverse links' `position`" do
-        target_edition = create(:edition)
+        target_edition = create(:live_edition)
 
-        source_edition_0 = create(:edition,
+        source_edition_0 = create(:live_edition,
                                   title: "edition 0, position 1",
                                   links_kind => [
                                     { link_type: "test_link", target_content_id: target_edition.content_id, position: 1 },
                                   ])
-        source_edition_1 = create(:edition,
+        source_edition_1 = create(:live_edition,
                                   title: "edition 1, position 2",
                                   links_kind => [
                                     { link_type: "test_link", target_content_id: target_edition.content_id, position: 2 },
                                   ])
-        source_edition_2 = create(:edition,
+        source_edition_2 = create(:live_edition,
                                   title: "edition 2, position 0",
                                   links_kind => [
                                     { link_type: "test_link", target_content_id: target_edition.content_id, position: 0 },
@@ -139,9 +139,9 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
       context "when reverse links have the same `position`" do
         it "returns editions reverse-ordered by their associated reverse links' `id`" do
-          target_edition = create(:edition)
+          target_edition = create(:live_edition)
 
-          source_edition_1 = create(:edition,
+          source_edition_1 = create(:live_edition,
                                     title: "edition 1, second link id",
                                     links_kind => [
                                       {
@@ -151,7 +151,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                                         id: 10_002,
                                       },
                                     ])
-          source_edition_0 = create(:edition,
+          source_edition_0 = create(:live_edition,
                                     title: "edition 0, first link id",
                                     links_kind => [
                                       {
@@ -161,7 +161,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
                                         id: 10_001,
                                       },
                                     ])
-          source_edition_2 = create(:edition,
+          source_edition_2 = create(:live_edition,
                                     title: "edition 2, third link id",
                                     links_kind => [
                                       {
@@ -272,10 +272,10 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       end
 
       it "doesn't include linked editions of non-renderable document types" do
-        target_edition = create(:edition)
+        target_edition = create(:live_edition)
 
         renderable_edition = create(
-          :edition,
+          :live_edition,
           title: "renderable edition",
           links_kind => [
             { link_type: "test_link", target_content_id: target_edition.content_id },
@@ -299,11 +299,11 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
     %i[link_set_links edition_links].each do |links_kind|
       context "when the link kind is #{links_kind}" do
         it "includes reverse links matching the specified locale" do
-          target_edition = create(:edition, document: create(:document, locale: "fr"))
+          target_edition = create(:live_edition, document: create(:document, locale: "fr"))
 
           source_content_id = SecureRandom.uuid
           create(
-            :edition,
+            :live_edition,
             title: "english, test link",
             document: create(:document, locale: "en", content_id: source_content_id),
             links_kind => [
@@ -311,7 +311,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
             ],
           )
           french_edition = create(
-            :edition,
+            :live_edition,
             title: "french, test link",
             document: create(:document, locale: "fr", content_id: source_content_id),
             links_kind => [
@@ -327,11 +327,11 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
     context "when the link kind is link_set_links" do
       it "includes English language reverse links if there's no better match available" do
-        target_edition = create(:edition, document: create(:document, locale: "de"))
+        target_edition = create(:live_edition, document: create(:document, locale: "de"))
 
         source_content_id = SecureRandom.uuid
         english_edition = create(
-          :edition,
+          :live_edition,
           document: create(:document, locale: "en", content_id: source_content_id),
           title: "english, test link",
           link_set_links: [
@@ -339,7 +339,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           ],
         )
         create(
-          :edition,
+          :live_edition,
           document: create(:document, locale: "fr", content_id: source_content_id),
           title: "french, test link",
           link_set_links: [
@@ -352,11 +352,11 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
       end
 
       it "doesn't include a reverse link if none match the locale or English" do
-        target_edition = create(:edition, document: create(:document, locale: "hu"))
+        target_edition = create(:live_edition, document: create(:document, locale: "hu"))
 
         source_content_id = SecureRandom.uuid
         create(
-          :edition,
+          :live_edition,
           document: create(:document, locale: "de", content_id: source_content_id),
           title: "german",
           link_set_links: [
@@ -364,7 +364,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           ],
         )
         create(
-          :edition,
+          :live_edition,
           document: create(:document, locale: "fr", content_id: source_content_id),
           title: "french",
           link_set_links: [
@@ -378,11 +378,11 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
 
     context "when the link kind is edition_links" do
       it "doesn't include a reverse link if none match the locale" do
-        target_edition = create(:edition, document: create(:document, locale: "hu"))
+        target_edition = create(:live_edition, document: create(:document, locale: "hu"))
 
         source_content_id = SecureRandom.uuid
         create(
-          :edition,
+          :live_edition,
           document: create(:document, locale: "en", content_id: source_content_id),
           title: "english, test link",
           edition_links: [
@@ -390,7 +390,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           ],
         )
         create(
-          :edition,
+          :live_edition,
           document: create(:document, locale: "de", content_id: source_content_id),
           title: "german",
           edition_links: [
@@ -398,7 +398,7 @@ RSpec.describe Sources::ReverseLinkedToEditionsSource do
           ],
         )
         create(
-          :edition,
+          :live_edition,
           document: create(:document, locale: "fr", content_id: source_content_id),
           title: "french",
           edition_links: [
