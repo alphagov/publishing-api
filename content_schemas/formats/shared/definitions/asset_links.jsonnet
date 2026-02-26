@@ -67,7 +67,29 @@ local PublicationAttachmentAssetProperties = {
       content_type: { type: "string", },
       credit: { type: "string", },
       url: { type: "string", format: "uri", },
-      type: { type: "string" }
+      type: { type: "string" },
+      sources: {
+        type: "object",
+        additionalProperties: true,
+        patternProperties: {
+          "^desktop": {
+            type: "string",
+            format: "uri",
+          },
+          "^tablet": {
+            type: "string",
+            format: "uri",
+          },
+          "^mobile": {
+            type: "string",
+            format: "uri",
+          },
+          "^s[0-9]+": {
+            type: "string",
+            format: "uri",
+          },
+        },
+      },
     },
   },
 
