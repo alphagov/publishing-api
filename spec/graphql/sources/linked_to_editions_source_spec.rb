@@ -39,10 +39,10 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
   context "when the same source content has a mix of link set links and edition links for the same link type" do
     it "returns only the edition links" do
-      target_edition_1 = create(:edition, title: "edition 1, test link, edition link")
-      target_edition_2 = create(:edition, title: "edition 2, test link, link set link")
+      target_edition_1 = create(:live_edition, title: "edition 1, test link, edition link")
+      target_edition_2 = create(:live_edition, title: "edition 2, test link, link set link")
 
-      source_edition = create(:edition,
+      source_edition = create(:live_edition,
                               edition_links: [
                                 { link_type: "test_link", target_content_id: target_edition_1.content_id },
                               ],
@@ -58,11 +58,11 @@ RSpec.describe Sources::LinkedToEditionsSource do
   %i[link_set_links edition_links].each do |links_kind|
     context "when the link kind is #{links_kind}" do
       it "returns the specified links" do
-        target_edition_1 = create(:edition, title: "edition 1, test link")
-        target_edition_2 = create(:edition, title: "edition 2, another link type")
-        target_edition_3 = create(:edition, title: "edition 3, test link")
+        target_edition_1 = create(:live_edition, title: "edition 1, test link")
+        target_edition_2 = create(:live_edition, title: "edition 2, another link type")
+        target_edition_3 = create(:live_edition, title: "edition 3, test link")
 
-        source_edition = create(:edition,
+        source_edition = create(:live_edition,
                                 links_kind => [
                                   { link_type: "test_link", target_content_id: target_edition_1.content_id },
                                   { link_type: "another_link_type", target_content_id: target_edition_2.content_id },
@@ -88,11 +88,11 @@ RSpec.describe Sources::LinkedToEditionsSource do
       end
 
       it "returns editions in order of their associated link's `position`" do
-        target_edition_0 = create(:edition, title: "edition 0, position 1")
-        target_edition_1 = create(:edition, title: "edition 1, position 2")
-        target_edition_2 = create(:edition, title: "edition 2, position 0")
+        target_edition_0 = create(:live_edition, title: "edition 0, position 1")
+        target_edition_1 = create(:live_edition, title: "edition 1, position 2")
+        target_edition_2 = create(:live_edition, title: "edition 2, position 0")
 
-        source_edition = create(:edition,
+        source_edition = create(:live_edition,
                                 links_kind => [
                                   { link_type: "test_link", target_content_id: target_edition_0.content_id, position: 1 },
                                   { link_type: "test_link", target_content_id: target_edition_1.content_id, position: 2 },
@@ -105,12 +105,12 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
       context "when links have the same `position`" do
         it "returns editions reverse-ordered by their associated links' `id`" do
-          target_edition_0 = create(:edition, title: "edition 0, third link id")
-          target_edition_1 = create(:edition, title: "edition 1, first link id")
-          target_edition_2 = create(:edition, title: "edition 2, second link id")
-          target_edition_3 = create(:edition, title: "edition 3, fourth link id")
+          target_edition_0 = create(:live_edition, title: "edition 0, third link id")
+          target_edition_1 = create(:live_edition, title: "edition 1, first link id")
+          target_edition_2 = create(:live_edition, title: "edition 2, second link id")
+          target_edition_3 = create(:live_edition, title: "edition 3, fourth link id")
 
-          source_edition = create(:edition,
+          source_edition = create(:live_edition,
                                   links_kind => [
                                     { link_type: "test_link", target_content_id: target_edition_1.content_id, position: 0 },
                                     { link_type: "test_link", target_content_id: target_edition_2.content_id, position: 0 },
@@ -192,11 +192,11 @@ RSpec.describe Sources::LinkedToEditionsSource do
       describe "links between documents with different locales" do
         it "includes links matching the specified locale (french)" do
           target_content_id = SecureRandom.uuid
-          create(:edition, document: create(:document, locale: "en", content_id: target_content_id), title: "english")
-          french_edition = create(:edition, document: create(:document, locale: "fr", content_id: target_content_id), title: "french")
+          create(:live_edition, document: create(:document, locale: "en", content_id: target_content_id), title: "english")
+          french_edition = create(:live_edition, document: create(:document, locale: "fr", content_id: target_content_id), title: "french")
 
           source_edition = create(
-            :edition,
+            :live_edition,
             document: create(:document, locale: "fr"),
             links_kind => [
               { link_type: "test_link", target_content_id: },
@@ -209,11 +209,11 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
         it "includes English language links if there's no better match available" do
           target_content_id = SecureRandom.uuid
-          english_edition = create(:edition, document: create(:document, locale: "en", content_id: target_content_id), title: "english edition")
-          create(:edition, document: create(:document, locale: "fr", content_id: target_content_id), title: "french edition")
+          english_edition = create(:live_edition, document: create(:document, locale: "en", content_id: target_content_id), title: "english edition")
+          create(:live_edition, document: create(:document, locale: "fr", content_id: target_content_id), title: "french edition")
 
           source_edition = create(
-            :edition,
+            :live_edition,
             document: create(:document, locale: "de"),
             links_kind => [
               { link_type: "test_link", target_content_id: },
@@ -226,11 +226,11 @@ RSpec.describe Sources::LinkedToEditionsSource do
 
         it "doesn't include a link if none match the locale or English" do
           target_content_id = SecureRandom.uuid
-          create(:edition, document: create(:document, locale: "de", content_id: target_content_id), title: "german")
-          create(:edition, document: create(:document, locale: "fr", content_id: target_content_id), title: "french")
+          create(:live_edition, document: create(:document, locale: "de", content_id: target_content_id), title: "german")
+          create(:live_edition, document: create(:document, locale: "fr", content_id: target_content_id), title: "french")
 
           source_edition = create(
-            :edition,
+            :live_edition,
             document: create(:document, locale: "hu"),
             links_kind => [
               { link_type: "test_link", target_content_id: },
@@ -364,11 +364,11 @@ RSpec.describe Sources::LinkedToEditionsSource do
       end
 
       it "doesn't include linked editions of non-renderable document types" do
-        renderable_edition = create(:edition, title: "renderable edition")
+        renderable_edition = create(:live_edition, title: "renderable edition")
         non_renderable_edition = create(:redirect_edition, title: "non-renderable edition (redirect)")
 
         source_edition = create(
-          :edition,
+          :live_edition,
           links_kind => [
             { link_type: "test_link", target_content_id: renderable_edition.content_id },
             { link_type: "test_link", target_content_id: non_renderable_edition.content_id },
