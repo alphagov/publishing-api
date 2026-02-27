@@ -13,6 +13,7 @@ module GraphqlLinkExpansionInclusionHelpers
           renderable_document_type_values = [false, true]
           locale_values = [Edition::DEFAULT_LOCALE, "fr", "hu"]
           allowed_reverse_link_type_values = [true, false]
+          link_kind_values = %w[link_set_links edition_links]
 
           with_drafts_values.product(
             root_locale_values,
@@ -22,6 +23,7 @@ module GraphqlLinkExpansionInclusionHelpers
             renderable_document_type_values,
             locale_values,
             allowed_reverse_link_type_values,
+            link_kind_values,
           ).map {
             {
               with_drafts: _1,
@@ -32,6 +34,7 @@ module GraphqlLinkExpansionInclusionHelpers
               renderable_document_type: _6,
               locale: _7,
               allowed_reverse_link_type: _8,
+              link_kind: _9,
             }
           }
             .reject { |test_case|

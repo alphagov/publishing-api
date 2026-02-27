@@ -9,7 +9,8 @@ module GraphqlLinkExpansionInclusionHelpers
         locale:,
         withdrawal:,
         permitted_unpublished_link_type:,
-        allowed_reverse_link_type:
+        allowed_reverse_link_type:,
+        link_kind:
       )
         @with_drafts = with_drafts
         @root_locale = root_locale
@@ -19,9 +20,10 @@ module GraphqlLinkExpansionInclusionHelpers
         @withdrawal = withdrawal
         @permitted_unpublished_link_type = permitted_unpublished_link_type
         @allowed_reverse_link_type = allowed_reverse_link_type
+        @link_kind = link_kind
       end
 
-      attr_reader :with_drafts, :root_locale, :state, :renderable_document_type, :locale
+      attr_reader :with_drafts, :root_locale, :state, :renderable_document_type, :locale, :allowed_reverse_link_type, :link_kind
 
       def description
         inclusion_string = included ? "includes" : "excludes"
@@ -34,20 +36,25 @@ module GraphqlLinkExpansionInclusionHelpers
                        end
         locale_string = locale == "default" ? "in the default locale" : "in the locale \"#{locale}\""
         document_type_string = "a #{renderable_document_type ? 'renderable' : 'non-renderable'} document type"
+        link_reversibility_string = "via a #{allowed_reverse_link_type ? 'reversible' : 'non-reversible'} link type (i.e. #{link_type})"
 
-        "#{inclusion_string} a target edition that is #{[state_string, document_type_string, locale_string].to_sentence}"
+        "#{inclusion_string} a source edition that is #{[state_string, document_type_string, locale_string, link_reversibility_string].to_sentence}"
       end
 
       def with_drafts_description
         "when #{with_drafts ? 'accepting' : 'rejecting'} drafts"
       end
 
-      def source_edition_locale_description
-        "when the source edition's locale is \"#{root_locale}\""
+      def target_edition_locale_description
+        "when the target edition's locale is \"#{root_locale}\""
       end
 
-      def linked_edition_document_type
-        @linked_edition_document_type ||= if renderable_document_type
+      def link_kind_description
+        "when the link kind is \"#{link_kind}\""
+      end
+
+      def source_edition_document_type
+        @source_edition_document_type ||= if renderable_document_type
                                             renderable_types = GovukSchemas::DocumentTypes.valid_document_types - Edition::NON_RENDERABLE_FORMATS
                                             renderable_types.sample
                                           else
@@ -71,8 +78,8 @@ module GraphqlLinkExpansionInclusionHelpers
         end
       end
 
-      def linked_edition_unpublishing_type
-        @linked_edition_unpublishing_type ||= begin
+      def source_edition_unpublishing_type
+        @source_edition_unpublishing_type ||= begin
           return "withdrawal" if withdrawal
 
           Unpublishing::VALID_TYPES.reject { it == "withdrawal" }.sample
@@ -86,12 +93,12 @@ module GraphqlLinkExpansionInclusionHelpers
           (state != "unpublished" ||
            (withdrawal && permitted_unpublished_link_type)
           ) &&
-          [root_locale].include?(locale)
+          (link_kind == "link_set_links" || [root_locale].include?(locale))
       end
 
     private
 
-      attr_reader :withdrawal, :permitted_unpublished_link_type, :allowed_reverse_link_type
+      attr_reader :withdrawal, :permitted_unpublished_link_type
     end
   end
 end
