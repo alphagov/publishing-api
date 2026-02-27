@@ -1,18 +1,20 @@
 RSpec.describe "reverse link expansion inclusion" do
   def for_content_store(target_edition, link_type:, with_drafts:)
+    reverse_link_type = ExpansionRules::REVERSE_LINKS.dig(link_type.to_sym) || link_type
     Presenters::Queries::ExpandedLinkSet
       .by_edition(target_edition, with_drafts:)
       .links
-      .fetch(link_type.to_sym, [])
+      .fetch(reverse_link_type, [])
   end
 
   def for_graphql(target_edition, link_type:, with_drafts:)
+    reverse_link_type = ExpansionRules::REVERSE_LINKS.dig(link_type.to_sym) || link_type
     GraphQL::Dataloader.with_dataloading do |dataloader|
       request = dataloader.with(
         Sources::ReverseLinkedToEditionsSource,
         content_store: with_drafts ? "draft" : "live",
         locale: target_edition.locale,
-      ).request([target_edition, link_type])
+      ).request([target_edition, reverse_link_type])
 
       request.load
     end
