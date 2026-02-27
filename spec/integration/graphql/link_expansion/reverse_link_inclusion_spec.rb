@@ -8,13 +8,12 @@ RSpec.describe "reverse link expansion inclusion" do
   end
 
   def for_graphql(target_edition, link_type:, with_drafts:)
-    reverse_link_type = ExpansionRules::REVERSE_LINKS.dig(link_type.to_sym) || link_type
     GraphQL::Dataloader.with_dataloading do |dataloader|
       request = dataloader.with(
         Sources::ReverseLinkedToEditionsSource,
         content_store: with_drafts ? "draft" : "live",
         locale: target_edition.locale,
-      ).request([target_edition, reverse_link_type])
+      ).request([target_edition, link_type])
 
       request.load
     end
@@ -80,6 +79,9 @@ RSpec.describe "reverse link expansion inclusion" do
               )
 
               if test_case.included
+                # if result.size != 1
+                #   byebug
+                # end
                 expect(result.size).to(
                   eq(1),
                   "unexpected exclusion for #{destination}",
