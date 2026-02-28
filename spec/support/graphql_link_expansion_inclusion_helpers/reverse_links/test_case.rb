@@ -93,7 +93,7 @@ module GraphqlLinkExpansionInclusionHelpers
           (state != "unpublished" ||
            (withdrawal && permitted_unpublished_link_type)
           ) &&
-          (link_kind == "link_set_links" || [root_locale].include?(locale))
+          (link_kind == "link_set_links" && [root_locale, Edition::DEFAULT_LOCALE].include?(locale) || link_kind == "edition_links" && [root_locale].include?(locale))
       end
 
     private
