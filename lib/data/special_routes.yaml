@@ -20,12 +20,6 @@
   :title: "Account home page"
   :rendering_app: "frontend"
 
-- :base_path: "/api/batch_search.json"
-  :content_id: "5edd25bd-987f-45d3-8eca-5fb35cbf2978"
-  :title: "GOV.UK batch search results API"
-  :description: "Sitewide batch search results are displayed in JSON format here."
-  :rendering_app: "search-api"
-
 - :base_path: "/api/content"
   :content_id: "16ca5ac1-7df5-4137-9f83-0270fcfc8bb5"
   :title: "Content API"
