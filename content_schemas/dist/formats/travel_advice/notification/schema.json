@@ -428,7 +428,30 @@
           "$ref": "#/definitions/email_signup_link"
         },
         "image": {
-          "$ref": "#/definitions/image_asset"
+          "type": "object",
+          "required": [
+            "content_type",
+            "url"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "alt_text": {
+              "type": "string"
+            },
+            "caption": {
+              "type": "string"
+            },
+            "content_type": {
+              "type": "string"
+            },
+            "credit": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
         },
         "max_cache_time": {
           "$ref": "#/definitions/max_cache_time"
@@ -673,57 +696,6 @@
         "$ref": "#/definitions/guid"
       },
       "uniqueItems": true
-    },
-    "image_asset": {
-      "type": "object",
-      "required": [
-        "content_type",
-        "url"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "alt_text": {
-          "type": "string"
-        },
-        "caption": {
-          "type": "string"
-        },
-        "content_type": {
-          "type": "string"
-        },
-        "credit": {
-          "type": "string"
-        },
-        "sources": {
-          "type": "object",
-          "additionalProperties": true,
-          "patternProperties": {
-            "^desktop": {
-              "type": "string",
-              "format": "uri"
-            },
-            "^mobile": {
-              "type": "string",
-              "format": "uri"
-            },
-            "^s[0-9]+": {
-              "type": "string",
-              "format": "uri"
-            },
-            "^tablet": {
-              "type": "string",
-              "format": "uri"
-            }
-          }
-        },
-        "type": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string",
-          "format": "uri"
-        }
-      }
     },
     "locale": {
       "type": "string",
