@@ -38,7 +38,19 @@
           "$ref": "#/definitions/email_signup_link",
         },
         image: {
-          "$ref": "#/definitions/image_asset",
+          type: "object",
+          additionalProperties: false,
+          required: [
+            "content_type",
+            "url",
+          ],
+          properties: {
+            alt_text: { type: "string", },
+            caption: { type: "string", },
+            content_type: { type: "string", },
+            credit: { type: "string", },
+            url: { type: "string", format: "uri", },
+          },
         },
         document: {
           "$ref": "#/definitions/file_attachment_asset",

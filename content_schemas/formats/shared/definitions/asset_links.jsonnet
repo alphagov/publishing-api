@@ -59,14 +59,13 @@ local PublicationAttachmentAssetProperties = {
     additionalProperties: false,
     required: [
       "content_type",
-      "url",
+      "sources",
     ],
     properties: {
       alt_text: { type: "string", },
       caption: { type: "string", },
       content_type: { type: "string", },
       credit: { type: "string", },
-      url: { type: "string", format: "uri", },
       type: { type: "string" },
       sources: {
         type: "object",

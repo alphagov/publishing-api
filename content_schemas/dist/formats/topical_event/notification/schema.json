@@ -656,7 +656,7 @@
       "type": "object",
       "required": [
         "content_type",
-        "url"
+        "sources"
       ],
       "additionalProperties": false,
       "properties": {
@@ -696,10 +696,6 @@
         },
         "type": {
           "type": "string"
-        },
-        "url": {
-          "type": "string",
-          "format": "uri"
         }
       }
     },
