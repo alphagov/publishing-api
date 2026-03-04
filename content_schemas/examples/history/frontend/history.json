@@ -21,9 +21,12 @@
       {
         "type": "sidebar",
         "sources": {
-          "desktop": "https://www.gov.uk/assets/government-frontend/history/buildings/number-10-300-00aa6cc4623aff497a924d2742fa5087533221bb81c65b88fa1d11a1fc942567.jpg",
-          "tablet": "https://www.gov.uk/assets/government-frontend/history/buildings/number-10-300-00aa6cc4623aff497a924d2742fa5087533221bb81c65b88fa1d11a1fc942567.jpg",
-          "mobile": "https://www.gov.uk/assets/government-frontend/history/buildings/number-10-300-00aa6cc4623aff497a924d2742fa5087533221bb81c65b88fa1d11a1fc942567.jpg"
+          "s960": "https://assets.publishing.service.gov.uk/media/5a37daeaed915d5a5f96602b/s960_number10.jpg",
+          "s712": "https://assets.publishing.service.gov.uk/media/5a37dae9e5274a79051c91fa/s712_number10.jpg",
+          "s630": "https://assets.publishing.service.gov.uk/media/5a37dae9e5274a7908e35275/s630_number10.jpg",
+          "s465": "https://assets.publishing.service.gov.uk/media/5a37daeaed915d5a62fdc705/s465_number10.jpg",
+          "s300": "https://assets.publishing.service.gov.uk/media/5a37dae940f0b649cceb1841/s300_number10.jpg",
+          "s216": "https://assets.publishing.service.gov.uk/media/5a37daeae5274a79051c91fb/s216_number10.jpg"
         },
         "caption": "10 Downing Street is the official residence of the Prime Minister",
         "content_type": "image/jpeg"
