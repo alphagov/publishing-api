@@ -1,6 +1,7 @@
 SidekiqUniqueJobs.configure do |config|
   config.enabled = !Rails.env.test? # SidekiqUniqueJobs recommends not testing this behaviour https://github.com/mhenrixon/sidekiq-unique-jobs#uniqueness
   config.lock_ttl = 1.hour.to_i
+  config.lock_info = true
 end
 
 Sidekiq.configure_client do |config|
