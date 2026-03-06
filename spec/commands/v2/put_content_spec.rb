@@ -113,7 +113,7 @@ RSpec.describe Commands::V2::PutContent do
           bulk_publishing: false,
           content_id:,
           locale: "en",
-          schema_name: "content_block_pension",
+          schema_name: "content_block",
           document_type: "content_block_pension",
           title: "Basic state pension",
           description: "General pension details",
