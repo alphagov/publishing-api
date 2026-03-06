@@ -328,6 +328,12 @@
         "image": {
           "$ref": "#/definitions/image"
         },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/image_asset"
+          }
+        },
         "political": {
           "$ref": "#/definitions/political"
         },
@@ -626,6 +632,60 @@
           "description": "URL to the image. The image should be in a suitable resolution for display on the page.",
           "type": "string",
           "format": "uri"
+        }
+      }
+    },
+    "image_asset": {
+      "type": "object",
+      "required": [
+        "content_type",
+        "sources"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "alt_text": {
+          "type": "string"
+        },
+        "caption": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "content_type": {
+          "type": "string"
+        },
+        "credit": {
+          "type": "string"
+        },
+        "sources": {
+          "type": "object",
+          "additionalProperties": true,
+          "patternProperties": {
+            "^desktop": {
+              "type": "string",
+              "format": "uri"
+            },
+            "^mobile": {
+              "type": "string",
+              "format": "uri"
+            },
+            "^s[0-9]+": {
+              "type": "string",
+              "format": "uri"
+            },
+            "^tablet": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "type": {
+          "type": "string"
         }
       }
     },
