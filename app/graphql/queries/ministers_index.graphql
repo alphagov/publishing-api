@@ -1,5 +1,5 @@
-query ministers_index($base_path: String!) {
-  edition(base_path: $base_path) {
+query ministers_index($base_path: String!, $with_drafts: Boolean) {
+  edition(base_path: $base_path, with_drafts: $with_drafts) {
     ... on MinistersIndex {
       base_path
       content_id

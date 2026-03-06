@@ -1,13 +1,30 @@
 class EditionFinderService
-  attr_reader :path, :content_store
+  attr_reader :path, :content_stores
 
-  def initialize(path, content_store)
+  def initialize(path, with_drafts: false)
     @path = path
-    @content_store = content_store
+    @content_stores = if with_drafts
+                        %i[draft live]
+                      else
+                        %i[live]
+                      end
   end
 
   def find
-    exact_match = scope.find_by(base_path: path)
+    exact_match = scope
+      .where(base_path: path)
+      .order(
+        Arel.sql(
+          <<~SQL,
+            CASE editions.content_store
+              WHEN 'draft' THEN 0
+              WHEN 'live' THEN 1
+              ELSE 2
+            END
+          SQL
+        ),
+      )
+      .first
     return exact_match if exact_match
 
     if route_matches.present?
@@ -18,7 +35,7 @@ class EditionFinderService
 private
 
   def scope
-    Edition.where(content_store:)
+    Edition.where(content_store: @content_stores)
   end
 
   def route_matches
