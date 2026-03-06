@@ -664,7 +664,14 @@
           "type": "string"
         },
         "caption": {
-          "type": "string"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "content_type": {
           "type": "string"
