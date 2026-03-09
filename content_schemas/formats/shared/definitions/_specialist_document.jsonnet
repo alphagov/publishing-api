@@ -33,9 +33,6 @@
         "$ref": "#/definitions/design_decision_metadata",
       },
       {
-        "$ref": "#/definitions/digital_markets_regime_requirement_metadata",
-      },
-      {
         "$ref": "#/definitions/digital_markets_intervention_metadata",
       },
       {
@@ -529,28 +526,6 @@
         type: "string",
       }
     },
-  },
-  digital_markets_regime_requirement_metadata: {
-    type: "object",
-    additionalProperties: false,
-    properties: {
-      bulk_published: {
-        type: "boolean",
-      },
-      digital_markets_regime_requirements_sms_firm_company: {
-        type: "string",
-      },
-      digital_markets_regime_requirements_sms_designation: {
-        type: "string",
-      },
-      digital_markets_regime_requirements_status: {
-        type: "string",
-      },
-      digital_markets_regime_requirements_date: {
-        type: "string",
-        pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
-      },
-    }
   },
   digital_markets_intervention_metadata: {
     type: "object",
