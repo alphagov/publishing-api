@@ -276,8 +276,8 @@ GEM
       rouge
       sprockets (>= 3)
       sprockets-rails
-    govuk_schemas (6.2.2)
-      json-schema (>= 2.8, < 6.2)
+    govuk_schemas (6.2.3)
+      json-schema (>= 2.8, < 6.3)
     govuk_sidekiq (10.1.0)
       gds-api-adapters (>= 19.1.0)
       govuk_app_config (>= 1.1)
@@ -634,7 +634,7 @@ GEM
     psych (5.3.1)
       date
       stringio
-    public_suffix (7.0.2)
+    public_suffix (7.0.5)
     puma (7.2.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
