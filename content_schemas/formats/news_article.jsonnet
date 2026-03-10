@@ -23,9 +23,6 @@
         body: {
           "$ref": "#/definitions/body",
         },
-        image: {
-          "$ref": "#/definitions/image",
-        },
         images: {
           type: "array",
           items: {
