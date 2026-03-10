@@ -291,6 +291,10 @@
         "display_date": {
           "type": "string"
         },
+        "document_type_label": {
+          "description": "a human readable version of the document type",
+          "type": "string"
+        },
         "format_sub_type": {
           "type": "string",
           "enum": [
@@ -303,6 +307,10 @@
         },
         "previous_display_date": {
           "type": "string"
+        },
+        "release_timestamp": {
+          "type": "string",
+          "format": "date-time"
         },
         "state": {
           "type": "string",

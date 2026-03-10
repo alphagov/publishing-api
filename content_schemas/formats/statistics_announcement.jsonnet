@@ -32,6 +32,10 @@
         display_date: {
           type: "string",
         },
+        release_timestamp: {
+          type: "string",
+          format: "date-time",
+        },
         state: {
           type: "string",
           enum: [
@@ -47,6 +51,10 @@
             "official",
           ],
         },
+        document_type_label: {
+          description: "a human readable version of the document type",
+          type: "string",
+        }
       },
     },
   },
