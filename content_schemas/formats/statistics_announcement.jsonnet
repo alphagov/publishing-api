@@ -32,6 +32,10 @@
         display_date: {
           type: "string",
         },
+        release_timestamp: {
+          type: "string",
+          format: "date-time",
+        },
         state: {
           type: "string",
           enum: [
