@@ -47,6 +47,10 @@
             "official",
           ],
         },
+        document_type_label: {
+          description: "a human readable version of the document type",
+          type: "string",
+        }
       },
     },
   },

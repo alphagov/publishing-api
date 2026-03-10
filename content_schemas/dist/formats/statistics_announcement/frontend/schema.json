@@ -291,6 +291,10 @@
         "display_date": {
           "type": "string"
         },
+        "document_type_label": {
+          "description": "a human readable version of the document type",
+          "type": "string"
+        },
         "format_sub_type": {
           "type": "string",
           "enum": [
