@@ -7,5 +7,8 @@ task update_published_editions_rendered_by_government_frontend: :environment do
 
   content_ids = Document.where(id: document_ids).pluck(:content_id)
 
-  Rake::Task["represent_downstream:content_id"].invoke(content_ids)
+  content_ids.each_slice(1000) do |batch|
+    Rake::Task["represent_downstream:content_id"].invoke(batch)
+    sleep 5
+  end
 end
