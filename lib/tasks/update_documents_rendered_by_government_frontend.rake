@@ -6,9 +6,10 @@ task update_published_editions_rendered_by_government_frontend: :environment do
   document_ids = government_frontend_published_editions.collect(&:document_id)
 
   content_ids = Document.where(id: document_ids).pluck(:content_id)
+  queue = DownstreamQueue::LOW_QUEUE
 
-  content_ids.each_slice(1000) do |batch|
-    Rake::Task["represent_downstream:content_id"].invoke(batch)
+  content_ids.uniq.each_slice(1000) do |batch|
+    Commands::V2::RepresentDownstream.new.call(batch, queue:)
     sleep 5
   end
 end
