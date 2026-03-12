@@ -66,10 +66,21 @@
   },
   "description": "The Care Act regulations and guidance for local authorities have been strengthened as a result of consultation.",
   "details": {
-    "image": {
-      "alt_text": "placeholder",
-      "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/72/s465_RH_Flickr_image_960x640.jpg"
-    },
+  "images": [
+    {
+      "type": "lead",
+      "sources": {
+        "s960": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/72/s960_RH_Flickr_image_960x640.jpg",
+        "s712": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/72/s712_RH_Flickr_image_960x640.jpg",
+        "s630": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/72/s630_RH_Flickr_image_960x640.jpg",
+        "s465": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/72/s465_RH_Flickr_image_960x640.jpg",
+        "s300": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/72/s300_RH_Flickr_image_960x640.jpg",
+        "s216": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/72/s216_RH_Flickr_image_960x640.jpg"
+      },
+      "caption": "placeholder",
+      "content_type": "image/jpeg"
+    }
+  ],
     "body": "<div class=\"govspeak\"><p>The <a href=\"https://www.gov.uk/government/consultations/updating-our-care-and-support-system-draft-regulations-and-guidance\">government response</a> explains how the regulations and guidance, which come into effect from April 2015, have been revised as a result of the suggestions we received during the consultation.</p><p>We have made changes that include clarifying the guidance on adult safeguarding and revising the eligibility criteria to focus on outcomes and better address social isolation.</p><p>In addition to the <a href=\"https://www.gov.uk/government/consultations/updating-our-care-and-support-system-draft-regulations-and-guidance\">revised regulations</a> and <a href=\"https://www.gov.uk/government/publications/care-act-2014-statutory-guidance-for-implementation\">guidance for local authorities</a> there will be more materials to help those implementing the Care Act on <a rel=\"external\" href=\"http://www.local.gov.uk/care-support-reform\">the Local Government Association’s website.</a>. The <a href=\"https://www.gov.uk/government/publications/care-act-2014-part-1-factsheets\">Care Act factsheets</a> have also been updated.</p><p>The Care Act aims to make the social care system fairer and help people get better care.</p></div>",
     "first_public_at": "2016-02-29T09:24:10.000+00:00",
     "government": {

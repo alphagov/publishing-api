@@ -184,11 +184,21 @@
         "note": "First published."
       }
     ],
-    "image": {
-      "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/24168/s300_robert-goodwill-mp-drug-testing.jpg",
-      "caption": null,
-      "alt_text": "Robert Goodwill MP visiting a drug testing laboratory."
-    },
+    "images": [
+      {
+        "type": "lead",
+        "sources": {
+          "s960": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/24168/s960_robert-goodwill-mp-drug-testing.jpg",
+          "s712": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/24168/s712_robert-goodwill-mp-drug-testing.jpg",
+          "s630": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/24168/s630_robert-goodwill-mp-drug-testing.jpg",
+          "s465": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/24168/s465_robert-goodwill-mp-drug-testing.jpg",
+          "s300": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/24168/s300_robert-goodwill-mp-drug-testing.jpg",
+          "s216": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/24168/s216_robert-goodwill-mp-drug-testing.jpg"
+        },
+        "caption": "Robert Goodwill MP visiting a drug testing laboratory.",
+        "content_type": "image/jpeg"
+      }
+    ],
     "first_public_at": "2014-03-27T09:35:00.000+00:00",
     "political": false,
     "government": {
