@@ -6,6 +6,7 @@ RSpec.describe "GraphQL" do
       index_page = create(
         :live_edition,
         title: "Ministers Index",
+        schema_name: "ministers_index",
         document_type: "ministers_index",
         base_path: "/government/ministers",
         details: {
