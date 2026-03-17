@@ -60,6 +60,21 @@
       "alt_text": "St Michael's Mount Cornwall",
       "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59446/s465_iStock-183412793.jpg"
     },
+    "images": [
+      {
+        "type": "lead",
+        "sources": {
+          "s960": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59446/s960_iStock-183412793.jpg",
+          "s712": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59446/s712_iStock-183412793.jpg",
+          "s630": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59446/s630_iStock-183412793.jpg",
+          "s465": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59446/s465_iStock-183412793.jpg",
+          "s300": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59446/s300_iStock-183412793.jpg",
+          "s216": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59446/s216_iStock-183412793.jpg"
+        },
+        "alt_text": "St Michael's Mount Cornwall",
+        "content_type": "image/jpeg"
+      }
+    ],
     "body": "<div class=\"govspeak\"><p>We are aware of a large number of dead fish which washed ashore on Marazion beach, Cornwall, on 17 December.</p><p>We are working with others, such as the <a rel=\"external\" href=\"http://www.cornwall-ifca.gov.uk/\">Cornwall Inshore Fisheries and Conservation Authority</a>, to look into this.</p><p>We have discussed the issue with the Marine Conservation Society and are looking at the activity of vessels in the area. It is however too early to say what the cause might be.</p><p>We advise against eating any of the remaining fish as the timing and cause of their death has not been established.</p></div>",
     "first_public_at": "2016-12-28T00:00:19.000+00:00",
     "government": {

@@ -240,6 +240,22 @@
       "caption": null,
       "alt_text": "placeholder"
     },
+    "images": [
+      {
+        "type": "lead",
+        "sources": {
+          "s960": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/153/s960_home-office.jpg",
+          "s712": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/153/s712_home-office.jpg",
+          "s630": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/153/s630_home-office.jpg",
+          "s465": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/153/s465_home-office.jpg",
+          "s300": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/153/s300_home-office.jpg",
+          "s216": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/153/s216_home-office.jpg"
+        },
+        "caption": null,
+        "alt_text": "placeholder",
+        "content_type": "image/jpeg"
+      }
+    ],
     "first_public_at": "2013-01-28T00:00:00.000+00:00",
     "political": false,
     "government": {

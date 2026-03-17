@@ -127,6 +127,22 @@
       "high_resolution_url": "https://assets.publishing.service.gov.uk/media/65b2b0035f8ce200143ae55d/s960_Key_Figures_in_the_Houthi_Regime_Sanctioned.jpg",
       "url": "https://assets.publishing.service.gov.uk/media/65b2b00326a40f00117ac1bd/s300_Key_Figures_in_the_Houthi_Regime_Sanctioned.jpg"
     },
+    "images": [
+      {
+        "type": "lead",
+        "sources": {
+          "s960": "https://assets.publishing.service.gov.uk/media/65b2b0035f8ce200143ae55d/s960_Key_Figures_in_the_Houthi_Regime_Sanctioned.jpg",
+          "s712": "https://assets.publishing.service.gov.uk/media/65b2b0035f8ce200143ae55d/s712_Key_Figures_in_the_Houthi_Regime_Sanctioned.jpg",
+          "s630": "https://assets.publishing.service.gov.uk/media/65b2b0035f8ce200143ae55d/s630_Key_Figures_in_the_Houthi_Regime_Sanctioned.jpg",
+          "s465": "https://assets.publishing.service.gov.uk/media/65b2b0035f8ce200143ae55d/s465_Key_Figures_in_the_Houthi_Regime_Sanctioned.jpg",
+          "s300": "https://assets.publishing.service.gov.uk/media/65b2b00326a40f00117ac1bd/s300_Key_Figures_in_the_Houthi_Regime_Sanctioned.jpg",
+          "s216": "https://assets.publishing.service.gov.uk/media/65b2b00326a40f00117ac1bd/s216_Key_Figures_in_the_Houthi_Regime_Sanctioned.jpg"
+        },
+        "caption": null,
+        "alt_text": "",
+        "content_type": "image/jpeg"
+      }
+    ],
     "political": true,
     "tags": {
       "browse_pages": []

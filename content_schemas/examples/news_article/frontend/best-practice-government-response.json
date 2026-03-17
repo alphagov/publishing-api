@@ -269,6 +269,22 @@
       "caption": null,
       "alt_text": "placeholder"
     },
+    "images": [
+      {
+        "type": "lead",
+        "sources": {
+          "s960": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/235/s960_Default_image_39_Victoria_street_department_of_health.jpg",
+          "s712": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/235/s712_Default_image_39_Victoria_street_department_of_health.jpg",
+          "s630": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/235/s630_Default_image_39_Victoria_street_department_of_health.jpg",
+          "s465": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/235/s465_Default_image_39_Victoria_street_department_of_health.jpg",
+          "s300": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/235/s300_Default_image_39_Victoria_street_department_of_health.jpg",
+          "s216": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/235/s216_Default_image_39_Victoria_street_department_of_health.jpg"
+        },
+        "caption": null,
+        "alt_text": "placeholder",
+        "content_type": "image/jpeg"
+      }
+    ],
     "first_public_at": "2014-05-08T15:38:28.000+01:00",
     "political": false,
     "government": {
