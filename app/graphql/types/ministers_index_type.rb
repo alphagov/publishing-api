@@ -2,7 +2,9 @@
 
 module Types
   class MinistersIndexType < Types::EditionType
-    def self.document_types = %w[ministers_index]
+    def self.relevant_schemas_and_document_types = {
+      "ministers_index" => %w[ministers_index],
+    }
 
     class MinistersIndexPerson < Types::BaseObject
       class MinistersIndexRoleAppointment < Types::BaseObject
