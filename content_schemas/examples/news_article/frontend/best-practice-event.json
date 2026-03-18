@@ -246,11 +246,22 @@
         "note": "First published."
       }
     ],
-    "image": {
-      "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/41447/s300_PTN-D1322-115_960x640.jpg",
-      "caption": null,
-      "alt_text": "Networking hub at CDE event."
-    },
+    "images": [
+      {
+        "type": "lead",
+        "sources": {
+          "s960": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/41447/s960_PTN-D1322-115_960x640.jpg",
+          "s712": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/41447/s712_PTN-D1322-115_960x640.jpg",
+          "s630": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/41447/s630_PTN-D1322-115_960x640.jpg",
+          "s465": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/41447/s465_PTN-D1322-115_960x640.jpg",
+          "s300": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/41447/s300_PTN-D1322-115_960x640.jpg",
+          "s216": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/41447/s216_PTN-D1322-115_960x640.jpg"
+        },
+        "caption": null,
+        "alt_text": "Networking hub at CDE event.",
+        "content_type": "image/jpeg"
+      }
+    ],
     "first_public_at": "2015-03-25T13:23:00.000+00:00",
     "political": false,
     "government": {

@@ -81,7 +81,7 @@ jobs:
     name: Test Frontend
     uses: alphagov/frontend/.github/workflows/rspec.yml@main
     with:
-      ref: 'main'
+      ref: 'contract-news-articles'
       publishingApiRef: ${{ github.ref }}
 
   test-government-frontend:
