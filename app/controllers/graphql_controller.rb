@@ -80,6 +80,48 @@ class GraphqlController < ApplicationController
 
 private
 
+  def content_action(with_drafts:)
+    execute_in_read_replica do
+      begin
+        encoded_base_path = Addressable::URI.encode("/#{params[:base_path]}")
+        edition = EditionFinderService.new(encoded_base_path, with_drafts:).find
+        set_cache_headers(edition)
+        return head :not_found unless edition
+
+        if edition.base_path != encoded_base_path
+          path_method = method(with_drafts ? :graphql_draft_content_path : :graphql_live_content_path)
+          return redirect_to path_method.call(base_path: edition.base_path.gsub(/^\//, "")), status: :see_other
+        end
+
+        begin
+          query = File.read(Rails.root.join("app/graphql/queries/#{edition.schema_name}.graphql"))
+        rescue Errno::ENOENT
+          return head :not_found
+        end
+
+        result = PublishingApiSchema.execute(query, variables: { base_path: encoded_base_path, with_drafts: }).to_hash
+        report_result(result)
+
+        content_item = GraphqlContentItemService.for_edition(edition).process(result)
+
+        http_status = if content_item["schema_name"] == "gone" && (content_item["details"].nil? || content_item["details"].values.reject(&:blank?).empty?)
+                        410
+                      else
+                        200
+                      end
+
+        render json: content_item, status: http_status
+      end
+    rescue Addressable::URI::InvalidURIError
+      Rails.logger.warn "Can't encode request_path '#{params[:base_path]}'"
+      return head :bad_request
+    rescue StandardError => e
+      raise e unless Rails.env.development?
+
+      handle_error_in_development(e)
+    end
+  end
+
   def report_result(result)
     set_prometheus_labels(result.dig("data", "edition")&.slice("document_type", "schema_name"))
 
