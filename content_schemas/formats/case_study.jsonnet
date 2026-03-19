@@ -14,6 +14,12 @@
         image: {
           "$ref": "#/definitions/image",
         },
+        images: {
+          type: "array",
+          items: {
+            "$ref": "#/definitions/image_asset",
+          },
+        },
         format_display_type: {
           type: "string",
           enum: [
