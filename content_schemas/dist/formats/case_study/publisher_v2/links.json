@@ -65,9 +65,11 @@
           "$ref": "#/definitions/guid_list"
         },
         "world_locations": {
+          "description": "The world locations this content item is about.",
           "$ref": "#/definitions/guid_list"
         },
         "worldwide_organisations": {
+          "description": "The worldwide organisations associated with this content item.",
           "$ref": "#/definitions/guid_list"
         }
       }

@@ -72,7 +72,6 @@
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "emphasised_organisations": {
-          "description": "Lead organisations linked to this content item.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "finder": {
@@ -109,13 +108,10 @@
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "organisations": {
-          "description": "All organisations linked to this content item. This should include lead organisations.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "parent": {
-          "description": "The parent content item.",
-          "$ref": "#/definitions/frontend_links_with_base_path",
-          "maxItems": 1
+          "$ref": "#/definitions/frontend_links_with_base_path"
         },
         "part_of_step_navs": {
           "description": "Link type automatically added by Publishing API",
@@ -153,10 +149,15 @@
           "description": "Prototype-stage taxonomy label for this content item",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "topical_events": {
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "world_locations": {
+          "description": "The world locations this content item is about.",
           "$ref": "#/definitions/frontend_links"
         },
         "worldwide_organisations": {
+          "description": "The worldwide organisations associated with this content item.",
           "$ref": "#/definitions/frontend_links_with_base_path"
         }
       }
