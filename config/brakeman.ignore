@@ -7,7 +7,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/presenters/queries/content_item_presenter.rb",
-      "line": 196,
+      "line": 214,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "scope.joins(\"LEFT JOIN LATERAL #{sql} ON TRUE\")",
       "render_path": null,
@@ -30,7 +30,7 @@
       "check_name": "FileAccess",
       "message": "Parameter value used in file name",
       "file": "app/controllers/graphql_controller.rb",
-      "line": 28,
+      "line": 27,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
       "code": "File.read(Rails.root.join(\"app/graphql/queries/#{EditionFinderService.new(Addressable::URI.encode(\"/#{params[:base_path]}\"), \"live\").find.schema_name}.graphql\"))",
       "render_path": null,
@@ -44,7 +44,7 @@
       "cwe_id": [
         22
       ],
-      "note": ""
+      "note": "The value is used to find an edition and will return nil or an edition, from which we retrieve a safe attribute."
     },
     {
       "warning_type": "SQL Injection",
@@ -67,7 +67,7 @@
       "cwe_id": [
         89
       ],
-      "note": "This SQL is generated using valid content IDs and configuration data, not with arbitrary user input"
+      "note": "This SQL is generated using valid content IDs and configuration data, not with arbitrary user input."
     },
     {
       "warning_type": "SQL Injection",
@@ -76,7 +76,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/presenters/queries/content_item_presenter.rb",
-      "line": 110,
+      "line": 111,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "Arel.sql(\"CASE state #{{ :draft => 0, :published => 1, :unpublished => 1, :superseded => 2 }.slice(*states).map do\n \"WHEN '#{k}' THEN #{v} \"\n end.join} END\")",
       "render_path": null,
@@ -95,7 +95,7 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "f738f92614ef15fa91784fb2cf4e05e404fbefeaa138d12f0b41122d872b3bca",
+      "fingerprint": "722f1b1d7079b90bcfdbf46b8f5bd7816927ed25d5c4f507c8df34c4a448a92e",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/queries/get_edition_ids_with_fallbacks.rb",
@@ -106,15 +106,15 @@
       "location": {
         "type": "method",
         "class": "Queries::GetEditionIdsWithFallbacks",
-        "method": "s(:self).order_by_clause"
+        "method": "self.order_by_clause"
       },
       "user_input": "values.size",
       "confidence": "Medium",
       "cwe_id": [
         89
       ],
-      "note": "The SQL is generated only with valid locales and edition states, not with arbitrary user input"
+      "note": "The SQL is generated only with valid locales and edition states, not with arbitrary user input."
     }
   ],
-  "brakeman_version": "7.1.0"
+  "brakeman_version": "8.0.4"
 }
