@@ -73,8 +73,41 @@
           "description": "Content that will be embedded within the document, using embed tags.",
           "$ref": "#/definitions/guid_list"
         },
+        "emphasised_organisations": {
+          "$ref": "#/definitions/guid_list"
+        },
+        "government": {
+          "description": "The government associated with this document",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
+        "organisations": {
+          "$ref": "#/definitions/guid_list"
+        },
+        "parent": {
+          "$ref": "#/definitions/guid_list"
+        },
         "policy_areas": {
           "description": "A largely deprecated tag currently only used to power email alerts.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "primary_publishing_organisation": {
+          "description": "The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
+        "related_policies": {
+          "$ref": "#/definitions/guid_list"
+        },
+        "topical_events": {
+          "$ref": "#/definitions/guid_list"
+        },
+        "world_locations": {
+          "description": "The world locations this content item is about.",
+          "$ref": "#/definitions/guid_list"
+        },
+        "worldwide_organisations": {
+          "description": "The worldwide organisations associated with this content item.",
           "$ref": "#/definitions/guid_list"
         }
       }
@@ -238,6 +271,13 @@
             }
           }
         },
+        "attachments": {
+          "description": "An ordered list of asset links",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/file_attachment_asset"
+          }
+        },
         "body": {
           "$ref": "#/definitions/body"
         },
@@ -262,6 +302,12 @@
         "image": {
           "$ref": "#/definitions/image"
         },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/image_asset"
+          }
+        },
         "political": {
           "$ref": "#/definitions/political"
         },
@@ -275,6 +321,74 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/guid"
+      }
+    },
+    "file_attachment_asset": {
+      "type": "object",
+      "required": [
+        "attachment_type",
+        "content_type",
+        "id",
+        "url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "accessible": {
+          "type": "boolean"
+        },
+        "alternative_format_contact_email": {
+          "type": "string"
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "asset_manager_id",
+              "filename"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "asset_manager_id": {
+                "type": "string"
+              },
+              "filename": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "attachment_type": {
+          "type": "string",
+          "enum": [
+            "file"
+          ]
+        },
+        "content_type": {
+          "type": "string"
+        },
+        "file_size": {
+          "type": "integer"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "locale": {
+          "$ref": "#/definitions/locale"
+        },
+        "number_of_pages": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
       }
     },
     "first_public_at": {
@@ -342,6 +456,60 @@
           "description": "URL to the image. The image should be in a suitable resolution for display on the page.",
           "type": "string",
           "format": "uri"
+        }
+      }
+    },
+    "image_asset": {
+      "type": "object",
+      "required": [
+        "content_type",
+        "sources"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "alt_text": {
+          "type": "string"
+        },
+        "caption": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "content_type": {
+          "type": "string"
+        },
+        "credit": {
+          "type": "string"
+        },
+        "sources": {
+          "type": "object",
+          "additionalProperties": true,
+          "patternProperties": {
+            "^desktop": {
+              "type": "string",
+              "format": "uri"
+            },
+            "^mobile": {
+              "type": "string",
+              "format": "uri"
+            },
+            "^s[0-9]+": {
+              "type": "string",
+              "format": "uri"
+            },
+            "^tablet": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "type": {
+          "type": "string"
         }
       }
     },

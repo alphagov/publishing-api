@@ -11,8 +11,21 @@
         body: {
           "$ref": "#/definitions/body",
         },
+        attachments: {
+          description: "An ordered list of asset links",
+          type: "array",
+          items: {
+            "$ref": "#/definitions/file_attachment_asset",
+          },
+        },
         image: {
           "$ref": "#/definitions/image",
+        },
+        images: {
+          type: "array",
+          items: {
+            "$ref": "#/definitions/image_asset",
+          },
         },
         format_display_type: {
           type: "string",
@@ -59,7 +72,11 @@
       maxItems: 1,
     },
     related_policies: "",
-    world_locations: "",
-    worldwide_organisations: "",
+    worldwide_organisations: "The worldwide organisations associated with this content item.",
+    world_locations: "The world locations this content item is about.",
   },
+  edition_links: (import "shared/whitehall_edition_links.jsonnet") + {
+    world_locations: "The world locations this content item is about.",
+    worldwide_organisations: "The worldwide organisations associated with this content item.",
+  }
 }
