@@ -15,6 +15,7 @@ module Queries
       :primary_publishing_organisation_base_path,
       :unique_pageviews,
       :instances,
+      :state,
     )
 
     Rollup = Data.define(
@@ -51,6 +52,7 @@ module Queries
       { field: TABLES[:documents][:content_id], alias: "host_content_id", included_in_group?: true },
       { field: TABLES[:documents][:locale], alias: "host_locale", included_in_group?: true },
       { field: TABLES[:editions][:id].count, alias: "instances", included_in_group?: false },
+      { field: TABLES[:editions][:state], alias: "state", included_in_group?: true },
     ].freeze
 
     ORDER_FIELDS = {

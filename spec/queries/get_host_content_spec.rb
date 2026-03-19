@@ -90,6 +90,7 @@ RSpec.describe Queries::GetHostContent do
           expect(matching_edition.instances).to eq(1)
           expect(matching_edition.last_edited_by_editor_id).to eq(host_edition.last_edited_by_editor_id)
           expect(matching_edition.last_edited_at).to eq(host_edition.last_edited_at)
+          expect(matching_edition.state).to eq(host_edition.state)
         end
       end
 
@@ -109,6 +110,7 @@ RSpec.describe Queries::GetHostContent do
         expect(results[0].primary_publishing_organisation_title).to eq(organisation.title)
         expect(results[0].primary_publishing_organisation_base_path).to eq(organisation.base_path)
         expect(results[0].instances).to eq(1)
+        expect(results[0].state).to eq(host_edition.state)
       end
 
       it "allows filtering by locale" do
