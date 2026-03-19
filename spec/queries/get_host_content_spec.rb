@@ -36,65 +36,65 @@ RSpec.describe Queries::GetHostContent do
     end
 
     context "when there are live and draft editions that embed the target content" do
-      let!(:published_host_editions) do
-        create_list(:live_edition, 2,
-                    details: {
-                      body: "<p>{{embed:content_block_pension:#{target_content_id}}}</p>\n",
-                    },
-                    links_hash: {
-                      primary_publishing_organisation: [organisation.content_id],
-                      embed: [target_content_id],
-                    },
-                    publishing_app: "example-app")
-      end
-
-      let!(:draft_host_editions) do
-        create_list(:edition, 2,
-                    details: {
-                      body: "<p>{{embed:content_block_pension:#{target_content_id}}}</p>\n",
-                    },
-                    links_hash: {
-                      primary_publishing_organisation: [organisation.content_id],
-                      embed: [target_content_id],
-                    },
-                    publishing_app: "another-app")
-      end
+      let(:live_document) { create(:document) }
+      let(:live_document_with_draft) { create(:document) }
+      let(:draft_document) { create(:document) }
+      let(:unpublished_document) { create(:document) }
 
       let!(:unwanted_edition) { create(:live_edition) }
 
-      it "returns the live editions" do
-        published_host_editions.map do |edition|
-          create(:statistics_cache, document: edition.document, unique_pageviews: 123)
-        end
+      let!(:statistics_caches) do
+        {
+          live_document.id => create(:statistics_cache, document: live_document, unique_pageviews: 123),
+          live_document_with_draft.id => create(:statistics_cache, document: live_document_with_draft, unique_pageviews: 34),
+        }
+      end
 
-        expected_editions = published_host_editions
-        expected_pageviews = StatisticsCache.where(document: published_host_editions.map(&:document))
-                                            .map { |s|
-                                              [s.document_id, s.unique_pageviews]
-                                            }.to_h
+      before do
+        create_host_edition(live_document, :superseded_edition, 1)
+        create_host_edition(live_document, :live_edition, 2)
+
+        create_host_edition(live_document_with_draft, :live_edition, 1)
+        create_host_edition(live_document_with_draft, :draft_edition, 2)
+
+        create_host_edition(draft_document, :draft_edition, 1)
+
+        create_host_edition(unpublished_document, :unpublished_edition, 1)
+      end
+
+      it "returns the live and draft editions" do
+        expected_editions = [
+          live_document.reload.live,
+          live_document_with_draft.reload.draft,
+          live_document_with_draft.live,
+          draft_document.reload.draft,
+        ]
 
         results = described_class.new(target_content_id).call
 
         expect(results.count).to eq(expected_editions.count)
 
-        expected_editions.each_with_index do |host_edition, i|
-          expect(results[i].id).to eq(host_edition.id)
-          expect(results[i].title).to eq(host_edition.title)
-          expect(results[i].base_path).to eq(host_edition.base_path)
-          expect(results[i].document_type).to eq(host_edition.document_type)
-          expect(results[i].publishing_app).to eq(host_edition.publishing_app)
-          expect(results[i].host_content_id).to eq(host_edition.content_id)
-          expect(results[i].host_locale).to eq(host_edition.document.locale)
-          expect(results[i].primary_publishing_organisation_content_id).to eq(organisation.content_id)
-          expect(results[i].primary_publishing_organisation_title).to eq(organisation.title)
-          expect(results[i].primary_publishing_organisation_base_path).to eq(organisation.base_path)
-          expect(results[i].unique_pageviews).to eq(expected_pageviews[host_edition.document.id])
-          expect(results[i].instances).to eq(1)
+        expected_editions.each do |host_edition|
+          matching_edition = results.find { |result| result.id == host_edition.id }
+
+          expect(matching_edition.title).to eq(host_edition.title)
+          expect(matching_edition.base_path).to eq(host_edition.base_path)
+          expect(matching_edition.document_type).to eq(host_edition.document_type)
+          expect(matching_edition.publishing_app).to eq(host_edition.publishing_app)
+          expect(matching_edition.host_content_id).to eq(host_edition.content_id)
+          expect(matching_edition.host_locale).to eq(host_edition.document.locale)
+          expect(matching_edition.primary_publishing_organisation_content_id).to eq(organisation.content_id)
+          expect(matching_edition.primary_publishing_organisation_title).to eq(organisation.title)
+          expect(matching_edition.primary_publishing_organisation_base_path).to eq(organisation.base_path)
+          expect(matching_edition.unique_pageviews).to eq(statistics_caches[host_edition.document.id]&.unique_pageviews || nil)
+          expect(matching_edition.instances).to eq(1)
+          expect(matching_edition.last_edited_by_editor_id).to eq(host_edition.last_edited_by_editor_id)
+          expect(matching_edition.last_edited_at).to eq(host_edition.last_edited_at)
         end
       end
 
       it "allows filtering by host_content_id" do
-        host_edition = published_host_editions[1]
+        host_edition = live_document.live
         results = described_class.new(target_content_id, host_content_id: host_edition.content_id).call
 
         expect(results.count).to eq(1)
@@ -112,7 +112,7 @@ RSpec.describe Queries::GetHostContent do
       end
 
       it "allows filtering by locale" do
-        host_edition = published_host_editions[1]
+        host_edition = live_document.live
 
         welsh_results = described_class.new(target_content_id, host_content_id: host_edition.content_id, locale: "cy").call
 
@@ -121,6 +121,20 @@ RSpec.describe Queries::GetHostContent do
         english_results = described_class.new(target_content_id, host_content_id: host_edition.content_id, locale: "en").call
 
         expect(english_results.count).to eq(1)
+      end
+
+      def create_host_edition(document, factory_type, user_facing_version)
+        create(factory_type,
+               document:,
+               user_facing_version:,
+               details: {
+                 body: "<p>{{embed:content_block_pension:#{target_content_id}}}</p>\n",
+               },
+               links_hash: {
+                 primary_publishing_organisation: [organisation.content_id],
+                 embed: [target_content_id],
+               },
+               publishing_app: "example-app")
       end
     end
 
