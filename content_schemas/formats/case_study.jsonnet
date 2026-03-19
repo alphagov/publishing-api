@@ -11,6 +11,13 @@
         body: {
           "$ref": "#/definitions/body",
         },
+        attachments: {
+          description: "An ordered list of asset links",
+          type: "array",
+          items: {
+            "$ref": "#/definitions/file_attachment_asset",
+          },
+        },
         image: {
           "$ref": "#/definitions/image",
         },
