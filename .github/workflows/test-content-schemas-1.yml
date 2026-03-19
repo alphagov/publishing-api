@@ -84,13 +84,6 @@ jobs:
       ref: 'main'
       publishingApiRef: ${{ github.ref }}
 
-  test-government-frontend:
-    name: Test Government Frontend
-    uses: alphagov/government-frontend/.github/workflows/minitest.yml@main
-    with:
-      ref: 'main'
-      publishingApiRef: ${{ github.ref }}
-
   test-hmrc-manuals-api:
     name: Test HMRC Manuals API
     uses: alphagov/hmrc-manuals-api/.github/workflows/rspec.yml@main
