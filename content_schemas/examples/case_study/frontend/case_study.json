@@ -23,6 +23,22 @@
       "caption": "Carlisle Park",
       "url": "http://static.dev.gov.uk/government/uploads/system/uploads/image_data/file/5693/s300_Carlisle_Park_1_960x640.jpg"
     },
+    "images": [
+      {
+        "type": "lead",
+        "sources": {
+          "s960": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59695/s960_Christmas.jpg",
+          "s712": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59695/s712_Christmas.jpg",
+          "s630": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59695/s630_Christmas.jpg",
+          "s465": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59695/s465_Christmas.jpg",
+          "s300": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59695/s300_Christmas.jpg",
+          "s216": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59695/s216_Christmas.jpg"
+        },
+        "alt_text": "Christmas",
+        "credit": "Number 10 elf, Published under Creative Commons",
+        "content_type": "image/jpeg"
+      }
+    ],    
     "tags": {
       "browse_pages": [
 
