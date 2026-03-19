@@ -88,7 +88,6 @@ SELECT editions.* FROM (
     CASE state
       WHEN 'published' THEN 0
       WHEN 'unpublished' THEN 1
-      ELSE 2
     END,
     is_primary_locale DESC
 ) AS editions

@@ -45,7 +45,6 @@ edition_linked_editions AS (
     CASE editions.state
       WHEN 'published' THEN 0
       WHEN 'unpublished' THEN 1
-      ELSE 2
     END,
     is_primary_locale DESC
 ),
@@ -92,7 +91,6 @@ link_set_linked_editions AS (
     CASE editions.state
       WHEN 'published' THEN 0
       WHEN 'unpublished' THEN 1
-      ELSE 2
     END,
     is_primary_locale DESC
 )
