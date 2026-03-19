@@ -420,6 +420,13 @@
             }
           }
         },
+        "attachments": {
+          "description": "An ordered list of asset links",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/file_attachment_asset"
+          }
+        },
         "body": {
           "$ref": "#/definitions/body"
         },
@@ -463,6 +470,74 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/guid"
+      }
+    },
+    "file_attachment_asset": {
+      "type": "object",
+      "required": [
+        "attachment_type",
+        "content_type",
+        "id",
+        "url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "accessible": {
+          "type": "boolean"
+        },
+        "alternative_format_contact_email": {
+          "type": "string"
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "asset_manager_id",
+              "filename"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "asset_manager_id": {
+                "type": "string"
+              },
+              "filename": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "attachment_type": {
+          "type": "string",
+          "enum": [
+            "file"
+          ]
+        },
+        "content_type": {
+          "type": "string"
+        },
+        "file_size": {
+          "type": "integer"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "locale": {
+          "$ref": "#/definitions/locale"
+        },
+        "number_of_pages": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
       }
     },
     "first_public_at": {
