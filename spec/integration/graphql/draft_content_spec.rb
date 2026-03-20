@@ -1,4 +1,6 @@
 RSpec.describe "Requesting draft content by base path" do
+  before { Rails.application.config.permit_graphql_draft_content_access = true }
+
   context "when not all content is available as a draft" do
     it "will link from live editions to draft editions and vice versa" do
       level_2_target_edition = create(:live_edition, title: "level 2 edition 1, live")
