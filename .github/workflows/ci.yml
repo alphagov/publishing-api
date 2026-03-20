@@ -23,7 +23,7 @@ jobs:
 
   security-analysis:
     name: Security Analysis
-    uses: alphagov/govuk-infrastructure/.github/workflows/brakeman.yml@main
+    uses: alphagov/govuk-infrastructure/.github/workflows/brakeman.yml@fix-brakeman-ignore
     secrets: inherit
     permissions:
       contents: read
