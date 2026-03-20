@@ -28,7 +28,7 @@ RSpec.describe "Requesting draft content by base path" do
         ],
       )
 
-      get "/graphql/draft/#{edition.base_path}"
+      get "/graphql/draft#{edition.base_path}"
 
       parsed_response = JSON.parse(response.body)
 
