@@ -20,7 +20,8 @@ RSpec.describe Presenters::HostContentItemPresenter do
              primary_publishing_organisation_content_id: organisation_edition_id,
              primary_publishing_organisation_title: "bar",
              primary_publishing_organisation_base_path: "/bar",
-             instances: 1)
+             instances: 1,
+             state: "published")
     end
 
     let(:result) { described_class.present(host_edition) }
@@ -28,6 +29,7 @@ RSpec.describe Presenters::HostContentItemPresenter do
     let(:expected_output) do
       {
         title: "foo",
+        state: "published",
         base_path: "/foo",
         document_type: "publication",
         publishing_app: "publisher",

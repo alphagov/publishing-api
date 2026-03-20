@@ -13,6 +13,7 @@ module Presenters
     def present
       {
         title: host_content.title,
+        state: host_content.state,
         base_path: host_content.base_path,
         document_type: host_content.document_type,
         publishing_app: host_content.publishing_app,

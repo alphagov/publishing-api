@@ -56,6 +56,7 @@ RSpec.describe "Host content" do
     let(:host_edition_response) do
       {
         "title" => host_edition.title,
+        "state" => "published",
         "base_path" => host_edition.base_path,
         "document_type" => host_edition.document_type,
         "publishing_app" => host_edition.publishing_app,

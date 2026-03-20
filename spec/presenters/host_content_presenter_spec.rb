@@ -11,6 +11,7 @@ RSpec.describe Presenters::HostContentPresenter do
     let(:host_editions) do
       [double("Queries::GetHostContent::Result",
               id: "1",
+              state: "published",
               title: "foo",
               base_path: "/foo",
               document_type: "publication",
