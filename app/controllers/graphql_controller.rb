@@ -50,6 +50,10 @@ private
   def content_action(with_drafts:)
     execute_in_read_replica do
       begin
+        if with_drafts && !Rails.application.config.permit_graphql_draft_content_access
+          return head :unauthorized
+        end
+
         encoded_base_path = Addressable::URI.encode("/#{params[:base_path]}")
         edition = EditionFinderService.new(encoded_base_path, with_drafts:).find
         set_cache_headers(edition)

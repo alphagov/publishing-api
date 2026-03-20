@@ -202,32 +202,74 @@ RSpec.describe GraphqlController do
   describe "#draft_content" do
     let(:action) { :draft_content }
 
-    it_behaves_like "a content endpoint"
+    context "when unpermitted to access draft content via GraphQL" do
+      before { Rails.application.config.permit_graphql_draft_content_access = false }
 
-    context "when the requested base_path has draft content" do
-      let(:edition_factory) { :draft_edition }
-      let(:edition_properties) do
-        {
-          schema_name: "person",
-          document_type: "person",
-          details: { "body" => "Some content" },
+      it "responds with a 401 even with matching content" do
+        base_path = "/world"
+        edition_properties = {
+          base_path:,
+          schema_name: "world_index",
+          document_type: "world_index",
+          details: { "body" => "some content" },
         }
-      end
+        create(:draft_edition, **edition_properties)
+        create(:live_edition, **edition_properties)
+        request_path = base_path_without_leading_slash(base_path)
 
-      it_behaves_like "a content endpoint with a matching edition", :draft
+        get action, params: { base_path: request_path }
+
+        expect(response.status).to eq(401)
+      end
     end
 
-    context "when the requested base_path only has live content" do
-      let(:edition_factory) { :live_edition }
-      let(:edition_properties) do
-        {
-          schema_name: "news_article",
-          document_type: "news_story",
-          details: { "body" => "Some content" },
+    context "when permitted to access draft content via GraphQL" do
+      before { Rails.application.config.permit_graphql_draft_content_access = true }
+
+      it "can respond with a 200" do
+        base_path = "/world"
+        edition_properties = {
+          base_path:,
+          schema_name: "world_index",
+          document_type: "world_index",
+          details: { "body" => "some content" },
         }
+        create(:draft_edition, **edition_properties)
+        create(:live_edition, **edition_properties)
+        request_path = base_path_without_leading_slash(base_path)
+
+        get action, params: { base_path: request_path }
+
+        expect(response.status).to eq(200)
       end
 
-      it_behaves_like "a content endpoint with a matching edition", :live
+      it_behaves_like "a content endpoint"
+
+      context "when the requested base_path has draft content" do
+        let(:edition_factory) { :draft_edition }
+        let(:edition_properties) do
+          {
+            schema_name: "person",
+            document_type: "person",
+            details: { "body" => "Some content" },
+          }
+        end
+
+        it_behaves_like "a content endpoint with a matching edition", :draft
+      end
+
+      context "when the requested base_path only has live content" do
+        let(:edition_factory) { :live_edition }
+        let(:edition_properties) do
+          {
+            schema_name: "news_article",
+            document_type: "news_story",
+            details: { "body" => "Some content" },
+          }
+        end
+
+        it_behaves_like "a content endpoint with a matching edition", :live
+      end
     end
   end
 
