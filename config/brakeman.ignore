@@ -95,7 +95,7 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "722f1b1d7079b90bcfdbf46b8f5bd7816927ed25d5c4f507c8df34c4a448a92e",
+      "fingerprint": "f738f92614ef15fa91784fb2cf4e05e404fbefeaa138d12f0b41122d872b3bca",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/queries/get_edition_ids_with_fallbacks.rb",
