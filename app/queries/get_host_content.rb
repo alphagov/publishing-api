@@ -68,9 +68,9 @@ module Queries
 
     attr_reader :target_content_id, :states, :order_field, :order_direction, :page, :per_page, :host_content_id, :locale
 
-    def initialize(target_content_id, order_field: nil, order_direction: nil, page: nil, per_page: nil, host_content_id: nil, locale: nil)
+    def initialize(target_content_id, order_field: nil, order_direction: nil, page: nil, per_page: nil, host_content_id: nil, locale: nil, state: nil)
       @target_content_id = target_content_id
-      @states = %w[published draft]
+      @states = state ? [state] : %w[published draft]
       @order_direction = ORDER_DIRECTIONS.include?(order_direction || :asc) ? order_direction : raise(KeyError, "Unknown order direction: #{order_direction}")
       @order_field = ORDER_FIELDS.fetch(order_field || :unique_pageviews) { |k| raise KeyError, "Unknown order field: #{k}" }
       @page = page || 0

@@ -125,6 +125,20 @@ RSpec.describe Queries::GetHostContent do
         expect(english_results.count).to eq(1)
       end
 
+      it "allows filtering by state" do
+        published_results = described_class.new(target_content_id, state: "published").call
+
+        expect(published_results.count).to eq(2)
+
+        expect(published_results.map(&:id)).to match_array([live_document.live.id, live_document_with_draft.live.id])
+
+        draft_results = described_class.new(target_content_id, state: "draft").call
+
+        expect(draft_results.count).to eq(2)
+
+        expect(draft_results.map(&:id)).to match_array([live_document_with_draft.reload.draft.id, draft_document.reload.draft.id])
+      end
+
       def create_host_edition(document, factory_type, user_facing_version)
         create(factory_type,
                document:,
