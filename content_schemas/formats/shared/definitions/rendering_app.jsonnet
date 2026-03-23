@@ -13,7 +13,6 @@
       "feedback",
       "finder-frontend",
       "frontend",
-      "government-frontend",
       "info-frontend",
       "licensify",
       "performanceplatform-big-screen-view",
