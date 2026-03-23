@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2016-11-24T00:00:22.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "publication",
   "title": "Application to extend your stay in the UK as a Tier 1 Investor",
   "updated_at": "2017-12-19T11:26:38.186Z",

@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2015-03-03T13:00:55.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "corporate_information_page",
   "title": "Statistics at Ofsted",
   "updated_at": "2017-12-07T12:29:23.645Z",

@@ -9,7 +9,7 @@
   "public_updated_at": "2018-06-28T09:52:43.000+00:00",
   "publishing_app": "specialist-publisher",
   "publishing_scheduled_at": null,
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "scheduled_publishing_delay_seconds": null,
   "schema_name": "specialist_document",
   "title": "EU exit guide",

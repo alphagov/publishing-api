@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2017-11-23T15:03:21.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "corporate_information_page",
   "title": "Membership",
   "updated_at": "2017-11-23T15:03:22.344Z",

@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2015-11-12T10:11:52.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "consultation",
   "title": "Furniture fire safety regulations: proposed amendments",
   "updated_at": "2018-03-05T15:15:30.087Z",

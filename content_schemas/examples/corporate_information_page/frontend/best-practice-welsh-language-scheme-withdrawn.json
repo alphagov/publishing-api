@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2017-11-15T14:51:56.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "corporate_information_page",
   "title": "Welsh language scheme",
   "updated_at": "2018-01-10T13:02:19.482Z",

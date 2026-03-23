@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2014-11-24T15:00:02.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "publication",
   "title": "Learning to drive a car syllabus",
   "updated_at": "2018-01-01T19:27:14.784Z",

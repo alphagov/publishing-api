@@ -30,6 +30,6 @@
     ]
   },
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "phase": "live"
 }

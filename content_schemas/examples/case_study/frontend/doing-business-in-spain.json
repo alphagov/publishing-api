@@ -299,7 +299,7 @@
   "publishing_app": "whitehall",
   "publishing_request_id": "11696-1617014418.854-10.13.4.80-540",
   "publishing_scheduled_at": null,
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "scheduled_publishing_delay_seconds": null,
   "schema_name": "case_study",
   "title": "Doing business in Spain",

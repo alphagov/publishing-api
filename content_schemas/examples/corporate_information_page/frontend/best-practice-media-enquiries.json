@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2014-03-28T15:38:26.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "corporate_information_page",
   "title": "Media enquiries",
   "updated_at": "2018-01-01T19:27:21.793Z",

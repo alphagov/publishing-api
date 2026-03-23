@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2015-12-03T15:13:21.000+00:00",
   "publishing_app": "contacts",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "contact",
   "title": "Creative Industry Tax Reliefs",
   "updated_at": "2016-11-08T15:12:08.274Z",

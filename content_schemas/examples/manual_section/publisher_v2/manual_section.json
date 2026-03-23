@@ -5,7 +5,7 @@
   "locale": "en",
   "public_updated_at": "2015-04-24T10:26:26.000+00:00",
   "publishing_app": "hmrc-manuals-api",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "details": {
     "body": [
       {

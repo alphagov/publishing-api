@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2018-03-05T15:40:15.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "html_publication",
   "title": "DVLA's annual report and accounts 2016 to 2017",
   "updated_at": "2018-03-05T15:50:08.216Z",

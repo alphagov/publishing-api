@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2018-03-02T17:39:35.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "html_publication",
   "title": "Connecting people: a strategic vision for rail",
   "updated_at": "2018-03-02T17:56:21.521Z",

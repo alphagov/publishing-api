@@ -28,7 +28,7 @@
     }
   ],
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "phase": "live",
   "document_type": "case_study",
   "schema_name": "case_study"

@@ -9,7 +9,7 @@
   "public_updated_at": "2016-09-07T11:00:28.000+00:00",
   "publishing_app": "whitehall",
   "publishing_scheduled_at": null,
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "scheduled_publishing_delay_seconds": null,
   "schema_name": "consultation",
   "title": "Setting the grade standards of new GCSEs in England: 2017 & 2018",

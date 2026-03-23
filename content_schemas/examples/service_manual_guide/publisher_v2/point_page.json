@@ -1,6 +1,6 @@
 {
   "publishing_app": "service-manual-publisher",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "locale": "en",
   "details": {
     "show_description": true,

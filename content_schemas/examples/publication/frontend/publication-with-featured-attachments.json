@@ -9,7 +9,7 @@
   "public_updated_at": "2014-05-29T10:48:35.000+00:00",
   "publishing_app": "whitehall",
   "publishing_scheduled_at": null,
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "scheduled_publishing_delay_seconds": null,
   "schema_name": "publication",
   "title": "Number of ex-regular service personnel in FR20",

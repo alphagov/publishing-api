@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2014-11-05T11:18:00.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "document_collection",
   "title": "Academy for Justice Commissioning events",
   "updated_at": "2017-12-19T11:36:29.363Z",

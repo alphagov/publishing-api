@@ -540,7 +540,7 @@
   "publishing_app": "whitehall",
   "publishing_request_id": "21-1721133404.013-10.13.21.76-2643",
   "publishing_scheduled_at": "2024-05-23T09:30:00+01:00",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "scheduled_publishing_delay_seconds": 4,
   "schema_name": "case_study",
   "title": "VDEC is supporting a GBS vaccine to prevent newborn deaths",

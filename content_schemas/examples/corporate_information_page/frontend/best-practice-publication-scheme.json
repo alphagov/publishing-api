@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2013-08-06T13:49:41.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "corporate_information_page",
   "title": "Publication scheme",
   "updated_at": "2017-08-10T14:08:07.639Z",
