@@ -60,6 +60,22 @@ RSpec.describe GetHostContentItemService do
           expect(Presenters::HostContentItemPresenter).to have_received(:present).with(result_stub)
         end
       end
+
+      context "when a state is specified" do
+        let(:state) { "published" }
+
+        before do
+          allow(Queries::GetHostContent).to receive(:new).with(target_content_id, host_content_id:, state:).and_return(embedded_content_stub)
+        end
+
+        it "returns a presented form of the response from the query" do
+          result = described_class.new(target_content_id, host_content_id, nil, state).call
+
+          expect(result).to eq(result_stub)
+
+          expect(Presenters::HostContentItemPresenter).to have_received(:present).with(result_stub)
+        end
+      end
     end
   end
 end
