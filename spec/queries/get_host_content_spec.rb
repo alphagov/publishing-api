@@ -402,36 +402,70 @@ RSpec.describe Queries::GetHostContent do
 
     let(:target_content_id) { content_block.content_id }
 
-    it "returns a count of embedded editions" do
-      statistics_caches = []
-
-      edition1 = create(:live_edition, links_hash: {
+    let!(:edition1) do
+      create(:live_edition, links_hash: {
         primary_publishing_organisation: [organisation1.content_id],
         embed: [target_content_id, target_content_id],
       })
+    end
 
-      statistics_caches << create(:statistics_cache, document: edition1.document, unique_pageviews: 12)
-
-      edition2 = create(:live_edition, links_hash: {
+    let!(:edition2) do
+      create(:live_edition, links_hash: {
         primary_publishing_organisation: [organisation1.content_id],
         embed: [target_content_id],
       })
+    end
 
-      statistics_caches << create(:statistics_cache, document: edition2.document, unique_pageviews: 7)
-
-      edition3 = create(:live_edition, links_hash: {
+    let!(:edition3) do
+      create(:live_edition, links_hash: {
         primary_publishing_organisation: [organisation2.content_id],
         embed: [target_content_id],
       })
+    end
 
-      statistics_caches << create(:statistics_cache, document: edition3.document, unique_pageviews: 7)
+    let!(:statistics_caches) do
+      [
+        create(:statistics_cache, document: edition1.document, unique_pageviews: 12),
+        create(:statistics_cache, document: edition2.document, unique_pageviews: 7),
+        create(:statistics_cache, document: edition3.document, unique_pageviews: 7),
+      ]
+    end
 
+    it "returns a count of embedded editions" do
       result = described_class.new(target_content_id).rollup
 
       expect(result.views).to eq(statistics_caches.sum(&:unique_pageviews))
       expect(result.locations).to eq(3)
       expect(result.instances).to eq(4)
       expect(result.organisations).to eq(2)
+    end
+
+    context "when draft editions exists" do
+      let(:other_organisation) { create(:live_edition) }
+
+      let!(:draft_edition_for_existing_document) do
+        create(:draft_edition, document: edition3.document, user_facing_version: 2,
+                               links_hash: {
+                                 primary_publishing_organisation: [organisation2.content_id],
+                                 embed: [target_content_id],
+                               })
+      end
+
+      let!(:draft_edition) do
+        create(:draft_edition, links_hash: {
+          primary_publishing_organisation: [other_organisation.content_id],
+          embed: [target_content_id, target_content_id],
+        })
+      end
+
+      it "ignores any drafts in the count" do
+        result = described_class.new(target_content_id).rollup
+
+        expect(result.views).to eq(statistics_caches.sum(&:unique_pageviews))
+        expect(result.locations).to eq(3)
+        expect(result.instances).to eq(4)
+        expect(result.organisations).to eq(2)
+      end
     end
   end
 end

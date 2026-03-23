@@ -126,7 +126,9 @@ module Queries
     end
 
     def rollup_query
-      subquery = arel_query.as(Arel.sql("totals"))
+      subquery = arel_query.where(TABLES[:editions][:state].eq("published"))
+                           .as(Arel.sql("totals"))
+
       TABLES[:editions].project(
         subquery[:unique_pageviews].sum.as("views"),
         subquery[:id].count.as("locations"),
