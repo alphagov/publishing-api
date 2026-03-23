@@ -28,7 +28,7 @@ RSpec.describe GetHostContentItemService do
     context "when content for host_content_id exists" do
       let(:result_stub) { double("Queries::GetHostContent::Result") }
       let(:host_editions_stub) { [result_stub] }
-      let(:embedded_content_stub) { double(Queries::GetHostContent, call: [result_stub]) }
+      let(:embedded_content_stub) { double(Queries::GetHostContent, one: result_stub) }
       let(:result_stub) { double }
 
       before do

@@ -79,11 +79,15 @@ module Queries
       @locale = locale
     end
 
-    def call
-      results = ActiveRecord::Base.connection.select_all(paginated_query).to_a
+    def all
       results.map do |row|
         Result.new(**row)
       end
+    end
+
+    def one
+      result = results.first
+      Result.new(**result) if result
     end
 
     def count
@@ -99,6 +103,10 @@ module Queries
     end
 
   private
+
+    def results
+      ActiveRecord::Base.connection.select_all(paginated_query)
+    end
 
     def paginated_query
       arel_query.take(per_page).skip(page * per_page)

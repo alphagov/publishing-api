@@ -11,23 +11,23 @@ class GetHostContentItemService
       raise CommandError.new(code: 404, message:)
     end
 
-    if results.count.zero?
+    if results.nil?
       message = "Could not find host_content_id #{host_content_id} in host content for #{target_content_id}"
       raise CommandError.new(code: 404, message:)
     end
 
-    Presenters::HostContentItemPresenter.present(results[0])
+    Presenters::HostContentItemPresenter.present(results)
   end
 
 private
 
-  attr_accessor :target_content_id, :order, :page, :per_page, :host_content_id, :locale
+  attr_accessor :target_content_id, :order, :page, :per_page, :host_content_id, :locale, :state
 
   def query
     @query ||= Queries::GetHostContent.new(target_content_id, host_content_id:, locale:)
   end
 
   def results
-    @results ||= query.call
+    @results ||= query.one
   end
 end

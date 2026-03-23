@@ -37,7 +37,7 @@ RSpec.describe GetHostContentService do
       let(:count) { 12 }
       let(:total_pages) { 2 }
       let(:rollup_stub) { double(Queries::GetHostContent::Rollup) }
-      let(:embedded_content_stub) { double(Queries::GetHostContent, call: host_editions_stub, count:, total_pages:, rollup: rollup_stub) }
+      let(:embedded_content_stub) { double(Queries::GetHostContent, all: host_editions_stub, count:, total_pages:, rollup: rollup_stub) }
       let(:result_stub) { double }
 
       before do
@@ -113,7 +113,7 @@ RSpec.describe GetHostContentService do
 
         describe "when the field is not valid" do
           before do
-            allow(embedded_content_stub).to receive(:call).and_raise(KeyError)
+            allow(embedded_content_stub).to receive(:all).and_raise(KeyError)
           end
 
           it "returns a 422 error" do
