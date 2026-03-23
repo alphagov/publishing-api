@@ -104,6 +104,56 @@ RSpec.describe "Host content" do
       get "/v2/content/#{content_block.content_id}/host-content/#{host_edition.content_id}?locale=cy"
       expect(response.status).to eq(404)
     end
+
+    describe "filtering by state" do
+      context "when a draft host edition exists" do
+        let(:draft_edited_at) { "2023-01-02T09:00:00.000Z" }
+
+        let!(:draft_host_edition) do
+          Timecop.freeze Time.zone.parse(draft_edited_at) do
+            create_draft_edition(content_id: host_edition.content_id,
+                                 title: "New title",
+                                 body: "<p>{{embed:content_block_pension:#{content_block.content_id}}}</p>\n",
+                                 primary_publishing_organisation_uuid: publishing_organisation.content_id)
+          end
+        end
+
+        it "allows filtering by state" do
+          get "/v2/content/#{content_block.content_id}/host-content/#{host_edition.content_id}?state=draft"
+          response_body = parsed_response
+          expected_response = host_edition_response.merge(
+            "state" => "draft",
+            "title" => draft_host_edition.title,
+            "last_edited_at" => draft_edited_at,
+          )
+
+          expect(response_body).to eq(expected_response)
+        end
+      end
+
+      context "when a draft host edition does not exist" do
+        it "returns 404 when a draft state is not found" do
+          get "/v2/content/#{content_block.content_id}/host-content/#{host_edition.content_id}?state=draft"
+          expect(response.status).to eq(404)
+        end
+      end
+
+      context "when a published edition does not exist" do
+        let!(:host_edition) do
+          Timecop.freeze Time.zone.parse(last_edited_at) do
+            create_draft_edition(
+              body: "<p>{{embed:content_block_pension:#{content_block.content_id}}}</p>\n",
+              primary_publishing_organisation_uuid: publishing_organisation.content_id,
+            )
+          end
+        end
+
+        it "returns 404 when a published state is not found" do
+          get "/v2/content/#{content_block.content_id}/host-content/#{host_edition.content_id}?state=published"
+          expect(response.status).to eq(404)
+        end
+      end
+    end
   end
 
   context "when host content appears more than once in a field" do
@@ -339,7 +389,15 @@ RSpec.describe "Host content" do
 private
 
   def create_live_edition(content_id: SecureRandom.uuid, body: "Some body goes here", primary_publishing_organisation_uuid: nil)
+    create_draft_edition(content_id:, body:, primary_publishing_organisation_uuid:)
+    post "/v2/content/#{content_id}/publish", params: {}.to_json
+
+    Document.find_by(content_id:).live
+  end
+
+  def create_draft_edition(title: "Title", content_id: SecureRandom.uuid, body: "Some body goes here", primary_publishing_organisation_uuid: nil)
     payload.merge!(
+      title:,
       document_type: "press_release",
       schema_name: "news_article",
       details: { body: },
@@ -354,8 +412,7 @@ private
     end
 
     put "/v2/content/#{content_id}", params: payload.to_json
-    post "/v2/content/#{content_id}/publish", params: {}.to_json
 
-    Document.find_by(content_id:).live
+    Document.find_by(content_id:).draft
   end
 end

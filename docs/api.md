@@ -490,6 +490,8 @@ the target `:content_id`.
 
 - `locale` *(optional, default: "en")*
   - An optional locale to filter by
+- `state` *(optional, default: "en")*
+    - An optional state to filter by (either `draft` or `published`) - defaults to `published`
 
 ## `PATCH /v2/links/:content_id`
 
