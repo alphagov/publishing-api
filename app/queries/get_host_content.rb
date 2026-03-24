@@ -51,7 +51,10 @@ module Queries
       { field: TABLES[:statistics_caches][:unique_pageviews], alias: "unique_pageviews", included_in_group?: true },
       { field: TABLES[:documents][:content_id], alias: "host_content_id", included_in_group?: true },
       { field: TABLES[:documents][:locale], alias: "host_locale", included_in_group?: true },
-      { field: TABLES[:editions][:id].count, alias: "instances", included_in_group?: false },
+      # .count(true) produces COUNT(DISTINCT ...) - see Arel::Expressions#count
+      # We need DISTINCT to avoid inflated counts when the primary_links join
+      # matches via both edition_id and link_set_content_id paths.
+      { field: TABLES[:links][:id].count(true), alias: "instances", included_in_group?: false },
       { field: TABLES[:editions][:state], alias: "state", included_in_group?: true },
     ].freeze
 
@@ -61,7 +64,7 @@ module Queries
       unique_pageviews: TABLES[:statistics_caches][:unique_pageviews],
       primary_publishing_organisation_title: TABLES[:org_editions][:title],
       last_edited_at: TABLES[:editions][:last_edited_at],
-      instances: TABLES[:editions][:id].count,
+      instances: TABLES[:links][:id].count(true), # must match FIELDS definition above
     }.freeze
 
     ORDER_DIRECTIONS = %i[asc desc].freeze

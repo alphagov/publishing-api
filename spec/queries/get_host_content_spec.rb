@@ -330,6 +330,119 @@ RSpec.describe Queries::GetHostContent do
       end
     end
 
+    describe "counting the instances of links" do
+      let(:content_block) do
+        create(:live_edition,
+               document_type: "content_block_pension",
+               schema_name: "content_block_pension")
+      end
+
+      let(:target_content_id) { content_block.content_id }
+      let(:host_document) { create(:document) }
+
+      # Edition links are created via PUT /v2/content and are edition-specific.
+      # This is the recommended approach for most link types.
+      context "when primary_publishing_organisation is an edition link" do
+        context "and the document has a superseded edition with 1 embed link" do
+          let!(:superseded_edition) do
+            create(:superseded_edition,
+                   document: host_document,
+                   user_facing_version: 1,
+                   links_hash: {
+                     primary_publishing_organisation: [organisation.content_id],
+                     embed: [target_content_id],
+                   })
+          end
+
+          context "and the live edition has 3 embed links" do
+            let!(:live_edition) do
+              create(:live_edition,
+                     document: host_document,
+                     user_facing_version: 2,
+                     links_hash: {
+                       primary_publishing_organisation: [organisation.content_id],
+                       embed: [target_content_id, target_content_id, target_content_id],
+                     })
+            end
+
+            it "counts 3 instances of the content block" do
+              results = described_class.new(target_content_id).all
+
+              aggregate_failures do
+                expect(results.count).to eq(1)
+                expect(results[0].id).to eq(live_edition.id)
+                expect(results[0].instances).to eq(3)
+              end
+            end
+          end
+        end
+      end
+
+      # Link set links are created via PATCH /v2/links and apply to all editions
+      # and locales. This is a legacy mechanism still used for recursive expansion.
+      context "when primary_publishing_organisation is a link set link" do
+        context "and the live edition has 2 embed links" do
+          let!(:live_edition) do
+            create(:live_edition,
+                   document: host_document,
+                   links_hash: { embed: [target_content_id, target_content_id] })
+          end
+
+          before do
+            link_set = create(:link_set, content_id: host_document.content_id)
+            create(:link,
+                   link_set:,
+                   target_content_id: organisation.content_id,
+                   link_set_content_id: host_document.content_id,
+                   link_type: "primary_publishing_organisation")
+          end
+
+          it "counts 2 instances of the content block" do
+            results = described_class.new(target_content_id).all
+
+            aggregate_failures do
+              expect(results.count).to eq(1)
+              expect(results[0].id).to eq(live_edition.id)
+              expect(results[0].instances).to eq(2)
+            end
+          end
+        end
+      end
+
+      # When the same link type exists as both an edition link and a link set link,
+      # the query must avoid double-counting due to the OR condition in the JOIN.
+      # This scenario shouldn't normally occur but the query handles it defensively.
+      context "when primary_publishing_organisation exists as both link types" do
+        context "and the live edition has 2 embed links" do
+          let!(:live_edition) do
+            create(:live_edition,
+                   document: host_document,
+                   links_hash: {
+                     primary_publishing_organisation: [organisation.content_id],
+                     embed: [target_content_id, target_content_id],
+                   })
+          end
+
+          before do
+            link_set = create(:link_set, content_id: host_document.content_id)
+            create(:link,
+                   link_set:,
+                   target_content_id: organisation.content_id,
+                   link_set_content_id: host_document.content_id,
+                   link_type: "primary_publishing_organisation")
+          end
+
+          it "counts 2 instances without duplication from the join" do
+            results = described_class.new(target_content_id).all
+
+            expect(results.count).to eq(1)
+            expect(results[0].id).to eq(live_edition.id)
+            expect(results[0].instances).to eq(2)
+          end
+        end
+      end
+    end
+
     context "pagination" do
       let(:target_content_id) { SecureRandom.uuid }
 
