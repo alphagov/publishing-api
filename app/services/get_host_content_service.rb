@@ -36,7 +36,7 @@ private
   end
 
   def host_content
-    @host_content ||= query.call
+    @host_content ||= query.all
   rescue KeyError
     message = "Invalid order field: #{order}"
     raise CommandError.new(

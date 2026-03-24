@@ -15,6 +15,7 @@ module Queries
       :primary_publishing_organisation_base_path,
       :unique_pageviews,
       :instances,
+      :state,
     )
 
     Rollup = Data.define(
@@ -51,6 +52,7 @@ module Queries
       { field: TABLES[:documents][:content_id], alias: "host_content_id", included_in_group?: true },
       { field: TABLES[:documents][:locale], alias: "host_locale", included_in_group?: true },
       { field: TABLES[:editions][:id].count, alias: "instances", included_in_group?: false },
+      { field: TABLES[:editions][:state], alias: "state", included_in_group?: true },
     ].freeze
 
     ORDER_FIELDS = {
@@ -64,11 +66,11 @@ module Queries
 
     ORDER_DIRECTIONS = %i[asc desc].freeze
 
-    attr_reader :target_content_id, :state, :order_field, :order_direction, :page, :per_page, :host_content_id, :locale
+    attr_reader :target_content_id, :states, :order_field, :order_direction, :page, :per_page, :host_content_id, :locale
 
-    def initialize(target_content_id, order_field: nil, order_direction: nil, page: nil, per_page: nil, host_content_id: nil, locale: nil)
+    def initialize(target_content_id, order_field: nil, order_direction: nil, page: nil, per_page: nil, host_content_id: nil, locale: nil, state: nil)
       @target_content_id = target_content_id
-      @state = "published"
+      @states = state ? [state] : %w[published draft]
       @order_direction = ORDER_DIRECTIONS.include?(order_direction || :asc) ? order_direction : raise(KeyError, "Unknown order direction: #{order_direction}")
       @order_field = ORDER_FIELDS.fetch(order_field || :unique_pageviews) { |k| raise KeyError, "Unknown order field: #{k}" }
       @page = page || 0
@@ -77,11 +79,15 @@ module Queries
       @locale = locale
     end
 
-    def call
-      results = ActiveRecord::Base.connection.select_all(paginated_query).to_a
+    def all
       results.map do |row|
         Result.new(**row)
       end
+    end
+
+    def one
+      result = results.first
+      Result.new(**result) if result
     end
 
     def count
@@ -98,6 +104,10 @@ module Queries
 
   private
 
+    def results
+      ActiveRecord::Base.connection.select_all(paginated_query)
+    end
+
     def paginated_query
       arel_query.take(per_page).skip(page * per_page)
     end
@@ -109,7 +119,7 @@ module Queries
     end
 
     def clauses
-      clauses = TABLES[:editions][:state].eq(state)
+      clauses = TABLES[:editions][:state].in(states)
                                          .and(TABLES[:links][:link_type].eq(embedded_link_type))
                                          .and(TABLES[:links][:target_content_id].eq(target_content_id))
 
@@ -124,7 +134,9 @@ module Queries
     end
 
     def rollup_query
-      subquery = arel_query.as(Arel.sql("totals"))
+      subquery = arel_query.where(TABLES[:editions][:state].eq("published"))
+                           .as(Arel.sql("totals"))
+
       TABLES[:editions].project(
         subquery[:unique_pageviews].sum.as("views"),
         subquery[:id].count.as("locations"),

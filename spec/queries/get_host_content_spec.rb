@@ -1,101 +1,102 @@
 RSpec.describe Queries::GetHostContent do
-  describe "#call" do
-    let(:organisation) do
-      edition_params = {
-        title: "bar",
-        document: create(:document),
-        document_type: "organisation",
-        schema_name: "organisation",
-        base_path: "/government/organisations/bar",
-      }
+  let(:organisation) do
+    edition_params = {
+      title: "bar",
+      document: create(:document),
+      document_type: "organisation",
+      schema_name: "organisation",
+      base_path: "/government/organisations/bar",
+    }
 
-      create(:superseded_edition, **edition_params)
-      live_edition = create(:live_edition, **edition_params.merge({ user_facing_version: 2 }))
-      create(:draft_edition, **edition_params.merge({ user_facing_version: 3 }))
+    create(:superseded_edition, **edition_params)
+    live_edition = create(:live_edition, **edition_params.merge({ user_facing_version: 2 }))
+    create(:draft_edition, **edition_params.merge({ user_facing_version: 3 }))
 
-      live_edition
-    end
+    live_edition
+  end
 
-    let(:content_block) do
-      create(:live_edition,
-             document_type: "content_block_pension",
-             schema_name: "content_block_pension")
-    end
+  let(:content_block) do
+    create(:live_edition,
+           document_type: "content_block_pension",
+           schema_name: "content_block_pension")
+  end
 
-    let(:target_content_id) { content_block.content_id }
+  let(:target_content_id) { content_block.content_id }
 
+  describe "#all" do
     context "when the target_content is not embedded in any live editions" do
       it "returns an empty results list" do
         target_content_id = SecureRandom.uuid
         allow(Document).to receive(:find_by).and_return(anything)
 
-        result = described_class.new(target_content_id).call
+        result = described_class.new(target_content_id).all
 
         expect(result).to eq([])
       end
     end
 
     context "when there are live and draft editions that embed the target content" do
-      let!(:published_host_editions) do
-        create_list(:live_edition, 2,
-                    details: {
-                      body: "<p>{{embed:content_block_pension:#{target_content_id}}}</p>\n",
-                    },
-                    links_hash: {
-                      primary_publishing_organisation: [organisation.content_id],
-                      embed: [target_content_id],
-                    },
-                    publishing_app: "example-app")
-      end
-
-      let!(:draft_host_editions) do
-        create_list(:edition, 2,
-                    details: {
-                      body: "<p>{{embed:content_block_pension:#{target_content_id}}}</p>\n",
-                    },
-                    links_hash: {
-                      primary_publishing_organisation: [organisation.content_id],
-                      embed: [target_content_id],
-                    },
-                    publishing_app: "another-app")
-      end
+      let(:live_document) { create(:document) }
+      let(:live_document_with_draft) { create(:document) }
+      let(:draft_document) { create(:document) }
+      let(:unpublished_document) { create(:document) }
 
       let!(:unwanted_edition) { create(:live_edition) }
 
-      it "returns the live editions" do
-        published_host_editions.map do |edition|
-          create(:statistics_cache, document: edition.document, unique_pageviews: 123)
-        end
+      let!(:statistics_caches) do
+        {
+          live_document.id => create(:statistics_cache, document: live_document, unique_pageviews: 123),
+          live_document_with_draft.id => create(:statistics_cache, document: live_document_with_draft, unique_pageviews: 34),
+        }
+      end
 
-        expected_editions = published_host_editions
-        expected_pageviews = StatisticsCache.where(document: published_host_editions.map(&:document))
-                                            .map { |s|
-                                              [s.document_id, s.unique_pageviews]
-                                            }.to_h
+      before do
+        create_host_edition(live_document, :superseded_edition, 1)
+        create_host_edition(live_document, :live_edition, 2)
 
-        results = described_class.new(target_content_id).call
+        create_host_edition(live_document_with_draft, :live_edition, 1)
+        create_host_edition(live_document_with_draft, :draft_edition, 2)
+
+        create_host_edition(draft_document, :draft_edition, 1)
+
+        create_host_edition(unpublished_document, :unpublished_edition, 1)
+      end
+
+      it "returns the live and draft editions" do
+        expected_editions = [
+          live_document.reload.live,
+          live_document_with_draft.reload.draft,
+          live_document_with_draft.live,
+          draft_document.reload.draft,
+        ]
+
+        results = described_class.new(target_content_id).all
 
         expect(results.count).to eq(expected_editions.count)
 
-        expected_editions.each_with_index do |host_edition, i|
-          expect(results[i].id).to eq(host_edition.id)
-          expect(results[i].title).to eq(host_edition.title)
-          expect(results[i].base_path).to eq(host_edition.base_path)
-          expect(results[i].document_type).to eq(host_edition.document_type)
-          expect(results[i].publishing_app).to eq(host_edition.publishing_app)
-          expect(results[i].host_content_id).to eq(host_edition.content_id)
-          expect(results[i].host_locale).to eq(host_edition.document.locale)
-          expect(results[i].primary_publishing_organisation_content_id).to eq(organisation.content_id)
-          expect(results[i].primary_publishing_organisation_title).to eq(organisation.title)
-          expect(results[i].primary_publishing_organisation_base_path).to eq(organisation.base_path)
-          expect(results[i].unique_pageviews).to eq(expected_pageviews[host_edition.document.id])
-          expect(results[i].instances).to eq(1)
+        expected_editions.each do |host_edition|
+          matching_edition = results.find { |result| result.id == host_edition.id }
+
+          expect(matching_edition.title).to eq(host_edition.title)
+          expect(matching_edition.base_path).to eq(host_edition.base_path)
+          expect(matching_edition.document_type).to eq(host_edition.document_type)
+          expect(matching_edition.publishing_app).to eq(host_edition.publishing_app)
+          expect(matching_edition.host_content_id).to eq(host_edition.content_id)
+          expect(matching_edition.host_locale).to eq(host_edition.document.locale)
+          expect(matching_edition.primary_publishing_organisation_content_id).to eq(organisation.content_id)
+          expect(matching_edition.primary_publishing_organisation_title).to eq(organisation.title)
+          expect(matching_edition.primary_publishing_organisation_base_path).to eq(organisation.base_path)
+          expect(matching_edition.unique_pageviews).to eq(statistics_caches[host_edition.document.id]&.unique_pageviews || nil)
+          expect(matching_edition.instances).to eq(1)
+          expect(matching_edition.last_edited_by_editor_id).to eq(host_edition.last_edited_by_editor_id)
+          expect(matching_edition.last_edited_at).to eq(host_edition.last_edited_at)
+          expect(matching_edition.state).to eq(host_edition.state)
         end
       end
 
       it "allows filtering by host_content_id" do
-        host_edition = published_host_editions[1]
-        results = described_class.new(target_content_id, host_content_id: host_edition.content_id).call
+        host_edition = live_document.live
+        results = described_class.new(target_content_id, host_content_id: host_edition.content_id).all
 
         expect(results.count).to eq(1)
 
@@ -109,18 +110,33 @@ RSpec.describe Queries::GetHostContent do
         expect(results[0].primary_publishing_organisation_title).to eq(organisation.title)
         expect(results[0].primary_publishing_organisation_base_path).to eq(organisation.base_path)
         expect(results[0].instances).to eq(1)
+        expect(results[0].state).to eq(host_edition.state)
       end
 
       it "allows filtering by locale" do
-        host_edition = published_host_editions[1]
+        host_edition = live_document.live
 
-        welsh_results = described_class.new(target_content_id, host_content_id: host_edition.content_id, locale: "cy").call
+        welsh_results = described_class.new(target_content_id, host_content_id: host_edition.content_id, locale: "cy").all
 
         expect(welsh_results.count).to eq(0)
 
-        english_results = described_class.new(target_content_id, host_content_id: host_edition.content_id, locale: "en").call
+        english_results = described_class.new(target_content_id, host_content_id: host_edition.content_id, locale: "en").all
 
         expect(english_results.count).to eq(1)
+      end
+
+      it "allows filtering by state" do
+        published_results = described_class.new(target_content_id, state: "published").all
+
+        expect(published_results.count).to eq(2)
+
+        expect(published_results.map(&:id)).to match_array([live_document.live.id, live_document_with_draft.live.id])
+
+        draft_results = described_class.new(target_content_id, state: "draft").all
+
+        expect(draft_results.count).to eq(2)
+
+        expect(draft_results.map(&:id)).to match_array([live_document_with_draft.reload.draft.id, draft_document.reload.draft.id])
       end
     end
 
@@ -144,7 +160,7 @@ RSpec.describe Queries::GetHostContent do
       end
 
       it "returns the live editions" do
-        results = described_class.new(target_content_id).call
+        results = described_class.new(target_content_id).all
 
         expect(results.count).to eq(2)
 
@@ -172,7 +188,7 @@ RSpec.describe Queries::GetHostContent do
       end
 
       it "returns instance counts correctly" do
-        results = described_class.new(target_content_id).call
+        results = described_class.new(target_content_id).all
 
         expect(results[0].instances).to eq(2)
       end
@@ -193,7 +209,7 @@ RSpec.describe Queries::GetHostContent do
       end
 
       it "returns the locale" do
-        results = described_class.new(target_content_id).call
+        results = described_class.new(target_content_id).all
 
         expect(results[0].host_locale).to eq("cy")
       end
@@ -216,7 +232,7 @@ RSpec.describe Queries::GetHostContent do
       end
 
       it "returns one row per content block" do
-        results = described_class.new(target_content_id).call
+        results = described_class.new(target_content_id).all
 
         expect(results.count).to eq(1)
       end
@@ -234,7 +250,7 @@ RSpec.describe Queries::GetHostContent do
                                             embed: [content_block.content_id],
                                           })
 
-        results = described_class.new(target_content_id).call
+        results = described_class.new(target_content_id).all
 
         expect(results.count).to eq(0)
       end
@@ -246,24 +262,24 @@ RSpec.describe Queries::GetHostContent do
       it "sorts by unique_pageviews by default" do
         expect_sort_call_for(order_field: Queries::GetHostContent::ORDER_FIELDS[:unique_pageviews], order_direction: :asc)
 
-        described_class.new(target_content_id).call
+        described_class.new(target_content_id).all
       end
 
       it "allows searching in descending order with the default field" do
         expect_sort_call_for(order_field: Queries::GetHostContent::ORDER_FIELDS[:unique_pageviews], order_direction: :desc)
 
-        described_class.new(target_content_id, order_direction: :desc).call
+        described_class.new(target_content_id, order_direction: :desc).all
       end
 
       it "throws an error with an invalid field" do
         expect {
-          described_class.new(target_content_id, order_field: :foo).call
+          described_class.new(target_content_id, order_field: :foo).all
         }.to raise_error(KeyError, "Unknown order field: foo")
       end
 
       it "throws an error with an invalid order direction" do
         expect {
-          described_class.new(target_content_id, order_direction: :foo).call
+          described_class.new(target_content_id, order_direction: :foo).all
         }.to raise_error(KeyError, "Unknown order direction: foo")
       end
 
@@ -275,7 +291,7 @@ RSpec.describe Queries::GetHostContent do
         create(:statistics_cache, document: edition2.document, unique_pageviews: 123)
         create(:statistics_cache, document: edition3.document, unique_pageviews: 2)
 
-        results = described_class.new(target_content_id, order_direction: :desc).call
+        results = described_class.new(target_content_id, order_direction: :desc).all
 
         expect(results.count).to eq(3)
 
@@ -294,7 +310,7 @@ RSpec.describe Queries::GetHostContent do
           it "allows searching by #{key} #{order_direction}" do
             expect_sort_call_for(order_field:, order_direction:)
 
-            described_class.new(target_content_id, order_field: key, order_direction:).call
+            described_class.new(target_content_id, order_field: key, order_direction:).all
           end
         end
       end
@@ -335,7 +351,7 @@ RSpec.describe Queries::GetHostContent do
           expect(arel_query.limit).to eq(Queries::GetHostContent::DEFAULT_PER_PAGE)
         }.and_return([])
 
-        described_class.new(target_content_id).call
+        described_class.new(target_content_id).all
       end
 
       it "accepts a page argument" do
@@ -344,7 +360,7 @@ RSpec.describe Queries::GetHostContent do
           expect(arel_query.limit).to eq(Queries::GetHostContent::DEFAULT_PER_PAGE)
         }.and_return([])
 
-        described_class.new(target_content_id, page: 1).call
+        described_class.new(target_content_id, page: 1).all
       end
 
       it "accepts a per_page argument" do
@@ -353,7 +369,7 @@ RSpec.describe Queries::GetHostContent do
           expect(arel_query.limit).to eq(1)
         }.and_return([])
 
-        described_class.new(target_content_id, per_page: 1).call
+        described_class.new(target_content_id, per_page: 1).all
       end
 
       it "accepts a per_page and page argument" do
@@ -362,14 +378,37 @@ RSpec.describe Queries::GetHostContent do
           expect(arel_query.limit).to eq(5)
         }.and_return([])
 
-        described_class.new(target_content_id, per_page: 5, page: 1).call
+        described_class.new(target_content_id, per_page: 5, page: 1).all
 
         expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
           expect(arel_query.offset).to eq(10)
           expect(arel_query.limit).to eq(5)
         }.and_return([])
 
-        described_class.new(target_content_id, per_page: 5, page: 2).call
+        described_class.new(target_content_id, per_page: 5, page: 2).all
+      end
+    end
+  end
+
+  describe "#one" do
+    context "when there are live and draft editions that embed the target content" do
+      let(:live_document_with_draft) { create(:document) }
+
+      let!(:statistics_caches) do
+        {
+          live_document_with_draft.id => create(:statistics_cache, document: live_document_with_draft, unique_pageviews: 34),
+        }
+      end
+
+      before do
+        create_host_edition(live_document_with_draft, :live_edition, 1)
+        create_host_edition(live_document_with_draft, :draft_edition, 2)
+      end
+
+      it "returns the live edition" do
+        result = described_class.new(target_content_id).one
+
+        expect(result.id).to eq(live_document_with_draft.live.id)
       end
     end
   end
@@ -386,30 +425,36 @@ RSpec.describe Queries::GetHostContent do
 
     let(:target_content_id) { content_block.content_id }
 
-    it "returns a count of embedded editions" do
-      statistics_caches = []
-
-      edition1 = create(:live_edition, links_hash: {
+    let!(:edition1) do
+      create(:live_edition, links_hash: {
         primary_publishing_organisation: [organisation1.content_id],
         embed: [target_content_id, target_content_id],
       })
+    end
 
-      statistics_caches << create(:statistics_cache, document: edition1.document, unique_pageviews: 12)
-
-      edition2 = create(:live_edition, links_hash: {
+    let!(:edition2) do
+      create(:live_edition, links_hash: {
         primary_publishing_organisation: [organisation1.content_id],
         embed: [target_content_id],
       })
+    end
 
-      statistics_caches << create(:statistics_cache, document: edition2.document, unique_pageviews: 7)
-
-      edition3 = create(:live_edition, links_hash: {
+    let!(:edition3) do
+      create(:live_edition, links_hash: {
         primary_publishing_organisation: [organisation2.content_id],
         embed: [target_content_id],
       })
+    end
 
-      statistics_caches << create(:statistics_cache, document: edition3.document, unique_pageviews: 7)
+    let!(:statistics_caches) do
+      [
+        create(:statistics_cache, document: edition1.document, unique_pageviews: 12),
+        create(:statistics_cache, document: edition2.document, unique_pageviews: 7),
+        create(:statistics_cache, document: edition3.document, unique_pageviews: 7),
+      ]
+    end
 
+    it "returns a count of embedded editions" do
       result = described_class.new(target_content_id).rollup
 
       expect(result.views).to eq(statistics_caches.sum(&:unique_pageviews))
@@ -417,5 +462,47 @@ RSpec.describe Queries::GetHostContent do
       expect(result.instances).to eq(4)
       expect(result.organisations).to eq(2)
     end
+
+    context "when draft editions exists" do
+      let(:other_organisation) { create(:live_edition) }
+
+      let!(:draft_edition_for_existing_document) do
+        create(:draft_edition, document: edition3.document, user_facing_version: 2,
+                               links_hash: {
+                                 primary_publishing_organisation: [organisation2.content_id],
+                                 embed: [target_content_id],
+                               })
+      end
+
+      let!(:draft_edition) do
+        create(:draft_edition, links_hash: {
+          primary_publishing_organisation: [other_organisation.content_id],
+          embed: [target_content_id, target_content_id],
+        })
+      end
+
+      it "ignores any drafts in the count" do
+        result = described_class.new(target_content_id).rollup
+
+        expect(result.views).to eq(statistics_caches.sum(&:unique_pageviews))
+        expect(result.locations).to eq(3)
+        expect(result.instances).to eq(4)
+        expect(result.organisations).to eq(2)
+      end
+    end
+  end
+
+  def create_host_edition(document, factory_type, user_facing_version)
+    create(factory_type,
+           document:,
+           user_facing_version:,
+           details: {
+             body: "<p>{{embed:content_block_pension:#{target_content_id}}}</p>\n",
+           },
+           links_hash: {
+             primary_publishing_organisation: [organisation.content_id],
+             embed: [target_content_id],
+           },
+           publishing_app: "example-app")
   end
 end

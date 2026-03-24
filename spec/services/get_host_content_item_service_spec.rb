@@ -28,7 +28,7 @@ RSpec.describe GetHostContentItemService do
     context "when content for host_content_id exists" do
       let(:result_stub) { double("Queries::GetHostContent::Result") }
       let(:host_editions_stub) { [result_stub] }
-      let(:embedded_content_stub) { double(Queries::GetHostContent, call: [result_stub]) }
+      let(:embedded_content_stub) { double(Queries::GetHostContent, one: result_stub) }
       let(:result_stub) { double }
 
       before do
@@ -54,6 +54,22 @@ RSpec.describe GetHostContentItemService do
 
         it "returns a presented form of the response from the query" do
           result = described_class.new(target_content_id, host_content_id, locale).call
+
+          expect(result).to eq(result_stub)
+
+          expect(Presenters::HostContentItemPresenter).to have_received(:present).with(result_stub)
+        end
+      end
+
+      context "when a state is specified" do
+        let(:state) { "published" }
+
+        before do
+          allow(Queries::GetHostContent).to receive(:new).with(target_content_id, host_content_id:, state:).and_return(embedded_content_stub)
+        end
+
+        it "returns a presented form of the response from the query" do
+          result = described_class.new(target_content_id, host_content_id, nil, state).call
 
           expect(result).to eq(result_stub)
 
