@@ -259,16 +259,20 @@ RSpec.describe Queries::GetHostContent do
     context "sorting" do
       let(:target_content_id) { SecureRandom.uuid }
 
-      it "sorts by unique_pageviews by default" do
-        expect_sort_call_for(order_field: Queries::GetHostContent::ORDER_FIELDS[:unique_pageviews], order_direction: :asc)
+      before do
+        allow(ActiveRecord::Base.connection).to receive(:select_all).and_call_original
+      end
 
+      it "sorts by unique_pageviews by default" do
         described_class.new(target_content_id).all
+
+        expect_sort_call_to_have_been_made_for(order_field: Queries::GetHostContent::ORDER_FIELDS[:unique_pageviews], order_direction: :asc)
       end
 
       it "allows searching in descending order with the default field" do
-        expect_sort_call_for(order_field: Queries::GetHostContent::ORDER_FIELDS[:unique_pageviews], order_direction: :desc)
-
         described_class.new(target_content_id, order_direction: :desc).all
+
+        expect_sort_call_to_have_been_made_for(order_field: Queries::GetHostContent::ORDER_FIELDS[:unique_pageviews], order_direction: :desc)
       end
 
       it "throws an error with an invalid field" do
@@ -308,15 +312,15 @@ RSpec.describe Queries::GetHostContent do
       Queries::GetHostContent::ORDER_FIELDS.each do |key, order_field|
         Queries::GetHostContent::ORDER_DIRECTIONS.each do |order_direction|
           it "allows searching by #{key} #{order_direction}" do
-            expect_sort_call_for(order_field:, order_direction:)
-
             described_class.new(target_content_id, order_field: key, order_direction:).all
+
+            expect_sort_call_to_have_been_made_for(order_field:, order_direction:)
           end
         end
       end
 
-      def expect_sort_call_for(order_field:, order_direction:)
-        expect(ActiveRecord::Base.connection).to receive(:select_all) { |arel_query|
+      def expect_sort_call_to_have_been_made_for(order_field:, order_direction:)
+        expect(ActiveRecord::Base.connection).to have_received(:select_all) { |arel_query|
           expect(arel_query.orders.length).to eq(1)
           if order_direction == :asc
             expect(arel_query.orders[0]).to be_a(Arel::Nodes::Ascending)
@@ -326,7 +330,7 @@ RSpec.describe Queries::GetHostContent do
             expect(arel_query.orders[0].expr).to be_a(Arel::Nodes::Descending)
             expect(arel_query.orders[0].expr.expr).to eq(order_field)
           end
-        }.and_return([])
+        }
       end
     end
 
