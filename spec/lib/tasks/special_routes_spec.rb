@@ -34,12 +34,12 @@ RSpec.describe "Rake tasks for publishing special routes" do
         Rake::Task["special_routes:publish_for_app"].reenable
       end
 
-      it "publishes the special routes for one particular app without publishing others or the homepage" do
+      it "publishes the special routes for one particular app (frontend) without publishing others or the homepage" do
         Rake::Task["special_routes:publish_for_app"].invoke("frontend")
 
-        expect(Document.count).to eq(2)
-        expect(Edition.count).to eq(2)
-        expect(Edition.all.collect(&:title)).to match_array(["Account home page", "Save a page"])
+        expect(Document.count).to eq(3)
+        expect(Edition.count).to eq(3)
+        expect(Edition.all.collect(&:title)).to match_array(["Account home page", "Save a page", "Government Uploads"])
       end
 
       it "returns a message if there are no routes for that app" do
