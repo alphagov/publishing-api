@@ -62,6 +62,7 @@ module Queries
       primary_publishing_organisation_title: TABLES[:org_editions][:title],
       last_edited_at: TABLES[:editions][:last_edited_at],
       instances: TABLES[:editions][:id].count,
+      publishing_app: TABLES[:editions][:publishing_app],
     }.freeze
 
     ORDER_DIRECTIONS = %i[asc desc].freeze
