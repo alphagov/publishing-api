@@ -127,6 +127,14 @@
   :type: "prefix"
   :override_existing: true
 
+- :base_path: "/email/subscribe"
+  :content_id: "f62f882c-65c1-442f-a72d-43a83bd13122"
+  :title: "Email - create subscription"
+  :description: "Prefix route to allow users to create email subscriptions"
+  :rendering_app: "email-alert-frontend"
+  :type: "prefix"
+  :override_existing: true
+
 - :base_path: "/email/subscriptions"
   :content_id: "1773511a-b3c9-4f37-8692-91a718d5b6ae"
   :title: "Email - create subscription"
