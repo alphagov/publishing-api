@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2018-03-02T16:06:56.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "html_publication",
   "title": "Spring Budget 2017",
   "updated_at": "2018-03-02T16:19:33.597Z",

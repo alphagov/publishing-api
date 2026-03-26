@@ -14,7 +14,6 @@
       "external-link-tracker",
       "feedback",
       "frontend",
-      "government-frontend",
       "hmrc-manuals-api",
       "local-links-manager",
       "manuals-publisher",

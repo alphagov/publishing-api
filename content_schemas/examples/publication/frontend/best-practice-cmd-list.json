@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2017-11-29T07:05:00.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "publication",
   "title": "A strategic vision for rail",
   "updated_at": "2018-03-02T17:56:21.249Z",

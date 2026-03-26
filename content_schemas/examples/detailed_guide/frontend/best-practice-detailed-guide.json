@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2015-04-05T23:00:12.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "detailed_guide",
   "title": "Apply for a Tier 4 sponsor licence",
   "updated_at": "2017-11-28T17:55:58.816Z",

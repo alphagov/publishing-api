@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2015-05-18T12:00:27.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "publication",
   "title": "Apply to be a certified motorcycle instructor",
   "updated_at": "2018-01-01T19:27:18.379Z",

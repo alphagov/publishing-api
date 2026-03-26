@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2015-05-21T08:30:36.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "publication",
   "title": "Road traffic estimates for Great Britain: January to March 2015",
   "updated_at": "2018-01-10T14:08:57.597Z",

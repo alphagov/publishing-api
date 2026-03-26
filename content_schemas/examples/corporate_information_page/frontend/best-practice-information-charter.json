@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2016-09-30T08:38:14.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "corporate_information_page",
   "title": "Personal information charter",
   "updated_at": "2017-10-27T09:16:44.333Z",

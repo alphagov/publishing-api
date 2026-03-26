@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2017-06-29T11:43:41.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "publication",
   "title": "Immunisations: babies up to 13 months of age",
   "updated_at": "2017-12-21T17:24:55.668Z",

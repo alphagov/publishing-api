@@ -6,7 +6,7 @@
   "document_type": "protected_food_drink_name",
   "schema_name": "specialist_document",
   "publishing_app": "specialist-publisher",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "locale": "en",
   "phase": "live",
   "first_published_at": "2020-10-15T11:38:36.000+00:00",

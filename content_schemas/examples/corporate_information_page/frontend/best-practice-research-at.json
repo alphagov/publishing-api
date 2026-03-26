@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2017-11-27T14:59:28.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "corporate_information_page",
   "title": "Research at EA",
   "updated_at": "2017-11-30T12:26:09.397Z",

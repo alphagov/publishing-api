@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2015-03-25T12:00:29.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "corporate_information_page",
   "title": "Our governance",
   "updated_at": "2017-08-10T14:12:11.434Z",

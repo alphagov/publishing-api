@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2017-12-06T17:09:15.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "statistics_announcement",
   "title": "Vehicle licensing statistics: November 2017",
   "updated_at": "2018-01-10T14:05:51.289Z",

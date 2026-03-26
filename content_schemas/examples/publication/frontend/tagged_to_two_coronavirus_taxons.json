@@ -9,7 +9,7 @@
   "public_updated_at": "2020-08-19T14:53:46.000+00:00",
   "publishing_app": "whitehall",
   "publishing_scheduled_at": "2020-03-12T23:00:00.000+00:00",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "scheduled_publishing_delay_seconds": 1,
   "schema_name": "publication",
   "title": "Closing certain businesses and venues in England",

@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2017-12-06T07:08:05.000+00:00",
   "publishing_app": "whitehall",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "publication",
   "title": "Strategy for dealing with safeguarding issues in charities",
   "updated_at": "2017-12-13T10:55:26.950Z",

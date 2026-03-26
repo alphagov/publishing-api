@@ -154,7 +154,7 @@
   "publishing_app": "whitehall",
   "publishing_request_id": "21-1754990940.506-10.13.20.234-2550",
   "publishing_scheduled_at": null,
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "scheduled_publishing_delay_seconds": null,
   "schema_name": "html_publication",
   "title": "This content has been removed as it is out of date",

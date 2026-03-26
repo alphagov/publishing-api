@@ -812,7 +812,7 @@
     "publishing_app": "specialist-publisher",
     "publishing_request_id": "22-1738927819.471-10.13.20.9-2346",
     "publishing_scheduled_at": null,
-    "rendering_app": "government-frontend",
+    "rendering_app": "frontend",
     "scheduled_publishing_delay_seconds": null,
     "schema_name": "specialist_document",
     "title": "Topps Tiles / CTD Tiles (certain assets) merger inquiry",

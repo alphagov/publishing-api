@@ -8,7 +8,7 @@
   "phase": "live",
   "public_updated_at": "2016-12-12T12:49:17.000+00:00",
   "publishing_app": "contacts",
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "schema_name": "contact",
   "title": "Income Tax: general enquiries",
   "updated_at": "2017-02-15T14:58:21.647Z",

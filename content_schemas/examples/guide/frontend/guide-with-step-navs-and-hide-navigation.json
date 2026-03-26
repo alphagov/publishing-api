@@ -9,7 +9,7 @@
   "public_updated_at": "2015-08-21T17:14:06.000+00:00",
   "publishing_app": "publisher",
   "publishing_scheduled_at": null,
-  "rendering_app": "government-frontend",
+  "rendering_app": "frontend",
   "scheduled_publishing_delay_seconds": null,
   "schema_name": "guide",
   "title": "Employers: preventing discrimination",
