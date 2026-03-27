@@ -4,8 +4,10 @@ module GraphqlLinkExpansionPrecedenceHelpers
       class << self
         def all(source_content_ids_differ:)
           query_values = [
-            { root_locale: Edition::DEFAULT_LOCALE },
-            { root_locale: "fr" },
+            { with_drafts: true, root_locale: Edition::DEFAULT_LOCALE },
+            { with_drafts: true, root_locale: "fr" },
+            { with_drafts: false, root_locale: Edition::DEFAULT_LOCALE },
+            { with_drafts: false, root_locale: "fr" },
           ]
 
           link_kind_values = %w[link_set edition]

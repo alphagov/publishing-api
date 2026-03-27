@@ -18,6 +18,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         first_published_at:,
         public_updated_at:,
         auth_bypass_ids: [SecureRandom.uuid],
+        user_facing_version: 1,
       )
     end
 
@@ -120,6 +121,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
           update_type: "major",
           first_published_at:,
           public_updated_at:,
+          user_facing_version: 1,
         )
       end
 
