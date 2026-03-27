@@ -34,8 +34,6 @@ class GraphqlQueryBuilder
     parts.join("\n")
   end
 
-private
-
   def build_fields(data, indent: 2, link_path: [])
     fields = data.sort.flat_map do |entry|
       case entry
@@ -110,7 +108,7 @@ private
       .merge(DEFAULT_LINK_FIELDS)
   end
 
-  def build_links_query(link_path, links)
+  def build_link(link_path, links = [])
     link_type = link_path.last
 
     document_types = if is_reverse_link_type?(link_path)
@@ -134,12 +132,15 @@ private
 
     return if document_types.empty? && link.empty?
 
-    link = document_types.map { |document_type|
-             expand_fields(document_type:, link_type:)
-           }
-             .inject(link) do |link, expanded_fields_item|
-               expanded_fields_item.deep_merge(link)
-             end
+    document_types.map { |document_type|
+      expand_fields(document_type:, link_type:)
+    }.inject(link) do |link, expanded_fields_item|
+      expanded_fields_item.deep_merge(link)
+    end
+  end
+
+  def build_links_query(link_path, links)
+    link = build_link(link_path, links)
 
     link.delete("links") if link["links"].blank?
 
