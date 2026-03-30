@@ -199,6 +199,38 @@ RSpec.describe GraphqlController do
     end
   end
 
+  describe "#draft_content" do
+    let(:action) { :draft_content }
+
+    it_behaves_like "a content endpoint"
+
+    context "when the requested base_path has draft content" do
+      let(:edition_factory) { :draft_edition }
+      let(:edition_properties) do
+        {
+          schema_name: "person",
+          document_type: "person",
+          details: { "body" => "Some content" },
+        }
+      end
+
+      it_behaves_like "a content endpoint with a matching edition", :draft
+    end
+
+    context "when the requested base_path only has live content" do
+      let(:edition_factory) { :live_edition }
+      let(:edition_properties) do
+        {
+          schema_name: "news_article",
+          document_type: "news_story",
+          details: { "body" => "Some content" },
+        }
+      end
+
+      it_behaves_like "a content endpoint with a matching edition", :live
+    end
+  end
+
   describe "#live_content" do
     let(:action) { :live_content }
 

@@ -11,6 +11,10 @@ class GraphqlController < ApplicationController
   DEFAULT_TTL = ENV.fetch("DEFAULT_TTL", 5.minutes).to_i.seconds
   MINIMUM_TTL = [DEFAULT_TTL, 5.seconds].min
 
+  def draft_content
+    content_action(with_drafts: true)
+  end
+
   def live_content
     content_action(with_drafts: false)
   end
