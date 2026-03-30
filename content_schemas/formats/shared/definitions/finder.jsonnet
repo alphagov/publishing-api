@@ -315,4 +315,8 @@
       },
     ],
   },
+  finder_index_documents_in_search_engines: {
+    description: "This is to allow a finder's documents to be indexed by search engines such as Google.",
+    type: "boolean",
+  }
 }
