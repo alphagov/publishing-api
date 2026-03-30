@@ -409,6 +409,9 @@
         "generic_description": {
           "type": "boolean"
         },
+        "index_documents_in_search_engines": {
+          "$ref": "#/definitions/finder_index_documents_in_search_engines"
+        },
         "label_text": {
           "type": "string"
         },
@@ -664,6 +667,10 @@
           }
         }
       }
+    },
+    "finder_index_documents_in_search_engines": {
+      "description": "This is to allow a finder's documents to be indexed by search engines such as Google.",
+      "type": "boolean"
     },
     "finder_reject_filter": {
       "description": "A fixed filter that rejects documents which match the conditions",
