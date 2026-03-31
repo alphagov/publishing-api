@@ -64,6 +64,9 @@
         show_summaries: {
           "$ref": "#/definitions/finder_show_summaries",
         },
+        index_documents_in_search_engines: {
+          "$ref": "#/definitions/finder_index_documents_in_search_engines",
+        },
         show_metadata_block: {
           "$ref": "#/definitions/finder_show_metadata_block",
         },
