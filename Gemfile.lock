@@ -75,7 +75,7 @@ GEM
     addressable (2.8.9)
       public_suffix (>= 2.0.2, < 8.0)
     amazing_print (2.0.0)
-    amq-protocol (2.3.4)
+    amq-protocol (2.7.0)
     ast (2.4.3)
     aws-eventstream (1.4.0)
     aws-partitions (1.1232.0)
@@ -105,8 +105,9 @@ GEM
     brakeman (7.1.0)
       racc
     builder (3.3.0)
-    bunny (2.24.0)
-      amq-protocol (~> 2.3)
+    bunny (3.0.0)
+      amq-protocol (~> 2.7)
+      logger (~> 1, >= 1.7)
       sorted_set (~> 1, >= 1.0.2)
     byebug (13.0.0)
       reline (>= 0.6.0)
@@ -814,7 +815,6 @@ GEM
     sentry-sidekiq (6.5.0)
       sentry-ruby (~> 6.5.0)
       sidekiq (>= 5.0)
-    set (1.1.2)
     sidekiq (7.3.10)
       base64
       connection_pool (>= 2.3.0, < 3)
@@ -842,9 +842,8 @@ GEM
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
-    sorted_set (1.0.3)
+    sorted_set (1.1.0)
       rbtree
-      set (~> 1.0)
     sprockets (4.2.2)
       concurrent-ruby (~> 1.0)
       logger
