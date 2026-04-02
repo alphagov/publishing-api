@@ -33,9 +33,6 @@
         "$ref": "#/definitions/design_decision_metadata",
       },
       {
-        "$ref": "#/definitions/digital_markets_intervention_metadata",
-      },
-      {
         "$ref": "#/definitions/digital_markets_measure_metadata",
       },
       {
@@ -529,41 +526,6 @@
         type: "string",
       }
     },
-  },
-  digital_markets_intervention_metadata: {
-    type: "object",
-    additionalProperties: false,
-    properties: {
-      bulk_published: {
-        type: "boolean",
-      },
-      digital_markets_interventions_firm: {
-        type: "array",
-        items: {
-          type: "string",
-        },
-      },
-      digital_markets_interventions_activity: {
-        type: "array",
-        items: {
-          type: "string",
-        },
-      },
-      digital_markets_interventions_type: {
-        type: "string",
-      },
-      digital_markets_interventions_state: {
-        type: "string",
-      },
-      digital_markets_interventions_opened: {
-        type: "string",
-        pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
-      },
-      digital_markets_interventions_closed: {
-        type: "string",
-        pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
-      },
-    }
   },
   digital_markets_measure_metadata: {
     type: "object",
