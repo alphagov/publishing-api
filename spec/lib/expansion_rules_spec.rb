@@ -46,7 +46,7 @@ RSpec.describe ExpansionRules do
     let(:taxon_fields) { default_fields + %i[description details phase] }
     let(:default_fields_and_description) { default_fields + %i[description] }
     let(:fatality_notice_fields) { default_fields + [%i[details roll_call_introduction], %i[details casualties]] }
-    let(:finder_fields) { default_fields + [%i[details facets], %i[details show_metadata_block], %i[details show_table_of_contents]] }
+    let(:finder_fields) { default_fields + [%i[details facets], %i[details show_metadata_block], %i[details show_table_of_contents], %i[details index_documents_in_search_engines]] }
     let(:historic_appointment_fields) { default_fields + [%i[details political_party], %i[details dates_in_office]] }
     let(:ministerial_role_fields) { role_fields + [%i[details seniority], %i[details whip_organisation]] }
     let(:person_fields) { default_fields + [%i[details body], %i[details image]] }

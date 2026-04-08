@@ -98,7 +98,7 @@ module_function
   GOVERNMENT_FIELDS = (MANDATORY_FIELDS + %i[api_path base_path document_type] + details_fields(:started_on, :ended_on, :current)).freeze
   ORGANISATION_FIELDS = (DEFAULT_FIELDS - [:public_updated_at] + details_fields(:acronym, :logo, :brand, :default_news_image, :organisation_govuk_status)).freeze
   TAXON_FIELDS = (DEFAULT_FIELDS + %i[description details phase]).freeze
-  FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets, :show_metadata_block, :show_table_of_contents)).freeze
+  FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets, :show_metadata_block, :show_table_of_contents, :index_documents_in_search_engines)).freeze
   FATALITY_NOTICE_FIELDS = (DEFAULT_FIELDS + details_fields(:roll_call_introduction, :casualties))
   HISTORIC_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:political_party, :dates_in_office))
   MINISTERIAL_ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :role_payment_type, :seniority, :whip_organisation)).freeze
