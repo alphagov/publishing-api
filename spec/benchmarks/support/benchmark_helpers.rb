@@ -1,3 +1,4 @@
+require "benchmark"
 require_relative "./instrumentation_result"
 
 module BenchmarkHelpers

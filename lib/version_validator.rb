@@ -1,3 +1,5 @@
+require "benchmark"
+
 module VersionValidator
   class << self
     def validate
