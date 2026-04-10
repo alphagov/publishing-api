@@ -87,6 +87,9 @@
         "$ref": "#/definitions/medical_safety_alert_metadata",
       },
       {
+        "$ref": "#/definitions/patent_decision_metadata",
+      },
+      {
         "$ref": "#/definitions/product_safety_alert_report_recall_metadata",
       },
       {
@@ -976,6 +979,24 @@
       issued_date: {
         type: "string",
         pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+      },
+    },
+  },
+  patent_decision_metadata: {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      bulk_published: {
+        type: "boolean",
+      },
+      patent_decision_british_library_number: {
+        type: "string",
+      },
+      patent_decision_type_of_hearing: {
+        type: "string",
+      },
+      patent_decision_hearing_officer: {
+        type: "string",
       },
     },
   },
