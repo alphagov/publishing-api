@@ -871,7 +871,7 @@ GEM
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
     thor (1.5.0)
-    timecop (0.9.10)
+    timecop (0.9.11)
     timeout (0.6.1)
     tins (1.38.0)
       bigdecimal
