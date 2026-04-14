@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "rails", "8.1.3"
 
 gem "aws-sdk-s3"
+gem "benchmark"
 gem "bootsnap", require: false
 gem "bunny"
 gem "content_block_tools"
@@ -21,6 +22,7 @@ gem "graphql"
 gem "jsonnet"
 gem "json-schema", require: false
 gem "oj"
+gem "ostruct"
 gem "pg"
 gem "plek"
 gem "prometheus-client"
