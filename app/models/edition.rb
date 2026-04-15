@@ -67,6 +67,7 @@ class Edition < ApplicationRecord
 
   validate :user_facing_version_cannot_change
   validate :draft_cannot_be_behind_live
+  validate :base_path_not_too_long, if: :base_path_present?
 
   validates :routes, absence: true, if: ->(edition) { edition.schema_name == "redirect" }
 
@@ -134,6 +135,10 @@ class Edition < ApplicationRecord
 
   def user_facing_version_cannot_change
     errors.add(:user_facing_version, "has changed") if persisted? && user_facing_version_changed?
+  end
+
+  def base_path_not_too_long
+    errors.add(:base_path, "over 512 bytes") if base_path.bytesize > 512
   end
 
   def publish

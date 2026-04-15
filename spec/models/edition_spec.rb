@@ -138,6 +138,23 @@ RSpec.describe Edition do
           expect(subject.errors[:base_path].size).to eq(1)
         end
       end
+
+      context "when 512 bytes or less" do
+        let(:base_path) { "/#{'bbc' * 170}" }
+        it "should be valid" do
+          expect(subject.base_path.bytesize).to eq(511)
+          expect(subject).to be_valid
+        end
+      end
+
+      context "when over 512 bytes" do
+        let(:base_path) { "/#{'bbc' * 171}" }
+        it "should be invalid" do
+          expect(subject.base_path.bytesize).to eq(514)
+          expect(subject).to be_invalid
+          expect(subject.errors[:base_path].size).to eq(1)
+        end
+      end
     end
 
     context "when another edition has the same base path" do
