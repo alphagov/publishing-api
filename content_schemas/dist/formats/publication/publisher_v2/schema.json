@@ -289,7 +289,6 @@
       "type": "object",
       "required": [
         "body",
-        "documents",
         "political"
       ],
       "additionalProperties": false,
