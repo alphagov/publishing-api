@@ -27,7 +27,6 @@
       additionalProperties: false,
       required: [
         "body",
-        "documents",
         "political",
       ],
       properties: {
