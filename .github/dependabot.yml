@@ -8,6 +8,7 @@ updates:
       time: "07:00"
     cooldown:
       default-days: 3
+    open-pull-requests-limit: 25
     groups:
       test:
         patterns:
@@ -39,6 +40,7 @@ updates:
       time: "07:00"
     cooldown:
       default-days: 7
+    open-pull-requests-limit: 25
 
   - package-ecosystem: github-actions
     directory: /
@@ -48,3 +50,4 @@ updates:
       time: "07:00"
     cooldown:
       default-days: 3
+    open-pull-requests-limit: 25
