@@ -1,8 +1,17 @@
 {
   absolute_path: {
-    type: "string",
-    pattern: "^/(([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})+(/([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})*)*)?$",
-    description: "A path only. Query string and/or fragment are not allowed.",
+    allOf: [
+      {
+        type: "string",
+        pattern: "^/(([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})+(/([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})*)*)?$",
+        description: "A path only. Query string and/or fragment are not allowed.",
+      },
+      {
+        type: "string",
+        pattern: "^/.{0,511}$",
+        description: "A path only. Query string and/or fragment are not allowed.",
+      },
+    ],
   },
   absolute_fullpath: {
     type: "string",
