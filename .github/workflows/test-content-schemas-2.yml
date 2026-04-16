@@ -81,6 +81,6 @@ jobs:
     name: Test Whitehall
     uses: alphagov/whitehall/.github/workflows/minitest.yml@main
     with:
-      ref: 'remove-attachments-rendering'
+      ref: 'main'
       publishingApiRef: ${{ github.ref }}
 
