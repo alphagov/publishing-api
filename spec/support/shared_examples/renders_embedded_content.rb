@@ -135,14 +135,16 @@ RSpec.shared_examples "renders embedded content" do
       let(:details) do
         {
           parts: [
-            body: [
-              {
-                content: "some string with a reference: #{embed_code}",
-                content_type: "text/govspeak",
-              },
-            ],
-            slug: "some-slug",
-            title: "Some title",
+            {
+              body: [
+                {
+                  content: "some string with a reference: #{embed_code}",
+                  content_type: "text/govspeak",
+                },
+              ],
+              slug: "some-slug",
+              title: "Some title",
+            },
           ],
         }
       end
@@ -151,14 +153,16 @@ RSpec.shared_examples "renders embedded content" do
         expect(described_class.new(edition).render_embedded_content(details)).to eq(
           {
             parts: [
-              body: [
-                {
-                  content: "some string with a reference: #{expected_value}",
-                  content_type: "text/govspeak",
-                },
-              ],
-              slug: "some-slug",
-              title: "Some title",
+              {
+                body: [
+                  {
+                    content: "some string with a reference: #{expected_value}",
+                    content_type: "text/govspeak",
+                  },
+                ],
+                slug: "some-slug",
+                title: "Some title",
+              },
             ],
           },
         )

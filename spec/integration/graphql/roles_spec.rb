@@ -186,10 +186,12 @@ RSpec.describe "GraphQL" do
             },
             links: {
               person: [
-                base_path: "/government/people/keir-starmer",
-                title: "The Rt Hon Sir Keir Starmer KCB KC MP",
-                details: {
-                  body: "<p>Sir Keir Starmer became Prime Minister on 5 July 2024.</p>\n",
+                {
+                  base_path: "/government/people/keir-starmer",
+                  title: "The Rt Hon Sir Keir Starmer KCB KC MP",
+                  details: {
+                    body: "<p>Sir Keir Starmer became Prime Minister on 5 July 2024.</p>\n",
+                  },
                 },
               ],
             },
@@ -202,11 +204,13 @@ RSpec.describe "GraphQL" do
             },
             links: {
               person: [
-                base_path: "/government/people/rishi-sunak",
-                details: {
-                  body: "<p>Rishi Sunak was Prime Minister between 25 October 2022 and 5 July 2024.</p>\n",
+                {
+                  base_path: "/government/people/rishi-sunak",
+                  details: {
+                    body: "<p>Rishi Sunak was Prime Minister between 25 October 2022 and 5 July 2024.</p>\n",
+                  },
+                  title: "The Rt Hon Rishi Sunak MP",
                 },
-                title: "The Rt Hon Rishi Sunak MP",
               ],
             },
           },

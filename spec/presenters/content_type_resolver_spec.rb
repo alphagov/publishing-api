@@ -43,13 +43,17 @@ RSpec.describe Presenters::ContentTypeResolver do
 
   it "handles hashes with content types but no content field" do
     result = subject.resolve([
-      content_type: "application/pdf",
-      path: "some/document.pdf",
+      {
+        content_type: "application/pdf",
+        path: "some/document.pdf",
+      },
     ])
 
     expect(result).to eq([
-      content_type: "application/pdf",
-      path: "some/document.pdf",
+      {
+        content_type: "application/pdf",
+        path: "some/document.pdf",
+      },
     ])
   end
 

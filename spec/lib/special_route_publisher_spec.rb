@@ -29,7 +29,7 @@ RSpec.describe SpecialRoutePublisher do
     end
 
     context "with additional routes" do
-      let(:additional_routes) { [base_path: "/homepage.json", type: "exact"] }
+      let(:additional_routes) { [{ base_path: "/homepage.json", type: "exact" }] }
 
       it "calls the Publishing API with all routes specified for the item" do
         described_class.new.publish_route(content_id:, base_path: "/", title: "Hello", rendering_app: "frontend", additional_routes:)
