@@ -9,9 +9,6 @@ on:
       - "content_schemas/**"
       - "!content_schemas/README.md"
   pull_request:
-    paths:
-      - "content_schemas/**"
-      - "!content_schemas/README.md"
 
 jobs:
   test-collections-publisher:
