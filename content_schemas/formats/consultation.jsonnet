@@ -64,9 +64,6 @@
         emphasised_organisations: {
           "$ref": "#/definitions/emphasised_organisations",
         },
-        documents: {
-          "$ref": "#/definitions/attachments_with_thumbnails",
-        },
         ways_to_respond: {
           type: "object",
           additionalProperties: false,
