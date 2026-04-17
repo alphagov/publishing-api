@@ -137,9 +137,18 @@
       "type": "string"
     },
     "absolute_path": {
-      "description": "A path only. Query string and/or fragment are not allowed.",
-      "type": "string",
-      "pattern": "^/(([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})+(/([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})*)*)?$"
+      "allOf": [
+        {
+          "description": "A path only. Query string and/or fragment are not allowed.",
+          "type": "string",
+          "pattern": "^/(([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})+(/([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})*)*)?$"
+        },
+        {
+          "description": "A path only. Query string and/or fragment are not allowed.",
+          "type": "string",
+          "pattern": "^/.{0,511}$"
+        }
+      ]
     },
     "access_limited": {
       "type": "object",

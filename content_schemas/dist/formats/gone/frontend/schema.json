@@ -167,9 +167,18 @@
   },
   "definitions": {
     "absolute_path": {
-      "description": "A path only. Query string and/or fragment are not allowed.",
-      "type": "string",
-      "pattern": "^/(([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})+(/([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})*)*)?$"
+      "allOf": [
+        {
+          "description": "A path only. Query string and/or fragment are not allowed.",
+          "type": "string",
+          "pattern": "^/(([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})+(/([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})*)*)?$"
+        },
+        {
+          "description": "A path only. Query string and/or fragment are not allowed.",
+          "type": "string",
+          "pattern": "^/.{0,511}$"
+        }
+      ]
     },
     "analytics_identifier": {
       "description": "A short identifier we send to Google Analytics for multi-valued fields. This means we avoid the truncated values we would get if we sent the path or slug of eg organisations.",
