@@ -47,6 +47,13 @@
   :description: "Personalisation API exposing email subscription data for progressive enhancement of GOV.UK pages"
   :rendering_app: "account-api"
 
+- :base_path: "/api/places"
+  :content_id: "dd924c50-7b11-4ca9-bcd6-0909c9e65d42"
+  :title: "Places API"
+  :description: "GeoJSON API places list for interactive maps"
+  :type: "prefix"
+  :rendering_app: "frontend"
+
 - :base_path: "/api/search.json"
   :content_id: "0818867d-8026-482c-b797-306fb74f5a2d"
   :title: "GOV.UK search results API"
