@@ -2,6 +2,8 @@ class PathReservation < ApplicationRecord
   validates :base_path, absolute_path: true
   validates :publishing_app, presence: true
 
+  validate :base_path_not_too_long
+
   def self.reserve_base_path!(base_path, publishing_app, override_existing: false)
     existing = find_by(base_path:)
     if existing.present? && override_existing
@@ -38,5 +40,9 @@ class PathReservation < ApplicationRecord
     msg = "#{base_path} is already reserved by #{publishing_app}"
     errors.add(:base_path, msg)
     ActiveRecord::RecordInvalid.new(self)
+  end
+
+  def base_path_not_too_long
+    errors.add(:base_path, "over 512 bytes") if base_path.bytesize > 512
   end
 end

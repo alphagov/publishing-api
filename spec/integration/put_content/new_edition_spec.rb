@@ -106,4 +106,28 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
 
     include_examples "creates a change note"
   end
+
+  context "with an invalid payload" do
+    let(:base_path) { "/#{'x' * 512}" }
+
+    it "reports issues in the response" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(JSON.parse(response.body)).to match_array(
+        hash_including(
+          "errors" => hash_including("allof_1" => [
+            hash_including(
+              "failed_attribute" => "Pattern",
+              "fragment" => "#/base_path",
+              "message" => a_string_including(
+                "did not match the regex",
+                "^/.{0,511}$",
+              ),
+            ),
+          ]),
+        ),
+      )
+    end
+  end
 end

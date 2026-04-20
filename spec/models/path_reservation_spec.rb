@@ -22,6 +22,13 @@ RSpec.describe PathReservation, type: :model do
           reservation.save! validate: false
         }.to raise_error(ActiveRecord::RecordNotUnique)
       end
+
+      it "is 512 bytes or fewer" do
+        reservation.base_path = "/#{'bbc' * 171}"
+        expect(reservation.base_path.bytesize).to eq(514)
+        expect(reservation).to be_invalid
+        expect(reservation.errors[:base_path].size).to eq(1)
+      end
     end
 
     describe "on publishing_app" do
