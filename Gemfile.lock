@@ -154,7 +154,7 @@ GEM
     drb (2.2.3)
     erb (6.0.3)
     erubi (1.13.1)
-    et-orbi (1.2.11)
+    et-orbi (1.4.0)
       tzinfo
     expgen (0.1.1)
       parslet
@@ -177,8 +177,8 @@ GEM
     ffi (1.17.3-x86_64-linux-gnu)
     fiber-storage (1.0.1)
     find_a_port (1.0.1)
-    fugit (1.11.1)
-      et-orbi (~> 1, >= 1.2.11)
+    fugit (1.12.1)
+      et-orbi (~> 1.4)
       raabro (~> 1.4)
     fuzzy_match (2.1.0)
     gds-api-adapters (103.3.1)
@@ -827,7 +827,7 @@ GEM
       logger
       rack (>= 2.2.4, < 3.3)
       redis-client (>= 0.23.0, < 1)
-    sidekiq-scheduler (6.0.1)
+    sidekiq-scheduler (6.0.2)
       rufus-scheduler (~> 3.2)
       sidekiq (>= 7.3, < 9)
     sidekiq-unique-jobs (8.1.0)
