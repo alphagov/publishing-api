@@ -1,0 +1,439 @@
+fragment defaultFields on Edition {
+  analytics_identifier
+  api_path
+  api_url
+  base_path
+  content_id
+  document_type
+  locale
+  public_updated_at
+  schema_name
+  title
+  web_url
+}
+
+query plan_for_change_landing_page($base_path: String!, $with_drafts: Boolean) {
+  edition(base_path: $base_path, with_drafts: $with_drafts) {
+    ... on Edition {
+      analytics_identifier
+      base_path
+      content_id
+      description
+      details {
+        blocks
+        breadcrumbs
+        change_history
+        image
+        navigation_groups
+        theme
+      }
+      document_type
+      first_published_at
+      links {
+        available_translations {
+          ...defaultFields
+        }
+        children {
+          ...defaultFields
+          description
+          details {
+            access_and_opening_times
+            change_description
+            contact_form_links
+            country
+            dates_in_office
+            description
+            email_addresses
+            phone_numbers
+            political_party
+            post_addresses
+            step_by_step_nav
+            title
+          }
+        }
+        document_collections {
+          ...defaultFields
+        }
+        documents {
+          ...defaultFields
+          description
+          details {
+            acronym
+            body
+            brand
+            change_description
+            contact_form_links
+            country
+            default_news_image
+            description
+            email_addresses
+            logo
+            organisation_govuk_status
+            phone_numbers
+            post_addresses
+            role_payment_type
+            seniority
+            step_by_step_nav
+            title
+            whip_organisation
+          }
+          phase
+        }
+        embed {
+          ...defaultFields
+          details {
+            description
+            rates
+          }
+        }
+        finder {
+          ...defaultFields
+          details {
+            facets
+            show_metadata_block
+            show_table_of_contents
+          }
+        }
+        government {
+          ...defaultFields
+          details {
+            current
+            ended_on
+            started_on
+          }
+        }
+        lead_organisations {
+          ...defaultFields
+          details {
+            acronym
+            brand
+            default_news_image
+            logo
+            organisation_govuk_status
+          }
+        }
+        mainstream_browse_pages {
+          ...defaultFields
+          description
+        }
+        ordered_related_items {
+          ...defaultFields
+          description
+          details {
+            change_description
+            contact_form_links
+            country
+            dates_in_office
+            description
+            email_addresses
+            phone_numbers
+            political_party
+            post_addresses
+            step_by_step_nav
+            title
+          }
+          links {
+            mainstream_browse_pages {
+              ...defaultFields
+              description
+              links {
+                parent {
+                  ...defaultFields
+                  description
+                  details {
+                    acronym
+                    brand
+                    default_news_image
+                    logo
+                    organisation_govuk_status
+                    world_location_names
+                  }
+                  links {
+                    parent {
+                      ...defaultFields
+                      description
+                      details {
+                        acronym
+                        brand
+                        default_news_image
+                        logo
+                        organisation_govuk_status
+                        world_location_names
+                      }
+                      links {
+                        parent {
+                          ...defaultFields
+                          description
+                          details {
+                            acronym
+                            brand
+                            default_news_image
+                            logo
+                            organisation_govuk_status
+                            world_location_names
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          phase
+        }
+        ordered_related_items_overrides {
+          ...defaultFields
+          description
+          details: details_json
+          links {
+            taxons {
+              ...defaultFields
+              description
+              details: details_json
+              phase
+            }
+          }
+          phase
+        }
+        organisations {
+          ...defaultFields
+          description
+          details {
+            access_and_opening_times
+            acronym
+            brand
+            contact_form_links
+            default_news_image
+            description
+            email_addresses
+            logo
+            organisation_govuk_status
+            phone_numbers
+            post_addresses
+            title
+            world_location_names
+          }
+        }
+        parent {
+          ...defaultFields
+          description
+          details {
+            acronym
+            brand
+            default_news_image
+            logo
+            organisation_govuk_status
+            world_location_names
+          }
+          links {
+            parent {
+              ...defaultFields
+              description
+              details {
+                acronym
+                brand
+                default_news_image
+                logo
+                organisation_govuk_status
+                world_location_names
+              }
+              links {
+                parent {
+                  ...defaultFields
+                  description
+                  details {
+                    acronym
+                    brand
+                    default_news_image
+                    logo
+                    organisation_govuk_status
+                    world_location_names
+                  }
+                  links {
+                    parent {
+                      ...defaultFields
+                      description
+                      details {
+                        acronym
+                        brand
+                        default_news_image
+                        logo
+                        organisation_govuk_status
+                        world_location_names
+                      }
+                      links {
+                        parent {
+                          ...defaultFields
+                          description
+                          details {
+                            acronym
+                            brand
+                            default_news_image
+                            logo
+                            organisation_govuk_status
+                            world_location_names
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        part_of_step_navs {
+          ...defaultFields
+          details {
+            step_by_step_nav
+          }
+        }
+        policy_areas {
+          ...defaultFields
+        }
+        primary_publishing_organisation {
+          ...defaultFields
+          details {
+            acronym
+            brand
+            default_news_image
+            logo
+            organisation_govuk_status
+          }
+        }
+        related_policies {
+          ...defaultFields
+        }
+        related_to_step_navs {
+          ...defaultFields
+          details {
+            step_by_step_nav
+          }
+        }
+        role_appointments {
+          ...defaultFields
+          details {
+            current
+            ended_on
+            person_appointment_order
+            started_on
+          }
+          links {
+            person {
+              ...defaultFields
+              details {
+                body
+                image
+              }
+            }
+            role {
+              ...defaultFields
+              details {
+                body
+                role_payment_type
+                seniority
+                whip_organisation
+              }
+              links {
+                ordered_parent_organisations {
+                  analytics_identifier
+                  api_path
+                  api_url
+                  base_path
+                  content_id
+                  details {
+                    acronym
+                    brand
+                    default_news_image
+                    logo
+                    organisation_govuk_status
+                  }
+                  document_type
+                  locale
+                  schema_name
+                  title
+                  web_url
+                }
+              }
+            }
+          }
+        }
+        secondary_to_step_navs {
+          ...defaultFields
+          details {
+            step_by_step_nav
+          }
+        }
+        taxons {
+          ...defaultFields
+          description
+          details: details_json
+          links {
+            parent_taxons {
+              ...defaultFields
+              description
+              details: details_json
+              links {
+                parent_taxons {
+                  ...defaultFields
+                  description
+                  details: details_json
+                  links {
+                    parent_taxons {
+                      ...defaultFields
+                      description
+                      details: details_json
+                      links {
+                        parent_taxons {
+                          ...defaultFields
+                          description
+                          details: details_json
+                          phase
+                        }
+                        root_taxon {
+                          ...defaultFields
+                        }
+                      }
+                      phase
+                    }
+                    root_taxon {
+                      ...defaultFields
+                    }
+                  }
+                  phase
+                }
+                root_taxon {
+                  ...defaultFields
+                }
+              }
+              phase
+            }
+            root_taxon {
+              ...defaultFields
+            }
+          }
+          phase
+        }
+        topical_events {
+          ...defaultFields
+        }
+      }
+      locale
+      phase
+      public_updated_at
+      publishing_app
+      publishing_request_id
+      publishing_scheduled_at
+      rendering_app
+      scheduled_publishing_delay_seconds
+      schema_name
+      title
+      updated_at
+      withdrawn_notice {
+        explanation
+        withdrawn_at
+      }
+    }
+  }
+}
