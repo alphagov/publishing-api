@@ -6,16 +6,14 @@ module Commands
       logger.debug "#{self} called with payload:\n#{payload}"
 
       response = EventLogger.log_command(self, payload) do |event|
-        PublishingAPI.service(:statsd).time(name.gsub(/:+/, ".")) do
-          new(
-            payload,
-            event:,
-            downstream:,
-            callbacks:,
-            nested:,
-            **options,
-          ).call
-        end
+        new(
+          payload,
+          event: event,
+          downstream: downstream,
+          callbacks: callbacks,
+          nested: nested,
+          **options,
+        ).call
       end
 
       execute_callbacks(callbacks) unless nested
