@@ -10,11 +10,7 @@ class CommandError < StandardError
     return if e.code == 404 && ignore_404s
 
     # ignore payload_version conflicts
-    if e.code == 409 && e.message =~ /transmitted_at|payload_version/
-      Rails.logger.debug e.message
-      PublishingAPI.service(:statsd).increment("payload_version_conflicts")
-      return
-    end
+    return if e.code == 409 && e.message =~ /transmitted_at|payload_version/
 
     fields = if e.error_details.present?
                e.error_details.fetch("errors", {})
