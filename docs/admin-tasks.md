@@ -173,4 +173,4 @@ To view the UI run:
 kubectl -n apps port-forward deployment/publishing-api 8080:8080
 ```
 
-and then navigate to localhost:8080/sidekiq
+and then navigate to [localhost:8080/sidekiq](http://localhost:8080/sidekiq)
