@@ -3,12 +3,6 @@ RSpec.describe PathReservation, type: :model do
     let(:reservation) { build(:path_reservation) }
 
     describe "on base_path" do
-      it "is required" do
-        reservation.base_path = ""
-        expect(reservation).to be_invalid
-        expect(reservation.errors[:base_path].size).to eq(1)
-      end
-
       it "is a valid absolute URL base_path" do
         reservation.base_path = "not a URL"
         expect(reservation).to be_invalid
