@@ -56,7 +56,7 @@ jobs:
         with:
           repository: alphagov/publishing-api
           ref: ${{ inputs.ref }}
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1.305.0
         with:
           bundler-cache: true
       - run: bundle exec rails db:setup
