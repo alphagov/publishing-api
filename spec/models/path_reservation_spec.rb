@@ -55,9 +55,7 @@ RSpec.describe PathReservation, type: :model do
       it "raises an error" do
         expect {
           described_class.reserve_base_path!("/vat-rates", "publisher")
-        }.to raise_error(
-          ActiveRecord::RecordInvalid, /already reserved/
-        )
+        }.to raise_custom_record_invalid(:base_path_already_reserved, /already reserved/)
       end
 
       context "when override_existing is true" do
@@ -119,8 +117,20 @@ RSpec.describe PathReservation, type: :model do
 
         expect {
           described_class.reserve_base_path!("/vat-rates", "publisher")
-        }.to raise_error(ActiveRecord::RecordInvalid)
+        }.to raise_custom_record_invalid(:base_path_already_reserved, /already reserved/)
       end
+    end
+
+    it "raises an error with publishing_app_missing error code when publishing_app is blank" do
+      expect {
+        described_class.reserve_base_path!("/vat-rates", nil)
+      }.to raise_custom_record_invalid(:publishing_app_missing, /Publishing app can't be blank/)
+    end
+
+    it "raises an error with base_path_invalid error code when base_path is not absolute" do
+      expect {
+        described_class.reserve_base_path!("not-a-valid-path", "publisher")
+      }.to raise_custom_record_invalid(:base_path_invalid, /Base path/)
     end
   end
 end

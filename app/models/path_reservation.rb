@@ -13,6 +13,10 @@ class PathReservation < ApplicationRecord
     else
       existing.ensure_unique(publishing_app)
     end
+  rescue ActiveRecord::RecordInvalid => e
+    raise e if e.is_a?(CustomRecordInvalid)
+
+    raise map_to_custom_error(e.record)
   end
 
   def self.create_path_reservation(base_path, publishing_app)
@@ -39,10 +43,23 @@ class PathReservation < ApplicationRecord
   def already_reserved_error
     msg = "#{base_path} is already reserved by #{publishing_app}"
     errors.add(:base_path, msg)
-    ActiveRecord::RecordInvalid.new(self)
+    CustomRecordInvalid.new(self, error_code: :base_path_already_reserved)
   end
 
   def base_path_not_too_long
-    errors.add(:base_path, "over 512 bytes") if base_path.bytesize > 512
+    if base_path.bytesize > 512
+      errors.add(:base_path, "over 512 bytes")
+      CustomRecordInvalid.new(self, error_code: :base_path_too_long)
+    end
+  end
+
+  def self.map_to_custom_error(record)
+    if record.errors.added?(:publishing_app, :blank)
+      CustomRecordInvalid.new(record, error_code: :publishing_app_missing)
+    elsif record.errors.details[:base_path].any? { |e| e[:error] == "is not a valid absolute URL path" }
+      CustomRecordInvalid.new(record, error_code: :base_path_invalid)
+    else
+      CustomRecordInvalid.new(record, error_code: :validation_failed)
+    end
   end
 end
