@@ -19,6 +19,12 @@ RSpec.describe CustomRecordInvalid do
 
       expect(error.record).to eq(record)
     end
+
+    it "raises an error for unknown error codes" do
+      expect {
+        described_class.new(record, error_code: :not_real)
+      }.to raise_error(ArgumentError)
+    end
   end
 end
 
