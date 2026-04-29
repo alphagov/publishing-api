@@ -108,4 +108,46 @@ RSpec.describe Unpublishing do
       it { is_expected.to be false }
     end
   end
+
+  describe "#save!" do
+    let(:edition) { create(:edition, base_path: "/test") }
+
+      it "raises base_path_invalid error when type is invalid" do
+        record = described_class.new(
+          edition: edition,
+          type: "not_a_valid_type"
+        )
+
+        expect {
+          record.save!
+        }.to raise_custom_record_invalid(:type_invalid, /Type is not included in the list/)
+      end
+
+
+      it "raises edition_missing error when edition is missing" do
+        record = described_class.new(
+          edition: nil,
+          type: "gone"
+        )
+
+        expect {
+          record.save!
+        }.to raise_custom_record_invalid(:edition_missing, /Edition can't be blank/)
+      end
+
+      it "raises explanation_missing_for_withdrawal error when explanation is missing for withdrawal" do
+        record = described_class.new(
+          edition: edition,
+          type: "withdrawal",
+          explanation: nil
+        )
+
+        expect {
+          record.save!
+        }.to raise_custom_record_invalid(
+          :explanation_missing_for_withdrawal,
+          /Explanation can't be blank/
+        )
+      end
+  end
 end

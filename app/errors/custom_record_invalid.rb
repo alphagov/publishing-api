@@ -6,6 +6,12 @@ class CustomRecordInvalid < ActiveRecord::RecordInvalid
     base_path_invalid
     base_path_too_long
     publishing_app_missing
+    edition_missing
+    edition_not_unique
+    type_missing
+    type_invalid
+    explanation_missing_for_withdrawal
+    redirects_missing_for_redirect
     validation_failed
   ].freeze
 
