@@ -1,6 +1,8 @@
 RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
-  include Pact::Consumer::RSpec
+  #include Pact::RSpec
   include RequestHelpers::Mocks
+
+  has_http_pact_between "Publishing API", "Content Store", opts: { mock_port: 3093 }
 
   let!(:edition) do
     create(
@@ -19,13 +21,14 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
       edition, draft: false
     ).for_content_store(event.id)
   end
+  let(:interaction) { new_interaction }
 
   context "when a content item exists that has an older payload_version than the request" do
-    before do
-      content_store
+    let(:interaction) do
+      super()
         .given("a content item exists with base_path /vat-rates and payload_version 0")
         .upon_receiving("a request to create a content item")
-        .with(
+        .with_request(
           method: :put,
           path: "/content/vat-rates",
           body:,
@@ -43,17 +46,19 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
     end
 
     it "accepts in-order messages to the content store" do
-      response = client.put_content_item(base_path: "/vat-rates", content_item: body)
-      expect(response.code).to eq(200)
+      interaction.execute do
+        response = client.put_content_item(base_path: "/vat-rates", content_item: body)
+        expect(response.code).to eq(200)
+      end
     end
   end
 
   context "when a content item exists that has a higher payload_version than the request" do
-    before do
-      content_store
+    let(:interaction) do
+      super()
         .given("a content item exists with base_path /vat-rates and payload_version 10")
         .upon_receiving("a request to create a content item")
-        .with(
+        .with_request(
           method: :put,
           path: "/content/vat-rates",
           body:,
@@ -71,9 +76,11 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
     end
 
     it "rejects out-of-order messages to the content store" do
-      expect {
-        client.put_content_item(base_path: "/vat-rates", content_item: body)
-      }.to raise_error(GdsApi::HTTPConflict)
+      interaction.execute do
+        expect {
+          client.put_content_item(base_path: "/vat-rates", content_item: body)
+        }.to raise_error(GdsApi::HTTPConflict)
+      end
     end
   end
 
@@ -84,11 +91,11 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
     end
 
     context "when a content item exists that has an lower payload_version than the request" do
-      before do
-        content_store
+      let(:interaction) do
+        super()
           .given("a content item exists with base_path /vat-rates and payload_version 0")
           .upon_receiving("a request to create a content item originating from v1 endpoint")
-          .with(
+          .with_request(
             method: :put,
             path: "/content/vat-rates",
             body:,
@@ -106,17 +113,19 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
       end
 
       it "accepts in-order messages to the content store" do
-        response = client.put_content_item(base_path: "/vat-rates", content_item: body)
-        expect(response.code).to eq(200)
+        interaction.execute do
+          response = client.put_content_item(base_path: "/vat-rates", content_item: body)
+          expect(response.code).to eq(200)
+        end
       end
     end
 
     context "when a content item exists that has a higher payload_version than the request" do
-      before do
-        content_store
+      let(:interaction) do
+        super()
           .given("a content item exists with base_path /vat-rates and payload_version 10")
           .upon_receiving("a request to create a content item originating from v1 endpoint")
-          .with(
+          .with_request(
             method: :put,
             path: "/content/vat-rates",
             body:,
@@ -134,9 +143,11 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
       end
 
       it "rejects out-of-order messages to the content store" do
-        expect {
-          client.put_content_item(base_path: "/vat-rates", content_item: body)
-        }.to raise_error(GdsApi::HTTPConflict)
+        interaction.execute do
+          expect {
+            client.put_content_item(base_path: "/vat-rates", content_item: body)
+          }.to raise_error(GdsApi::HTTPConflict)
+        end
       end
     end
   end
