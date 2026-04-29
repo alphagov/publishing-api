@@ -10,7 +10,8 @@ require File.expand_path("../config/environment", __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 
 require "rspec/rails"
-require "pact/consumer/rspec"
+require "pact"
+require "pact/rspec"
 require "webmock"
 require "govuk_schemas"
 require "sidekiq/testing"
