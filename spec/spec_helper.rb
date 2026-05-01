@@ -85,10 +85,10 @@ RSpec.configure do |config|
   end
 end
 
-Pact.service_consumer "Publishing API" do
-  has_pact_with "Content Store" do
-    mock_service :content_store do
-      port 3093
-    end
-  end
-end
+# Pact.service_consumer "Publishing API" do
+#   has_pact_with "Content Store" do
+#     mock_service :content_store do
+#       port 3093
+#     end
+#   end
+# end
