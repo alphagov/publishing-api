@@ -1,6 +1,8 @@
 class CommandError < StandardError
   attr_reader :code, :error_details
 
+  ERROR_CODES = [].freeze # merge CustomRecordInvalid errors and dedup
+
   def self.with_error_handling(ignore_404s: false, &block)
     block.call
   rescue GdsApi::HTTPServerError => e
@@ -22,6 +24,7 @@ class CommandError < StandardError
       error_details: {
         error: {
           code: e.code,
+          # error_code: e.error_code, # optional here? Check GDS API adapter errors
           message: e.message,
           fields:,
         },
@@ -36,12 +39,14 @@ class CommandError < StandardError
     raise "Invalid code #{code}" unless valid_code?(code)
 
     @code = code
+    # @error_code = error_code
     @error_details = if error_details
                        error_details
                      elsif message
                        {
                          "error" => {
                            "code" => code,
+                           #  "error_code" => error_code,
                            "message" => message,
                          },
                        }

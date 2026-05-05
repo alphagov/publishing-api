@@ -1,4 +1,7 @@
+
 class RoutesAndRedirectsValidator < ActiveModel::Validator
+  include CustomRecordInvalidHelper
+
   EXTERNAL_HOST_ALLOW_LIST = %w[
     caa.co.uk
     gov.uk
@@ -50,54 +53,56 @@ private
   def must_have_unique_paths(record, routes, redirects)
     paths = routes.map { |r| r[:path] }
     unless paths == paths.uniq
-      record.errors.add(:routes, "must have unique paths")
+      add_error(record, :routes, "must have unique paths", :routes_not_unique)
     end
 
     paths += redirects.map { |r| r[:path] }
     unless paths == paths.uniq
-      record.errors.add(:redirects, "must have unique paths")
+      add_error(record, :redirects, "must have unique paths", :redirects_not_unique)
     end
   end
 
   def redirects_must_include_base_path(record, base_path, redirects)
     if redirects.none? { |r| r[:path] == base_path }
-      record.errors.add(:redirects, "must include the base path")
+      add_error(record, :redirects, "must include the base path", :redirects_must_include_base_path)
     end
   end
 
   def routes_must_include_base_path(record, base_path, routes)
     if routes.none? { |r| r[:path] == base_path }
-      record.errors.add(:routes, "must include the base path")
+      add_error(record, :routes, "must include the base path", :routes_must_include_base_path)
     end
   end
 
   class RouteValidator
+    include CustomRecordInvalidHelper
+
     def validate(record, attribute, route, base_path)
       type = route[:type]
       path = route[:path]
 
       if type.blank?
-        record.errors.add(attribute, "type must be present")
+        add_error(record, attribute, "type must be present", :route_type_missing)
       end
 
       if path.blank?
-        record.errors.add(attribute, "path must be present")
+        add_error(record, attribute, "path must be present", :route_path_missing)
       end
 
-      unless type.present? && %(exact prefix).include?(type)
-        record.errors.add(attribute, "type must be either 'exact' or 'prefix'")
+      unless type.present? && %w[exact prefix].include?(type)
+        add_error(record, attribute, "type must be either 'exact' or 'prefix'", :route_type_invalid)
       end
 
       unsupported_keys = additional_keys(route, attribute)
       if unsupported_keys.any?
-        record.errors.add(attribute, "unsupported keys: #{unsupported_keys.join(', ')}")
+        add_error(record, attribute, "unsupported keys: #{unsupported_keys.join(', ')}", :route_unsupported_keys)
       end
 
       validator = AbsolutePathValidator.new(attributes: attribute)
       validator.validate_each(record, attribute, path)
 
       unless path.present? && below_base_path?(path, base_path)
-        record.errors.add(attribute, "path must be below the base path")
+        add_error(record, attribute, "path must be below the base path", :route_not_below_base_path)
       end
     end
 
@@ -105,10 +110,6 @@ private
 
     def below_base_path?(path, base_path)
       path.start_with?(base_path)
-    end
-
-    def segments(path)
-      path.split("/").reject(&:blank?)
     end
 
     def additional_keys(route, attribute)
@@ -122,9 +123,12 @@ private
   end
 
   class RedirectValidator
-    attr_reader :redirect, :errors
+    include CustomRecordInvalidHelper
+
+    attr_reader :redirect, :errors, :record
 
     def initialize(record, redirect)
+      @record = record
       @redirect = redirect
       @errors = record.errors
     end
@@ -133,14 +137,14 @@ private
       path = redirect[:path]
       destination = redirect[:destination]
 
-      errors.add(:redirects, "path must be present") if path.blank?
-      errors.add(:redirects, "destination must be present") if destination.blank?
-      errors.add(:redirects, "path cannot equal the destination") if path == destination
+      add_error(:redirects, "path must be present", :redirect_path_missing) if path.blank?
+      add_error(:redirects, "destination must be present", :redirect_destination_missing) if destination.blank?
+      add_error(:redirects, "path cannot equal the destination", :redirect_path_equals_destination) if path == destination
       return unless errors.empty?
-
-      errors.add(:redirects, "destination invalid (#{destination})") if invalid_destination?(destination)
-      return unless errors.empty?
-
+      
+      add_error(:redirects, 
+        "destination invalid (#{destination})", :redirect_destination_invalid) if invalid_destination?(destination)
+      
       if internal?(destination)
         validate_internal_redirect(destination)
       else
@@ -170,8 +174,7 @@ private
     def government_domain?(host)
       return true if EXTERNAL_HOST_ALLOW_LIST.include?(host)
 
-      host_allow_list_for_subdomains = EXTERNAL_HOST_ALLOW_LIST.map { |allowed_host| ".#{allowed_host}" }
-      host.end_with?(*host_allow_list_for_subdomains)
+      EXTERNAL_HOST_ALLOW_LIST.any? { |allowed| host.end_with?(".#{allowed}") }
     end
 
     def invalid_destination?(destination)
@@ -182,36 +185,35 @@ private
     end
 
     def validate_internal_redirect(destination)
-      errors.add(:redirects, "destination invalid (#{destination}), internal redirects cannot end with /") if
-        destination != "/" && (destination.end_with? "/")
+      if destination != "/" && destination.end_with?("/")
+        add_error(:redirects, "destination invalid (#{destination}), internal redirects cannot end with /", :redirect_destination_invalid)
+      end
     end
 
     def validate_external_redirect(destination)
       uri = URI.parse(destination)
 
       if uri.host.nil?
-        errors.add(:redirects, "missing host for external redirect (#{destination})")
+        add_error(:redirects, "missing host for external redirect (#{destination})", :redirect_external_missing_host)
         return
       end
 
-      errors.add(:redirects, "external redirects only accepted for the domains #{EXTERNAL_HOST_ALLOW_LIST.to_sentence} (#{destination})") unless
-        government_domain?(uri.host)
+      add_error(:redirects, "external redirects only accepted for the domains #{EXTERNAL_HOST_ALLOW_LIST.to_sentence} (#{destination})", :redirect_external_domain_not_allowed) unless government_domain?(uri.host)
 
-      errors.add(:redirects, "internal redirect should not be specified with full url (#{destination})") if
-        %w[gov.uk www.gov.uk].include? uri.host
+      add_error(:redirects, "internal redirect should not be specified with full url (#{destination})", :redirect_external_govuk_should_be_internal) if %w[gov.uk www.gov.uk].include?(uri.host)
 
-      errors.add(:redirects, "external redirects must use https (#{destination})") unless uri.scheme == "https"
+      add_error(:redirects, "external redirects must use https (#{destination})", :redirect_external_not_https) unless uri.scheme == "https"
 
       uri.host.split(".").each { |subdomain| validate_subdomain(subdomain) }
     end
 
     def validate_subdomain(subdomain)
       prefix = "subdomain #{subdomain}"
-      errors.add(:redirects, "#{prefix} is longer than 63 characters") if
+      add_error(:redirects, "#{prefix} is longer than 63 characters", :redirect_subdomain_too_long) if
         subdomain.length > 63
-      errors.add(:redirects, "#{prefix} should not start with a hyphen") if
+      add_error(:redirects, "#{prefix} should not start with a hyphen", :redirect_subdomain_starts_with_hyphen) if
         subdomain.starts_with?("-")
-      errors.add(:redirects, "#{prefix} contains prohibited characters") unless
+      add_error(:redirects, "#{prefix} contains prohibited characters", :redirect_subdomain_invalid_chars) unless
         subdomain =~ /\A[a-z0-9-]*\z/i
     end
 
@@ -219,10 +221,11 @@ private
       uri = URI.parse(destination)
 
       if uri.fragment.present?
-        errors.add(:redirects, "destination #{destination} cannot contain a fragment if the segments_mode is 'preserve'")
+        add_error(:redirects, "destination #{destination} cannot contain a fragment if the segments_mode is 'preserve'", :redirect_fragment_not_allowed_with_preserve)
       end
+
       if uri.query.present?
-        errors.add(:redirects, "destination #{destination} cannot contain query parameters if the segments_mode is 'preserve'")
+        add_error(:redirects, "destination #{destination} cannot contain query parameters if the segments_mode is 'preserve'", :redirect_query_not_allowed_with_preserve)
       end
     end
 

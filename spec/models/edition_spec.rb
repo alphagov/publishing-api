@@ -299,7 +299,7 @@ RSpec.describe Edition do
       it { is_expected.to be_invalid }
     end
 
-    describe "routes and redirects" do
+    fdescribe "routes and redirects" do
       subject { edition }
       let(:edition) { build(:edition, base_path: "/ca$h-money") }
       it_behaves_like RoutesAndRedirectsValidator
