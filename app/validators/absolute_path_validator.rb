@@ -2,6 +2,8 @@ class AbsolutePathValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     unless valid_absolute_url_path?(value)
       record.errors.add(attribute, "is not a valid absolute URL path")
+
+      raise CustomRecordInvalid.new(record, error_code: :absolute_path_invalid)
     end
   end
 

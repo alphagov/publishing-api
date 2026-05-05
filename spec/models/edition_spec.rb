@@ -133,9 +133,10 @@ RSpec.describe Edition do
       context "with an invalid absolute path" do
         let(:base_path) { "invalid//absolute/path/" }
 
-        it "should be invalid" do
-          expect(subject).to be_invalid
-          expect(subject.errors[:base_path].size).to eq(1)
+        it "raises an error" do 
+          expect {
+            subject.save!
+          }.to raise_custom_record_invalid(:absolute_path_invalid, /is not a valid absolute URL path/)
         end
       end
 

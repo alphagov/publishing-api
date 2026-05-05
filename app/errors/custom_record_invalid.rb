@@ -12,6 +12,7 @@ class CustomRecordInvalid < ActiveRecord::RecordInvalid
     type_invalid
     explanation_missing_for_withdrawal
     redirects_missing_for_redirect
+    absolute_path_invalid
     validation_failed
   ].freeze
 
