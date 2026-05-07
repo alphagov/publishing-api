@@ -1,3 +1,5 @@
+require "sidekiq_old_locks/web"
+
 SidekiqUniqueJobs.configure do |config|
   config.enabled = !Rails.env.test? # SidekiqUniqueJobs recommends not testing this behaviour https://github.com/mhenrixon/sidekiq-unique-jobs#uniqueness
   config.lock_ttl = 1.hour.to_i

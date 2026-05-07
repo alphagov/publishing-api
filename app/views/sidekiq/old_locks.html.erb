@@ -1,0 +1,35 @@
+<header>
+  <h3>Old locks</h3>
+</header>
+
+<p>
+  By 'old locks', we mean those that were created at least the default TTL ago
+  (<%= @default_ttl %>).
+</p>
+
+<% if @locks.any? %>
+    <div class="table_container">
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Digest</th>
+          <th>State</th>
+          <th>Since</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @locks.each do |lock| %>
+          <tr class="lock-row">
+            <td><%= lock[:digest] %></td>
+            <td><%= lock[:state] %></td>
+            <td><%= _safe_relative_time(lock[:created_at]) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div class="alert alert-success">
+    No old locks were found
+  </div>
+<% end %>
