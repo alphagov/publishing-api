@@ -20,7 +20,7 @@
       <tbody>
         <% @locks.each do |lock| %>
           <tr class="lock-row">
-            <td><%= lock[:digest] %></td>
+            <td><a href="<%= root_path %>old_locks/<%= lock[:digest] %>"><%= lock[:digest] %></a></td>
             <td><%= lock[:state] %></td>
             <td><%= _safe_relative_time(lock[:created_at]) %></td>
           </tr>

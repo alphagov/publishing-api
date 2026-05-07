@@ -11,6 +11,13 @@ module SidekiqOldLocks
 
         erb(File.read(Rails.root.join("app/views/sidekiq/old_locks.html.erb")))
       end
+
+      app.get "/old_locks/:digest" do
+        @digest = safe_route_params(:digest)
+        @retry_set_data = old_digest_retry_set_data(@digest)
+
+        erb(File.read(Rails.root.join("app/views/sidekiq/old_lock.html.erb")))
+      end
     end
   end
 end
