@@ -19,6 +19,7 @@ module SidekiqOldLocks
           next unless entry.item["lock_digest"] == digest
 
           {
+            retries_param: "#{entry.score}-#{entry.item['jid']}",
             jid: entry.item["jid"],
             created_at: pretty_time(entry.item["created_at"]),
             failed_at: pretty_time(entry.item["failed_at"]),

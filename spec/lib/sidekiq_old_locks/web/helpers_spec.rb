@@ -179,11 +179,13 @@ RSpec.describe SidekiqOldLocks::Web::Helpers do
         "retried_at" => 1_778_116_697.778639,
       }
     end
+    let(:example_retry_set_entry_score) { 1_778_116_697.101102 }
     let(:retry_set_entries) do
       [
         instance_double(
           Sidekiq::SortedEntry,
           item: example_retry_set_entry_item,
+          score: example_retry_set_entry_score,
         ),
       ]
     end
@@ -201,6 +203,7 @@ RSpec.describe SidekiqOldLocks::Web::Helpers do
       expect(subject).to match_array(
         [
           {
+            retries_param: "1778116697.101102-d483be7120625851f37531d6",
             jid: "d483be7120625851f37531d6",
             created_at: "2026-04-30 10:07:42 UTC",
             failed_at: "2026-04-30 10:32:47 UTC",
@@ -270,8 +273,17 @@ RSpec.describe SidekiqOldLocks::Web::Helpers do
       ])
     end
 
+    it "includes a field for linking to the related entry in the retries tab" do
+      retries_param = subject.first[:retries_param]
+
+      expect(retries_param).to match(/#{example_retry_set_entry_score}/)
+      expect(retries_param).to match(/#{example_retry_set_entry_item['jid']}/)
+      expect(retries_param).to eq("1778116697.101102-d483be7120625851f37531d6")
+    end
+
     it "orders the fields in a sensible way" do
       expect(subject.first.keys).to eq(%i[
+        retries_param
         jid
         created_at
         failed_at
@@ -307,13 +319,12 @@ RSpec.describe SidekiqOldLocks::Web::Helpers do
           instance_double(
             Sidekiq::SortedEntry,
             item: example_retry_set_entry_item,
+            score: example_retry_set_entry_score,
           ),
           instance_double(
             Sidekiq::SortedEntry,
-            item: {
-              **example_retry_set_entry_item,
-              "jid" => "8732647d72711fbbd89fa1c5",
-            },
+            item: example_retry_set_entry_item,
+            score: example_retry_set_entry_score + 10,
           ),
           instance_double(
             Sidekiq::SortedEntry,
@@ -322,6 +333,7 @@ RSpec.describe SidekiqOldLocks::Web::Helpers do
               "jid" => "7078792606ac550943217ct3",
               "class" => "DownstreamLiveJob",
             },
+            score: example_retry_set_entry_score,
           ),
         ]
       end
@@ -349,6 +361,7 @@ RSpec.describe SidekiqOldLocks::Web::Helpers do
               "class" => "ClassForUnexpectedEntry",
               "lock_digest" => "uniquejobs:3a605fc8bbfeba49ab3cc7a94d37b8ca",
             },
+            score: example_retry_set_entry_score,
           ),
         ]
       end
