@@ -47,6 +47,15 @@ RSpec.describe Pagination do
       it "do not append the id field  if it already exists" do
         expect(Pagination.new(order: "-id, public_updated_at").order).to eq([%i[id desc], %i[public_updated_at asc]])
       end
+
+      it "raises CommandError for invalid order value" do
+        expect {
+          described_class.new(order: "not_valid, asc")
+        }.to raise_error(CommandError) do |error|
+          expect(error.code).to eq(422)
+          expect(error.error_code).to eq(:order_field_invalid)
+        end
+      end
     end
 
     context "with page option" do
@@ -61,7 +70,7 @@ RSpec.describe Pagination do
       let(:total) { 19 }
       subject(:pagination) { described_class.new(page: 2, per_page: 20) }
 
-      it "calculats the total number of pages" do
+      it "calculates the total number of pages" do
         expect(pagination.pages(total)).to eq(1)
       end
     end

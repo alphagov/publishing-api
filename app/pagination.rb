@@ -49,12 +49,16 @@ private
   def raise_unless_valid_order_field(field)
     return if valid_order_fields.include?(field)
 
-    message = "Invalid order field: #{field}."
-    message += " Valid order fields: [#{valid_order_fields.join(', ')}]"
+    message = <<~MESSAGE.squish
+      The order parameter contains an unsupported field "#{field}".
+      Supported fields are: #{valid_order_fields.join(', ')}.
+      Prefix a field with "-" to sort in descending order.
+    MESSAGE
 
     raise CommandError.new(
       code: 422,
       message: "Invalid order field: #{field}",
+      error_code: :order_field_invalid,
       error_details: {
         error: {
           code: 422,
