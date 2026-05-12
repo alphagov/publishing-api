@@ -1,5 +1,5 @@
 class CommandError < StandardError
-  attr_reader :code, :error_details
+  attr_reader :code, :error_code, :error_details
 
   def self.with_error_handling(ignore_404s: false, &block)
     block.call
@@ -22,6 +22,7 @@ class CommandError < StandardError
       error_details: {
         error: {
           code: e.code,
+          **(e.code == 422 ? { error_code: :content_store_validation_failed } : {}),
           message: e.message,
           fields:,
         },
@@ -32,16 +33,18 @@ class CommandError < StandardError
   end
 
   # error_details: Hash(field_name: String => [error_messages]: Array(String))
-  def initialize(code:, message: nil, error_details: nil)
+  def initialize(code:, message: nil, error_code: nil, error_details: nil)
     raise "Invalid code #{code}" unless valid_code?(code)
 
     @code = code
+    @error_code = error_code
     @error_details = if error_details
                        error_details
                      elsif message
                        {
                          "error" => {
                            "code" => code,
+                           **(error_code ? { "error_code" => error_code } : {}),
                            "message" => message,
                          },
                        }
