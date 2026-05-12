@@ -55,9 +55,11 @@ RSpec.describe PathReservation, type: :model do
       it "raises an error" do
         expect {
           described_class.reserve_base_path!("/vat-rates", "publisher")
-        }.to raise_error(
-          ActiveRecord::RecordInvalid, /already reserved/
-        )
+        }.to raise_error(ActiveRecord::RecordInvalid) { |exception|
+               expect(exception.record.errors.details[:base_path]).to include(
+                 error: "/vat-rates is already reserved by something-else", code: :base_path_already_in_use,
+               )
+             }
       end
 
       context "when override_existing is true" do
@@ -119,8 +121,42 @@ RSpec.describe PathReservation, type: :model do
 
         expect {
           described_class.reserve_base_path!("/vat-rates", "publisher")
-        }.to raise_error(ActiveRecord::RecordInvalid)
+        }.to raise_error(ActiveRecord::RecordInvalid) { |exception|
+               expect(exception.record.errors.details[:base_path]).to include(
+                 error: "/vat-rates is already reserved by different", code: :base_path_already_in_use,
+               )
+             }
       end
+    end
+
+    it "raises an error with publishing_app_missing error code when publishing_app is blank" do
+      expect {
+        described_class.reserve_base_path!("/vat-rates", nil)
+      }.to raise_error(ActiveRecord::RecordInvalid) { |exception|
+             expect(exception.record.errors.details[:publishing_app]).to include(
+               error: :blank, code: :publishing_app_missing,
+             )
+           }
+    end
+
+    it "raises an error with :absolute_path_invalid error code when base_path is not absolute" do
+      expect {
+        described_class.reserve_base_path!("not-a-valid-path", "publisher")
+      }.to raise_error(ActiveRecord::RecordInvalid) { |exception|
+             expect(exception.record.errors.details[:base_path]).to include(
+               error: "is not a valid absolute URL path", code: :absolute_path_invalid,
+             )
+           }
+    end
+
+    it "raises an error with :base_path_too_long error code when base_path is too long" do
+      expect {
+        described_class.reserve_base_path!("/#{'bbc' * 171}", "publisher")
+      }.to raise_error(ActiveRecord::RecordInvalid) { |exception|
+             expect(exception.record.errors.details[:base_path]).to include(
+               error: "over 512 bytes", code: :base_path_too_long,
+             )
+           }
     end
   end
 end

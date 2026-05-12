@@ -13,6 +13,10 @@ class PathReservation < ApplicationRecord
     else
       existing.ensure_unique(publishing_app)
     end
+  rescue ActiveRecord::RecordInvalid => e
+    add_error_codes!(e.record)
+
+    raise e
   end
 
   def self.create_path_reservation(base_path, publishing_app)
@@ -38,11 +42,22 @@ class PathReservation < ApplicationRecord
 
   def already_reserved_error
     msg = "#{base_path} is already reserved by #{publishing_app}"
-    errors.add(:base_path, msg)
+    errors.add(:base_path, msg, code: :base_path_already_in_use)
     ActiveRecord::RecordInvalid.new(self)
   end
 
   def base_path_not_too_long
-    errors.add(:base_path, "over 512 bytes") if base_path.bytesize > 512
+    errors.add(:base_path, "over 512 bytes", code: :base_path_too_long) if base_path.bytesize > 512
+  end
+
+  ERROR_CODE_MAP = {
+    %i[publishing_app blank] => :publishing_app_missing,
+    %i[base_path invalid] => :base_path_invalid,
+  }.freeze
+
+  def self.add_error_codes!(record)
+    record.errors.each do |error|
+      error.options[:code] ||= ERROR_CODE_MAP[[error.attribute, error.type]] || :validation_failed
+    end
   end
 end
