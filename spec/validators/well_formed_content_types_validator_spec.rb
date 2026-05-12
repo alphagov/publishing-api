@@ -152,6 +152,7 @@ RSpec.describe WellFormedContentTypesValidator do
     it "communicates all of those reasons back to the programmer in one go" do
       subject.validate_each(record, attribute, value)
       expect(record.errors).to be_present
+      expect(record.errors.first.details[:code]).to eq(:content_type_invalid)
 
       error_messages = record.errors.messages_for(attribute)
       expect(error_messages).to include("the 'text/plain' content type does not contain content")

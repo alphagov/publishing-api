@@ -135,7 +135,7 @@ RSpec.describe Edition do
 
         it "should be invalid" do
           expect(subject).to be_invalid
-          expect(subject.errors[:base_path].size).to eq(1)
+          expect(subject.errors.added?(:base_path, "is not a valid absolute URL path", code: :absolute_path_invalid)).to be true
         end
       end
 

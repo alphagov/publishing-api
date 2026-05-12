@@ -48,6 +48,7 @@ RSpec.describe StateForDocumentValidator do
           end
 
           it "adds the error to the base attribute" do
+            expect(edition.errors.first.details[:code]).to eq(:conflict)
             expect(edition.errors[:base]).to eq([expected_error])
           end
         end

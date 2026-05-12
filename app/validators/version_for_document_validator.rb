@@ -13,7 +13,7 @@ class VersionForDocumentValidator < ActiveModel::Validator
       error = "user_facing_version=#{record.user_facing_version} and "\
         "document=#{record.document_id} conflicts with edition "\
         "id=#{conflict_id}"
-      record.errors.add(:base, error)
+      record.errors.add(:base, error, code: :conflict)
     end
   end
 end
