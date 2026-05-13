@@ -54,6 +54,7 @@ module Presenters
         else
           GovukError.notify(CommandError.new(
                               code: 422,
+                              error_code: :embedded_content_not_found,
                               message: "Could not find a live edition for embedded content ID: #{content_reference.identifier}",
                             ))
         end

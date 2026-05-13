@@ -246,6 +246,7 @@ RSpec.describe EmbeddedContentFinderService do
       details = { body: "{{embed:contact:00000000-0000-0000-0000-000000000000}}" }
       expect(GovukError).to receive(:notify).with(CommandError.new(
                                                     code: 422,
+                                                    error_code: :embedded_content_alias_not_found,
                                                     message: "Could not find any live editions for embedded content IDs: 00000000-0000-0000-0000-000000000000",
                                                   ))
 
@@ -258,6 +259,7 @@ RSpec.describe EmbeddedContentFinderService do
       details = { body: "{{embed:contact:some-content-id-alias}}" }
       expect(GovukError).to receive(:notify).with(CommandError.new(
                                                     code: 422,
+                                                    error_code: :embedded_content_alias_not_found,
                                                     message: "Could not find a Content ID for alias some-content-id-alias",
                                                   ))
 
@@ -468,6 +470,7 @@ RSpec.describe EmbeddedContentFinderService do
 
           expect(CommandError).to have_received(:new).with(
             code: 422,
+            error_code: :embedded_content_alias_not_found,
             message: "Could not find a Content ID for alias alias-1",
           )
           expect(GovukError).to have_received(:notify).with(command_error)
