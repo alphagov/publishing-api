@@ -119,6 +119,7 @@ RSpec.describe GetHostContentService do
           it "returns a 422 error" do
             expect { described_class.new(target_content_id, "something", nil, nil).call }.to raise_error(CommandError) do |error|
               expect(error.code).to eq(422)
+              expect(error.error_code).to eq(:order_field_invalid)
               expect(error.message).to eq("Invalid order field: something")
             end
           end

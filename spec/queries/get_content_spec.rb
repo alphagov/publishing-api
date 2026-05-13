@@ -163,7 +163,10 @@ RSpec.describe Queries::GetContent do
     it "raises an error if version is provided" do
       expect {
         subject.call(content_id, version: 1)
-      }.to raise_error(CommandError, /version parameter no longer supported in get_content/)
+      }.to raise_error(CommandError, /version parameter no longer supported in get_content/) do |error|
+        expect(error.code).to eq(422)
+        expect(error.error_code).to eq(:unsupported_version_parameter)
+      end
     end
 
     it "returns the most recent if version isn't given" do

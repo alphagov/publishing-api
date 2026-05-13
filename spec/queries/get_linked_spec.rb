@@ -70,6 +70,18 @@ RSpec.describe Queries::GetLinked do
           ).call).to match_array([hash_including("title" => "VAT rules 2020")])
         end
       end
+
+      it "raises an error when fields are not provided" do
+        expect {
+          Queries::GetLinked.new(
+            content_id: target_content_id,
+            link_type: "organisations",
+            fields: [],
+          ).call
+        }.to raise_error(CommandError) do |error|
+          expect(error.error_code).to eq(:fields_parameter_missing)
+        end
+      end
     end
 
     context "when a document with draft exists " do

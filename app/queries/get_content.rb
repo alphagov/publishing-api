@@ -1,7 +1,7 @@
 module Queries
   module GetContent
     def self.call(content_id, locale = nil, version: nil, include_warnings: false, content_store: nil)
-      raise CommandError.new(code: 422, message: "version parameter no longer supported in get_content") if version
+      raise CommandError.new(code: 422, error_code: :unsupported_version_parameter, message: "version parameter no longer supported in get_content") if version
 
       locale_to_use = locale || Edition::DEFAULT_LOCALE
 
