@@ -16,9 +16,11 @@ private
   def parameter_missing_error(error)
     error = CommandError.new(
       code: 422,
+      error_code: :parameter_missing_or_invalid,
       error_details: {
         error: {
           code: 422,
+          error_code: :parameter_missing_or_invalid,
           message: error.message,
         },
       },
