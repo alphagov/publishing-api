@@ -242,6 +242,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
           described_class.call(payload)
         }.to raise_error(CommandError) { |error|
                expect(error.code).to eq(422)
+               expect(error.error_code).to eq(:bulk_publishing_flag_missing)
                expect(error.message).to eq("A value for bulk_publishing is required")
              }
       end
@@ -478,7 +479,10 @@ RSpec.describe Commands::V2::PatchLinkSet do
     it "raises a command error" do
       expect {
         described_class.call(payload)
-      }.to raise_error(CommandError, "Links are required")
+      }.to raise_error(CommandError) { |error|
+             expect(error.error_code).to eq(:links_missing)
+             expect(error.message).to eq("Links are required")
+           }
     end
   end
 
@@ -490,7 +494,10 @@ RSpec.describe Commands::V2::PatchLinkSet do
     it "raises a command error" do
       expect {
         described_class.call(payload)
-      }.to raise_error(CommandError, "Links are required")
+      }.to raise_error(CommandError) { |error|
+             expect(error.error_code).to eq(:links_missing)
+             expect(error.message).to eq("Links are required")
+           }
     end
   end
 

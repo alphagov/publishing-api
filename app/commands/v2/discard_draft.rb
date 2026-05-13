@@ -27,7 +27,7 @@ module Commands
         code = document.published_or_unpublished.present? ? 422 : 404
         message = "There is not a draft edition of this document to discard"
 
-        raise CommandError.new(code:, message:)
+        raise CommandError.new(code:, message:, error_code: :no_draft_to_discard)
       end
 
       def delete_draft_from_database

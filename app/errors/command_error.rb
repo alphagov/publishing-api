@@ -19,6 +19,7 @@ class CommandError < StandardError
              end
     raise CommandError.new(
       code: e.code,
+      **(e.code == 422 ? { error_code: :content_store_validation_failed } : {}),
       error_details: {
         error: {
           code: e.code,

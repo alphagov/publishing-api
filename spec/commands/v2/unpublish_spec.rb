@@ -57,6 +57,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect { described_class.call(payload) }
           .to raise_error(CommandError, msg) do |error|
             expect(error.code).to eq(422)
+            expect(error.error_code).to eq(:explanation_missing_for_withdrawal)
           end
       end
 
@@ -65,6 +66,26 @@ RSpec.describe Commands::V2::Unpublish do
         expect { described_class.call(payload.merge(type: "redirect", alternative_path: "")) }
           .to raise_error(CommandError, msg) do |error|
             expect(error.code).to eq(422)
+            expect(error.error_code).to eq(:redirect_destination_missing)
+          end
+      end
+
+      it "raises multiple_validation_errors when multiple validations fail" do
+        invalid_payload =
+          {   content_id:,
+              type: "redirect",
+              redirects: [
+                {
+                  path: "",
+                  destination: "",
+                  type: "exact",
+                },
+              ] }
+
+        expect { described_class.call(invalid_payload) }
+          .to raise_error(CommandError) do |error|
+            expect(error.code).to eq(422)
+            expect(error.error_code).to eq(:multiple_validation_errors)
           end
       end
     end
@@ -322,6 +343,7 @@ RSpec.describe Commands::V2::Unpublish do
               described_class.call(payload_with_allow_draft_and_discard_drafts)
             }.to raise_error(CommandError, expected_message) { |error|
               expect(error.code).to eq(422)
+              expect(error.error_code).to eq(:conflicting_unpublishing_flags)
             }
           end
         end
@@ -443,6 +465,7 @@ RSpec.describe Commands::V2::Unpublish do
           described_class.call(payload)
         }.to raise_error(CommandError, "Cannot unpublish with a draft present") { |error|
           expect(error.code).to eq(422)
+          expect(error.error_code).to eq(:cannot_unpublish_with_draft)
         }
       end
 

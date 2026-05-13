@@ -97,7 +97,9 @@ RSpec.describe Commands::V2::Publish do
         it "raises an error" do
           expect {
             described_class.call(payload)
-          }.to raise_error(CommandError, /update_type is required/)
+          }.to raise_error(CommandError, /update_type is required/) do |error|
+            expect(error.error_code).to eq(:update_type_missing)
+          end
         end
       end
     end
@@ -727,7 +729,9 @@ RSpec.describe Commands::V2::Publish do
       it "raises an error" do
         expect {
           described_class.call(payload)
-        }.to raise_error(CommandError, "An update_type of 'invalid' is invalid")
+        }.to raise_error(CommandError, "An update_type of 'invalid' is invalid") do |error|
+          expect(error.error_code).to eq(:update_type_invalid)
+        end
       end
     end
 

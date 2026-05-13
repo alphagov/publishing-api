@@ -51,6 +51,7 @@ module Commands
 
         raise CommandError.new(
           code: 422,
+          error_code: :bulk_publishing_flag_missing,
           message: "A value for bulk_publishing is required",
           error_details: {
             error: {
@@ -82,6 +83,7 @@ module Commands
           raise CommandError.new(
             code: 422,
             message: "Links are required",
+            error_code: :links_missing,
             error_details: {
               error: {
                 code: 422,

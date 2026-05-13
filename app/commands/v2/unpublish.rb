@@ -44,7 +44,7 @@ module Commands
 
       def raise_invalid_unpublishing_type
         message = "#{unpublishing_type} is not a valid unpublishing type"
-        raise_command_error(422, message, { fields: {} })
+        raise_command_error(422, message, { fields: {} }, error_code: :type_invalid)
       end
 
       def edition
@@ -54,7 +54,7 @@ module Commands
       def validate_allow_discard_draft
         if payload[:allow_draft] && payload[:discard_drafts]
           message = "allow_draft and discard_drafts cannot be used together"
-          raise_command_error(422, message, { fields: {} })
+          raise_command_error(422, message, { fields: {} }, error_code: :conflicting_unpublishing_flags)
         end
       end
 
@@ -79,7 +79,7 @@ module Commands
             )
           else
             message = "Cannot unpublish with a draft present"
-            raise_command_error(422, message, { fields: {} })
+            raise_command_error(422, message, { fields: {} }, error_code: :cannot_unpublish_with_draft)
           end
         end
       end
@@ -102,7 +102,9 @@ module Commands
             .merge(redirects:),
         )
       rescue ActiveRecord::RecordInvalid => e
-        raise_command_error(422, e.message, { fields: {} })
+        errors = e.record.errors
+        error_code = errors.count == 1 ? errors.first.details[:code] : :multiple_validation_errors
+        raise_command_error(422, e.message, { fields: errors.details }, error_code: error_code)
       end
 
       def redirects

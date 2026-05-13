@@ -24,7 +24,7 @@ module Commands
       return if reservation.publishing_app == publishing_app
 
       msg = "#{base_path} is reserved by #{reservation.publishing_app}"
-      raise CommandError.new(code: 422, message: msg)
+      raise CommandError.new(code: 422, message: msg, error_code: :base_path_already_in_use)
     end
   end
 end

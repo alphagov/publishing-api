@@ -92,6 +92,7 @@ module Commands
 
         raise CommandError.new(
           code: 422,
+          error_code: :bulk_publishing_flag_missing,
           message: "A value for bulk_publishing is required",
           error_details: {
             error: {
@@ -133,7 +134,11 @@ module Commands
         if (content_id_alias = ContentIdAlias.find_by(name: content_id_alias_name))
           return if content_id_alias.content_id == payload[:content_id]
 
-          raise CommandError.new(code: 422, message: "ContentIdAlias with name \"#{content_id_alias_name}\" exists for a different content ID.")
+          raise CommandError.new(
+            code: 422,
+            error_code: :content_id_alias_already_in_use,
+            message: "ContentIdAlias with name \"#{content_id_alias_name}\" exists for a different content ID.",
+          )
         end
 
         ContentIdAlias.create!(name: content_id_alias_name, content_id: payload[:content_id])

@@ -82,7 +82,7 @@ module Commands
           },
         }
 
-        raise_command_error(409, "Conflict", fields, friendly_message:)
+        raise_command_error(409, "Conflict", fields, error_code: :conflict, friendly_message:)
       end
 
       current_version

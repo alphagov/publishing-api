@@ -21,6 +21,7 @@ module Commands
         message = "The payload did not conform to the schema"
         raise CommandError.new(
           code: 422,
+          error_code: :schema_validation_failed,
           message:,
           error_details: schema_validator.errors,
         )
@@ -33,6 +34,7 @@ module Commands
         message = "publishing_app is required"
         raise CommandError.new(
           code:,
+          error_code: :publishing_app_missing,
           message:,
           error_details: {
             error: {

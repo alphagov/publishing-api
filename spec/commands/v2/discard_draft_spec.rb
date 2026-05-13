@@ -280,6 +280,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         it "raises a command error with code 422" do
           expect { described_class.call(payload) }.to raise_error(CommandError) do |error|
             expect(error.code).to eq(422)
+            expect(error.error_code).to eq(:no_draft_to_discard)
           end
         end
       end

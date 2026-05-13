@@ -46,7 +46,10 @@ RSpec.describe Commands::V2::PostAction do
         it "raises a 422 command error" do
           expect {
             described_class.call(payload)
-          }.to raise_error(CommandError) { |e| expect(e.code).to eq(422) }
+          }.to raise_error(CommandError) { |e|
+                 expect(e.code).to eq(422)
+                 expect(e.error_code).to eq(:action_invalid)
+               }
         end
       end
 

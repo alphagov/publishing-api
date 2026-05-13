@@ -20,9 +20,11 @@ RSpec.describe Commands::UnreservePath do
         )
 
         expect { described_class.call(payload) }
-          .to raise_error(
-            CommandError, /is reserved/
-          )
+          .to raise_error(CommandError) do |error|
+          expect(error.code).to eq(422)
+          expect(error.message).to eq("/bar is reserved by bar")
+          expect(error.error_code).to eq(:base_path_already_in_use)
+        end
       end
     end
 
