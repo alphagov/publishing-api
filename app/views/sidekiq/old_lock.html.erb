@@ -9,7 +9,7 @@
 <% @retry_set_data.each_with_index do |entry, index| %>
   <h5>Entry <%= index + 1 %> of <%= @retry_set_data.size %></h5>
   <p>
-    <a href="<%= root_path %>retries/<%= entry.delete(:retries_param) %>" %>
+    <a href="<%= root_path %>retries/<%= entry.delete(:retries_param) %>">
       View in retries tab
     </a>
   </p>
