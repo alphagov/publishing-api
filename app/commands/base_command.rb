@@ -6,16 +6,14 @@ module Commands
       logger.debug "#{self} called with payload:\n#{payload}"
 
       response = EventLogger.log_command(self, payload) do |event|
-        PublishingAPI.service(:statsd).time(name.gsub(/:+/, ".")) do
-          new(
-            payload,
-            event:,
-            downstream:,
-            callbacks:,
-            nested:,
-            **options,
-          ).call
-        end
+        new(
+          payload,
+          event: event,
+          downstream: downstream,
+          callbacks: callbacks,
+          nested: nested,
+          **options,
+        ).call
       end
 
       execute_callbacks(callbacks) unless nested
@@ -49,15 +47,18 @@ module Commands
     def self.raise_validation_command_error(error)
       errors = error.record.errors
       full_message = errors.full_messages.join(", ")
+      error_code = errors.count == 1 ? errors.first.details[:code] : :multiple_validation_errors
 
       raise CommandError.new(
         code: 422,
+        error_code: error_code,
         message: full_message,
         error_details: {
           error: {
             code: 422,
             message: full_message,
-            fields: errors.to_hash,
+            error_code: error_code,
+            fields: errors.details,
           },
         },
       )
@@ -81,15 +82,16 @@ module Commands
           },
         }
 
-        raise_command_error(409, "Conflict", fields, friendly_message:)
+        raise_command_error(409, "Conflict", fields, error_code: :conflict, friendly_message:)
       end
 
       current_version
     end
 
-    def raise_command_error(code, message, fields, friendly_message: nil)
+    def raise_command_error(code, message, fields, error_code: nil, friendly_message: nil)
       raise CommandError.new(
         code:,
+        **(code == 422 ? { error_code: error_code } : {}),
         message:,
         error_details: {
           error: {

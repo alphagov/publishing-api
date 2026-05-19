@@ -17,9 +17,9 @@ RSpec.describe Commands::V2::PutContentValidator do
 
       it "raises command error and exits" do
         expect(PathReservation).not_to receive(:reserve_base_path!)
-        expect { subject.validate }.to raise_error do |error|
-          expect(error).to be_a(CommandError)
+        expect { subject.validate }.to raise_error(CommandError) do |error|
           expect(error.code).to eq 422
+          expect(error.error_code).to eq :schema_validation_failed
           expect(error.error_details).to eq errors
         end
       end

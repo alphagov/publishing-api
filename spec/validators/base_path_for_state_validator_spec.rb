@@ -61,6 +61,7 @@ RSpec.describe BasePathForStateValidator do
 
           it "adds the error to edition attribute" do
             expect(edition.errors[:base]).to eq([expected_error])
+            expect(edition.errors.first.details[:code]).to eq(:conflict)
           end
         end
       end
@@ -84,6 +85,7 @@ RSpec.describe BasePathForStateValidator do
 
             it "adds the error to edition attribute" do
               expect(edition.errors[:base]).to eq([expected_error])
+              expect(edition.errors.first.details[:code]).to eq(:conflict)
             end
           end
         end

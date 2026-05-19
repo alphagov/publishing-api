@@ -33,7 +33,10 @@ private
     not_found_content_ids = identifiers - found_content_ids
 
     if not_found_content_ids.any?
-      log_error "Could not find any live editions for embedded content IDs: #{not_found_content_ids.join(', ')}"
+      log_error(
+        "Could not find any live editions for embedded content IDs: #{not_found_content_ids.join(', ')}",
+        :embedded_content_not_found,
+      )
       identifiers - not_found_content_ids
     else
       identifiers
@@ -53,10 +56,11 @@ private
     )
   end
 
-  def log_error(message)
+  def log_error(message, error_code)
     GovukError.notify(
       CommandError.new(
         code: 422,
+        error_code:,
         message:,
       ),
     )
@@ -92,7 +96,8 @@ private
     def replace_alias_content_id_with_content_id(reference)
       identifier = content_id_aliases[reference.identifier]
       if identifier.nil?
-        log_error "Could not find a Content ID for alias #{reference.identifier}"
+        log_error("Could not find a Content ID for alias #{reference.identifier}",
+                  :embedded_content_alias_not_found)
         return
       end
 
@@ -101,10 +106,11 @@ private
       )
     end
 
-    def log_error(message)
+    def log_error(message, error_code)
       GovukError.notify(
         CommandError.new(
           code: 422,
+          error_code:,
           message:,
         ),
       )

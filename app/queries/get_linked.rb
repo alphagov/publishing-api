@@ -49,6 +49,7 @@ module Queries
 
       if fields.empty?
         code = 422
+        error_code = :fields_parameter_missing
         message = "Fields must be provided"
       else
         code = 400
@@ -57,6 +58,7 @@ module Queries
 
       raise CommandError.new(
         code:,
+        **(code == 422 ? { error_code: error_code } : {}),
         error_details: {
           error: {
             code:,

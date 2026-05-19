@@ -42,4 +42,29 @@ class Unpublishing < ApplicationRecord
   def self.is_substitute?(edition)
     where(edition:).pick(:type) == "substitute"
   end
+
+  def save!(*args)
+    super
+  rescue ActiveRecord::RecordInvalid => e
+    add_error_codes!(e.record)
+
+    raise e
+  end
+
+private
+
+  ERROR_CODE_MAP = {
+    %i[edition blank] => :edition_missing,
+    %i[edition taken] => :edition_not_unique,
+    %i[type blank] => :type_missing,
+    %i[type inclusion] => :type_invalid,
+    %i[explanation blank] => :explanation_missing_for_withdrawal,
+    %i[redirects blank] => :redirects_missing_for_redirect,
+  }.freeze
+
+  def add_error_codes!(record)
+    record.errors.each do |error|
+      error.options[:code] ||= ERROR_CODE_MAP[[error.attribute, error.type]] || :validation_failed
+    end
+  end
 end

@@ -187,6 +187,39 @@ returned along with error messages in the `response.body.error` object. eg.
   }
 ```
 
+Additionally, `422 Unprocessable Entity` responses include an `error_code`, eg.
+
+```js
+  {
+    "status": 422,
+    "headers": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "error": {
+        "code": 422,
+        "message": "Base path /foo is already reserved by publisher",
+        "error_code": "base_path_already_in_use",
+        "fields": {
+          "base_path": [
+            {
+              "error": "/foo is already reserved by publisher",
+              "code": "base_path_already_in_use"
+            }
+          ]
+        }
+      }
+    }
+  }
+```
+
+If multiple validation errors occur, the response uses the
+`multiple_validation_errors` error code, and details for each validation issue
+are provided in the `fields` object. 
+
+A complete list of possible error codes is available in the `ERROR_CODES`
+constant defined in the [`CommandError` class](app/errors/command_error.rb).
+
 ## LockVersioning
 
 The response body contains the current lock version of the document for GET

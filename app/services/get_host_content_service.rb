@@ -41,6 +41,7 @@ private
     message = "Invalid order field: #{order}"
     raise CommandError.new(
       code: 422,
+      error_code: :order_field_invalid,
       message:,
       error_details: {
         error: {

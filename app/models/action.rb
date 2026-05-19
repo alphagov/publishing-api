@@ -49,4 +49,14 @@ class Action < ApplicationRecord
     after_links = link_set.links.to_a
     LinkChangeService.new(action, before_links, after_links).record
   end
+
+  def save!(*args)
+    super
+  rescue ActiveRecord::RecordInvalid => e
+    e.record.errors.each do |error|
+      error.options[:code] ||= :action_invalid
+    end
+
+    raise e
+  end
 end

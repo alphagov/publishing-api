@@ -25,7 +25,7 @@ class UuidValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     unless self.class.valid?(value)
       message = options[:message] || "is not a canonical UUID"
-      record.errors.add(attribute, message)
+      record.errors.add(attribute, message, code: :uuid_invalid)
     end
   end
 

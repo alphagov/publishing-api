@@ -31,6 +31,7 @@ module Commands
       {
         error: {
           code: upstream_error.code,
+          **(upstream_error.code == 422 ? { error_code: :content_store_validation_failed } : {}),
           message: upstream_error.message,
           fields: (upstream_error.error_details || {}).fetch("errors", {}),
         },

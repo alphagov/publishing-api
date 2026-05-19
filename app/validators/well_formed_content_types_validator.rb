@@ -6,7 +6,7 @@ class WellFormedContentTypesValidator < ActiveModel::EachValidator
 
     if @error_messages.present?
       @error_messages.each do |message|
-        record.errors.add(attribute, message)
+        record.errors.add(attribute, message, code: :content_type_invalid)
       end
     end
   end

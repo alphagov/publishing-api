@@ -26,6 +26,7 @@ RSpec.shared_examples "renders embedded content" do
         it "alerts Sentry and returns the expected content" do
           expect(GovukError).to receive(:notify).with(CommandError.new(
                                                         code: 422,
+                                                        error_code: :embedded_content_not_found,
                                                         message: "Could not find a live edition for embedded content ID: #{fake_content_id}",
                                                       ))
           expect(described_class.new(edition).render_embedded_content(details)).to eq({

@@ -54,6 +54,11 @@ RSpec.describe "GET /v2/linkables", type: :request do
       get "/v2/linkables"
 
       expect(response.status).to eq(422)
+      expect(parsed_response).to eql("error" => {
+        "code" => 422,
+        "error_code" => "parameter_missing_or_invalid",
+        "message" => "param is missing or the value is empty or invalid: document_type",
+      })
     end
   end
 end

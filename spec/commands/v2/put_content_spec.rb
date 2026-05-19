@@ -162,6 +162,7 @@ RSpec.describe Commands::V2::PutContent do
               described_class.call(content_block_payload)
             }.to raise_error(CommandError) { |error|
               expect(error.code).to eq(422)
+              expect(error.error_code).to eq(:content_id_alias_already_in_use)
               expect(error.message).to eq("ContentIdAlias with name \"#{content_block_payload[:content_id_alias]}\" exists for a different content ID.")
             }
           end
@@ -196,6 +197,7 @@ RSpec.describe Commands::V2::PutContent do
           described_class.call(payload)
         }.to raise_error(CommandError) { |error|
                expect(error.code).to eq(422)
+               expect(error.error_code).to eq(:bulk_publishing_flag_missing)
                expect(error.message).to eq("A value for bulk_publishing is required")
              }
       end

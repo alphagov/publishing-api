@@ -101,6 +101,7 @@ module Commands
                 update_type: ["is invalid"],
               },
             },
+            error_code: :update_type_missing,
           )
         elsif !valid_update_types.include?(update_type)
           raise_command_error(
@@ -111,6 +112,7 @@ module Commands
                 update_type: ["must be one of #{valid_update_types.inspect}"],
               },
             },
+            error_code: :update_type_invalid,
           )
         end
       end

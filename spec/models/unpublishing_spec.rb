@@ -27,6 +27,7 @@ RSpec.describe Unpublishing do
       subject.type = "redirect"
       expect(subject).to be_invalid
       expect(subject.errors[:redirects].size).to eq(2)
+      expect(subject.errors.added?(:redirects, "must include the base path", code: :redirects_must_include_base_path)).to be true
 
       subject.type = nil
       expect(subject).to be_invalid
@@ -106,6 +107,98 @@ RSpec.describe Unpublishing do
     context "when there isn't an edition" do
       let(:edition) { nil }
       it { is_expected.to be false }
+    end
+  end
+
+  describe "#save!" do
+    let(:edition) { create(:edition, base_path: "/test") }
+
+    it "adds edition_missing error code when edition is missing" do
+      record = described_class.new(type: "gone")
+
+      expect_error_code(
+        record: record,
+        attribute: :edition,
+        error: :blank,
+        code: :edition_missing,
+      )
+    end
+
+    it "returns edition_not_unique error code when edition is not unique" do
+      create(:unpublishing, edition: edition)
+
+      duplicate = build(:unpublishing, edition: edition)
+
+      expect_error_code(
+        record: duplicate,
+        attribute: :edition,
+        error: :taken,
+        code: :edition_not_unique,
+      )
+    end
+
+    it "adds type_missing error code when type is invalid" do
+      record = described_class.new(edition: edition)
+
+      expect_error_code(
+        record: record,
+        attribute: :type,
+        error: :blank,
+        code: :type_missing,
+      )
+    end
+
+    it "adds type_invalid error code when type is invalid" do
+      record = described_class.new(
+        edition: edition,
+        type: "not_a_valid_type",
+      )
+
+      expect_error_code(
+        record: record,
+        attribute: :type,
+        error: :inclusion,
+        code: :type_invalid,
+      )
+    end
+
+    it "adds explanation_missing_for_withdrawal error code when explanation is missing" do
+      record = described_class.new(
+        edition: edition,
+        type: "withdrawal",
+        explanation: nil,
+      )
+
+      expect_error_code(
+        record: record,
+        attribute: :explanation,
+        error: :blank,
+        code: :explanation_missing_for_withdrawal,
+      )
+    end
+
+    it "adds redirects_missing_for_redirect error code when redirects are missing" do
+      record = described_class.new(
+        edition: edition,
+        type: "redirect",
+        redirects: nil,
+      )
+
+      expect_error_code(
+        record: record,
+        attribute: :redirects,
+        error: :blank,
+        code: :redirects_missing_for_redirect,
+      )
+    end
+
+    def expect_error_code(record:, attribute:, error:, code:)
+      expect { record.save! }
+        .to raise_error(ActiveRecord::RecordInvalid) { |exception|
+          expect(exception.record.errors.details[attribute]).to include(
+            a_hash_including(error: error, code: code),
+          )
+        }
     end
   end
 end
