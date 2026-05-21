@@ -52,6 +52,8 @@ class DownstreamLiveJob
     end
 
     enqueue_dependencies if update_dependencies
+  rescue DownstreamInvalidStateError => e
+    logger.warn(e.message)
   end
 
 private

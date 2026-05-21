@@ -22,7 +22,7 @@ class DownstreamDiscardDraftJob
     update_expanded_links
 
     enqueue_dependencies if update_dependencies
-  rescue DiscardDraftBasePathConflictError => e
+  rescue DiscardDraftBasePathConflictError, DownstreamDraftExistsError, DownstreamInvalidStateError => e
     logger.warn(e.message)
   end
 
