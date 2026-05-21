@@ -40,6 +40,8 @@ class DownstreamDraftJob
     end
 
     enqueue_dependencies if update_dependencies
+  rescue DownstreamDraftExistsError, DownstreamInvalidStateError => e
+    logger.warn(e.message)
   end
 
 private

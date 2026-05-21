@@ -139,4 +139,36 @@ RSpec.describe DownstreamDraftJob do
       end
     end
   end
+  describe "when DownstreamService's broadcast_to_message_queue raises a DownstreamInvalidStateError exception" do
+    before do
+      allow(DownstreamService).to receive(:broadcast_to_message_queue).and_raise(DownstreamInvalidStateError)
+    end
+    it "rescues from the error" do
+      expect {
+        subject.perform(arguments)
+      }.not_to raise_error
+    end
+  end
+
+  describe "when DownstreamService's update_draft_content_store raises a DownstreamInvalidStateError exception" do
+    before do
+      allow(DownstreamService).to receive(:update_draft_content_store).and_raise(DownstreamInvalidStateError)
+    end
+    it "rescues from the error" do
+      expect {
+        subject.perform(arguments)
+      }.not_to raise_error
+    end
+  end
+
+  describe "when DownstreamService's update_draft_content_store raises a DownstreamDraftExistsError exception" do
+    before do
+      allow(DownstreamService).to receive(:update_draft_content_store).and_raise(DownstreamDraftExistsError)
+    end
+    it "rescues from the error" do
+      expect {
+        subject.perform(arguments)
+      }.not_to raise_error
+    end
+  end
 end

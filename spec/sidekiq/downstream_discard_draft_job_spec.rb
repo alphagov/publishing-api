@@ -236,4 +236,37 @@ RSpec.describe DownstreamDiscardDraftJob do
       subject.perform(arguments)
     end
   end
+
+  describe "when DownstreamService's update_draft_content_store raises a DownstreamInvalidStateError exception" do
+    before do
+      allow(DownstreamService).to receive(:update_draft_content_store).and_raise(DownstreamInvalidStateError)
+    end
+    it "rescues from the error" do
+      expect {
+        subject.perform(arguments)
+      }.not_to raise_error
+    end
+  end
+
+  describe "when DownstreamService's update_draft_content_store raises a DownstreamDraftExistsError exception" do
+    before do
+      allow(DownstreamService).to receive(:update_draft_content_store).and_raise(DownstreamDraftExistsError)
+    end
+    it "rescues from the error" do
+      expect {
+        subject.perform(arguments)
+      }.not_to raise_error
+    end
+  end
+
+  describe "when DownstreamService's discard_from_draft_content_store raises a DiscardDraftBasePathConflictError exception" do
+    before do
+      allow(DownstreamService).to receive(:discard_from_draft_content_store).and_raise(DiscardDraftBasePathConflictError)
+    end
+    it "rescues from the error" do
+      expect {
+        subject.perform(arguments)
+      }.not_to raise_error
+    end
+  end
 end
