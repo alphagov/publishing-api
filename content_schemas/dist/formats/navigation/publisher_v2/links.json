@@ -10,6 +10,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "documents": {
+          "description": "Documents which belong to this navigation",
+          "$ref": "#/definitions/guid_list"
+        },
         "emphasised_organisations": {
           "description": "Lead organisations linked to this content item.",
           "$ref": "#/definitions/guid_list"
