@@ -32,7 +32,7 @@ jobs:
     name: Test Content Data API
     uses: alphagov/content-data-api/.github/workflows/rspec.yml@main
     with:
-      ref: 'main'
+      ref: 'spike-navigation'
       publishingApiRef: ${{ github.ref }}
 
   test-content-store:
