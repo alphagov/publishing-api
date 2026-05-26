@@ -1,4 +1,5 @@
 (import "base_edition_links.jsonnet") + {
+  documents: "Documents which are related to / dependent on this one",
   emphasised_organisations: "",
   government: {
     description: "The government associated with this document",
