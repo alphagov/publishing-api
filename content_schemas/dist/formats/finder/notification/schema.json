@@ -85,6 +85,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "documents": {
+          "description": "Documents which are related to / dependent on this one",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "email_alert_signup": {
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
@@ -186,6 +190,10 @@
       "additionalProperties": false,
       "properties": {
         "available_translations": {
+          "$ref": "#/definitions/guid_list"
+        },
+        "documents": {
+          "description": "Documents which are related to / dependent on this one",
           "$ref": "#/definitions/guid_list"
         },
         "email_alert_signup": {

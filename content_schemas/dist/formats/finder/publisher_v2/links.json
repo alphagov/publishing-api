@@ -13,6 +13,10 @@
         "available_translations": {
           "$ref": "#/definitions/guid_list"
         },
+        "documents": {
+          "description": "Documents which are related to / dependent on this one",
+          "$ref": "#/definitions/guid_list"
+        },
         "email_alert_signup": {
           "$ref": "#/definitions/guid_list"
         },

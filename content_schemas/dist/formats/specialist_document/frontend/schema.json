@@ -262,6 +262,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "documents": {
+          "description": "Documents which are related to / dependent on this one",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "emphasised_organisations": {
           "description": "Lead organisations linked to this content item.",
           "$ref": "#/definitions/frontend_links_with_base_path"
