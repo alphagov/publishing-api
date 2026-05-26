@@ -85,6 +85,11 @@
           "$ref": "#/definitions/guid_list",
           "maxItems": 1
         },
+        "navigation": {
+          "description": "The content ID for the navigation associated with this document",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
+        },
         "organisations": {
           "$ref": "#/definitions/guid_list"
         },

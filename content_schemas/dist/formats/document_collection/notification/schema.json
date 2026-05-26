@@ -120,6 +120,11 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links"
         },
+        "navigation": {
+          "description": "The content ID for the navigation associated with this document",
+          "$ref": "#/definitions/frontend_links_with_base_path",
+          "maxItems": 1
+        },
         "ordered_related_items": {
           "description": "Related items, can be any page on GOV.UK. Mostly used for mainstream content to power the sidebar. Ordering of the links is determined by the editor in Content Tagger.",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -226,6 +231,11 @@
         "mainstream_browse_pages": {
           "description": "Powers the /browse section of the site. These are known as sections in some legacy apps.",
           "$ref": "#/definitions/guid_list"
+        },
+        "navigation": {
+          "description": "The content ID for the navigation associated with this document",
+          "$ref": "#/definitions/guid_list",
+          "maxItems": 1
         },
         "ordered_related_items": {
           "description": "Related items, can be any page on GOV.UK. Mostly used for mainstream content to power the sidebar. Ordering of the links is determined by the editor in Content Tagger.",
