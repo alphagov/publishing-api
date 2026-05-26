@@ -26,17 +26,12 @@
           type: "array",
           items: {
             type: "object",
-            additionalProperties: false,
             required: [
-              "title",
-              "url",
+              "content_id",
             ],
             properties: {
-              title: {
-                type: "string",
-              },
-              url: {
-                type: "string",
+              content_id: {
+                "$ref": "#/definitions/guid"
               },
             },
           },
@@ -44,5 +39,10 @@
       },
     },
   },
-  links: (import "shared/base_links.jsonnet"),
+  links: (import "shared/base_links.jsonnet") + {
+    documents: "Documents which belong to this navigation",
+  },
+  edition_links: (import "shared/whitehall_edition_links.jsonnet") + {
+    documents: "Documents which belong to this navigation",
+  }
 }
