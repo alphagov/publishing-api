@@ -102,6 +102,7 @@ module_function
   FATALITY_NOTICE_FIELDS = (DEFAULT_FIELDS + details_fields(:roll_call_introduction, :casualties))
   HISTORIC_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:political_party, :dates_in_office))
   MINISTERIAL_ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :role_payment_type, :seniority, :whip_organisation)).freeze
+  NAVIGATION_FIELDS = (DEFAULT_FIELDS + details_fields(:menu_items)).freeze
   PERSON_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :image)).freeze
   PERSON_FIELDS_WITH_IMAGE = (DEFAULT_FIELDS + details_fields(:image, :privy_counsellor)).freeze
   ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :role_payment_type)).freeze
@@ -161,6 +162,8 @@ module_function
         fields: CONTACT_FIELDS },
       { document_type: :content_block_pension,
         fields: CONTENT_BLOCK_PENSION_FIELDS },
+      { document_type: :navigation,
+        fields: NAVIGATION_FIELDS },
       { document_type: :topical_event,
         fields: DEFAULT_FIELDS },
       { document_type: :organisation,
