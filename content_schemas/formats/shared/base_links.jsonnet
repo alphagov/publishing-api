@@ -1,5 +1,4 @@
 {
-  documents: "Documents which are related to / dependent on this one",
   emphasised_organisations: "Lead organisations linked to this content item.",
   finder: "Powers links from content back to finders the content is surfaced on",
   lead_organisations: "DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.",
