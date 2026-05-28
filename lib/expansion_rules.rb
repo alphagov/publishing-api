@@ -23,6 +23,7 @@ module_function
     [:parent_taxons.recurring],
     [:parent_taxons.recurring, :root_taxon],
     %i[taxons root_taxon],
+    %i[document_collections documents],
     [:taxons, :parent_taxons.recurring],
     [:taxons, :parent_taxons.recurring, :root_taxon],
     [:ordered_related_items, :mainstream_browse_pages, :parent.recurring],
