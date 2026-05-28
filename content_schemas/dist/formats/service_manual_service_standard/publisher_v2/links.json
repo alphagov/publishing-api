@@ -10,10 +10,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "documents": {
-          "description": "Documents which are related to / dependent on this one",
-          "$ref": "#/definitions/guid_list"
-        },
         "email_alert_signup": {
           "description": "References an email alert signup page for the service standard",
           "$ref": "#/definitions/guid_list"

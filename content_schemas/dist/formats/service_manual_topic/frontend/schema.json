@@ -71,10 +71,6 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
-        "documents": {
-          "description": "Documents which are related to / dependent on this one",
-          "$ref": "#/definitions/frontend_links_with_base_path"
-        },
         "email_alert_signup": {
           "description": "References an email alert signup page for this topic",
           "$ref": "#/definitions/frontend_links_with_base_path"

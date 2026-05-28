@@ -13,10 +13,6 @@
         "corporate_information_pages": {
           "$ref": "#/definitions/guid_list"
         },
-        "documents": {
-          "description": "Documents which are related to / dependent on this one",
-          "$ref": "#/definitions/guid_list"
-        },
         "emphasised_organisations": {
           "description": "Lead organisations linked to this content item.",
           "$ref": "#/definitions/guid_list"

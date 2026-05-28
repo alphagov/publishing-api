@@ -85,10 +85,6 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
-        "documents": {
-          "description": "Documents which are related to / dependent on this one",
-          "$ref": "#/definitions/frontend_links_with_base_path"
-        },
         "embed": {
           "description": "Content that will be embedded within the document, using embed tags.",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -196,10 +192,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "documents": {
-          "description": "Documents which are related to / dependent on this one",
-          "$ref": "#/definitions/guid_list"
-        },
         "embed": {
           "description": "Content that will be embedded within the document, using embed tags.",
           "$ref": "#/definitions/guid_list"
