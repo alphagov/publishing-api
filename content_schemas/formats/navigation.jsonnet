@@ -31,5 +31,10 @@
       },
     },
   },
-  links: (import "shared/base_links.jsonnet"),
+  links: (import "shared/base_links.jsonnet") + {
+    documents: "Documents which belong to this navigation",
+  },
+  edition_links: (import "shared/whitehall_edition_links.jsonnet") + {
+    documents: "Documents which belong to this navigation",
+  }
 }
