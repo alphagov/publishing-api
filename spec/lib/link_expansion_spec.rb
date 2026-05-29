@@ -59,7 +59,7 @@ RSpec.describe LinkExpansion do
       end
     end
 
-    context "with a reverse link" do
+    context "with a reverse link with member expansion configured" do
       let(:collection_content_id) { SecureRandom.uuid }
       let(:first_document_content_id) { SecureRandom.uuid }
       let(:second_document_content_id) { SecureRandom.uuid }

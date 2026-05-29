@@ -387,6 +387,30 @@ RSpec.describe ExpansionRules do
     end
   end
 
+  describe "REVERSE_LINKS_WITH_MEMBER_EXPANSION" do
+    it "only lists reverse link types that exist in REVERSE_LINKS" do
+      described_class::REVERSE_LINKS_WITH_MEMBER_EXPANSION.each_key do |reverse_link_type|
+        expect(described_class::REVERSE_LINKS.values).to include(reverse_link_type)
+      end
+    end
+
+    it "maps each reverse link type to its reciprocal direct link type" do
+      described_class::REVERSE_LINKS_WITH_MEMBER_EXPANSION.each do |reverse_link_type, direct_link_type|
+        expect(described_class.reverse_link_type(direct_link_type)).to eq(reverse_link_type)
+      end
+    end
+
+    describe ".member_expansion_direct_link_type" do
+      it "returns the direct link type for configured reverse links" do
+        expect(described_class.member_expansion_direct_link_type(:document_collections)).to eq(:documents)
+      end
+
+      it "returns nil for reverse links with reciprocal-only expansion" do
+        expect(described_class.member_expansion_direct_link_type(:parent)).to be_nil
+      end
+    end
+  end
+
   describe "REVERSE_LINKS" do
     let(:reverse_links) { described_class.reverse_links.map(&:to_s) }
 

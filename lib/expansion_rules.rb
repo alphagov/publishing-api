@@ -71,6 +71,12 @@ module_function
     ministerial: :ministers,
   }.freeze
 
+  # These expand every member of the reciprocal direct link type from
+  # the source link set, instead of only mirroring the edition being expanded.
+  REVERSE_LINKS_WITH_MEMBER_EXPANSION = {
+    document_collections: :documents,
+  }.freeze
+
   # These fields are required by the frontend_links definition
   MANDATORY_FIELDS = %i[
     content_id
@@ -227,6 +233,10 @@ module_function
 
   def reverse_link_type(link_type)
     REVERSE_LINKS[link_type.to_sym]
+  end
+
+  def member_expansion_direct_link_type(reverse_link_type)
+    REVERSE_LINKS_WITH_MEMBER_EXPANSION[reverse_link_type.to_sym]
   end
 
   def reverse_to_direct_link_type(link_type)
