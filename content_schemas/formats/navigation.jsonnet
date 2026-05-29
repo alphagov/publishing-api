@@ -23,7 +23,10 @@
           description: "DEPRECATED: this has the same name and data as the top level descriptions field, which should be used instead",
         },
         menu_items: {
-          type: "string",
+          type: "array",
+          items: {
+            type: "object",
+          },
         },
       },
     },
