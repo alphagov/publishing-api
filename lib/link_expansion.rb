@@ -82,11 +82,17 @@ private
       return {}
     end
 
+    reverse_link_type = node.link_types_path.first
+
+    if reverse_link_type == :shared_navigations
+      return shared_navigation_member_links(node.content_id)
+    end
+
     edition_hash = content_cache.find(content_id)
     return {} if !edition_hash || !should_link?(node.link_type, edition_hash)
 
     rules
-      .reverse_to_direct_link_type(node.link_types_path.first)
+      .reverse_to_direct_link_type(reverse_link_type)
       .each_with_object({}) do |reverse_to_direct_link_type, memo|
         expanded = rules.expand_fields(
           edition_hash,
@@ -95,6 +101,28 @@ private
         )
         memo[reverse_to_direct_link_type] = [expanded.merge(links: {})]
       end
+  end
+
+  def shared_navigation_member_links(shared_navigation_content_id)
+    document_links = Queries::Links.from(
+      shared_navigation_content_id,
+      allowed_link_types: [:navigation_items],
+    )[:navigation_items] || []
+
+    navigation_items = document_links.filter_map do |link|
+      edition_hash = content_cache.find(link[:content_id])
+      next unless edition_hash && should_link?(:navigation_items, edition_hash)
+
+      rules.expand_fields(
+        edition_hash,
+        link_type: :navigation_items,
+        draft: with_drafts,
+      ).merge(links: {})
+    end
+
+    return {} if navigation_items.empty?
+
+    { navigation_items: }
   end
 
   def should_link?(link_type, edition_hash)
