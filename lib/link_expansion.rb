@@ -83,9 +83,10 @@ private
     end
 
     reverse_link_type = node.link_types_path.first
+    direct_link_type = rules.member_expansion_direct_link_type(reverse_link_type)
 
-    if reverse_link_type == :shared_navigations
-      return shared_navigation_member_links(node.content_id)
+    if direct_link_type
+      return reverse_link_member_links(node.content_id, direct_link_type)
     end
 
     edition_hash = content_cache.find(content_id)
@@ -103,26 +104,26 @@ private
       end
   end
 
-  def shared_navigation_member_links(shared_navigation_content_id)
-    document_links = Queries::Links.from(
-      shared_navigation_content_id,
-      allowed_link_types: [:navigation_items],
-    )[:navigation_items] || []
+  def reverse_link_member_links(source_content_id, direct_link_type)
+    member_links = Queries::Links.from(
+      source_content_id,
+      allowed_link_types: [direct_link_type],
+    )[direct_link_type] || []
 
-    navigation_items = document_links.filter_map do |link|
+    members = member_links.filter_map do |link|
       edition_hash = content_cache.find(link[:content_id])
-      next unless edition_hash && should_link?(:navigation_items, edition_hash)
+      next unless edition_hash && should_link?(direct_link_type, edition_hash)
 
       rules.expand_fields(
         edition_hash,
-        link_type: :navigation_items,
+        link_type: direct_link_type,
         draft: with_drafts,
       ).merge(links: {})
     end
 
-    return {} if navigation_items.empty?
+    return {} if members.empty?
 
-    { navigation_items: }
+    { direct_link_type => members }
   end
 
   def should_link?(link_type, edition_hash)
