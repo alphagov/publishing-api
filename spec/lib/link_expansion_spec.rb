@@ -59,6 +59,76 @@ RSpec.describe LinkExpansion do
       end
     end
 
+    context "with a reverse link" do
+      let(:shared_navigation_content_id) { SecureRandom.uuid }
+      let(:first_document_content_id) { SecureRandom.uuid }
+      let(:second_document_content_id) { SecureRandom.uuid }
+
+      let!(:collection) do
+        create_edition(
+          shared_navigation_content_id,
+          nil,
+          document_type: "shared_navigation",
+          schema_name: "shared_navigation",
+          title: "Example Collection",
+        )
+      end
+
+      let!(:first_document) do
+        create_edition(
+          first_document_content_id,
+          "/government/publications/first-publication",
+          document_type: "policy_paper",
+          schema_name: "publication",
+          title: "First Publication",
+        )
+      end
+
+      let!(:second_document) do
+        create_edition(
+          second_document_content_id,
+          "/government/publications/second-publication",
+          document_type: "policy_paper",
+          schema_name: "publication",
+          title: "Second Publication",
+        )
+      end
+
+      let(:content_id) { first_document_content_id }
+
+      before do
+        create(
+          :link_set,
+          content_id: shared_navigation_content_id,
+          links_hash: {
+            navigation_items: [
+              first_document_content_id,
+              second_document_content_id,
+            ],
+          },
+        )
+      end
+
+      it "expands all member documents under the shared navigation" do
+        shared_navigations = subject.fetch(:shared_navigations)
+        expect(shared_navigations.size).to eq(1)
+
+        member_documents = shared_navigations.first.fetch(:links).fetch(:navigation_items)
+        expect(member_documents).to contain_exactly(
+          a_hash_including(
+            content_id: first_document_content_id,
+            title: first_document.title,
+            base_path: first_document.base_path,
+          ),
+          a_hash_including(
+            content_id: second_document_content_id,
+            title: second_document.title,
+            base_path: second_document.base_path,
+          ),
+        )
+      end
+    end
+
     context "with recursive links" do
       let(:child_content_id) { SecureRandom.uuid }
       let(:grand_child_content_id) { SecureRandom.uuid }
