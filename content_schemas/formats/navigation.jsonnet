@@ -6,7 +6,7 @@
   definitions: {
     details: {
       type: "object",
-      additionalProperties: false,
+      additionalProperties: true,
       properties: {
         slug: {
           type: "string",
@@ -23,23 +23,7 @@
           description: "DEPRECATED: this has the same name and data as the top level descriptions field, which should be used instead",
         },
         menu_items: {
-          type: "array",
-          items: {
-            type: "object",
-            additionalProperties: false,
-            required: [
-              "title",
-              "url",
-            ],
-            properties: {
-              title: {
-                type: "string",
-              },
-              url: {
-                type: "string",
-              },
-            },
-          },
+          type: "string",
         },
       },
     },
