@@ -168,7 +168,7 @@ module_function
         fields: CONTACT_FIELDS },
       { document_type: :content_block_pension,
         fields: CONTENT_BLOCK_PENSION_FIELDS },
-      { document_type: :document_collections, # TODO: this would be shared_navigation
+      { document_type: :navigation, # TODO: this would be shared_navigation
         fields: SHARED_NAVIGATION_FIELDS },
       { document_type: :topical_event,
         fields: DEFAULT_FIELDS },
