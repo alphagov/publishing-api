@@ -370,7 +370,7 @@
     },
     "details": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "change_history": {
           "$ref": "#/definitions/change_history"
@@ -383,23 +383,7 @@
           ]
         },
         "menu_items": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "title",
-              "url"
-            ],
-            "additionalProperties": false,
-            "properties": {
-              "title": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              }
-            }
-          }
+          "type": "string"
         },
         "slug": {
           "type": "string"

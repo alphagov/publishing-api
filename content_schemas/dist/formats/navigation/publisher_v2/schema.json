@@ -192,7 +192,7 @@
     },
     "details": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "description": {
           "description": "DEPRECATED: this has the same name and data as the top level descriptions field, which should be used instead",
@@ -202,23 +202,7 @@
           ]
         },
         "menu_items": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "title",
-              "url"
-            ],
-            "additionalProperties": false,
-            "properties": {
-              "title": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              }
-            }
-          }
+          "type": "string"
         },
         "slug": {
           "type": "string"
