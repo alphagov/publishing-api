@@ -185,6 +185,7 @@
         "service_standard_report",
         "services_and_information",
         "sfo_case",
+        "shared_navigation",
         "simple_smart_answer",
         "smart_answer",
         "social_media_use",
@@ -332,6 +333,10 @@
           "$ref": "#/definitions/frontend_links"
         },
         "secondary_to_step_navs": {
+          "description": "Link type automatically added by Publishing API",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
+        "shared_navigations": {
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
