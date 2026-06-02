@@ -126,7 +126,7 @@ GEM
     climate_control (1.2.0)
     concurrent-ruby (1.3.6)
     connection_pool (2.5.5)
-    content_block_tools (1.13.0)
+    content_block_tools (1.14.0)
       actionview (>= 6, < 8.1.4)
       gds-api-adapters (>= 101.0)
       govspeak (>= 10.6.3)
@@ -274,7 +274,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (66.4.1)
+    govuk_publishing_components (66.4.2)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -488,7 +488,7 @@ GEM
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-aws_sdk (0.11.0)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-base (0.26.0)
+    opentelemetry-instrumentation-base (0.26.1)
       opentelemetry-api (~> 1.7)
       opentelemetry-common (~> 0.21)
       opentelemetry-registry (~> 0.1)
@@ -582,7 +582,7 @@ GEM
       opentelemetry-common (~> 0.20)
       opentelemetry-registry (~> 0.2)
       opentelemetry-semantic_conventions
-    opentelemetry-semantic_conventions (1.37.1)
+    opentelemetry-semantic_conventions (1.38.0)
       opentelemetry-api (~> 1.0)
     os (1.1.4)
     ostruct (0.6.3)
@@ -646,11 +646,11 @@ GEM
       base64
     prometheus_exporter (2.3.1)
       webrick
-    psych (5.3.1)
+    psych (5.4.0)
       date
       stringio
     public_suffix (7.0.5)
-    puma (7.2.0)
+    puma (7.2.1)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
@@ -736,7 +736,8 @@ GEM
     retriable (3.4.1)
     rexml (3.4.4)
     rinku (2.0.6)
-    rouge (4.7.0)
+    rouge (5.0.0)
+      strscan (~> 3.1)
     rspec (3.13.2)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -865,6 +866,7 @@ GEM
     stringio (3.2.0)
     strong_migrations (2.8.0)
       activerecord (>= 7.2)
+    strscan (3.1.8)
     sync (0.5.0)
     table_print (1.5.7)
     term-ansicolor (1.11.2)
@@ -915,7 +917,7 @@ GEM
       zeitwerk (>= 2.7)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.8.1)
+    zeitwerk (2.8.2)
 
 PLATFORMS
   aarch64-linux
