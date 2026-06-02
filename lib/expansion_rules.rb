@@ -69,6 +69,7 @@ module_function
     person: :role_appointments,
     role: :role_appointments,
     ministerial: :ministers,
+    navigation_items: :shared_navigations,
   }.freeze
 
   # These fields are required by the frontend_links definition
