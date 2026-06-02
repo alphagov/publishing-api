@@ -107,6 +107,7 @@ module_function
   PERSON_FIELDS_WITH_IMAGE = (DEFAULT_FIELDS + details_fields(:image, :privy_counsellor)).freeze
   ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :role_payment_type)).freeze
   ROLE_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:started_on, :ended_on, :current, :person_appointment_order)).freeze
+  SHARED_NAVIGATION_FIELDS = (DEFAULT_FIELDS + details_fields(:menu_items)).freeze
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i[details step_by_step_nav title], %i[details step_by_step_nav steps]]).freeze
   STEP_BY_STEP_AUTH_BYPASS_FIELDS = (STEP_BY_STEP_FIELDS + %i[auth_bypass_ids]).freeze
   TAKE_PART_PAGE_FIELDS = (DEFAULT_FIELDS + %i[description details]).freeze
@@ -184,6 +185,8 @@ module_function
         fields: ROLE_APPOINTMENT_FIELDS },
       { document_type: :service_manual_topic,
         fields: DEFAULT_FIELDS_AND_DESCRIPTION },
+      { document_type: :shared_navigation,
+        fields: SHARED_NAVIGATION_FIELDS },
       { document_type: :step_by_step_nav,
         link_type: :part_of_step_navs,
         fields: STEP_BY_STEP_AUTH_BYPASS_FIELDS },
