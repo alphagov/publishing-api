@@ -38,7 +38,10 @@
           items: {
             "$ref": "#/definitions/image_asset",
           }
-        }
+        },
+        parts: {
+          "$ref": "#/definitions/parts",
+        },
       },
     },
   },
