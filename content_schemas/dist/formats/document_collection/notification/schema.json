@@ -172,6 +172,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "shared_navigations": {
+          "description": "Link type automatically added by Publishing API",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "taxonomy_topic_email_override": {
           "description": "The taxonomy topic that email subscriptions for this document collection should go to - only for document collections converted from specialist topics",
           "$ref": "#/definitions/frontend_links_with_base_path",

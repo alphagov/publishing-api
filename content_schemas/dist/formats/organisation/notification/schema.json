@@ -215,6 +215,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "shared_navigations": {
+          "description": "Link type automatically added by Publishing API",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "superseded_organisations": {
           "description": "Organisations this organisation supersedes",
           "$ref": "#/definitions/frontend_links_with_base_path"
