@@ -1,7 +1,7 @@
-Dataloader SQL Queries
-======================
+Link Expansion SQL Queries
+==========================
 
-The GraphQL dataloaders have to perform complex queries.
+The Link Expansion code performs complex queries.
 
 As input, we have a list of source editions and link types. As output, we have a list of lists of target editions (
 one list of target editions for every source edition / link type combination).
