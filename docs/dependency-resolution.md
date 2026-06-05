@@ -52,7 +52,19 @@ For reference of the types of links see
 The class responsible for determining which `content_id`s require updates is
 [DependencyResolution][dependency-resolution]. It uses the
 [link expansion rules][link-expansion-rules] to perform the inverse process of
-link expansion.
+link expansion. It walks the links graph breadth-first (the reverse of
+[link expansion](link-expansion.md#how-it-is-computed)) via
+[`DependencyResolution::BreadthFirstResolver`][breadth-first-resolver],
+collecting the `content_id` of every item whose expanded links include `A` —
+both items that link to `A`, and items `A` links to via link types that have a
+reverse name (for example a role appointment's `person` and `role` links) —
+recursing through the recursive link paths a level at a time.
+
+Unlike link expansion, dependency resolution works purely on the links graph: a
+dependent `content_id` is returned whether or not it has a renderable edition,
+so the resolver reads the `links` table directly rather than the
+edition-joining batch SQL. Edition links only matter at the root; deeper levels
+follow link set links only.
 
 The [Queries::ContentDependencies][content-dependencies] class is responsible
 for determining the locales of each `content_id`.
@@ -79,24 +91,20 @@ to determine the origin of the request:
 ## Debugging
 
 You can explore dependency resolution in the rails console by creating a
-[`DependencyResolution`][dependency-resolution] instance.
+[`DependencyResolution`][dependency-resolution] instance and listing the
+dependent `content_id`s.
 
 ```
-> dependency_resolution = DependencyResolution.new(content_id, locale: :en, with_drafts: true)
+> DependencyResolution.new(content_id, locale: :en, with_drafts: true).dependencies
+=> ["4ff219a8-f2e6-4fca-9b73-ebaebc9c7b6a", "..."]
 ```
 
-You can then print the [`link_graph`][link-graph] of the link expansion to view
-the links.
+To inspect the expanded tree of an item (rather than the flat dependency list),
+use [link expansion](link-expansion.md#debugging-link-expansion):
 
 ```
-> dependency_resolution.link_graph.to_h
-=> {:children=>[
-     {:content_id=>"4ff219a8-f2e6-4fca-9b73-ebaebc9c7b6a", :links=>{}}
-   ]}
+> LinkExpansion.by_content_id(content_id, locale: :en, with_drafts: true).links_with_content
 ```
-
-You can navigate through the `link_graph` object for further debugging
-information.
 
 [content-store]: https://github.com/alphagov/content-store
 [dependency-resolution]: ../lib/dependency_resolution.rb
@@ -110,4 +118,4 @@ information.
 [link-set-link]: link-expansion.md#patch-link-set---link-set-links
 [link-expansion-rules]: ../lib/expansion_rules/link_expansion.rb
 [edition-link]: link-expansion.md#put-content---edition-links
-[link-graph]: ../app/models/link_graph.rb
+[breadth-first-resolver]: ../lib/dependency_resolution/breadth_first_resolver.rb
