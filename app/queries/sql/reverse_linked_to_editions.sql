@@ -18,7 +18,9 @@ edition_linked_editions AS (
     documents.content_id,
     documents.locale,
     TRUE AS is_primary_locale,
-    links.target_content_id
+    links.target_content_id,
+    'edition' AS link_source,
+    unpublishings.type AS "unpublishings.type"
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON editions.id = links.edition_id
@@ -49,7 +51,9 @@ link_set_linked_editions AS (
     documents.content_id,
     documents.locale,
     documents.locale =:primary_locale AS is_primary_locale,
-    links.target_content_id
+    links.target_content_id,
+    'link_set' AS link_source,
+    unpublishings.type AS "unpublishings.type"
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
   INNER JOIN links ON documents.content_id = links.link_set_content_id
