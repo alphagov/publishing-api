@@ -14,6 +14,14 @@ class DependencyResolution
   end
 
   def dependencies
+    if LinkExpansion.implementation == :"breadth-first"
+      return DependencyResolution::BreadthFirstResolver.new(
+        content_id,
+        locale:,
+        with_drafts:,
+      ).dependencies
+    end
+
     link_graph.links_content_ids
   end
 
