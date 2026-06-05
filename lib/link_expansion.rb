@@ -8,7 +8,7 @@ class LinkExpansion
   # Selects the link expansion implementation. Defaults to the existing depth-first LinkGraph traversal;
   # set LINK_EXPANSION_IMPLEMENTATION=breadth-first to use the new breadth-first batch-SQL expander.
   def self.implementation
-    ENV.fetch("LINK_EXPANSION_IMPLEMENTATION", "depth-first").to_sym
+    ENV.fetch("LINK_EXPANSION_IMPLEMENTATION", "breadth-first").to_sym
   end
 
   def self.by_edition(edition, with_drafts: false)
