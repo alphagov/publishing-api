@@ -251,14 +251,6 @@
         }
       ]
     },
-    "body_html_and_govspeak": {
-      "description": "The main content provided as HTML with the govspeak markdown it's rendered from",
-      "anyOf": [
-        {
-          "type": "string"
-        }
-      ]
-    },
     "change_history": {
       "type": "array",
       "items": {
@@ -294,6 +286,33 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "about": {
+          "type": "object",
+          "required": [
+            "title",
+            "slug",
+            "summary",
+            "body"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "body": {
+              "type": "string"
+            },
+            "headers": {
+              "$ref": "#/definitions/nested_headers"
+            },
+            "slug": {
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          }
+        },
         "about_page_link_text": {
           "type": "string"
         },
@@ -322,9 +341,6 @@
         },
         "ordered_featured_documents": {
           "$ref": "#/definitions/ordered_featured_documents"
-        },
-        "parts": {
-          "$ref": "#/definitions/parts"
         },
         "social_media_links": {
           "description": "A set of links to social media profiles for the object.",
@@ -697,6 +713,33 @@
         "zh-tw"
       ]
     },
+    "nested_headers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "text",
+          "level",
+          "id"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "headers": {
+            "$ref": "#/definitions/nested_headers"
+          },
+          "id": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "minItems": 1
+    },
     "ordered_featured_documents": {
       "description": "A set of featured documents to display.",
       "type": "array",
@@ -732,30 +775,6 @@
           },
           "summary": {
             "type": "string"
-          },
-          "title": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "parts": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "title",
-          "slug",
-          "body"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "body": {
-            "$ref": "#/definitions/body_html_and_govspeak"
-          },
-          "slug": {
-            "type": "string",
-            "format": "uri"
           },
           "title": {
             "type": "string"
