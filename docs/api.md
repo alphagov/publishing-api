@@ -529,6 +529,10 @@ in the request is preserved.
   - Used to ensure that we are updating the current version of the link set.
 - `bulk_publishing` *(optional, default: false)*
   - Set this to true when making multiple requests. Publishing API will use a lower priority queue to avoid delays to standard publishing activity.
+- `validate_schema` *(optional, default: true)*
+  - Set to false to skip validation of links against the content schema for
+    the current payload. After changing a document's document type, allows
+    for removal of links of types unsupported.
 
 ### State changes
 
