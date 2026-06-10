@@ -338,7 +338,7 @@ You can explore publish-time link expansion in the rails console by creating a [
 
 ### How it is computed
 
-Publish-time link expansion is computed breadth-first by [`LinkExpansion::BreadthFirstExpander`][breadth-first-expander], using the same two batch SQL queries as the GraphQL API ([`Queries::LinkedToEditions`][linked-to-editions] and [`Queries::ReverseLinkedToEditions`][reverse-linked-to-editions]). It walks the link graph one level at a time, issuing a small fixed number of queries per level rather than one query per node.
+Publish-time link expansion is computed breadth-first by [`LinkExpansion`][link-expansion], using the same two batch SQL queries as the GraphQL API ([`Queries::LinkedToEditions`][linked-to-editions] and [`Queries::ReverseLinkedToEditions`][reverse-linked-to-editions]). It walks the link graph one level at a time, issuing a small fixed number of queries per level rather than one query per node.
 
 Edition links are only followed at the root; at every deeper level only link set links are expanded (the expander passes a `NULL` edition id to the forward query for non-root nodes). This deliberately preserves the long-standing publish-time behaviour that [recursive expansion does not apply to edition links](#put-content---edition-links) — GraphQL link expansion does not have this limitation.
 
@@ -349,7 +349,6 @@ Reverse links back to the root (for example `children` → `parent`) are pruned 
 [content-store]: https://github.com/alphagov/content-store
 [link-expansion]: ../lib/link_expansion.rb
 [link-expansion-rules]: ../lib/expansion_rules/link_expansion.rb
-[breadth-first-expander]: ../lib/link_expansion/breadth_first_expander.rb
 [auto-reverse-linker]: ../lib/link_expansion/auto_reverse_linker.rb
 [linked-to-editions]: ../app/queries/linked_to_editions.rb
 [reverse-linked-to-editions]: ../app/queries/reverse_linked_to_editions.rb

@@ -1,4 +1,4 @@
-RSpec.describe DependencyResolution::BreadthFirstResolver do
+RSpec.describe DependencyResolution do
   include DependencyResolutionHelper
 
   let(:content_id) { SecureRandom.uuid }

@@ -53,8 +53,7 @@ The class responsible for determining which `content_id`s require updates is
 [DependencyResolution][dependency-resolution]. It uses the
 [link expansion rules][link-expansion-rules] to perform the inverse process of
 link expansion. It walks the links graph breadth-first (the reverse of
-[link expansion](link-expansion.md#how-it-is-computed)) via
-[`DependencyResolution::BreadthFirstResolver`][breadth-first-resolver],
+[link expansion](link-expansion.md#how-it-is-computed)),
 collecting the `content_id` of every item whose expanded links include `A` —
 both items that link to `A`, and items `A` links to via link types that have a
 reverse name (for example a role appointment's `person` and `role` links) —
@@ -118,4 +117,3 @@ use [link expansion](link-expansion.md#debugging-link-expansion):
 [link-set-link]: link-expansion.md#patch-link-set---link-set-links
 [link-expansion-rules]: ../lib/expansion_rules/link_expansion.rb
 [edition-link]: link-expansion.md#put-content---edition-links
-[breadth-first-resolver]: ../lib/dependency_resolution/breadth_first_resolver.rb
