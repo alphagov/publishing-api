@@ -37,8 +37,30 @@
           type: "array",
           items: {
             "$ref": "#/definitions/image_asset",
-          }
-        }
+          },
+        },
+        about: {
+          "type": "object",
+          additionalProperties: false,
+          required: ["title", "slug", "summary", "body"],
+          properties: {
+            title: {
+              type: "string",
+            },
+            slug: {
+              type: "string",
+            },
+            summary: {
+              type: "string",
+            },
+            body: {
+              type: "string",
+            },
+            headers: {
+              "$ref": "#/definitions/nested_headers"
+            },
+          },
+        },
       },
     },
   },
