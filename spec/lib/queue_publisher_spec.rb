@@ -116,6 +116,19 @@ RSpec.describe QueuePublisher do
 
             queue_publisher.send_message(content_item)
           end
+
+          it "logs and re-raises timeout errors" do
+            allow(mock_channel).to receive(:open?).and_return(true)
+            allow(mock_channel).to receive(:close).and_raise(Timeout::Error)
+            allow(mock_session).to receive_messages(
+              open?: true,
+              status: :connected,
+              transport: instance_double("Bunny::Transport", host: "rabbitmq.example.com"),
+            )
+
+            expect(Rails.logger).to receive(:error)
+            expect { queue_publisher.send_message(content_item) }.to raise_error(Timeout::Error)
+          end
         end
       end
     end
