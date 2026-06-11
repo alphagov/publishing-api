@@ -74,9 +74,7 @@ private
       success = exchange.wait_for_confirms
       event_type = routing_key.split(".").last
 
-      if success
-        PublishingAPI.service(:statsd).increment("message-sent.#{event_type}")
-      else
+      unless success
         GovukError.notify(
           PublishFailedError.new("Publishing message failed"),
           level: "error",
@@ -86,7 +84,6 @@ private
             options:,
           },
         )
-        PublishingAPI.service(:statsd).increment("message-send-failure.#{event_type}")
       end
     ensure
       channel.close if channel.open?
