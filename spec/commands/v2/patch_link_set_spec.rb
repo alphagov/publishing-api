@@ -501,5 +501,34 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
   end
 
+  context "when an edition exists for the content_id" do
+    before do
+      create(
+        :edition,
+        document: create(:document, content_id:),
+        base_path: "/some-path",
+        title: "Some Title",
+      )
+    end
+
+    context "when called with validate: false in the payload" do
+      before { payload[:validate_schema] = false }
+
+      it "skips validation" do
+        expect_any_instance_of(described_class).not_to receive(:validate_schema)
+
+        described_class.call(payload)
+      end
+    end
+
+    context "when called without :validate in the payload" do
+      it "validates the payload against the schema" do
+        expect_any_instance_of(described_class).to receive(:validate_schema)
+
+        described_class.call(payload)
+      end
+    end
+  end
+
   it_behaves_like TransactionalCommand
 end
