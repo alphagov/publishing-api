@@ -11,6 +11,7 @@ class QueuePublisher
   def connection
     @connection_mutex.synchronize do
       @connection ||= Bunny.new(ENV["RABBITMQ_URL"], @options)
+      @connection_created_at = Time.zone.now
       @connection.start
     end
   end
@@ -74,9 +75,7 @@ private
       success = exchange.wait_for_confirms
       event_type = routing_key.split(".").last
 
-      if success
-        PublishingAPI.service(:statsd).increment("message-sent.#{event_type}")
-      else
+      unless success
         GovukError.notify(
           PublishFailedError.new("Publishing message failed"),
           level: "error",
@@ -86,10 +85,40 @@ private
             options:,
           },
         )
-        PublishingAPI.service(:statsd).increment("message-send-failure.#{event_type}")
       end
-    ensure
+    rescue Timeout::Error => e
+      Rails.logger.error(
+        e,
+        extra: {
+          routing_key:,
+          event_type:,
+          connection_open: connection.open?,
+          channel_open: channel.open?,
+          connection_status: connection.status,
+          connection_age_seconds: Time.zone.now.to_i - @connection_created_at.to_i,
+          broker_host: connection.transport.host,
+        },
+      )
+
+      raise
+    end
+  ensure
+    begin
       channel.close if channel.open?
+    rescue Timeout::Error => e
+      Rails.logger.error(
+        e,
+        extra: {
+          routing_key:,
+          event_type:,
+          connection_open: connection.open?,
+          connection_status: connection.status,
+          connection_age_seconds: Time.zone.now.to_i - @connection_created_at.to_i,
+          broker_host: connection.transport.host,
+        },
+      )
+
+      raise
     end
   end
 end
