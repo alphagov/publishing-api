@@ -155,7 +155,7 @@ presented edition and [warnings](#warnings).
 - `update_type` *(optional)*
   - Accepts: "major", "minor", "republish"
   - It is acceptable to send a "minor" update for the first ever draft
-- `bulk_publishing` *(optional, default: false)*
+- `bulk_publishing` *(required)*
   - Set this to true when making multiple requests. Publishing API will use a
     lower priority queue to avoid delays to standard publishing activity.
 
@@ -525,10 +525,10 @@ in the request is preserved.
     }
   }
 ```
+- `bulk_publishing` *(required)*
+  - Set this to true when making multiple requests. Publishing API will use a lower priority queue to avoid delays to standard publishing activity.
 - `previous_version` *(optional, recommended)*
   - Used to ensure that we are updating the current version of the link set.
-- `bulk_publishing` *(optional, default: false)*
-  - Set this to true when making multiple requests. Publishing API will use a lower priority queue to avoid delays to standard publishing activity.
 - `validate_schema` *(optional, default: true)*
   - Set to false to skip validation of links against the content schema for the
     latest edition. After changing a document's document type, allows for
