@@ -464,7 +464,7 @@ it wants to defer to a reusable piece of content, such as an email address.
 
 - [`content_id`](model.md#content_id)
   - Identifies the target document for the reusable piece of content
-  
+
 ### Query parameters
 
 - `order` *(optional, default: "unique_pageviews")*
@@ -476,7 +476,7 @@ it wants to defer to a reusable piece of content, such as an email address.
 
 ## `GET /v2/content/:content_id/host-content/:host_content_id`
 
-Returns metadata for a single item of content with ID `:host_content_id` that has an embedded reference to 
+Returns metadata for a single item of content with ID `:host_content_id` that has an embedded reference to
 the target `:content_id`.
 
 ### Path parameters
