@@ -22,7 +22,8 @@
   - [Why is this link appearing?](#why-is-this-link-appearing)
   - [Why is this link *not* appearing?](#why-is-this-link-not-appearing)
   - [Why/how does a link have different fields to other links?](#whyhow-does-a-link-have-different-fields-to-other-links)
-- [Debugging legacy link expansion](#debugging-legacy-link-expansion)
+- [Debugging link expansion](#debugging-link-expansion)
+  - [How it is computed](#how-it-is-computed)
 
 ## Introduction
 
@@ -323,32 +324,32 @@ A link that you expect to appear might not be appearing for one of the following
 
 Links for a specific `link_type` can be defined to return [different fields](#fields) as part of link expansion. These are defined in [`LinkExpansion::Rules`][link-expansion-rules].
 
-## Debugging legacy link expansion
+## Debugging link expansion
 
-You can explore legacy link expansion in the rails console by creating a [`LinkExpansion`][link-expansion] instance.
-
-```
-> link_expansion = LinkExpansion.by_content_id(content_id, locale: :en, with_drafts: true)
-```
-
-You can then print the [`link_graph`][link-graph] of the link expansion to view the links.
+You can explore publish-time link expansion in the rails console by creating a [`LinkExpansion`][link-expansion] instance and inspecting its expanded links.
 
 ```
-> link_expansion.link_graph.to_h
+> LinkExpansion.by_content_id(content_id, locale: :en, with_drafts: true).links_with_content
 => {:organisations=>
-  [{:content_id=>"2e7868a8-38f5-4ff6-b62f-9a15d1c22d28", :links=>{}},
-   {:content_id=>"b548a09f-8b35-4104-89f4-f1a40bf3136d", :links=>{}},
-   {:content_id=>"de4e9dc6-cca4-43af-a594-682023b84d6c", :links=>{}},
-   {:content_id=>"e8fae147-6232-4163-a3f1-1c15b755a8a4", :links=>{}}],
- :related=>[{:content_id=>"78cedbfe-d3aa-41c3-b8c0-aeb5d9035d6a", :links=>{}}]}
+  [{:content_id=>"2e7868a8-38f5-4ff6-b62f-9a15d1c22d28", ..., :links=>{}},
+   {:content_id=>"b548a09f-8b35-4104-89f4-f1a40bf3136d", ..., :links=>{}}],
+ :related=>[{:content_id=>"78cedbfe-d3aa-41c3-b8c0-aeb5d9035d6a", ..., :links=>{}}]}
 ```
 
-You can navigate through the `link_graph` object for further debugging information.
+### How it is computed
+
+Publish-time link expansion is computed breadth-first by [`LinkExpansion`][link-expansion], using the same two batch SQL queries as the GraphQL API ([`Queries::LinkedToEditions`][linked-to-editions] and [`Queries::ReverseLinkedToEditions`][reverse-linked-to-editions]). It walks the link graph one level at a time, issuing a small fixed number of queries per level rather than one query per node.
+
+Edition links are only followed at the root; at every deeper level only link set links are expanded (the expander passes a `NULL` edition id to the forward query for non-root nodes). This deliberately preserves the long-standing publish-time behaviour that [recursive expansion does not apply to edition links](#put-content---edition-links) — GraphQL link expansion does not have this limitation.
+
+Reverse links back to the root (for example `children` → `parent`) are pruned as cycles during traversal, then re-added at the first level by a post-processing step, [`LinkExpansion::AutoReverseLinker`][auto-reverse-linker]. This produces the [quirk described under Reverse links](#reverse-links), where each reverse link is presented with its corresponding link back to the original content.
 
 [apprenticeship-standards]: https://www.gov.uk/government/collections/apprenticeship-standards
 [content-id]: model.md#user-content-content_id
 [content-store]: https://github.com/alphagov/content-store
 [link-expansion]: ../lib/link_expansion.rb
 [link-expansion-rules]: ../lib/expansion_rules/link_expansion.rb
-[link-graph]: ../app/models/link_graph.rb
+[auto-reverse-linker]: ../lib/link_expansion/auto_reverse_linker.rb
+[linked-to-editions]: ../app/queries/linked_to_editions.rb
+[reverse-linked-to-editions]: ../app/queries/reverse_linked_to_editions.rb
 [locale]: model.md#user-content-locale
