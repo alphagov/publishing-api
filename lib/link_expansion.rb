@@ -82,11 +82,18 @@ private
       return {}
     end
 
+    reverse_link_type = node.link_types_path.first
+    direct_link_type = rules.member_expansion_direct_link_type(reverse_link_type)
+
+    if direct_link_type
+      return reverse_link_member_links(node.content_id, direct_link_type)
+    end
+
     edition_hash = content_cache.find(content_id)
     return {} if !edition_hash || !should_link?(node.link_type, edition_hash)
 
     rules
-      .reverse_to_direct_link_type(node.link_types_path.first)
+      .reverse_to_direct_link_type(reverse_link_type)
       .each_with_object({}) do |reverse_to_direct_link_type, memo|
         expanded = rules.expand_fields(
           edition_hash,
@@ -95,6 +102,28 @@ private
         )
         memo[reverse_to_direct_link_type] = [expanded.merge(links: {})]
       end
+  end
+
+  def reverse_link_member_links(source_content_id, direct_link_type)
+    member_links = Queries::Links.from(
+      source_content_id,
+      allowed_link_types: [direct_link_type],
+    )[direct_link_type] || []
+
+    members = member_links.filter_map do |link|
+      edition_hash = content_cache.find(link[:content_id])
+      next unless edition_hash && should_link?(direct_link_type, edition_hash)
+
+      rules.expand_fields(
+        edition_hash,
+        link_type: direct_link_type,
+        draft: with_drafts,
+      ).merge(links: {})
+    end
+
+    return {} if members.empty?
+
+    { direct_link_type => members }
   end
 
   def should_link?(link_type, edition_hash)
