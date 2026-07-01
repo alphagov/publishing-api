@@ -4,7 +4,7 @@ module Commands
       def call
         raise_unless_links_hash_is_provided
         check_bulk_publishing_present
-        validate_schema
+        validate_schema if validate_schema?
         link_set = LinkSet.find_or_create_locked(content_id:)
         check_version_and_raise_if_conflicting(link_set, previous_version_number)
 
@@ -138,6 +138,12 @@ module Commands
           "update_dependencies" => update_dependencies,
           "source_command" => "patch_link_set",
         )
+      end
+
+      def validate_schema?
+        return true unless payload.key?(:validate_schema)
+
+        payload[:validate_schema]
       end
 
       def validate_schema

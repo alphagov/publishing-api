@@ -155,7 +155,7 @@ presented edition and [warnings](#warnings).
 - `update_type` *(optional)*
   - Accepts: "major", "minor", "republish"
   - It is acceptable to send a "minor" update for the first ever draft
-- `bulk_publishing` *(optional, default: false)*
+- `bulk_publishing` *(required)*
   - Set this to true when making multiple requests. Publishing API will use a
     lower priority queue to avoid delays to standard publishing activity.
 
@@ -464,7 +464,7 @@ it wants to defer to a reusable piece of content, such as an email address.
 
 - [`content_id`](model.md#content_id)
   - Identifies the target document for the reusable piece of content
-  
+
 ### Query parameters
 
 - `order` *(optional, default: "unique_pageviews")*
@@ -476,7 +476,7 @@ it wants to defer to a reusable piece of content, such as an email address.
 
 ## `GET /v2/content/:content_id/host-content/:host_content_id`
 
-Returns metadata for a single item of content with ID `:host_content_id` that has an embedded reference to 
+Returns metadata for a single item of content with ID `:host_content_id` that has an embedded reference to
 the target `:content_id`.
 
 ### Path parameters
@@ -525,10 +525,14 @@ in the request is preserved.
     }
   }
 ```
+- `bulk_publishing` *(required)*
+  - Set this to true when making multiple requests. Publishing API will use a lower priority queue to avoid delays to standard publishing activity.
 - `previous_version` *(optional, recommended)*
   - Used to ensure that we are updating the current version of the link set.
-- `bulk_publishing` *(optional, default: false)*
-  - Set this to true when making multiple requests. Publishing API will use a lower priority queue to avoid delays to standard publishing activity.
+- `validate_schema` *(optional, default: true)*
+  - Set to false to skip validation of links against the content schema for
+    the current payload. After changing a document's document type, allows
+    for removal of links of types unsupported.
 
 ### State changes
 
