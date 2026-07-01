@@ -25,6 +25,7 @@
           "pinterest",
           "threads",
           "twitter",
+          "x",
           "youtube",
         ],
       },
