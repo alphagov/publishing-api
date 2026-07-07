@@ -1,0 +1,21 @@
+# The GraphQL link expansion precedence tests were removed from ci.yml in the
+# commit introducing this file to save resources until we resume work on
+# GraphQL. Delete this workflow once they are re-enabled
+name: GraphQL precedence tests reminder
+on:
+  pull_request:
+    paths:
+      - app/graphql/**
+      - app/queries/edition_links.rb
+      - app/queries/links.rb
+      - lib/expansion_rules/**
+      - lib/link_expansion/**
+jobs:
+  remind:
+    name: Re-enable GraphQL precedence tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail and explain
+        run: |
+          echo "::error title=Re-enable GraphQL precedence tests::This pull request changes GraphQL and/or link expansion code, but the GraphQL precedence tests are commented out in .github/workflows/ci.yml. Re-enable those jobs and delete .github/workflows/graphql-precedence-tests-reminder.yml."
+          exit 1
