@@ -7,7 +7,13 @@ This is a place to list all of the admin tasks available in Publishing API.
 If you need to discard a draft of a document, run the `discard_draft` rake task:
 
 ```
-bundle exec rake discard_draft['some-content-id']
+bundle exec rake discard_draft[some-content-id]
+```
+
+For example:
+
+```
+bundle exec rake discard_draft[4f0fa224-2cfb-4c5f-a4bf-68146bc20ba9]
 ```
 
 ## Representing data downstream
