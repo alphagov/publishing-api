@@ -13,14 +13,9 @@ require "rspec/rails"
 require "pact/consumer/rspec"
 require "webmock"
 require "govuk_schemas"
-require "sidekiq/testing"
+require "govuk_sidekiq/testing"
 require "sidekiq-unique-jobs"
 require "sidekiq_unique_jobs/testing"
-
-# Sidekiq in test mode won't run server middleware by default.
-Sidekiq::Testing.server_middleware do |chain|
-  chain.add GovukSidekiq::APIHeaders::ServerMiddleware
-end
 
 Sidekiq.configure_client do |config|
   config.client_middleware do |chain|

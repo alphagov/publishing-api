@@ -1,2 +1,1 @@
-require "sidekiq/testing"
-Sidekiq::Testing.inline!
+Sidekiq.testing!(:inline)
