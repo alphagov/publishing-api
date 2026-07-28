@@ -1,13 +1,6 @@
 module Commands
   module V2
     class PutContentValidator
-      FORMATS_WITHOUT_BASE_PATH_VALIDATION = %w[
-        contact
-        content_block
-        government
-        redirect
-      ].freeze
-
       def initialize(payload, put_content)
         @payload = payload
         @put_content = put_content
@@ -16,7 +9,6 @@ module Commands
       def validate
         validate_schema
         validate_publishing_app
-        validate_base_path
       end
 
     private
@@ -49,28 +41,6 @@ module Commands
               code:,
               message:,
               fields: { publishing_app: ["is required"] },
-            },
-          },
-        )
-      end
-
-      def validate_base_path
-        return if FORMATS_WITHOUT_BASE_PATH_VALIDATION.include?(payload[:schema_name])
-
-        base_path_validator = GdsApi::Validators::BasePathValidator.new(payload[:base_path])
-        return if base_path_validator.valid?
-
-        code = 422
-        message = "base_path did not conform to standard"
-        raise CommandError.new(
-          code:,
-          error_code: :base_path_invalid,
-          message:,
-          error_details: {
-            error: {
-              code:,
-              message:,
-              fields: base_path_validator.errors,
             },
           },
         )
