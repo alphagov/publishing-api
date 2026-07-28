@@ -2,7 +2,7 @@ class PathReservation < ApplicationRecord
   validates :base_path, absolute_path: true
   validates :publishing_app, presence: true
 
-  validate :base_path_valid
+  validate :base_path_not_too_long
 
   def self.reserve_base_path!(base_path, publishing_app, override_existing: false)
     existing = find_by(base_path:)
@@ -46,13 +46,8 @@ class PathReservation < ApplicationRecord
     ActiveRecord::RecordInvalid.new(self)
   end
 
-  def base_path_valid
-    base_path_validator = GdsApi::Validators::BasePathValidator.new(base_path)
-    return if base_path_validator.valid?
-
-    base_path_validator.errors.each do |code, messages|
-      errors.add(:base_path, messages.join(", "), code:)
-    end
+  def base_path_not_too_long
+    errors.add(:base_path, "over 512 bytes", code: :base_path_too_long) if base_path.bytesize > 512
   end
 
   ERROR_CODE_MAP = {
