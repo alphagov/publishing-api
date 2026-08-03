@@ -30,7 +30,6 @@ module SubstitutionHelper
         discard_draft(blocking_edition, downstream, nested, callbacks)
       else
         blocking_edition.substitute
-        substitute_message(blocking_edition)
       end
     end
   end
