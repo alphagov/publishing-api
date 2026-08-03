@@ -37,7 +37,13 @@ module SubstitutionHelper
 
   def substitute_message(edition)
     payload = DownstreamPayload.new(edition, Event.maximum_id)
-    DownstreamService.broadcast_to_message_queue(payload, "unpublish")
+    event_type = "unpublish"
+
+    Rails.logger.info(
+      "SubstitutionHelper#substitute_message" \
+      "Broadcasting #{edition.content_id}@#{payload.payload_version} to message queue as type #{event_type}",
+    )
+    DownstreamService.broadcast_to_message_queue(payload, event_type)
   end
 
 private
