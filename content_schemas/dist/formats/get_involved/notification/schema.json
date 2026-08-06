@@ -159,6 +159,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "shared_navigations": {
+          "description": "Link type automatically added by Publishing API",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "take_part_pages": {
           "description": "The take part pages to display on this page",
           "$ref": "#/definitions/frontend_links_with_base_path"

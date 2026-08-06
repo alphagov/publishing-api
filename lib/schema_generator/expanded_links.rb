@@ -26,6 +26,10 @@ module SchemaGenerator
       # back to the taxon.
       "level_one_taxons" => "frontend_links_with_base_path",
 
+      # Content items that are linked to with a `shared_navigation` link type will automatically
+      # have a `shared_navigations` link type with those items.
+      "shared_navigations" => "frontend_links_with_base_path",
+
       # The are content items that can include step by step navigation.  They are linked
       # to by the `pages_part_of_step_nav` link type on a step_by_step_navigation page.
       "part_of_step_navs" => "frontend_links_with_base_path",

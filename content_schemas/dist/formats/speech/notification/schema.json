@@ -178,6 +178,10 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "shared_navigations": {
+          "description": "Link type automatically added by Publishing API",
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "speaker": {
           "description": "A speaker that has a GOV.UK profile",
           "$ref": "#/definitions/frontend_links_with_base_path",
