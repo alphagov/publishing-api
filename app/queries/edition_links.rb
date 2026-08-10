@@ -81,30 +81,21 @@ module Queries
       condition[:link_type] = allowed_link_types if allowed_link_types
 
       if mode == :from
-        puts "from"
         Link
           .left_joins(edition: :document)
-          .left_joins(:link_set)
           .where("documents.content_id": content_id)
-          .or(Link.where("link_sets.content_id": content_id))
           .where(condition)
           .where(draft_condition)
           .order(link_type: :asc, position: :asc)
           .pluck(*fields)
       else
-        puts "to"
-        links = Link
+        Link
           .left_joins(edition: :document)
-          .left_joins(:link_set)
           .where("links.target_content_id": content_id)
           .where(condition)
           .where(draft_condition)
           .order(link_type: :asc, position: :asc)
           .pluck(*fields)
-        puts content_id
-        puts links.inspect
-        puts Link.left_joins(edition: :document).left_joins(:link_set).where("links.target_content_id": content_id).where(condition).inspect
-        links
       end
     end
 
@@ -112,7 +103,7 @@ module Queries
       base_fields = [
         :link_type,
         mode == :from ? :target_content_id : "documents.content_id",
-        mode == :from ? :target_content_id : "link_sets.content_id",
+        mode == :from ? :target_content_id : "links.link_set_content_id",
         "documents.locale",
         "editions.id",
       ]
@@ -178,18 +169,14 @@ module Queries
           EXISTS(
             SELECT nested_links.id
             FROM links AS nested_links
-            INNER JOIN link_sets AS nested_link_sets
-            ON nested_link_sets.id = nested_links.link_set_id
-            WHERE nested_link_sets.content_id = links.target_content_id
+            WHERE nested_links.link_set_content_id = links.target_content_id
             #{and_not_parent('nested_links.target_content_id')}
             AND (#{allowed_links_condition(next_allowed_link_types_from)})
             LIMIT 1
           ) OR EXISTS(
             SELECT nested_links.id
             FROM links AS nested_links
-            INNER JOIN documents AS nested_documents
-            ON nested_documents.content_id = nested_links.target_content_id
-            WHERE nested_documents.content_id = links.target_content_id
+            WHERE nested_links.link_set_content_id = links.target_content_id
             #{and_not_parent('nested_links.target_content_id')}
             AND (#{allowed_links_condition(next_allowed_link_types_from)})
             LIMIT 1
@@ -200,9 +187,7 @@ module Queries
             EXISTS(
               SELECT nested_links.id
               FROM links AS nested_links
-              INNER JOIN link_sets AS nested_link_sets
-              ON nested_link_sets.id = nested_links.link_set_id
-              WHERE nested_links.target_content_id = link_sets.content_id
+              WHERE nested_links.target_content_id = links.link_set_content_id
               #{and_not_parent('nested_links.target_content_id')}
               AND (#{allowed_links_condition(next_allowed_link_types_from)})
               LIMIT 1
@@ -224,19 +209,15 @@ module Queries
       query = if mode == :from
                 "nested_links.target_content_id = links.target_content_id"
               else
-                "(nested_links.target_content_id = link_sets.content_id OR nested_links.target_content_id = documents.content_id)"
+                "(nested_links.target_content_id = links.link_set_content_id OR nested_links.target_content_id = documents.content_id)"
               end
 
       Arel.sql(%{
         EXISTS(
           SELECT nested_links.id
           FROM links AS nested_links
-          LEFT JOIN link_sets AS nested_link_sets
-          ON nested_link_sets.id = nested_links.link_set_id
-          LEFT JOIN documents AS nested_documents
-          ON nested_documents.content_id = nested_links.target_content_id
           WHERE #{query}
-          #{and_not_parent('nested_link_sets.content_id')}
+          #{and_not_parent('nested_links.target_content_id')}
           AND (#{allowed_links_condition(next_allowed_link_types_to)})
           LIMIT 1
         )
