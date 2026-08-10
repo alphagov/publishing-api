@@ -2,6 +2,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
   EXTERNAL_HOST_ALLOW_LIST = %w[
     caa.co.uk
     gov.uk
+    hmcoastguard.uk
     independent-inquiry.uk
     internationalaisafetyreport.org
     judiciary.uk
