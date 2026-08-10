@@ -97,8 +97,8 @@ private
       locale:,
       with_drafts:,
       allowed_link_types: nil,
-      next_allowed_link_types_from: rules.link_expansion.next_allowed_direct_link_types(nil, link_types_path, reverse_to_direct: true),
-      next_allowed_link_types_to: rules.link_expansion.next_allowed_reverse_link_types(nil, link_types_path, reverse_to_direct: true),
+      # next_allowed_link_types_from: rules.link_expansion.next_allowed_direct_link_types(nil, link_types_path, reverse_to_direct: true),
+      # next_allowed_link_types_to: rules.link_expansion.next_allowed_reverse_link_types(nil, link_types_path, reverse_to_direct: true),
     )
 
     to_links = Queries::EditionLinks.to(
@@ -106,8 +106,8 @@ private
       locale:,
       with_drafts:,
       allowed_link_types: rules.reverse_to_direct_link_types(rules.reverse_links),
-      next_allowed_link_types_from: rules.link_expansion.next_allowed_direct_link_types(nil, link_types_path, reverse_to_direct: true),
-      next_allowed_link_types_to: rules.link_expansion.next_allowed_reverse_link_types(nil, link_types_path, reverse_to_direct: true),
+      # next_allowed_link_types_from: rules.link_expansion.next_allowed_direct_link_types(nil, link_types_path, reverse_to_direct: true),
+      # next_allowed_link_types_to: rules.link_expansion.next_allowed_reverse_link_types(nil, link_types_path, reverse_to_direct: true),
     )
 
     to_links = rules.reverse_link_types_hash(to_links)
