@@ -77,7 +77,7 @@ module Queries
 
     def links_results
       condition = {}
-      # condition[:"documents.locale"] = locale if locale
+      condition[:"documents.locale"] = locale if locale
       condition[:link_type] = allowed_link_types if allowed_link_types
 
       if mode == :from
