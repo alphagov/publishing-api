@@ -9,10 +9,6 @@ class DependencyResolution::LinkReference
   def root_links_by_link_type(content_id:, locale:, with_drafts: false)
     direct = linked_to(content_id)
     reverse = own_links(content_id, rules.reverse_links)
-    puts "direct"
-    puts direct.inspect
-    puts "reverse"
-    puts reverse.inspect
 
     links = reverse.merge!(direct)
 
@@ -56,10 +52,6 @@ private
       output = content_ids.uniq.map do |content_id|
         link1_values = link1.select { |link| link[:content_id] == content_id }.first
         link2_values = link2.select { |link| link[:content_id] == content_id }.first
-        puts "LINK1"
-        puts link1_values.inspect
-        puts "LINK2"
-        puts link2_values.inspect
 
         if link1_values && link2_values
           {
@@ -74,8 +66,6 @@ private
         end
       end
 
-      puts "HERE"
-      puts output.inspect
       output
     end
   end
@@ -143,8 +133,6 @@ private
       parent_content_ids:,
     )
 
-    puts to_links.inspect
-
     from_links = Queries::EditionLinks.from(
       content_id,
       locale:,
@@ -154,8 +142,6 @@ private
       next_allowed_link_types_to: rules.dependency_resolution.next_allowed_direct_link_types(nil, link_types_path, reverse_to_direct: true),
       parent_content_ids:,
     )
-
-    puts from_links.inspect
 
     from_links = rules.reverse_link_types_hash(from_links)
 
