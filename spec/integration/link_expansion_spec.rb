@@ -228,6 +228,32 @@ RSpec.describe "Link Expansion" do
       end
     end
 
+    context "graph with multiple links of the same type and the same position" do
+      it "reverse orders the direct links by link ID" do
+        create_link(a, b, "related", 0)
+        create_link(a, c, "related", 0)
+
+        # The link from a to c was created after the link from a to b, so it has
+        # a higher link ID, and the SQL orders by link_id DESC within a position.
+        expect(expanded_links[:related]).to match([
+          a_hash_including(base_path: "/c", links: {}),
+          a_hash_including(base_path: "/b", links: {}),
+        ])
+      end
+
+      it "reverse orders the reverse links by link ID" do
+        create_link(b, a, "parent", 0)
+        create_link(c, a, "parent", 0)
+
+        # The link from c to a was created after the link from b to a, so it has
+        # a higher link ID; the reverse SQL also orders by link_id DESC.
+        expect(expanded_links[:children]).to match([
+          a_hash_including(base_path: "/c"),
+          a_hash_including(base_path: "/b"),
+        ])
+      end
+    end
+
     context "when the depended on edition has no location" do
       before do
         create_link(a, b, "parent")
