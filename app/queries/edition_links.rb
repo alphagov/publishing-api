@@ -86,7 +86,7 @@ module Queries
           .where("documents.content_id": content_id)
           .where(condition)
           .where(draft_condition)
-          .order(link_type: :asc, position: :asc)
+          .order(link_type: :asc, position: :asc, id: :desc)
           .pluck(*fields)
       else
         Link
@@ -94,7 +94,7 @@ module Queries
           .where("links.target_content_id": content_id)
           .where(condition)
           .where(draft_condition)
-          .order(link_type: :asc, position: :asc)
+          .order(link_type: :asc, position: :asc, id: :desc)
           .pluck(*fields)
       end
     end
