@@ -18,7 +18,7 @@ edition_linked_editions AS (
     links.id AS link_id,
     documents.content_id,
     documents.locale,
-    documents.locale =:primary_locale AS is_primary_locale,
+    documents.locale = :primary_locale AS is_primary_locale,
     source_documents.content_id AS source_content_id
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
@@ -28,7 +28,7 @@ edition_linked_editions AS (
   INNER JOIN documents AS source_documents ON source_editions.document_id = source_documents.id
   LEFT JOIN unpublishings ON editions.id = unpublishings.edition_id
   WHERE
-    documents.locale IN (:primary_locale,:secondary_locale)
+    documents.locale IN (:primary_locale, :secondary_locale)
     AND editions.document_type NOT IN (:non_renderable_formats)
     AND (
       editions.state IN (:permitted_not_unpublished_states)
@@ -59,7 +59,7 @@ link_set_linked_editions AS (
     links.id AS link_id,
     documents.content_id,
     documents.locale,
-    documents.locale =:primary_locale AS is_primary_locale,
+    documents.locale = :primary_locale AS is_primary_locale,
     links.link_set_content_id AS source_content_id
   FROM editions
   INNER JOIN documents ON editions.document_id = documents.id
@@ -69,7 +69,7 @@ link_set_linked_editions AS (
     ON links.link_set_content_id = query_input.content_id AND links.link_type = query_input.link_type
   LEFT JOIN unpublishings ON editions.id = unpublishings.edition_id
   WHERE
-    documents.locale IN (:primary_locale,:secondary_locale)
+    documents.locale IN (:primary_locale, :secondary_locale)
     AND editions.document_type NOT IN (:non_renderable_formats)
     AND (
       editions.state IN (:permitted_not_unpublished_states)
