@@ -1507,6 +1507,12 @@
           type: "string",
         },
       },
+      veterans_support_organisation_valour_organisations: {
+        type: "array",
+        items: {
+          type: "string"
+        },
+      },
     },
   },
 }
