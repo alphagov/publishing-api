@@ -15,9 +15,6 @@ private
   attr_reader :link_graph, :with_drafts, :parent_node
 
   def links_by_link_type
-    # We don't support nested edition links
-    return [] if parent_is_edition?
-
     if root?
       link_reference.root_links_by_link_type(
         content_id: link_graph.root_content_id,
@@ -27,6 +24,8 @@ private
     else
       link_reference.child_links_by_link_type(
         content_id: parent_node.content_id,
+        locale: link_graph.root_locale,
+        with_drafts: link_graph.with_drafts,
         link_types_path: parent_node.link_types_path,
         parent_content_ids: parent_node.parent_content_ids,
         might_have_own_links: parent_node.might_have_own_links?,
