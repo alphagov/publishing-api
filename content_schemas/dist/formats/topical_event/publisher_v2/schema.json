@@ -47,7 +47,8 @@
     "document_type": {
       "type": "string",
       "enum": [
-        "topical_event"
+        "topical_event",
+        "editionable_topical_event"
       ]
     },
     "first_published_at": {
