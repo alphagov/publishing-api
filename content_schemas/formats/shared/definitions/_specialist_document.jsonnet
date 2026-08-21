@@ -998,6 +998,22 @@
       patent_decision_hearing_officer: {
         type: "string",
       },
+      patent_decision_application_patent_number: {
+        type: "string",
+      },
+      patent_decision_date_of_issue: {
+        type: "string",
+        pattern: "^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$",
+      },
+      patent_decision_persons_or_companies_involved: {
+        type: "string",
+      },
+      patent_decision_provisions_discussed: {
+        type: "string",
+      },
+      patent_decision_keyword_or_phrase: {
+        type: "string",
+      }
     },
   },
   product_safety_alert_report_recall_metadata: {
