@@ -21,5 +21,7 @@ class DeletePublishIntentJob
     PublishingAPI.service(:live_content_store).delete_publish_intent(args["base_path"])
   rescue AbortWorkerError => e
     notify_govuk_error(e, args)
+  rescue GdsApi::HTTPNotFound => e
+    logger.warn(e.message)
   end
 end
