@@ -23,7 +23,7 @@ RSpec.describe DatabaseRecordValidator do
 
       output = File.read("/tmp/validation_results")
       expect(output).to eq(
-        "PathReservation id=#{invalid_record.id}: [\"Base path is not a valid absolute URL path\"]\n",
+        "PathReservation id=#{invalid_record.id}: [\"Base path is not a valid absolute URL path\", \"Base path must start with a /\"]\n",
       )
     end
   end

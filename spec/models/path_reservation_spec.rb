@@ -6,7 +6,7 @@ RSpec.describe PathReservation, type: :model do
       it "is a valid absolute URL base_path" do
         reservation.base_path = "not a URL"
         expect(reservation).to be_invalid
-        expect(reservation.errors[:base_path].size).to eq(1)
+        expect(reservation.errors[:base_path].size).to eq(2)
       end
 
       it "has a db level uniqueness constraint" do
@@ -22,6 +22,29 @@ RSpec.describe PathReservation, type: :model do
         expect(reservation.base_path.bytesize).to eq(514)
         expect(reservation).to be_invalid
         expect(reservation.errors[:base_path].size).to eq(1)
+      end
+
+      it "is valid according to GdsApi::Validators::BasePathValidator" do
+        reservation.base_path = "/Hello"
+        expect(reservation).to be_invalid
+        expect(reservation.errors[:base_path].size).to eq(1)
+      end
+
+      context "when publishing_app is short-url-manager" do
+        let(:reservation) { build(:path_reservation, publishing_app: "short-url-manager") }
+
+        it "is 512 bytes or fewer" do
+          reservation.base_path = "/#{'bbc' * 171}"
+          expect(reservation.base_path.bytesize).to eq(514)
+          expect(reservation).to be_invalid
+          expect(reservation.errors[:base_path].size).to eq(1)
+        end
+
+        it "does not validate against GdsApi::Validators::BasePathValidator" do
+          reservation.base_path = "/Hello"
+          expect(reservation).to be_valid
+          expect(reservation.errors[:base_path].size).to eq(0)
+        end
       end
     end
 
@@ -154,7 +177,17 @@ RSpec.describe PathReservation, type: :model do
         described_class.reserve_base_path!("/#{'bbc' * 171}", "publisher")
       }.to raise_error(ActiveRecord::RecordInvalid) { |exception|
              expect(exception.record.errors.details[:base_path]).to include(
-               error: "over 512 bytes", code: :base_path_too_long,
+               error: "must not be longer than 512 bytes", code: :base_path_too_long,
+             )
+           }
+    end
+
+    it "raises an error with :base_path_invalid error code when base_path is invalid according to GdsApi::Validators::BasePathValidator " do
+      expect {
+        described_class.reserve_base_path!("/Hello", "publisher")
+      }.to raise_error(ActiveRecord::RecordInvalid) { |exception|
+             expect(exception.record.errors.details[:base_path]).to include(
+               error: "must not include characters that are not lowercase letters, numbers, -, ., or /", code: :base_path_invalid,
              )
            }
     end
