@@ -4,6 +4,7 @@ module Commands
       FORMATS_WITHOUT_BASE_PATH_VALIDATION = %w[
         contact
         content_block
+        external_content
         government
         redirect
       ].freeze
