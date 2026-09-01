@@ -152,7 +152,7 @@ GEM
     declarative (0.0.20)
     diff-lcs (1.6.2)
     dig_rb (1.0.1)
-    domain_name (0.6.20240107)
+    domain_name (0.6.20260829)
     drb (2.2.3)
     erb (6.0.7)
     erubi (1.13.1)
@@ -183,7 +183,7 @@ GEM
       et-orbi (~> 1.4)
       raabro (~> 1.4)
     fuzzy_match (2.1.0)
-    gds-api-adapters (103.4.0)
+    gds-api-adapters (103.4.4)
       addressable
       link_header
       null_logger
