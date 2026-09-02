@@ -6,8 +6,11 @@ module Commands
         content_block
         external_content
         government
+        facet
+        link_collection
         redirect
         role
+        role_appointment
         world_location
       ].freeze
 
