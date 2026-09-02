@@ -8,6 +8,7 @@ module Commands
         government
         redirect
         role
+        role_appointment
         world_location
       ].freeze
 
