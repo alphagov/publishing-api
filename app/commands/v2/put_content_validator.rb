@@ -7,6 +7,8 @@ module Commands
         external_content
         government
         redirect
+        role
+        world_location
       ].freeze
 
       def initialize(payload, put_content)
