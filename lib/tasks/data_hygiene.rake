@@ -67,4 +67,23 @@ namespace :data_hygiene do
       )
     end
   end
+
+  desc "Update legacy specialist-publisher guidance path reservations to manuals-publisher"
+  task :update_guidance_path_reservations, [] => :environment do
+    path_reservations = PathReservation.where(
+      publishing_app: "specialist-publisher",
+    ).where(
+      "base_path LIKE ?",
+      "/guidance/%",
+    )
+
+    puts "Found #{path_reservations.count} path reservations"
+
+    path_reservations.update_all(
+      publishing_app: "manuals-publisher",
+      updated_at: Time.current,
+    )
+
+    puts "Updated the path reservations"
+  end
 end
