@@ -1,11 +1,13 @@
 module Commands
   module V2
     class PutContentValidator
-      FORMATS_WITHOUT_BASE_PATH_VALIDATION = %w[
+      SCHEMAS_WITHOUT_BASE_PATH_VALIDATION = %w[
         contact
         content_block
         external_content
         government
+        facet
+        link_collection
         redirect
         role
         role_appointment
@@ -59,7 +61,7 @@ module Commands
       end
 
       def validate_base_path
-        return if FORMATS_WITHOUT_BASE_PATH_VALIDATION.include?(payload[:schema_name])
+        return if SCHEMAS_WITHOUT_BASE_PATH_VALIDATION.include?(payload[:schema_name])
 
         base_path_validator = GdsApi::Validators::BasePathValidator.new(payload[:base_path])
         return if base_path_validator.valid?
