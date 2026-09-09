@@ -118,6 +118,11 @@
   :type: "prefix"
   :rendering_app: "frontend"
 
+- :base_path: "/draft-asset-preflight"
+  :content_id: "d49af813-e4a0-4680-8904-9658f3acdc44"
+  :title: "Signing in to Asset Manager"
+  :rendering_app: "frontend"
+
 - :base_path: "/email/authenticate"
   :content_id: "889e5a6f-d63b-4e10-8ffb-8d3959453285"
   :title: "Email - authenticate"
