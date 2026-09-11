@@ -13,3 +13,11 @@ PactBroker::Client::PublicationTask.new("branch") do |task|
     }
   end
 end
+
+require "rspec/core/rake_task"
+
+desc "Verify the GDS API Adapters pacts against this application"
+RSpec::Core::RakeTask.new("pact:verify_v2") do |task|
+  task.pattern = "spec/pact/consumers/**/*_spec.rb"
+  task.rspec_opts = "--tag pact_v2"
+end
