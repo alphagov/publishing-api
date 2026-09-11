@@ -48,6 +48,7 @@ group :development, :test do
   gem "govuk_test"
   gem "pact", "~> 1.67", require: false
   gem "pact_broker-client", require: false
+  gem "pact-ffi", "~> 0.4.28", require: false
   gem "parallel_rspec"
   gem "rspec-rails"
   gem "rubocop-govuk", require: false
