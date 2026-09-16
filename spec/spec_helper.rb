@@ -10,7 +10,6 @@ require File.expand_path("../config/environment", __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 
 require "rspec/rails"
-require "pact/consumer/rspec"
 require "pact/v2"
 require "pact/v2/rspec"
 require "webmock"
@@ -77,14 +76,6 @@ RSpec.configure do |config|
   %i[controller request].each do |spec_type|
     config.before :each, type: spec_type do
       login_as_stub_user
-    end
-  end
-end
-
-Pact.service_consumer "Publishing API" do
-  has_pact_with "Content Store" do
-    mock_service :content_store do
-      port 3093
     end
   end
 end

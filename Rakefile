@@ -4,7 +4,6 @@
 require File.expand_path("config/application", __dir__)
 
 begin
-  require "pact/tasks"
   require "pact_broker/client/tasks"
 
   PactBroker::Client::PublicationTask.new do |task|
@@ -30,4 +29,4 @@ rescue LoadError
 end
 
 Rake::Task[:default].clear if Rake::Task.task_defined?(:default)
-task default: %i[rubocop spec pact:verify]
+task default: %i[rubocop spec pact:verify_v2]
