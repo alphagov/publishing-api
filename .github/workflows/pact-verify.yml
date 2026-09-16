@@ -61,7 +61,7 @@ jobs:
           bundler-cache: true
       - run: bundle exec rails db:setup
       - if: inputs.pact_artifact == ''
-        run: bundle exec rake pact:verify
+        run: bundle exec rake pact:verify_v2
         env:
           PACT_CONSUMER_VERSION: ${{ inputs.pact_consumer_version }}
       - if: inputs.pact_artifact != ''
@@ -70,6 +70,6 @@ jobs:
           name: ${{ inputs.pact_artifact }}
           path: tmp/pacts
       - if: inputs.pact_artifact != ''
-        run: |
-          # shellcheck disable=SC2102
-          bundle exec rake pact:verify:at[tmp/pacts/${{ inputs.pact_artifact_file_to_verify }}]
+        run: bundle exec rake pact:verify_v2
+        env:
+          PACT_URI: tmp/pacts/${{ inputs.pact_artifact_file_to_verify }}

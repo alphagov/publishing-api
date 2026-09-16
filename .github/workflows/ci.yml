@@ -83,12 +83,21 @@ jobs:
           TEST_DATABASE_URL: ${{ steps.setup-postgres.outputs.db-url }}
         run: bundle exec rake spec
 
+      # Pact v2 specs don't run during default RSpec runs, so the consumer
+      # pact must be generated explicitly before it can be uploaded
+      - name: Generate pact test artifact
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-postgres.outputs.db-url }}
+        run: bundle exec rake pact:consumer_v2
+
       # We upload the generated pact tests so they can be used in a later action
       - name: Create and upload pact test artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: pacts
           path: spec/pacts/*.json
+          if-no-files-found: error
 
   check-schemas-build:
     name: Check content schemas are built
