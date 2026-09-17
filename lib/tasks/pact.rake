@@ -17,19 +17,19 @@ end
 require "rspec/core/rake_task"
 
 desc "Verify the consumer pacts against this application"
-RSpec::Core::RakeTask.new("pact:provider_v2") do |task|
+RSpec::Core::RakeTask.new("pact:provider") do |task|
   task.pattern = "spec/pact/consumers/**/*_spec.rb"
-  task.rspec_opts = "--tag pact_v2"
+  task.rspec_opts = "--tag pact"
 end
 
 desc "Verify the provider pacts against this application"
-RSpec::Core::RakeTask.new("pact:consumer_v2") do |task|
+RSpec::Core::RakeTask.new("pact:consumer") do |task|
   task.pattern = "spec/pact/providers/**/*_spec.rb"
-  task.rspec_opts = "--tag pact_v2"
+  task.rspec_opts = "--tag pact"
 end
 
-Rake::Task["pact:consumer_v2"].enhance do
-  dir = ENV.fetch("PACT_V2_PACT_DIR", "spec/pacts")
+Rake::Task["pact:consumer"].enhance do
+  dir = ENV.fetch("PACT_PACT_DIR", "spec/pacts")
   generated = File.join(dir, "Publishing API-Content Store.json")
   v1_filename = File.join(dir, "publishing_api-content_store.json")
 
@@ -37,4 +37,4 @@ Rake::Task["pact:consumer_v2"].enhance do
 end
 
 desc "Verify the consumer and provider pacts against this application"
-task "pact:verify_v2" => %w[pact:provider_v2 pact:consumer_v2]
+task "pact:verify" => %w[pact:provider pact:consumer]

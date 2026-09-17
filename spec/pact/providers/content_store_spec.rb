@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.describe "Verify the pact with Content Store", :pact_v2 do
+RSpec.describe "Verify the pact with Content Store", :pact do
   include RequestHelpers::Mocks
 
   has_http_pact_between "Publishing API", "Content Store", opts: {
-    pact_dir: ENV.fetch("PACT_V2_PACT_DIR", Rails.root.join("spec/pacts").to_s),
-    pact_specification: ENV.fetch("PACT_V2_SPEC_VERSION", "V3"),
+    pact_dir: ENV.fetch("PACT_PACT_DIR", Rails.root.join("spec/pacts").to_s),
+    pact_specification: ENV.fetch("PACT_SPEC_VERSION", "V3"),
   }
 
   describe "PUT endpoint" do
