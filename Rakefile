@@ -29,4 +29,4 @@ rescue LoadError
 end
 
 Rake::Task[:default].clear if Rake::Task.task_defined?(:default)
-task default: %i[rubocop spec pact:verify_v2]
+task default: %i[rubocop spec pact:verify]

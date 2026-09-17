@@ -1,4 +1,4 @@
-Pact::V2::Provider::ProviderStateConfiguration.include(
+Pact::Provider::ProviderStateConfiguration.include(
   RSpec::Mocks::ExampleMethods,
   WebMock::API,
   FactoryBot::Syntax::Methods,
@@ -20,8 +20,8 @@ class PactExampleOrgHost
   end
 end
 
-RSpec.describe "Verify pact for GDS API Adapters", :pact_v2 do
-  Pact::V2.configure do |config|
+RSpec.describe "Verify pact for GDS API Adapters", :pact do
+  Pact.configure do |config|
     config.before_provider_state_setup do
       RSpec::Mocks.space.reset_all
       Sidekiq::Testing.fake!
