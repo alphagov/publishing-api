@@ -1,0 +1,308 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/topical-events/youth-matters-national-youth-strategy",
+  "content_id": "ff9ba344-64fd-486c-a03e-9720fef678ea",
+  "description": "News, publications and research about the National Youth Strategy. ",
+  "details": {
+    "body": "\u003Cdiv class=\"govspeak\"\u003E\u003Cp\u003EThe National Youth Strategy was launched in December 2025. It is a ten year government strategy to tackle the challenges for this generation of young people and ensure every young person can thrive.\u003C/p\u003E\n\u003C/div\u003E",
+    "emphasised_organisations": [
+      "04efa5ed-5a59-40e2-be02-fbf105c94794"
+    ],
+    "images": [
+      {
+        "content_type": "image/png",
+        "sources": {
+          "desktop": "https://assets.publishing.service.gov.uk/media/69df50f6642d5aaff4e04fc8/topical_event_logo_desktop_Youth_Matters_1506_1004.png",
+          "desktop_2x": "https://assets.publishing.service.gov.uk/media/69df50f6b0b0b93055e04fd7/topical_event_logo_desktop_2x_Youth_Matters_1506_1004.png",
+          "mobile": "https://assets.publishing.service.gov.uk/media/69df50f6642d5aaff4e04fca/topical_event_logo_mobile_Youth_Matters_1506_1004.png",
+          "mobile_2x": "https://assets.publishing.service.gov.uk/media/69df50f6b0b0b93055e04fd5/topical_event_logo_mobile_2x_Youth_Matters_1506_1004.png",
+          "tablet": "https://assets.publishing.service.gov.uk/media/69df50f6961ff0ba6bff8e87/topical_event_logo_tablet_Youth_Matters_1506_1004.png",
+          "tablet_2x": "https://assets.publishing.service.gov.uk/media/69df50f6b0b0b93055e04fd6/topical_event_logo_tablet_2x_Youth_Matters_1506_1004.png"
+        },
+        "type": "logo"
+      },
+      {
+        "caption": "",
+        "content_type": "image/png",
+        "sources": {
+          "desktop": "https://assets.publishing.service.gov.uk/media/6a0452552a6137e93226bae2/topical_event_header_desktop_Asset_17_v3.png",
+          "desktop_2x": "https://assets.publishing.service.gov.uk/media/6a04525581a251700a20b4f7/topical_event_header_desktop_2x_Asset_17_v3.png",
+          "mobile": "https://assets.publishing.service.gov.uk/media/6a0452558cc72d2f863ea873/topical_event_header_mobile_Asset_17_v3.png",
+          "mobile_2x": "https://assets.publishing.service.gov.uk/media/6a0452552a6137e93226bae3/topical_event_header_mobile_2x_Asset_17_v3.png",
+          "tablet": "https://assets.publishing.service.gov.uk/media/6a04525581a251700a20b4f5/topical_event_header_tablet_Asset_17_v3.png",
+          "tablet_2x": "https://assets.publishing.service.gov.uk/media/6a0452552a6137e93226bae4/topical_event_header_tablet_2x_Asset_17_v3.png"
+        },
+        "type": "header"
+      }
+    ],
+    "ordered_featured_documents": [
+      {
+        "document_type": "Policy paper",
+        "href": "/government/publications/youth-matters-your-national-youth-strategy",
+        "image": {
+          "alt_text": "image description (alt text)",
+          "high_resolution_url": "https://assets.publishing.service.gov.uk/media/69df56388e256133a842257b/s712_Asset_13_v2.png",
+          "medium_resolution_url": "https://assets.publishing.service.gov.uk/media/69df56383e81003ae0422584/s465_Asset_13_v2.png",
+          "url": "https://assets.publishing.service.gov.uk/media/69df5638b0b0b93055e04fe7/Asset_13_v2.png"
+        },
+        "public_updated_at": "2025-12-10T00:00:00.000+00:00",
+        "summary": "The strategy sets out how the government will work together with partners to respond to young peoples’ priorities.",
+        "title": "Youth Matters: Your National Youth Strategy"
+      },
+      {
+        "document_type": "Policy paper",
+        "href": "/government/publications/youth-matters-state-of-the-nation",
+        "image": {
+          "alt_text": "Image description (alt text)",
+          "high_resolution_url": "https://assets.publishing.service.gov.uk/media/69e0fb2a20b52e414486893b/s712_feature_image_4.png",
+          "medium_resolution_url": "https://assets.publishing.service.gov.uk/media/69e0fb2a98c6c9802f7ed9c9/s465_feature_image_4.png",
+          "url": "https://assets.publishing.service.gov.uk/media/69e0fb2af5069cdc5486893d/feature_image_4.png"
+        },
+        "public_updated_at": "2026-08-12T15:19:14.000+01:00",
+        "summary": "A report published alongside the National Youth Strategy which sets out the reality of growing up in England in 2025.",
+        "title": "Youth Matters: State of the Nation"
+      },
+      {
+        "document_type": "Detailed guide",
+        "href": "/guidance/youth-and-expert-advisory-groups",
+        "image": {
+          "alt_text": "",
+          "high_resolution_url": "https://assets.publishing.service.gov.uk/media/6a0db5734ea6d8f759662df6/s712_feature_image_3.png",
+          "medium_resolution_url": "https://assets.publishing.service.gov.uk/media/6a0db5734ea6d8f759662df4/s465_feature_image_3.png",
+          "url": "https://assets.publishing.service.gov.uk/media/6a0db57340a9c699fd826e9e/feature_image_3.png"
+        },
+        "public_updated_at": "2026-05-20T14:07:00.000+01:00",
+        "summary": "The Youth and Expert Advisory Groups shaped Youth Matters: Your National Youth Strategy.",
+        "title": "Youth and Expert Advisory Groups"
+      }
+    ],
+    "social_media_links": [
+      {
+        "href": "https://x.com/DCMS",
+        "service_type": "x",
+        "title": "Follow us on X"
+      },
+      {
+        "href": "http://www.flickr.com/photos/thedcms/",
+        "service_type": "flickr",
+        "title": "Flickr"
+      },
+      {
+        "href": "https://www.youtube.com/user/dcms",
+        "service_type": "youtube",
+        "title": "YouTube"
+      },
+      {
+        "href": "https://dcmsblog.uk/",
+        "service_type": "blog",
+        "title": "Blog"
+      },
+      {
+        "href": "https://www.instagram.com/dcmsgovuk/",
+        "service_type": "instagram",
+        "title": "Instagram"
+      },
+      {
+        "href": "https://www.linkedin.com/company/dcmsgovuk",
+        "service_type": "linkedin",
+        "title": "LinkedIn"
+      }
+    ]
+  },
+  "document_type": "topical_event",
+  "first_published_at": "2026-05-20T14:09:19+01:00",
+  "links": {
+    "available_translations": [
+      {
+        "api_path": "/api/content/government/topical-events/youth-matters-national-youth-strategy",
+        "api_url": "https://www.gov.uk/api/content/government/topical-events/youth-matters-national-youth-strategy",
+        "base_path": "/government/topical-events/youth-matters-national-youth-strategy",
+        "content_id": "ff9ba344-64fd-486c-a03e-9720fef678ea",
+        "document_type": "topical_event",
+        "links": {
+
+        },
+        "locale": "en",
+        "public_updated_at": "2026-08-20T14:44:20Z",
+        "schema_name": "topical_event",
+        "title": "Youth Matters: National Youth Strategy",
+        "web_url": "https://www.gov.uk/government/topical-events/youth-matters-national-youth-strategy",
+        "withdrawn": false
+      }
+    ],
+    "emphasised_organisations": [
+      {
+        "analytics_identifier": "D1481",
+        "api_path": "/api/content/government/organisations/department-for-digital-culture-media-and-sport",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-digital-culture-media-and-sport",
+        "base_path": "/government/organisations/department-for-digital-culture-media-and-sport",
+        "content_id": "04efa5ed-5a59-40e2-be02-fbf105c94794",
+        "details": {
+          "acronym": "DCMS",
+          "brand": "department-for-culture-media-sport",
+          "default_news_image": null,
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Department for\u003Cbr/\u003EDigital, Culture,\u003Cbr/\u003EMedia &amp; Sport"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {
+
+        },
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Department for Digital, Culture, Media and Sport",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-digital-culture-media-and-sport",
+        "withdrawn": false
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D1481",
+        "api_path": "/api/content/government/organisations/department-for-digital-culture-media-and-sport",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-digital-culture-media-and-sport",
+        "base_path": "/government/organisations/department-for-digital-culture-media-and-sport",
+        "content_id": "04efa5ed-5a59-40e2-be02-fbf105c94794",
+        "details": {
+          "acronym": "DCMS",
+          "brand": "department-for-culture-media-sport",
+          "default_news_image": null,
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Department for\u003Cbr/\u003EDigital, Culture,\u003Cbr/\u003EMedia &amp; Sport"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {
+
+        },
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Department for Digital, Culture, Media and Sport",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-digital-culture-media-and-sport",
+        "withdrawn": false
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D1481",
+        "api_path": "/api/content/government/organisations/department-for-digital-culture-media-and-sport",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-digital-culture-media-and-sport",
+        "base_path": "/government/organisations/department-for-digital-culture-media-and-sport",
+        "content_id": "04efa5ed-5a59-40e2-be02-fbf105c94794",
+        "details": {
+          "acronym": "DCMS",
+          "brand": "department-for-culture-media-sport",
+          "default_news_image": null,
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Department for\u003Cbr/\u003EDigital, Culture,\u003Cbr/\u003EMedia &amp; Sport"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {
+
+        },
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Department for Digital, Culture, Media and Sport",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-digital-culture-media-and-sport",
+        "withdrawn": false
+      }
+    ],
+    "taxons": [
+      {
+        "api_path": "/api/content/society-and-culture/young-people",
+        "api_url": "https://www.gov.uk/api/content/society-and-culture/young-people",
+        "base_path": "/society-and-culture/young-people",
+        "content_id": "ae747de8-96ad-4f66-9d6d-4d5c357e9956",
+        "description": "",
+        "details": {
+          "internal_name": "Young people [P]",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": false
+        },
+        "document_type": "taxon",
+        "links": {
+          "parent_taxons": [
+            {
+              "api_path": "/api/content/society-and-culture",
+              "api_url": "https://www.gov.uk/api/content/society-and-culture",
+              "base_path": "/society-and-culture",
+              "content_id": "e2ca2f1a-0ff3-43ce-b813-16645ff27904",
+              "description": "",
+              "details": {
+                "internal_name": "Society and culture",
+                "notes_for_editors": "",
+                "visible_to_departmental_editors": true
+              },
+              "document_type": "taxon",
+              "links": {
+                "root_taxon": [
+                  {
+                    "api_path": "/api/content/",
+                    "api_url": "https://www.gov.uk/api/content/",
+                    "base_path": "/",
+                    "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+                    "document_type": "homepage",
+                    "links": {
+
+                    },
+                    "locale": "en",
+                    "public_updated_at": "2026-02-18T13:00:23Z",
+                    "schema_name": "homepage",
+                    "title": "GOV.UK homepage",
+                    "web_url": "https://www.gov.uk/",
+                    "withdrawn": false
+                  }
+                ]
+              },
+              "locale": "en",
+              "phase": "live",
+              "public_updated_at": "2018-09-16T20:31:27Z",
+              "schema_name": "taxon",
+              "title": "Society and culture",
+              "web_url": "https://www.gov.uk/society-and-culture",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-09-20T13:33:00Z",
+        "schema_name": "taxon",
+        "title": "Young people",
+        "web_url": "https://www.gov.uk/society-and-culture/young-people",
+        "withdrawn": false
+      }
+    ]
+  },
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2026-08-20T15:44:20+01:00",
+  "publishing_app": "whitehall",
+  "publishing_request_id": "21-1787237060.919-10.13.21.228-2823",
+  "publishing_scheduled_at": null,
+  "rendering_app": "frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "topical_event",
+  "title": "Youth Matters: National Youth Strategy",
+  "updated_at": "2026-09-17T13:29:52+01:00",
+  "withdrawn_notice": {}
+}
