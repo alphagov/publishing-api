@@ -1,48 +1,48 @@
-ENV["RAILS_ENV"] = "test"
-ENV["PACT_DO_NOT_TRACK"] = "true"
-require "active_support"
-require "webmock"
-require "pact/provider/rspec"
-require "factory_bot_rails"
+Pact::Provider::ProviderStateConfiguration.include(
+  RSpec::Mocks::ExampleMethods,
+  WebMock::API,
+  FactoryBot::Syntax::Methods,
+)
 
-WebMock.disable!
+# The recorded pacts expect URLs like http://example.org/assets/<id> because
+# the previous (Rack::Test based) verifier used example.org as its default
+# host. Rewrite the request host so Rails URL helpers generate matching URLs.
+class PactExampleOrgHost
+  def initialize(app)
+    @app = app
+  end
 
-Pact.configure do |config|
-  config.reports_dir = "spec/reports/pacts"
-  config.include WebMock::API
-  config.include WebMock::Matchers
-  config.include FactoryBot::Syntax::Methods
+  def call(env)
+    env["HTTP_HOST"] = "example.org"
+    env["SERVER_NAME"] = "example.org"
+    env.delete("HTTP_X_FORWARDED_HOST")
+    @app.call(env)
+  end
 end
 
-Pact.service_provider "Publishing API" do
-  include ERB::Util
-
-  honours_pact_with "GDS API Adapters" do
-    if ENV["PACT_URI"]
-      pact_uri(ENV["PACT_URI"])
-    else
-      base_url = ENV.fetch("PACT_BROKER_BASE_URL", "https://govuk-pact-broker-6991351eca05.herokuapp.com")
-      url = "#{base_url}/pacts/provider/#{url_encode(name)}/consumer/#{url_encode(consumer_name)}"
-
-      pact_uri "#{url}/versions/#{url_encode(ENV.fetch('PACT_CONSUMER_VERSION', 'master'))}"
+RSpec.describe "Verify pact for GDS API Adapters", :pact do
+  Pact.configure do |config|
+    config.before_provider_state_setup do
+      RSpec::Mocks.space.reset_all
+      Sidekiq::Testing.fake!
+      WebMock.reset!
+      DatabaseCleaner.clean_with :truncation
+      GDS::SSO.test_user = FactoryBot.create(:user, permissions: %w[signin view_all])
     end
   end
-end
 
-Pact.provider_states_for "GDS API Adapters" do
-  set_up do
-    WebMock.enable!
-    WebMock.reset!
-    DatabaseCleaner.clean_with :truncation
-    GDS::SSO.test_user = create(
-      :user,
-      permissions: %w[signin view_all],
-    )
-  end
-
-  tear_down do
-    WebMock.disable!
-  end
+  http_pact_provider "Publishing API", opts: {
+    app: PactExampleOrgHost.new(Rails.application),
+    http_port: 9292,
+    pact_uri: ENV["PACT_URI"],
+    broker_url: ENV.fetch("PACT_BROKER_BASE_URL", "https://govuk-pact-broker-6991351eca05.herokuapp.com"),
+    consumer_name: "GDS API Adapters",
+    consumer_version_selectors: [
+      { branch: ENV.fetch("PACT_CONSUMER_VERSION", "branch-main").delete_prefix("branch-") },
+    ],
+    log_level: :info,
+    fail_if_no_pacts_found: true,
+  }
 
   provider_state "a publish intent exists at /test-intent" do
     set_up do
@@ -237,6 +237,12 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
+  provider_state "no links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
+    set_up do
+      # no-op: database truncation happens in before_provider_state_setup
+    end
+  end
+
   provider_state "taxon links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
       link_set = create(
@@ -248,12 +254,6 @@ Pact.provider_states_for "GDS API Adapters" do
       taxon = create(:document, content_id: "20583132-1619-4c68-af24-77583172c070")
       create(:edition, document: taxon)
       create(:link, link_set:, link_type: "taxons", target_content_id: taxon.content_id)
-    end
-  end
-
-  provider_state "no links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
-    set_up do
-      # no-op
     end
   end
 
@@ -328,42 +328,6 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
-  provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at lock version 3" do
-    set_up do
-      document = create(
-        :document,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        stale_lock_version: 3,
-      )
-
-      create(:draft_edition, document:)
-
-      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('content-store'))}/content"))
-      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('draft-content-store'))}/content"))
-    end
-  end
-
-  provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at lock version 3" do
-    set_up do
-      document = create(
-        :document,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        stale_lock_version: 1,
-      )
-
-      create(:draft_edition, document:)
-
-      create(
-        :link_set,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        stale_lock_version: 3,
-      )
-
-      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('content-store'))}/content"))
-      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('draft-content-store'))}/content"))
-    end
-  end
-
   provider_state "there are four content items with document_type 'taxon'" do
     set_up do
       (1..4).each do |index|
@@ -415,6 +379,7 @@ Pact.provider_states_for "GDS API Adapters" do
       )
     end
   end
+
   provider_state "there are two link changes with a link_type of 'taxons'" do
     set_up do
       Timecop.freeze("2017-01-01 09:00:00.1") do
@@ -466,41 +431,6 @@ Pact.provider_states_for "GDS API Adapters" do
           change: "remove",
         )
       end
-    end
-  end
-  provider_state "there is content with document_type 'taxon' for multiple publishing apps" do
-    set_up do
-      document_a = create(:document)
-      document_b = create(:document)
-      document_c = create(:document)
-
-      create(
-        :draft_edition,
-        document: document_a,
-        title: "Content Item A",
-        base_path: "/a-base-path",
-        document_type: "taxon",
-        schema_name: "taxon",
-      )
-
-      create(
-        :draft_edition,
-        document: document_b,
-        title: "Content Item B",
-        base_path: "/another-base-path",
-        document_type: "taxon",
-        schema_name: "taxon",
-      )
-
-      create(
-        :draft_edition,
-        document: document_c,
-        title: "Content Item C",
-        base_path: "/yet-another-base-path",
-        document_type: "taxon",
-        schema_name: "taxon",
-        publishing_app: "whitehall",
-      )
     end
   end
 
@@ -679,16 +609,16 @@ Pact.provider_states_for "GDS API Adapters" do
         target_content_id: primary_publishing_organisation.content_id,
       )
     end
+  end
 
-    provider_state "a published content item exists with base_path /my-document" do
-      set_up do
-        document = create(:document, content_id: "19ad249e-7ac4-4aa4-8ab4-b6c5f381c043")
+  provider_state "a published content item exists with base_path /my-document" do
+    set_up do
+      document = create(:document, content_id: "19ad249e-7ac4-4aa4-8ab4-b6c5f381c043")
 
-        create(:live_edition,
-               document:,
-               base_path: "/my-document",
-               title: "My document")
-      end
+      create(:live_edition,
+             document:,
+             base_path: "/my-document",
+             title: "My document")
     end
   end
 
