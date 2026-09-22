@@ -153,7 +153,7 @@ GEM
     declarative (0.0.20)
     diff-lcs (1.6.2)
     dig_rb (1.0.1)
-    domain_name (0.6.20260829)
+    domain_name (0.6.20260907)
     drb (2.2.3)
     erb (6.0.7)
     erubi (1.13.1)
@@ -184,7 +184,7 @@ GEM
       et-orbi (~> 1.4)
       raabro (~> 1.4)
     fuzzy_match (2.1.0)
-    gds-api-adapters (103.4.4)
+    gds-api-adapters (103.5.0)
       addressable
       link_header
       null_logger
@@ -361,7 +361,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2026.0701)
+    mime-types-data (3.2026.0921)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (6.0.6)
