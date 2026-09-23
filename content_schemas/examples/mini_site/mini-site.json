@@ -90,6 +90,17 @@
         "title": "New National Day for Victims and Survivors of Terrorism"
       }
     ],
+    "ordered_navigation_items": [
+      {
+        "content_id": "af7756de-f872-4e08-b20b-a48495baf6d6"
+      },
+      {
+        "content_id": "2e537bba-63ae-4de3-aada-b5f51b2ab6be"
+      },
+      {
+        "content_id": "2a4f8753-bb85-4456-971f-63ce232fa066"
+      }
+    ],
     "social_media_links": [
       {
         "href": "https://facebook.com",
@@ -210,6 +221,52 @@
         "title": "Government Digital Service",
         "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/government-digital-service",
         "withdrawn": false
+      }
+    ],
+    "shared_navigations": [
+      {
+        "content_id": "9930c1f9-aacc-4b0b-921e-7ded079b14aa",
+        "navigation_items": [
+          {
+            "content_id": "af7756de-f872-4e08-b20b-a48495baf6d6",
+            "title": "Pathways to Growth",
+            "locale": "en",
+            "analytics_identifier": null,
+            "api_path": "/api/content/government/pathways-to-growth",
+            "base_path": "/government/pathways-to-growth",
+            "document_type": "mini_site_landing",
+            "public_updated_at": "2026-03-23T12:30:26Z",
+            "schema_name": "mini_site",
+            "withdrawn": false,
+            "links": {}
+          },
+          {
+            "content_id": "2e537bba-63ae-4de3-aada-b5f51b2ab6be",
+            "title": "Develop skills for growth",
+            "locale": "en",
+            "analytics_identifier": null,
+            "api_path": "/api/content/government/pathways-to-growth/develop-skills-for-growth",
+            "base_path": "/government/pathways-to-growth/develop-skills-for-growth",
+            "document_type": "mini_site_child",
+            "public_updated_at": "2026-03-23T12:30:26Z",
+            "schema_name": "mini_site",
+            "withdrawn": false,
+            "links": {}
+          },
+          {
+            "content_id": "2a4f8753-bb85-4456-971f-63ce232fa066",
+            "title": "Access finance for growth",
+            "locale": "en",
+            "analytics_identifier": null,
+            "api_path": "/api/content/government/pathways-to-growth/access-finance-for-growth",
+            "base_path": "/government/pathways-to-growth/access-finance-for-growth",
+            "document_type": "mini_site_child",
+            "public_updated_at": "2026-03-23T12:30:26Z",
+            "schema_name": "mini_site",
+            "withdrawn": false,
+            "links": {}
+          }
+        ]
       }
     ]
   },
