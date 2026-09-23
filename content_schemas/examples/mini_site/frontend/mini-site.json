@@ -225,7 +225,10 @@
     ],
     "shared_navigations": [
       {
+        "base_path": "/internal/not-a-path/navigation",
         "content_id": "9930c1f9-aacc-4b0b-921e-7ded079b14aa",
+        "locale": "en",
+        "title": "Will try to figure out whether we can omit these properties - all that matters is the `navigation_items` property.",
         "navigation_items": [
           {
             "content_id": "af7756de-f872-4e08-b20b-a48495baf6d6",

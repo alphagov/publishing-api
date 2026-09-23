@@ -11,5 +11,6 @@
     maxItems: 1,
   },
   related_policies: "",
+  shared_navigations: "",
   topical_events: "",
 }
