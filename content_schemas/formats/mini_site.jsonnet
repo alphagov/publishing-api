@@ -19,6 +19,9 @@
         ordered_featured_documents: {
           "$ref": "#/definitions/ordered_featured_documents",
         },
+        ordered_navigation_items: {
+          "$ref": "#/definitions/ordered_navigation_items",
+        },
         social_media_links: (import "shared/definitions/_social_media_links.jsonnet"),
         images: {
           type: "array",

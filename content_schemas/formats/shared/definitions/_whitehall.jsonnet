@@ -371,6 +371,22 @@
     },
     description: "A set of featured documents to display.",
   },
+  ordered_navigation_items: {
+    type: "array",
+    items: {
+      type: "object",
+      additionalProperties: false,
+      required: [
+        "content_id",
+      ],
+      properties: {
+        content_id: {
+          "$ref": "#/definitions/guid",
+        },
+      },
+    },
+    description: "An ordered list of navigation items, corresponding to a `shared_navigation` link.",
+  },
   promotional_feature_item_image: {
     items: {
       type: "array",
