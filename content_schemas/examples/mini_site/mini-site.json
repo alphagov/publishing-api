@@ -1,0 +1,161 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/pathways-to-growth",
+  "content_id": "af7756de-f872-4e08-b20b-a48495baf6d6",
+  "description": "Helping businesses, workers and communities get the support, funding, skills and opportunities they need to grow, create jobs and build a stronger economy.",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"what-is-pathways-to-growth\">What is Pathways to Growth? </h2>\n\n<p>Pathways to Growth brings together information and support to help businesses, workers and communities grow. </p>\n\n<p>Here you can find out about government programmes, funding and advice available to support your plans.  </p>\n\n<p>You can explore opportunities to start or grow a business, develop skills, recruit and train staff, understand new technology or enter new markets.  </p>\n\n<h2 id=\"tailored-to-you\">Tailored to you </h2>\n\n<p>The support available will depend on your circumstances, location and what you want to achieve. Use the information on this site to find relevant schemes, understand what you may be eligible for and take the next steps. </p>\n\n<p>You can also find guidance and information about support available across different sectors and regions. </p>\n\n<p>Whether you are starting out, planning to expand or looking to invest for the future, Pathways to Growth can help you find the information and support you need. </p>\n\n<div class=\"call-to-action\">\n  <p> </p>\n\n  <p><a rel=\"external\" href=\"https://example.com\">Apply to Pathways for Growth</a></p>\n</div>\n\n<p>{We’d like to put the Featured Section here, ideally - but that can be post MVP. For now, just put it after the body, as we do for Topical Events}</p>\n\n<h2 id=\"how-other-businesses-have-grown\">How other businesses have grown </h2>\n\n<p>Every business must start somewhere. Every business needs to continue to evolve. Discover how other businesses have used the Pathway to Growth resources and support to grow, adapt and invest in their future. </p>\n\n<p>From taking an ethical tent making company in Gloucester to the global stage, to growing a digital design company from 3 employees to 150 in just 2 years. </p>\n\n<p><a href=\"insert%20link%20to%20case%20studies%20child%20page\">Explore our case studies</a> </p>\n\n<h2 id=\"are-you-read-to-grow\">Are you read to grow? </h2>\n\n<p>Come and join the thousands of others growing their businesses by: </p>\n\n<p>*Applying to the Pathways for Growth scheme (links to apply child page) </p>\n\n<p>*Exploring other schemes, grants and funding streams (links to gov.uk list) </p>\n\n<p>*Sharing your experiences with us (links to case studies child page)</p>\n</div>",
+    "emphasised_organisations": [
+      "af07d5a5-df63-4ddc-9383-6a666845ebe9"
+    ],
+    "images": [
+      {
+        "caption": "Custom caption and credit",
+        "content_type": "image/png",
+        "sources": {
+          "desktop": "https://assets.integration.publishing.service.gov.uk/media/6ab3b1121d9a1b83e6645fc8/topical_event_header_desktop_Screenshot_2026-09-23_at_11.53.55.png",
+          "desktop_2x": "https://assets.integration.publishing.service.gov.uk/media/6ab3b112a80a0e07f2645fce/topical_event_header_desktop_2x_Screenshot_2026-09-23_at_11.53.55.png",
+          "mobile": "https://assets.integration.publishing.service.gov.uk/media/6ab3b1121d9a1b83e6645fc9/topical_event_header_mobile_Screenshot_2026-09-23_at_11.53.55.png",
+          "mobile_2x": "https://assets.integration.publishing.service.gov.uk/media/6ab3b112a80a0e07f2645fcd/topical_event_header_mobile_2x_Screenshot_2026-09-23_at_11.53.55.png",
+          "tablet": "https://assets.integration.publishing.service.gov.uk/media/6ab3b112a80a0e07f2645fcc/topical_event_header_tablet_Screenshot_2026-09-23_at_11.53.55.png",
+          "tablet_2x": "https://assets.integration.publishing.service.gov.uk/media/6ab3b1121d9a1b83e6645fca/topical_event_header_tablet_2x_Screenshot_2026-09-23_at_11.53.55.png"
+        },
+        "type": "header"
+      }
+    ],
+    "social_media_links": [
+      {
+        "href": "https://facebook.com",
+        "service_type": "facebook",
+        "title": "Facebook"
+      },
+      {
+        "href": "https://instagram.com",
+        "service_type": "instagram",
+        "title": "Custom Instagram profile"
+      }
+    ]
+  },
+  "document_type": "mini_site_landing",
+  "first_published_at": null,
+  "links": {
+    "available_translations": [
+      {
+        "api_path": "/api/content/government/pathways-to-growth",
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/pathways-to-growth",
+        "base_path": "/government/pathways-to-growth",
+        "content_id": "af7756de-f872-4e08-b20b-a48495baf6d6",
+        "document_type": "mini_site_landing",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2026-09-23T11:30:26Z",
+        "schema_name": "mini_site",
+        "title": "Pathways to Growth",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/pathways-to-growth",
+        "withdrawn": false
+      }
+    ],
+    "emphasised_organisations": [
+      {
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "details": {
+          "acronym": "GDS",
+          "brand": "government-digital-service",
+          "default_news_image": null,
+          "logo": {
+            "crest": "gds",
+            "formatted_title": "Government<br/>Digital Service"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Government Digital Service",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/government-digital-service",
+        "withdrawn": false
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "details": {
+          "acronym": "GDS",
+          "brand": "government-digital-service",
+          "default_news_image": null,
+          "logo": {
+            "crest": "gds",
+            "formatted_title": "Government<br/>Digital Service"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Government Digital Service",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/government-digital-service",
+        "withdrawn": false
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "details": {
+          "acronym": "GDS",
+          "brand": "government-digital-service",
+          "default_news_image": null,
+          "logo": {
+            "crest": "gds",
+            "formatted_title": "Government<br/>Digital Service"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Government Digital Service",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/government-digital-service",
+        "withdrawn": false
+      }
+    ]
+  },
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2026-09-23T12:30:26+01:00",
+  "publishing_app": "whitehall",
+  "publishing_request_id": null,
+  "publishing_scheduled_at": null,
+  "rendering_app": "frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "mini_site",
+  "title": "Pathways to Growth",
+  "updated_at": "2026-09-23T12:30:37+01:00",
+  "withdrawn_notice": {}
+}
