@@ -169,6 +169,9 @@
           "description": "Link type automatically added by Publishing API",
           "$ref": "#/definitions/frontend_links_with_base_path"
         },
+        "shared_navigations": {
+          "$ref": "#/definitions/frontend_links_with_base_path"
+        },
         "taxons": {
           "description": "Prototype-stage taxonomy label for this content item",
           "$ref": "#/definitions/frontend_links_with_base_path"
@@ -246,6 +249,9 @@
           "$ref": "#/definitions/guid_list"
         },
         "related_policies": {
+          "$ref": "#/definitions/guid_list"
+        },
+        "shared_navigations": {
           "$ref": "#/definitions/guid_list"
         },
         "taxons": {
