@@ -13,12 +13,12 @@
         "caption": "Custom caption and credit",
         "content_type": "image/png",
         "sources": {
-          "desktop": "https://assets.integration.publishing.service.gov.uk/media/6ab3b1121d9a1b83e6645fc8/topical_event_header_desktop_Screenshot_2026-09-23_at_11.53.55.png",
-          "desktop_2x": "https://assets.integration.publishing.service.gov.uk/media/6ab3b112a80a0e07f2645fce/topical_event_header_desktop_2x_Screenshot_2026-09-23_at_11.53.55.png",
-          "mobile": "https://assets.integration.publishing.service.gov.uk/media/6ab3b1121d9a1b83e6645fc9/topical_event_header_mobile_Screenshot_2026-09-23_at_11.53.55.png",
-          "mobile_2x": "https://assets.integration.publishing.service.gov.uk/media/6ab3b112a80a0e07f2645fcd/topical_event_header_mobile_2x_Screenshot_2026-09-23_at_11.53.55.png",
-          "tablet": "https://assets.integration.publishing.service.gov.uk/media/6ab3b112a80a0e07f2645fcc/topical_event_header_tablet_Screenshot_2026-09-23_at_11.53.55.png",
-          "tablet_2x": "https://assets.integration.publishing.service.gov.uk/media/6ab3b1121d9a1b83e6645fca/topical_event_header_tablet_2x_Screenshot_2026-09-23_at_11.53.55.png"
+          "desktop": "https://placehold.co/768x432/EEE/31343C",
+          "desktop_2x": "https://placehold.co/1536x864/EEE/31343C",
+          "mobile": "https://placehold.co/640x360/EEE/31343C",
+          "mobile_2x": "https://placehold.co/1280x720/EEE/31343C",
+          "tablet": "https://placehold.co/768x432/EEE/31343C",
+          "tablet_2x": "https://placehold.co/1536x864/EEE/31343C"
         },
         "type": "header"
       }
