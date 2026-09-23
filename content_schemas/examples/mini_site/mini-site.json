@@ -23,6 +23,73 @@
         "type": "header"
       }
     ],
+    "ordered_featured_documents": [
+      {
+        "document_type": "Detailed guide",
+        "href": "/guidance/find-out-about-the-national-day-for-victims-and-survivors-of-terrorism",
+        "image": {
+          "alt_text": "Hands using a mobile phone",
+          "high_resolution_url": "https://assets.publishing.service.gov.uk/media/6a882664c607a3e82a75c017/s712_Hands_mobile__Getty_Images_.jpg",
+          "medium_resolution_url": "https://assets.publishing.service.gov.uk/media/6a88266486d9b627c475c008/s465_Hands_mobile__Getty_Images_.jpg",
+          "url": "https://assets.publishing.service.gov.uk/media/6a882664ebba21482c58cc1c/Hands_mobile__Getty_Images_.jpg"
+        },
+        "public_updated_at": "2026-08-14T15:48:08.000+01:00",
+        "summary": "On 21 August 2026, the UK will observe its inaugural National Day for Victims and Survivors of Terrorism.",
+        "title": "Find out about the National Day for Victims and Survivors of Terrorism"
+      },
+      {
+        "document_type": "Guidance",
+        "href": "/government/publications/helplines-and-support-victims-of-terrorist-attacks",
+        "image": {
+          "alt_text": "Holding hands",
+          "high_resolution_url": "https://assets.publishing.service.gov.uk/media/6a6ca3300c36759b5ccaa2dc/s712_holding_hands_getty-960.jpg",
+          "medium_resolution_url": "https://assets.publishing.service.gov.uk/media/6a6ca3300c36759b5ccaa2db/s465_holding_hands_getty-960.jpg",
+          "url": "https://assets.publishing.service.gov.uk/media/6a6ca330cceb23e8678977a2/holding_hands_getty-960.jpg"
+        },
+        "public_updated_at": "2026-06-01T00:01:02.000+01:00",
+        "summary": "The Support Hub for victims and survivors of terrorism provides specialist support for anyone affected by a terrorist incident.",
+        "title": "Support Hub for victims and survivors of terrorism"
+      },
+      {
+        "document_type": "News story",
+        "href": "/government/news/first-national-day-for-victims-and-survivors-of-terrorism-marked",
+        "image": {
+          "alt_text": "Candle",
+          "high_resolution_url": "https://assets.publishing.service.gov.uk/media/6a88268386d9b627c475c00a/s712_memorial-candle-bokeh-960.jpg",
+          "medium_resolution_url": "https://assets.publishing.service.gov.uk/media/6a88268386d9b627c475c009/s465_memorial-candle-bokeh-960.jpg",
+          "url": "https://assets.publishing.service.gov.uk/media/6a882683c607a3e82a75c018/memorial-candle-bokeh-960.jpg"
+        },
+        "public_updated_at": "2026-08-21T08:45:37.000+01:00",
+        "summary": "The new National Day for Victims and Survivors of Terrorism will be observed annually on on 21 August.",
+        "title": "First National Day for Victims and Survivors of Terrorism marked"
+      },
+      {
+        "document_type": "News story",
+        "href": "/government/news/new-support-hub-launches-for-victims-and-survivors-of-terrorism",
+        "image": {
+          "alt_text": "Mobile phone being used at night",
+          "high_resolution_url": "https://assets.publishing.service.gov.uk/media/6a706ae1bf4a7aca8f897814/s712_mobile_phone__city_at_night_getty-960.jpg",
+          "medium_resolution_url": "https://assets.publishing.service.gov.uk/media/6a706ae1cceb23e867897821/s465_mobile_phone__city_at_night_getty-960.jpg",
+          "url": "https://assets.publishing.service.gov.uk/media/6a706ae10ddb7e4831c62b52/mobile_phone__city_at_night_getty-960.jpg"
+        },
+        "public_updated_at": "2026-06-01T11:17:34.000+01:00",
+        "summary": "A new support hub has launched delivering tailored, trauma-informed care for victims and survivors of terrorism.",
+        "title": "New support hub launches for victims and survivors of terrorism"
+      },
+      {
+        "document_type": "News story",
+        "href": "/government/news/new-national-day-for-victims-and-survivors-of-terrorism",
+        "image": {
+          "alt_text": "Crowd scene",
+          "high_resolution_url": "https://assets.publishing.service.gov.uk/media/6a6ca39bcceb23e8678977a4/s712_vtu-crowd-scene-960-640.jpg",
+          "medium_resolution_url": "https://assets.publishing.service.gov.uk/media/6a6ca39b862aaf18d9c62adf/s465_vtu-crowd-scene-960-640.jpg",
+          "url": "https://assets.publishing.service.gov.uk/media/6a6ca39bcceb23e8678977a6/vtu-crowd-scene-960-640.jpg"
+        },
+        "public_updated_at": "2025-11-24T00:00:00.000+00:00",
+        "summary": "Government delivers on promise to honour victims and survivors of terrorism by establishing a new annual national day, with inaugural day on 21 August 2026.",
+        "title": "New National Day for Victims and Survivors of Terrorism"
+      }
+    ],
     "social_media_links": [
       {
         "href": "https://facebook.com",
