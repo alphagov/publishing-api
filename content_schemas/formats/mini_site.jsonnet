@@ -16,6 +16,9 @@
         emphasised_organisations: {
           "$ref": "#/definitions/emphasised_organisations",
         },
+        ordered_featured_documents: {
+          "$ref": "#/definitions/ordered_featured_documents",
+        },
         social_media_links: (import "shared/definitions/_social_media_links.jsonnet"),
         images: {
           type: "array",
