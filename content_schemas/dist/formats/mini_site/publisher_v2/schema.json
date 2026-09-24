@@ -99,6 +99,9 @@
         "related_policies": {
           "$ref": "#/definitions/guid_list"
         },
+        "shared_navigations": {
+          "$ref": "#/definitions/guid_list"
+        },
         "topical_events": {
           "$ref": "#/definitions/guid_list"
         }
@@ -231,6 +234,12 @@
             "$ref": "#/definitions/image_asset"
           }
         },
+        "ordered_featured_documents": {
+          "$ref": "#/definitions/ordered_featured_documents"
+        },
+        "ordered_navigation_items": {
+          "$ref": "#/definitions/ordered_navigation_items"
+        },
         "social_media_links": {
           "description": "A set of links to social media profiles for the object.",
           "type": "array",
@@ -297,6 +306,53 @@
         "$ref": "#/definitions/guid"
       },
       "uniqueItems": true
+    },
+    "image": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "alt_text": {
+          "type": "string"
+        },
+        "caption": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "credit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "high_resolution_url": {
+          "description": "URL to a high resolution version of the image, for use by third parties such as Twitter, Facebook or Slack. Used by the machine readable metadata component. Don't use this on user-facing web pages, as it might be very large.",
+          "type": "string",
+          "format": "uri"
+        },
+        "medium_resolution_url": {
+          "description": "URL to a medium resolution version of the image, for use by devices that have high pixel density such as iphone.",
+          "type": "string",
+          "format": "uri"
+        },
+        "url": {
+          "description": "URL to the image. The image should be in a suitable resolution for display on the page.",
+          "type": "string",
+          "format": "uri"
+        }
+      }
     },
     "image_asset": {
       "type": "object",
@@ -425,6 +481,64 @@
         "zh-hk",
         "zh-tw"
       ]
+    },
+    "ordered_featured_documents": {
+      "description": "A set of featured documents to display.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "title",
+          "href",
+          "image",
+          "summary",
+          "public_updated_at",
+          "document_type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "document_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "href": {
+            "type": "string"
+          },
+          "image": {
+            "$ref": "#/definitions/image"
+          },
+          "public_updated_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "summary": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ordered_navigation_items": {
+      "description": "An ordered list of navigation items, corresponding to a `shared_navigation` link.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "content_id"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "content_id": {
+            "$ref": "#/definitions/guid"
+          }
+        }
+      }
     },
     "public_updated_at": {
       "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",

@@ -1,0 +1,288 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/pathways-to-growth",
+  "content_id": "af7756de-f872-4e08-b20b-a48495baf6d6",
+  "description": "Helping businesses, workers and communities get the support, funding, skills and opportunities they need to grow, create jobs and build a stronger economy.",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"what-is-pathways-to-growth\">What is Pathways to Growth? </h2>\n\n<p>Pathways to Growth brings together information and support to help businesses, workers and communities grow. </p>\n\n<p>Here you can find out about government programmes, funding and advice available to support your plans.  </p>\n\n<p>You can explore opportunities to start or grow a business, develop skills, recruit and train staff, understand new technology or enter new markets.  </p>\n\n<h2 id=\"tailored-to-you\">Tailored to you </h2>\n\n<p>The support available will depend on your circumstances, location and what you want to achieve. Use the information on this site to find relevant schemes, understand what you may be eligible for and take the next steps. </p>\n\n<p>You can also find guidance and information about support available across different sectors and regions. </p>\n\n<p>Whether you are starting out, planning to expand or looking to invest for the future, Pathways to Growth can help you find the information and support you need. </p>\n\n<div class=\"call-to-action\">\n  <p> </p>\n\n  <p><a rel=\"external\" href=\"https://example.com\">Apply to Pathways for Growth</a></p>\n</div>\n\n<p>{We’d like to put the Featured Section here, ideally - but that can be post MVP. For now, just put it after the body, as we do for Topical Events}</p>\n\n<h2 id=\"how-other-businesses-have-grown\">How other businesses have grown </h2>\n\n<p>Every business must start somewhere. Every business needs to continue to evolve. Discover how other businesses have used the Pathway to Growth resources and support to grow, adapt and invest in their future. </p>\n\n<p>From taking an ethical tent making company in Gloucester to the global stage, to growing a digital design company from 3 employees to 150 in just 2 years. </p>\n\n<p><a href=\"insert%20link%20to%20case%20studies%20child%20page\">Explore our case studies</a> </p>\n\n<h2 id=\"are-you-read-to-grow\">Are you read to grow? </h2>\n\n<p>Come and join the thousands of others growing their businesses by: </p>\n\n<p>*Applying to the Pathways for Growth scheme (links to apply child page) </p>\n\n<p>*Exploring other schemes, grants and funding streams (links to gov.uk list) </p>\n\n<p>*Sharing your experiences with us (links to case studies child page)</p>\n</div>",
+    "emphasised_organisations": [
+      "af07d5a5-df63-4ddc-9383-6a666845ebe9"
+    ],
+    "images": [
+      {
+        "caption": "Custom caption and credit",
+        "content_type": "image/png",
+        "sources": {
+          "desktop": "https://placehold.co/768x432/EEE/31343C",
+          "desktop_2x": "https://placehold.co/1536x864/EEE/31343C",
+          "mobile": "https://placehold.co/640x360/EEE/31343C",
+          "mobile_2x": "https://placehold.co/1280x720/EEE/31343C",
+          "tablet": "https://placehold.co/768x432/EEE/31343C",
+          "tablet_2x": "https://placehold.co/1536x864/EEE/31343C"
+        },
+        "type": "header"
+      }
+    ],
+    "ordered_featured_documents": [
+      {
+        "document_type": "Detailed guide",
+        "href": "/guidance/find-out-about-the-national-day-for-victims-and-survivors-of-terrorism",
+        "image": {
+          "alt_text": "Hands using a mobile phone",
+          "high_resolution_url": "https://assets.publishing.service.gov.uk/media/6a882664c607a3e82a75c017/s712_Hands_mobile__Getty_Images_.jpg",
+          "medium_resolution_url": "https://assets.publishing.service.gov.uk/media/6a88266486d9b627c475c008/s465_Hands_mobile__Getty_Images_.jpg",
+          "url": "https://assets.publishing.service.gov.uk/media/6a882664ebba21482c58cc1c/Hands_mobile__Getty_Images_.jpg"
+        },
+        "public_updated_at": "2026-08-14T15:48:08.000+01:00",
+        "summary": "On 21 August 2026, the UK will observe its inaugural National Day for Victims and Survivors of Terrorism.",
+        "title": "Find out about the National Day for Victims and Survivors of Terrorism"
+      },
+      {
+        "document_type": "Guidance",
+        "href": "/government/publications/helplines-and-support-victims-of-terrorist-attacks",
+        "image": {
+          "alt_text": "Holding hands",
+          "high_resolution_url": "https://assets.publishing.service.gov.uk/media/6a6ca3300c36759b5ccaa2dc/s712_holding_hands_getty-960.jpg",
+          "medium_resolution_url": "https://assets.publishing.service.gov.uk/media/6a6ca3300c36759b5ccaa2db/s465_holding_hands_getty-960.jpg",
+          "url": "https://assets.publishing.service.gov.uk/media/6a6ca330cceb23e8678977a2/holding_hands_getty-960.jpg"
+        },
+        "public_updated_at": "2026-06-01T00:01:02.000+01:00",
+        "summary": "The Support Hub for victims and survivors of terrorism provides specialist support for anyone affected by a terrorist incident.",
+        "title": "Support Hub for victims and survivors of terrorism"
+      },
+      {
+        "document_type": "News story",
+        "href": "/government/news/first-national-day-for-victims-and-survivors-of-terrorism-marked",
+        "image": {
+          "alt_text": "Candle",
+          "high_resolution_url": "https://assets.publishing.service.gov.uk/media/6a88268386d9b627c475c00a/s712_memorial-candle-bokeh-960.jpg",
+          "medium_resolution_url": "https://assets.publishing.service.gov.uk/media/6a88268386d9b627c475c009/s465_memorial-candle-bokeh-960.jpg",
+          "url": "https://assets.publishing.service.gov.uk/media/6a882683c607a3e82a75c018/memorial-candle-bokeh-960.jpg"
+        },
+        "public_updated_at": "2026-08-21T08:45:37.000+01:00",
+        "summary": "The new National Day for Victims and Survivors of Terrorism will be observed annually on on 21 August.",
+        "title": "First National Day for Victims and Survivors of Terrorism marked"
+      },
+      {
+        "document_type": "News story",
+        "href": "/government/news/new-support-hub-launches-for-victims-and-survivors-of-terrorism",
+        "image": {
+          "alt_text": "Mobile phone being used at night",
+          "high_resolution_url": "https://assets.publishing.service.gov.uk/media/6a706ae1bf4a7aca8f897814/s712_mobile_phone__city_at_night_getty-960.jpg",
+          "medium_resolution_url": "https://assets.publishing.service.gov.uk/media/6a706ae1cceb23e867897821/s465_mobile_phone__city_at_night_getty-960.jpg",
+          "url": "https://assets.publishing.service.gov.uk/media/6a706ae10ddb7e4831c62b52/mobile_phone__city_at_night_getty-960.jpg"
+        },
+        "public_updated_at": "2026-06-01T11:17:34.000+01:00",
+        "summary": "A new support hub has launched delivering tailored, trauma-informed care for victims and survivors of terrorism.",
+        "title": "New support hub launches for victims and survivors of terrorism"
+      },
+      {
+        "document_type": "News story",
+        "href": "/government/news/new-national-day-for-victims-and-survivors-of-terrorism",
+        "image": {
+          "alt_text": "Crowd scene",
+          "high_resolution_url": "https://assets.publishing.service.gov.uk/media/6a6ca39bcceb23e8678977a4/s712_vtu-crowd-scene-960-640.jpg",
+          "medium_resolution_url": "https://assets.publishing.service.gov.uk/media/6a6ca39b862aaf18d9c62adf/s465_vtu-crowd-scene-960-640.jpg",
+          "url": "https://assets.publishing.service.gov.uk/media/6a6ca39bcceb23e8678977a6/vtu-crowd-scene-960-640.jpg"
+        },
+        "public_updated_at": "2025-11-24T00:00:00.000+00:00",
+        "summary": "Government delivers on promise to honour victims and survivors of terrorism by establishing a new annual national day, with inaugural day on 21 August 2026.",
+        "title": "New National Day for Victims and Survivors of Terrorism"
+      }
+    ],
+    "ordered_navigation_items": [
+      {
+        "content_id": "af7756de-f872-4e08-b20b-a48495baf6d6"
+      },
+      {
+        "content_id": "2e537bba-63ae-4de3-aada-b5f51b2ab6be"
+      },
+      {
+        "content_id": "2a4f8753-bb85-4456-971f-63ce232fa066"
+      }
+    ],
+    "social_media_links": [
+      {
+        "href": "https://facebook.com",
+        "service_type": "facebook",
+        "title": "Facebook"
+      },
+      {
+        "href": "https://instagram.com",
+        "service_type": "instagram",
+        "title": "Custom Instagram profile"
+      }
+    ]
+  },
+  "document_type": "mini_site_landing",
+  "first_published_at": null,
+  "links": {
+    "available_translations": [
+      {
+        "api_path": "/api/content/government/pathways-to-growth",
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/pathways-to-growth",
+        "base_path": "/government/pathways-to-growth",
+        "content_id": "af7756de-f872-4e08-b20b-a48495baf6d6",
+        "document_type": "mini_site_landing",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2026-09-23T11:30:26Z",
+        "schema_name": "mini_site",
+        "title": "Pathways to Growth",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/pathways-to-growth",
+        "withdrawn": false
+      }
+    ],
+    "emphasised_organisations": [
+      {
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "details": {
+          "acronym": "GDS",
+          "brand": "government-digital-service",
+          "default_news_image": null,
+          "logo": {
+            "crest": "gds",
+            "formatted_title": "Government<br/>Digital Service"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Government Digital Service",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/government-digital-service",
+        "withdrawn": false
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "details": {
+          "acronym": "GDS",
+          "brand": "government-digital-service",
+          "default_news_image": null,
+          "logo": {
+            "crest": "gds",
+            "formatted_title": "Government<br/>Digital Service"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Government Digital Service",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/government-digital-service",
+        "withdrawn": false
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "OT1056",
+        "api_path": "/api/content/government/organisations/government-digital-service",
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/government/organisations/government-digital-service",
+        "base_path": "/government/organisations/government-digital-service",
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "details": {
+          "acronym": "GDS",
+          "brand": "government-digital-service",
+          "default_news_image": null,
+          "logo": {
+            "crest": "gds",
+            "formatted_title": "Government<br/>Digital Service"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
+          }
+        },
+        "document_type": "organisation",
+        "links": {},
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Government Digital Service",
+        "web_url": "https://www.integration.publishing.service.gov.uk/government/organisations/government-digital-service",
+        "withdrawn": false
+      }
+    ],
+    "shared_navigations": [
+      {
+        "base_path": "/internal/not-a-path/navigation",
+        "content_id": "9930c1f9-aacc-4b0b-921e-7ded079b14aa",
+        "locale": "en",
+        "title": "Will try to figure out whether we can omit these properties - all that matters is the `navigation_items` property.",
+        "navigation_items": [
+          {
+            "content_id": "af7756de-f872-4e08-b20b-a48495baf6d6",
+            "title": "Pathways to Growth",
+            "locale": "en",
+            "analytics_identifier": null,
+            "api_path": "/api/content/government/pathways-to-growth",
+            "base_path": "/government/pathways-to-growth",
+            "document_type": "mini_site_landing",
+            "public_updated_at": "2026-03-23T12:30:26Z",
+            "schema_name": "mini_site",
+            "withdrawn": false,
+            "links": {}
+          },
+          {
+            "content_id": "2e537bba-63ae-4de3-aada-b5f51b2ab6be",
+            "title": "Develop skills for growth",
+            "locale": "en",
+            "analytics_identifier": null,
+            "api_path": "/api/content/government/pathways-to-growth/develop-skills-for-growth",
+            "base_path": "/government/pathways-to-growth/develop-skills-for-growth",
+            "document_type": "mini_site_child",
+            "public_updated_at": "2026-03-23T12:30:26Z",
+            "schema_name": "mini_site",
+            "withdrawn": false,
+            "links": {}
+          },
+          {
+            "content_id": "2a4f8753-bb85-4456-971f-63ce232fa066",
+            "title": "Access finance for growth",
+            "locale": "en",
+            "analytics_identifier": null,
+            "api_path": "/api/content/government/pathways-to-growth/access-finance-for-growth",
+            "base_path": "/government/pathways-to-growth/access-finance-for-growth",
+            "document_type": "mini_site_child",
+            "public_updated_at": "2026-03-23T12:30:26Z",
+            "schema_name": "mini_site",
+            "withdrawn": false,
+            "links": {}
+          }
+        ]
+      }
+    ]
+  },
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2026-09-23T12:30:26+01:00",
+  "publishing_app": "whitehall",
+  "publishing_request_id": null,
+  "publishing_scheduled_at": null,
+  "rendering_app": "frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "mini_site",
+  "title": "Pathways to Growth",
+  "updated_at": "2026-09-23T12:30:37+01:00",
+  "withdrawn_notice": {}
+}

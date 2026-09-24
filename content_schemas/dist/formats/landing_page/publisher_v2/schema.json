@@ -103,6 +103,9 @@
         "related_policies": {
           "$ref": "#/definitions/guid_list"
         },
+        "shared_navigations": {
+          "$ref": "#/definitions/guid_list"
+        },
         "topical_events": {
           "$ref": "#/definitions/guid_list"
         }
