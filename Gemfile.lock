@@ -77,7 +77,6 @@ GEM
       uri (>= 0.13.1)
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
-    amazing_print (2.0.0)
     amq-protocol (2.9.0)
     ast (2.4.3)
     auth-sanitizer (0.2.3)
@@ -160,8 +159,6 @@ GEM
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
-    expgen (0.1.1)
-      parslet
     factory_bot (6.5.5)
       activesupport (>= 6.1.0)
     factory_bot_rails (6.5.1)
@@ -180,7 +177,6 @@ GEM
     ffi (1.17.3-arm64-darwin)
     ffi (1.17.3-x86_64-linux-gnu)
     fiber-storage (1.0.1)
-    find_a_port (1.0.1)
     fugit (1.12.1)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
@@ -331,8 +327,6 @@ GEM
       bigdecimal (>= 3.1, < 5)
     jsonnet (0.6.0)
       mini_portile2 (>= 2.2.0)
-    jsonpath (1.1.5)
-      multi_json
     jwt (3.2.0)
       base64
     kramdown (2.5.2)
@@ -594,35 +588,18 @@ GEM
       opentelemetry-api (~> 1.0)
     os (1.1.4)
     ostruct (0.6.3)
-    pact (1.67.5)
-      pact-mock_service (~> 3.0, >= 3.3.1)
-      pact-support (~> 1.21, >= 1.21.2)
+    pact (2.1.0)
+      pact-ffi (~> 0.5.8)
       rack
       rack-proxy
-      rack-test (>= 0.6.3, < 3.0.0)
-      rainbow (~> 3.1)
-      rspec (~> 3.0)
-      thor (>= 0.20, < 2.0)
       webrick (~> 1.8)
       zeitwerk (~> 2.3)
-    pact-mock_service (3.12.4)
-      find_a_port (~> 1.0.1)
-      json
-      logger (< 2.0)
-      pact-support (~> 1.16, >= 1.16.4)
-      rack (>= 3.0, < 4.0)
-      rackup (~> 2.0)
-      rspec (>= 2.14)
-      thor (>= 0.19, < 2.0)
-      webrick (~> 1.8)
-    pact-support (1.21.7)
-      amazing_print (~> 2.0)
-      diff-lcs (~> 1.6)
-      expgen (~> 0.1)
-      jsonpath (~> 1.0)
-      logger (< 2.0)
-      rainbow (~> 3.1.1)
-      string_pattern (~> 2.0)
+    pact-ffi (0.5.8.1-aarch64-linux)
+      ffi (~> 1.15)
+    pact-ffi (0.5.8.1-arm64-darwin)
+      ffi (~> 1.15)
+    pact-ffi (0.5.8.1-x86_64-linux)
+      ffi (~> 1.15)
     pact_broker-client (1.78.0)
       base64 (~> 0.2)
       dig_rb (~> 1.0)
@@ -639,7 +616,6 @@ GEM
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
-    parslet (2.0.0)
     pg (1.6.3)
     pg (1.6.3-aarch64-linux)
     pg (1.6.3-arm64-darwin)
@@ -867,8 +843,6 @@ GEM
       sprockets (>= 3.0.0)
     stackprof (0.2.28)
     statsd-ruby (1.5.0)
-    string_pattern (2.4.0)
-      regexp_parser (~> 2.5, >= 2.5.0)
     strong_migrations (2.8.0)
       activerecord (>= 7.2)
     strscan (3.1.8)
@@ -928,7 +902,6 @@ GEM
 PLATFORMS
   aarch64-linux
   arm64-darwin
-  ruby
   x86_64-linux
 
 DEPENDENCIES
@@ -959,7 +932,7 @@ DEPENDENCIES
   listen
   oj
   ostruct
-  pact (~> 1.67)
+  pact (~> 2.0)
   pact_broker-client
   parallel_rspec
   pg
@@ -969,6 +942,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (= 8.1.3.1)
   rails-pg-extras
+  rspec
   rspec-rails
   rubocop-govuk
   sentry-sidekiq

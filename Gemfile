@@ -46,9 +46,10 @@ group :development, :test do
   gem "database_cleaner"
   gem "factory_bot_rails"
   gem "govuk_test"
-  gem "pact", "~> 1.67", require: false
+  gem "pact", "~> 2.0", require: false
   gem "pact_broker-client", require: false
   gem "parallel_rspec"
+  gem "rspec"
   gem "rspec-rails"
   gem "rubocop-govuk", require: false
   gem "simplecov", require: false
