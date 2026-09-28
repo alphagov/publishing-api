@@ -12,7 +12,6 @@ module Commands
         reserve_current_path
         clear_draft_items_of_same_locale_and_base_path
         clear_draft_item_of_different_locale_but_matching_base_path
-        check_update_type
 
         update_root_payload_with_auth_bypass_ids
 
@@ -100,16 +99,6 @@ module Commands
               message: "A value for bulk_publishing is required",
             },
           },
-        )
-      end
-
-      def check_update_type
-        return if payload[:update_type].present?
-
-        GovukError.notify(
-          "#{payload[:publishing_app]} sent put content without providing an update_type",
-          level: "warning",
-          extra: payload.slice(:publishing_app, :content_id, :locale),
         )
       end
 
