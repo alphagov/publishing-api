@@ -469,28 +469,6 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "when no update_type is provided" do
-      before do
-        payload.delete(:update_type)
-      end
-
-      it "should send an alert to GovukError" do
-        expect(GovukError).to receive(:notify)
-          .with(anything, level: "warning", extra: a_hash_including(content_id:))
-
-        described_class.call(payload)
-      end
-    end
-
-    context "when an update type is provided" do
-      it "should not send an alert to GovukError" do
-        expect(GovukError).to_not receive(:notify)
-          .with(anything, level: "warning", extra: a_hash_including(content_id:))
-
-        described_class.call(payload)
-      end
-    end
-
     context "when creating a new translation and a draft exists with a different locale and different base path" do
       let(:cy_document) { create(:document, content_id:, locale: "cy") }
       let!(:cy_edition) do
