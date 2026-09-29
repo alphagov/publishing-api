@@ -4,7 +4,6 @@
 require File.expand_path("config/application", __dir__)
 
 begin
-  require "pact/tasks"
   require "pact_broker/client/tasks"
 
   PactBroker::Client::PublicationTask.new do |task|
