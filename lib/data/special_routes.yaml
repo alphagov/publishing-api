@@ -275,6 +275,12 @@
   :description: "You can choose which cookies you're happy for GOV.UK to use."
   :rendering_app: "frontend"
 
+- :base_path: "/latest"
+  :content_id: "3ec519ba-595a-478b-b76d-2aa659a19e10"
+  :title: "GOV.UK latest page"
+  :description: "Shows the most recently modified page on GOV.UK."
+  :rendering_app: "frontend"
+
 - :base_path: "/random"
   :content_id: "3c991cea-cdee-4e58-b8d1-d38e7c0e6327"
   :title: "GOV.UK random page"
