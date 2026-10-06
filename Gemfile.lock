@@ -247,8 +247,8 @@ GEM
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
-    govspeak (10.11.4)
-      actionview (>= 6, < 8.1.4)
+    govspeak (10.11.5)
+      actionview (>= 6, < 8.1.5)
       addressable (>= 2.3.8, < 2.9.1)
       govuk_publishing_components (>= 43)
       htmlentities (~> 4)
@@ -274,7 +274,7 @@ GEM
     govuk_personalisation (1.2.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (70.2.0)
+    govuk_publishing_components (70.2.1)
       chartkick
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
@@ -376,7 +376,7 @@ GEM
       net-protocol
     net-protocol (0.4.0)
       timeout
-    net-smtp (0.5.1)
+    net-smtp (0.5.2)
       net-protocol
     netrc (0.11.0)
     nio4r (2.7.5)
@@ -413,7 +413,7 @@ GEM
     openssl (4.0.2)
     opentelemetry-api (1.11.1)
       logger
-    opentelemetry-common (0.25.1)
+    opentelemetry-common (0.25.2)
       opentelemetry-api (~> 1.0)
     opentelemetry-exporter-otlp (0.34.1)
       google-protobuf (>= 3.18)
@@ -490,9 +490,11 @@ GEM
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-aws_sdk (0.13.0)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-base (0.26.1)
+    opentelemetry-instrumentation-base (0.27.0)
       opentelemetry-api (~> 1.7)
       opentelemetry-common (~> 0.21)
+      opentelemetry-logs-api (~> 0.6)
+      opentelemetry-metrics-api (~> 0.9)
       opentelemetry-registry (~> 0.1)
     opentelemetry-instrumentation-bunny (0.25.0)
       opentelemetry-instrumentation-base (~> 0.25)
@@ -543,7 +545,7 @@ GEM
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-racecar (0.7.0)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-rack (0.31.1)
+    opentelemetry-instrumentation-rack (0.31.2)
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-rails (0.42.0)
       opentelemetry-instrumentation-action_mailer (~> 0.7)
@@ -568,7 +570,7 @@ GEM
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-sidekiq (0.29.0)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-sinatra (0.30.0)
+    opentelemetry-instrumentation-sinatra (0.30.1)
       opentelemetry-instrumentation-rack (~> 0.29)
     opentelemetry-instrumentation-trilogy (0.69.0)
       opentelemetry-helpers-mysql
@@ -576,6 +578,10 @@ GEM
       opentelemetry-helpers-sql-processor
       opentelemetry-instrumentation-base (~> 0.25)
       opentelemetry-semantic_conventions (>= 1.8.0)
+    opentelemetry-logs-api (0.6.0)
+      opentelemetry-api (~> 1.0)
+    opentelemetry-metrics-api (0.9.0)
+      opentelemetry-api (~> 1.0)
     opentelemetry-registry (0.6.3)
       opentelemetry-api (~> 1.1)
     opentelemetry-sdk (1.13.1)
