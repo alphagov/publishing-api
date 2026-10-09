@@ -18,3 +18,23 @@ jobs:
     permissions:
       id-token: write
       contents: read
+
+  # Lets govuk-preview-app preview any branch of publishing-api itself, not
+  # just releases - ImageResolver looks up
+  # ghcr.io/alphagov/govuk/publishing-api tagged with a branch's own HEAD
+  # commit SHA, and waits for it to appear. github.event.pull_request.head.sha
+  # is that same SHA (the PR branch's real tip, not GitHub's synthetic merge
+  # commit). A separate job, left to run alongside the existing build-check
+  # above rather than replacing it, so nothing about that job (its name, its
+  # trigger, any branch-protection rule that names it) changes.
+  push-image:
+    name: Push image from PR
+    if: github.event_name == 'pull_request'
+    needs: build-image-from-PR
+    uses: alphagov/govuk-infrastructure/.github/workflows/build-push-arm-image.yml@main
+    with:
+      gitRef: ${{ github.event.pull_request.head.sha }}
+    permissions:
+      id-token: write
+      contents: read
+      packages: write
