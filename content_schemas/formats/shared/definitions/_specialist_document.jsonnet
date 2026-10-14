@@ -1012,7 +1012,10 @@
         type: "string",
       },
       patent_decision_keyword_or_phrase: {
-        type: "string",
+        type: "array",
+        items: {
+          type: "string",
+        },
       }
     },
   },
