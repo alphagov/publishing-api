@@ -11,7 +11,7 @@ class QueuePublisher
   def connection
     @connection_mutex.synchronize do
       @connection ||= Bunny.new(ENV["RABBITMQ_URL"], @options)
-      @connection_created_at = Time.zone.now
+      @connection_created_at ||= Time.zone.now
       @connection.start
     end
   end

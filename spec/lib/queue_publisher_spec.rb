@@ -36,6 +36,15 @@ RSpec.describe QueuePublisher do
           queue_publisher
         }.not_to raise_error
       end
+
+      it "keeps the original connection timestamp across calls" do
+        queue_publisher.connection
+        first_created_at = queue_publisher.instance_variable_get(:@connection_created_at)
+
+        Timecop.travel(10.minutes) { queue_publisher.connection }
+
+        expect(queue_publisher.instance_variable_get(:@connection_created_at)).to eq(first_created_at)
+      end
     end
 
     describe "sending a message" do
