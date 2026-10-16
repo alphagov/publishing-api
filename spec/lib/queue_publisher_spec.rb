@@ -125,8 +125,65 @@ RSpec.describe QueuePublisher do
 
             queue_publisher.send_message(content_item)
           end
+        end
 
-          it "logs and re-raises timeout errors" do
+        context "when waiting for confirms times out" do
+          before :each do
+            allow(mock_exchange).to receive(:wait_for_confirms).and_raise(Timeout::Error)
+            allow(mock_session).to receive_messages(
+              open?: true,
+              status: :connected,
+              transport: instance_double("Bunny::Transport", host: "rabbitmq.example.com"),
+            )
+          end
+
+          it "logs the connection context and re-raises" do
+            expect(Rails.logger)
+              .to receive(:error)
+                .with(a_string_including(
+                        '"routing_key":"answer.major"',
+                        '"event_type":"major"',
+                      ))
+            expect { queue_publisher.send_message(content_item) }.to raise_error(Timeout::Error)
+          end
+
+          it "does not attempt a reconnect while logging the error" do
+            # Session#start has already been called once by `connection`
+            expect(mock_session).to receive(:start).once
+            expect { queue_publisher.send_message(content_item) }.to raise_error(Timeout::Error)
+          end
+        end
+
+        context "when declaring the exchange times out" do
+          before :each do
+            allow(mock_channel).to receive(:topic).and_raise(Timeout::Error)
+            allow(mock_channel).to receive(:open?).and_return(true)
+            allow(mock_session).to receive_messages(
+              open?: true,
+              status: :connected,
+              transport: instance_double("Bunny::Transport", host: "rabbitmq.example.com"),
+            )
+          end
+
+          it "logs the error, closes the channel and re-raises" do
+            expect(Rails.logger).to receive(:error)
+            expect(mock_channel).to receive(:close)
+            expect { queue_publisher.send_message(content_item) }.to raise_error(Timeout::Error)
+          end
+        end
+
+        context "when creating the channel fails" do
+          before :each do
+            allow(mock_session).to receive(:create_channel).and_raise(AMQ::Protocol::EmptyResponseError)
+          end
+
+          it "propagates the original error without attempting cleanup" do
+            expect { queue_publisher.send_message(content_item) }.to raise_error(AMQ::Protocol::EmptyResponseError)
+          end
+        end
+
+        context "when closing the channel times out after a successful publish" do
+          before :each do
             allow(mock_channel).to receive(:open?).and_return(true)
             allow(mock_channel).to receive(:close).and_raise(Timeout::Error)
             allow(mock_session).to receive_messages(
@@ -134,9 +191,28 @@ RSpec.describe QueuePublisher do
               status: :connected,
               transport: instance_double("Bunny::Transport", host: "rabbitmq.example.com"),
             )
+          end
 
-            expect(Rails.logger).to receive(:error)
-            expect { queue_publisher.send_message(content_item) }.to raise_error(Timeout::Error)
+          it "logs the error but does not fail the job" do
+            expect(Rails.logger).to receive(:error).with(a_string_including("Error publishing to RabbitMQ"))
+            expect { queue_publisher.send_message(content_item) }.not_to raise_error
+          end
+        end
+
+        context "when closing the channel fails outright" do
+          before :each do
+            allow(mock_channel).to receive(:open?).and_return(true)
+            allow(mock_channel).to receive(:close).and_raise(AMQ::Protocol::EmptyResponseError)
+            allow(mock_session).to receive_messages(
+              open?: false,
+              status: :closed,
+              transport: instance_double("Bunny::Transport", host: "rabbitmq.example.com"),
+            )
+          end
+
+          it "logs the error but does not fail the job" do
+            expect(Rails.logger).to receive(:error).with(a_string_including("Error publishing to RabbitMQ"))
+            expect { queue_publisher.send_message(content_item) }.not_to raise_error
           end
         end
       end
