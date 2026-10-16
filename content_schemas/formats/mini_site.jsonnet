@@ -22,6 +22,9 @@
         ordered_navigation_items: {
           "$ref": "#/definitions/ordered_navigation_items",
         },
+        national_applicability: {
+          "$ref": "#/definitions/national_applicability",
+        },
         social_media_links: (import "shared/definitions/_social_media_links.jsonnet"),
         images: {
           type: "array",

@@ -23,6 +23,25 @@
         "type": "header"
       }
     ],
+    "national_applicability": {
+      "england": {
+        "label": "England",
+        "applicable": true
+      },
+      "northern_ireland": {
+        "label": "Northern Ireland",
+        "applicable": true
+      },
+      "scotland": {
+        "label": "Scotland",
+        "applicable": false,
+        "alternative_url": "https://www.mygov.scot/pathways-to-growth"
+      },
+      "wales": {
+        "label": "Wales",
+        "applicable": true
+      }
+    },
     "ordered_featured_documents": [
       {
         "document_type": "Detailed guide",
