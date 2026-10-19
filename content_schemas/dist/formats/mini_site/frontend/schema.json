@@ -34,6 +34,7 @@
     "document_type": {
       "type": "string",
       "enum": [
+        "mini_site_child",
         "mini_site_landing"
       ]
     },
