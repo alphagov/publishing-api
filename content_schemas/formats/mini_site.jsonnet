@@ -1,5 +1,6 @@
 (import "shared/default_format.jsonnet") + {
   document_type: [
+    "mini_site_child",
     "mini_site_landing",
   ],
   definitions: (import "shared/definitions/_whitehall.jsonnet") + {
