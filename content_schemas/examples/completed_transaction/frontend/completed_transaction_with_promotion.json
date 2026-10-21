@@ -39,7 +39,7 @@
   "phase": "live",
   "public_updated_at": "2016-06-28T13:40:57.000+00:00",
   "publishing_app": "publisher",
-  "rendering_app": "frontend",
+  "rendering_app": "feedback",
   "schema_name": "completed_transaction",
   "title": "Thank you",
   "updated_at": "2017-02-24T16:03:17.091Z",
