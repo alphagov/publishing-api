@@ -2,217 +2,312 @@
   "analytics_identifier": null,
   "base_path": "/government/publications/application-to-extend-your-stay-in-the-uk-as-a-tier-1-investor",
   "content_id": "5f1258bc-7631-11e4-a3cb-005056011aef",
-  "document_type": "form",
-  "first_published_at": "2014-02-11T14:12:00.000+00:00",
-  "locale": "en",
-  "phase": "live",
-  "public_updated_at": "2016-11-24T00:00:22.000+00:00",
-  "publishing_app": "whitehall",
-  "rendering_app": "frontend",
-  "schema_name": "publication",
-  "title": "Application to extend your stay in the UK as a Tier 1 Investor",
-  "updated_at": "2017-12-19T11:26:38.186Z",
-  "publishing_request_id": null,
-  "links": {
-    "government": [
+  "description": "This form is no longer in use. It was used to extend your existing visa under Tier 1 (Investor) or to switch into it from another immigration category.",
+  "details": {
+    "attachments": [
       {
-        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
-        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
-        "locale": "en",
-        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
-        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
-        "document_type": "government",
-        "details": {
-          "started_on": "2010-05-12T00:00:00+00:00",
-          "ended_on": "2015-05-08T00:00:00+00:00",
-          "current": false
-        },
-        "links": {
-        },
-        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
-        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+        "accessible": false,
+        "alternative_format_contact_email": "alternativeformats@homeoffice.gov.uk",
+        "assets": [
+          {
+            "asset_manager_id": "5a8224bb40f0b62305b92b63",
+            "filename": "T1__I__Form_11-16.pdf"
+          }
+        ],
+        "attachment_type": "file",
+        "command_paper_number": "",
+        "content_type": "application/pdf",
+        "file_size": 1012817,
+        "filename": "T1__I__Form_11-16.pdf",
+        "hoc_paper_number": "",
+        "id": "1940028",
+        "isbn": "",
+        "number_of_pages": 37,
+        "title": "Application for an initial grant of leave (switching) or an extension of leave and biometric residence permit under Tier 1 (Investor) main applicant",
+        "unique_reference": "",
+        "unnumbered_command_paper": false,
+        "unnumbered_hoc_paper": false,
+        "url": "https://assets.publishing.service.gov.uk/media/5a8224bb40f0b62305b92b63/T1__I__Form_11-16.pdf"
       }
     ],
-    "document_collections": [
+    "body": "\u003Cdiv class=\"govspeak\"\u003E\u003Cp\u003EThis form was for people in the UK:\u003C/p\u003E\n\n\u003Cul\u003E\n  \u003Cli\u003Eon a Tier 1 (Investor) visa, who wanted to extend their stay\u003C/li\u003E\n  \u003Cli\u003Eon another visa, who wanted to switch to a Tier 1 (Investor) visa\u003C/li\u003E\n\u003C/ul\u003E\n\n\u003C/div\u003E",
+    "change_history": [
       {
-        "api_path": "/api/content/government/collections/uk-visa-forms",
-        "base_path": "/government/collections/uk-visa-forms",
-        "content_id": "5f5298e2-7631-11e4-a3cb-005056011aef",
-        "description": "A collection of all the application forms for people who can't apply online and want to come to the UK, extend their stay or settle.",
-        "document_type": "document_collection",
-        "locale": "en",
-        "public_updated_at": "2017-08-21T17:24:49Z",
-        "schema_name": "document_collection",
-        "title": "UK visa, immigration and citizenship application forms",
-        "withdrawn": false,
+        "note": "Updated form for use on or after 24 November.",
+        "public_timestamp": "2016-11-24T00:00:22Z"
+      },
+      {
+        "note": "Updated form for use on or after 18 March.",
+        "public_timestamp": "2016-03-18T00:00:21Z"
+      },
+      {
+        "note": "Updated guidance for use on or after 19 November 2015.",
+        "public_timestamp": "2015-11-19T11:58:45Z"
+      },
+      {
+        "note": "Updated form published for use on or after 14 August 2015.",
+        "public_timestamp": "2015-08-13T23:00:25Z"
+      },
+      {
+        "note": "New version published for use on or after 6 April 2015.\r\n",
+        "public_timestamp": "2015-04-05T23:15:30Z"
+      },
+      {
+        "note": "New version published for use on or after 1 December 2014.",
+        "public_timestamp": "2014-12-01T00:01:33Z"
+      },
+      {
+        "note": "New version published for use on or after 6 November 2014.",
+        "public_timestamp": "2014-11-06T00:00:06Z"
+      },
+      {
+        "note": "New version of document ",
+        "public_timestamp": "2014-04-05T23:18:23Z"
+      },
+      {
+        "note": "First published.",
+        "public_timestamp": "2014-02-11T14:12:00Z"
+      }
+    ],
+    "document_type_label": "Form",
+    "documents": [
+      "\u003Csection data-module=\"ga4-link-tracker\" class=\"gem-c-attachment govuk-!-margin-bottom-6\"\u003E\n  \u003Cdiv class=\"gem-c-attachment__thumbnail govuk-!-display-none-print\"\u003E\n    \u003Ca class=\"govuk-link\" target=\"_self\" tabindex=\"-1\" aria-hidden=\"true\" data-ga4-link=\"{&quot;event_name&quot;:&quot;file_download&quot;,&quot;type&quot;:&quot;attachment&quot;}\" href=\"https://assets.publishing.service.gov.uk/media/5a8224bb40f0b62305b92b63/T1__I__Form_11-16.pdf\"\u003E\n        \u003Csvg class=\"gem-c-attachment__thumbnail-image gem-c-attachment__thumbnail-image--pdf\" version=\"1.1\" viewBox=\"0 0 99 140\"\u003E\n  \u003Cpath d=\"M12,59h9v9h-9v-9ZM30,77v9h39v-9H30ZM30,104h57v-9H30v9ZM30,122h48v-9H30v9ZM12,86h9v-9h-9v9ZM12,122h9v-9h-9v9ZM12,104h9v-9h-9v9ZM30,68h57v-9H30v9ZM35.2,21c-.3-.2-.6-.4-1-.5s-.8-.2-1.3-.2h-2.6v5.5h2.6c.5,0,1,0,1.3-.2s.7-.3,1-.5c.3-.2.5-.5.7-.8s.2-.7.2-1.1h0c0-.5,0-.9-.2-1.2-.2-.3-.4-.6-.7-.8h0ZM52.4,21.9c-.4-.5-1-.9-1.6-1.1-.7-.3-1.5-.4-2.4-.4h-2.7v11.5h2.7c.9,0,1.7-.1,2.4-.4s1.2-.7,1.6-1.1c.4-.5.7-1.1.9-1.7.2-.7.3-1.4.3-2.1v-.7c0-.8,0-1.5-.3-2.1-.2-.6-.5-1.2-.9-1.7h0ZM87,12v27H12V12h75ZM39.8,23c0-.9-.1-1.6-.4-2.4-.3-.7-.7-1.4-1.2-1.9-.5-.5-1.2-1-1.9-1.2-.8-.3-1.6-.5-2.5-.5h-7.2v17.9h3.6v-6h3.2c.9,0,1.8-.1,2.6-.5.8-.3,1.4-.7,2-1.2.5-.5,1-1.2,1.3-1.9.3-.7.5-1.5.5-2.4h0ZM57.4,26c0-1.3-.2-2.6-.5-3.7s-.9-2-1.6-2.8c-.7-.8-1.6-1.4-2.7-1.8-1.1-.4-2.3-.6-3.8-.6h-6.6v17.9h6.6c1.5,0,2.7-.2,3.8-.6,1.1-.4,2-1,2.7-1.8.7-.8,1.3-1.7,1.6-2.8.4-1.1.5-2.3.5-3.7h0ZM72.4,17.1h-12.1v17.9h3.6v-7.5h7.8v-3.3h-7.8v-3.8h8.4s0-3.3,0-3.3Z\" /\u003E\n\u003C/svg\u003E\n\n\u003C/a\u003E\u003C/div\u003E\n  \u003Cdiv class=\"gem-c-attachment__details\"\u003E\n    \u003Ch2 class=\"gem-c-attachment__title\"\u003E\n      \u003Ca class=\"govuk-link\" target=\"_self\" data-ga4-link=\"{&quot;event_name&quot;:&quot;file_download&quot;,&quot;type&quot;:&quot;attachment&quot;}\" href=\"https://assets.publishing.service.gov.uk/media/5a8224bb40f0b62305b92b63/T1__I__Form_11-16.pdf\"\u003EApplication for an initial grant of leave (switching) or an extension of leave and biometric residence permit under Tier 1 (Investor) main applicant\u003C/a\u003E\n\u003C/h2\u003E\n\n\n      \u003Cp class=\"gem-c-attachment__metadata\"\u003E\u003Cspan class=\"gem-c-attachment__attribute\"\u003E\u003Cabbr title=\"Portable Document Format\" class=\"gem-c-attachment__abbr\"\u003EPDF\u003C/abbr\u003E\u003C/span\u003E, \u003Cspan class=\"gem-c-attachment__attribute\"\u003E989 KB\u003C/span\u003E, \u003Cspan class=\"gem-c-attachment__attribute\"\u003E37 pages\u003C/span\u003E\u003C/p\u003E\n\n\n\n\n      \u003Cp class=\"gem-c-attachment__metadata\"\u003EThis file may not be suitable for users of assistive technology.\u003C/p\u003E\n      \u003Cdetails data-module=\"ga4-event-tracker\" data-ga4-event=\"{&quot;event_name&quot;:&quot;select_content&quot;,&quot;type&quot;:&quot;detail&quot;,&quot;text&quot;:&quot;Request an accessible format.&quot;,&quot;section&quot;:&quot;Request an accessible format.&quot;,&quot;index_section&quot;:1}\" class=\"gem-c-details govuk-details govuk-!-margin-bottom-0\" title=\"Request an accessible format.\"\u003E\n  \u003Csummary class=\"govuk-details__summary\"\u003E\n    \u003Cspan class=\"govuk-details__summary-text\"  data-ga4-expandable\u003E\n      Request an accessible format.\n    \u003C/span\u003E\n\u003C/summary\u003E  \u003Cdiv class=\"govuk-details__text\"\u003E\n    \n        If you use assistive technology (such as a screen reader) and need a version of this document in a more accessible format, please email \u003Ca href='mailto:alternativeformats@homeoffice.gov.uk' target='_blank' class='govuk-link'\u003Ealternativeformats@homeoffice.gov.uk\u003C/a\u003E. Please tell us what format you need. It will help us if you say what assistive technology you use.\n\n  \u003C/div\u003E\n\u003C/details\u003E\u003C/div\u003E\u003C/section\u003E"
+    ],
+    "emphasised_organisations": [
+      "04148522-b0c1-4137-b687-5f3c3bdd561a"
+    ],
+    "featured_attachments": [
+      "1940028"
+    ],
+    "first_public_at": "2014-02-11T14:12:00.000+00:00",
+    "political": false,
+    "tags": {
+      "browse_pages": []
+    }
+  },
+  "document_type": "form",
+  "first_published_at": "2014-02-11T14:12:00+00:00",
+  "links": {
+    "available_translations": [
+      {
+        "api_path": "/api/content/government/publications/application-to-extend-your-stay-in-the-uk-as-a-tier-1-investor",
+        "api_url": "https://www.gov.uk/api/content/government/publications/application-to-extend-your-stay-in-the-uk-as-a-tier-1-investor",
+        "base_path": "/government/publications/application-to-extend-your-stay-in-the-uk-as-a-tier-1-investor",
+        "content_id": "5f1258bc-7631-11e4-a3cb-005056011aef",
+        "document_type": "form",
         "links": {
+
         },
-        "api_url": "https://www.gov.uk/api/content/government/collections/uk-visa-forms",
-        "web_url": "https://www.gov.uk/government/collections/uk-visa-forms"
+        "locale": "en",
+        "public_updated_at": "2016-11-24T00:00:22Z",
+        "schema_name": "publication",
+        "title": "Application to extend your stay in the UK as a Tier 1 Investor",
+        "web_url": "https://www.gov.uk/government/publications/application-to-extend-your-stay-in-the-uk-as-a-tier-1-investor",
+        "withdrawn": true
+      }
+    ],
+    "government": [
+      {
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "details": {
+          "current": false,
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "started_on": "2010-05-12T00:00:00+00:00"
+        },
+        "document_type": "government",
+        "links": {
+
+        },
+        "locale": "en",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
       }
     ],
     "organisations": [
       {
         "analytics_identifier": "OT554",
         "api_path": "/api/content/government/organisations/uk-visas-and-immigration",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/uk-visas-and-immigration",
         "base_path": "/government/organisations/uk-visas-and-immigration",
         "content_id": "04148522-b0c1-4137-b687-5f3c3bdd561a",
-        "document_type": "organisation",
-        "locale": "en",
-        "public_updated_at": "2014-10-15T14:36:48Z",
-        "schema_name": "organisation",
-        "title": "UK Visas and Immigration",
-        "withdrawn": false,
         "details": {
+          "acronym": "UKVI",
           "brand": "home-office",
+          "default_news_image": null,
           "logo": {
-            "formatted_title": "UK Visas and Immigration",
-            "crest": "ho"
+            "crest": "ho",
+            "formatted_title": "UK Visas and Immigration"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
           }
         },
+        "document_type": "organisation",
         "links": {
+
         },
-        "api_url": "https://www.gov.uk/api/content/government/organisations/uk-visas-and-immigration",
-        "web_url": "https://www.gov.uk/government/organisations/uk-visas-and-immigration"
-      }
-    ],
-    "policy_areas": [
-      {
-        "api_path": "/api/content/government/topics/borders-and-immigration",
-        "base_path": "/government/topics/borders-and-immigration",
-        "content_id": "40c81f52-e1e0-474f-8df6-cd4de9218bac",
-        "document_type": "policy_area",
         "locale": "en",
-        "public_updated_at": "2016-02-04T11:25:07Z",
-        "schema_name": "policy_area",
-        "title": "Borders and immigration",
-        "withdrawn": false,
-        "links": {
-        },
-        "api_url": "https://www.gov.uk/api/content/government/topics/borders-and-immigration",
-        "web_url": "https://www.gov.uk/government/topics/borders-and-immigration"
+        "schema_name": "organisation",
+        "title": "UK Visas and Immigration",
+        "web_url": "https://www.gov.uk/government/organisations/uk-visas-and-immigration",
+        "withdrawn": false
       }
     ],
     "primary_publishing_organisation": [
       {
         "analytics_identifier": "OT554",
         "api_path": "/api/content/government/organisations/uk-visas-and-immigration",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/uk-visas-and-immigration",
         "base_path": "/government/organisations/uk-visas-and-immigration",
         "content_id": "04148522-b0c1-4137-b687-5f3c3bdd561a",
-        "document_type": "organisation",
-        "locale": "en",
-        "public_updated_at": "2014-10-15T14:36:48Z",
-        "schema_name": "organisation",
-        "title": "UK Visas and Immigration",
-        "withdrawn": false,
         "details": {
+          "acronym": "UKVI",
           "brand": "home-office",
+          "default_news_image": null,
           "logo": {
-            "formatted_title": "UK Visas and Immigration",
-            "crest": "ho"
+            "crest": "ho",
+            "formatted_title": "UK Visas and Immigration"
+          },
+          "organisation_govuk_status": {
+            "status": "live",
+            "updated_at": null,
+            "url": null
           }
         },
+        "document_type": "organisation",
         "links": {
+
         },
-        "api_url": "https://www.gov.uk/api/content/government/organisations/uk-visas-and-immigration",
-        "web_url": "https://www.gov.uk/government/organisations/uk-visas-and-immigration"
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "UK Visas and Immigration",
+        "web_url": "https://www.gov.uk/government/organisations/uk-visas-and-immigration",
+        "withdrawn": false
       }
     ],
-    "related_policies": [
+    "taxons": [
       {
-        "api_path": "/api/content/government/policies/immigration-and-borders",
-        "base_path": "/government/policies/immigration-and-borders",
-        "content_id": "5d5e9f6c-7631-11e4-a3cb-005056011aef",
-        "description": "What the government’s doing about immigration and borders.",
-        "document_type": "policy",
-        "locale": "en",
-        "public_updated_at": "2015-05-14T17:22:13Z",
-        "schema_name": "policy",
-        "title": "Immigration and borders",
-        "withdrawn": false,
-        "links": {
+        "api_path": "/api/content/entering-staying-uk",
+        "api_url": "https://www.gov.uk/api/content/entering-staying-uk",
+        "base_path": "/entering-staying-uk",
+        "content_id": "ba3a9702-da22-487f-86c1-8334a730e559",
+        "details": {
+          "internal_name": "Entering and staying in the UK",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": true
         },
-        "api_url": "https://www.gov.uk/api/content/government/policies/immigration-and-borders",
-        "web_url": "https://www.gov.uk/government/policies/immigration-and-borders"
-      }
-    ],
-    "available_translations": [
-      {
-        "title": "Application to extend your stay in the UK as a Tier 1 Investor",
-        "public_updated_at": "2016-11-24T00:00:22Z",
-        "document_type": "form",
-        "schema_name": "publication",
-        "base_path": "/government/publications/application-to-extend-your-stay-in-the-uk-as-a-tier-1-investor",
-        "description": "This form is no longer in use. It was used to extend your existing visa under Tier 1 (Investor) or to switch into it from another immigration category.",
-        "api_path": "/api/content/government/publications/application-to-extend-your-stay-in-the-uk-as-a-tier-1-investor",
-        "withdrawn": true,
-        "content_id": "5f1258bc-7631-11e4-a3cb-005056011aef",
-        "locale": "en",
-        "api_url": "https://www.gov.uk/api/content/government/publications/application-to-extend-your-stay-in-the-uk-as-a-tier-1-investor",
-        "web_url": "https://www.gov.uk/government/publications/application-to-extend-your-stay-in-the-uk-as-a-tier-1-investor",
+        "document_type": "taxon",
         "links": {
-        }
+          "root_taxon": [
+            {
+              "api_path": "/api/content/",
+              "api_url": "https://www.gov.uk/api/content/",
+              "base_path": "/",
+              "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+              "document_type": "homepage",
+              "links": {
+
+              },
+              "locale": "en",
+              "public_updated_at": "2026-02-18T13:00:23Z",
+              "schema_name": "homepage",
+              "title": "GOV.UK homepage",
+              "web_url": "https://www.gov.uk/",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-07-11T08:58:32Z",
+        "schema_name": "taxon",
+        "title": "Entering and staying in the UK",
+        "web_url": "https://www.gov.uk/entering-staying-uk",
+        "withdrawn": false
+      },
+      {
+        "api_path": "/api/content/entering-staying-uk/visas-entry-clearance",
+        "api_url": "https://www.gov.uk/api/content/entering-staying-uk/visas-entry-clearance",
+        "base_path": "/entering-staying-uk/visas-entry-clearance",
+        "content_id": "29480b00-dc4d-49a0-b48c-25dda8569325",
+        "description": "",
+        "details": {
+          "internal_name": "Visas and entry clearance",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": false
+        },
+        "document_type": "taxon",
+        "links": {
+          "parent_taxons": [
+            {
+              "api_path": "/api/content/entering-staying-uk",
+              "api_url": "https://www.gov.uk/api/content/entering-staying-uk",
+              "base_path": "/entering-staying-uk",
+              "content_id": "ba3a9702-da22-487f-86c1-8334a730e559",
+              "details": {
+                "internal_name": "Entering and staying in the UK",
+                "notes_for_editors": "",
+                "visible_to_departmental_editors": true
+              },
+              "document_type": "taxon",
+              "links": {
+                "root_taxon": [
+                  {
+                    "api_path": "/api/content/",
+                    "api_url": "https://www.gov.uk/api/content/",
+                    "base_path": "/",
+                    "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+                    "document_type": "homepage",
+                    "links": {
+
+                    },
+                    "locale": "en",
+                    "public_updated_at": "2026-02-18T13:00:23Z",
+                    "schema_name": "homepage",
+                    "title": "GOV.UK homepage",
+                    "web_url": "https://www.gov.uk/",
+                    "withdrawn": false
+                  }
+                ]
+              },
+              "locale": "en",
+              "phase": "live",
+              "public_updated_at": "2018-07-11T08:58:32Z",
+              "schema_name": "taxon",
+              "title": "Entering and staying in the UK",
+              "web_url": "https://www.gov.uk/entering-staying-uk",
+              "withdrawn": false
+            }
+          ]
+        },
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2018-07-11T08:58:33Z",
+        "schema_name": "taxon",
+        "title": "Visas and entry clearance",
+        "web_url": "https://www.gov.uk/entering-staying-uk/visas-entry-clearance",
+        "withdrawn": false
       }
     ]
   },
-  "description": "Use this form to extend your existing visa under Tier 1 (Investor) or to switch into it from another immigration category.",
-  "details": {
-    "body": "<div class=\"govspeak\"><p>Use this form if you are in the UK on a Tier 1 (Investor) visa and you want to extend your stay or you are in the UK under a different immigration category and you want to switch to Tier 1 (Investor).</p>\n\n<<p>Read the Tier 1 (Investor) guidance notes for further information.</p></div>",
-    "change_history": [
-      {
-        "public_timestamp": "2016-11-24T00:00:22.000+00:00",
-        "note": "Updated form for use on or after 24 November."
-      },
-      {
-        "public_timestamp": "2016-03-18T00:00:21.000+00:00",
-        "note": "Updated form for use on or after 18 March."
-      },
-      {
-        "public_timestamp": "2015-11-19T11:58:45.000+00:00",
-        "note": "Updated guidance for use on or after 19 November 2015."
-      },
-      {
-        "public_timestamp": "2015-08-14T00:00:25.000+01:00",
-        "note": "Updated form published for use on or after 14 August 2015."
-      },
-      {
-        "public_timestamp": "2015-04-06T00:15:30.000+01:00",
-        "note": "New version published for use on or after 6 April 2015.\r\n"
-      },
-      {
-        "public_timestamp": "2014-12-01T00:01:33.000+00:00",
-        "note": "New version published for use on or after 1 December 2014."
-      },
-      {
-        "public_timestamp": "2014-11-06T00:00:06.000+00:00",
-        "note": "New version published for use on or after 6 November 2014."
-      },
-      {
-        "public_timestamp": "2014-04-06T00:18:23.000+01:00",
-        "note": "New version of document "
-      },
-      {
-        "public_timestamp": "2014-02-11T14:12:00.000+00:00",
-        "note": "First published."
-      }
-    ],
-    "emphasised_organisations": [
-      "04148522-b0c1-4137-b687-5f3c3bdd561a"
-    ],
-    "political": false,
-    "government": {
-      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
-      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
-      "current": false
-    },
-    "tags": {
-      "browse_pages": [
-
-      ],
-      "policies": [
-        "immigration-and-borders"
-      ]
-    },
-    "first_public_at": "2014-02-11T14:12:00.000+00:00"
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-11-24T00:00:22+00:00",
+  "publishing_app": "whitehall",
+  "publishing_request_id": "21-1763996290.565-10.13.22.247-2506",
+  "publishing_scheduled_at": null,
+  "rendering_app": "frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "publication",
+  "title": "Application to extend your stay in the UK as a Tier 1 Investor",
+  "updated_at": "2026-04-29T15:30:19+01:00",
+  "withdrawn_notice": {
+    "explanation": "\u003Cdiv class=\"govspeak\"\u003E\u003Cp\u003EThis form is no longer in use. For information on how to apply, please read the \u003Ca href=\"https://www.gov.uk/tier-1-investor/overview\"\u003ETier 1 (Investor) visa\u003C/a\u003E guidance.\u003C/p\u003E\n\u003C/div\u003E",
+    "withdrawn_at": "2017-04-06T07:44:03Z"
   }
 }
