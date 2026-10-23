@@ -1588,6 +1588,9 @@
         "bulk_published": {
           "type": "boolean"
         },
+        "patent_decision_application_number": {
+          "type": "string"
+        },
         "patent_decision_application_patent_number": {
           "type": "string"
         },
@@ -1611,6 +1614,9 @@
           "type": "string"
         },
         "patent_decision_provisions_discussed": {
+          "type": "string"
+        },
+        "patent_decision_publication_number": {
           "type": "string"
         },
         "patent_decision_type_of_hearing": {
