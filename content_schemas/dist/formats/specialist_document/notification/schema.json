@@ -1868,9 +1868,6 @@
         "patent_decision_application_number": {
           "type": "string"
         },
-        "patent_decision_application_patent_number": {
-          "type": "string"
-        },
         "patent_decision_british_library_number": {
           "type": "string"
         },

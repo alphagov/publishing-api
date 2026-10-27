@@ -998,9 +998,6 @@
       patent_decision_hearing_officer: {
         type: "string",
       },
-      patent_decision_application_patent_number: {
-        type: "string",
-      },
       patent_decision_application_number: {
         "type": "string"
       },
