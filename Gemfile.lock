@@ -615,9 +615,9 @@ GEM
       term-ansicolor (~> 1.7)
       thor (>= 0.20, < 2.0)
     parallel (1.28.0)
-    parallel_rspec (3.1.0)
+    parallel_rspec (3.2.0)
       rake (> 10.0)
-      rspec
+      rspec (>= 3.10)
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
