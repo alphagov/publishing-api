@@ -49,8 +49,6 @@ jobs:
   run-gds-api-adapters-pact-tests:
     name: Run GDS API Adapter Pact tests
     uses: ./.github/workflows/pact-verify.yml
-    with:
-      ref: ${{ github.ref }}
 
   test-ruby:
     name: Test Ruby
@@ -128,7 +126,6 @@ jobs:
     needs: test-ruby
     uses: alphagov/content-store/.github/workflows/verify-pact.yml@main
     with:
-      ref: main
       pact_artifact: pacts
 
   publish-pacts:
