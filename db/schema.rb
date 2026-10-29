@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_14_133232) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_26_153655) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -165,6 +165,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_133232) do
     t.integer "edition_id"
     t.uuid "link_set_content_id"
     t.string "link_type", null: false
+    t.text "part_slug"
     t.integer "position", default: 0, null: false
     t.uuid "target_content_id"
     t.datetime "updated_at", precision: nil, null: false
