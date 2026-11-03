@@ -227,9 +227,6 @@ GEM
       faraday (>= 1.0, < 3.a)
     google-cloud-errors (1.7.1)
     google-logging-utils (0.2.2)
-    google-protobuf (4.36.2)
-      bigdecimal
-      rake (~> 13.3)
     google-protobuf (4.36.2-aarch64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
@@ -259,7 +256,7 @@ GEM
       nokogiri (~> 1.12)
       rinku (~> 2.0)
       sanitize (>= 6, < 8)
-    govuk_app_config (9.26.0)
+    govuk_app_config (9.27.0)
       connection_pool (< 4)
       logstasher (>= 2.1, < 4.0)
       opentelemetry-exporter-otlp (>= 0.25, < 0.35)
@@ -269,8 +266,8 @@ GEM
       prometheus_exporter (~> 2.3)
       puma (>= 5.6, < 9.0)
       rack-proxy (>= 0.7, < 2.0)
-      sentry-rails (>= 5.3, < 7.0)
-      sentry-ruby (>= 5.3, < 7.0)
+      sentry-rails (>= 5.3, < 8.0, != 7.0.0)
+      sentry-ruby (>= 5.3, < 8.0, != 7.0.0)
       statsd-ruby (~> 1.5)
     govuk_document_types (3.1.0)
     govuk_personalisation (1.2.0)
@@ -341,8 +338,8 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.7.0)
-    logstasher (3.0.0)
-      activesupport (>= 7.0)
+    logstasher (2.1.5)
+      activesupport (>= 5.2)
       request_store
     loofah (2.25.3)
       crass (~> 1.0.2)
@@ -711,7 +708,7 @@ GEM
       tsort
     readline (0.0.4)
       reline
-    redis-client (0.30.1)
+    redis-client (0.31.0)
       connection_pool
     regexp_parser (2.12.0)
     reline (0.7.0)
@@ -806,17 +803,17 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    sentry-rails (6.7.0)
+    sentry-rails (7.2.0)
       railties (>= 5.2.0)
-      sentry-ruby (~> 6.7.0)
-    sentry-ruby (6.7.0)
+      sentry-ruby (~> 7.2.0)
+    sentry-ruby (7.2.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
       logger
-    sentry-sidekiq (6.7.0)
-      sentry-ruby (~> 6.7.0)
+    sentry-sidekiq (7.2.0)
+      sentry-ruby (~> 7.2.0)
       sidekiq (>= 5.0)
-    sidekiq (8.1.6)
+    sidekiq (8.1.7)
       connection_pool (>= 3.0.0)
       json (>= 2.16.0)
       logger (>= 1.7.0)
@@ -927,7 +924,7 @@ DEPENDENCIES
   gds-sso
   google-cloud-bigquery
   govspeak
-  govuk_app_config
+  govuk_app_config (>= 9.27.0)
   govuk_document_types
   govuk_schemas
   govuk_sidekiq
