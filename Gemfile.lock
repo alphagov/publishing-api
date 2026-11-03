@@ -77,7 +77,7 @@ GEM
       uri (>= 0.13.1)
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
-    amq-protocol (2.9.0)
+    amq-protocol (2.10.0)
     anonymous_loader (0.1.5)
       version_gem (~> 1.1, >= 1.1.17)
     ast (2.4.3)
@@ -112,7 +112,7 @@ GEM
     brakeman (8.0.4)
       racc
     builder (3.3.0)
-    bunny (3.4.0)
+    bunny (3.5.0)
       amq-protocol (~> 2.9)
       logger (~> 1, >= 1.7)
       openssl (>= 3.3)
