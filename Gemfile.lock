@@ -142,7 +142,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.8)
-    csv (3.3.6)
+    csv (3.3.7)
     dalli (5.2.2)
       logger
     database_cleaner (2.1.0)
