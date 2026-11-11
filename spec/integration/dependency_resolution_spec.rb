@@ -251,8 +251,8 @@ RSpec.describe "Dependency Resolution" do
       )
     end
 
-    it "only has a dependency of the link as recusive edition links aren't supported" do
-      expect(dependency_resolution).to match_array([link_content_id])
+    it "has a dependency to all items" do
+      expect(dependency_resolution).to match_array([link_content_id, edition_content_id])
     end
   end
 
@@ -279,6 +279,10 @@ RSpec.describe "Dependency Resolution" do
     end
 
     it "has a dependency to all items" do
+      puts "role/content_id #{role}"
+      puts "person #{person}"
+      puts "role_appointment #{role_appointment}"
+
       expect(dependency_resolution).to match_array([role_appointment, person, role])
     end
   end

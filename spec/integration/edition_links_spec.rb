@@ -182,8 +182,10 @@ RSpec.describe "Edition Links" do
 
     include_examples "has link", link_type: :parent, base_path: "/parent"
 
-    it "should not find links within an edition link" do
-      expect(expanded_links[:parent][0][:links]).to be_empty
+    it "should find links within an edition link" do
+      expect(expanded_links[:parent][0][:links][:parent]).to match_array([
+        a_hash_including(base_path: "/grandparent"),
+      ])
     end
   end
 
