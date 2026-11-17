@@ -1,24 +1,12 @@
 RSpec.describe "link expansion inclusion" do
-  def for_content_store(source_edition, link_type:, with_drafts:)
+  def links_for(source_edition, link_type:, with_drafts:)
     Presenters::Queries::ExpandedLinkSet
       .by_edition(source_edition, with_drafts:)
       .links
       .fetch(link_type.to_sym, [])
   end
 
-  def for_graphql(source_edition, link_type:, with_drafts:)
-    GraphQL::Dataloader.with_dataloading do |dataloader|
-      request = dataloader.with(
-        Sources::LinkedToEditionsSource,
-        locale: source_edition.locale,
-        with_drafts:,
-      ).request([source_edition, link_type])
-
-      request.load
-    end
-  end
-
-  test_cases = GraphqlLinkExpansionInclusionHelpers::DirectLinks::TestCaseFactory.all
+  test_cases = LinkExpansionInclusionHelpers::DirectLinks::TestCaseFactory.all
 
   %i[link_set_links edition_links].each do |link_kind|
     context "when the link kind is #{link_kind}" do
@@ -59,27 +47,16 @@ RSpec.describe "link expansion inclusion" do
                 ],
               )
 
-              %w[content_store graphql].each do |destination|
-                result = send(
-                  :"for_#{destination}",
-                  source_edition,
-                  **{
-                    link_type: test_case.link_type,
-                    with_drafts: test_case.with_drafts?,
-                  },
-                )
+              result = links_for(
+                source_edition,
+                link_type: test_case.link_type,
+                with_drafts: test_case.with_drafts?,
+              )
 
-                if test_case.included
-                  expect(result.size).to(
-                    eq(1),
-                    "unexpected exclusion for #{destination}",
-                  )
-                else
-                  expect(result).to(
-                    be_empty,
-                    "unexpected inclusion for #{destination}",
-                  )
-                end
+              if test_case.included
+                expect(result.size).to eq(1)
+              else
+                expect(result).to be_empty
               end
             end
           end
