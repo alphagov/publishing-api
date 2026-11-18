@@ -40,17 +40,6 @@ class Presenters::RedirectPresenter
     present.merge(payload_version:)
   end
 
-  def for_graphql
-    present.merge(
-      title: nil,
-      description: nil,
-      links: {},
-      details: {},
-      content_id: nil,
-      updated_at: updated_at&.iso8601,
-    )
-  end
-
   def for_message_queue(payload_version)
     present.merge(
       content_id:,

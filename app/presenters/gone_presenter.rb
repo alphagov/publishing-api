@@ -29,16 +29,6 @@ class Presenters::GonePresenter
     present.merge(payload_version:)
   end
 
-  def for_graphql
-    present.except(:routes).merge(
-      title: nil,
-      description: nil,
-      links: {},
-      content_id: nil,
-      updated_at: updated_at&.iso8601,
-    )
-  end
-
   def for_message_queue(payload_version)
     present.merge(
       content_id:,
