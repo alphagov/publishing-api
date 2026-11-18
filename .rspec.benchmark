@@ -1,4 +1,0 @@
---color
---require benchmark_helper
---pattern spec/**/*_benchmark.rb
---format BenchmarkInstrumentationFormatter
