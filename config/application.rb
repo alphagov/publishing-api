@@ -141,12 +141,6 @@ module PublishingAPI
       :controller,
       :action,
       :job,
-      # GraphQL-Ruby query log tags:
-      {
-        current_graphql_operation: -> { GraphQL::Current.operation_name },
-        current_graphql_field: -> { GraphQL::Current.field&.path },
-        current_dataloader_source: -> { GraphQL::Current.dataloader_source_class },
-      },
     ]
   end
 end
