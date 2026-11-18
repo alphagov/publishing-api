@@ -1,7 +1,9 @@
-module GraphqlLinkExpansionPrecedenceHelpers
+module LinkExpansionPrecedenceHelpers
   module DirectLinks
     class TestCase
       include FactoryBot::Syntax::Methods
+
+      STATE_PRECEDENCE = %w[published unpublished].freeze
 
       def initialize(
         with_drafts:,
@@ -23,23 +25,12 @@ module GraphqlLinkExpansionPrecedenceHelpers
           .map { it[:title] }
       end
 
-      def graphql_titles
-        @graphql_titles ||= GraphQL::Dataloader.with_dataloading do |dataloader|
-          request = dataloader.with(
-            Sources::LinkedToEditionsSource,
-            with_drafts:,
-            locale: root_locale,
-          ).request([source_edition, link_type])
-
-          request.load.map(&:title)
-        end
-      end
-
-      def invalid_edition_and_valid_link_set_linked_editions?
-        return false unless linked_editions.key?(:edition)
-
-        !valid_linked_edition_of_kind?(:edition) &&
-          valid_linked_edition_of_kind?(:link_set)
+      def expected_titles
+        @expected_titles ||= linked_editions
+          .fetch(winning_link_kind)
+          .map(&:content_id)
+          .uniq
+          .filter_map { preferred_edition(it)&.title }
       end
 
       def description
@@ -102,21 +93,32 @@ module GraphqlLinkExpansionPrecedenceHelpers
                        end
       end
 
-      def valid_linked_edition_of_kind?(kind)
-        return false unless linked_editions.key?(kind)
+      def winning_link_kind
+        linked_editions.key?(:edition) ? :edition : :link_set
+      end
 
-        linked_editions[kind].any? do |edition|
-          next if Edition::NON_RENDERABLE_FORMATS.include?(edition.document_type)
-          next unless [Edition::DEFAULT_LOCALE, root_locale].include?(edition.locale)
-          next if edition.draft? && !with_drafts
-
-          if edition.unpublished?
-            next unless edition.withdrawn?
-            next unless Link::PERMITTED_UNPUBLISHED_LINK_TYPES.include?(link_type)
+      def preferred_edition(content_id)
+        linked_editions.values.flatten.uniq
+          .select { it.content_id == content_id && valid_edition?(it) }
+          .min_by do |edition|
+            [
+              STATE_PRECEDENCE.index(edition.state),
+              [root_locale, Edition::DEFAULT_LOCALE].uniq.index(edition.locale),
+            ]
           end
+      end
 
-          true
+      def valid_edition?(edition)
+        return false if Edition::NON_RENDERABLE_FORMATS.include?(edition.document_type)
+        return false unless [Edition::DEFAULT_LOCALE, root_locale].include?(edition.locale)
+        return false if edition.draft? && !with_drafts
+
+        if edition.unpublished?
+          return false unless edition.withdrawn?
+          return false unless Link::PERMITTED_UNPUBLISHED_LINK_TYPES.include?(link_type)
         end
+
+        true
       end
     end
   end
