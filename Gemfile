@@ -18,7 +18,6 @@ gem "govuk_app_config", ">= 9.27.0"
 gem "govuk_document_types"
 gem "govuk_schemas"
 gem "govuk_sidekiq"
-gem "graphql"
 gem "jsonnet"
 gem "json-schema", require: false
 gem "oj"
