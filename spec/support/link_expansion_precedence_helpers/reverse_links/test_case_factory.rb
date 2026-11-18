@@ -1,4 +1,4 @@
-module GraphqlLinkExpansionPrecedenceHelpers
+module LinkExpansionPrecedenceHelpers
   module ReverseLinks
     class TestCaseFactory
       class << self

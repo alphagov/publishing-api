@@ -1,6 +1,6 @@
-module GraphqlLinkExpansionPrecedenceHelpers
-  module DirectLinks
-    class TestLinkedEditionFactory
+module LinkExpansionPrecedenceHelpers
+  module ReverseLinks
+    class TestSourceEditionFactory
       include FactoryBot::Syntax::Methods
 
       def initialize(
