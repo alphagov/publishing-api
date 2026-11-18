@@ -40,7 +40,7 @@ We also have SQL linting using [SQLFluff](https://docs.sqlfluff.com/en/stable/in
 with `brew install sqlfluff`. Use `sqlfluff lint` to check the SQL passes the rules, or `sqlfluff fix` to automatically
 fix any issues that can be.
 
-## Profiling and Benchmarks
+## Profiling
 
 In development mode, you can use [rack-mini-profiler](https://github.com/MiniProfiler/rack-mini-profiler) to get performance
 information (such as flamegraphs). There's full documentation in the gem's readme, but often it's as simple as appending
@@ -50,19 +50,6 @@ pp=flamegraph
 ```
 
 to the query string.
-
-There is also a suite of benchmarks, written with RSpec. These require a full database (e.g. a dump of integration),
-and are intended to be run manually on a developer's workstation. Run them with:
-
-```
-bundle exec rspec --options .rspec.benchmark
-```
-
-The benchmarks will output various statistics to the console, as well as:
-
-- timings for all SQL queries and govspeak renders in `tmp/benchmarks/instrumentation`
-- StackProf profiles (which can be viewed using https://speedscope.app) in `tmp/benchmarks/profiles`
-- SQL query plans for any queries slower than the threshold set in the benchmarks in `tmp/benchmarks/sql`
 
 ## Further documentation
 
