@@ -1632,6 +1632,15 @@
         "analytics_identifier": "WL187",
         "content_id": "5e9f3167-7706-11e4-a3cb-005056011aef",
         "iso2": "NR",
+        "name": "Naoero",
+        "slug": "naoero",
+        "updated_at": "2026-11-20T13:52:30.000+01:00"
+      },
+      {
+        "active": true,
+        "analytics_identifier": "WL187",
+        "content_id": "5e9f3167-7706-11e4-a3cb-005056011aef",
+        "iso2": "NR",
         "name": "Nauru",
         "slug": "nauru",
         "updated_at": "2017-08-15T15:42:10.000+01:00"
