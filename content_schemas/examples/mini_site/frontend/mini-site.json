@@ -13,8 +13,8 @@
         "caption": "Custom caption and credit",
         "content_type": "image/png",
         "sources": {
-          "desktop":    "https://placehold.co/768x512/EEE/31343C.png",
-          "desktop_2x": "https://placehold.co/1536x1024/EEE/31343C.png",
+          "desktop":    "https://placehold.co/510x340/EEE/31343C.png",
+          "desktop_2x": "https://placehold.co/1020x680/EEE/31343C.png",
           "tablet":     "https://placehold.co/768x512/EEE/31343C.png",
           "tablet_2x":  "https://placehold.co/1536x1024/EEE/31343C.png",
           "mobile":     "https://placehold.co/640x427/EEE/31343C.png",
