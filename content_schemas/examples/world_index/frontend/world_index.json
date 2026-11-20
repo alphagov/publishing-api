@@ -1632,6 +1632,15 @@
         "analytics_identifier": "WL187",
         "content_id": "5e9f3167-7706-11e4-a3cb-005056011aef",
         "iso2": "NR",
+        "name": "Naoero",
+        "slug": "naoero",
+        "updated_at": "2026-11-20T13:52:30.000+01:00"
+      },
+      {
+        "active": true,
+        "analytics_identifier": "WL187",
+        "content_id": "5e9f3167-7706-11e4-a3cb-005056011aef",
+        "iso2": "NR",
         "name": "Nauru",
         "slug": "nauru",
         "updated_at": "2017-08-15T15:42:10.000+01:00"
@@ -1893,6 +1902,15 @@
         "analytics_identifier": "WL224",
         "content_id": "5e9f420d-7706-11e4-a3cb-005056011aef",
         "iso2": "BQ",
+        "name": "Bonaire/Sint Eustatius/Saba",
+        "slug": "bonaire-sint-eustatius-saba",
+        "updated_at": "2026-11-20T14:15:59.000+01:00"
+      },
+      {
+        "active": true,
+        "analytics_identifier": "WL224",
+        "content_id": "5e9f420d-7706-11e4-a3cb-005056011aef",
+        "iso2": "BQ",
         "name": "Bonaire/St Eustatius/Saba",
         "slug": "bonaire-st-eustatius-saba",
         "updated_at": "2020-10-16T12:23:22.000+01:00"
@@ -2025,6 +2043,15 @@
       },
       {
         "active": true,
+        "analytics_identifier": "WL240",
+        "content_id": "5e9f46c2-7706-11e4-a3cb-005056011aef",
+        "iso2": "SX",
+        "name": "Sint Maarten",
+        "slug": "sint-maarten",
+        "updated_at": "2026-11-20T14:10:18.000+01:00"
+      },
+      {
+        "active": true,
         "analytics_identifier": "WL239",
         "content_id": "5e9f4678-7706-11e4-a3cb-005056011aef",
         "iso2": "GS",
@@ -2049,6 +2076,15 @@
         "name": "St Pierre & Miquelon",
         "slug": "st-pierre-and-miquelon",
         "updated_at": "2017-08-15T15:42:23.000+01:00"
+      },
+      {
+        "active": true,
+        "analytics_identifier": "WL166",
+        "content_id": "5e9f2ab8-7706-11e4-a3cb-005056011aef",
+        "iso2": "BS",
+        "name": "The Bahamas",
+        "slug": "the-bahamas",
+        "updated_at": "2026-11-20T14:12:46.000+01:00"
       },
       {
         "active": true,
