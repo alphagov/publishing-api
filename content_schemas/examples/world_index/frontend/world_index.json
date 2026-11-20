@@ -2079,6 +2079,15 @@
       },
       {
         "active": true,
+        "analytics_identifier": "WL166",
+        "content_id": "5e9f2ab8-7706-11e4-a3cb-005056011aef",
+        "iso2": "BS",
+        "name": "The Bahamas",
+        "slug": "the-bahamas",
+        "updated_at": "2026-11-20T14:12:46.000+01:00"
+      },
+      {
+        "active": true,
         "analytics_identifier": "WL242",
         "content_id": "5e9f4755-7706-11e4-a3cb-005056011aef",
         "iso2": "TO",
