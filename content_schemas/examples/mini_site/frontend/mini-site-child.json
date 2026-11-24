@@ -8,21 +8,6 @@
     "emphasised_organisations": [
       "af07d5a5-df63-4ddc-9383-6a666845ebe9"
     ],
-    "images": [
-      {
-        "caption": "Custom caption and credit",
-        "content_type": "image/png",
-        "sources": {
-          "desktop":    "https://placehold.co/960x640/EEE/31343C",
-          "desktop_2x": "https://placehold.co/1920x1280/EEE/31343C",
-          "tablet":     "https://placehold.co/960x640/EEE/31343C",
-          "tablet_2x":  "https://placehold.co/1920x1280/EEE/31343C",
-          "mobile":     "https://placehold.co/960x640/EEE/31343C",
-          "mobile_2x":  "https://placehold.co/1920x1280/EEE/31343C"
-        },
-        "type": "header"
-      }
-    ],
     "ordered_featured_documents": [
       {
         "document_type": "Detailed guide",
