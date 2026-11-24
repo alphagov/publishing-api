@@ -13,12 +13,12 @@
         "caption": "Custom caption and credit",
         "content_type": "image/png",
         "sources": {
-          "desktop": "https://placehold.co/768x432/EEE/31343C",
-          "desktop_2x": "https://placehold.co/1536x864/EEE/31343C",
-          "mobile": "https://placehold.co/640x360/EEE/31343C",
-          "mobile_2x": "https://placehold.co/1280x720/EEE/31343C",
-          "tablet": "https://placehold.co/768x432/EEE/31343C",
-          "tablet_2x": "https://placehold.co/1536x864/EEE/31343C"
+          "desktop":    "https://placehold.co/510x340/EEE/31343C.png",
+          "desktop_2x": "https://placehold.co/1020x680/EEE/31343C.png",
+          "tablet":     "https://placehold.co/768x512/EEE/31343C.png",
+          "tablet_2x":  "https://placehold.co/1536x1024/EEE/31343C.png",
+          "mobile":     "https://placehold.co/640x427/EEE/31343C.png",
+          "mobile_2x":  "https://placehold.co/1280x854/EEE/31343C.png"
         },
         "type": "header"
       }
