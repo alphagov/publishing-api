@@ -13,7 +13,7 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
 
     it { is_expected.to be_a(Array) }
 
-    context "when a edition is in a draft state" do
+    context "with a draft edition" do
       let(:content_ids) { [SecureRandom.uuid] }
       let(:document) { create(:document, content_id: content_ids.first) }
       let!(:draft_edition) do
@@ -36,7 +36,7 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       end
     end
 
-    context "when a edition is in draft and unpublished (withdrawn) states" do
+    context "with draft and unpublished (withdrawn) editions" do
       let(:content_ids) { [SecureRandom.uuid] }
       let(:document) { create(:document, content_id: content_ids.first) }
       let!(:draft_edition) do
@@ -65,7 +65,7 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       end
     end
 
-    context "when a edition is in multiple locales" do
+    context "with editions in multiple locales" do
       let(:content_ids) { [SecureRandom.uuid] }
       let(:fr_document) do
         create(
