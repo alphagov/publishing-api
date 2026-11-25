@@ -228,5 +228,38 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
         it { is_expected.to match_array([published_edition.id]) }
       end
     end
+
+    context "with a published edition in one locale and a withdrawn edition in another" do
+      let(:content_ids) { [SecureRandom.uuid] }
+      let(:fr_document) do
+        create(
+          :document,
+          content_id: content_ids.first,
+          locale: "fr",
+        )
+      end
+      let(:en_document) do
+        create(
+          :document,
+          content_id: content_ids.first,
+          locale: "en",
+        )
+      end
+      let!(:fr_withdrawn_edition) do
+        create(:withdrawn_unpublished_edition, document: fr_document)
+      end
+      let!(:en_published_edition) do
+        create(:live_edition, document: en_document)
+      end
+
+      context "and the locale_fallback_order is [fr, en]" do
+        let(:locale_fallback_order) { %w[fr en] }
+
+        context "and the state_fallback_order is [published, withdrawn]" do
+          let(:state_fallback_order) { %w[published withdrawn] }
+          it { is_expected.to match_array([en_published_edition.id]) }
+        end
+      end
+    end
   end
 end
