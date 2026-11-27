@@ -1,4 +1,4 @@
-module GraphqlLinkExpansionPrecedenceHelpers
+module LinkExpansionPrecedenceHelpers
   module DirectLinks
     class TestCaseFactory
       class << self

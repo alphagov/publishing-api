@@ -1,7 +1,9 @@
-module GraphqlLinkExpansionPrecedenceHelpers
+module LinkExpansionPrecedenceHelpers
   module ReverseLinks
     class TestCase
       include FactoryBot::Syntax::Methods
+
+      STATE_PRECEDENCE = %w[published unpublished].freeze
 
       def initialize(
         with_drafts:,
@@ -15,73 +17,23 @@ module GraphqlLinkExpansionPrecedenceHelpers
         @source_content_ids_differ = source_content_ids_differ
       end
 
-      def content_store_result
-        @content_store_result ||= begin
+      def content_store_titles
+        @content_store_titles ||= begin
           source_editions
 
           Presenters::Queries::ExpandedLinkSet
             .by_edition(linked_edition, with_drafts:)
             .links
             .fetch(ExpansionRules.reverse_link_type(link_type), [])
+            .map { it[:title] }
         end
       end
 
-      def graphql_result
-        @graphql_result ||= begin
-          source_editions
-
-          GraphQL::Dataloader.with_dataloading do |dataloader|
-            request = dataloader.with(
-              Sources::ReverseLinkedToEditionsSource,
-              with_drafts:,
-              locale: root_locale,
-            ).request([linked_edition, link_type])
-
-            request.load
-          end
-        end
-      end
-
-      def content_store_titles
-        @content_store_titles ||= content_store_result.map { it[:title] }
-      end
-
-      def graphql_titles
-        @graphql_titles ||= graphql_result.map(&:title)
-      end
-
-      def invalid_edition_and_valid_link_set_linking_source_editions?
-        return false unless source_editions.key?(:edition)
-
-        !valid_source_edition_of_kind?(:edition) &&
-          valid_source_edition_of_kind?(:link_set)
-      end
-
-      def invalid_root_locale_and_valid_default_locale_edition_linking_editions?
-        edition_linking_source_edition_of_locale?(root_locale) &&
-          !valid_edition_linking_source_edition_of_locale?(root_locale) &&
-          valid_edition_linking_source_edition_of_locale?(Edition::DEFAULT_LOCALE)
-      end
-
-      def valid_edition_and_link_set_linking_editions?
-        valid_source_edition_of_kind?(:edition) &&
-          valid_source_edition_of_kind?(:link_set)
-      end
-
-      def valid_published_default_locale_and_unpublished_differing_root_locale_edition_linking_editions?
-        return false if root_locale == Edition::DEFAULT_LOCALE
-
-        return false unless source_editions[:edition]&.any? do
-          valid_edition?(it) &&
-            it.state == "unpublished" &&
-            it.locale == root_locale
-        end
-
-        source_editions[:edition].any? do
-          valid_edition?(it) &&
-            it.state == "published" &&
-            it.locale == Edition::DEFAULT_LOCALE
-        end
+      def expected_titles
+        @expected_titles ||= source_editions_with_winning_links
+          .map(&:content_id)
+          .uniq
+          .filter_map { preferred_edition(it)&.title }
       end
 
       def description
@@ -156,24 +108,27 @@ module GraphqlLinkExpansionPrecedenceHelpers
                        end
       end
 
-      def edition_linking_source_edition_of_locale?(locale)
-        return false unless source_editions.key?(:edition)
+      def source_editions_with_winning_links
+        root_locale_edition_linking_editions = source_editions
+          .fetch(:edition, [])
+          .select { it.locale == root_locale }
 
-        source_editions[:edition].any? { it.locale == locale }
+        if root_locale_edition_linking_editions.any?
+          root_locale_edition_linking_editions
+        else
+          source_editions.fetch(:link_set, [])
+        end
       end
 
-      def valid_source_edition_of_kind?(kind)
-        return false unless source_editions.key?(kind)
-
-        source_editions[kind].any?(&method(:valid_edition?))
-      end
-
-      def valid_edition_linking_source_edition_of_locale?(locale)
-        return false unless source_editions.key?(:edition)
-
-        source_editions[:edition]
-          .filter { it.locale == locale }
-          .any?(&method(:valid_edition?))
+      def preferred_edition(content_id)
+        source_editions.values.flatten.uniq
+          .select { it.content_id == content_id && valid_edition?(it) }
+          .min_by do |edition|
+            [
+              STATE_PRECEDENCE.index(edition.state),
+              [root_locale, Edition::DEFAULT_LOCALE].uniq.index(edition.locale),
+            ]
+          end
       end
 
       def valid_edition?(edition)

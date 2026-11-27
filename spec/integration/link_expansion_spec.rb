@@ -563,6 +563,31 @@ RSpec.describe "Link Expansion" do
     end
   end
 
+  describe "reverse edition-level links across multiple locales" do
+    let(:with_drafts) { false }
+    let(:locale) { "fr" }
+
+    context "when the linking item is unpublished in the matching locale but published in the fallback locale" do
+      before do
+        create_edition(a, "/a.fr", locale: "fr")
+        create_edition(
+          b,
+          "/b.fr",
+          factory: :unpublished_edition,
+          locale: "fr",
+          links_hash: { parent: [a] },
+        )
+        create_edition(b, "/b", locale: "en", links_hash: { parent: [a] })
+      end
+
+      it "links to the item in the fallback locale" do
+        expect(expanded_links[:children]).to match([
+          a_hash_including(base_path: "/b"),
+        ])
+      end
+    end
+  end
+
   describe "local edition data out of sync with database" do
     let(:with_drafts) { false }
 

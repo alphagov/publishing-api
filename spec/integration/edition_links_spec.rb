@@ -192,6 +192,7 @@ RSpec.describe "Edition Links" do
     let(:linkset_target_content_id) { SecureRandom.uuid }
     let(:edition_link_type) { :test }
     let(:linkset_link_type) { :test }
+    let(:edition_target_factory) { :live_edition }
 
     before do
       create_edition(
@@ -200,7 +201,7 @@ RSpec.describe "Edition Links" do
         links_hash: { edition_link_type => [edition_target_content_id] },
       )
 
-      create_edition(edition_target_content_id, "/target")
+      create_edition(edition_target_content_id, "/target", factory: edition_target_factory)
       create_edition(linkset_target_content_id, "/other-target")
 
       create_link(source_content_id, linkset_target_content_id, linkset_link_type)
@@ -211,6 +212,14 @@ RSpec.describe "Edition Links" do
         expect(expanded_links[:test]).to match_array([
           a_hash_including(base_path: "/target"),
         ])
+      end
+
+      context "but the edition link target is unpublished" do
+        let(:edition_target_factory) { :unpublished_edition }
+
+        it "has neither link as the edition link still takes precedence" do
+          expect(expanded_links).to_not include(:test)
+        end
       end
     end
 
@@ -225,6 +234,40 @@ RSpec.describe "Edition Links" do
         expect(expanded_links[:test2]).to match_array([
           a_hash_including(base_path: "/other-target"),
         ])
+      end
+    end
+  end
+
+  context "with both edition links and link set links of a reverse link type" do
+    let(:edition_child_content_id) { SecureRandom.uuid }
+    let(:linkset_child_content_id) { SecureRandom.uuid }
+    let(:edition_child_factory) { :live_edition }
+
+    before do
+      create_edition(source_content_id, "/parent")
+
+      create_edition(
+        edition_child_content_id,
+        "/edition-child",
+        factory: edition_child_factory,
+        links_hash: { parent: [source_content_id] },
+      )
+
+      create_edition(linkset_child_content_id, "/linkset-child")
+      create_link(linkset_child_content_id, source_content_id, :parent)
+    end
+
+    it "has only the edition link as edition links take precedence" do
+      expect(expanded_links[:children]).to match_array([
+        a_hash_including(base_path: "/edition-child"),
+      ])
+    end
+
+    context "but the edition-linking child is unpublished" do
+      let(:edition_child_factory) { :unpublished_edition }
+
+      it "has neither link as the edition link still takes precedence" do
+        expect(expanded_links).to_not include(:children)
       end
     end
   end
